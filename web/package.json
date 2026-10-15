@@ -32,7 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
-    "sealmark": "0.2.2",
+    "sealmark": "https://github.com/jordanallenlewis/sealmark/releases/download/v0.2.2/sealmark-0.2.2.tgz",
     "typescript": "^5"
   }
 }

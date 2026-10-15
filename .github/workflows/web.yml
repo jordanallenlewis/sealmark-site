@@ -1,5 +1,5 @@
 # Sealmark website checks. Runs on pull requests (and pushes to main). It builds and tests only; it deploys nothing.
-# The generated docs JSON (web/content/generated) comes from the real CLI, so this job builds the CLI first, regenerates
+# The generated docs JSON (web/content/generated) comes from the real CLI, installed from the sealmark devDependency; this job regenerates
 # the JSON, and fails when the committed copy is stale. Then it runs the drift test and the static-export build.
 name: web
 
