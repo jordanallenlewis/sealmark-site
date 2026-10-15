@@ -33,6 +33,6 @@
     "id": "reddit-research-mcp",
     "name": "jordanallenlewis/reddit-research-mcp",
     "ecosystem": "github",
-    "launch": "uvx --from git+https://github.com/jordanallenlewis/reddit-research-mcp reddit-research-mcp"
+    "launch": "uvx --from git+https://github.com/jordanallenlewis/reddit-research-mcp reddit-readonly-mcp"
   }
 ]
