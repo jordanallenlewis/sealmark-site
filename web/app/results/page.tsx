@@ -45,7 +45,7 @@ export default function ResultsPage() {
         <h1 className={s.h1}>What Sealmark found on {SERVER_COUNT} public MCP servers</h1>
         <p className={s.lede}>
           Each server was installed the way its README says, run through Sealmark with
-          the standard settings. The October 2026 verdicts were checked independently by reading the source and making direct calls; later automated re-tests are marked on each server's page. Open a server to see each check, what it measured and what was not covered.
+          the standard settings. The October 2026 verdicts were checked independently by reading the source and making direct calls; later automated re-tests are marked on each server&rsquo;s page. Open a server to see each check, what it measured and what was not covered.
         </p>
 
         <div className={s.stats}>
