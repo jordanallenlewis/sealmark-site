@@ -1,0 +1,87 @@
+export const meta = {
+  title: "Verify a server that fronts a backend",
+  since: "0.3-draft",
+  status: "shipped",
+  description: "Grade a data server's identifier allowlist, SQL guard, row and byte caps and per-caller credentials with sealmark.yaml alone: a harness-owned upstream stub plays the backend.",
+};
+
+Many servers are a policy layer in front of something else: a SQL engine, a search index, an internal API. What matters is what they let through to that backend and with whose credential. Sealmark tests this without a real backend: you start the server against a **stub the harness owns**, declare what the server is supposed to allow, and the candidate test suites `scope`, `sql-guard` and `upstream` read what reached the stub. No probe text is parsed; the verdict is whether a fresh token arrived at the stub.
+
+## The example
+
+It is adapted from the configuration the test suite grades its toy data server with, in 27 modes (`cli/src/test/fixtures/config/scoped-http.yaml`). A real server changes the command, the identifiers and the backend path regexes.
+
+```yaml
+server:
+  command: node
+  args: ["server.js"]
+  env: { PORT: "8080", BACKEND_URL: "{upstream}" }
+  url: http://127.0.0.1:8080/mcp
+  headers: { Authorization: "Bearer {bearer}" }
+upstream:
+  kind: http
+  default_reply: { status: 200, json: { rows: [], count: 0 } }
+  responses:
+    - id: count
+      match: { path: "^/sql$", body: "count\\(\\*\\)" }
+      reply: { status: 200, json: { rows: [{ count: 3 }] } }
+scope:
+  tools: [{ tool: describe_table, param: table }, { tool: count_rows, param: table }]
+  allow: ["sales.public."]
+  deny: ["hr.private.salaries"]
+sql_tools: [{ tool: query, arg: sql }]
+checks:
+  sql-guard-rowcap: { row_cap: 1000 }
+  instructions-hygiene: { deny: ["you are a helpful assistant"] }
+probes:
+  - { tool: list_tables, args: {} }
+  - { tool: describe_table, args: { table: sales.public.orders } }
+```
+
+`sealmark run` then adds the three suites by itself (the report says "scope was declared in the config, so the suite is included") and grades each with its own letter, labelled `candidate pack`. None of these keys is locked, so the run stays STANDARD; the keys are listed on [Configuration](/docs/reference/configuration#upstream-scope-and-identities).
+
+## The stub: `upstream`
+
+`upstream.kind: http` starts an HTTP server on `127.0.0.1` for the run, and `{upstream}` is its URL (`http://127.0.0.1:<port>`). Put it wherever the server reads its backend address: an argument, an environment variable, the URL. The server must run on this machine and must be one Sealmark starts (`server.command`, with `server.url` for HTTP); a config that sets `upstream.kind` but never uses `{upstream}` is refused.
+
+The stub records every request (method, path, query, headers, body) and answers with the first `upstream.responses` entry whose `match` holds (`method`, and regexes for `path`, `body` and `header`), else `upstream.default_reply`. A reply has a `status`, `headers` and one of `body`, `json` or `bytes` (a body padded to that many bytes). It never proxies and never contacts anything else.
+
+## Callers: `{bearer}`
+
+Write the header your server reads with `{bearer}` in it. The harness mints two tokens per run, one per caller (`{bearer:a}`, `{bearer:b}`), opens sessions as either caller or anonymously, and the `upstream` suite checks that each call reached the stub with the caller's own token, never the other caller's or a fixed one. A server that only accepts tokens it issued refuses the minted ones; the check then says so, and you set `identities.a` and `identities.b` from the environment (`--identity-a '${TOKEN_A}'`). Reports show them as `{bearer:a}` and `{bearer:b}`.
+
+## Scope: `scope`
+
+`scope.tools` names the parameter that carries an identifier (a table, a dataset, a collection); `scope.allow` lists what it may serve, where an entry ending in the separator (`.`) is a prefix; `scope.deny` what it must never serve. The `scope` suite first calls the tool with an allowed name (if that fails, the check is inconclusive and suggests checking the spelling), then with names outside the scope: siblings, bare containers, partial names, a prefix without its separator, other case, quoted segments, encoded separators, traversal and every deny entry. A name that reaches the stub fails the check; a name refused without reaching it passes.
+
+## SQL: `sql-guard`
+
+With the stub declared and a SQL tool (found by name or listed in `sql_tools`), the `sql-guard` suite sends statements that must never reach the backend (writes, DDL, stacked statements, DML hidden in a CTE, transaction terminators, case tricks, unparseable text), references to a table outside `scope.allow` in every SQL position, and a huge `LIMIT` to see whether the row cap is applied before the backend. Each statement carries a token, so the verdict is simply whether it arrived.
+
+## Rules for what no suite knows
+
+An aggregate-only tool, a byte cap or a submitter tag is a rule of your server, so it is a `probes:` entry with a `check` (which makes the run CUSTOM):
+
+```yaml
+probes:
+  - id: agg-never-rows
+    check: { id: custom-aggregate-only, label: count_rows never returns raw rows, scope: server, critical: true }
+    tool: count_rows
+    args: { table: sales.public.orders }
+    upstream: { reply: { status: 200, json: { rows: [{ id: 1, note: "{upstream_token}" }], count: 1 } } }
+    expect: { is_error: false, upstream: { requests: any, token_echoed: false } }
+  - id: big-reply-capped
+    check: { id: custom-byte-cap, label: replies are capped at 1 MiB, scope: server }
+    tool: query
+    args: { sql: "SELECT * FROM sales.public.orders WHERE 'sm-{token}' = 'sm-{token}'" }
+    upstream: { reply: { bytes: 20971520, body: "{\"rows\":[\"{upstream_token}\"]}" } }
+    expect: { response: { max_bytes: 1048576 } }
+```
+
+Every clause is on [Custom probes](/docs/guides/custom-probes).
+
+## What it does not prove
+
+The stub speaks HTTP only. A row cap is read from the forwarded text (`LIMIT`, `FETCH FIRST`, `TOP`); another spelling reads as `part`. Only the forms in the corpora are sent. Each check page in the [reference](/docs/reference/checks) lists its probes and known false positives and negatives: [`scope-escape`](/docs/reference/checks/scope-escape), [`sql-guard-statements`](/docs/reference/checks/sql-guard-statements), [`upstream-credential`](/docs/reference/checks/upstream-credential).
+
+Related: [Humans, CI and agents](/docs/guides/usage-modes), [Methodology: candidate suites](/docs/methodology#candidate-suites), [Observers](/docs/concepts/observers).

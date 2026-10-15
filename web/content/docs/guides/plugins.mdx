@@ -1,0 +1,90 @@
+export const meta = {
+  title: "Plugins",
+  since: "0.2",
+  status: "shipped",
+  description: "Add your own test suite of checks as an ES module, graded by the same formula.",
+};
+
+[Custom probes](/docs/guides/custom-probes) cover a rule you can state as a tool call and an expected effect. A plugin covers the rest: a whole test suite of checks with its own logic, for a kind of server the built-in test suites do not know. A plugin looks exactly like a built-in test suite to the rest of Sealmark: it has an id, it declares its checks, it says whether it applies, and it returns check results that are graded like any other.
+
+<Callout kind="warn" title="Plugins are not isolated">
+  A plugin runs inside the Sealmark process with your user's privileges, with the same trust as the config file that names it. Load only plugins you would run anyway. A run that loads one is CUSTOM: see [standard vs custom](/docs/concepts/standard-vs-custom).
+</Callout>
+
+## What a plugin is
+
+An ES module whose default export has these members. All of them are checked before anything runs.
+
+| Member | Meaning |
+|---|---|
+| `id` | The suite id: `plugin:` followed by letters, digits, `.`, `_` or `-`, for example `plugin:short-names`. |
+| `version` | The plugin's own version, a non-empty string. |
+| `sealmark` | The range of Sealmark versions it works with: `>=0.2 <0.3`, `^0.2`, `~0.2.1`, `0.2.x`. A space means AND and `\|\|` means OR. A running Sealmark outside the range stops the run. |
+| `describe()` | The checks it can produce, as the same records `explain` prints: `id`, `pack`, `label`, `critical`, `advisory`, `scope`, `verifiedBy`, `probes`, `thresholds`, `falsePositive`, `falseNegative`, `configKeys`, `since` and `status`. |
+| `applies(ctx)` | `{ ok: true }`, or `{ ok: false, reason }` when the suite makes no sense for this server. |
+| `run(ctx)` | The probes themselves. It returns a list of check results. |
+
+## A minimal plugin
+
+```js
+// short-names.mjs: one static check over the tool names
+export default {
+  id: "plugin:short-names",
+  version: "0.1.0",
+  sealmark: ">=0.2 <0.3",
+  describe: () => [{
+    id: "short-tool-names", pack: "plugin:short-names", label: "Tool names are short",
+    critical: false, advisory: false, scope: "server", verifiedBy: ["static"],
+    probes: [], thresholds: {}, falsePositive: "A long name is not a defect by itself.",
+    falseNegative: "Only the length is checked.", configKeys: [], since: "0.2-draft", status: "shipped",
+  }],
+  applies: (ctx) => (ctx.tools.length ? { ok: true } : { ok: false, reason: "the server declares no tools" }),
+  async run(ctx) {
+    const limit = Number(ctx.options.max ?? 40);
+    const long = ctx.tools.map((t) => t.name).filter((n) => n.length > limit);
+    return [ctx.helpers.done(
+      { id: "short-tool-names", label: "Tool names are short", critical: false, scope: "server" },
+      long.length ? "fail" : "pass",
+      long.length ? `${long.length} tool name(s) longer than ${limit} characters` : `every tool name has ${limit} characters or fewer`,
+      [{ probe: "tools/list", outcome: long.length ? long.join(", ") : "all names within the limit", verifiedBy: "static" }],
+    )];
+  },
+};
+```
+
+## Loading it
+
+List each plugin by hand in the configuration, by a path relative to the config file, an absolute path or a package name. Nothing is discovered or loaded automatically, and `plugins` appends across configuration layers.
+
+```yaml
+plugins:
+  - module: ./short-names.mjs
+    options: { max: 20 }      # handed to the plugin as ctx.options
+```
+
+A plugin runs unless you named a suite list (`--pack`, `packs:`) that leaves it out. A module that is missing, has the wrong shape, asks for another Sealmark version, declares an id twice or reuses a built-in check id is a configuration error: exit code 2, before the server is touched.
+
+## What the context gives you
+
+`ctx` is what a built-in test suite gets: the server's `tools` and their `classification`, `open()` for a fresh session on the server (started in the sandbox with the scrubbed environment; the harness closes it when the suite ends), `active`, the probe timeout and the effective configuration. `ctx.options` is your `options:`. Observers are passed in as `ctx.helpers`, not imported, so a plugin cannot reach past them by accident.
+
+| Helper | What it does |
+|---|---|
+| `token()` | A fresh random token to embed in a probe, so an observation maps back to one probe. |
+| `snapshot(labels?)`, `diff(before, after?)` | Snapshot the sandbox directories (`root`, `root-evil`, `canary`, `home`, `tmp`) and say what changed. They throw a clear error under `--no-sandbox`: return a check with the verdict `na` instead. |
+| `listener.url(path?)`, `listener.expect(token)` | The loopback URL a probe may point a tool at, and the HTTP requests that carried a token. |
+| `inSandbox(path)` | True when the path is inside the sandbox directory. |
+| `done(meta, verdict, summary, evidence)` | Builds a check result: the suite, the label prefix and the metadata are filled in. |
+| `upstream` (`mark`, `requests`, `find`, `waitFor`, `url`) | The [upstream stub](/docs/guides/backend-servers): what the server sent its backend since a mark. Undefined when the run has no stub. |
+| `serverLog` (`mark`, `since`, `find`) | What the server printed since a mark. Undefined when Sealmark neither started the server nor runs it over stdio. |
+| `openAs(identity)` | A fresh session as caller `"a"`, `"b"`, or `null` (anonymous: every header that holds `{bearer}` dropped). Undefined unless the server is HTTP and its headers use `{bearer}`. |
+
+A verdict is `pass`, `part`, `fail`, `inconclusive` or `na`, as on the [verdicts](/docs/concepts/verdicts) page. Say `inconclusive` when you could not tell: never `pass` by default.
+
+## What the harness enforces
+
+- A result whose suite is not the plugin's own id is refused, and so is a check id that collides with a built-in check or appears twice.
+- Every check label is prefixed with the suite id, `[plugin:short-names] Tool names are short`, in the text report and the JSON record.
+- A plugin cannot change another suite's results, the grading formula or the exit policy. Its suite is graded like any other ([Grades](/docs/concepts/grades)).
+
+Related: [Custom probes](/docs/guides/custom-probes), [Safety](/docs/safety), [Suites](/docs/concepts/packs).

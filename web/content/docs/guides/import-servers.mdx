@@ -1,0 +1,53 @@
+export const meta = {
+  title: "Import servers from your clients",
+  since: "0.2",
+  status: "shipped",
+  description: "sealmark init reads the MCP servers your editor or agent already uses and starts a config from the ones you pick.",
+};
+
+```bash
+npx sealmark init
+npx sealmark doctor    # can Sealmark start it? which suites would run?
+npx sealmark run
+```
+
+`init` lists the MCP servers it finds in the clients on this machine, lets you pick, and writes `sealmark.yaml`, a `.gitignore` entry for the local file and, only when a server has a secret or machine-specific value, `sealmark.local.yaml`. It refuses to overwrite an existing file unless you pass `--force`; with no client configuration it writes a template. Without a client file you can start from a one-liner, `init --from "npx -y some-mcp-server {sandbox}"`, or from a URL, `init --from-url https://host/mcp`.
+
+## Where it looks
+
+Sealmark only reads these files. It never changes them, and it never starts anything while importing.
+
+| `--client` | Client | Files |
+|---|---|---|
+| `claude-desktop` | Claude Desktop | `claude_desktop_config.json` in the application-data folder: `%APPDATA%\Claude` on Windows, `~/Library/Application Support/Claude` on macOS, `$XDG_CONFIG_HOME/Claude` or `~/.config/Claude` on Linux; on Windows also the Microsoft Store install under `%LOCALAPPDATA%\Packages` |
+| `claude-code` | Claude Code | `~/.claude.json` (the top-level `mcpServers` and the entry for the current project; `$CLAUDE_CONFIG_DIR` moves it) and `.mcp.json` in the project |
+| `cursor` | Cursor | `~/.cursor/mcp.json` and `.cursor/mcp.json` in the project |
+| `vscode` | VS Code | `.vscode/mcp.json` in the project (key `servers`), and the user-profile `mcp.json` of VS Code and VS Code Insiders under the application-data folder |
+| `copilot-cli` | GitHub Copilot CLI | `~/.copilot/mcp-config.json` |
+
+JSON with comments and trailing commas is read as the clients write it.
+
+## Choosing servers
+
+- With a terminal, `init` lists the servers it found and asks which to grade (numbers, or `all`). With `--yes`, or without a terminal, it takes the defaults, which for several servers is all of them, and says so.
+- `--client <name>` reads only that client's files.
+- `--server <names>` picks servers without a question: names, `client/name`, ids, comma separated, or `all`. An unknown or ambiguous name stops `init` with the candidates listed.
+- Two clients that use the same server name get the client name added, so every entry of `servers:` has a unique key. Several servers are written under `servers:`, one under `server:`.
+
+```bash
+npx sealmark init --client cursor --server notes --yes
+```
+
+## How an entry is translated
+
+- An entry with a `url`, or a type of `http`, `streamable-http` or `sse`, becomes a `server.url`. A legacy `sse` entry gets a warning: Sealmark connects with Streamable HTTP, so the server may not answer and the `http` suite applies only in part.
+- `command`, `args`, `env` and `headers` are copied as they are. An entry with neither a command nor a URL is skipped, with the reason.
+- A client's variable syntax is translated, never evaluated. `${VAR}`, `${env:VAR}` and `${VAR:-default}` stay a Sealmark environment reference, read from your real environment when a run starts and never written into a file or a report. `${workspaceFolder}` and `${cwd}` become the project directory, `${userHome}` the home directory, and the server is flagged as machine-specific. `${input:id}` is asked for during `init`; the value goes to `sealmark.local.yaml` and the project file keeps `${SEALMARK_INPUT_ID}`. Any other `${kind:...}` is passed to the server as written, with a warning.
+- A literal value under a secret-looking name (`key`, `token`, `secret`, `password` and the like), a password inside a URL, a secret-looking query parameter, a secret passed as a command-line argument of the server and a well-known token shape go to `sealmark.local.yaml`. The project file keeps an environment reference in their place, so `sealmark.yaml` is safe to commit. `sealmark.local.yaml` is added to `.gitignore`, and everything read from it is scrubbed from every report.
+- Settings Sealmark cannot honour are listed as warnings and not copied: `cwd` (the harness starts the server in its own sandbox directory), `envFile`, `headersHelper`, and `oauth` or `auth` (Sealmark cannot complete an interactive sign-in, so a server that needs one cannot be graded).
+
+## Why the sandbox question matters
+
+An imported server usually points at your real files or your real database. Running Sealmark against it unchanged would test those. So `init` offers to replace each real target with a placeholder the harness fills in: a directory path becomes `{sandbox}`, a file the server reads or writes (an absolute path that exists as a file, ends in a data-file extension such as `.json`, `.jsonl` or `.yaml`, or sits under an environment name such as `MEMORY_FILE_PATH`) becomes `{sandbox}/<file name>`, a database connection string becomes `{dsn}`, and a SQLite file becomes `{sqlite_path}`, each with its reason. A DuckDB file becomes `{duckdb_path}`, a placeholder Sealmark fills but does not grade yet. With `--yes` every suggestion is taken. Your real directory, file and database are never touched by a run. Say no to a question to keep the original value, and an absolute path you keep is flagged: the written config says so in a comment, and `run` and `doctor` warn about it, because valid calls may read or write it. See [Safety](/docs/safety).
+
+Next, `sealmark doctor` starts the server the way `run` would and says why each test suite would or would not run. See the [CLI reference](/docs/reference/cli).

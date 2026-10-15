@@ -1,0 +1,762 @@
+{
+  "commands": [
+    {
+      "name": "init",
+      "usage": "init [--ci <gitlab|github>] [--from \"<command line>\" | --from-url <url>] [--client <name>] [--server <name>] [--yes] [--force] [--config <path>] | init --probes [--write] [--json] [--yes] [--url <url>] [--start \"<command line>\"] [--config <path>]",
+      "summary": "Write sealmark.yaml (and sealmark.local.yaml for secrets) from an MCP client's configuration, a one-line command, or a template. With --probes, start the server like doctor does and write one valid call per tool as a probes: block (never asks a question)."
+    },
+    {
+      "name": "run",
+      "usage": "run [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--upstream] [--scope-tool <tool=param>]... [--scope-allow <id>]... [--scope-deny <id>]... [--identity-a <token>] [--identity-b <token>] [--soft-fail] [--config <path>] [--profile <name>] [--pack <id>]... [--server <name|all>] [--fail-under A-F] [--format <fmt>] [--out <file>] [--active] [--no-sandbox] [--replay <report.json>]",
+      "summary": "Grade the configured server(s) and print the report."
+    },
+    {
+      "name": "doctor",
+      "usage": "doctor [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--upstream] [--scope-tool <tool=param>]... [--scope-allow <id>]... [--scope-deny <id>]... [--identity-a <token>] [--identity-b <token>] [--config <path>] [--profile <name>] [--server <name>] [--json]",
+      "summary": "Check that sealmark can start your server: tools on PATH, the launcher, the sandbox, initialize and tools/list, the classification and why each pack would run or not."
+    },
+    {
+      "name": "describe",
+      "usage": "describe --json",
+      "summary": "Print the machine-readable description of this build: methodology and CLI versions, the check registry, configuration keys, commands, flags and exit codes."
+    },
+    {
+      "name": "explain",
+      "usage": "explain <check-id> [--json]",
+      "summary": "Explain one check: what it measures, its probes, verdict rules, known false positives and negatives, the settings that affect it, and what to fix when it fails.",
+      "args": [
+        {
+          "name": "check-id",
+          "required": true,
+          "description": "A check id from `sealmark list-checks`."
+        }
+      ]
+    },
+    {
+      "name": "list-checks",
+      "usage": "list-checks [--pack <id>] [--json]",
+      "summary": "List every check with its pack, severity, scope and whether its settings are locked by the standard profile."
+    },
+    {
+      "name": "diff",
+      "usage": "diff <before.json> <after.json> [--json]",
+      "summary": "Compare two JSON reports without running anything: verdict regressions and improvements, and tool-surface drift. Exit 1 when something regressed or drifted.",
+      "args": [
+        {
+          "name": "before.json",
+          "required": true,
+          "description": "The earlier JSON report (a --write-baseline file or --format json output)."
+        },
+        {
+          "name": "after.json",
+          "required": true,
+          "description": "The later JSON report."
+        }
+      ]
+    },
+    {
+      "name": "config show",
+      "usage": "config show [--origins] [--json] [--config <path>] [--profile <name>] [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--soft-fail] [--format <fmt>]...",
+      "summary": "Print the merged configuration, with the origin of every value on request."
+    },
+    {
+      "name": "config profiles",
+      "usage": "config profiles [--json]",
+      "summary": "List shipped and user profiles with their difference from the standard profile."
+    },
+    {
+      "name": "config migrate",
+      "usage": "config migrate [--config <path>]",
+      "summary": "Rewrite a configuration file from an older schema_version to the current one and print the diff."
+    }
+  ],
+  "flags": [
+    {
+      "name": "--config",
+      "type": "string",
+      "metavar": "<file>",
+      "description": "Project config file (default sealmark.yaml).",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show",
+        "config migrate"
+      ],
+      "doc": "Project config file (default sealmark.yaml)."
+    },
+    {
+      "name": "--profile",
+      "type": "string",
+      "metavar": "<value>",
+      "description": "Profile to start from.",
+      "commands": [
+        "run",
+        "doctor",
+        "config show"
+      ],
+      "schemaPath": "profile",
+      "doc": "Profile to start from."
+    },
+    {
+      "name": "--url",
+      "type": "string",
+      "metavar": "<url>",
+      "description": "URL of the MCP server to test (Streamable HTTP). With --start, Sealmark starts the server and waits for this URL to answer.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "server.url",
+      "doc": "URL of the MCP server to test (Streamable HTTP). With --start, Sealmark starts the server and waits for this URL to answer."
+    },
+    {
+      "name": "--start",
+      "type": "string",
+      "metavar": "<command line>",
+      "description": "Command line that starts the server, for example --start \"my-server --port 8000\". With --url it is launched, awaited, tested and stopped; alone it is a stdio server. It is not run through a shell: no &&, |, ;, > or & and no VAR=value prefix (wrap it: --start \"sh -c '...'\").",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "server.command",
+      "doc": "Command line that starts the server, for example --start \"my-server --port 8000\". With --url it is launched, awaited, tested and stopped; alone it is a stdio server. It is not run through a shell: no &&, |, ;, > or & and no VAR=value prefix (wrap it: --start \"sh -c '...'\")."
+    },
+    {
+      "name": "--header",
+      "type": "list",
+      "metavar": "\"Name: value\"",
+      "description": "HTTP header for --url as \"Name: value\"; repeat for several. Put a CI secret in single quotes, --header 'Authorization: Bearer ${MCP_TOKEN}', and Sealmark reads it from the environment, so it never shows in the process list.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "server.headers",
+      "doc": "HTTP header for --url as \"Name: value\"; repeat for several. Put a CI secret in single quotes, --header 'Authorization: Bearer ${MCP_TOKEN}', and Sealmark reads it from the environment, so it never shows in the process list."
+    },
+    {
+      "name": "--bearer",
+      "type": "string",
+      "metavar": "<token>",
+      "description": "Bearer token for --url: sets the header Authorization: Bearer <token>. Put a CI secret in single quotes, --bearer '${MCP_TOKEN}', and Sealmark reads it from the environment. Easier than --header in a CI file, because \"Authorization: Bearer x\" contains \": \" and breaks a plain YAML value.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "server.headers",
+      "doc": "Bearer token for --url: sets the header Authorization: Bearer <token>. Put a CI secret in single quotes, --bearer '${MCP_TOKEN}', and Sealmark reads it from the environment. Easier than --header in a CI file, because \"Authorization: Bearer x\" contains \": \" and breaks a plain YAML value."
+    },
+    {
+      "name": "--start-timeout",
+      "type": "string",
+      "metavar": "<sec>",
+      "description": "Seconds to wait for --start's server to answer on --url (default 60).",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "server.start_timeout_sec",
+      "doc": "Seconds to wait for --start's server to answer on --url (default 60)."
+    },
+    {
+      "name": "--name",
+      "type": "string",
+      "metavar": "<name>",
+      "description": "Display name of the server in the report.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "name",
+      "doc": "Display name of the server in the report."
+    },
+    {
+      "name": "--soft-fail",
+      "type": "boolean",
+      "description": "A grade below the gate prints a warning and exits 0. Config errors, nothing graded and server failures still fail.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.exit_policy.soft_fail",
+      "doc": "A grade below the gate prints a warning and exits 0. Config errors, nothing graded and server failures still fail."
+    },
+    {
+      "name": "--pack",
+      "type": "list",
+      "metavar": "<id>",
+      "description": "Test suite (pack) to run; repeat for several. --suite is the same flag.",
+      "commands": [
+        "run",
+        "list-checks",
+        "config show"
+      ],
+      "schemaPath": "packs",
+      "doc": "Test suite (pack) to run; repeat for several. --suite is the same flag."
+    },
+    {
+      "name": "--suite",
+      "type": "list",
+      "metavar": "<id>",
+      "description": "Test suite to run; repeat for several. Same as --pack.",
+      "commands": [
+        "run",
+        "list-checks",
+        "config show"
+      ],
+      "schemaPath": "packs",
+      "doc": "Test suite to run; repeat for several. Same as --pack."
+    },
+    {
+      "name": "--timeout-probe",
+      "type": "string",
+      "metavar": "<sec>",
+      "description": "Seconds the cap and timeout probes wait.",
+      "commands": [
+        "run",
+        "doctor",
+        "config show"
+      ],
+      "schemaPath": "timeout_probe_sec",
+      "doc": "Seconds the cap and timeout probes wait."
+    },
+    {
+      "name": "--connect-timeout",
+      "type": "string",
+      "metavar": "<sec>",
+      "description": "Seconds to wait for the server to start.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "timeouts.connect_ms",
+      "doc": "Seconds to wait for the server to start."
+    },
+    {
+      "name": "--fail-under",
+      "type": "string",
+      "metavar": "<A-F>",
+      "description": "Exit 1 when a graded pack is below this letter. Default A: anything below an A fails. Use B, C, D or F to relax it, or none to turn the gate off.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.exit_policy.fail_under",
+      "doc": "Exit 1 when a graded pack is below this letter. Default A: anything below an A fails. Use B, C, D or F to relax it, or none to turn the gate off."
+    },
+    {
+      "name": "--format",
+      "type": "list",
+      "metavar": "<value>",
+      "description": "Report format; repeat the flag or comma-separate for several (text, json, markdown, junit, sarif, summary, badge, shields).",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.formats",
+      "doc": "Report format; repeat the flag or comma-separate for several (text, json, markdown, junit, sarif, summary, badge, shields)."
+    },
+    {
+      "name": "--out",
+      "type": "string",
+      "metavar": "<file>",
+      "description": "Write the report to this file.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.out",
+      "doc": "Write the report to this file."
+    },
+    {
+      "name": "--out-dir",
+      "type": "string",
+      "metavar": "<dir>",
+      "description": "Directory for multi-format output.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.out_dir",
+      "doc": "Directory for multi-format output."
+    },
+    {
+      "name": "--template",
+      "type": "string",
+      "metavar": "<file>",
+      "description": "Report template path.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.template",
+      "doc": "Report template path."
+    },
+    {
+      "name": "--baseline",
+      "type": "string",
+      "metavar": "<file>",
+      "description": "Prior JSON report to compare against.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.baseline",
+      "doc": "Prior JSON report to compare against."
+    },
+    {
+      "name": "--write-baseline",
+      "type": "string",
+      "metavar": "<file>",
+      "description": "Write the current JSON report for later --baseline runs.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.write_baseline",
+      "doc": "Write the current JSON report for later --baseline runs."
+    },
+    {
+      "name": "--fail-on",
+      "type": "list",
+      "metavar": "<value>",
+      "description": "With a baseline, what decides the exit code: any (the default), regressions or drift; repeat the flag or comma-separate for several.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.fail_on",
+      "doc": "With a baseline, what decides the exit code: any (the default), regressions or drift; repeat the flag or comma-separate for several."
+    },
+    {
+      "name": "--verbosity",
+      "type": "string",
+      "metavar": "<value>",
+      "description": "quiet, normal or verbose.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.verbosity",
+      "doc": "quiet, normal or verbose."
+    },
+    {
+      "name": "--redact",
+      "type": "boolean",
+      "negatable": true,
+      "description": "--no-redact prints secret-looking values (local debugging only).",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "output.redact",
+      "doc": "--no-redact prints secret-looking values (local debugging only)."
+    },
+    {
+      "name": "--embedded",
+      "type": "boolean",
+      "negatable": true,
+      "description": "--no-embedded disables the embedded Postgres.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "db.embedded",
+      "doc": "--no-embedded disables the embedded Postgres."
+    },
+    {
+      "name": "--pg",
+      "type": "string",
+      "metavar": "<value>",
+      "description": "Superuser DSN of an existing Postgres (needs --yes).",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "db.pg",
+      "doc": "Superuser DSN of an existing Postgres (needs --yes)."
+    },
+    {
+      "name": "--yes",
+      "type": "boolean",
+      "description": "run: confirm that --pg may recreate the seed database. init: take the defaults and never ask questions.",
+      "commands": [
+        "run",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "yes",
+      "safety": true,
+      "doc": "run: confirm that --pg may recreate the seed database. init: take the defaults and never ask questions."
+    },
+    {
+      "name": "--active",
+      "type": "boolean",
+      "description": "Allow the exec pack and active custom probes.",
+      "commands": [
+        "run",
+        "config show"
+      ],
+      "schemaPath": "active",
+      "safety": true,
+      "doc": "Allow the exec pack and active custom probes."
+    },
+    {
+      "name": "--sandbox",
+      "type": "boolean",
+      "negatable": true,
+      "description": "--no-sandbox disables the sandbox (the run becomes CUSTOM).",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "sandbox.enabled",
+      "doc": "--no-sandbox disables the sandbox (the run becomes CUSTOM)."
+    },
+    {
+      "name": "--sandbox-dir",
+      "type": "string",
+      "metavar": "<dir>",
+      "description": "Parent directory for the sandbox.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "sandbox.dir",
+      "doc": "Parent directory for the sandbox."
+    },
+    {
+      "name": "--keep-sandbox",
+      "type": "boolean",
+      "description": "Keep the sandbox after the run.",
+      "commands": [
+        "run",
+        "doctor",
+        "config show"
+      ],
+      "schemaPath": "sandbox.keep",
+      "doc": "Keep the sandbox after the run."
+    },
+    {
+      "name": "--pack-timeout",
+      "type": "string",
+      "metavar": "<sec>",
+      "description": "Seconds before one pack is abandoned.",
+      "commands": [
+        "run",
+        "doctor",
+        "config show"
+      ],
+      "schemaPath": "sandbox.pack_timeout_sec",
+      "doc": "Seconds before one pack is abandoned."
+    },
+    {
+      "name": "--upstream",
+      "type": "boolean",
+      "description": "Start the harness's upstream stub (upstream.kind: http) and fill {upstream} in the server config with its URL, so the scope, sql-guard and upstream packs can see what the server forwards.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "upstream.kind",
+      "doc": "Start the harness's upstream stub (upstream.kind: http) and fill {upstream} in the server config with its URL, so the scope, sql-guard and upstream packs can see what the server forwards."
+    },
+    {
+      "name": "--scope-tool",
+      "type": "list",
+      "metavar": "<value>",
+      "description": "A tool that takes an identifier the server restricts, as tool=param (for example describe_table=table); repeat for several. Needs --scope-allow.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "scope.tools",
+      "doc": "A tool that takes an identifier the server restricts, as tool=param (for example describe_table=table); repeat for several. Needs --scope-allow."
+    },
+    {
+      "name": "--scope-allow",
+      "type": "list",
+      "metavar": "<value>",
+      "description": "An identifier the server may serve; an entry ending with the separator is a prefix (sales.public.). Repeat for several.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "scope.allow",
+      "doc": "An identifier the server may serve; an entry ending with the separator is a prefix (sales.public.). Repeat for several."
+    },
+    {
+      "name": "--scope-deny",
+      "type": "list",
+      "metavar": "<value>",
+      "description": "An identifier the server must refuse even inside the allow list. Repeat for several.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "scope.deny",
+      "doc": "An identifier the server must refuse even inside the allow list. Repeat for several."
+    },
+    {
+      "name": "--identity-a",
+      "type": "string",
+      "metavar": "<value>",
+      "description": "Token for caller A ({bearer}, {bearer:a}) when the server validates tokens it did not issue. Put a CI secret in single quotes, --identity-a '${TOKEN_A}', and Sealmark reads it from the environment.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "identities.a",
+      "doc": "Token for caller A ({bearer}, {bearer:a}) when the server validates tokens it did not issue. Put a CI secret in single quotes, --identity-a '${TOKEN_A}', and Sealmark reads it from the environment."
+    },
+    {
+      "name": "--identity-b",
+      "type": "string",
+      "metavar": "<value>",
+      "description": "Token for caller B ({bearer:b}); must differ from --identity-a. Single-quote a CI secret as for --identity-a.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "identities.b",
+      "doc": "Token for caller B ({bearer:b}); must differ from --identity-a. Single-quote a CI secret as for --identity-a."
+    },
+    {
+      "name": "--server",
+      "type": "string",
+      "metavar": "<value>",
+      "description": "Entry of `servers` to use (run also accepts `all`). init: the imported servers to write, as comma separated names, client/name, or all.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "run.server",
+      "doc": "Entry of `servers` to use (run also accepts `all`). init: the imported servers to write, as comma separated names, client/name, or all."
+    },
+    {
+      "name": "--help",
+      "type": "boolean",
+      "short": "h",
+      "description": "Print usage and exit.",
+      "commands": [
+        "init",
+        "run",
+        "doctor",
+        "describe",
+        "explain",
+        "list-checks",
+        "diff",
+        "config show",
+        "config profiles",
+        "config migrate"
+      ],
+      "doc": "Print usage and exit."
+    },
+    {
+      "name": "--version",
+      "type": "boolean",
+      "short": "v",
+      "description": "Print the sealmark version and exit.",
+      "commands": [],
+      "doc": "Print the sealmark version and exit."
+    },
+    {
+      "name": "--force",
+      "type": "boolean",
+      "description": "Overwrite files that already exist.",
+      "commands": [
+        "init",
+        "config migrate"
+      ],
+      "doc": "Overwrite files that already exist."
+    },
+    {
+      "name": "--json",
+      "type": "boolean",
+      "description": "Machine-readable output.",
+      "commands": [
+        "doctor",
+        "describe",
+        "diff",
+        "explain",
+        "list-checks",
+        "config show",
+        "config profiles",
+        "init"
+      ],
+      "doc": "Machine-readable output."
+    },
+    {
+      "name": "--probes",
+      "type": "boolean",
+      "description": "init: start the server like doctor does and write one valid call per tool as a probes: block (stdout, or the config file with --write). Never prompts.",
+      "commands": [
+        "init"
+      ],
+      "doc": "init: start the server like doctor does and write one valid call per tool as a probes: block (stdout, or the config file with --write). Never prompts."
+    },
+    {
+      "name": "--write",
+      "type": "boolean",
+      "description": "init --probes: append the block to the config file; exit 2 when it already has a probes: key.",
+      "commands": [
+        "init"
+      ],
+      "doc": "init --probes: append the block to the config file; exit 2 when it already has a probes: key."
+    },
+    {
+      "name": "--from",
+      "type": "string",
+      "metavar": "<command line>",
+      "description": "Write a config from a one-liner, for example --from \"npx -y @modelcontextprotocol/server-filesystem {sandbox}\".",
+      "commands": [
+        "init"
+      ],
+      "doc": "Write a config from a one-liner, for example --from \"npx -y @modelcontextprotocol/server-filesystem {sandbox}\"."
+    },
+    {
+      "name": "--ci",
+      "type": "string",
+      "metavar": "<gitlab|github>",
+      "description": "Print a ready-to-paste CI job for this provider and write nothing.",
+      "commands": [
+        "init"
+      ],
+      "doc": "Print a ready-to-paste CI job for this provider and write nothing."
+    },
+    {
+      "name": "--from-url",
+      "type": "string",
+      "metavar": "<url>",
+      "description": "Write a config for an already running Streamable HTTP server.",
+      "commands": [
+        "init"
+      ],
+      "doc": "Write a config for an already running Streamable HTTP server."
+    },
+    {
+      "name": "--client",
+      "type": "list",
+      "metavar": "<name>",
+      "description": "Only read this MCP client's configuration (claude-desktop, claude-code, cursor, vscode, copilot-cli).",
+      "commands": [
+        "init"
+      ],
+      "doc": "Only read this MCP client's configuration (claude-desktop, claude-code, cursor, vscode, copilot-cli)."
+    },
+    {
+      "name": "--effective",
+      "type": "boolean",
+      "description": "Accepted for compatibility; config show always prints the effective configuration.",
+      "commands": [
+        "config show"
+      ],
+      "doc": "Accepted for compatibility; config show always prints the effective configuration."
+    },
+    {
+      "name": "--origins",
+      "type": "boolean",
+      "description": "Annotate every value with where it came from.",
+      "commands": [
+        "config show"
+      ],
+      "doc": "Annotate every value with where it came from."
+    },
+    {
+      "name": "--replay",
+      "type": "string",
+      "metavar": "<report.json>",
+      "description": "Re-run with the locked settings of a previous JSON report, after verifying its config hash.",
+      "commands": [
+        "run"
+      ],
+      "doc": "Re-run with the locked settings of a previous JSON report, after verifying its config hash."
+    },
+    {
+      "name": "--fixture",
+      "type": "string",
+      "metavar": "<fs|git|sqlite>",
+      "description": "Write a fixture the sandbox generates, for hand runs: the fs layout, the git repositories or the SQLite database (DuckDB is planned).",
+      "commands": [
+        "run"
+      ],
+      "doc": "Write a fixture the sandbox generates, for hand runs: the fs layout, the git repositories or the SQLite database (DuckDB is planned)."
+    },
+    {
+      "name": "--into",
+      "type": "string",
+      "metavar": "<dir>",
+      "description": "Directory for --fixture.",
+      "commands": [
+        "run"
+      ],
+      "doc": "Directory for --fixture."
+    }
+  ],
+  "exitCodes": [
+    {
+      "code": 0,
+      "meaning": "ok"
+    },
+    {
+      "code": 1,
+      "meaning": "a graded pack is below --fail-under (a provisional A* is below an A gate), an inconclusive pack under output.exit_policy.treat_inconclusive_as: fail, or a baseline comparison found a regression"
+    },
+    {
+      "code": 2,
+      "meaning": "usage or configuration error"
+    },
+    {
+      "code": 3,
+      "meaning": "no pack was graded"
+    },
+    {
+      "code": 4,
+      "meaning": "harness or server failure (the server would not start, the database was unavailable, or doctor found a failing step)"
+    },
+    {
+      "code": 129,
+      "meaning": "interrupted by SIGHUP (the terminal closed)"
+    },
+    {
+      "code": 130,
+      "meaning": "interrupted by SIGINT (Ctrl-C)"
+    },
+    {
+      "code": 143,
+      "meaning": "terminated by SIGTERM"
+    }
+  ]
+}

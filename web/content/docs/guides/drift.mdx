@@ -1,0 +1,87 @@
+export const meta = {
+  title: "Catch tool-surface drift",
+  since: "0.2.1",
+  status: "shipped",
+  description: "Fail a build when the tools a server offers an agent change after you reviewed them: a description, a required argument, a type, a hint.",
+};
+
+An agent client approves a server once, by what its tools say and take. A server can change both later without changing its name: a new description, a new required argument, a hint that used to say read-only. Drift detection compares the tool surface of two reports and tells you what changed. It is never a grade.
+
+## What a run records
+
+Every JSON report carries `server.surface`, one entry per tool, about 200 bytes each:
+
+| Field | What it holds |
+|---|---|
+| `name`, `title` | the tool's name and title |
+| `descriptionHash`, `descriptionLength` | a SHA-256 of the exact description text, and its length. **The text itself is not stored**: it is server-controlled and can be large |
+| `inputSchemaHash` | a SHA-256 of the canonical (sorted-key) JSON of the input schema |
+| `required` | the required parameter names, sorted |
+| `params` | each parameter's JSON type: `string`, `string\|null`, `array<string>`, `object`, `unknown` |
+| `annotations` | the tool's `readOnlyHint`, `destructiveHint`, `idempotentHint` and `openWorldHint`, when it declares them |
+
+A baseline written by Sealmark 0.2.0 has no `server.surface`. Drift then falls back to what that report did record, the tool names and annotations, and says so in the line.
+
+## How to use it
+
+Write a baseline from the version of the server you reviewed, and compare every later run with it:
+
+```bash
+npx sealmark run --write-baseline sealmark-baseline.json
+npx sealmark run --baseline sealmark-baseline.json --fail-on regressions,drift
+```
+
+Without `--fail-on drift`, drift only prints: each change is a `drift:` line after the `baseline:` notes, followed by one `note:` that says how many changes do not affect the exit code and how to make them. With `--fail-on drift`, a breaking or notable change exits 1. Commit the baseline to your repository. After a change you meant to make, review the `drift:` lines and write the baseline again.
+
+`--fail-on` takes a list: `drift` alone (only drift decides, plus exit codes 2, 3 and 4), `regressions,drift`, or `any,drift` (the grade gate, regressions and drift). `drift` and `regressions` need `--baseline`; without one the run exits 2 and says to add it. In a config file it is `output.fail_on: [regressions, drift]`, and `SEALMARK_OUTPUT__FAIL_ON=regressions,drift` works. `--soft-fail` softens a drift exit like any exit 1.
+
+## What counts as drift
+
+| Severity | Kind | Meaning |
+|---|---|---|
+| breaking | `tool-removed` | a tool in the baseline is gone |
+| breaking | `required-added` | a parameter became, or was added as, required |
+| breaking | `param-removed` | a parameter is gone |
+| breaking | `param-type-changed` | a parameter's type changed |
+| notable | `tool-added` | a tool the baseline did not have |
+| notable | `description-changed` | the description text differs. This is the rug-pull signal |
+| notable | `annotation-changed` | any hint changed, including unset to set |
+| notable | `schema-changed` | the schema hash differs and no change above explains it |
+| info | `param-added` | an optional parameter was added |
+| info | `server-version-changed` | the server announced another version |
+
+Breaking and notable entries fail a run that asks for `--fail-on drift`. Info entries are only printed.
+
+A line never contains a description. It names the tool and the kind, and for a description gives the hashes and lengths, for example `description changed (sha 3f1a… → 9c02…, 240 → 310 chars)`. Tool names in the line go through the same sanitiser as every other server-controlled text in a report, so a hostile name cannot write control characters to your terminal.
+
+## What a drift report looks like
+
+A server version 2 drops a tool, adds one, makes an argument required, changes an argument's type, rewrites a description and flips a hint. Comparing it with the baseline gives six entries, and with `--fail-on drift` the run exits 1:
+
+```text
+breaking  tool-removed         delete_note
+breaking  required-added       search: tenant
+breaking  param-type-changed   search: limit
+notable   tool-added           purge
+notable   description-changed  read_note
+notable   annotation-changed   read_note: readOnlyHint true → false
+```
+
+Sealmark does not judge whether a new description is malicious: `tool-poisoning` scans the text it sees now. Drift tells you the text changed, so a person reads the diff of the server's own source.
+
+## Compare two reports without running a server
+
+`sealmark diff` compares two JSON reports of the same server. Nothing is started.
+
+```bash
+npx sealmark diff before.json after.json
+npx sealmark diff before.json after.json --json
+```
+
+It prints `regression:`, `improved:`, `drift:` and `note:` lines, or with `--json` one document, `{ "format": "sealmark.diff/1", "regressions": [...], "improvements": [...], "notes": [...], "drift": [...] }`. Reports of several servers are matched by name. Either file can be a `--write-baseline` file or the output of `--format json`.
+
+## What it does not do
+
+Drift compares what a server declares. It does not read a tool's behaviour, so a server that keeps its declaration and changes what the tool does is not caught by this: that is what the suites are for. A scored drift check would be a methodology decision (see [Candidate checks](/docs/methodology#candidate-checks)).
+
+Exit codes are in the [CLI reference](/docs/reference/cli#why-an-exit-code-happens) (`diff` always counts drift). Related: [Output](/docs/reference/output), [Run in CI](/docs/guides/ci).

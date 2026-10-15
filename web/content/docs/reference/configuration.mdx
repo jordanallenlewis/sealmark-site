@@ -1,0 +1,204 @@
+export const meta = {
+  title: "Configuration",
+  since: "0.1",
+  status: "shipped",
+  description: "How configuration is layered, how each key in sealmark.yaml is read, and how a changed setting turns a STANDARD run into a CUSTOM one.",
+};
+
+The tables on this page are generated from the CLI: every key the installed build accepts, with its type, default, the version that added it and whether the standard methodology locks it. This page explains how configuration is read. `sealmark config show --origins` prints every effective value with the layer it came from.
+
+A config file is optional. Every setting is reachable by a flag, by a `SEALMARK_*` environment variable or by a file, so a CI job can run with the command line alone. `sealmark init` writes a starter file. See [CLI](/docs/reference/cli) for the flags.
+
+## Layers
+
+Lowest to highest, each layer overrides the one before:
+
+1. built-in defaults;
+2. the selected profile (`standard` unless the `profile` key or `--profile` says otherwise; a profile may `extends:` another);
+3. your user file: `$XDG_CONFIG_HOME/sealmark/config.yaml` (`%APPDATA%\sealmark\config.yaml` on Windows);
+4. `sealmark.yaml` (or the file named by `--config`) and `sealmark.local.yaml` beside it, which belongs in `.gitignore`;
+5. `SEALMARK_*` environment variables: `SEALMARK_PACKS=core,fs`, `SEALMARK_SANDBOX__DIR=/tmp/x` (a double underscore nests);
+6. command-line flags.
+
+Maps merge key by key and lists replace, except the lists that append (`tools.exclude`, corpus `add` and `remove`, `notCovered.extra`, `plugins`). `null` resets a key to its built-in default. `--active` and `--yes` come only from flags: a file or an environment variable cannot switch on the opt-in `exec` suite or confirm an administrative `--pg` run.
+
+A key's environment variable is `SEALMARK_` plus its path in capitals, with `__` for each dot. `--start`, `--header` and `--bearer` have none: they are flags, or `server.command`, `server.args` and `server.headers` in a file.
+
+## Two minimal files
+
+A stdio server that takes a database connection string. The `{dsn}` placeholder is what lets the database suite start your server once per database role.
+
+```yaml
+name: server-a
+version: 1.4.0
+server:
+  command: node
+  args: ["./server-a.js", "{dsn}"]
+```
+
+An HTTP server that is already running. The harness does not start it.
+
+```yaml
+name: server-d
+version: 0.3.0
+server:
+  url: http://localhost:8000/mcp
+```
+
+Server A and Server D are invented examples, like every server and grade on this site.
+
+## How the file is checked
+
+Unknown keys are errors, with a did-you-mean hint and the file and line. All problems found are listed together and stop the run with exit code 2. Among the things that are checked:
+
+- the file exists, is valid YAML and contains a mapping;
+- `server` has `command` or `url`; both together are allowed and mean "launch the command and test the URL", but only when both are set in the same place (the same file, the environment, or the flags);
+- either `server` or `servers`, never both;
+- `server.args` is a list, and `server.env` and `server.headers` are mappings;
+- `packs` is a list of suite ids;
+- `sql_tools` is a list of `{ tool, arg }` entries with string values;
+- a `{dsn:role}` placeholder names a role that exists, and every `${VAR}` reference in `server.url`, `server.args`, `server.env` and `server.headers` is set or has a `:-default`.
+
+`sealmark init` starts the file with a `yaml-language-server` line that points an editor at the JSON Schema shipped in the package (`./node_modules/sealmark/schema/sealmark.schema.json`), for completion and checking while you type. `sealmark config migrate` rewrites an older file to the current `schema_version`.
+
+## name and version
+
+`name` and `version` describe the server under test. YAML reads `version: 1.10` as the number 1.1, so quote versions that look like numbers: `version: "1.10"`. A three-part version such as `1.4.0` is already text. A grade belongs to one name and version, so change `version` when the server changes.
+
+## server.command and server.args
+
+The harness runs the command directly, with no shell: write the executable in `server.command` and each argument in `server.args`, and use `sh -c '...'` if you need a shell. Placeholders in the command and in every argument are expanded (see [Placeholders](#placeholders)). A relative `./` or `../` path in the file is resolved against the folder of the config file, not the folder the server runs in.
+
+## server.rootless
+
+[`server.rootless`](#key-server-rootless) (default `false`) says the server takes no root argument and works in its own working directory. The fs suite then treats that directory, `{sandbox}`, as the allowed root and runs every path probe, so a server that reads or writes any path fails the escape checks. It only adds coverage, so a STANDARD run stays STANDARD. `servers.<name>.rootless` sets it per server.
+
+## server.env
+
+[`server.env`](#key-server-env) values may use [placeholders](#placeholders) and `${VAR}` references.
+
+```yaml
+server:
+  command: node
+  args: ["./server-a.js"]
+  env: { DATABASE_URL: "{dsn}", API_KEY: "${MY_API_KEY}", LOG_LEVEL: info }
+```
+
+A sandboxed server does not inherit your shell's environment: it gets a short allow-list plus what you set here. See [Environment](/docs/reference/environment).
+
+## server.files
+
+[`server.files`](#key-server-files) stages small files into the [sandbox](/docs/concepts/sandbox#staged-files) before the server starts, for a server that reads a config file. It is a list of objects, so it is configuration-file only: no flag and no environment variable can carry it.
+
+```yaml
+server:
+  command: my-server
+  args: ["--config", "{sandbox}/config/app.ini"]
+  files:
+    - path: "{sandbox}/config/app.ini"
+      content: |
+        mode=test
+```
+
+`path` may begin with `{sandbox}`, `{dir}` or `{sandbox_home}` and must stay inside that directory once expanded (`..` is refused with exit code 2). `content` may use `{sandbox}`, `{sandbox_home}`, `{listener}`, `{sqlite_path}` and `${VAR}`, and never a database placeholder, because the server is started once per database role and a file cannot change between roles: pass the connection string through `args` or `env`. A server Sealmark does not start in the sandbox (`--url` alone, `--no-sandbox`) cannot have staged files.
+
+## server.url and server.headers
+
+[`server.url`](#key-server-url) and [`server.headers`](#key-server-headers) accept placeholders and `${VAR}` references.
+
+```yaml
+server:
+  url: http://localhost:8000/mcp
+  headers: { X-Team: demo, Authorization: "Bearer ${MCP_TOKEN}" }
+```
+
+## Secrets: `${VAR}` and sealmark.local.yaml
+
+A secret does not have to be in a file. `${VAR}` and `${VAR:-default}` in `server.command`, `server.args`, `server.env`, `server.url` and `server.headers` are read from your real environment when the run starts, and are never written to a report. A variable that is not set and has no `:-default` stops the run with exit code 2; write `${VAR:-}` to allow an empty value. On the command line, put the reference in single quotes (`--bearer '${MCP_TOKEN}'`) so your shell leaves it for Sealmark to expand.
+
+Values that are specific to your machine, or that you would not commit, go in `sealmark.local.yaml` next to `sealmark.yaml`. Everything read from that file is scrubbed from every report format. Never put a real credential or a real database URL in `sealmark.yaml`. What a report prints and hides of your config is on [Environment](/docs/reference/environment#what-the-report-hides).
+
+## sql_tools
+
+[`sql_tools`](#key-sql_tools) names the tools that take a SQL string, as pairs of the tool name and the name of its SQL argument. The database and sqlite suites send their probes through these tools.
+
+```yaml
+sql_tools:
+  - { tool: query, arg: sql }
+```
+
+When the list is omitted, the harness finds SQL tools in the server's `tools/list` answer:
+
+- An argument named `sql`, `sql_query` or `sqlquery` counts on its own.
+- An argument named `query` or `statement` counts only when the tool's name or description mentions sql, database, postgres or table.
+- A tool that has other required arguments is kept. The harness fills them: an enum gets its first value, a string a token, a number its minimum or 1, a boolean `false`, and a schema `default` wins. Add `args: { <param>: <value> }` to a `sql_tools` entry (scalar values only) to set them yourself.
+
+Every tool that looks like SQL but was skipped is listed under "Not covered" in the report, with the reason. A list you write adds to or corrects the automatic search and never hides a tool it finds (use `tools.exclude` to keep one out, which makes the run CUSTOM), and the harness checks your list against the server at run time. A tool the server does not declare, or an argument that is not a string property of that tool, stops the run with exit code 2.
+
+## upstream, scope and identities
+
+For a server that fronts a backend. [`upstream.kind`](#key-upstream-kind) `http` starts a harness-owned stub on loopback that the server must use as its backend through `{upstream}`; [`upstream.responses`](#key-upstream-responses) and [`upstream.default_reply`](#key-upstream-default_reply) script its answers, [`upstream.credential_header`](#key-upstream-credential_header) names the header the upstream suite reads and [`upstream.max_body_kib`](#key-upstream-max_body_kib) bounds what it keeps of each request. [`identities.a`](#key-identities-a) and [`identities.b`](#key-identities-b) are secrets: real caller tokens that replace the minted `{bearer:a}`/`{bearer:b}` for a server that validates tokens. [`scope.tools`](#key-scope-tools) names the identifier parameter of each scoped tool, [`scope.allow`](#key-scope-allow) and [`scope.deny`](#key-scope-deny) what it may and must never serve (an entry ending in [`scope.separator`](#key-scope-separator) is a prefix), and [`scope.case`](#key-scope-case) how names compare. None of these keys is locked, so declaring them keeps a run STANDARD. A worked example is in [Verify a server that fronts a backend](/docs/guides/backend-servers).
+
+## tools
+
+`tools.include` and `tools.exclude` are lists of tool-name patterns that limit which tools Sealmark calls at all (`include` defaults to `["*"]`). `tools.exclude` appends across layers. `tools.overrides` fixes a wrong classification, for example `legacy_thing: { class: opaque }`. A tool the classifier cannot place with enough confidence gets the `core` checks only and is listed as not covered, so an override is how you say what a tool takes.
+
+## checks
+
+Some check settings are locked by the standard profile. Changing a locked setting is allowed, but the run is then CUSTOM and the report lists the difference. `sealmark list-checks` shows which checks are locked, and `sealmark explain <check-id>` lists the settings that affect one.
+
+```yaml
+checks:
+  fs-size-cap: { enabled: false }    # allowed, but the run becomes CUSTOM
+  robust-input: { max_tools: 10 }
+```
+
+A candidate check (`db-privilege`, the two `core` advisories and the checks of the candidate suites `scope`, `sql-guard` and `upstream`) is the exception: its settings are not locked, so a standard run's hash does not contain them, yet switching it off or giving it a severity still makes the run CUSTOM, and `--replay` never restores them. See [Candidate checks](/docs/methodology#candidate-checks).
+
+## output
+
+`output.*` never changes a grade, so it never makes a run CUSTOM.
+
+```yaml
+output:
+  formats: [summary, junit, json]
+  fail_on: [regressions, drift]
+```
+
+## Other keys
+
+The type, default and lock state of every key are in the generated table. The keys that are explained elsewhere:
+
+| Area | Keys | Read |
+|---|---|---|
+| Report and exit code | `output.format`, `output.formats`, `output.out`, `output.out_dir`, `output.verbosity`, `output.redact`, `output.template`, `output.baseline`, `output.write_baseline`, `output.fail_on`, `output.interactive`, `output.exit_policy.fail_under`, `output.exit_policy.soft_fail`, `output.exit_policy.regressions_only`, `output.exit_policy.treat_inconclusive_as`, `output.exit_policy.critical_fail` | [Output](/docs/reference/output), [CLI](/docs/reference/cli#the-gate-and-the-exit-code) |
+| Sandbox | `sandbox.enabled`, `sandbox.dir`, `sandbox.keep`, `sandbox.scrub_env`, `sandbox.keep_env`, `sandbox.pack_timeout_sec`, `sandbox.max_mib` | [Sandbox](/docs/concepts/sandbox) |
+| Timeouts and load | `server.start_timeout_sec`, `timeouts.connect_ms`, `timeouts.call_ms`, `timeouts.probe_ms`, `timeout_probe_sec`, `retries.connect`, `retries.call`, `concurrency.servers`, `concurrency.packs` | [CLI](/docs/reference/cli) |
+| Targets | `net.control_url`, `net.allow_dns`, `sqlite.engine`, `db.embedded`, `db.pg` | [Methodology](/docs/methodology#roles-and-server-instances) |
+| Selection | `profile`, `profiles`, `packs`, `run.server`, `notCovered.extra` | [Profiles](#standard-and-custom) |
+| Your own checks | `probes`, `plugins` | [Custom probes](/docs/guides/custom-probes), [Plugins](/docs/guides/plugins) |
+| Command line only | `active`, `yes` | [CLI](/docs/reference/cli) |
+
+## Placeholders
+
+Placeholders are replaced just before a server starts. They work in `server.command`, `server.args`, the values of `server.env`, `server.url`, and the values of `server.headers`, and `{sandbox}`, `{sandbox_home}` and the other harness placeholders also in `server.files`. They are not replaced anywhere else.
+
+| Placeholder | Expands to |
+| --- | --- |
+| `{dsn}` | A `postgres://` connection string for the role being tested |
+| `{dsn:analyst}`, `{dsn:support}`, `{dsn:admin}` | The connection string for that role, whichever role is being tested |
+| `{host}`, `{port}`, `{user}`, `{password}`, `{database}`, `{role}` | The parts of that connection. The roles and the database exist only for the run and hold synthetic data, so the password is not a secret |
+| `{sandbox}` (alias `{dir}`) | The sandbox root: the directory the harness owns, and the server's working directory |
+| `{sandbox_home}` | The sandbox home (`HOME`, `USERPROFILE` and `APPDATA` of the server) |
+| `{sqlite_path}` | A seeded SQLite file inside the sandbox |
+| `{upstream}` | The URL of the harness's upstream stub, with `upstream.kind: http` |
+| `{bearer}` (`{bearer:a}`), `{bearer:b}` | A caller token, minted per run or taken from `identities.a`/`.b`; an anonymous session drops every header that holds one |
+| `${VAR}`, `${VAR:-default}` | An environment variable, read from your real environment when the run starts |
+
+`{canary}` and `{token}` exist only in `probes:`, `{matrix.<name>}` only in the `args` of a probe with `matrix`, and `{upstream_token}` only in a stub reply body. `{listener}` exists in `probes:` and in the `content` of [`server.files`](#serverfiles).
+
+With a database placeholder in the config, the harness starts a Postgres (the embedded one, or your own with `--pg` and `--yes`) and the database suite starts the server once per role. With none, or with `--no-embedded` and no `--pg`, the database suite is not applicable and `core` still runs. See [roles and server instances](/docs/methodology#roles-and-server-instances).
+
+## STANDARD and CUSTOM
+
+Every report starts with a header that says which it is, and a CUSTOM header lists each difference from the standard. A run is STANDARD only if every setting that affects a grade equals the standard profile, no standard suite was dropped, and no plugin or custom check ran. Adding coverage (the `exec` suite with `--active`, a probe without a `check:`) keeps it standard; weakening anything does not. The profile table above says which profiles can be STANDARD; `sealmark config profiles` also lists your own. The JSON record carries `config.hash`, `config.standard` and `config.standardDiff`, and `--replay` reproduces a run from them. A core-only or a CUSTOM run is not eligible for a badge.

@@ -1,0 +1,78 @@
+export const meta = {
+  title: "Environment",
+  since: "0.1",
+  status: "shipped",
+  description: "Which environment variables the server under test receives, the two canary secrets the harness adds, and what the report hides.",
+};
+
+A stdio server runs as a child process of the harness. This page says exactly what that process can see in its environment and what the report prints about it. It applies to servers Sealmark starts (`server.command`, or `--start`). For an HTTP server that is already running (`server.url` alone) the harness starts nothing, so there is no environment to set.
+
+## What the server receives
+
+It depends on how the server is started. The report's `sandbox:` line says which case applied (`sandbox.envMode` in the JSON is `scrubbed` or `inherited`) and, for a scrubbed environment, lists what was inherited from yours (`inherited: PATH (system part), LANG, npm_config_cache, UV_CACHE_DIR`; `sandbox.inherited` in the JSON).
+
+| How the server starts | Environment | Working directory |
+| --- | --- | --- |
+| a stdio server, the default | built from scratch inside the [sandbox](/docs/concepts/sandbox): not yours | the sandbox `root` |
+| a stdio server with `--no-sandbox`, or `sandbox.scrub_env: false` | inherited: your whole environment, plus `server.env` and the canaries | a fresh empty throwaway directory |
+| `--start` together with `--url` | inherited, as above | a fresh empty throwaway directory |
+| `--url` alone | nothing is started | not applicable |
+
+### The scrubbed environment (the default)
+
+The environment of a sandboxed server is built from these layers. A later layer wins when two use the same name.
+
+1. The sandbox base, which is not copied from your shell. The table is on the [sandbox page](/docs/concepts/sandbox#what-the-server-gets).
+2. The variables named in [`sandbox.keep_env`](/docs/reference/configuration#key-sandbox-keep_env), copied from your environment when they are set (for example `HTTP_PROXY`).
+3. The variables in [`server.env`](/docs/reference/configuration#key-server-env), with [placeholders](/docs/reference/configuration#placeholders) expanded for the role being tested.
+4. The two canary variables, for the first start only. See below.
+
+Everything else in your environment stays behind. That includes variables such as `DATABASE_URL`, cloud credentials, and any API key exported in your shell. A server that needs a variable to start must have it in `server.env`, or you must name it in `sandbox.keep_env`.
+
+A path you write yourself is not scrubbed. An absolute path in `server.args` or in a `server.env` value that points outside the sandbox (a memory file, a data directory) is a real file on your machine, and valid calls may read or write it. `run` and `doctor` print one warning for each such path, for example `server.env MEMORY_FILE_PATH points at a real path on this machine; valid calls may read or write it`. Use `{sandbox}/<name>` to keep the file inside the directory the harness owns; `sealmark init` offers that replacement for a file the server reads or writes, as it does for a directory.
+
+## The canary variables
+
+For a server the harness starts, it adds two fake secrets to the environment of the first server start. The first start is the one used for the core suite and for reading the server's tool list.
+
+| Variable | Value |
+| --- | --- |
+| `SEALMARK_CANARY` | `sm-canary-` followed by 16 random hexadecimal characters |
+| `SEALMARK_FAKE_API_KEY` | `sk-sealmark-fake-` followed by 24 random hexadecimal characters |
+
+The values are generated fresh for every run. They are not real credentials, and they exist only so the harness can recognize them.
+
+The [secret-echo check](/docs/reference/checks/secret-echo) scans the server's tool list and every response the harness captures for those two strings, and finding either is a critical fail.
+
+Details that matter when you read a result:Details that matter when you read a result:
+
+- The per-role starts of the database suite do not get the canaries. Only the first start does.
+- A server the harness did not start, which means a server reached by `--url` alone, gets no canaries, because the harness cannot place a variable in a process it did not start. The secret-echo check is then not applicable, and the report lists it under "Not covered".
+- If your `server.env` already sets a variable with one of those names, the harness value replaces it for that start.
+- The report shows both as `<canary>`, never the value. If a server echoes one, the check's evidence names the variable and where it was found, and does not quote the text around it.
+
+## What the harness reads from its own environment
+
+Two things. It reads the variables the scrubbed environment copies or names (including those `sandbox.keep_env` lists), only to pass them on to the server. And it reads `SEALMARK_*` variables as settings, in the layers described under [Layers](/docs/reference/configuration#layers). `--active` and `--yes` have no environment form on purpose.
+
+## What the report hides
+
+The report prints the configuration you gave, so it hides likely secrets before it prints. This affects only the report. The server still receives the real values.
+
+| Item | In the report |
+| --- | --- |
+| `server.command` and `server.args` | Printed as written. Not redacted |
+| `server.url` | Printed as written, except that a `user:password@` part is removed |
+| A `server.env` value under a secret-looking name | `<redacted>` |
+| A `server.env` value that contains a placeholder | Printed as written, placeholder unexpanded |
+| Any other `server.env` value | Printed as written |
+| A `server.headers` entry | Listed in the env block as `header:<Name>`, with the same rule as `server.env` |
+| The two canary variables | `<canary>` |
+
+A name is secret-looking when it contains any of these, in any letter case: `key`, `token`, `secret`, `passw`, `auth`, `credential`, `cookie` or `bearer`. The match is on part of the name, so `MONKEY` and `AUTHOR` match too, and a secret under an unusual name such as `SIGNING` does not.
+
+<Callout kind="warn" title="What is not hidden">
+  Redaction looks at names, not values. A secret in `server.args`, in a URL's path or query string, or in a value that also contains a placeholder is printed as written. Messages about a server that failed to start can include the last lines of the server's own error output, and evidence lines quote short pieces of what the server returned. Neither is filtered. Read a report before you share it.
+</Callout>
+
+The database suite's throwaway roles get a random password generated for each run. It reaches the server only through the `{dsn}` placeholders, which reports show unexpanded. The database exists only for the run.

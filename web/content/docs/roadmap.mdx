@@ -1,0 +1,36 @@
+export const meta = {
+  title: "Roadmap",
+  since: "0.1",
+  status: "shipped",
+  description: "What is designed but not built, what is built but not verified everywhere, and what is not planned.",
+};
+
+What the repository build does today is in the [changelog](/docs/changelog); check `npm view sealmark version` for what is published. This page lists what is not built, what is built but not verified everywhere, and what is not planned. No dates are promised.
+
+<Callout kind="warn" title="Planned means not built">
+  Every item under "Designed, not built" is a design, and it can change. Nothing in that list runs today, and nothing grades it.
+</Callout>
+
+## Designed, not built
+
+| Item | What it would do | Status |
+|---|---|---|
+| DNS rebinding probes | Test whether a URL tool re-resolves a name to a loopback address. Needs a DNS zone that answers differently per query, which the harness does not own. | <Status kind="planned" /> |
+| DuckDB fixtures and grading | The `sqlite` suite's ideas on a DuckDB file. `{duckdb_path}` is a placeholder only; the engine is an optional native dependency that is not installed or tested. | <Status kind="planned" /> |
+| MySQL | A database option that takes a DSN the way `--pg` does. There is no embedded MySQL for Node, so it would need a service. | <Status kind="planned" /> |
+| A badge service | A hosted badge for a published version of a server, with rules for who may publish and when a result is held. | <Status kind="planned" /> |
+| Marketplace listing of the action | Needs the action in its own public repository. | <Status kind="planned" /> |
+| Prompt-argument probing | Call `prompts/get` with malformed arguments. Today prompts are listed and scanned as text only. It needs a `prompts/get` path in the client and a decision on a prompts surface. | <Status kind="planned" /> |
+
+## Built, not verified everywhere
+
+- **Windows.** The cleanup paths that kill a whole process tree, the `cmd.exe` quoting in the launcher and the `--fixture fs` junctions were written for Windows and have not been run on it. Run `npm test` on a Windows machine before relying on them.
+- **The GitHub Action** upload step has not run on a hosted runner: it works only once the repository is public. See [Use the action](/docs/guides/ci#use-the-action).
+
+## Not planned
+
+- **Prompt injection carried in tool output.** Detecting it needs a model in the loop, and Sealmark has no model in the loop by design.
+- **Authentication flows that need real credentials.** They are out of scope.
+- **Supply chain and install-time behavior.**
+
+The full list of what the tests do not cover is in the [known blind spots](/docs/methodology#known-blind-spots) of the methodology.

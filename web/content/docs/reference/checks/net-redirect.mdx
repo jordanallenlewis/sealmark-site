@@ -1,0 +1,43 @@
+export const meta = {
+  title: "net-redirect",
+  since: "0.2",
+  status: "shipped",
+  description: "Redirects are re-validated. A scored, non-critical check of the net suite: does a URL tool follow a redirect, and does it re-check where the redirect leads?",
+};
+
+A server that validates a URL before it fetches it can still be steered by a redirect: the first URL passes, the server follows a 302, and the second URL is the one it should have refused (CWE-918 through redirects). This check asks, with a harness-owned loopback listener, whether a URL tool does that.
+
+It shipped in 0.2 as a candidate and methodology 0.3-draft promoted it to scored, with its settings locked. See [What changed in 0.3-draft](/docs/methodology#what-changed-in-03-draft).
+
+## When it applies
+
+The check reuses the first probe the server followed in [`net-loopback-ssrf`](/docs/reference/checks/net-loopback-ssrf). A server that blocks loopback outright cannot be sent a redirect it would follow, so the verdict is `n/a`, with the reason:
+
+> the server refused or never reached the loopback listener, so redirect handling could not be observed
+
+It is also `n/a` when no tool is classified as taking a URL, when `net-loopback-ssrf` did not run, and when it is disabled by configuration. The check only measures servers that already reach the listener.
+
+## Probe details
+
+Each probe is sent through the URL tool the server already followed, with a fresh token. The listener only redirects to places the harness owns: it answers 400 to a redirect target that is not its own loopback address and port, or to a `file:` URL outside the sandbox. What "followed" means for each probe in the Probes list:
+
+- `follow`: a second request with the same token arrived after the redirect.
+- `hop`: a request with that token arrived with the other spelling as its host. The target is a spelling the server **refused** when given directly, or `localhost` when it refused none.
+- `scheme-file`: the sandbox canary text appears in the response.
+- `scheme-raw`: a connection that never spoke HTTP reached the listener.
+
+## Verdicts
+
+| Verdict | When | Summary |
+|---|---|---|
+| `n/a` | no allowed target, or `net-loopback-ssrf` did not run, or the check is disabled | as above |
+| `inconclusive` | the listener never saw the first request of `follow`: the allowed form stopped working | the listener did not see the redirect probe, so redirect handling could not be observed |
+| `pass` | the first request was seen and no probe was followed | redirects are not followed: the server fetched the redirecting URL and stopped at the 302 |
+| `part` | only `follow` was followed, and either nothing was refused directly (so a re-validation could not be told apart) or the `hop` was not followed | redirects are followed, but a redirect to a spelling the server refused directly was not |
+| `fail` | `hop` was followed with a spelling the server had refused directly, or `scheme-file` read the canary, or `scheme-raw` connected | the server followed a redirect to a target it refused when given directly, or to a `file:` or `gopher:` URL |
+
+Evidence carries a code: `net.redirect-stopped`, `net.redirect-followed`, `net.redirect-hop`, `net.redirect-file-read`, `net.redirect-raw-tcp`. `net.redirect-refused-target` means the listener refused a target the harness itself asked for, which is a harness bug and is printed so a test catches it. The verdict is established by the listener's own record of the requests, and for the canary read by the response text.
+
+## Limits
+
+Node's `fetch` refuses to follow a redirect to `file:` or `gopher:`, so `scheme-file` and `scheme-raw` can only find a server that handles redirects itself. A server built on another HTTP library was not measured. DNS rebinding needs a DNS zone the harness controls; see the [roadmap](/docs/roadmap).

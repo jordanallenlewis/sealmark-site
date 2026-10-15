@@ -1,0 +1,143 @@
+export const meta = {
+  title: "CLI",
+  since: "0.1",
+  status: "shipped",
+  description: "How the sealmark command behaves: which suites run, where output goes, how the gate and the CI defaults work, and what causes each exit code.",
+};
+
+<Callout title="Availability">
+  Run it with `npx sealmark` (npm package `sealmark`, Apache-2.0). It needs Node 22.13 or newer and no Docker.
+</Callout>
+
+## What one run does
+
+`sealmark run` does the following, in order.
+
+1. Reads the flags and the [configuration](/docs/reference/configuration#layers). A bad flag or an invalid config stops here with exit code 2.
+2. Starts the server once, inside a disposable sandbox (after writing any `server.files` into it), to read its tools and run the core suite. A server Sealmark does not launch (`--url` alone) or launches without a sandbox (`--start` with `--url`) is not sandboxed.
+3. Classifies each tool by what its arguments take (a path, a URL, a command, SQL, a repository, plain text). A tool it cannot classify gets the `core` checks only and is listed as not covered.
+4. Runs every other suite that applies, each against a target the harness owns, with fresh server sessions. The `db` and `sqlite` suites use a seeded synthetic database.
+5. Grades each suite, prints the report, and sets the exit code.
+
+The exact checks, probes and thresholds are on the [checks](/docs/reference/checks) pages. The cleanup that follows every run is described under [Safety](/docs/safety).
+
+## Which test suites run
+
+There are twelve built-in test suites, plus your own `probes:`. Eight are in the standard profile. `exec` runs only with `--active`. `scope`, `sql-guard` and `upstream` are candidate suites, added when their declaration exists ([guide](/docs/guides/backend-servers)). Each suite runs only when the harness can give the server a target it owns; otherwise it is reported as not applicable, with the reason in the second column.
+
+| Test suite | Not applicable when |
+|---|---|
+| `core` | never; it runs on any server |
+| `db` | the config has no `{dsn}` (or `{host}`, `{port}`...) placeholder, or no tool takes SQL |
+| `sqlite` | no tool takes a SQL string, or the config has no `{sqlite_path}` |
+| `fs` | no tool is classified as taking a file path with medium confidence or higher |
+| `net` | no tool is classified as taking a URL with medium confidence or higher (a `url` parameter on a tool whose main class is `path` counts), or the server cannot reach the harness's loopback listener |
+| `git` | no tool is classified as taking a git repository path with medium confidence or higher, or the config has no `{sandbox}` (a server given a real repository would reach every other repository legitimately, so the scope check could not be configured; pass `{sandbox}/repo` as the repository argument) |
+| `http` | `server.url` is not set: the server is started over stdio |
+| `effects` | no tool both takes a harness-owned target and declares annotations |
+| `exec` | the `--active` flag is missing, or no tool is classified as running a command with high confidence |
+| custom | no `probes:` with a `check:` are declared in the config, or the suite list was chosen with `--pack` or `packs:` and leaves `custom` out (the probes are skipped with a warning) |
+
+A server that is already running over HTTP cannot be started inside the sandbox, so `fs`, `git`, `exec`, `effects` and `sqlite` are not applicable for it. `--no-sandbox` has the same effect and makes the run CUSTOM. Naming fewer than the standard suites with `--pack` also makes the run CUSTOM.
+
+## Where output goes
+
+Progress lines and warnings go to standard error. When the console does not already show the grades (the report goes to a file with `--out` or `--out-dir`, including `--format summary --out <file>`, or the format on standard output is a machine one such as `--format json`), the grades are also printed to standard error, one line per server. The line names a critical fail whether or not it capped the grade, and a critical check at `part` as `critical part`, for example `db F critical fail: mutating-sql`. The formats and the files they produce are on [Output](/docs/reference/output).
+
+## The gate and the exit code
+
+**The default gate is A in every profile.** `sealmark run` exits 1 when any graded suite is below the gate. `--fail-under` takes a letter from A to F, in either case, or `none` to turn the gate off (`output.exit_policy.fail_under: null` in a file). A provisional `A*` is below an A gate, but a provisional B meets `--fail-under B`. The gate judges only suites that received a letter; a warning on standard error names an inconclusive suite it does not cover. `--soft-fail` keeps the gate but turns exit 1 into exit 0, with a `soft-fail:` warning. Before 0.2.0 there was no gate unless you asked for one.
+
+With `--baseline`, `--fail-on` chooses what decides exit 1: `any` (the default: the gate and regressions), `regressions` (only regressions, so a server that is already below the gate can be held where it is) or `drift` (a breaking or notable change in the tool surface; see [Catch tool-surface drift](/docs/guides/drift)). They combine, for example `--fail-on regressions,drift`. `regressions` and `drift` need `--baseline`; without one the run exits 2.
+
+## CI is detected
+
+When `CI=true` (GitLab, GitHub Actions and most CI systems set it) and no profile is chosen, Sealmark uses the `ci` profile and says so in the log. The `ci` profile prints the `summary` format in the job log and writes JUnit and JSON files into `./sealmark-report/`. The opt-outs are asking for something else: a profile (`--profile standard`, or `profile:` in a file or `SEALMARK_PROFILE`), or any of `--out`, `--format` or `--out-dir`. `--fail-under` and `--soft-fail` are not opt-outs, because they change the exit code and not the output.
+
+`sealmark init --ci gitlab` (or `github`) prints a ready-to-paste CI job and writes nothing. With `--start "<command>"` and `--url <url>` Sealmark launches your server, waits until the URL answers, grades it and stops it, so a CI job needs no config file. See the [CI guides](/docs/guides/ci).
+
+## Two flag notes
+
+- **`--timeout-probe`** sets how long the cap and timeout probes wait (10 seconds by default). If your server's own timeout is longer than this value plus 8 seconds, set the flag to your timeout, or the `db-timeout` check will say "still running".
+- **`--fixture`** writes what the sandbox generates into a directory, for exploring by hand: `sealmark run --fixture fs --into ./sealmark-fixtures` writes the file layout the fs suite uses (with a `SEALMARK-FIXTURE.txt` that explains each path), `git` adds the three repositories (and needs `git` on the path), and `sqlite` writes the seeded database file. It refuses to write over an earlier fixture. See [Sandbox](/docs/concepts/sandbox).
+
+## Why an exit code happens
+
+The table above lists what each code means. These are the situations behind them, taken from the CLI's source.
+
+### Exit 0
+
+The run finished, at least one suite was graded, and none is below the [gate](#the-gate-and-the-exit-code). `sealmark init` that wrote its file, `--help`, and a run below the gate under `--soft-fail` also exit 0.
+
+### Exit 1
+
+A graded suite is below the gate, or an inconclusive suite counts as failing (`output.exit_policy.treat_inconclusive_as: fail`, which the `ci` profile sets), or a `--baseline` comparison found a regression, or, with `--fail-on drift`, the tool surface drifted. Standard error names each one, for example `pack core graded B, below --fail-under A`. The report is still written. With `--fail-under none` the exit code is not tied to the grades, and under `treat_inconclusive_as: fail` a note says that the policy does not affect the exit code while the gate is off. With `--soft-fail` this becomes exit 0; exits 2, 3 and 4 still fail.
+
+### Exit 2
+
+Something is wrong with how you invoked Sealmark or with its config. The message on standard error says which, with the file and line and a did-you-mean when a key is misspelled. Causes on the command line:
+
+- an unknown flag, an unknown command, no command, or an extra argument;
+- `--format` other than the eight formats, a `--fail-on` value other than `any`, `regressions` or `drift`, `--fail-on regressions` or `drift` without `--baseline`, `--format badge` or `shields` with several servers, `--fixture duckdb` or an unknown fixture, `--fail-under` other than A to F or `none`, an unknown `--pack`, or `--timeout-probe` that is not a positive number;
+- `--pg` without `--yes`, `--pack exec` without `--active`, or a `--pg` value that cannot be read as a URL;
+- `init` or `config migrate` when the file already exists and `--force` is missing;
+- `--start` and `--url` that come from different places.
+
+A config the checks in [How the file is checked](/docs/reference/configuration#how-the-file-is-checked) reject exits 2 too, and so do `server.files` that writes outside the sandbox, uses a database placeholder, or is set for a server Sealmark does not start in the sandbox, and `sql_tools` that names a tool the server does not declare or an argument the tool does not have as a string.
+
+### Exit 3
+
+No suite was graded. Every suite was either not applicable or inconclusive, so there is no letter to judge. This code is decided before the gate, so a run that grades nothing can never pass it by accident. The reasons are in the report. See [Troubleshooting](/docs/troubleshooting).
+
+### Exit 4
+
+The harness or the server failed. Examples: the server command was not found, would not complete the handshake within the connect timeout, or its stderr shows a crash; a server started with `--start` exited or never answered on `--url` within `--start-timeout`; the embedded Postgres could not be loaded or started; the seed database could not be provisioned on the Postgres you named; `doctor` found a failing step. The message includes the last lines of the server's standard error when there are any.
+
+### Exit 129, 130 and 143
+
+On `SIGHUP` (129, a closed terminal), `SIGINT` (130, Ctrl-C) or `SIGTERM` (143) the harness cleans up and exits with 128 plus the signal number. It starts no further server after the signal, removes the sandbox, the databases and the embedded Postgres (also one that was still starting), and if a directory is still there it prints `cleanup did not finish: <path> (remove it by hand)` on standard error. These codes are set by the signal handler, not by the result.
+
+## Examples
+
+Each command below uses only flags the CLI accepts today.
+
+```bash
+# write a starter sealmark.yaml, then edit "server" to point at your MCP server
+npx sealmark init
+
+# run every pack that applies; any pack below an A exits 1 (the default gate)
+npx sealmark run
+
+# relax the gate to a B, or switch it off and only read the report
+npx sealmark run --fail-under B
+npx sealmark run --fail-under none
+
+# warn about a grade below the gate but exit 0 (errors still fail)
+npx sealmark run --soft-fail
+
+# one pack, JSON record to a file
+npx sealmark run --pack core --format json --out sealmark.json
+
+# no config file: launch a server, test it over HTTP, stop it
+npx sealmark run --start "my-server --port 8000" --url http://localhost:8000/mcp
+
+# a server that is already running, with a token read from the environment
+npx sealmark run --url https://example.test/mcp --bearer '${MCP_TOKEN}'
+
+# print a ready-to-paste CI job
+npx sealmark init --ci gitlab
+
+# keep a baseline, and fail on a regression or a changed tool surface
+npx sealmark run --write-baseline sealmark-baseline.json
+npx sealmark run --baseline sealmark-baseline.json --fail-on regressions,drift
+
+# compare two reports without starting a server
+npx sealmark diff before.json after.json
+
+# a README badge for one server, and the layouts the sandbox generates
+npx sealmark run --format badge --out-dir badge
+npx sealmark run --fixture fs --into ./sealmark-fixtures
+
+# your own throwaway Postgres instead of the embedded one
+npx sealmark run --pg postgres://postgres@localhost:5432/postgres --yes
+```

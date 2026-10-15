@@ -1,0 +1,63 @@
+export const meta = {
+  title: "mutating-sql",
+  since: "0.1",
+  status: "shipped",
+  description: "Mutating SQL blocked.",
+};
+
+A database MCP server that calls itself read-only usually enforces that with a text filter or a read-only transaction. Both have well-known bypasses. This check sends 16 mutation forms as the admin role and reads the database afterwards to see whether any of them took effect.
+
+## Probe details
+
+Run as `sm_admin`, once per SQL tool. Before every case the harness resets the scratch state over its own connection (truncates `probe_t`, restores tenant names, drops `sm_ddl_probe`, recreates `audit_probe` if a probe dropped it). The same admin control read as in [read-only](/docs/reference/checks/read-only) must pass first. Where a case has several steps, each step is its own tool call, run in order. The statements are in the Probes list above, in this order; the numbers below match it, and the comment lines the SQL carries are not sent.
+
+After each case the harness reads the database for the effect below. The server's response text is recorded in the evidence but does not decide.
+
+| # | Case | Effect looked for |
+|---|---|---|
+| 1 | stacked statements (DROP) | `audit_probe` no longer exists |
+| 2 | stacked statements (INSERT) | `probe_t` row 9002 exists |
+| 3 | COMMIT then write (read-only transaction escape) | row 9005 exists |
+| 4 | case and comment obfuscation (INSERT) | row 9008 exists |
+| 5 | data-modifying CTE (DELETE) | row 9003 is gone (seeded first) |
+| 6 | data-modifying CTE (INSERT) | row 9004 exists |
+| 7 | function with side effects | `probe_t` has a row with `v = 'fn'` |
+| 8 | anonymous DO block | row 9007 exists |
+| 9 | TRUNCATE | row 9009 is gone (seeded first) |
+| 10 | DDL (CREATE TABLE) | table `sm_ddl_probe` exists |
+| 11 | DDL via SELECT INTO | table `sm_ddl_probe` exists |
+| 12 | PREPARE then EXECUTE | row 9011 exists |
+| 13 | session state (disable read-only, then write) | row 9006 exists |
+| 14 | PREPARE and EXECUTE in one call | row 9012 exists |
+| 15 | function with side effects in FROM | `probe_t` has a row with `v = 'fn'` |
+| 16 | EXPLAIN ANALYZE runs the statement | row 9013 exists |
+
+Cases 1 to 4 are the core cases: the canonical bypasses of a "read-only SQL tool".
+
+Notes on the corpus:
+
+- Cases 1 and 2 need multi-statement support, which only the simple-query protocol provides. A server that uses the extended protocol rejects multiple statements, so it legitimately "blocks" them.
+- Case 3 works only if the server wraps queries in a transaction and does not stop `COMMIT`.
+- Case 13 relies on a session setting outliving the call, which a rollback undoes, and on both steps reaching the same database session. A server that opens a new connection per call blocks it by accident, and the corpus cannot tell the difference.
+- `sm_mutate()` is a volatile SQL function in the seed that inserts `(9100, 'fn')` into `probe_t`. Case 7 calls it in the select list and case 15 in the `FROM` clause: a filter that blocks function calls in the select list can still let the second form through.
+- Cases 12 and 14 are the same statement sent two ways. A server that opens a new connection per call blocks the two-call form by accident (the prepared statement does not exist on the next connection) but not the single-call form.
+- Case 16 is a read form: `EXPLAIN ANALYZE` executes the statement it explains, so a filter that allows everything starting with `EXPLAIN` lets a write through.
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| pass | all 16 forms had no effect, on every SQL tool |
+| partial | the four core forms were blocked, but an indirect form changed the database |
+| fail | a core form (stacked statement, `COMMIT` escape or obfuscated write) changed the database |
+| inconclusive | the server stopped answering part-way through the corpus, and no core case had taken effect |
+
+When the server goes quiet part-way, the remaining cases are not run. A core effect seen before that still gives `fail`. A non-core effect seen earlier stays in the evidence, but the verdict is `inconclusive`.
+
+Why the split: stacked statements, a `COMMIT` that ends a read-only wrapper, and case or comment obfuscation defeat naive filters and read-only wrappers alike. A server that fails them is not read-only in any meaningful sense. Cases 5 to 16 are blocked reliably only by a read-only transaction or a read-only role, not by text filtering, so a miss there indicates a weaker enforcement design rather than a bypass of an advertised filter. The split is a judgment call and may change before 1.0.
+
+## Limits
+
+- The corpus is finite: `COPY ... TO PROGRAM`, large objects, `pg_read_file`, sequences (`nextval`), advisory locks, extensions and privilege escalation are not tried, and the strings are published, so a server that matches the harness's exact strings is not caught.
+- A tool you list under `sql_tools` is judged as a read tool, so a server with a legitimate write tool listed there fails.
+- The state reader is a separate connection, so a false positive from a side route the server cannot control is very unlikely. A different Postgres version may behave differently.

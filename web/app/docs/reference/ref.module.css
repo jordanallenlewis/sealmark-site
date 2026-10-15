@@ -1,0 +1,56 @@
+/* Styles for the generated reference pages (work package D2). Tokens only; no new colors. */
+.note { color: var(--ink-faint); font-size: 0.9rem; margin: 6px 0 22px; max-width: 70ch; }
+.h2 { font-size: 1.5rem; margin: 40px 0 14px; }
+.h3 { font-size: 1.15rem; margin: 26px 0 10px; }
+.mono { font-family: var(--mono); font-size: 0.88em; }
+.muted { color: var(--ink-faint); }
+
+/* responsive reference tables: columns on wide screens, labelled rows below 700px */
+.tbl { font-size: 0.92rem; }
+.tbl th, .tbl td { padding: 11px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.tbl thead th { font: 500 0.75rem/1.35 var(--mono); color: var(--ink-faint); white-space: nowrap; }
+.tbl tbody tr:last-child td, .tbl tbody tr:last-child th { border-bottom: 0; }
+.tbl tbody th { font-weight: 600; }
+@media (min-width: 701px) { .tbl tbody th code { white-space: nowrap; } }
+.tbl code, .code { font: 0.86rem var(--mono); color: var(--ink); background: var(--code); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+@media (max-width: 700px) {
+  .stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .stack, .stack tbody, .stack tr, .stack th, .stack td { display: block; width: 100%; }
+  .stack tr { padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .stack tbody tr:last-child { border-bottom: 0; }
+  .stack th, .stack td { border-bottom: 0; padding: 4px 12px; }
+  .stack td[data-label]::before { content: attr(data-label); display: block; font: 500 0.75rem var(--mono); color: var(--ink-faint); }
+}
+
+/* usage synopsis */
+.usage { margin: 10px 0 0; padding: 12px 14px; background: var(--code); border: 1px solid var(--border); border-radius: 8px; font: 0.84rem/1.7 var(--mono); color: var(--ink-muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* exit-code ladder 0-4 */
+.ladder { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 0; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); overflow: hidden; }
+.ladder li { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.ladder li:last-child { border-bottom: 0; }
+.code0 { box-shadow: inset 3px 0 0 var(--pass); }
+.code1 { box-shadow: inset 3px 0 0 var(--fail); }
+.code2 { box-shadow: inset 3px 0 0 var(--part); }
+.code3 { box-shadow: inset 3px 0 0 var(--held); }
+.code4 { box-shadow: inset 3px 0 0 var(--fail); }
+.num { font: 800 1.6rem var(--display); color: var(--ink); text-align: center; }
+
+/* check card */
+.card { margin: 6px 0 8px; padding: 18px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 18px; margin: 0; }
+.facts dt { font: 500 0.75rem var(--mono); color: var(--ink-faint); padding-top: 3px; }
+.facts dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 560px) { .facts { grid-template-columns: 1fr; gap: 2px; } .facts dd { margin-bottom: 10px; } }
+.list { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--ink-muted); }
+.list li { overflow-wrap: anywhere; }
+.pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--border); }
+.pager a { display: block; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); text-decoration: none; color: var(--ink); }
+.pager a:hover { border-color: var(--ink-faint); }
+.pager small { display: block; font: 500 0.75rem var(--mono); color: var(--ink-faint); }
+.prose { margin-top: 36px; }
+
+/* deprecated config keys: still listed, visibly de-emphasised */
+.deprecated { color: var(--ink-faint); }
+.deprecated th code, .deprecated td code { color: var(--ink-faint); }

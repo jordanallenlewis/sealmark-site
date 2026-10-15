@@ -1,0 +1,58 @@
+export const meta = {
+  title: "Add a README badge",
+  since: "0.2.1",
+  status: "shipped",
+  description: "Render a self-reported Sealmark badge for one server, as an SVG or a shields.io endpoint file. Local files only: there is no badge service.",
+};
+
+Sealmark can render the result of a run as a badge you commit to your own repository. Two formats, both local files:
+
+- `--format badge` writes a flat SVG, `sealmark-report.badge.svg`.
+- `--format shields` writes a [shields.io endpoint](https://shields.io/endpoint) document, `sealmark-report.shields.json`, so shields.io draws the badge from a file in your repository.
+
+```bash
+npx sealmark run --format badge --out-dir badge     # badge/sealmark-report.badge.svg
+npx sealmark run --format shields --out-dir badge   # badge/sealmark-report.shields.json
+```
+
+With `--out <file>` or on standard output the format prints like any other.
+
+## What the badge says
+
+The label is always `sealmark 0.3-draft`: the methodology version is on the badge, because a letter from another version is not comparable. The message depends on the run.
+
+| Run | Message | Colour |
+|---|---|---|
+| STANDARD, more than `core` graded, no provisional grade | one letter per graded suite in suite order, then `self-reported`: `core A · db B · fs A · self-reported` | the worst letter: A bright green, B green, C yellow, D orange, F red |
+| CUSTOM (any difference from the standard profile, a plugin, custom probes) | `no badge: custom run` | light grey |
+| only `core` graded (no capability suite was graded) | `no badge: core only` | light grey |
+| a grade rests on a critical check nobody could answer (`A*`, or an inconclusive critical check) | `no badge: provisional` | light grey |
+| nothing graded | `no badge: nothing graded` | light grey |
+| the server failed to run | `no badge: server failed` | light grey |
+| any other reason the run is not eligible (for example a library caller whose run loaded no configuration) | `no badge: not eligible` | light grey |
+
+A run that is not eligible never gets a letter, and a provisional grade never does either. There is no overall letter: it would hide the weakest suite. The badge carries only suite ids and letters, never the server's name or any text the server supplied. It matches `badge.eligible` in the JSON record and the text report.
+
+## Self-reported
+
+Sealmark does not host, check or vouch for the badge: you generate it from a run on your machine or in your CI and commit it. An A on it means these checks passed with this exact configuration, nothing more.
+
+## Put it in a README
+
+Commit the SVG and reference it:
+
+```markdown
+![sealmark](badge/sealmark-report.badge.svg)
+```
+
+Or commit the shields file and let shields.io draw it. Replace `<owner>` and `<repo>` with your own account and repository:
+
+```markdown
+![sealmark](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/<owner>/<repo>/main/badge/sealmark-report.shields.json)
+```
+
+Regenerate the file in CI on your main branch rather than by hand, so the badge tracks the code. See [Run in CI](/docs/guides/ci) for the job that runs Sealmark.
+
+With several servers in one run the command exits 2 and says to run with `--server <name>`.
+
+Related: [Standard vs custom](/docs/concepts/standard-vs-custom), [Output](/docs/reference/output), [CLI](/docs/reference/cli).

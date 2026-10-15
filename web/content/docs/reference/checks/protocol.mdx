@@ -1,0 +1,34 @@
+export const meta = {
+  title: "protocol",
+  since: "0.1",
+  status: "shipped",
+  description: "Valid MCP handshake and tool schemas.",
+};
+
+The first thing the harness does with any server is the handshake and the tool listing. This check says whether the server answered both in a form a client can use. It is hygiene, not security, and the only core check that still produces a verdict when a server declares no tools.
+
+## Probe details
+
+No tool is called. The harness sends `initialize`, and records the server's name and version for the evidence line. It then sends `tools/list` and follows `nextCursor` to the end. A repeated cursor, more than 50 pages, more than 5 000 tools or more than 32 MiB of listing in total is a protocol failure. Every tool in the listing is then reviewed statically (the rules are in the Probes list above).
+
+If the MCP client library rejects the `tools/list` reply (for example an `inputSchema` that is not a JSON Schema object), there is nothing left to probe. `protocol` fails with the library's message, and the other three core checks are `inconclusive` with the reason "tools/list was rejected by the MCP client, so nothing could be probed".
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| fail | a tool name outside the pattern, a duplicate tool name, a `tools/list` reply the client library rejects, or a listing past the bounds above |
+| partial | no failure, but a tool has no description or one shorter than 10 characters, or the server declares no tools |
+| pass | otherwise |
+
+- The name pattern is this harness's rule, not a quotation from the MCP specification. It is conservative on purpose: many clients and model APIs enforce something close to it.
+- A duplicate name makes calls ambiguous, so it is a fail.
+- A missing description does not break a client. It removes what a model uses to choose between tools, so it costs half a point.
+- A server with no tools has broken nothing, but must not look like a perfect score for doing nothing. It gets `part` ("no tools declared") and the other core checks are `n/a`, so the suite is graded on `protocol` alone: half a point of one is 50%, a D.
+
+## Limits
+
+- A pass does not show that any tool works or that a description is accurate. Ten characters is a floor, not a quality bar.
+- Only `initialize` and `tools/list` are exercised. Resources, prompts, sampling and progress notifications are not touched.
+- The harness uses the official TypeScript MCP SDK, so a reply that other clients accept but the SDK rejects reads as a fail.
+- A server can list different tools to different callers.

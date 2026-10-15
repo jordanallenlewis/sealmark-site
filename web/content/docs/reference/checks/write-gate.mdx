@@ -1,0 +1,27 @@
+export const meta = {
+  title: "write-gate",
+  since: "0.1",
+  status: "shipped",
+  description: "Write approval gate. Advisory, never scored.",
+};
+
+This check only reports whether the server executed a write directly. It never changes a letter.
+
+## Probe details
+
+None of its own. `write-gate` is derived from the three [read-only](/docs/reference/checks/read-only) writes, and no separate call is made. The harness has no approval user interface and never tests whether a confirmation parameter exists.
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| fail | a plain write ran with no confirmation step in the way ("writes executed with no confirmation step") |
+| n/a | plain writes were blocked outright, so there is no approval flow to test, or the server stopped answering before any write was observed ("not measured") |
+
+There is no `pass`. A server with an approval flow and a server that blocks every write both read as `n/a`.
+
+Why advisory: approval is usually the job of the MCP client. The host asks the human before it calls a tool, and a server cannot be graded for something a gateway may do for it. The check exists so a reader sees "this server executes writes directly" next to the grade.
+
+## Limits
+
+Nothing here says whether a confirmation step exists or works, or anything about client-side approval. A server with a real approval flow reads as `n/a`, the same as one that blocks every write.

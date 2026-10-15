@@ -1,0 +1,43 @@
+/* Fallback MDX building blocks owned by work package D2 (Status, Callout, Planned, Figure, Pre).
+   They only use tokens from app/globals.css. D1 may replace them with its own versions in components/docs. */
+
+.status { vertical-align: middle; }
+.statusPlanned { color: var(--planned, #8a8474); border: 1px dashed var(--planned, #6a6659); background: transparent; }
+.statusPlanned::before { content: "\2026"; font-weight: 700; }
+.statusOpt::before { content: "+"; }
+.statusAdv::before { content: "\2013"; }
+
+.callout { margin: 20px 0; padding: 12px 16px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; color: var(--ink-muted); font-size: 0.95rem; line-height: 1.6; }
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child { margin-bottom: 0; }
+.calloutWarn { border-left-color: var(--fail); background: var(--fail-bg); color: var(--ink); }
+.calloutTitle { display: block; font: 600 0.75rem var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-link); margin-bottom: 4px; }
+.calloutWarn .calloutTitle { color: var(--fail); }
+
+.planned { position: relative; margin: 20px 0; padding: 30px 16px 12px; border: 1px dashed var(--planned, #6a6659); border-radius: 8px; opacity: 0.92; }
+.planned > :last-child { margin-bottom: 0; }
+.plannedRibbon { position: absolute; top: 0; left: 0; font: 600 0.75rem var(--mono); letter-spacing: 0.03em; color: var(--ink-faint); background: var(--surface-2); border: 1px dashed var(--planned, #6a6659); border-width: 0 1px 1px 0; border-radius: 8px 0 8px 0; padding: 3px 10px; }
+.planned :global(.copybtn) { display: none; }
+
+.figure { margin: 28px 0; max-width: 100%; }
+
+.codeWrap { position: relative; margin: 18px 0; }
+.codeWrap pre { margin: 0; padding: 16px 16px; background: var(--code); border: 1px solid var(--border); border-radius: 8px; font: 0.84rem/1.7 var(--mono); color: var(--ink-muted); overflow-x: auto; }
+.codeWrap pre code { font: inherit; background: none; padding: 0; color: inherit; }
+.codeWrap :global(.copybtn) { position: absolute; top: 8px; right: 8px; }
+
+.tabs { margin: 22px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); overflow: hidden; }
+.tabs :global(.ctabs) { padding: 0 8px; background: var(--surface-2); }
+.panel { padding: 4px 16px 4px; }
+.panel > pre, .panel > div > pre { margin-block: 12px; }
+
+.docHeader { margin-bottom: 28px; }
+.docHeader h1 { font-size: clamp(2rem, 5vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 10px; }
+.lede { color: var(--ink-muted); font-size: 1.1rem; max-width: 62ch; margin-bottom: 12px; }
+.docMeta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+.tableWrap { margin: 20px 0; }
+.mdxTable { font-size: 0.92rem; min-width: 480px; }
+.mdxTable th, .mdxTable td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.mdxTable thead th { font: 500 0.75rem/1.35 var(--mono); color: var(--ink-faint); }
+.mdxTable tbody tr:last-child td { border-bottom: 0; }

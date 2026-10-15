@@ -1,0 +1,20 @@
+/* 404 page. Its own small sheet on purpose: not-found.tsx is part of the root layout's graph, so anything it imports
+   ships on every route. Importing the docs shell sheet here put the docs CSS and the search component on the home page. */
+.root { min-height: 100vh; display: flex; flex-direction: column; }
+.headInner { width: 100%; max-width: 1320px; margin: 0 auto; height: 64px; display: flex; align-items: center; gap: 12px; }
+.brandText { white-space: nowrap; }
+@media (max-width: 560px) { .brandText { display: none; } }
+.siteNav { margin-left: auto; display: flex; gap: 20px; }
+.siteNav a { color: var(--ink-faint); text-decoration: none; }
+.siteNav a:hover { color: var(--accent-link); }
+
+.nf { flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: 72px 20px 88px; }
+.nfKick { font: 600 0.8rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.nf h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); letter-spacing: -0.03em; }
+.nf > p { margin-top: 16px; color: var(--ink-muted); max-width: 56ch; }
+.nf > p a { color: var(--accent-link); }
+.nfLinks { margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
+.nfLinks h2 { font: 600 0.75rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+.nfLinks ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.nfLinks a { color: var(--ink-muted); text-decoration: none; }
+.nfLinks a:hover { color: var(--accent-link); text-decoration: underline; }

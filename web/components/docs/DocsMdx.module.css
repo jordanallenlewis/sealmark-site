@@ -1,0 +1,50 @@
+/* Styles for the MDX building blocks of the docs shell (work package D1): Status, Callout, Planned, Code, Tabs.
+   Tokens from app/globals.css only. */
+
+/* ---- Status ---- */
+.status { vertical-align: middle; font-size: 0.75rem; }
+.status.planned { color: var(--ink-faint); background: transparent; border: 1px dashed var(--planned); }
+.status.planned::before { content: "\2026"; }
+.status.optin::before { content: "+"; }
+.status.advisory::before { content: "\2013"; }
+
+/* ---- Callout ---- */
+.callout { margin: 22px 0; padding: 12px 16px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; color: var(--ink-muted); font-size: 0.95rem; line-height: 1.6; }
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child { margin-bottom: 0; }
+.warn { border-left-color: var(--fail); background: var(--fail-bg); color: var(--ink); }
+.calloutTitle { display: block; font: 600 0.75rem var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-link); margin-bottom: 4px; }
+.warn .calloutTitle { color: var(--fail); }
+
+/* ---- Planned block: dashed frame, ribbon, no copy buttons ---- */
+.plannedBlock { position: relative; margin: 22px 0; padding: 34px 16px 12px; border: 1px dashed var(--planned); border-radius: 8px; }
+.plannedBlock > :last-child { margin-bottom: 0; }
+.ribbon { position: absolute; top: 0; left: 0; font: 600 0.75rem var(--mono); letter-spacing: 0.03em; color: var(--ink-faint); background: var(--surface-2); border-right: 1px dashed var(--planned); border-bottom: 1px dashed var(--planned); border-radius: 8px 0 8px 0; padding: 3px 10px; }
+.plannedBlock :global(.copybtn) { display: none; }
+
+/* ---- Code ---- */
+.code { position: relative; margin: 18px 0; background: var(--code); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.codeBar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--border); background: var(--surface); min-height: 38px; }
+.lang { font: 500 0.75rem var(--mono); color: var(--ink-faint); letter-spacing: 0.04em; text-transform: lowercase; }
+.code pre { margin: 0; padding: 14px 16px; background: transparent; border: 0; border-radius: 0; font: 0.84rem/1.7 var(--mono); color: var(--ink-muted); overflow-x: auto; tab-size: 2; }
+.code pre code { font: inherit; background: none; padding: 0; color: inherit; border-radius: 0; }
+
+/* ---- Tabs ---- */
+.tabs { margin: 22px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); overflow: hidden; }
+.tabs :global(.ctabs) { padding: 0 8px; background: var(--surface-2); }
+.panel { padding: 2px 14px; min-width: 0; }
+.panel > .code { margin-block: 14px; }
+.panel > :first-child { margin-top: 12px; }
+.panel > :last-child { margin-bottom: 12px; }
+
+@media print {
+  .tabs { border-color: #999; background: none; }
+  .tabs :global(.ctabs) { display: none; }
+  .panel[hidden] { display: block; }
+  .panel::before { content: attr(data-title); display: block; margin-top: 8px; font: 600 0.75rem var(--mono); text-transform: uppercase; }
+  .code, .codeBar { background: none; border-color: #999; }
+  .code pre { overflow: visible; white-space: pre-wrap; overflow-wrap: anywhere; color: #000; }
+  .codeBar :global(.copybtn) { display: none; }
+  .callout, .warn { background: none; color: #000; border-left-color: #000; }
+  .ribbon { background: none; color: #000; }
+}

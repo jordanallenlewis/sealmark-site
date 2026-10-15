@@ -1,0 +1,158 @@
+export const meta = {
+  title: "Methodology",
+  since: "0.1",
+  status: "shipped",
+  description: "How Sealmark probes a server, how checks become a letter, what the seed database holds, how a refusal is judged, and what it does not test.",
+};
+
+<Callout title="Draft">
+  Methodology 0.3-draft can change until 1.0. Every check, probe, threshold and the grading formula can still change, and a change bumps the methodology version recorded in each result. A grade from this draft is a local test result, not a public rating. Example data: servers and results are invented.
+</Callout>
+
+This page is written for methodology 0.3-draft. The checks themselves are not copied here: every check has a generated page (the [checks reference](/docs/reference/checks)) that lists its probes, thresholds, verdict rules, remediation and known false results, and `sealmark explain <check-id>` prints the same text. `sealmark list-checks` and `sealmark describe` print the whole registry from the code.
+
+If this page and the code disagree, the code is what runs. File a docs bug.
+
+## What an A means
+
+[An A means these checks passed with this exact configuration; it is not a security endorsement](/docs/methodology#what-an-a-means).
+
+More exactly: the server passed these specific, published probes, with the command, arguments and environment you gave the harness. It says nothing about what the probes do not cover. See [Known blind spots](#known-blind-spots).
+
+A letter belongs to one server name and version, in one configuration. Grades are never inherited between versions. A server run with a different flag, an allow-list or a row limit can earn a different grade.
+
+## Model
+
+- The harness is an MCP client. It calls tools directly, with fixed inputs. **No LLM is in the loop.**
+- There are twelve test suites (three of them [candidate suites](#candidate-suites)), and your own probes. See [Suites](/docs/concepts/packs) for when each applies and [classification](/docs/concepts/classification) for how a tool is placed.
+- Every suite except `core` runs only when the harness can give the server a target it owns: a sandbox directory, a loopback listener, a seeded database, or the HTTP endpoint you configured. A suite that cannot run is reported as not graded, with the reason.
+- Each check returns a **verdict**: `pass`, `part` (partial), `fail`, `inconclusive` (the harness could not tell), or `na` (not applicable). See [verdicts](/docs/concepts/verdicts).
+- Each check carries a **scope** line, printed in every report. It says whether the check measures the *server's* behavior, or a *database control tested through the server*, which asks whether the server defeats a control the database already enforces.
+- Each piece of evidence says how it was established (`verifiedBy`), and the server's own answer is the weakest kind. See [observers](/docs/concepts/observers).
+
+Every result records the exact server command with placeholders unexpanded, the server environment (canary values shown as `<canary>`, HTTP headers listed as `header:<Name>`), the discovered tools, the SQL tools, the sandbox and database mode and seed version, and the probe options, so a run can be reproduced. A report names the methodology version, whether the run is STANDARD or CUSTOM, and carries a configuration hash. See [standard vs custom](/docs/concepts/standard-vs-custom). What the report hides, and what it does not, is on the [environment](/docs/reference/environment#what-the-report-hides) page.
+
+## Grading formula
+
+The formula is the same as in methodology 0.1 and 0.2. It is computed per suite, per server version.
+
+1. Take the suite's checks that are **not advisory**.
+2. A check is *scored* if its verdict is `pass`, `part` or `fail`. Points: pass is 1, part is 0.5, fail is 0.
+3. If nothing is scored, **no grade is produced** (the status is `na` or `inconclusive`, with the reason). A letter is never invented.
+4. Percentage is points divided by the number scored.
+5. Raw letter: A at 90% or more, B at 75% or more, C at 60% or more, D at 45% or more, otherwise F.
+6. **Critical cap.** If any critical check has verdict `fail` and the raw letter is above D, the grade is D (`capped`). A raw D or F is not changed. A `part` on a critical check does not trigger the cap.
+7. **Provisional.** If any critical check is `inconclusive`, the grade is marked provisional (`*`), because a critical question is unanswered.
+8. **Excluded.** Non-advisory checks that are `inconclusive` or `na` leave the denominator and are listed in the result.
+9. Advisory checks are shown, labelled "advisory, not scored", and never change the letter. A **candidate** check in a standard suite is advisory until a methodology bump promotes it; the checks of a candidate suite are scored inside that suite, which stays off the badge (see [Candidate checks](#candidate-checks)).
+
+The report prints the score as points over scored checks (`PACK core  GRADE B  (3/4 points, 75% · 1 of 5 checks not scored)`), so the fraction means the same in the text, markdown and summary formats. Worked examples and the reason for the bands are on the [grades](/docs/concepts/grades) page. The checks and their weights are in the [checks reference](/docs/reference/checks).
+
+**The exit code.** The default gate is A: `sealmark run` exits 1 when a graded suite is below an A, so a suite graded B fails it. A provisional `A*` does not meet the A gate (a critical question was unanswered), but a provisional B meets `--fail-under B`. The `ci` profile also counts an inconclusive suite as a failure at the gate. See [CLI](/docs/reference/cli) and [Configuration](/docs/reference/configuration#output).
+
+## Suites
+
+Each suite has its own page of checks in the [checks reference](/docs/reference/checks), and [Suites](/docs/concepts/packs) says when each one applies and what it measures.
+
+In the `db` suite, most checks ask whether the *server* stops writes, mutations, runaway results and runaway time, tested as a role that **can** write so the database cannot be the reason a write fails. Three are different: `rls`, `pii` and `pii-masked` test a *database control tested through the server*. The database enforces row-level security, a column grant or a masked view, and the check asks whether the server *defeats* it, for example by connecting as the admin role whatever role it was asked for. A pass there does **not** mean the server implements row filtering or masking. It means the server did not undo the database's control: a SQL passthrough server connected as the right role passes `rls` and `pii` without doing anything itself. The `db` suite has ten checks, seven scored and three advisory (`write-gate`, `audit`, `db-privilege`).
+
+## Seed database
+
+Seed version 0.2. Created fresh on every run, in a database named `sealmark_seed`. Synthetic data only. Nothing here comes from any real system.
+
+| Object | Contents |
+|---|---|
+| `tenants` | 2 rows: 1 `Acme Test Co`, 2 `Globex Test Co` |
+| `customers` | 100 rows, 50 per tenant. `name` is `Customer N`. `email` is `cust`, four digits, `@example.test` (tenant 1: `cust1001` to `cust1050`; tenant 2: `cust2001` to `cust2050`). `note` is `T1-NOTE-N` for tenant 1 and `T2-SECRET-N` for tenant 2 |
+| `orders` | 100 rows, one per customer. `note` is `T1-NOTE-order-ID` or `T2-SECRET-order-ID` |
+| `big_table` | 200,000 rows: `id`, and `payload` of the form `row-ID-end` |
+| `probe_t` | an empty scratch table (`id int primary key`, `v text`). Mutation probes target it |
+| `audit_probe` | 1 row, a target for `DROP TABLE` probes |
+| `sm_mutate()` | a volatile SQL function that inserts `(9100, 'fn')` into `probe_t` |
+| `customers_masked` | a view over `customers` with `email` shown as its first letter plus `***@example.test` |
+| Row-level security | enabled on `customers` and `orders`. `sm_support` may SELECT only `tenant_id = 1`. `sm_analyst` may SELECT all rows. `sm_admin` has all rights on all rows |
+
+The three roles (see [Roles and server instances](#roles-and-server-instances)) are all `LOGIN`, `NOSUPERUSER` and `NOBYPASSRLS`, with a random password generated for each run. Database `CONNECT` is revoked from `PUBLIC` and granted to these three only. `sm_analyst` has no SELECT on `customers.email`.
+
+Sentinel values the harness looks for in responses:
+
+| Sentinel | Meaning |
+|---|---|
+| `T2-SECRET` | Appears only in tenant 2 rows. Seeing it as the support role is a row-level-security leak |
+| `T1-NOTE` | Appears only in tenant 1 rows. Used as a control |
+| `/cust\d{4}@example\.test/` | A raw email. Masked values such as `c***@example.test` do not match |
+| `/row-\d+-end/` | One `big_table` row, counted for the row-cap probe |
+| `Customer N`, count `100` | Used by the control reads |
+
+The harness keeps a separate superuser connection to `sealmark_seed`, the "state reader", to check what changed. Between probes it resets `probe_t` (truncate), restores tenant names, drops `sm_ddl_probe`, and recreates `audit_probe` if a probe dropped it.
+
+The seed is fixed. There is no "bring your own schema" in 0.3-draft. Point the harness at a Postgres you control and the seed is created there. The other suites' targets are described in [Sandbox](/docs/concepts/sandbox).
+
+## Roles and server instances
+
+A database-backed server usually takes one connection string and has no notion of callers. To test it as three roles, the harness **starts one server instance per role**, filling placeholders in the configured command, args, env, URL and headers. The placeholders and the roles are in [roles and instances](/docs/concepts/roles-and-instances).
+
+A server whose configuration contains no placeholder cannot be pointed at the seed database, so the `db` suite is not run (status `na`, with that reason). A database is started whenever the config contains placeholders, even for a `core`-only run, because the server cannot start without a connection string. With `--no-embedded` and no `--pg`, placeholders expand to empty strings and the server probably will not start.
+
+**SQL tool discovery.** The rules are on the [configuration](/docs/reference/configuration#key-sql_tools) page. A tool with other required arguments is skipped and listed under "Not covered". When `sql_tools` is given, it replaces auto-discovery entirely, and each entry must name a tool the server declares and a string argument that tool has (otherwise exit 2).
+
+**Controls.** Before judging anything, the harness checks that each SQL tool can run `SELECT (SELECT count(*) FROM customers) AS n, current_user AS u` as the admin role, see `100`, and see `sm_admin`. A tool that cannot is excluded from every check. If none can, every non-advisory check is `inconclusive`. A failed control makes a check `inconclusive`, never `pass`: a broken connection must not look like a secure server.
+
+**A server that stops answering.** A call that times out or loses its connection is no evidence. A JSON-RPC error is a reply, so it is a legitimate refusal.
+
+**Lock handling.** Before each case the harness resets the scratch state with a 5-second lock timeout. If a server left a transaction open and holds a lock, the harness terminates the server's database connections and retries once, and adds a caveat to the evidence of every check that follows. See [Troubleshooting](/docs/troubleshooting#a-lock-warning-in-the-output).
+
+## What changed in 0.3-draft
+
+The changelog is the list of what changed: [changelog, 0.3-draft](/docs/changelog). A report written under methodology 0.2 cannot be replayed (`--replay`) under 0.3-draft, and a baseline written under 0.2 prints the "different configuration" note.
+
+### The second verification round
+
+What the second round changed is in the [changelog](/docs/changelog). The refusal rule is stated in full here because it decides verdicts.
+
+**What a refusal has to say (`net-loopback-ssrf`, `net-scheme-allowlist`).** The harness owns one network target, its loopback listener, and a correctly guarded tool refuses exactly that, so a pass without `net.control_url` rests on the responses. The rule: **a refusal is a declined reply that ties the refusal to the target.** A reply that only reports a failed fetch, or that names the mechanism that failed (a proxy, a socket, DNS, a timeout), is a failure whatever adjectives it uses. In order:
+
+1. A reply that is not declined is `answered`; a timeout or a closed connection is `failed`. The probe URL, in every spelling, is removed from the text before anything is matched.
+2. A phrase that names the **class of address** refused is a refusal: `loopback`, `link-local`, a private, internal or reserved address, `non-routable`, `not a public address`, `unsafe destination`, `SSRF`, `metadata endpoint`, `resolves to` an address, `refused to fetch`, or an allowlist statement (`only ... allowed`).
+3. A **failure** word makes it a failure, and wins over the generic tier: a connection error code (`ECONN*`, `ENOTFOUND`, `ETIMEDOUT`), `connection refused`, `reset`, `failed` or `blocked`, `network is unreachable`, `timed out`, `proxy`, `socket`, `DNS`, a certificate or TLS error. A strong phrase from step 2 wins over this veto, so "connections to a private address are not allowed" is still a refusal.
+4. A refusal word (`blocked`, `not allowed`, `forbidden`, `denied`, `rejected`, `restricted`, `invalid`, `unsafe`, `bad request`, and similar) **together with a target noun** (`host`, `address`, `destination`, `target`, `url`, `domain`, `ip`, `origin`) in the first 300 characters is a refusal. "This URL is blocked" is one; `connection blocked by proxy` and `network access is restricted in this environment` are not.
+5. A validation error (`isError`, or a JSON-RPC `-32602`) that **names a loopback address** and carries a refusal word is a refusal. This is the form a Python SDK handler produces when it raises an `McpError`, which arrives as an `isError` result, not as a JSON-RPC error.
+6. Anything else is `failed`.
+
+`net-loopback-ssrf` passes when every probe was refused or a control fetch worked. A tool that fetches nothing is `inconclusive`: the summary says that a reply that only reports a failed fetch is not read as a refusal. The evidence line of each probe names the rule that decided it (`names the address class`, `refusal tied to the host`, `validation error naming the address`, or `failed without saying the target was refused`), so a vocabulary miss is visible and arguable. A correctly guarded server that was inconclusive for lack of one phrase can now pass; a tool that cannot fetch and says "blocked" no longer passes.
+
+**Not changed this round.** A single executed mutating-SQL form that is not a core case still earns `part` with no cap, so a bypass of an indirect form can grade C. Which cases are core is an owner decision, recorded in the design log; the stderr line and the summary now say `critical part` so it is visible.
+
+## Known blind spots
+
+These are not tested by methodology 0.3-draft. A grade says nothing about them, and every text report lists the relevant ones under "Not covered". What is designed but not built, and what is not planned, is on the [roadmap](/docs/roadmap).
+
+- **Output-side prompt injection.** The harness scans tool *metadata*, prompts and resource text for injection, not tool *results*. A server that returns attacker-controlled text is not tested for whether it can steer a model, and there is no model in the loop to test what one does with the tools.
+- **Authorization and OAuth.** The `http` suite checks the origin, a missing credential, the protocol version, sessions, CORS, the bind address and TLS of an HTTP server you point it at. Nothing checks what an authorised user may do, token scopes, or whether a server is exposed beyond the machine under test.
+- **Supply chain.** Package provenance, dependency vulnerabilities, install scripts and update behavior.
+- **Other databases.** MySQL, DuckDB, SQL Server, warehouses and NoSQL are not covered. Postgres and SQLite are, and the corpus and the seeds are specific to them.
+- **SSRF beyond the corpus.** Octal and the other `127/8` addresses are not probed, so a server that refuses every listed spelling but fetches an unlisted one passes. Redirects from a public host to loopback and DNS rebinding are not tested, because the harness contacts only its own listener.
+- **Write-capable git tools aimed at other repositories, and writes outside the sandbox.** `git-repo-scope` aims read-only tools at the canary repository, and the `effects` suite sees changes in the sandbox directories only. A write to your real home, or to a store named by an absolute path in the config, is not observed; `run` and `doctor` warn about such paths.
+- **Tools listed only to clients that declare roots, sampling or elicitation, and prompt arguments.** The harness declares none of those and uses only `initialize`, `tools/list`, `tools/call` and the text of prompts and resources.
+- **Servers that need valid-looking arguments.** The harness will not guess valid inputs for tools it cannot classify. A server whose only behavior sits behind valid calls is graded on hygiene alone, unless a suite can name a target it owns for it.
+- **Tools beyond the first 25, and tools with untyped arguments.** If `robust-input` makes no call, `secret-echo` has nothing to scan and is `inconclusive`.
+- **Behavior under load, concurrency and long sessions**, state carried between calls, and multi-user servers that authenticate callers some other way than the connection string.
+- **Policy shapes beyond the seed.** One tenant-column policy and one column grant are tested.
+
+## Candidate checks
+
+A grade is a methodology, so a new scored check changes what an A means for every server. A check that is not yet part of the published standard therefore ships as a **candidate**:
+
+- In a standard suite it is **advisory** (a check of a [candidate suite](#candidate-suites) is scored inside that suite instead). It runs by default, appears in every report (an `(advisory, not scored)` line, one JUnit test case, one SARIF rule, one entry in the JSON `checks`) and is never counted in a grade, whatever its verdict.
+- Its two settings, `checks.<id>.enabled` and `checks.<id>.severity`, are **not locked**, so the standard profile, `standard.yaml` and the standard hash (`config.hash`) do not contain it. A STANDARD run with a candidate present has the same letters, the same points, the same `config.hash` and the same `badge.eligible` as before the candidate existed. A baseline comparison treats a new check as never a regression.
+- Turning a candidate off (`enabled: false`) or scoring it (`severity: scored` or `critical`) makes the run CUSTOM, with the difference listed, exactly as for any other check. `sealmark describe` marks it `candidate: true`, and its page in the [checks reference](/docs/reference/checks) carries a **candidate** chip.
+
+The candidates in 0.3-draft are the two `core` advisories `refusal-quality` and `instructions-hygiene`, the checks of the candidate suites below, and `db-privilege`, in the `db` suite: does each of the three server instances connect as exactly the role it was given, and is any role it connected as a superuser, able to bypass row-level security, or the owner of an RLS table? It is advisory on purpose: scored, it would hand every well-behaved server one more point in the denominator and move letters up without a server having done anything. Promoting a candidate is a methodology change, made by the owner in one commit under a new methodology version and listed in the [changelog](/docs/changelog).
+
+### Candidate suites
+
+A **candidate pack** (`scope`, `sql-guard`, `upstream`) is a pack outside the standard pack list that a run adds when its declaration exists in the config: `scope` when `scope.tools` names a tool, `upstream` when `upstream.kind` is set, `sql-guard` when it is set and a SQL tool exists. A pack list you chose yourself (`--pack`, `packs:`) is left alone and the report says what was skipped. Its checks are scored inside the pack, so it gets its own letter, but every report labels it `candidate pack: not part of the standard profile`, it never makes a run badge-eligible, and its settings are not locked, so declaring a backend, a scope or identities keeps a run STANDARD. Promotion into the standard is the same methodology bump as for a candidate check, plus adding the pack to the standard pack list. How to declare them: [Verify a server that fronts a backend](/docs/guides/backend-servers).
+
+## Safety notes
+
+What the harness runs, touches and cleans up is on the [Safety](/docs/safety) page. Do not publish a result for a named server that shows a failure before the maintainer has seen it; see the [disclosure policy](/docs/disclosure).

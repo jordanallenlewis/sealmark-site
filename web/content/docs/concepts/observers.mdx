@@ -1,0 +1,29 @@
+export const meta = {
+  title: "Observers",
+  since: "0.1",
+  status: "shipped",
+  description: "Each piece of evidence says how it was established: db-state, fs-observer, listener, process, http, upstream, log, response, protocol or static.",
+};
+
+A server can say "ok" and still have written to the database. Where the harness can look for itself, it does, and the server's own answer is not trusted. Every piece of evidence in a report carries a `verifiedBy` tag that says which way it was established.
+
+<Figure>
+  <RoleLanes />
+</Figure>
+
+## The ways a verdict is decided
+
+| verifiedBy | How the verdict was decided |
+|---|---|
+| `db-state` | The harness read the database over its own separate superuser connection and saw a row, table or value change, or not. The server's answer is not trusted. |
+| `response` | From what the server returned: text, error flag, row count, elapsed time. |
+| `protocol` | From MCP protocol behavior: the handshake, `tools/list`, whether the server is still alive after a call. |
+| `static` | From tool metadata, without calling any tool. |
+| `fs-observer` | The harness compared the files in its [sandbox](/docs/concepts/sandbox) before and after a probe. |
+| `listener` | The harness's loopback listener saw, or did not see, the request, with the probe's token. |
+| `process` | The harness read the process table: is a program it started still running? |
+| `http` | From the HTTP exchange with a server reached by URL: status, headers, TLS. |
+| `upstream` | The harness's upstream stub, which the server uses as its backend through `{upstream}`, received, or did not receive, a request: which statement, which identifier, whose credential. It answers with scripted replies and never contacts anything else ([guide](/docs/guides/backend-servers)). |
+| `log` | What a server Sealmark started, or a stdio server, printed (the last 1 MiB). |
+
+Each check page says which one decides it. `rls` and `pii` use `response` because reading data changes nothing in the database, so a leak shows only in what the server returns.

@@ -1,0 +1,173 @@
+/* Mechanism: hero canvas. Docs/site-visual-plan.md section 3(a).
+   One stage, two geometries. The stage is a fixed-ratio box; every node and label is HTML placed in
+   "units" of an imaginary viewBox (--W x --H), and two decorative SVGs draw the wires in the same units.
+   Wide containers get the sequence layout (640 x 440), narrow ones the stacked layout (360 x 560).
+   The switch uses a container query, so it follows the figure's width, not the window. */
+
+.fig { margin: 0; min-width: 0; }
+.wrap { container-type: inline-size; container-name: mech; }
+
+.stage {
+  --W: 640; --H: 440;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 640 / 440;
+  background: #0c0c0e;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--border);
+  overflow: hidden;
+  isolation: isolate;
+}
+.stage::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(520px 260px at 12% 8%, rgba(233, 185, 73, 0.07), transparent 70%); pointer-events: none; }
+
+/* the keyed layer: everything that belongs to one case. Same box as the stage, so units resolve identically. */
+.layer { position: absolute; inset: 0; pointer-events: none; }
+.svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.svgM { display: none; }
+
+@container mech (max-width: 439px) {
+  .stage { --W: 360; --H: 560; aspect-ratio: 360 / 560; }
+  .svgD { display: none; }
+  .svgM { display: block; }
+}
+
+/* ---------- wires (SVG) ---------- */
+.life { fill: none; stroke: var(--border); stroke-width: 1.5; stroke-dasharray: 2 5; }
+.wire { fill: none; stroke: var(--ink-faint); stroke-width: 2; stroke-linecap: round; }
+.dash { stroke-dasharray: 6 5; }
+.head { fill: var(--ink-faint); }
+.warn { stroke: var(--part); } .warn.head { fill: var(--part); }
+.bad { stroke: var(--fail); } .bad.head { fill: var(--fail); }
+.gold { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 7 6; }
+.goldHead { fill: var(--accent); }
+.maskPath { fill: none; stroke: #fff; stroke-width: 12; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.dot { fill: var(--accent); opacity: 0; }
+.dotWarn { fill: var(--part); }
+.dotBad { fill: var(--fail); }
+
+/* ---------- placement (HTML) ---------- */
+.at { position: absolute; left: calc(var(--x) / var(--W) * 100%); top: calc(var(--y) / var(--H) * 100%); }
+.ctr { translate: -50% -50%; }
+.card { position: absolute; left: calc(var(--x) / var(--W) * 100%); top: calc(var(--y) / var(--H) * 100%); width: calc(var(--w) / var(--W) * 100%); height: calc(var(--h) / var(--H) * 100%); }
+
+/* desktop (sequence) positions, in units of 640 x 440 */
+.cH { --x: 12; --y: 8; --w: 156; --h: 92; }
+.cS { --x: 242; --y: 8; --w: 156; --h: 92; }
+.cP { --x: 472; --y: 8; --w: 156; --h: 92; }
+.lblProbe { --x: 205; --y: 123; }
+.lblSql { --x: 435; --y: 163; }
+.lblResp { --x: 205; --y: 203; }
+.lblReader { --x: 320; --y: 304; }
+.lblSelect { --x: 320; --y: 348; }
+.lblResult { --x: 550; --y: 290; }
+
+@container mech (max-width: 439px) {
+  .cH { --x: 12; --y: 8; --w: 208; --h: 64; }
+  .cS { --x: 12; --y: 176; --w: 208; --h: 72; }
+  .cP { --x: 12; --y: 352; --w: 208; --h: 108; }
+  .lblProbe { --x: 52; --y: 124; }
+  .lblResp { --x: 198; --y: 124; }
+  .lblSql { --x: 52; --y: 300; }
+  .lblReader { --x: 232; --y: 284; }
+  .lblSelect { --x: 232; --y: 316; }
+  .lblResult { --x: 16; --y: 478; }
+  .ctr.lblProbe, .ctr.lblResp, .ctr.lblSql, .ctr.lblReader, .ctr.lblSelect, .ctr.lblResult { translate: 0 -50%; }
+  .lbl.lblResp { max-width: calc(126 / 360 * 100%); white-space: normal; }
+  .lbl.lblSelect { max-width: calc(96 / 360 * 100%); white-space: normal; }
+}
+
+/* ---------- nodes ---------- */
+.card { display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 8px 10px; background: #18181c; border-radius: 10px; box-shadow: 0 0 0 1px #34343b, 0 14px 30px rgba(0, 0, 0, 0.45); min-width: 0; }
+.cH { flex-direction: row; align-items: center; gap: 10px; box-shadow: 0 0 0 1px var(--border-strong), 0 14px 30px rgba(0, 0, 0, 0.45); }
+.seal { width: 38px; height: 38px; flex: none; }
+.hText { display: flex; flex-direction: column; min-width: 0; }
+.nTitle { font: 600 0.8rem/1.2 var(--sans); color: var(--ink); white-space: nowrap; }
+.nSub { font: 500 0.72rem/1.25 var(--mono); color: var(--ink-faint); white-space: nowrap; }
+.nSub b { color: var(--accent-link); font-weight: 600; }
+.swap { display: inline-block; }
+.cS .nSub { color: var(--ink-muted); }
+
+.tbl { display: grid; gap: 2px; font: 500 0.72rem/1.2 var(--mono); }
+.th { display: flex; justify-content: space-between; gap: 6px; padding: 2px 6px; border-radius: 3px 3px 0 0; background: var(--surface-2); color: var(--ink-muted); }
+.th i { font-style: normal; color: var(--ink-faint); }
+.slotBox { position: relative; height: 1.6rem; }
+.slotEmpty, .slotFill { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 6px; border-radius: 3px; white-space: nowrap; overflow: hidden; }
+.slotEmpty { border: 1px dashed var(--border-strong); color: var(--ink-faint); }
+.slotFill { background: var(--fail-bg); color: var(--fail); box-shadow: 0 0 0 1px var(--fail); }
+/* Case 3: the table is not read. Dim only the table (0.8 keeps the faint slot text above 4.5:1 on the card) and keep
+   the node title at full contrast; a dashed outline says "not read" without relying on opacity alone. */
+.cP { outline: 1px dashed transparent; outline-offset: 2px; transition: outline-color var(--dur-step, 600ms) var(--ease-out); }
+.cP.dim { outline-color: var(--border-strong); }
+.tbl { transition: opacity var(--dur-step, 600ms) var(--ease-out); }
+.dim .tbl { opacity: 0.8; }
+
+/* Mid-width canvas (the hero column, about 450 to 580px): the postgres card is 100 to 120px wide, so the table header
+   stays on one line and the card gets a little more height. Lifelines start behind the card, so nothing else moves. */
+@container mech (min-width: 440px) and (max-width: 579px) {
+  .card { padding: 6px 8px; }
+  .cP { --h: 104; }
+  .th { white-space: nowrap; padding: 1px 5px; gap: 4px; }
+  .th i { display: none; }
+  .slotBox { height: 1.4rem; }
+}
+
+/* ---------- labels ---------- */
+.lbl { font: 500 0.72rem/1.25 var(--mono); color: var(--ink-muted); background: #0c0c0e; padding: 1px 4px; border-radius: 3px; white-space: nowrap; }
+.lblGold { color: var(--accent-link); }
+.lblFaint { color: var(--ink-faint); }
+.nw { white-space: nowrap; }
+.pill { border: 1px solid; padding: 2px 7px; border-radius: 5px; }
+.pillWarn { color: var(--part); background: var(--part-bg); border-color: var(--part); }
+.pillBad { color: var(--fail); background: var(--fail-bg); border-color: var(--fail); }
+.rOk { color: var(--pass); font-weight: 600; }
+.rBad { color: var(--fail); font-weight: 600; }
+
+/* ---------- verdict + stamp ---------- */
+.verdict { position: absolute; left: 3%; bottom: 3.5%; right: calc(clamp(60px, 13cqw, 88px) + 7cqw); display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.vmeta { display: flex; flex-wrap: wrap; gap: 2px 12px; font: 500 0.72rem/1.3 var(--mono); color: var(--ink-faint); }
+.vmeta b { color: var(--ink-muted); font-weight: 600; }
+.stamp { position: absolute; right: 4cqw; bottom: 4cqw; width: clamp(60px, 13cqw, 88px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; align-content: center; background: var(--gd); color: var(--gd-fg); box-shadow: 0 0 0 3px #0c0c0e, 0 0 0 5px var(--gd), 0 12px 30px rgba(0, 0, 0, 0.5); rotate: -12deg; }
+.stamp b { font: 800 clamp(1.7rem, 7.5cqw, 2.6rem)/1 var(--display); }
+.stamp small { font: 600 0.7rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9; }
+
+/* ---------- controls ---------- */
+.ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin-top: 10px; }
+.dots { display: flex; gap: 2px; }
+.dots button { background: transparent; border: 0; padding: 10px 4px; cursor: pointer; border-radius: 4px; }
+.dots button span { display: block; width: 24px; height: 4px; border-radius: 2px; background: var(--border); transition: background-color var(--dur-fast, 180ms) var(--ease-std, cubic-bezier(.4, 0, .2, 1)); }
+.dots button:hover span { background: var(--ink-faint); }
+.dots button[aria-current="true"] span { background: var(--accent); }
+.caseName { font: 500 0.72rem/1.3 var(--mono); color: var(--ink-faint); }
+.caseName b { color: var(--ink-muted); font-weight: 600; }
+.cap { margin-top: 6px; font-size: 0.86rem; line-height: 1.5; color: var(--ink-faint); max-width: 64ch; }
+
+/* ---------- motion: only while .play is set; without it the markup is the finished frame ---------- */
+.play .ev { animation: fadeIn var(--dur-step) var(--ease-out) both; animation-delay: var(--at, 0ms); }
+.play .popIn { animation: pop var(--dur-pop) var(--ease-pop) both; animation-delay: var(--at, 0ms); }
+.play .stamp { animation: stampIn var(--dur-pop) var(--ease-pop) both; animation-delay: var(--at, 0ms); }
+.play .maskPath { animation: draw 900ms var(--ease-out) both; animation-delay: var(--at, 0ms); }
+.play .dot { animation: travel 600ms ease-in-out both; animation-delay: var(--at, 0ms); }
+.play .swap { animation: fadeIn var(--dur-step, 600ms) var(--ease-out) both; }
+/* The case ends with a fade: the layer leaves in the last 320 ms of --case, then the next case fades in over the same
+   persistent cards. The postgres row is part of the card, so it leaves on its own. */
+.play .layer { animation: fadeOut 320ms var(--ease-std, cubic-bezier(.4, 0, .2, 1)) calc(var(--case) - 320ms) both; }
+.play .slotFill { animation: pop var(--dur-pop) var(--ease-pop) var(--at, 0ms) both, fadeOut 320ms var(--ease-std, cubic-bezier(.4, 0, .2, 1)) calc(var(--case) - 320ms) forwards; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes pop { from { opacity: 0; scale: 0.7; } to { opacity: 1; scale: 1; } }
+@keyframes stampIn { 0% { opacity: 0; scale: 1.9; rotate: -26deg; } 60% { opacity: 1; } 100% { opacity: 1; scale: 1; rotate: -12deg; } }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes travel {
+  0% { opacity: 0; translate: 0 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { opacity: 0; translate: var(--dx, 0px) var(--dy, 0px); }
+}
+
+/* belt and braces: nothing moves under reduced motion, whatever the hook says */
+:global(html.reduce) .stage *,
+:global(html.reduce) .stage { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .stage *, .stage { animation: none !important; transition: none !important; }
+}

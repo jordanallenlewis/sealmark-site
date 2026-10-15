@@ -1,0 +1,54 @@
+export const meta = {
+  title: "Standard vs custom",
+  since: "0.2",
+  status: "shipped",
+  description: "A run is STANDARD only if every grade-affecting setting equals the published profile; every other run is labelled CUSTOM, with its differences listed.",
+};
+
+A grade is a methodology: the probes, the thresholds and the formula together. If you can change one and still call the result an A, the letter means nothing. So every report says whether the run used the published settings, and a run that did not says what it changed.
+
+## Two labels
+
+| | STANDARD | CUSTOM |
+|---|---|---|
+| Label | <span className="chip c-pass">STANDARD</span> | <span className="chip c-part">CUSTOM</span> |
+| Settings | the published `standard` profile, unchanged | anything else |
+| Header | states the methodology version | states the number of differences and lists each one with where it came from |
+| Suite lines | `GRADE B` | `custom grade B` |
+| Badge | eligible, when the run grades more than `core` | never |
+
+```text
+sealmark 0.2.1 · methodology 0.3-draft · STANDARD · my-server 1.0.0
+sealmark 0.2.1 · methodology 0.3-draft · CUSTOM (not the published methodology: 2 differences) · my-server 1.0.0
+  timeout_probe_sec: standard 10, effective 2  (flag --timeout-probe)
+  packs: standard ["core","db",...], effective ["core"]  (flag --pack)
+```
+
+The header and the difference list are added by the report renderer after any template runs, so they cannot be templated away. The formula weights are not configurable at all.
+
+## What is locked
+
+Every setting that can change a grade is a locked leaf of the standard profile (`sealmark describe --json` marks each key `standardLocked`). They are the per-check `enabled` and `severity` and each check's own thresholds and corpus (`checks.<id>.*`), `timeout_probe_sec`, `timeouts.call_ms` and `timeouts.probe_ms`, `retries.call`, `tools.include`, `tools.exclude` and `tools.overrides`, `net.control_url` and `net.allow_dns`, and `sandbox.enabled`, `scrub_env`, `keep_env`, `pack_timeout_sec` and `max_mib`. `sealmark list-checks` shows which checks are locked and `sealmark config show --origins` shows where each effective value came from. The published values are in `standard.yaml`.
+
+Settings that do not change a grade are free: the server under test (`server.*`), `output.*`, `sql_tools`, `db.*`, `sandbox.dir` and `sandbox.keep`, `server.files`, and the test suite list as long as no standard suite is dropped.
+
+## What makes a run CUSTOM
+
+A run is STANDARD only when none of these holds. Each one that does adds a line to the difference list.
+
+- A locked setting differs from the standard profile: a loosened threshold, a removed probe case, a disabled check, a changed severity, a `tools.*` override, `--no-sandbox`, a changed timeout.
+- A standard suite was dropped (`--pack core` runs only `core`).
+- A plugin is loaded (`plugins:`), or a probe with a `check:` is declared: [custom checks](/docs/guides/custom-probes).
+- A shipped profile other than `standard` or `ci` is selected. `quick`, `strict` and `paranoid` are always CUSTOM; stricter is still not the published standard, and it says so. `ci` changes only the output and exit policy, so a `ci` run can still be STANDARD.
+- `sqlite.engine` forces an engine. It is not a locked setting, but it decides which suite runs.
+- A [candidate check](/docs/methodology#candidate-checks) (advisory until promoted, so not in the standard hash) is switched off or scored.
+
+Adding coverage keeps a run STANDARD. Turning on the opt-in `exec` suite with `--active`, writing a probe without a `check:`, or declaring a backend stub, a scope or caller identities (which add the candidate suites `scope`, `sql-guard` and `upstream`) adds checks and weakens none. Weakening does not. A candidate suite gets its own letter, labelled `candidate pack: not part of the standard profile`, and never makes a run badge-eligible: see [Candidate suites](/docs/methodology#candidate-suites).
+
+## The hash and replay
+
+The JSON record carries a `config` block: `config.standard` (true or false), `config.standardDiff` (the list of differences), `config.hash` and `config.locked` (every locked setting and the standard suites that ran). The hash is a SHA-256 over those values and the methodology version. It does not depend on the server command, on extra suites or on anything outside the grade, so two STANDARD runs of different servers carry the same hash, and a CUSTOM run carries a different one.
+
+`sealmark run --replay report.json` re-runs with the locked settings of an earlier report, after checking that they hash to the `config.hash` it carries. It refuses a report from another methodology version, and a report that carries any setting a report may not set. A report is untrusted input: only the locked grade settings and the test suite list are replayed, never `sandbox.*`, `net.control_url`, `active`, `yes`, a plugin or a server. Reports written by 0.2.0 or later can be replayed; the hash proves the settings were not edited, not who wrote the file.
+
+Related: [Grades](/docs/concepts/grades), [Suites](/docs/concepts/packs), [Configuration](/docs/reference/configuration).

@@ -1,0 +1,6 @@
+{
+  "airbnb": "npx -y @openbnb/mcp-server-airbnb@0.3.0",
+  "cyanheads-fs": "node <workspace>",
+  "fetch-mcp": "npx -y fetch-mcp@0.0.5",
+  "postgres-mcp": "uvx --with \"mcp<2\" postgres-mcp@0.3.0 {dsn}"
+}

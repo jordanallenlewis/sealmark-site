@@ -1,0 +1,61 @@
+[
+  {
+    "group": "Start",
+    "items": [
+      { "title": "Overview", "url": "/docs", "status": "shipped" },
+      { "title": "Quickstart", "url": "/docs/quickstart", "status": "shipped" }
+    ]
+  },
+  {
+    "group": "Concepts",
+    "items": [
+      { "title": "Packs", "url": "/docs/concepts/packs", "status": "shipped" },
+      { "title": "Verdicts", "url": "/docs/concepts/verdicts", "status": "shipped" },
+      { "title": "Grades", "url": "/docs/concepts/grades", "status": "shipped" },
+      { "title": "Observers", "url": "/docs/concepts/observers", "status": "shipped" },
+      { "title": "Roles and instances", "url": "/docs/concepts/roles-and-instances", "status": "shipped" },
+      { "title": "Classification", "url": "/docs/concepts/classification", "status": "shipped" },
+      { "title": "Sandbox", "url": "/docs/concepts/sandbox", "status": "shipped" },
+      { "title": "Standard vs custom", "url": "/docs/concepts/standard-vs-custom", "status": "shipped" }
+    ]
+  },
+  {
+    "group": "Reference",
+    "items": [
+      { "title": "Configuration", "url": "/docs/reference/configuration", "status": "shipped" },
+      { "title": "Checks", "url": "/docs/reference/checks", "status": "shipped" },
+      { "title": "CLI", "url": "/docs/reference/cli", "status": "shipped" },
+      { "title": "Output", "url": "/docs/reference/output", "status": "shipped" },
+      { "title": "Environment", "url": "/docs/reference/environment", "status": "shipped" }
+    ]
+  },
+  {
+    "group": "Guides",
+    "items": [
+      { "title": "Run in CI", "url": "/docs/guides/ci", "status": "shipped" },
+      { "title": "Servers that front a backend", "url": "/docs/guides/backend-servers", "status": "shipped" },
+      { "title": "Humans, CI and agents", "url": "/docs/guides/usage-modes", "status": "shipped" },
+      { "title": "Custom probes", "url": "/docs/guides/custom-probes", "status": "shipped" },
+      { "title": "Plugins", "url": "/docs/guides/plugins", "status": "shipped" },
+      { "title": "Import servers", "url": "/docs/guides/import-servers", "status": "shipped" },
+      { "title": "Tool-surface drift", "url": "/docs/guides/drift", "status": "shipped" },
+      { "title": "README badge", "url": "/docs/guides/badge", "status": "shipped" }
+    ]
+  },
+  {
+    "group": "Trust",
+    "items": [
+      { "title": "Safety", "url": "/docs/safety", "status": "shipped" },
+      { "title": "Methodology", "url": "/docs/methodology", "status": "shipped" },
+      { "title": "Disclosure", "url": "/docs/disclosure", "status": "shipped" }
+    ]
+  },
+  {
+    "group": "Help",
+    "items": [
+      { "title": "Troubleshooting", "url": "/docs/troubleshooting", "status": "shipped" },
+      { "title": "Changelog", "url": "/docs/changelog", "status": "shipped" },
+      { "title": "Roadmap", "url": "/docs/roadmap", "status": "shipped" }
+    ]
+  }
+]

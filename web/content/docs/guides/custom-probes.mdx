@@ -1,0 +1,113 @@
+export const meta = {
+  title: "Custom probes",
+  since: "0.2",
+  status: "shipped",
+  description: "Write your own probes in sealmark.yaml: valid calls for coverage, and custom checks with a verdict, graded by the same formula.",
+};
+
+The built-in test suites know nothing about your own tools. A server with a delete tool, for example, has a rule only you can state: it must refuse a path outside its root. `probes:` lets you write that rule down, run it, and get a verdict with evidence.
+
+One list, two uses:
+
+- **A probe without `check`** is a valid call. Sealmark makes it once in the `core` session, so `secret-echo` and `robust-input` see what the tool does with good input, and the report counts the tool as reached with a valid call. A missed `expect:` is a warning, never a verdict. Adding valid calls keeps a run STANDARD.
+- **A probe with `check`** is a custom check. The `custom` suite calls the tool once with the arguments you wrote and tests the response and what the harness observed against `expect:`. A custom check is graded by the same formula as every other, in a suite called `custom`, and it makes the run CUSTOM: see [standard vs custom](/docs/concepts/standard-vs-custom).
+
+## An example
+
+```yaml
+probes:
+  # a valid call, for coverage: no "check"
+  - tool: read_file
+    args: { path: "{sandbox}/ok.txt" }
+
+  # a custom check: deleting a file outside the root must fail and leave the file alone
+  - id: delete-outside-root
+    check:
+      id: custom-delete-scope
+      label: delete refuses paths outside the root
+      critical: true
+      scope: server
+    tool: delete_file
+    args: { path: "{canary}/secret.txt" }
+    expect:
+      is_error: true
+      files:
+        unchanged: ["{canary}/secret.txt"]
+```
+
+The `custom` suite is added to the suite list for you when a probe has a `check`. If you choose the list yourself with `--pack` or `packs:`, include `custom` in it or the probes are skipped with a warning. Probes without a `check` need no suite of their own: they run with `core`.
+
+A probe that has a `check` appears as one check line of the `custom` suite. This is the line a server that follows paths outside its root gets from the example above (a toy server, not a real one):
+
+```text
+PACK custom  GRADE F  (1/1 scored, 0%)  custom grade
+  [FAIL] delete refuses paths outside the root — 1 of 1 probe(s) failed: delete-outside-root: expected is_error true, the tool reported success, {canary}/secret.txt was changed, added or removed
+        scope: server
+```
+
+## The fields of a probe
+
+| Field | Meaning |
+|---|---|
+| `id` | A unique name. Required when the probe has a `check`, so its result can be matched; otherwise the report calls it `<tool>#<n>`. |
+| `check` | Makes the probe a custom check: `id` (letters, digits, `.`, `_`, `-`), `label`, `scope` (must start with `server`, `database` or `environment`) and optionally `critical: true`. Probes that share a check `id` must share its label, scope and critical flag. The id may not be a built-in check id; use one such as `custom-...`. |
+| `tool` | The tool to call. It must be one the server declares and `tools.include` and `tools.exclude` leave in. |
+| `args` | The arguments, as a mapping. Values may use placeholders. |
+| `active` | `true` for a probe that asks the server to run commands or have side effects. It runs only with `--active` on the command line; without it the probe is reported as not applicable. A probe aimed at a tool classified as running commands must say `active: true`. |
+| `timeout_ms` | How long to wait for an answer. Defaults to the probe timeout setting. |
+| `expect` | The conditions that must hold. A probe with a `check` needs at least one. |
+| `identity` | `a`, `b` or `none`: open the session for this probe as caller a or b (`{bearer:a}`, `{bearer:b}`), or anonymously (every header that holds `{bearer}` dropped). Needs an HTTP server whose headers use `{bearer}`. Without it the probe uses the session's own headers. |
+| `matrix` | `{ <arg>: [values] }`: one probe per combination, each referencing `{matrix.<arg>}` in `args`; the expansions are named `id[arg=value]` and share the check. |
+| `cases` | A list of `{ id?, args?, expect? }`, each merged over the probe (`id#1`, `id#2`, or the case's own id). Exclusive with `matrix`. |
+| `upstream.reply` | A scripted reply of the [upstream stub](/docs/guides/backend-servers) for the duration of this probe: `status`, `headers`, and one of `body`, `json` or `bytes` (padded to that size). `{upstream_token}` in it mints a marker per occurrence. Needs `upstream.kind: http`. |
+
+## What `expect` can say
+
+| Clause | Holds when |
+|---|---|
+| `is_error: true` or `false` | the tool did, or did not, report an error |
+| `text.matches: <regex>` | the response text matches the pattern (case-insensitive) |
+| `text.not_matches: <regex>` | the response text does not match it |
+| `files.unchanged: [paths]` | each file is the same before and after the call. The file must exist: a wrong path would make this pass without testing anything, so a missing file fails the clause |
+| `files.created: [paths]` | each file was created by the call |
+| `files.absent: [paths]` | each file does not exist after the call |
+| `listener: none`, `hit` or `any` | the harness's loopback listener saw nothing, saw a request or connection, or no condition |
+| `duration_ms.max: <ms>` | the call finished within the limit |
+| `upstream.requests: none` or `any` | the upstream stub received nothing, or at least one request, during the call |
+| `upstream.none_matching` / `all_matching: <regex>` | no request, or every request, matches (over `METHOD path?query`, the headers and the body) |
+| `upstream.header: { <name>: { equals or matches } }` | every request carries that header value |
+| `upstream.token_echoed: true` or `false` | a marker the stub minted with `{upstream_token}` appears in the reply (for an aggregate-only tool, `false`) |
+| `log.matches` / `log.not_matches: <regex>` | what the server printed during the call; inconclusive when the run has no server log |
+| `response.max_bytes: <n>` | the reply, in UTF-8 bytes plus any binary blocks, is at most this size |
+
+Every clause must hold for the probe to pass. File paths must start with `{sandbox}`, `{sandbox_home}` or `{canary}` and name something inside the sandbox directories the harness observes. Probes observe the sandbox, the upstream stub and the server log; the `upstream` and `log` clauses need the stub (`upstream.kind: http`) and a server Sealmark starts.
+
+## Placeholders
+
+Probes use the harness placeholders in [Configuration](/docs/reference/configuration#placeholders), never a path or address you type in. `{canary}` (a directory outside the root with a secret file, `{canary}/secret.txt`), `{listener}` (write it first: `{listener}/t/{token}`) and `{token}` (unique to the probe) exist only in `probes:`. Database placeholders have no meaning here: a probe that uses one is inconclusive, because the database belongs to the `db` suite. `{upstream}` and `{bearer}` are refused in `args`: the stub is the server's backend, not a target, and `identity` chooses the caller.
+
+## Verdicts
+
+A probe that could not be judged (a timeout, a server that went away, a missing sandbox or listener) is inconclusive, with the reason. A check passes when all of its probes pass, is partial when some pass, and fails when none do. If any probe could not be judged, the check does not claim a pass: it is inconclusive. A check whose probes are all not applicable is not applicable. Grading and the critical cap are in [Grades](/docs/concepts/grades).
+
+## What is refused
+
+Validation runs before anything is called, collects every problem and stops the run with exit code 2. It refuses:
+
+- an unknown key (with a did-you-mean), an unknown tool, a duplicate probe id, a `check` without an `id` or without an `expect` clause, an invalid regular expression, an `id` that belongs to a built-in check;
+- inconsistent metadata for one check id;
+- a **literal target** aimed at a tool the classifier knows takes that kind of argument. A path tool must be given a path that starts with a harness placeholder, a URL tool a URL that starts with `{listener}`, a command tool only the harness programs `sm-echo`, `sm-canary`, `sm-sleep` and `sm-spew`, and SQL is sent from probes only when an upstream stub is declared (then the stub is the only database the server has; otherwise the `db` and `sqlite` suites own SQL against databases the harness seeds);
+- a path that climbs out of the sandbox, a percent-encoded dot or slash, or a segment made only of dots, even after a harness placeholder;
+- `{listener}@host/` and other forms that would leave the listener.
+
+A probe without a `check` must also match the tool's schema (required arguments, primitive types, enums); a custom check may break the schema on purpose.
+
+## Generate the valid calls
+
+`sealmark init --probes` starts the server the way `doctor` does and prints one valid call per tool (a path under `{sandbox}`, a URL under `{listener}`, the first exact `scope.allow` entry for a scoped tool, `SELECT 1` for a SQL tool when a stub is declared); a tool it cannot fill is written commented out with the reason. `--write` appends the block to `sealmark.yaml` when it has no `probes:` key yet, `--yes` never asks, `--json` prints it for a program.
+
+## Where results show
+
+Custom checks are lines of the `custom` suite, labelled with the label you gave. The JSON record lists each probe under `custom.probes` with its verdict, and valid calls under `probes`. `sealmark doctor` says whether the suite would run: `custom` applies only when it is in the suite list and at least one probe has a `check`.
+
+Related: [Classification](/docs/concepts/classification), [Sandbox](/docs/concepts/sandbox), [Plugins](/docs/guides/plugins), [Configuration](/docs/reference/configuration).

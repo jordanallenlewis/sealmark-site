@@ -1,0 +1,20 @@
+export const meta = {
+  title: "Documentation",
+  since: "0.1",
+  status: "shipped",
+  description: "Sealmark runs fixed probes against an MCP server and grades what it does, not what it says.",
+};
+
+Sealmark starts your MCP server, calls its tools directly with fixed inputs, and records what happened. No LLM is in the loop. Where it can, it checks the database itself instead of trusting the server's reply. It is behavioral conformance testing for MCP servers you run or build, not a security scanner and not a certification.
+
+<Callout title="Status">
+  Methodology 0.3-draft. Install with `npx sealmark` (Apache-2.0); the source is on [GitHub](https://github.com/jordanallenlewis/sealmark). Example data: servers and results are invented.
+</Callout>
+
+## What you get
+
+- One letter per [test suite](/docs/concepts/packs), with the evidence behind every check line. A grade is a local test result for one server version in one configuration: read the per-check lines, not just the letter.
+- A JSON record of the run, so a result can be reproduced and diffed, plus other [report formats](/docs/reference/output).
+- An exit code for CI: any graded suite below an A exits 1 by default; see [Run in CI](/docs/guides/ci).
+
+Start with the [Quickstart](/docs/quickstart). Anything labelled planned is graded by nothing.

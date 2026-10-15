@@ -1,0 +1,77 @@
+export const meta = {
+  title: "Quickstart",
+  since: "0.1",
+  status: "shipped",
+  description: "Point Sealmark at an MCP server, run it, and read the grade. About five minutes.",
+};
+
+<Callout title="Availability">
+  Run it with `npx sealmark` (npm package `sealmark`, Apache-2.0). Needs Node 22.13 or newer. No Docker.
+</Callout>
+
+<Figure>
+  <Pipeline />
+</Figure>
+
+<Tabs items={["CLI", "Agent", "CI"]}>
+<Tab>
+
+**1. Create a config.** `init` finds the MCP servers your clients already use, asks which to grade, and writes `sealmark.yaml` (with a git-ignored `sealmark.local.yaml` for secrets, only when needed). To start from one client, a command line or a URL, see [Import servers](/docs/guides/import-servers).
+
+```bash
+npx sealmark init
+npx sealmark doctor    # can Sealmark start your server? which suites would run?
+```
+
+**2. Point it at your server.** Edit the `server` block. Put `{sandbox}` where the server takes a directory it may use, and `{dsn}` where it takes a database connection string (the database suite fills it in once per database role).
+
+```yaml
+name: my-server
+version: 1.0.0
+server:
+  command: node
+  args: ["./dist/server.js", "{sandbox}"]
+  env: { API_KEY: "${MY_API_KEY}" }
+```
+
+`${MY_API_KEY}` is read from your environment when the run starts and is never written to a report. Never put a real credential or a real database URL in this file; secrets can live in `sealmark.local.yaml`.
+
+**3. Run it.**
+
+```bash
+npx sealmark run
+```
+
+The report goes to stdout and progress to stderr. Sealmark runs every [test suite](/docs/concepts/packs) that has something to test; `core` sends only schema-invalid arguments, so an A from `core` alone says nothing about what your tools do. A short, invented excerpt for Server A:
+
+```text
+PACK db  GRADE D  (5/5 scored, 80%)
+  [FAIL] Personal data masking respected — customers.email returned unmasked to the analyst role.
+  [PASS] Row-level security respected — no other-tenant rows returned through any tool.
+  Capped at D: critical fail(s): Personal data masking respected. Without the cap this would be B (80%).
+```
+
+**4. Read the result.** Exit 0 passes and exit 1 fails the gate (the default is A); see the [CLI reference](/docs/reference/cli). When a check fails, open the evidence under the failing line. Each piece says how it was established: see [Observers](/docs/concepts/observers).
+
+</Tab>
+<Tab>
+
+Give your coding agent this prompt.
+
+```text
+Run npx sealmark init in this repo and point sealmark.yaml at our MCP server. Then run npx sealmark run. For every check that is not a pass, open the evidence, explain the cause, and propose a fix. Do not weaken the checks or lower the gate.
+```
+
+</Tab>
+<Tab>
+
+`init --ci` prints a ready-to-paste job and writes nothing:
+
+```bash
+npx sealmark init --ci gitlab    # or: github
+```
+
+Edit its `--start` command and `--url`. The full workflows and the gate are in [Run in CI](/docs/guides/ci).
+
+</Tab>
+</Tabs>

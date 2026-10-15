@@ -1,0 +1,91 @@
+export const meta = {
+  title: "Changelog",
+  since: "0.1",
+  status: "shipped",
+  description: "What each Sealmark release does.",
+};
+
+<Callout title="Draft methodology">
+  Until methodology 1.0, probes, thresholds and the formula can change, and results from different methodology versions must not be compared. Entries for 0.2.0 and 0.2.1 describe the repository build; check `npm view sealmark version` for what is published.
+</Callout>
+
+## 0.2.2
+
+- **`robust-input` no longer mistakes a pydantic validation error for a crash.** FastMCP and other pydantic-based Python servers report a bad argument as `N validation errors for call[tool] ... input_type=NoneType`. The `NoneType` there is the validator describing what it received, not the runtime failing on it, so these replies now count as clean rejections. Python servers that answered every invalid call this way move from a partial to a pass on `robust-input`.
+- **`--suite`** is accepted as another name for `--pack`, in `run`, `list-checks` and `config show`.
+
+## Round 6 (inside 0.3-draft)
+
+**No STANDARD grade moves and the standard hash is unchanged.** A server that fronts a backend can be graded with `sealmark.yaml` alone: [Verify a server that fronts a backend](/docs/guides/backend-servers).
+
+- **Candidate test suites** `scope`, `sql-guard` and `upstream`: added when the config declares them, scored in their own suite, labelled in every report, never on the badge ([methodology](/docs/methodology#candidate-suites)).
+- **Upstream stub and server log.** `upstream.kind: http` and `{upstream}` give the server a harness-owned backend that records every request; what a server Sealmark started prints is read for leaked tokens.
+- **Identities.** `{bearer}` in `server.headers` gives each session a minted caller token (`identities.a`/`.b` for real ones).
+- **Rules** in `probes:`: `identity`, `matrix`, `cases`, a scripted `upstream.reply`, and `expect.upstream`, `expect.log` and `expect.response.max_bytes` ([custom probes](/docs/guides/custom-probes)).
+- **Two advisory `core` candidates**, `refusal-quality` and `instructions-hygiene`.
+- **A server Sealmark launches with `--start` and `--url` runs inside the sandbox**, so the sandbox suites apply to it.
+- **For agents and CI:** `sealmark doctor --json` and the JSON report carry `suggestions[]`; `sealmark init --probes` writes one valid call per tool ([humans, CI and agents](/docs/guides/usage-modes)).
+
+## 0.3-draft (methodology)
+
+**Methodology 0.3-draft. This is a methodology change: STANDARD grades and verdicts can differ from methodology 0.2, and the standard hash is new.** It is made in one commit so it can be accepted or rejected as one unit. The hash moves because the methodology version moved, `net-redirect` became a standard check (two settings are now locked), and the unused setting `retries.call` is no longer locked. A report from methodology 0.2 cannot be replayed (`--replay`) under 0.3-draft, and a baseline written under 0.2 prints the "different configuration" note. The rule for what counts as a refusal is in [Methodology](/docs/methodology#the-second-verification-round).
+
+What can move a verdict:
+
+- **Classification.** A parameter with `format: uri` or `format: url` outranks a generic parameter plus a name hint, so a URL tool with a generic parameter name is probed by the `net` suite. When two candidates tie, both are recorded. The words "git-style" in a description are no longer a `git` signal. A required enum declared through `$ref` is resolved, so such a tool can be probed.
+- **`core`.** `tool-poisoning` reads control characters: ESC, NUL and the C1 range are strong, the other C0 controls (not tab, line feed or carriage return) and DEL are weak. `robust-input` counts a read-only tool's no-argument call toward coverage only when the server answered without an error. `protocol` bounds the tool listing at 5 000 tools or 32 MiB.
+- **`db`.** The mutating-SQL corpus grows from 13 to 16 cases: `PREPARE` and `EXECUTE` in one call, a side-effect function in the `FROM` clause, and `EXPLAIN ANALYZE`. A new advisory candidate, `db-privilege`, asks whether each server instance connects as exactly the role it was given.
+- **`fs`.** Relative-path escapes are probed whenever the relative control works. Move and copy sources are probed. Base64 text, and resource, image and audio blocks returned by a read tool, are decoded and probed. When no escape probe was answered, `fs-read-escape` and `fs-write-escape` are inconclusive instead of a pass. A high-confidence read tool whose control failed makes the check partial. `fs-link-escape` records evidence on a pass and has an in-root control.
+- **`git`.** The repository-scope check probes a sibling whose name has the configured repository's path as a prefix, and argument injection reaches optional string parameters declared with `anyOf`, `oneOf` or `$ref`.
+- **`net`.** `net-caps` judges the size half by the bytes the listener sent, `net-loopback-ssrf` recognises more refusal wording, and a `data:` URL accepted as an embedded resource, or by a tool already shown to fetch, is partial. **`net-redirect` is promoted:** it is scored, not critical and standard.
+- **`sqlite`.** A declared writer tool is probed for file writes, file reads and extension loading, and any one tool that reads or writes another file now fails those two checks (before, one clean tool softened it to partial).
+- **`exec`.** A reply that says "killed" is confirmed against the process table: a harness program that is still running makes `exec-timeout-cap` fail.
+- **Exit policy.** The `ci` profile counts an inconclusive suite as a failure at the gate (`treat_inconclusive_as: fail`), and a provisional `A*` does not meet the default A gate.
+- **Configuration.** `retries.call` is deprecated, unlocked and ignored: nothing retries a control call. Old files that set it still load, with a warning.
+- **Second verification round.** The merged build was re-checked against real public servers; no locked setting changed, so the standard hash is expected to stay as it is. A refusal must tie itself to the target, a server that re-validates redirects can pass `net-redirect`, the `fs-write-escape` corpus mirrors the read corpus, the `git` suite needs `{sandbox}` in the config, coverage counts only calls the server processed, and custom checks or plugins give a run its own `config.hash`.
+
+Control-character tiers, the `fs` zero-probe guard, the `exec` confirmation, the promotion of `net-redirect`, `db-privilege` as an advisory candidate, `retries.call` and the `ci` and A-gate rules were open owner decisions. They are **decided by recommendation, owner may veto**.
+
+Output that does not move a verdict:
+
+- Each check line carries one verdict tag, advisory checks end with `(advisory, not scored)`, and the score is points over scored checks in every format. The `packs applied` line lists every suite that ran, `core` included.
+- Two runs of the same server give the same verdicts and evidence: the listener port, sandbox paths and per-run tokens are fixed placeholders, and the text, markdown, summary, badge and shields formats are byte-identical at every verbosity (JSON, JUnit and SARIF differ in timing fields and `sandbox.listenerPort`).
+- After a signal (exit codes 129, 130, 143) the harness starts no further server and removes the sandbox, the seed database and any embedded Postgres. The `no badge:` messages name the reason, and `sealmark config show` says whether the configuration is STANDARD or CUSTOM.
+- The docs site is generated from the built CLI again, and the site build fails when the generated pages differ from what the CLI prints.
+
+## 0.2.1
+
+Methodology 0.2, unchanged. **STANDARD grades and the standard hash are unchanged:** a default run with the default configuration gives the same letters, the same verdicts and the same `config.hash` as 0.2.0, for every server. Nothing below is scored, and nothing below is a locked setting.
+
+- **Candidate checks, and the first one: `net-redirect`.** A check can ship ahead of the standard: advisory, listed in every report, outside the standard hash. Switching one off or scoring it makes the run CUSTOM. `net-redirect` (suite `net`) asks whether a URL tool follows a redirect served by the harness's loopback listener, whether it re-validates the target, and whether it follows one to a `file:` or raw-TCP URL. It is `n/a` unless the server already fetched the listener. See [net-redirect](/docs/reference/checks/net-redirect) and [Candidate checks](/docs/methodology#candidate-checks).
+- **Tool-surface drift.** `server.surface` in the JSON report records hashes and types, never descriptions. `--fail-on drift` exits 1 on a breaking or notable change against a baseline, and `sealmark diff <before.json> <after.json>` compares two reports without running a server. `--fail-on` is now a list (`any`, `regressions`, `drift`; `output.fail_on` in a file); `output.exit_policy.regressions_only: true` still means `[regressions]`. See [drift](/docs/guides/drift).
+- **README badge.** `--format badge` (SVG) and `--format shields` (shields.io endpoint). Self-reported, one server, never a letter for a custom or core-only run. See [badge](/docs/guides/badge).
+- **Fixtures.** `--fixture fs`, `git` and `sqlite` with `--into <dir>` write the layout, repositories or database the sandbox generates. `--fixture duckdb` still exits 2.
+- **Staged files.** `server.files` (and `servers.<name>.files`) writes small files into the sandbox before the server starts. Configuration file only.
+- Changed text: the not-covered line for SSRF now says that redirects from a public host to loopback and DNS rebinding are not tested; `describe --json` lists `candidate` for each check; the CI jobs pin `sealmark@0.2.1`.
+
+Left as they were, by decision: promoting `net-redirect` into the standard, scoring drift, and the other changes that would move a grade or the hash are 0.3-draft decisions for the owner.
+
+## 0.2.0
+
+Methodology 0.2.
+
+- **Breaking: the default gate is A.** `sealmark run` exits 1 for any graded suite below an A, in every profile. Before 0.2.0 there was no gate unless you passed `--fail-under`. Relax it with `--fail-under B`, `C`, `D` or `F`, turn it off with `--fail-under none`, or keep it and exit 0 with `--soft-fail`.
+- The `ci` profile sets no gate. `--fail-under` no longer opts a run out of the `ci` profile under `CI=true`; only `--out`, `--format` and `--out-dir` do.
+- Suites: `sqlite`, `fs`, `git`, `net`, `http`, `effects`, the opt-in `exec`, and custom `probes:`, next to `core` and `db`.
+- Configuration: layered files, profiles, `sealmark.local.yaml`, `SEALMARK_*` environment variables, `${VAR}` references, `tools.include` and `tools.exclude`, strict validation of unknown keys, and the STANDARD or CUSTOM label.
+- Commands: `doctor`, `list-checks`, `explain`, `describe --json`, `config show`, `config profiles`, `config migrate`, and `init --ci gitlab|github`.
+- CI: `--start` with `--url` launches, tests and stops a server; `--header`, `--bearer`, `--start-timeout`, `--name`, `--soft-fail`; CI auto-detection.
+- Output: `markdown`, `junit`, `sarif` and `summary` next to `text` and `json`; `--out-dir`; `--baseline`, `--write-baseline` and `--fail-on`.
+- Database checks: `cap-timeout` is retired in favour of `db-rowcap` and `db-timeout`, and `pii-masked` is new.
+
+## 0.1.0 (2026-10-09)
+
+Methodology 0.1, seed 0.1. The first release: `sealmark init` and `sealmark run`, with exit codes 0 to 4 (a run that grades nothing exits 3) and a text or JSON report that records the exact server command, environment, tools found and evidence for every check, plus a "Not covered" list.
+
+- **`core`:** `protocol`, `tool-poisoning` (critical), `robust-input` and `secret-echo` (critical, n/a over HTTP).
+- **`db`:** `read-only`, `mutating-sql` (critical, a 13-case corpus), `rls` (critical), `pii` (critical), `cap-timeout`, and the advisory `write-gate` and `audit`, run once per database role against a seeded synthetic database in an embedded Postgres (or your own with `--pg` and `--yes`). Controls run before judging, so a broken connection is inconclusive, never a pass.
+- **Grading:** the same formula as today (see [Methodology](/docs/methodology#grading-formula)).
+- **Windows:** `PATHEXT` and `COMSPEC` are added to the server's environment, and the server's whole process tree is killed at the end of a run.
+
+What is designed but not built is on the [roadmap](/docs/roadmap).

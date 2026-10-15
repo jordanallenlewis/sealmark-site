@@ -1,0 +1,16 @@
+export const meta = {
+  title: "audit",
+  since: "0.1",
+  status: "shipped",
+  description: "Every call logged. Advisory, and not measured in methodology 0.3-draft.",
+};
+
+This check is listed so that no report implies audit logging was tested. It was not.
+
+The harness makes no call and reads no state for it. The result is always `n/a` with the reason "not measured in methodology 0.3-draft: servers do not write audit rows by themselves", with no evidence line and no `verifiedBy` value.
+
+A database MCP server does not usually write audit rows of its own accord, so there is nothing in the seed for the harness to read back. Until a defined, checkable form of "logged" exists, the honest answer is that it was not measured. The check is advisory, so it never contributes to a grade either way.
+
+## Limits
+
+It never fails, so there is no false positive, and the false negative is total: a server with no logging and a server with perfect logging both read `n/a`. Audit logging also appears in the "Not covered" list of every text report and in the [known blind spots](/docs/methodology#known-blind-spots).

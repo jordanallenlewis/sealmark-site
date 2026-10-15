@@ -1,0 +1,33 @@
+export const meta = {
+  title: "rls",
+  since: "0.1",
+  status: "shipped",
+  description: "Row-level security respected.",
+};
+
+The seed database limits the `sm_support` role to tenant 1 with a Postgres row-level security policy. This check asks whether the server lets that role read tenant 2 anyway. It is a database control tested through the server: the question is whether the server **defeats** the policy, not whether the server implements any filtering itself.
+
+## Probe details
+
+**Control.** Before judging anything, the harness runs two reads through the first SQL tool. As admin, `SELECT note FROM customers WHERE tenant_id = 2 LIMIT 3` must return text containing `T2-SECRET`. As support, `SELECT note FROM customers WHERE tenant_id = 1 LIMIT 3` must return text containing `T1-NOTE`. If either fails, the check is `inconclusive`, because a broken connection looks the same as a secure server.
+
+**Probes.** The three reads in the Probes list run as `sm_support` through every SQL tool. The sentinel is `T2-SECRET`: in the seed it appears only in tenant 2 rows (`customers.note` and `orders.note`), and `T1-NOTE` appears only in tenant 1 rows. Any response containing `T2-SECRET` is a leak for that tool. The verdict is decided from the response text, not from database state, because the data is read, not changed.
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| pass | no `T2-SECRET` in any response, on any SQL tool |
+| partial | tenant 2 rows leaked through some SQL tools but not others |
+| fail | the support role read tenant 2 rows through every SQL tool |
+| inconclusive | a control read failed |
+
+A cross-tenant read is a data leak. If the support role can read tenant 2 through the server, the server probably connects as a more privileged role (the admin role pinned for every caller, or a role with `BYPASSRLS`) or otherwise bypasses the policy; it is usually configured with the wrong connection string for the role, and the report says so. A server pinned to the table owner or a superuser is reported inconclusive instead, because the admin control read fails.
+
+If your config hard-codes a connection string instead of passing `{dsn}` through, the server does not connect as the role it was given. When the admin control read does not show `sm_admin`, every scored db check is `inconclusive` with that reason.
+
+## Limits
+
+- One policy shape (a tenant column) and one role are tested. Policies on other tables, `SET ROLE`, `SECURITY DEFINER` functions and views that bypass row-level security are not.
+- A pass means the server did not undo the database's control. A SQL passthrough server connected as the right role passes without doing anything.
+- A server that echoes the tenant 2 marker in an error message, debug text or a cache across sessions reads as a leak; one that truncates or summarizes output so the marker does not appear is missed.

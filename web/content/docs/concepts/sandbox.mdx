@@ -1,0 +1,63 @@
+export const meta = {
+  title: "Sandbox",
+  since: "0.2",
+  status: "shipped",
+  description: "A disposable folder, a scrubbed environment and a loopback listener the harness owns, so probes only point at things it controls.",
+};
+
+The test suites that probe a directory, a repository or a URL need a target the harness owns. The sandbox is that target. Sealmark creates one for each run, starts the server inside it (a stdio server, or an HTTP server it launches with `--start` and `--url`), and deletes it afterwards.
+
+<Callout kind="warn" title="A convention, not a boundary">
+  The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.
+</Callout>
+
+## Layout
+
+```text
+<tmp>/sealmark-<random>/
+  root/        the server's working directory and the allowed root ({sandbox})
+  root-evil/   a sibling whose name starts with the root's name (catches prefix-only path checks)
+  canary/      secret files and a repository the server is never told about
+  home/ tmp/   the server's HOME and temp directory ({sandbox_home})
+  bin/         harness-owned programs: sm-canary, sm-echo, sm-sleep, sm-spew
+```
+
+`root` holds a control file with a random token (`ok.txt`) and, where the platform allows it, a link to a directory and a link to a file that point at the canary. A probe that tries to escape (`../canary/secret.txt`, a link, an absolute path, an encoded variant) can only succeed by reaching a canary, and each canary is a random string the harness recognises anywhere it shows up. Every probe also embeds a random token, so each observation maps to exactly one probe. For the `git` suite the sandbox also holds repositories (they need `{sandbox}` in the server config, for example `{sandbox}/repo` as the repository argument): each has a staged change, so a tool such as a staged diff has something to show, and the configured repository contains an untracked link to the canary repository. Commit dates are fixed, so commit hashes repeat between runs. The parent directory is the OS temp directory unless you set `--sandbox-dir` (`sandbox.dir`). On POSIX the sandbox directories are created with mode 0700, so another local user cannot read the canary files or the private home.
+
+Creating a file symlink on Windows needs Developer Mode or an elevated shell. When it cannot be made, the file-link probes say they are not applicable and the junction probe still runs.
+
+## What the server gets
+
+A server that Sealmark starts gets an environment built from scratch, not yours.
+
+| Variable | Value |
+|---|---|
+| `PATH` | the sandbox `bin` first, then your `PATH`, so launchers such as `npx` and `uvx` still resolve |
+| `HOME`, `USER`, `LOGNAME`, `SHELL`, `TERM` | `home` and fixed values; on Windows `HOME`, `USERPROFILE`, `APPDATA` and `LOCALAPPDATA` all point at `home` |
+| `TEMP`, `TMP`, `TMPDIR` | the sandbox `tmp` |
+| `LANG` | yours, or `C.UTF-8` |
+| Windows essentials | `SYSTEMROOT`, `SYSTEMDRIVE`, `WINDIR`, `COMSPEC`, `PATHEXT`, `PROGRAMFILES`, `PROCESSOR_ARCHITECTURE`, copied from yours |
+| package-manager caches | `npm_config_cache`, `UV_CACHE_DIR`, `UV_PYTHON_INSTALL_DIR`, only when the directory exists, so `npx` and `uvx` do not download the server again for every suite |
+| anything you list | `server.env`, then the two canary variables, applied last |
+
+The report's `sandbox:` line names what was inherited from your environment. `sandbox.keep_env` copies named variables, for example `HTTP_PROXY`; anything else the server needs goes under `server.env`. See [Environment](/docs/reference/environment).
+
+A server that Sealmark launches with `--start` and `--url` runs inside the sandbox like a stdio server: its working directory is `root` and its environment is the one above (unless `sandbox.scrub_env` is off), so `fs`, `git`, `exec`, `effects` and `sqlite` apply to it. Every suite session is a fresh MCP session on that one process, so a server that keeps state per process can answer differently from its stdio twin. A server that is already running cannot be started inside the sandbox: the suites that need it are then not applicable, and the report says why. `--no-sandbox` has the same effect and makes the run CUSTOM.
+
+## Observers
+
+Four observers watch the sandbox: a file snapshot of every directory before and after a probe, a loopback listener on `127.0.0.1` that records every connection with the probe's token, a process observer, and a size watcher that stops the sandbox's processes when it grows past `sandbox.max_mib` (1024 by default). What each one decides is on the [observers](/docs/concepts/observers) page, with the two that sit beside the sandbox: the upstream stub and the server log. The harness never writes or reads outside the sandbox, and never sends a request to a private or link-local address.
+
+## Staged files
+
+`server.files` writes small files, such as a config file the server reads at start-up, into the sandbox before the server starts. It is configuration-file only and does not make a run CUSTOM; the rules and an example are under [`server.files`](/docs/reference/configuration#key-server-files).
+
+## Cleanup
+
+The sandbox is deleted when the run ends, including on Ctrl-C, SIGTERM and SIGHUP, after the harness has stopped the processes that belong to it. A hard kill (SIGKILL) can leave a directory behind; if cleanup fails, standard error and the report name the path. `--keep-sandbox` skips the deletion, for debugging. Sandbox paths and random tokens in a report are replaced by stable names such as `{sandbox}` and `{token}` so two runs of the same server compare; see [Output](/docs/reference/output).
+
+## Looking at a layout by hand
+
+`sealmark run --fixture fs --into ./sealmark-fixtures` (or `git`) writes the same layout, with random tokens and a `SEALMARK-FIXTURE.txt` that explains every path, into a directory you name. Point your server at its `root` to see what the `fs` suite sees. The real run always uses a fresh sandbox. See the [CLI reference](/docs/reference/cli).
+
+Related: [Classification](/docs/concepts/classification), [Safety](/docs/safety), [Suites](/docs/concepts/packs).

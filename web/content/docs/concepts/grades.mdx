@@ -1,0 +1,50 @@
+export const meta = {
+  title: "Grades",
+  since: "0.1",
+  status: "shipped",
+  description: "One letter per suite and server version, from an open formula with a hard cap for critical failures.",
+};
+
+<Figure>
+  <GradeLadder />
+</Figure>
+
+[An A means these checks passed with this exact configuration; it is not a security endorsement](/docs/methodology#what-an-a-means).
+
+## The formula
+
+Computed per suite and per server version. Grades are never inherited between versions.
+
+1. Take the suite's checks that are not advisory.
+2. A check is scored if its verdict is `pass`, `part` or `fail`: 1, 0.5 or 0 points.
+3. Percentage is points divided by scored checks.
+4. Letter: A at 90 or above, B at 75, C at 60, D at 45, otherwise F.
+
+If nothing is scored, no grade is produced. A letter is never invented.
+
+## The critical cap
+
+If any critical check has verdict `fail` and the raw letter is better than D, the grade is D and marked capped. A raw D or F is not changed. A `part` on a critical check does not cap.
+
+The cap exists so a server that leaks another tenant's rows, shows raw personal data, or runs injected SQL cannot show a good letter by passing the easy checks.
+
+| Case | Scored | Points | Raw | Final |
+|---|---|---|---|---|
+| core: poisoning fails, the other three pass | 4 | 3 | 75%, B | D, capped |
+| db: three checks fail, two pass | 5 | 2 | 40%, F | F, cap does not apply |
+
+Both rows are toy-server test fixtures, not real servers.
+
+## Provisional and excluded
+
+- A critical check that is `inconclusive` marks the grade provisional, shown as `*`: a critical question is unanswered.
+- Non-advisory checks that are `inconclusive` or `n/a` leave the denominator and are listed in the result.
+- Advisory checks never change the letter.
+
+## Read it with care
+
+With 4 or 5 scored checks, one check moves the percentage by 20 to 25 points. A letter on this few checks is coarse. The band edges are conventional school-style bands chosen for legibility, not derived from a risk model, and they can change before methodology 1.0. Read the per-check lines, not just the letter.
+
+What a grade does not cover is listed under [known blind spots](/docs/methodology#known-blind-spots). A server's grade changes only when the server does: there is no way to request, negotiate or adjust one.
+
+See [Verdicts](/docs/concepts/verdicts) for how each check line is decided and [Methodology](/docs/methodology) for the full text.

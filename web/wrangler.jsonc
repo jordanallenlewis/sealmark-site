@@ -1,0 +1,15 @@
+{
+  // Workers static assets: serves the Next.js static export (npm run build writes ./out). No Worker script.
+  // Deploy by hand when ready: npx wrangler login, then npx wrangler deploy. Nothing here deploys on its own.
+  "name": "sealmark",
+  "compatibility_date": "2026-10-01",
+  "routes": [
+    { "pattern": "sealmark.dev", "custom_domain": true },
+    { "pattern": "www.sealmark.dev", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
