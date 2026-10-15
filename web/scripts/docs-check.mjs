@@ -57,7 +57,8 @@ const DENY_NAMES = [
 ];
 
 const rel = (root, f) => path.relative(root, f).split(path.sep).join("/");
-const read = (f) => readFileSync(f, "utf8");
+// Files may arrive with CRLF line endings (a tarball packed on Windows); the rules parse LF text.
+const read = (f) => readFileSync(f, "utf8").split(String.fromCharCode(13)).join("");
 const lines = (t) => t.split(/\r?\n/);
 
 // ---------------------------------------------------------------------------------------------------------------
