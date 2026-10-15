@@ -1,0 +1,280 @@
+export const meta = {
+  title: "Output",
+  since: "0.1",
+  status: "shipped",
+  description: "The text report and the JSON record that sealmark run produces, field by field, with an annotated example.",
+};
+
+`sealmark run` produces one report per run, either as text for people or as JSON for machines. Both come from the same record, and the JSON is the complete one. Every example on this page comes from a run of the harness's own toy file server, shown here as Server A: an invented server, like every server and result on this site.
+
+## Where the report goes
+
+- The report goes to standard output. With `--out <file>` it is written to that file instead, and the path is printed on standard error.
+- `--format text` is the default. `--format` also takes `json` (the full record), `markdown`, `junit`, `sarif`, `summary` (the short CI view: a grade card per test suite, one row per check with failures first, what to fix, and what the exit code means), `badge` (an SVG) and `shields` (a shields.io endpoint document); repeat the flag or comma-separate for several, written as files into `--out-dir` or `./sealmark-report/`. See [Files per format](#files-per-format).
+- Progress messages go to standard error, so a redirected report stays clean. When the report does not go to the console, the grades are also printed there (see [CLI](/docs/reference/cli#where-output-goes)).
+
+## The text report
+
+```text
+sealmark 0.2.1 · methodology 0.3-draft · STANDARD · Server A 1.0.0
+
+server: node ./server-a.js {sandbox}
+env:
+  SEALMARK_CANARY=<canary>
+  SEALMARK_FAKE_API_KEY=<canary>
+stdio server, 4 tool(s): read_file, write_file, list_dir, stat
+db: not used
+sandbox: {sandbox_dir} · env scrubbed · listener 127.0.0.1:{listener_port} · cleaned up · inherited: PATH (system part), LANG, npm_config_cache, UV_CACHE_DIR
+
+Classification:
+  read_file   path  high    [readOnly, closedWorld]                 ← param "path", name matches /read|file/
+  write_file  path  medium  [destructive, idempotent, closedWorld]  ← param "path", name matches /write|file/, destructiveHint is true: confidence lowered one step
+  list_dir    path  high    [readOnly, closedWorld]                 ← param "path", name matches /list/
+  stat        path  high    [readOnly, closedWorld]                 ← param "path", description matches /file|directory/
+  packs applied: core, fs, effects
+
+PACK core  GRADE A  (4/4 points, 100%)
+  [PASS] Valid MCP handshake and tool schemas — handshake ok, 4 well-formed tool(s)
+        scope: server
+  [PASS] No tool-poisoning indicators in tool metadata — scanned 4 tool definition(s), including parameter text: nothing suspicious
+        scope: server (what it declares, not what it does)
+  [PASS] Survives malformed tool input — 16 invalid call(s) rejected cleanly
+        scope: server
+  [PASS] No environment secret echoed in responses — canary secrets absent from tools/list and 16 captured response(s)
+        scope: server
+
+PACK db  not graded: server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role
+
+PACK fs  GRADE A  (4/4 points, 100%)
+  [PASS] Reads stay inside the allowed root — 29 path variants aimed outside the root were refused or returned nothing, on read_file, list_dir, stat
+        scope: server (path validation, with a harness-owned root)
+  [PASS] Writes stay inside the allowed root — 5 write attempts aimed outside the root left the canary directory and the sibling root unchanged
+        scope: server (path validation, with a harness-owned root)
+  [PASS] Links cannot lead out of the allowed root — 6 reads and writes through a symbolic link that points out of the root were refused
+        scope: server (does it resolve links before checking the path?)
+  [PASS] Large file reads are capped — read_file: the server refused the read
+        scope: server (response size limit)
+
+PACK effects  GRADE A  (2/2 points, 100%)
+  [PASS] Read-only tools change nothing — read_file, list_dir, stat declared read-only and changed nothing during a benign call
+        scope: server (annotations vs what the sandbox observed during the harness's own benign calls)
+  [PASS] Closed-world tools stay on the machine — 4 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)
+        scope: server (annotations vs what the sandbox observed during the harness's own benign calls)
+  [N/A ] Unannotated tools leave the sandbox unchanged — no unannotated read-style tool could be given a harness-owned control argument (advisory, not scored)
+        scope: server (annotations vs what the sandbox observed during the harness's own benign calls)
+
+Badge: eligible (a STANDARD run with a graded pack beyond core).
+
+Not covered:
+  - The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.
+  - prompt injection carried in tool output (only tool metadata is scanned)
+  - authentication and transport security
+  - audit logging (not measured by these packs; only the db pack has an advisory audit check)
+
+An A means these checks passed with this exact configuration. It is not a security endorsement; see methodology.
+```
+
+The suites that did not apply (`sqlite`, `http`, `net` and `git` here) print a `not graded` line each; they are left out of the sample to keep it short.
+
+The sample is read top to bottom: header, server, environment, tools, database, sandbox, classification, then one block per suite. What is not obvious from it:
+
+- **Header.** The `name` and `version` come from your [config](/docs/reference/configuration); the version the server announced is used when the config leaves the default.
+- **Server and env.** The command is shown as written with placeholders unexpanded (an HTTP server shows its URL without any `user:password@`), and secret-looking values are `<redacted>`. It says `env: (none)` for an HTTP server with no headers. See [Environment](/docs/reference/environment#what-the-report-hides).
+- **Database and sandbox.** `db:` names the Postgres used, the seed version and the three roles, or says `db: not used`. In the `sandbox:` line `{listener_port}` stands for the real port, so two runs of the same server print the same text. See [Sandbox](/docs/concepts/sandbox).
+- **Classification.** The confidence and reason for each tool, and `packs applied:` naming every suite that ran, `core` included, or `none`.
+- **Suite block.** `core` comes first. A suite that was not graded prints `PACK db  not graded: <reason>`, with `(inconclusive)` when it ran but could not be measured, and `pack not requested` when you did not ask for it.
+- **Footnotes**, only when needed: `*` and `INCL`, described below.
+- **Not covered.** What this run did not look at, including any tool that looked like SQL but was skipped, a tool whose secondary class (a `path` tool that also takes a `url`) was not probed, the fixed line that tools a server lists only to clients declaring roots, sampling or elicitation are not seen, and per-tool gaps from every suite (twelve lines at most and then a count). The `effects` suite adds that writes outside the observed sandbox directories are not seen.
+- **Closing line.** Always printed.
+
+### An advisory line
+
+An advisory check is shown with its real verdict and ends with `(advisory, not scored)`. It never changes a letter or a point count. In the sample above it is the last `effects` line, which reads `[N/A ]` because no unannotated tool could be given a control argument. A candidate check (one a methodology bump has not promoted yet, see [Candidate checks](/docs/methodology#candidate-checks)) is printed the same way in every run, STANDARD or CUSTOM, and adds one `<testcase>` to JUnit, one rule to SARIF and one entry to `checks` in the JSON.
+
+### Reading a suite line
+
+`PACK core  GRADE B  (3/4 points, 75% · 1 of 5 checks not scored)` means three points earned over four scored checks. The last part appears only when a check was inconclusive or not applicable, because those are left out of the score; advisory checks are not counted anywhere in the line. The text, markdown and summary formats print the same fraction.
+
+`GRADE B*` with a star means a critical check was inconclusive, so the grade is provisional and may drop once that check can be measured. When a critical fail capped the grade, a `Capped at D` line gives the grade the suite would have had without the cap. An F stays an F.
+
+### Reading a check line
+
+```text
+  [FAIL] Personal data masking respected — customers.email returned unmasked to the analyst role
+        scope: database grants, tested through the server: does the server defeat them?
+```
+
+| Tag | Verdict | Counts as |
+| --- | --- | --- |
+| `PASS` | pass | 1 point |
+| `PART` | partial | 0.5 point |
+| `FAIL` | fail | 0 points |
+| `INCL` | inconclusive | Left out of the score: the check could not run or gave no signal |
+| `N/A ` | not applicable | Left out of the score |
+
+Every check line carries one tag, the verdict. Scored checks come first, worst verdict on top, so a failure is not buried under passes. Advisory checks follow.
+
+The `scope:` line says what the check actually measures. Each check has its own page in the [checks reference](/docs/reference/checks).
+
+## The JSON record
+
+`--format json` prints one JSON object with 2-space indentation. It is a superset of the text report. The abridged example below is the same Server A run, with the arrays cut down to one entry.
+
+```json
+{
+  "sealmark": { "version": "0.2.1", "methodology": "0.3-draft" },
+  "server": {
+    "name": "Server A",
+    "version": "1.0.0",
+    "command": "node ./server-a.js {sandbox}",
+    "env": { "SEALMARK_CANARY": "<canary>", "SEALMARK_FAKE_API_KEY": "<canary>" },
+    "transport": "stdio",
+    "tools": ["read_file", "write_file", "list_dir", "stat"],
+    "surface": [{ "name": "read_file", "descriptionHash": "sha256:…", "descriptionLength": 45, "inputSchemaHash": "sha256:…", "required": ["path"], "params": { "path": "string" }, "annotations": { "readOnlyHint": true, "openWorldHint": false } }]
+  },
+  "options": { "packsRequested": ["core", "db", "sqlite", "fs", "net", "git", "http", "effects"], "timeoutProbeSec": 10, "active": false, "sandbox": true },
+  "startedAt": "2026-10-12T09:30:00.000Z",
+  "durationMs": 41872,
+  "packs": {
+    "core": { "status": "graded", "grade": { "pack": "core", "points": 4, "scored": 4, "pct": 100, "raw": "A", "letter": "A", "capped": false, "criticalFails": [], "provisional": false, "excluded": [] } },
+    "db": { "status": "na", "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role" },
+    "fs": { "status": "graded", "grade": { "pack": "fs", "points": 4, "scored": 4, "pct": 100, "raw": "A", "letter": "A", "capped": false, "criticalFails": [], "provisional": false, "excluded": [] } }
+  },
+  "checks": [
+    {
+      "id": "fs-read-escape",
+      "pack": "fs",
+      "label": "Reads stay inside the allowed root",
+      "critical": true,
+      "scope": "server (path validation, with a harness-owned root)",
+      "verdict": "pass",
+      "summary": "29 path variants aimed outside the root were refused or returned nothing, on read_file, list_dir, stat",
+      "evidence": [
+        {
+          "probe": "control: read_file on {sandbox}/ok.txt",
+          "outcome": "the tool read the harness's control file",
+          "verifiedBy": "response",
+          "tool": "read_file",
+          "args": { "path": "{sandbox}/ok.txt" },
+          "code": "fs.control.read"
+        }
+      ]
+    }
+  ],
+  "classification": [{ "tool": "read_file", "class": "path", "confidence": "high" }],
+  "sandbox": { "dir": "{sandbox_dir}", "envMode": "scrubbed", "listenerPort": 62894, "cleanedUp": true, "leftoverProcesses": [], "active": false, "enabled": true, "kept": false },
+  "config": { "hash": "sha256:…", "profile": "standard", "standard": true, "standardDiff": [], "methodology": "0.3-draft", "schemaVersion": 1 },
+  "coverage": { "validCalls": 39, "toolsCalledValid": 4, "toolsTotal": 4, "level": "covered" },
+  "badge": { "eligible": true },
+  "notCovered": ["prompt injection carried in tool output (only tool metadata is scanned)"]
+}
+```
+
+### Top-level fields
+
+| Field | Meaning |
+| --- | --- |
+| `sealmark` | The CLI `version` and the `methodology` version the run followed |
+| `server` | The server under test, as configured. See below |
+| `db` | The database used. Absent when none was started |
+| `options` | The suites that were requested and the probe timeout in seconds |
+| `startedAt` | When the run began, as an ISO 8601 timestamp |
+| `durationMs` | How long the whole run took, in milliseconds |
+| `packs` | One entry per suite that was requested or ran. See below |
+| `checks` | Every check result from every suite, in the order the suites ran them |
+| `notCovered` | Plain-language lines about what this run did not look at |
+| `upstream` | When an upstream stub ran: `kind`, `requests` (how many it received), `scripted` (how many a scripted reply answered) and `url` (`http://127.0.0.1:{upstream_port}` when redacted) |
+| `identities` | When the server headers use `{bearer}`: the caller `names` (`a`, `b`) and their `source` (`minted` or `config`). Never the tokens |
+| `suggestions` | What to add to the configuration, the same objects `sealmark doctor --json` prints, re-evaluated after the run: `id`, `kind` (`scope`, `sql-guard`, `upstream`, `identity`, `probes`, `sandbox`), `why`, `config` (YAML to paste), `flags`, and `tools` when it is about some. Absent when there is nothing to suggest |
+
+### server and db
+
+| Field | Meaning |
+| --- | --- |
+| `server.name`, `server.version` | From your config |
+| `server.command` | The command line, or the URL for an HTTP server, as written. Placeholders are not expanded and any `user:password@` is removed from a URL |
+| `server.env` | The environment and headers as shown in the report. Headers appear as `header:<Name>`, and secret-looking values appear as `<redacted>` |
+| `server.transport` | `stdio` or `http` |
+| `server.tools` | The tool names the server declared |
+| `server.sqlTools` | The SQL tools that were probed, as `{ tool, arg }` pairs |
+| `server.surface` | What each tool offers an agent, reduced to hashes and types, for [drift detection](/docs/guides/drift): `name`, `title`, `descriptionHash`, `descriptionLength`, `inputSchemaHash`, `required`, `params` (a type per parameter) and `annotations`. Descriptions are never stored. Absent in reports written before 0.2.1 |
+| `db.mode` | `embedded` for the harness's own Postgres, `external` when you passed `--pg` |
+| `db.seed` | The seed database name and seed version |
+| `db.roles` | The three roles the database suite uses |
+| `db.timeoutProbeSec` | The statement timeout the `db-timeout` check expected, from `--timeout-probe` |
+
+### packs
+
+Each key is a suite id. The entry has a `status`:
+
+- `graded` has a `grade` object.
+- `na` has a `reason`. The suite was not requested or did not apply.
+- `inconclusive` has a `reason`. The suite ran but nothing could be scored.
+
+A `grade` object has these fields:
+
+| Field | Meaning |
+| --- | --- |
+| `pack` | The suite id |
+| `points`, `scored` | Points earned, and how many scored checks they were earned over |
+| `pct` | Points as a percentage from 0 to 100, rounded to 2 decimals. The text report rounds to 1 |
+| `raw` | The letter the percentage alone gives |
+| `letter` | The final letter after the cap. Equal to `raw` unless `capped` is true |
+| `capped` | True when a critical fail lowered a better letter to D |
+| `criticalFails` | The check ids of the critical checks that failed |
+| `provisional` | True when a critical check was inconclusive. The text report shows it as `*` |
+| `excluded` | The check ids left out of the score because they were inconclusive or not applicable |
+
+The text report prints check labels where the JSON has check ids in `criticalFails` and `excluded`. The JSON keeps the real `sandbox.listenerPort`; the text report prints `{listener_port}` instead. Two runs of the same server produce the same verdicts and evidence. Text, markdown, summary, badge and shields output is byte-identical at every verbosity; JSON, JUnit and SARIF differ in `startedAt`, `durationMs`, `sandbox.listenerPort`, `upstream.url` (when a stub ran), each `probes.calls[].elapsedMs` (when `probes:` are declared), the SARIF `startTimeUtc` and any timing the server itself prints inside an excerpt. The stub port, the minted caller tokens and the markers the stub and the candidate suites mint are fixed placeholders such as `{upstream_port}`, `{bearer:a}` and `{token}`. One harness-measured number can differ in every format: how many bytes the net suite's listener had sent when a server hung up early on the oversized reply, printed as `under N of 64 MiB` with N rounded up to a power of two from 8.
+
+### checks and evidence
+
+| Field | Meaning |
+| --- | --- |
+| `id`, `pack`, `label` | Which check this is. Ids are listed in the [checks reference](/docs/reference/checks) |
+| `critical` | True if a fail caps the suite at D |
+| `advisory` | Present and true for checks that are reported but not scored |
+| `scope` | What the check measures |
+| `verdict` | One of `pass`, `part`, `fail`, `inconclusive` or `na` |
+| `summary` | One line saying what was found |
+| `evidence` | A list of what was sent or inspected and what came back |
+
+An evidence entry has `probe` (what was sent or inspected), `outcome` (what came back or was observed), and `verifiedBy`, which says how the verdict was established (see [Observers](/docs/concepts/observers)).
+
+An entry may also have `role` (`analyst`, `support` or `admin`) and `tool`, the tool that was called.
+
+### Other top-level fields
+
+Runs of the suites beyond `core` and `db` add these fields to the record:
+
+| Field | Meaning |
+| --- | --- |
+| `classification` | One row per tool: class, confidence, the parameters that matched and why. See [Classification](/docs/concepts/classification) |
+| `sandbox` | Whether a sandbox was used, whether the environment was scrubbed, what it inherited (`inherited`), the real listener port and whether cleanup succeeded. See [Sandbox](/docs/concepts/sandbox) |
+| `config` | The configuration identity: `standard` (true or false), `standardDiff`, `hash` and the `locked` settings. See [Standard vs custom](/docs/concepts/standard-vs-custom) |
+| `coverage` | How many tools a valid call reached. A call counts when it was schema-valid and the server processed it: a control call that failed, an escape probe whose control failed, a reply that was a validation error and a failed fetch do not count, and a suite whose checks are all inconclusive or not applicable contributes none |
+| `badge` | `{ eligible, reason }`: whether a [badge](/docs/guides/badge) may be rendered for this run |
+| `warnings` | Anything the run noticed that a reader should know |
+
+## Files per format
+
+With `--out-dir` (or several formats at once, which go to `./sealmark-report/`) each format is a file named `sealmark-report` plus an extension:
+
+| Format | File |
+| --- | --- |
+| `text` | `sealmark-report.txt` |
+| `json` | `sealmark-report.json` |
+| `markdown` | `sealmark-report.md` |
+| `junit` | `sealmark-report.junit.xml` |
+| `sarif` | `sealmark-report.sarif` |
+| `summary` | `sealmark-report.summary.txt` |
+| `badge` | `sealmark-report.badge.svg` |
+| `shields` | `sealmark-report.shields.json` |
+
+SARIF results and JUnit test cases point at your configuration file, at the line of the selected server's `command` or `url` setting when that line is known (otherwise line 1). The line locates the server block, not the cause of a finding; the cause is in the evidence.
+
+`badge` and `shields` render one server and refuse a run of several. The shields file is a document with exactly four keys, `schemaVersion` (1), `label`, `message` and `color`; the SVG carries the same text in its `<title>` and `aria-label`. Both are self-reported: no server-supplied text reaches them, and a run that is not badge-eligible renders `no badge: ...` in grey, never a letter. See [Add a README badge](/docs/guides/badge).
+
+### Using the record
+
+Keep the JSON from each run next to your build, so a grade can be traced back to its evidence. `packs.<id>.grade.letter` is the value that `--fail-under` compares, and each `checks` entry carries the probe and outcome behind its verdict.

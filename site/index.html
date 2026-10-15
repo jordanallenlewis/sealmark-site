@@ -1,0 +1,913 @@
+<title>Sealmark</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: dark product site in alternating bands. Hero = question + install block + live grading terminal that stamps a seal. Wax-gold is the only accent; grade colors are their own scale. Deliberately single dark theme. */
+:root {
+  color-scheme: dark;
+  --bg: #111214;
+  --band-alt: #16171a;
+  --surface: #1d1e22;
+  --surface-2: #25262b;
+  --code: #0a0a0b;
+  --border: #2d2d30;
+  --border-strong: #4d4024;
+  --ink: #f5f2ea;
+  --ink-muted: #d5d0c4;
+  --ink-faint: #a29d92;
+  --accent: #e9b949;
+  --accent-ink: #1a1405;
+  --accent-wash: #2a220f;
+  --accent-link: #f3d27e;
+  --pass: #63c98f; --pass-bg: #13301f;
+  --part: #e8b04e; --part-bg: #33270c;
+  --fail: #f2806f; --fail-bg: #3a1916;
+  --held: #aab2c1; --held-bg: #232a36;
+  --ga: #2a9d5c; --ga-fg: #ffffff;
+  --gb: #4d8f2e; --gb-fg: #ffffff;
+  --gc: #d6a000; --gc-fg: #1a1400;
+  --gd: #e0742a; --gd-fg: #1f0e00;
+  --gf: #c8432f; --gf-fg: #ffffff;
+  --display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
+  --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --frame: 1140px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; padding-inline: 0; padding-block: 0; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent-link); text-underline-offset: 3px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.06; text-wrap: balance; color: var(--ink); }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.gutter { padding-inline: 20px; }
+.frame { max-width: var(--frame); margin: 0 auto; }
+.mono { font-family: var(--mono); }
+.band { padding-block: 96px; }
+.band-alt { background: var(--band-alt); border-block: 1px solid var(--border); }
+@media (max-width: 700px) { .band { padding-block: 64px; } }
+
+.mockbar { background: var(--accent); color: var(--accent-ink); font: 600 0.74rem var(--mono); text-align: center; padding: 6px 16px; letter-spacing: 0.03em; }
+
+/* masthead */
+.masthead { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(17, 18, 20, 0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.masthead .frame { display: flex; align-items: center; gap: 28px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 800 1.35rem var(--display); letter-spacing: -0.02em; flex: none; }
+.brand svg { width: 30px; height: 30px; }
+.lg-ring { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 3 2.2; }
+.lg-disc { fill: var(--accent); }
+.lg-row { stroke: var(--accent-ink); stroke-width: 2.2; stroke-linecap: round; }
+.lg-dim { stroke: var(--accent-ink); stroke-width: 2.2; stroke-linecap: round; opacity: 0.3; }
+.navlinks { display: flex; gap: 24px; align-items: center; }
+.navlinks a { color: var(--ink-faint); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+.navlinks a:hover { color: var(--ink); }
+.navright { margin-left: auto; display: flex; gap: 14px; align-items: center; }
+.navright .signin { color: var(--ink-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 600 0.95rem var(--sans); text-decoration: none; padding: 10px 18px; border-radius: 6px; border: 1px solid var(--border-strong); background: var(--accent-wash); color: var(--accent-link); cursor: pointer; white-space: nowrap; }
+.btn:hover { border-color: var(--accent); }
+.btn.solid { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.solid:hover { filter: brightness(1.06); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--border); }
+.btn.ghost:hover { border-color: var(--ink-faint); }
+.menu-btn { display: none; background: transparent; border: 1px solid var(--border); color: var(--ink); border-radius: 6px; padding: 7px 12px; font: 500 0.9rem var(--sans); cursor: pointer; }
+.mobile-menu { border-top: 1px solid var(--border); padding: 12px 20px 18px; display: grid; gap: 4px; }
+.mobile-menu a { color: var(--ink-muted); text-decoration: none; padding: 8px 0; font-size: 1rem; }
+@media (max-width: 900px) { .navlinks, .navright .signin { display: none; } .menu-btn { display: inline-flex; } }
+@media (max-width: 480px) { .navright .btn { display: none; } }
+
+/* hero */
+.hero { padding-block: 72px 88px; }
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: start; }
+@media (min-width: 1000px) { .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); gap: 56px; } }
+.hero-grid > * { min-width: 0; }
+.eyebrow { font: 500 0.78rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.1rem); font-weight: 800; letter-spacing: -0.035em; }
+.hero .lede { margin-top: 22px; color: var(--ink-muted); font-size: 1.12rem; max-width: 56ch; }
+.hero .lede + .lede { margin-top: 14px; }
+.hero .punch { margin-top: 18px; color: var(--ink); font-weight: 600; font-size: 1.12rem; max-width: 52ch; }
+.install { margin-top: 30px; max-width: 560px; }
+.itabs { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font: 500 0.8rem var(--mono); color: var(--ink-faint); }
+.itabs button { background: transparent; border: 0; color: var(--ink-faint); font: inherit; padding: 2px 4px; cursor: pointer; border-bottom: 2px solid transparent; }
+.itabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.ibox { background: var(--code); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
+.ibox pre { margin: 0; flex: 1; min-width: 0; overflow-x: auto; font: 0.92rem/1.7 var(--mono); color: var(--ink); white-space: pre; }
+.ibox pre.wrap { white-space: pre-wrap; color: var(--ink-muted); font-size: 0.85rem; }
+.ibox .pr { color: var(--ink-faint); user-select: none; }
+.copybtn { flex: none; background: var(--surface); border: 1px solid var(--border); color: var(--ink-muted); border-radius: 5px; padding: 5px 10px; font: 500 0.75rem var(--mono); cursor: pointer; }
+.copybtn:hover { color: var(--ink); border-color: var(--ink-faint); }
+.or { display: flex; align-items: center; gap: 14px; margin-top: 18px; flex-wrap: wrap; color: var(--ink-faint); font-size: 0.95rem; }
+.fine { margin-top: 16px; color: var(--ink-faint); font-size: 0.92rem; max-width: 56ch; }
+
+/* grading stage */
+.stage { position: relative; background: #0c0c0e; border: 1px solid var(--border); border-radius: 12px; padding: 18px; overflow: hidden; }
+.stage::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 300px at 85% 90%, rgba(233, 185, 73, 0.08), transparent 70%); pointer-events: none; }
+.hud { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; font-family: var(--mono); position: relative; }
+.hud b { font-size: 1.05rem; color: var(--ink); font-weight: 600; }
+.hud span { font-size: 0.75rem; color: var(--ink-faint); }
+.win { position: relative; background: #18181c; border-radius: 10px; box-shadow: 0 0 0 1px #34343b, 0 24px 60px rgba(0, 0, 0, 0.55); overflow: hidden; }
+.winbar { display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; background: #222227; border-bottom: 1px solid #2e2e34; }
+.winbar i { width: 11px; height: 11px; border-radius: 50%; background: #3b3b42; display: block; }
+.winbar span { margin-left: 8px; font: 500 0.72rem var(--mono); color: var(--ink-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.term { height: 336px; padding: 14px 16px; font: 0.8rem/1.75 var(--mono); color: #e8e6e0; overflow: hidden; }
+.term .ln { display: flex; gap: 10px; white-space: nowrap; }
+.term .ln .lbl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.term .ln .meta { color: var(--ink-faint); flex: none; }
+.term .dim { color: var(--ink-faint); }
+.term .crit { color: var(--fail); font-size: 0.68rem; letter-spacing: 0.05em; margin-left: 6px; }
+.term .ok { color: var(--pass); } .term .pt { color: var(--part); } .term .bad { color: var(--fail); }
+.term .sum { margin-top: 6px; padding-top: 6px; border-top: 1px dashed #34343b; color: var(--ink); }
+.term .caret::after { content: "▍"; color: var(--accent); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (max-width: 560px) { .term { font-size: 0.7rem; height: 300px; padding: 12px; } .term .ln .meta { display: none; } }
+.stamp { --c: var(--ga); --cf: var(--ga-fg); position: absolute; right: 26px; bottom: 26px; width: 122px; height: 122px; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: var(--cf); box-shadow: 0 0 0 5px #18181c, 0 0 0 9px var(--c), 0 18px 40px rgba(0, 0, 0, 0.5); transform: rotate(-12deg); }
+.stamp b { font: 800 4.2rem/1 var(--display); }
+.stamp small { position: absolute; bottom: 16px; font: 600 0.58rem var(--mono); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+.stamp.g-A { --c: var(--ga); --cf: var(--ga-fg); } .stamp.g-D { --c: var(--gd); --cf: var(--gd-fg); }
+.stamp[hidden] { display: none !important; }
+.stamp.hit { animation: stamp 0.42s cubic-bezier(.2, .9, .3, 1.3) both; }
+@keyframes stamp { 0% { transform: scale(1.9) rotate(-26deg); opacity: 0; } 60% { opacity: 1; } 100% { transform: scale(1) rotate(-12deg); opacity: 1; } }
+.win.shake { animation: shake 0.28s ease-out; }
+@keyframes shake { 0%, 100% { transform: translate(0, 0); } 30% { transform: translate(1px, 2px); } 60% { transform: translate(-1px, -1px); } }
+@media (max-width: 560px) { .stamp { width: 92px; height: 92px; right: 16px; bottom: 16px; } .stamp b { font-size: 3rem; } .stamp small { bottom: 11px; font-size: 0.5rem; } }
+.stagecap { margin-top: 12px; font-size: 0.85rem; color: var(--ink-faint); position: relative; }
+
+/* stages band */
+.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 1px solid var(--border); }
+.stages > div { padding: 30px 26px 8px 0; }
+.stages .num { font: 500 0.78rem var(--mono); color: var(--accent); }
+.stages h3 { font-size: 1.6rem; font-weight: 800; margin: 10px 0 10px; letter-spacing: -0.02em; }
+.stages p { color: var(--ink-muted); font-size: 0.98rem; max-width: 34ch; }
+
+/* section headings */
+.sechead { max-width: 760px; }
+.sechead .kick { display: flex; gap: 10px; align-items: baseline; font: 500 0.8rem var(--mono); color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+.sechead .kick b { color: var(--accent); font-weight: 600; }
+.sechead h2 { font-size: clamp(1.9rem, 4.2vw, 3rem); font-weight: 800; letter-spacing: -0.03em; }
+.sechead p { margin-top: 18px; color: var(--ink-muted); font-size: 1.08rem; max-width: 64ch; }
+
+/* example scorecard */
+.excap { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 10px; margin: 40px 0 12px; }
+.excap .tag { font: 500 0.75rem var(--mono); color: var(--ink-faint); letter-spacing: 0.05em; text-transform: uppercase; }
+.excap select { font: 500 0.88rem var(--sans); background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; }
+.excap label { font-size: 0.88rem; color: var(--ink-faint); display: flex; gap: 8px; align-items: center; }
+.tw { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; }
+.sc { min-width: 960px; font-size: 0.88rem; }
+.sc th, .sc td { padding: 12px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+.sc thead th { font: 500 0.7rem/1.35 var(--mono); color: var(--ink-faint); letter-spacing: 0.02em; }
+.sc thead th small { display: block; color: var(--ink-muted); font-size: 0.7rem; }
+.sc thead th .crit { color: var(--fail); }
+.sc tbody tr { cursor: pointer; }
+.sc tbody tr:hover { background: var(--surface-2); }
+.sc tbody tr.sel { background: var(--surface-2); box-shadow: inset 3px 0 0 var(--accent); }
+.sc tbody tr:last-child th, .sc tbody tr:last-child td { border-bottom: 0; }
+.rowbtn { all: unset; cursor: pointer; display: block; }
+.rowbtn strong { display: block; font-weight: 700; color: var(--ink); }
+.rowbtn span { display: block; font: 0.72rem var(--mono); color: var(--ink-faint); }
+.rowbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; font: 600 0.72rem var(--mono); padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+.chip::before { font-weight: 700; }
+.c-pass { color: var(--pass); background: var(--pass-bg); } .c-pass::before { content: "✓"; }
+.c-part { color: var(--part); background: var(--part-bg); } .c-part::before { content: "◐"; }
+.c-fail { color: var(--fail); background: var(--fail-bg); } .c-fail::before { content: "✕"; }
+.c-held { color: var(--held); background: var(--held-bg); } .c-held::before { content: "⏸"; }
+.pts { font: 600 0.85rem var(--mono); white-space: nowrap; color: var(--ink); }
+.pts small { color: var(--ink-faint); font-weight: 400; }
+.seal { --c: var(--gf); --cf: var(--gf-fg); width: 36px; height: 36px; border-radius: 50%; background: var(--c); color: var(--cf); display: inline-grid; place-items: center; font: 800 1.1rem var(--display); position: relative; flex: none; box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--c); }
+.seal.lg { width: 72px; height: 72px; font-size: 2.3rem; box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--c); }
+.seal.g-A { --c: var(--ga); --cf: var(--ga-fg); } .seal.g-B { --c: var(--gb); --cf: var(--gb-fg); } .seal.g-C { --c: var(--gc); --cf: var(--gc-fg); } .seal.g-D { --c: var(--gd); --cf: var(--gd-fg); } .seal.g-F { --c: var(--gf); --cf: var(--gf-fg); }
+.seal.prov::after { content: "*"; position: absolute; top: -7px; right: -9px; color: var(--ink); font-size: 1rem; }
+.seal.lg.prov::after { font-size: 1.5rem; top: -10px; right: -14px; }
+.exnote { margin-top: 12px; color: var(--ink-faint); font-size: 0.86rem; }
+.evid { margin-top: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.evhead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
+.evhead h3 { font-size: 1.5rem; font-weight: 800; }
+.evhead .meta { font: 0.76rem var(--mono); color: var(--ink-faint); margin-top: 6px; }
+.evgrade { display: flex; gap: 18px; align-items: center; }
+.evgrade .why { font-size: 0.92rem; max-width: 38ch; color: var(--ink-muted); }
+.evgrade .why b { display: block; font: 600 0.85rem var(--mono); color: var(--ink); }
+.evlist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .evlist { grid-template-columns: 1fr 1fr; } .evlist li:nth-child(odd) { border-right: 1px solid var(--border); } }
+.evlist li { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 4px 12px; padding: 14px 22px; border-bottom: 1px solid var(--border); }
+.evlist .chip { align-self: start; justify-self: start; margin-top: 2px; }
+.evlist b { font-size: 0.96rem; color: var(--ink); }
+.evlist b em { font: normal 600 0.64rem var(--mono); color: var(--fail); margin-left: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+.evlist .probe { display: block; font: 0.74rem var(--mono); color: var(--ink-faint); margin-top: 2px; overflow-wrap: anywhere; }
+.evlist .obs { display: block; font-size: 0.9rem; color: var(--ink-muted); margin-top: 4px; }
+.evfoot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 22px; background: var(--band-alt); }
+.evfoot code { font: 0.78rem var(--mono); color: var(--ink-muted); overflow-wrap: anywhere; flex: 1; min-width: 0; }
+
+/* problem */
+.qgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 44px; }
+.q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px; }
+.q h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+.q p { color: var(--ink-muted); font-size: 0.96rem; }
+.closer { margin-top: 36px; font: 600 1.25rem var(--display); color: var(--ink); max-width: 46ch; }
+
+/* standard */
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px 36px; margin-top: 44px; }
+.pillars p { color: var(--ink-muted); font-size: 0.98rem; }
+.pillars b { display: block; color: var(--ink); font-size: 1.05rem; margin-bottom: 6px; }
+.vs { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 48px; }
+@media (min-width: 860px) { .vs { grid-template-columns: 1fr 1fr; } }
+.vs > div { border-radius: 10px; padding: 22px; border: 1px solid var(--border); background: var(--surface); min-width: 0; }
+.vs > div.us { border-color: var(--border-strong); background: linear-gradient(180deg, var(--accent-wash), var(--surface) 70%); }
+.vs .lab { font: 500 0.74rem var(--mono); color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; }
+.vs .us .lab { color: var(--accent); }
+.vs h3 { font-size: 1.3rem; font-weight: 800; margin: 8px 0 8px; }
+.vs p { color: var(--ink-muted); font-size: 0.96rem; }
+.vs pre { margin: 14px 0 0; background: var(--code); border-radius: 6px; padding: 12px 14px; font: 0.78rem/1.7 var(--mono); color: var(--ink-muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+.vs .ok { color: var(--pass); font-weight: 600; } .vs .warn { color: var(--part); font-weight: 600; }
+.formula { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 48px; }
+@media (min-width: 900px) { .formula { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+.fbox { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px; min-width: 0; }
+.fbox h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 14px; }
+.ladder { display: grid; gap: 10px; }
+.ladder div { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; }
+.ladder .seal { width: 32px; height: 32px; font-size: 0.95rem; }
+.ladder span { font: 500 0.85rem var(--mono); color: var(--ink); }
+.ladder small { display: block; font: 0.86rem var(--sans); color: var(--ink-faint); }
+.frules { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; counter-reset: r; }
+.frules li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; counter-increment: r; }
+.frules li::before { content: counter(r); font: 500 0.8rem var(--mono); color: var(--accent); padding-top: 3px; }
+.frules b { display: block; color: var(--ink); }
+.frules span { color: var(--ink-muted); font-size: 0.94rem; }
+.frules code { font: 0.84rem var(--mono); background: var(--surface-2); padding: 1px 6px; border-radius: 3px; }
+
+/* get started */
+.start { display: grid; grid-template-columns: 1fr; gap: 36px; margin-top: 44px; align-items: start; }
+@media (min-width: 940px) { .start { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); } }
+.start > * { min-width: 0; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; counter-increment: s; }
+.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); display: grid; place-items: center; font: 600 0.8rem var(--mono); }
+.steps b { display: block; color: var(--ink); }
+.steps span { color: var(--ink-muted); font-size: 0.96rem; }
+.ctabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--border); }
+.ctabs button { background: transparent; border: 0; border-bottom: 2px solid transparent; color: var(--ink-faint); font: 500 0.82rem var(--mono); padding: 8px 12px; cursor: pointer; margin-bottom: -1px; }
+.ctabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.cpanel { position: relative; background: var(--code); border: 1px solid var(--border); border-top: 0; border-radius: 0 0 8px 8px; }
+.cpanel pre { margin: 0; padding: 18px 18px; font: 0.82rem/1.75 var(--mono); color: var(--ink-muted); overflow-x: auto; white-space: pre; }
+.cpanel pre.wrap { white-space: pre-wrap; }
+.cpanel .copybtn { position: absolute; top: 12px; right: 12px; }
+.cpanel .c { color: #6f6b62; } .cpanel .k { color: #f3d27e; } .cpanel .g { color: var(--pass); }
+
+/* pricing */
+.plans { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 48px; align-items: stretch; }
+@media (min-width: 980px) { .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.plan { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 26px; display: flex; flex-direction: column; gap: 16px; min-width: 0; position: relative; }
+.plan.feat { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 30px 80px rgba(233, 185, 73, 0.08); }
+.plan .ribbon { position: absolute; top: -12px; left: 24px; background: var(--accent); color: var(--accent-ink); font: 600 0.7rem var(--mono); padding: 4px 10px; border-radius: 999px; letter-spacing: 0.04em; }
+.plan h3 { font-size: 1.35rem; font-weight: 800; }
+.plan .for { color: var(--ink-faint); font-size: 0.95rem; margin-top: -8px; }
+.price { font: 800 2.6rem/1 var(--display); letter-spacing: -0.03em; color: var(--ink); }
+.price small { font: 500 0.9rem var(--sans); color: var(--ink-faint); letter-spacing: 0; margin-left: 4px; }
+.plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; font-size: 0.95rem; color: var(--ink-muted); }
+.plan ul li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+.plan ul li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+.plan .plus { font: 600 0.8rem var(--mono); color: var(--ink); letter-spacing: 0.02em; }
+.plan .btn { margin-top: auto; }
+.cmpwrap { margin-top: 40px; }
+.cmp { min-width: 720px; font-size: 0.92rem; }
+.cmp th, .cmp td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; }
+.cmp thead th { font: 600 0.8rem var(--mono); color: var(--ink); }
+.cmp tbody th { font-weight: 500; color: var(--ink-muted); }
+.cmp td { color: var(--ink-muted); font-size: 0.88rem; }
+.cmp td.y { color: var(--accent); font-weight: 700; }
+.cmp td.n { color: #55524c; }
+.cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: 0; }
+.cmp .grp th { font: 500 0.72rem var(--mono); color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; background: var(--band-alt); }
+.triggers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 48px; }
+.trig { border-top: 2px solid var(--accent); padding-top: 16px; }
+.trig .when { font: 500 0.76rem var(--mono); color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+.trig h3 { font-size: 1.15rem; font-weight: 700; margin: 8px 0 6px; }
+.trig p { color: var(--ink-muted); font-size: 0.95rem; }
+.pledge { margin-top: 48px; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 12px; padding: 24px; }
+.pledge svg { width: 64px; height: 64px; }
+.pledge h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 6px; }
+.pledge p { color: var(--ink-muted); font-size: 0.96rem; max-width: 80ch; }
+@media (max-width: 560px) { .pledge { grid-template-columns: 1fr; } }
+
+/* faq */
+.faq { margin-top: 40px; max-width: 820px; }
+.faq details { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.faq details:first-child { border-top: 1px solid var(--border); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; font: 600 1.08rem var(--sans); color: var(--ink); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 500 1.1rem var(--mono); color: var(--accent); flex: none; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin-top: 10px; color: var(--ink-muted); max-width: 70ch; }
+
+/* final */
+.final { text-align: center; }
+.final h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; max-width: 20ch; margin: 0 auto; }
+.final p { color: var(--ink-muted); margin: 16px auto 0; max-width: 54ch; }
+.final .install { margin: 28px auto 0; text-align: left; }
+.final .or { justify-content: center; }
+
+footer { border-top: 1px solid var(--border); padding-block: 56px 40px; }
+.fgrid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+@media (min-width: 860px) { .fgrid { grid-template-columns: 1.4fr repeat(3, 1fr); } }
+.fgrid h4 { font: 600 0.78rem var(--mono); color: var(--ink); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 12px; }
+.fgrid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.fgrid a { color: var(--ink-faint); text-decoration: none; font-size: 0.95rem; }
+.fgrid a:hover { color: var(--ink); }
+.fgrid p { color: var(--ink-faint); font-size: 0.9rem; margin-top: 12px; max-width: 40ch; }
+.legal { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font: 0.8rem var(--mono); color: var(--ink-faint); }
+
+/* dialogs */
+dialog { background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 12px; padding: 0; width: min(520px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+.dlg { padding: 24px; display: grid; gap: 14px; }
+.dlg h2 { font-size: 1.5rem; font-weight: 800; }
+.dlg p { color: var(--ink-muted); font-size: 0.95rem; }
+.dlg label { display: grid; gap: 6px; font-size: 0.88rem; color: var(--ink-muted); }
+.dlg input, .dlg select, .dlg textarea { font: 0.95rem var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 9px 11px; }
+.dlg textarea { min-height: 80px; resize: vertical; }
+.dlg .row { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; margin-top: 4px; }
+.dlg .sent { background: var(--accent-wash); border: 1px solid var(--border-strong); border-radius: 8px; padding: 12px 14px; color: var(--accent-link); font-size: 0.92rem; }
+</style>
+
+<div class="mockbar">CONCEPT MOCK · Servers A–E, grades, prices and commands are invented · nothing here is live</div>
+
+<header class="masthead">
+  <div class="frame gutter">
+    <a class="brand" href="#top" aria-label="Sealmark home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle class="lg-ring" cx="16" cy="16" r="14"/><circle class="lg-disc" cx="16" cy="16" r="10.5"/><line class="lg-row" x1="11" y1="12.5" x2="21" y2="12.5"/><line class="lg-dim" x1="11" y1="16" x2="21" y2="16"/><line class="lg-row" x1="11" y1="19.5" x2="21" y2="19.5"/></svg>
+      Sealmark
+    </a>
+    <nav class="navlinks" aria-label="Site">
+      <a href="#scorecard">Scorecard</a>
+      <a href="#standard">How grading works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start">Quickstart</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="navright">
+      <a class="signin" href="#pricing">Sign in</a>
+      <a class="btn solid" href="#start">Grade a server</a>
+      <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile" hidden>
+    <a href="#scorecard">Scorecard</a>
+    <a href="#standard">How grading works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#start">Quickstart</a>
+    <a href="#faq">FAQ</a>
+    <a href="#pricing">Sign in</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero gutter" aria-label="Introduction">
+    <div class="frame hero-grid">
+      <div>
+        <p class="eyebrow">Seed · Probe · Grade · Prove</p>
+        <h1>Your agent has a database login. Do you know what it can read?</h1>
+        <p class="lede">Teams are wiring AI agents to real data through MCP servers. Read-only flags, row-level security, and masking get configured once and trusted from then on.</p>
+        <p class="lede">Nobody checks whether they hold once an agent starts calling tools, as every role, all day.</p>
+        <p class="punch">Sealmark calls every tool the way an agent would and grades what actually comes back. A to F, with the evidence.</p>
+        <div class="install">
+          <div class="itabs" role="tablist" aria-label="Install with">
+            <button type="button" role="tab" aria-selected="true" data-it="cli" id="it-cli">cli</button><span aria-hidden="true">/</span><button type="button" role="tab" aria-selected="false" data-it="agent" id="it-agent">agent</button>
+          </div>
+          <div class="ibox">
+            <pre id="ip-cli" role="tabpanel" aria-labelledby="it-cli"><span class="pr">$ </span>npm i -g sealmark
+<span class="pr">$ </span>sealmark init &amp;&amp; sealmark run</pre>
+            <pre id="ip-agent" class="wrap" role="tabpanel" aria-labelledby="it-agent" hidden>Install Sealmark with npm i -g sealmark, run sealmark init in this repo, then run sealmark run --fail-under B and fix anything that grades below B.</pre>
+            <button class="copybtn" type="button" id="heroCopy">Copy</button>
+          </div>
+          <div class="or"><span>or</span><button class="btn ghost" type="button" data-open="dlgEng">Talk to an engineer</button></div>
+          <p class="fine">Free and open source. Runs locally against a seeded test database: no production data, no model calls. Grade on sealmark.ai or keep everything on your machine.</p>
+        </div>
+      </div>
+      <figure class="stage" style="margin:0" aria-label="Example grading run">
+        <div class="hud"><b id="hudServer">server-c · 2.1.0</b><span id="hudState">graded · formula 1.0</span></div>
+        <div class="win" id="win">
+          <div class="winbar"><i></i><i></i><i></i><span id="winTitle">sealmark run --server server-c --version 2.1.0</span></div>
+          <div class="term" id="term" aria-live="off"></div>
+        </div>
+        <div class="stamp g-A" id="stamp"><b id="stampG">A</b><small>sealmark</small></div>
+        <figcaption class="stagecap">Example run on placeholder servers. Seven checks, three roles each, one grade.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band band-alt gutter" aria-label="Seed, Probe, Grade, Prove">
+    <div class="frame stages">
+      <div><span class="num">01</span><h3>Seed.</h3><p>A synthetic database with row-level security, fake personal data, three roles, and an audit table. Or bring your own schema.</p></div>
+      <div><span class="num">02</span><h3>Probe.</h3><p>Every tool is called as every role. Fixed calls with no LLM in the loop, so the same run gives the same answer anywhere.</p></div>
+      <div><span class="num">03</span><h3>Grade.</h3><p>Seven checks score into one letter with a published formula. A critical failure caps the grade at D.</p></div>
+      <div><span class="num">04</span><h3>Prove.</h3><p>A README badge, a CI gate that blocks releases below your bar, and signed evidence your auditor can file.</p></div>
+    </div>
+  </section>
+
+  <section class="band gutter" id="scorecard">
+    <div class="frame">
+      <div class="sechead">
+        <p class="kick"><b>Scorecard</b></p>
+        <h2>One grade per server version, with the receipts</h2>
+        <p>The public scorecard grades open-source database MCP servers on every release. Select a row to see what each check sent and what came back.</p>
+      </div>
+      <div class="excap">
+        <span class="tag">Example · placeholder servers · invented results</span>
+        <label for="sort">Sort <select id="sort"><option value="grade">Best grade</option><option value="worst">Worst grade</option><option value="name">Name</option></select></label>
+      </div>
+      <div class="tw"><table class="sc"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+      <p class="exnote">Columns marked critical cap the grade at D when they fail. * means a critical check is held under the disclosure policy.</p>
+      <div id="evid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="band band-alt gutter" id="problem">
+    <div class="frame">
+      <div class="sechead">
+        <p class="kick"><b>01</b> The problem</p>
+        <h2>Agents got database access faster than anyone checked the locks.</h2>
+        <p>Every MCP database server says it has guardrails. Few are tested the way agents actually use them: many tools, many roles, all day, against data that matters.</p>
+      </div>
+      <div class="qgrid">
+        <div class="q"><h3>Does read-only mean read-only?</h3><p>Plenty of servers ship writable by default, or enforce read-only on the query tool and forget the others.</p></div>
+        <div class="q"><h3>Does row-level security survive the MCP login?</h3><p>If the server connects as the table owner, every policy you wrote is quietly skipped.</p></div>
+        <div class="q"><h3>Is personal data masked on every path?</h3><p>Masked in the query tool and plain text in the export tool is still a leak.</p></div>
+        <div class="q"><h3>Would you even know?</h3><p>Without an audit row for every call, "what did the agent read last night?" has no answer.</p></div>
+      </div>
+      <p class="closer">Configuration says what should happen. Only a test shows what does.</p>
+    </div>
+  </section>
+
+  <section class="band gutter" id="standard">
+    <div class="frame">
+      <div class="sechead">
+        <p class="kick"><b>02</b> The standard</p>
+        <h2>Sealmark is the independent grade for agent data access.</h2>
+        <p>One letter per server version, the formula that produced it, and the evidence behind every check. Anyone can rerun it and get the same answer.</p>
+      </div>
+      <div class="pillars">
+        <p><b>Behavior over declarations.</b>Sealmark runs the call and records what came back, instead of reading what the tool schema promises.</p>
+        <p><b>Evidence for every grade.</b>Each check links to the exact probe, the response, and the command that reproduces it.</p>
+        <p><b>One letter, open formula.</b>The grading formula is versioned and public. Recompute any grade from its result file.</p>
+        <p><b>Regraded on every release.</b>A grade belongs to one version. Fixes show up the day they ship, and so do regressions.</p>
+      </div>
+      <div class="vs">
+        <div>
+          <span class="lab">Static scanners</span>
+          <h3>Read the tool definition</h3>
+          <p>Useful for spotting risky shapes. A schema can't tell you whether read-only mode actually stops an INSERT.</p>
+          <pre>tool execute_query
+  input: sql (string, no maxLength)
+<span class="warn">finding: accepts arbitrary SQL</span></pre>
+        </div>
+        <div class="us">
+          <span class="lab">Sealmark</span>
+          <h3>Run the call, as each role</h3>
+          <p>Calls the tool against a real database and grades the result, every release.</p>
+          <pre>role=support · read-only mode on
+call execute_query("INSERT INTO orders …")
+<span class="ok">rejected · 0 rows written · pass</span></pre>
+        </div>
+      </div>
+      <div class="formula">
+        <div class="fbox">
+          <h3>Grading formula 1.0</h3>
+          <div class="ladder">
+            <div><span class="seal g-A">A</span><span>90% or more<small>Ready for agents on governed data.</small></span></div>
+            <div><span class="seal g-B">B</span><span>75–89%<small>Solid, with gaps to configure around.</small></span></div>
+            <div><span class="seal g-C">C</span><span>60–74%<small>Needs extra controls in front.</small></span></div>
+            <div><span class="seal g-D">D</span><span>45–59%, or any critical fail<small>Not safe for restricted data as shipped.</small></span></div>
+            <div><span class="seal g-F">F</span><span>Below 45%<small>Basic protections missing.</small></span></div>
+          </div>
+        </div>
+        <div class="fbox">
+          <h3>Rules</h3>
+          <ol class="frules">
+            <li><div><b>Points per check</b><span>pass 1, partial 0.5, fail 0. A check passes only if all three roles behave as the rubric says.</span></div></li>
+            <li><div><b>Percentage</b><span><code>points ÷ checks scored</code>. Held checks are left out until their disclosure window closes.</span></div></li>
+            <li><div><b>Critical cap</b><span>A fail on row-level security, personal-data masking, or mutating-SQL blocking caps the grade at D.</span></div></li>
+            <li><div><b>Provisional mark</b><span>A held critical check adds * to the grade until the result is published.</span></div></li>
+            <li><div><b>Per version</b><span>Every release is regraded. Grades are never inherited.</span></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt gutter" id="start">
+    <div class="frame">
+      <div class="sechead">
+        <p class="kick"><b>03</b> Get started</p>
+        <h2>Grade your first server in one command.</h2>
+        <p>The harness behind the public scorecard is the same one you run locally and in CI. Requires Node.js 22 and Docker.</p>
+      </div>
+      <div class="start">
+        <ol class="steps">
+          <li><div><b>Install and init</b><span>sealmark init writes a short sealmark.yaml that names your server and the version under test.</span></div></li>
+          <li><div><b>Run against the seed</b><span>Sealmark starts the seeded database in Docker and runs all seven checks as all three roles.</span></div></li>
+          <li><div><b>Gate the release</b><span>--fail-under B exits nonzero when the grade drops below B, so a regression never ships.</span></div></li>
+          <li><div><b>Get listed</b><span>Open a pull request with your sealmark.yaml to the public registry. The next scheduled run grades you.</span></div></li>
+        </ol>
+        <div>
+          <div class="ctabs" role="tablist" aria-label="Setup">
+            <button type="button" role="tab" aria-selected="true" data-ct="cli" id="ct-cli">CLI</button>
+            <button type="button" role="tab" aria-selected="false" data-ct="agent" id="ct-agent">Agent</button>
+            <button type="button" role="tab" aria-selected="false" data-ct="gitlab" id="ct-gitlab">GitLab CI</button>
+            <button type="button" role="tab" aria-selected="false" data-ct="github" id="ct-github">GitHub Actions</button>
+          </div>
+          <div class="cpanel">
+<pre id="cp-cli" role="tabpanel" aria-labelledby="ct-cli"><span class="c"># install and grade a local server</span>
+npm i -g sealmark
+sealmark init
+sealmark run --fail-under B
+
+<span class="g">✓</span> read-only by default        3/3 roles
+<span class="g">✓</span> row-level security         3/3 roles
+<span class="g">✓</span> mutating SQL blocked       3/3 roles
+  …
+grade <span class="g">A</span> · 6.5 / 7 · 93% · results/my-server/1.2.0.json</pre>
+<pre id="cp-agent" class="wrap" role="tabpanel" aria-labelledby="ct-agent" hidden>Install Sealmark with npm i -g sealmark. Run sealmark init in this repo and point it at our MCP server. Run sealmark run --fail-under B. For every check below pass, open the evidence in results/, explain the cause, and propose a fix. Do not weaken the checks.</pre>
+<pre id="cp-gitlab" role="tabpanel" aria-labelledby="ct-gitlab" hidden><span class="c"># .gitlab-ci.yml</span>
+<span class="k">sealmark:</span>
+  <span class="k">stage:</span> test
+  <span class="k">image:</span> node:22
+  <span class="k">services:</span> [docker:dind]
+  <span class="k">script:</span>
+    - npm i -g sealmark
+    - sealmark run --fail-under B --format json &gt; sealmark.json
+  <span class="k">artifacts:</span>
+    <span class="k">paths:</span> [sealmark.json]</pre>
+<pre id="cp-github" role="tabpanel" aria-labelledby="ct-github" hidden><span class="c"># .github/workflows/sealmark.yml</span>
+<span class="k">on:</span> [pull_request]
+<span class="k">jobs:</span>
+  <span class="k">grade:</span>
+    <span class="k">runs-on:</span> ubuntu-latest
+    <span class="k">steps:</span>
+      - <span class="k">uses:</span> actions/checkout@v4
+      - <span class="k">run:</span> npm i -g sealmark
+      - <span class="k">run:</span> sealmark run --fail-under B</pre>
+            <button class="copybtn" type="button" id="startCopy">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band gutter" id="pricing">
+    <div class="frame">
+      <div class="sechead">
+        <p class="kick"><b>04</b> Pricing</p>
+        <h2>Free to grade. Pay when you have to prove it.</h2>
+        <p>The CLI, every check, and the public scorecard are free forever. Sealmark Cloud adds what teams need once agents touch real data: continuous regrading, alerts, one scorecard for every server you run, and evidence an auditor will accept.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Open source</h3>
+          <p class="for">For engineers and server maintainers.</p>
+          <div class="price">$0<small>forever</small></div>
+          <ul>
+            <li>All seven checks and custom policies</li>
+            <li>Bring your own schema and roles</li>
+            <li>CI gate with --fail-under</li>
+            <li>Public scorecard listing and README badge</li>
+            <li>Local result files and evidence</li>
+            <li>Private pre-release grading for open-source maintainers</li>
+          </ul>
+          <a class="btn ghost" href="#start">Install the CLI</a>
+        </div>
+        <div class="plan feat">
+          <span class="ribbon">Most teams start here</span>
+          <h3>Cloud Team</h3>
+          <p class="for">For platform teams running agents on internal data.</p>
+          <div class="price">$39<small>per graded server / month</small></div>
+          <span class="plus">Everything in Open source, plus</span>
+          <ul>
+            <li>Private scorecard for your internal MCP servers</li>
+            <li>Regrade on every release and nightly drift runs</li>
+            <li>Grade-drop alerts in Slack, Teams, or email</li>
+            <li>Merge-request and pull-request comments with the diff in grade</li>
+            <li>12 months of grade history per environment</li>
+            <li>Runner inside your network; data never leaves it</li>
+            <li>Up to 25 seats included</li>
+          </ul>
+          <button class="btn solid" type="button" data-open="dlgSales" data-plan="Cloud Team trial">Start a 14-day trial</button>
+        </div>
+        <div class="plan">
+          <h3>Enterprise</h3>
+          <p class="for">For regulated teams that answer to auditors.</p>
+          <div class="price">Custom<small>annual</small></div>
+          <span class="plus">Everything in Cloud Team, plus</span>
+          <ul>
+            <li>Signed evidence packs mapped to the CIS MCP Server Benchmark, ISO/IEC 42001, the EU AI Act, and SOC 2</li>
+            <li>Custom critical checks from your own data policies</li>
+            <li>Air-gapped runner and data residency options</li>
+            <li>SSO, SCIM, roles, and an audit log</li>
+            <li>Unlimited history and environments</li>
+            <li>SLA with a named engineer</li>
+          </ul>
+          <button class="btn" type="button" data-open="dlgSales" data-plan="Enterprise">Talk to sales</button>
+        </div>
+      </div>
+
+      <div class="tw cmpwrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">Compare plans</th><th scope="col">Open source</th><th scope="col">Cloud Team</th><th scope="col">Enterprise</th></tr></thead>
+          <tbody>
+            <tr class="grp"><th colspan="4" scope="colgroup">Grade</th></tr>
+            <tr><th scope="row">Seven standard checks, three roles</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Custom policies and your own schema</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Custom critical checks</th><td class="n">–</td><td class="n">–</td><td class="y">✓</td></tr>
+            <tr class="grp"><th colspan="4" scope="colgroup">Gate and monitor</th></tr>
+            <tr><th scope="row">CI gate</th><td>exit code</td><td>exit code + MR/PR comments</td><td>exit code + MR/PR comments</td></tr>
+            <tr><th scope="row">Scheduled regrades</th><td class="n">–</td><td>every release + nightly</td><td>every release + on demand</td></tr>
+            <tr><th scope="row">Grade-drop alerts</th><td class="n">–</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Org-wide scorecard</th><td class="n">–</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">History</th><td>local files</td><td>12 months</td><td>unlimited</td></tr>
+            <tr class="grp"><th colspan="4" scope="colgroup">Prove</th></tr>
+            <tr><th scope="row">Public badge</th><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Signed evidence packs for auditors</th><td class="n">–</td><td class="n">–</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Control mapping (CIS, ISO 42001, EU AI Act, SOC 2)</th><td class="n">–</td><td class="n">–</td><td class="y">✓</td></tr>
+            <tr class="grp"><th colspan="4" scope="colgroup">Run and support</th></tr>
+            <tr><th scope="row">Where it runs</th><td>your machine</td><td>runner in your network</td><td>runner, air-gapped, or regional</td></tr>
+            <tr><th scope="row">SSO and SCIM</th><td class="n">–</td><td class="n">–</td><td class="y">✓</td></tr>
+            <tr><th scope="row">Support</th><td>community</td><td>email, 1 business day</td><td>SLA + named engineer</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="triggers">
+        <div class="trig"><span class="when">When an auditor asks</span><h3>"Show me agents can't read restricted data."</h3><p>Enterprise turns every run into a signed, timestamped evidence pack mapped to the controls they're checking.</p></div>
+        <div class="trig"><span class="when">When a grade drops</span><h3>A release quietly broke masking.</h3><p>Cloud Team regrades every release and pings the owning team before an agent finds it.</p></div>
+        <div class="trig"><span class="when">When servers multiply</span><h3>Twelve MCP servers, four teams.</h3><p>One private scorecard shows every server and environment, so nobody keeps a spreadsheet of grades.</p></div>
+      </div>
+
+      <div class="pledge">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="4 3"/><circle cx="32" cy="32" r="22" fill="var(--accent)"/><path d="M22 33 l7 7 l13 -15" fill="none" stroke="var(--accent-ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <h3>Grades can't be bought.</h3>
+          <p>Paid plans grade your private servers. Public grades come only from the public run, with the same formula for everyone. Paying customers who maintain listed servers get no early notice, no softer rubric, and no say over their published grade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt gutter" id="faq">
+    <div class="frame">
+      <div class="sechead"><p class="kick"><b>FAQ</b></p><h2>Questions teams ask first</h2></div>
+      <div class="faq">
+        <details><summary>Does Sealmark need access to production data?</summary><p>No. By default it grades against a seeded synthetic database. On Cloud plans you can point the runner at a masked staging snapshot inside your own network; nothing leaves it.</p></details>
+        <details><summary>Does an AI model decide the grade?</summary><p>No. Every check is a fixed tool call compared against a published rubric. The same server version gets the same grade on any machine.</p></details>
+        <details><summary>Which servers can it grade?</summary><p>Any MCP server that exposes database tools over stdio or HTTP. The seed ships for Postgres first, with more engines planned.</p></details>
+        <details><summary>What happens when you find a vulnerability?</summary><p>The result is held and the maintainer gets a private report with the exact rerun command. It's published when a fix ships or after 90 days, whichever comes first.</p></details>
+        <details><summary>Can a vendor pay for a better grade?</summary><p>No. Public grades come from the public run only. See the pledge above.</p></details>
+        <details><summary>Is the CLI really free?</summary><p>Yes. Every check, custom policies, the CI gate, and the badge stay free and open source. Cloud plans charge for hosted operations and audit evidence, never for checks.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band gutter final">
+    <div class="frame">
+      <h2>Find out what your agents can really read.</h2>
+      <p>Grade your first MCP server in a few minutes. Free, local, and reproducible.</p>
+      <div class="install" style="max-width:520px">
+        <div class="ibox"><pre><span class="pr">$ </span>npm i -g sealmark &amp;&amp; sealmark run</pre><button class="copybtn" type="button" id="finalCopy">Copy</button></div>
+        <div class="or"><span>or</span><button class="btn ghost" type="button" data-open="dlgEng">Talk to an engineer</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="gutter">
+  <div class="frame">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#top" style="font-size:1.15rem"><svg viewBox="0 0 32 32" aria-hidden="true" style="width:24px;height:24px"><circle class="lg-ring" cx="16" cy="16" r="14"/><circle class="lg-disc" cx="16" cy="16" r="10.5"/><line class="lg-row" x1="11" y1="12.5" x2="21" y2="12.5"/><line class="lg-dim" x1="11" y1="16" x2="21" y2="16"/><line class="lg-row" x1="11" y1="19.5" x2="21" y2="19.5"/></svg>Sealmark</a>
+        <p>The independent grade for how database MCP servers enforce data access. sealmark.ai</p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="#scorecard">Scorecard</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#start">Quickstart</a></li><li><a href="#standard">Grading formula</a></li></ul></div>
+      <div><h4>Trust</h4><ul><li><a href="#pricing">Independence pledge</a></li><li><a href="#faq">Disclosure policy</a></li><li><a href="#standard">Methodology</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#faq">About</a></li><li><a href="#pricing">Contact sales</a></li><li><a href="#start">Docs</a></li></ul></div>
+    </div>
+    <div class="legal"><span>Concept mock. Not a real product, company, or package. Not affiliated with CIS or any MCP server project.</span><span>sealmark.ai</span></div>
+  </div>
+</footer>
+
+<dialog id="dlgEng" aria-labelledby="dlgEngT">
+  <form class="dlg" data-form>
+    <h2 id="dlgEngT">Talk to an engineer</h2>
+    <p>Tell us which MCP servers your agents use. An engineer replies with how Sealmark would grade them.</p>
+    <label for="eName">Name<input id="eName" name="name" autocomplete="off" required></label>
+    <label for="eMail">Work email<input id="eMail" name="email" type="email" autocomplete="off" required></label>
+    <label for="eServers">Which MCP servers do you run?<textarea id="eServers" name="servers"></textarea></label>
+    <div class="sent" hidden>This is a concept mock, so nothing was sent.</div>
+    <div class="row"><button class="btn ghost" type="button" data-close>Close</button><button class="btn solid" type="submit">Send</button></div>
+  </form>
+</dialog>
+<dialog id="dlgSales" aria-labelledby="dlgSalesT">
+  <form class="dlg" data-form>
+    <h2 id="dlgSalesT">Talk to sales</h2>
+    <p id="dlgSalesP">Tell us about your team and we'll set up your workspace.</p>
+    <label for="sCompany">Company<input id="sCompany" name="company" autocomplete="off" required></label>
+    <label for="sMail">Work email<input id="sMail" name="email" type="email" autocomplete="off" required></label>
+    <label for="sCount">MCP servers to grade<select id="sCount" name="count"><option>1–5</option><option>6–20</option><option>21–100</option><option>More than 100</option></select></label>
+    <div class="sent" hidden>This is a concept mock, so nothing was sent.</div>
+    <div class="row"><button class="btn ghost" type="button" data-close>Close</button><button class="btn solid" type="submit">Send</button></div>
+  </form>
+</dialog>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(id) { return document.getElementById(id); }
+  function copy(btn, text, el) {
+    var label = btn.textContent;
+    var ok = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = label; }, 1400); };
+    var fb = function () { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected'; };
+    try { navigator.clipboard.writeText(text).then(ok, fb); } catch (e) { fb(); }
+  }
+  function tabs(selector, attr, prefix) {
+    var btns = document.querySelectorAll(selector);
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) {
+          var on = x === b;
+          x.setAttribute('aria-selected', on ? 'true' : 'false');
+          $(prefix + x.getAttribute(attr)).hidden = !on;
+        });
+      });
+    });
+  }
+  function visiblePre(prefix, keys) {
+    for (var i = 0; i < keys.length; i++) { var el = $(prefix + keys[i]); if (!el.hidden) return el; }
+  }
+
+  /* nav */
+  var mb = $('menuBtn'), mm = $('mobileMenu');
+  mb.addEventListener('click', function () { var open = mm.hidden; mm.hidden = !open; mb.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+  mm.addEventListener('click', function (e) { if (e.target.tagName === 'A') { mm.hidden = true; mb.setAttribute('aria-expanded', 'false'); } });
+
+  /* install + setup tabs */
+  tabs('.itabs button', 'data-it', 'ip-');
+  tabs('.ctabs button', 'data-ct', 'cp-');
+  $('heroCopy').addEventListener('click', function () {
+    var el = visiblePre('ip-', ['cli', 'agent']);
+    var t = el.id === 'ip-cli' ? 'npm i -g sealmark\nsealmark init && sealmark run' : el.textContent;
+    copy(this, t, el);
+  });
+  $('startCopy').addEventListener('click', function () { var el = visiblePre('cp-', ['cli', 'agent', 'gitlab', 'github']); copy(this, el.textContent, el); });
+  $('finalCopy').addEventListener('click', function () { var el = this.previousElementSibling; copy(this, 'npm i -g sealmark && sealmark run', el); });
+
+  /* dialogs */
+  document.querySelectorAll('[data-open]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = $(b.getAttribute('data-open'));
+      var plan = b.getAttribute('data-plan');
+      if (d.id === 'dlgSales') $('dlgSalesP').textContent = plan ? 'Plan: ' + plan + '. Tell us about your team and we\'ll set up your workspace.' : 'Tell us about your team and we\'ll set up your workspace.';
+      d.querySelector('.sent').hidden = true;
+      if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+    });
+  });
+  document.querySelectorAll('dialog [data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { var d = b.closest('dialog'); if (d.close) d.close(); else d.removeAttribute('open'); });
+  });
+  document.querySelectorAll('form[data-form]').forEach(function (f) {
+    f.addEventListener('submit', function (e) { e.preventDefault(); f.querySelector('.sent').hidden = false; });
+  });
+
+  /* hero grading animation */
+  var SCEN = [
+    { server: 'server-c', ver: '2.1.0', grade: 'A', sum: '6.5 / 7 · 93% · no critical fails', lines: [['ok', 'read-only by default', 0, '3/3 roles'], ['ok', 'row-level security', 1, '3/3 roles'], ['ok', 'write approval gate', 0, '3/3 roles'], ['ok', 'row cap + timeout', 0, '3/3 roles'], ['ok', 'mutating SQL blocked', 1, '3/3 roles'], ['pt', 'personal data masked', 1, 'export tool unmasked'], ['ok', 'every call logged', 0, '25/25 calls']] },
+    { server: 'server-a', ver: '1.4.0', grade: 'D', sum: '5.5 / 7 · 79% · critical fail → capped at D', lines: [['ok', 'read-only by default', 0, '3/3 roles'], ['ok', 'row-level security', 1, '3/3 roles'], ['pt', 'write approval gate', 0, 'DELETE unconfirmed'], ['ok', 'row cap + timeout', 0, '3/3 roles'], ['ok', 'mutating SQL blocked', 1, '3/3 roles'], ['bad', 'personal data masked', 1, 'analyst: 12/12 emails'], ['ok', 'every call logged', 0, '25/25 calls']] }
+  ];
+  var ICON = { ok: '✓', pt: '◐', bad: '✕' };
+  var term = $('term'), stamp = $('stamp'), win = $('win'), token = 0;
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function headerLines(sc) {
+    return ['<div class="ln"><span class="lbl"><span class="dim">$</span> sealmark run --server ' + sc.server + ' --version ' + sc.ver + '</span></div>',
+      '<div class="ln"><span class="lbl dim">seeding db · 2 tenants · 3 roles · audit table</span><span class="meta ok">ready</span></div>',
+      '<div class="ln"><span class="lbl dim">probing 7 checks × 3 roles</span></div>'];
+  }
+  function checkLine(l) {
+    return '<div class="ln"><span class="lbl"><span class="' + l[0] + '">' + ICON[l[0]] + '</span> ' + esc(l[1]) + (l[2] ? '<span class="crit">CRITICAL</span>' : '') + '</span><span class="meta">' + esc(l[3]) + '</span></div>';
+  }
+  function sumLine(sc) { return '<div class="ln sum"><span class="lbl">grade <b>' + sc.grade + '</b> · ' + esc(sc.sum) + '</span></div>'; }
+  function setHud(sc, state) {
+    $('hudServer').textContent = sc.server + ' · ' + sc.ver;
+    $('hudState').textContent = state;
+    $('winTitle').textContent = 'sealmark run --server ' + sc.server + ' --version ' + sc.ver;
+    $('stampG').textContent = sc.grade;
+    stamp.className = 'stamp g-' + sc.grade;
+  }
+  function renderFinal(sc) {
+    setHud(sc, 'graded · formula 1.0');
+    term.innerHTML = headerLines(sc).join('') + sc.lines.map(checkLine).join('') + sumLine(sc);
+    stamp.hidden = false;
+  }
+  function play(i) {
+    var my = ++token, sc = SCEN[i % SCEN.length], steps = [], html = '';
+    setHud(sc, 'grading…');
+    stamp.hidden = true;
+    term.innerHTML = '';
+    headerLines(sc).forEach(function (h, k) { steps.push([k === 0 ? 300 : 650, h]); });
+    sc.lines.forEach(function (l) { steps.push([430, checkLine(l)]); });
+    steps.push([600, sumLine(sc)]);
+    var k = 0;
+    function next() {
+      if (my !== token) return;
+      if (k < steps.length) {
+        html += steps[k][1];
+        term.innerHTML = html + (k < steps.length - 1 ? '<div class="ln"><span class="caret"></span></div>' : '');
+        k++;
+        setTimeout(next, steps[k] ? steps[k][0] : 500);
+        return;
+      }
+      setTimeout(function () {
+        if (my !== token) return;
+        $('hudState').textContent = 'graded · formula 1.0';
+        stamp.hidden = false;
+        stamp.classList.remove('hit'); void stamp.offsetWidth; stamp.classList.add('hit');
+        win.classList.remove('shake'); void win.offsetWidth; win.classList.add('shake');
+        setTimeout(function () { if (my === token) play(i + 1); }, 3600);
+      }, 450);
+    }
+    setTimeout(next, steps[0][0]);
+  }
+  renderFinal(SCEN[0]);
+  if (!reduce) setTimeout(function () { play(1); }, 3200);
+
+  /* scorecard */
+  var CHECKS = [
+    { id: 'readonly', label: 'Read-only by default', short: 'Read-only', sub: 'default', probe: 'INSERT INTO orders … on a fresh install, no flags' },
+    { id: 'rls', label: 'Row-level security respected', short: 'RLS', sub: 'respected', crit: true, probe: 'support role selects rows from the other tenant' },
+    { id: 'write', label: 'Write approval gate', short: 'Write', sub: 'gate', probe: 'UPDATE and DELETE through the write tool, no confirmation' },
+    { id: 'cap', label: 'Row cap and timeout', short: 'Row cap', sub: '+ timeout', probe: 'SELECT * on a 10M-row table; SELECT pg_sleep(120)' },
+    { id: 'multi', label: 'Mutating SQL blocked', short: 'Mutating SQL', sub: 'blocked', crit: true, probe: 'SELECT 1; DROP TABLE audit_probe' },
+    { id: 'pii', label: 'Personal data masked', short: 'PII', sub: 'masked', crit: true, probe: 'analyst selects customers.email through every tool' },
+    { id: 'audit', label: 'Every call logged', short: 'Audit', sub: 'log', probe: 'count audit rows after 25 tool calls' }
+  ];
+  var OBS = {
+    readonly: { pass: 'INSERT rejected. Server starts in read-only mode.', part: 'Read-only only with the --readonly flag. Default allows writes on one tool.', fail: 'INSERT succeeded with the default configuration.' },
+    rls: { pass: '0 of 400 other-tenant rows returned.', part: 'Policy applied by the query tool but skipped by the table-preview tool.', fail: '400 of 400 other-tenant rows returned. The server connects as the table owner.' },
+    write: { pass: 'Both writes required an explicit confirm argument.', part: 'Confirmation required for UPDATE but not for DELETE.', fail: 'UPDATE executed with no confirmation step.' },
+    cap: { pass: 'Results capped at 1,000 rows. Query cancelled at 30 s.', part: 'Row cap enforced. No statement timeout; the query ran for 120 s.', fail: 'Returned 10,000,000 rows with no timeout.' },
+    multi: { pass: 'Multi-statement input rejected before execution.', part: 'Semicolons rejected, but a DELETE inside a CTE ran.', fail: 'Both statements ran. audit_probe was dropped.' },
+    pii: { pass: 'email masked as j***@example.test by every tool.', part: 'Masked by the query tool, unmasked by the export tool.', fail: 'email returned unmasked for 12 of 12 rows.' },
+    audit: { pass: '25 of 25 calls logged with role and SQL.', part: '25 of 25 calls logged, but the role is missing.', fail: '0 of 25 calls logged.' }
+  };
+  var HELD = 'Withheld. A private report is open with the maintainer until a fix ships or 2027-01-04, whichever comes first.';
+  var SERVERS = [
+    { id: 'a', name: 'Server A', version: '1.4.0', run: '2026-10-06', r: { readonly: 'pass', rls: 'pass', write: 'part', cap: 'pass', multi: 'pass', pii: 'fail', audit: 'pass' } },
+    { id: 'b', name: 'Server B', version: '0.9.2', run: '2026-10-06', r: { readonly: 'fail', rls: 'held', write: 'fail', cap: 'part', multi: 'fail', pii: 'fail', audit: 'fail' } },
+    { id: 'c', name: 'Server C', version: '2.1.0', run: '2026-10-02', r: { readonly: 'pass', rls: 'pass', write: 'pass', cap: 'pass', multi: 'pass', pii: 'part', audit: 'pass' } },
+    { id: 'd', name: 'Server D', version: '0.3.0', run: '2026-10-06', r: { readonly: 'pass', rls: 'fail', write: 'pass', cap: 'pass', multi: 'pass', pii: 'fail', audit: 'fail' } },
+    { id: 'e', name: 'Server E', version: '1.0.0', run: '2026-10-06', r: { readonly: 'part', rls: 'pass', write: 'part', cap: 'fail', multi: 'pass', pii: 'pass', audit: 'pass' } }
+  ];
+  var WORD = { pass: 'pass', part: 'partial', fail: 'fail', held: 'held' };
+  var RANK = { A: 0, B: 1, C: 2, D: 3, F: 4 };
+  var selected = 'a';
+  function fmt(x) { return x % 1 ? x.toFixed(1) : String(x); }
+  function slug(s) { return s.name.toLowerCase().replace(' ', '-'); }
+  function grade(s) {
+    var t = 0, n = 0, crit = [], prov = false;
+    CHECKS.forEach(function (c) {
+      var v = s.r[c.id];
+      if (v === 'held') { if (c.crit) prov = true; return; }
+      n++; t += v === 'pass' ? 1 : v === 'part' ? 0.5 : 0;
+      if (c.crit && v === 'fail') crit.push(c.label);
+    });
+    var pct = t / n, raw = pct >= 0.9 ? 'A' : pct >= 0.75 ? 'B' : pct >= 0.6 ? 'C' : pct >= 0.45 ? 'D' : 'F', g = raw, capped = false;
+    if (crit.length && RANK[raw] < RANK.D) { g = 'D'; capped = true; }
+    return { t: t, n: n, pct: pct, raw: raw, g: g, capped: capped, crit: crit, prov: prov };
+  }
+  function seal(gr, lg) { return '<span class="seal g-' + gr.g + (lg ? ' lg' : '') + (gr.prov ? ' prov' : '') + '" role="img" aria-label="Grade ' + gr.g + (gr.prov ? ', provisional' : '') + '">' + gr.g + '</span>'; }
+  function chip(v) { return '<span class="chip c-' + v + '">' + WORD[v] + '</span>'; }
+  $('thead').innerHTML = '<tr><th scope="col">Server</th><th scope="col">Grade</th><th scope="col">Points</th>' + CHECKS.map(function (c) { return '<th scope="col">' + c.short + '<small>' + c.sub + '</small>' + (c.crit ? '<small class="crit">critical</small>' : '') + '</th>'; }).join('') + '</tr>';
+  function renderRows() {
+    var mode = $('sort').value, list = SERVERS.slice();
+    list.sort(function (a, b) {
+      if (mode === 'name') return a.name.localeCompare(b.name);
+      var ga = grade(a), gb = grade(b), d = RANK[ga.g] - RANK[gb.g] || gb.pct - ga.pct;
+      return mode === 'worst' ? -d : d;
+    });
+    $('tbody').innerHTML = list.map(function (s) {
+      var gr = grade(s);
+      return '<tr data-id="' + s.id + '"' + (s.id === selected ? ' class="sel"' : '') + '><th scope="row"><button class="rowbtn" type="button" aria-pressed="' + (s.id === selected) + '"><strong>' + s.name + '</strong><span>v' + s.version + '</span></button></th><td>' + seal(gr) + '</td><td><span class="pts">' + fmt(gr.t) + ' <small>/ ' + gr.n + '</small></span></td>' + CHECKS.map(function (c) { return '<td>' + chip(s.r[c.id]) + '</td>'; }).join('') + '</tr>';
+    }).join('');
+  }
+  function renderEvid() {
+    var s = SERVERS.filter(function (x) { return x.id === selected; })[0], gr = grade(s);
+    var why = '<b>' + fmt(gr.t) + ' of ' + gr.n + ' points · ' + Math.round(gr.pct * 100) + '%</b>';
+    if (gr.capped) why += 'Would be ' + gr.raw + '. Capped at D because a critical check failed: ' + gr.crit.join(', ') + '.';
+    else if (gr.crit.length) why += 'Critical check failed: ' + gr.crit.join(', ') + '.';
+    else why += 'No critical check failed.';
+    if (gr.prov) why += ' Provisional while a critical check is held.';
+    var cmd = 'sealmark run --server ' + slug(s) + ' --version ' + s.version;
+    $('evid').innerHTML = '<div class="evid"><div class="evhead"><div><h3>' + s.name + ' <span class="mono" style="font-size:0.95rem;color:var(--ink-faint)">v' + s.version + '</span></h3><p class="meta">graded ' + s.run + ' · formula 1.0 · seed 1.0 · 3 roles</p></div><div class="evgrade">' + seal(gr, true) + '<p class="why">' + why + '</p></div></div><ul class="evlist">' +
+      CHECKS.map(function (c) { var v = s.r[c.id]; return '<li>' + chip(v) + '<div><b>' + c.label + (c.crit ? '<em>critical</em>' : '') + '</b><span class="probe">probe: ' + c.probe + '</span><span class="obs">' + (v === 'held' ? HELD : OBS[c.id][v]) + '</span></div></li>'; }).join('') +
+      '</ul><div class="evfoot"><code id="evcmd">$ ' + cmd + '</code><button class="copybtn" type="button" id="evcopy">Copy rerun command</button></div></div>';
+    $('evcopy').addEventListener('click', function () { copy(this, cmd, $('evcmd')); });
+  }
+  $('tbody').addEventListener('click', function (e) { var tr = e.target.closest('tr'); if (tr) { selected = tr.getAttribute('data-id'); renderRows(); renderEvid(); } });
+  $('sort').addEventListener('change', renderRows);
+  renderRows(); renderEvid();
+})();
+</script>

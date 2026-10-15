@@ -1,0 +1,148 @@
+[
+  {
+    "id": "core",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "protocol",
+      "tool-poisoning",
+      "robust-input",
+      "secret-echo",
+      "refusal-quality",
+      "instructions-hygiene"
+    ]
+  },
+  {
+    "id": "db",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "read-only",
+      "write-gate",
+      "rls",
+      "mutating-sql",
+      "pii",
+      "pii-masked",
+      "db-rowcap",
+      "db-timeout",
+      "audit",
+      "db-privilege"
+    ]
+  },
+  {
+    "id": "sqlite",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "sqlite-read-only",
+      "sqlite-mutating-sql",
+      "sqlite-file-read",
+      "sqlite-file-write",
+      "sqlite-extension-load",
+      "sqlite-rowcap",
+      "sqlite-timeout"
+    ]
+  },
+  {
+    "id": "fs",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "fs-read-escape",
+      "fs-write-escape",
+      "fs-link-escape",
+      "fs-size-cap"
+    ]
+  },
+  {
+    "id": "net",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "net-loopback-ssrf",
+      "net-scheme-allowlist",
+      "net-caps",
+      "net-redirect"
+    ]
+  },
+  {
+    "id": "git",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "git-repo-scope",
+      "git-arg-injection"
+    ]
+  },
+  {
+    "id": "exec",
+    "standard": false,
+    "candidate": false,
+    "checks": [
+      "exec-injection",
+      "exec-cwd",
+      "exec-timeout-cap",
+      "exec-allowlist"
+    ]
+  },
+  {
+    "id": "http",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "http-origin",
+      "http-auth",
+      "http-protocol-version",
+      "http-session",
+      "http-cors",
+      "http-bind",
+      "http-tls"
+    ]
+  },
+  {
+    "id": "effects",
+    "standard": true,
+    "candidate": false,
+    "checks": [
+      "annotation-honesty",
+      "openworld-honesty",
+      "undeclared-writes"
+    ]
+  },
+  {
+    "id": "custom",
+    "standard": false,
+    "candidate": false,
+    "checks": []
+  },
+  {
+    "id": "scope",
+    "standard": false,
+    "candidate": true,
+    "checks": [
+      "scope-escape"
+    ]
+  },
+  {
+    "id": "sql-guard",
+    "standard": false,
+    "candidate": true,
+    "checks": [
+      "sql-guard-statements",
+      "sql-guard-references",
+      "sql-guard-rowcap"
+    ]
+  },
+  {
+    "id": "upstream",
+    "standard": false,
+    "candidate": true,
+    "checks": [
+      "upstream-credential",
+      "upstream-credential-echo",
+      "log-secret",
+      "upstream-error-leak",
+      "upstream-slow"
+    ]
+  }
+]

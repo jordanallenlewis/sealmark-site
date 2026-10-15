@@ -1,0 +1,66 @@
+.fig { margin: 0; display: grid; gap: 16px; min-width: 0; }
+
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px 32px; }
+.conn { display: grid; gap: 8px; min-width: 0; max-width: 520px; }
+.lab { font: 500 0.72rem var(--mono); color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; }
+.seg { display: inline-flex; width: fit-content; max-width: 100%; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.seg button { background: var(--surface); color: var(--ink-faint); border: 0; padding: 8px 16px; font: 500 0.85rem var(--mono); cursor: pointer; transition: color var(--dur-fast, 180ms), background-color var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms); }
+.seg button + button { border-left: 1px solid var(--border); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.seg button:focus-visible { outline-offset: -3px; }
+.gloss { color: var(--ink-muted); font-size: 0.9rem; min-height: 2.8em; }
+
+.grade { display: flex; align-items: center; gap: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px 14px 22px; min-width: 0; }
+.gtext { display: grid; gap: 2px; min-width: 0; }
+.gtext b { font: 600 0.9rem var(--mono); color: var(--ink); }
+.gtext span { font-size: 0.86rem; color: var(--ink-muted); max-width: 34ch; }
+.cap { font-style: normal; font-weight: 700; color: var(--fail); }
+.pop { animation: pop var(--dur-pop) var(--ease-pop) both; }
+@keyframes pop { 0% { transform: scale(1.5) rotate(-10deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+
+.lanes { display: grid; gap: 12px; }
+.lane { transition: opacity var(--dur-step) var(--ease-std, cubic-bezier(.4, 0, .2, 1)), transform var(--dur-step) var(--ease-std, cubic-bezier(.4, 0, .2, 1)); }
+.lane[data-on="false"] { opacity: 0.12; transform: translateY(8px); }
+
+.body { display: grid; grid-template-columns: 112px minmax(0, 1.15fr) 22px minmax(0, 1fr) 168px; gap: 10px 16px; align-items: center; padding: 14px 16px; }
+.who { display: grid; gap: 1px; min-width: 0; }
+.who b { font: 800 1.25rem var(--display); color: var(--ink); letter-spacing: -0.01em; }
+.who span { font: 500 0.72rem var(--mono); color: var(--ink-faint); }
+.probe, .resp { display: grid; gap: 4px; min-width: 0; }
+.probe code, .val { font: 0.8rem/1.5 var(--mono); overflow-wrap: anywhere; }
+.probe code { color: var(--ink-muted); background: var(--code); border-radius: 4px; padding: 6px 8px; }
+.arrow { width: 22px; height: 12px; color: var(--ink-faint); }
+.val { color: var(--pass); background: var(--code); border-radius: 4px; padding: 6px 8px; transition: box-shadow var(--dur-fast, 180ms), background-color var(--dur-fast, 180ms), color var(--dur-fast, 180ms); }
+.hint { font-size: 0.8rem; color: var(--ink-faint); }
+.verdict { display: grid; gap: 4px; justify-items: start; }
+.verdict :global(.chip) { white-space: normal; }
+.leakword { font: 700 0.75rem var(--mono); color: var(--ink-leak); letter-spacing: 0.04em; }
+.by { font: 500 0.72rem var(--mono); color: var(--ink-faint); }
+
+.lane[data-leak="true"] .val { color: var(--ink-leak); background: var(--fail-bg); box-shadow: 0 0 0 2px var(--fail); }
+.lane[data-role="admin"] .val { color: var(--ink-muted); }
+
+.rest { color: var(--ink-faint); font-size: 0.86rem; max-width: 80ch; }
+.cap2 { color: var(--ink-muted); font-size: 0.95rem; border-left: 2px solid var(--border-strong); padding-left: 12px; max-width: 80ch; }
+
+@media (max-width: 1020px) {
+  .body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .who { grid-column: 1 / -1; grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 10px; }
+  .arrow { display: none; }
+}
+@media (max-width: 700px) {
+  .body { grid-template-columns: minmax(0, 1fr); }
+  .gtext span { max-width: none; }
+  .seg { width: 100%; }
+  .seg button { flex: 1; padding-inline: 8px; }
+  .grade { width: 100%; }
+}
+
+:global(.reduce) .lane, :global(.reduce) .val { transition: none; }
+:global(.reduce) .lane[data-on="false"] { opacity: 1; transform: none; }
+:global(.reduce) .pop { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .lane, .val { transition: none; }
+  .lane[data-on="false"] { opacity: 1; transform: none; }
+  .pop { animation: none; }
+}

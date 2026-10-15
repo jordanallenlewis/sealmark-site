@@ -1,0 +1,41 @@
+export const meta = {
+  title: "Roles and instances",
+  since: "0.1",
+  status: "shipped",
+  description: "A database server usually takes one connection string. To test three roles, the harness starts it once per role.",
+};
+
+A database-backed MCP server normally takes one connection string and has no idea who is calling. So Sealmark does not log in as three users. It starts the server again for each role, with that role's connection string filled in.
+
+## One start for core, three for db
+
+| Suite | Server starts | Why |
+|---|---|---|
+| `core` | 1 | Hygiene checks do not depend on a database role. It uses the admin role's values if a database was started. |
+| `db` | 3: `analyst`, `support`, `admin` | Each role has different rights in the seed database. |
+
+A few db probes need a clean process, so the harness may start one extra admin instance, for example for the timeout probe, or when a server stopped answering and the admin session has to be restarted.
+
+## The three roles
+
+All are `LOGIN`, `NOSUPERUSER` and `NOBYPASSRLS`, so the database, not a superuser shortcut, decides what each can do.
+
+| Role | Can do | Used to test |
+|---|---|---|
+| `analyst` | Read most tables, and the masked view, but not `customers.email` | `pii`, `pii-masked` |
+| `support` | Read `customers` and `orders`, limited by policy to tenant 1 | `rls` |
+| `admin` | Read and write the seed tables | `read-only`, `mutating-sql`, `db-rowcap`, `db-timeout` |
+
+The admin role can write on purpose. If a write is blocked, it is the server's doing, not the database's.
+
+## Placeholders
+
+The harness fills `{dsn}` (the connection string for the role under test) and its parts into your `command`, `args`, `env`, `url` and `headers`. `{dsn:analyst}`, `{dsn:support}` and `{dsn:admin}` name a specific role whatever the instance's own role. The full list is under [placeholders](/docs/reference/configuration#placeholders).
+
+## What goes wrong
+
+- **No placeholder.** The harness cannot aim the server at the seed database, so the db suite is not graded, with that reason.
+- **A server that ignores the role.** If it hard-codes or caches a connection string, `rls` and `pii` fail, which is what they exist to catch. If it does not connect as the admin role even when asked, the db checks are inconclusive and the reason says so, because then the database may be why a write failed.
+- **HTTP servers.** The harness cannot restart a server that is already running, so a role can only reach it through placeholders in `url` or `headers`.
+
+See [Configuration](/docs/reference/configuration) for the keys and [Environment](/docs/reference/environment) for what the server process receives.

@@ -1,0 +1,103 @@
+export const meta = {
+  title: "Troubleshooting",
+  since: "0.1",
+  status: "shipped",
+  description: "Start with sealmark doctor; then why a check is inconclusive, what to do about exit codes 2, 3 and 4, and a Windows quoting tip.",
+};
+
+## Start with `sealmark doctor`
+
+`doctor` answers "why does my server not grade?" before a run costs minutes. It starts the server the way `run` does (the sandbox as the working directory, the scrubbed environment) for a few seconds, and grades nothing.
+
+```bash
+npx sealmark doctor
+npx sealmark doctor --start "my-server --port 8000" --url http://localhost:8000/mcp    # no config file
+npx sealmark doctor --server notes --json                                                # one entry of servers:, as JSON
+```
+
+It takes the same configuration and flags as `run`, plus `--json`. It:
+
+1. **Checks the tools a launcher needs**: `node`, `npx`, `uvx` and `git`, with the path each resolves to.
+2. **Tests the harness's own pieces**: it creates a sandbox (and deletes it at the end), creates the directory and file links the `fs` probes use, and starts the loopback listener.
+3. **Resolves your server command** on the path, starts the server, and runs `initialize` and `tools/list`. It waits 10 seconds unless you pass `--connect-timeout`. A server that does not start shows its standard error, with a hint when the output looks like drifted dependencies.
+4. **Prints the classification** of every tool: what the harness thinks it takes, how sure it is, and why. See [Classification](/docs/concepts/classification).
+5. **Says for every suite whether it would run, and why not**, for example `no tool is classified as taking a file path with medium confidence or higher`, or `[not in packs: list]` for a suite you did not request.
+
+```text
+Server "server" (stdio): node server.js
+  ok    command "node" resolves
+  ok    started: initialize and tools/list answered in 178 ms
+        sealmark-toy-nosql 0.0.1; 2 tool(s); capabilities: tools
+
+Packs
+  core     would run  always applies
+  db       n/a        server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role (add {dsn} to grade it)
+  fs       n/a        no tool is classified as taking a file path with medium confidence or higher
+  exec     n/a        [not in packs: list] the exec pack runs only with --active
+```
+
+The last line says `No problems found. Next: sealmark run`, or `N problem(s) found. Fix the lines marked FAIL`. The exit code is 0, or 4 when a step failed. One thing it shows well: the server runs with the sandbox as its working directory, so a bare relative path such as `dist/server.js` is not found and `doctor` prints the module-not-found error from the server's standard error. Use an absolute path (a `./` or `../` path in a config file is resolved against that file).
+
+## A verdict that is not a pass
+
+`inconclusive` means the harness could not tell, never "probably fine"; `n/a` means the check does not apply here, with a reason. Both leave the score, and an inconclusive critical check marks the grade provisional with `*`. See [verdicts](/docs/concepts/verdicts) and [grades](/docs/concepts/grades). If every scored check is missing, the suite gets no letter at all (exit code 3).
+
+## Why a check is inconclusive
+
+The harness runs a control before it judges anything: a read that any working setup should answer. A broken connection must not look like a secure server, so a failed control makes the check inconclusive, never a pass.
+
+| Check | Inconclusive when | What to do |
+|---|---|---|
+| [`secret-echo`](/docs/reference/checks/secret-echo) | No response was captured to scan: no tool has required arguments or typed properties, so `robust-input` made no call, or the tool list was rejected. It is n/a for a server the harness did not start. | Declare types on tool arguments, or accept the provisional mark. |
+| [`pii-masked`](/docs/reference/checks/pii-masked) | The masked view could not be read through any tool (refused or empty), so masking could not be told from denying everything. | See "A control read failed" below. |
+| [`db-rowcap`](/docs/reference/checks/db-rowcap) | The admin session could not be restarted after the server stopped answering, or the server refused the probe with a message the harness does not recognise as a limit. | Check the server's log, and say what the limit is in the error text. |
+| [`db-timeout`](/docs/reference/checks/db-timeout) | The admin session could not be restarted after the server stopped answering. It is n/a when the server refuses both the sleeping statement and the long join. | Check the server's log. |
+
+The other checks follow the same pattern: each [check page](/docs/reference/checks) says when it is inconclusive. A server that stops answering mid-run is the usual cause, so check its log first.
+
+When no SQL tool can run a basic read as the admin role, or the server did not connect as the requested role, every scored db check is inconclusive and the reason says which.
+
+### A control read failed
+
+The harness ran a basic read and did not get the expected result, so it cannot tell a secure server from a broken connection. Read the evidence line for what came back. The usual causes are:
+
+- the server did not pick up the `{dsn}` placeholder, for example a wrong flag or environment name;
+- the server connects with a fixed connection string, or a pinned `{dsn:admin}`, instead of the role it was started for;
+- the server rewrites or truncates results, or its output format hides the text the harness looks for.
+
+### A `net` check says a failed fetch is not a refusal
+
+`net-loopback-ssrf` and `net-scheme-allowlist` are inconclusive when every probe was declined with a message about the mechanism that failed (a proxy, a socket, DNS, a timeout), not about the target. If the tool does fetch and refuses loopback addresses, make its refusal say so; the evidence line of each probe names the rule that decided it (see the [refusal rule](/docs/methodology#the-second-verification-round)).
+
+## Exit codes 2, 3 and 4
+
+These mean something is wrong with the setup, not with a grade. Standard error names the problem, and the causes of each code are in the [CLI reference](/docs/reference/cli#why-an-exit-code-happens). For exit code 3, read the "not graded" reasons in the report.
+
+### The database suite is not graded
+
+- **"no tool takes a SQL string".** The harness found no tool it could classify as SQL. The report lists the tools it saw. Set `sql_tools` explicitly, for example one entry with `tool: run_query` and `arg: sql`; it replaces auto-detection.
+- **"server config has no placeholder", or placeholders that expand to nothing.** Add a placeholder such as `{dsn}` where your server takes its connection string, in an argument or an environment value. With `--no-embedded` and no `--pg`, no database starts and placeholders expand to empty strings.
+
+### The server fails to start
+
+- The command is not found. The server inherits only a short list of environment variables, so a tool that relies on something set only in your shell may fail. Put it under `server.env`. [Environment](/docs/reference/environment) lists what is passed.
+- The first run of `npx -y ...` has to download the package, and the harness waits 60 seconds for the handshake and the tool list (`--connect-timeout`). The message then reads `the server did not answer initialize within <n> s (--connect-timeout)`: run the command once by hand, pin the version, or raise the limit. `doctor` uses the same wording.
+- The server may need a database connection string. If its standard error mentions a database URL or connection string, pass it as `{dsn}` under `server.args` or `server.env` (in the flag or the environment variable the server reads); the database suite fills it.
+- A placeholder is misspelled. An unknown name in braces is left as literal text and the server receives it as written.
+- For a `server.url` server, the server is not running or the URL is wrong. The harness does not start HTTP servers.
+
+## Windows
+
+Quote Windows paths in `sealmark.yaml`. A backslash inside a double-quoted YAML string is an escape character, so use forward slashes or single quotes.
+
+## The embedded Postgres will not start, or `--pg` is refused
+
+See [the embedded Postgres](/docs/safety#the-embedded-postgres) and [`--pg`](/docs/safety#using-your-own-postgres-with---pg) on the Safety page. In a root container, which cannot run the embedded Postgres, see the [GitLab job with a service Postgres](/docs/guides/ci#with-the-database-suite-a-service-postgres).
+
+## "Still running" on a server that has a timeout
+
+The harness expects a long statement to end within the value of `--timeout-probe` plus 8 seconds. If your server's timeout is longer, set `--timeout-probe` to that timeout in seconds.
+
+## A lock warning in the output
+
+If a server leaves a transaction open and holds a lock, the harness terminates the server's database connections and retries once. It prints a warning that results after this point may be unreliable, because the server's own connection was killed. Later probes may then fail for that reason and read as blocked. Fix the server so it does not leave transactions open, and run again.

@@ -1,0 +1,59 @@
+export const meta = {
+  title: "Safety",
+  since: "0.1",
+  status: "shipped",
+  description: "What the harness runs, what it sends and contacts, and what it cleans up.",
+};
+
+Read this before you run Sealmark against anything you care about.
+
+<Callout kind="warn" title="A convention, not a boundary">
+  The harness starts your server command with your user's privileges. It gives the server a disposable working directory and a scrubbed environment, but a malicious server can ignore both and reach your real files and network. Treat an unfamiliar server as untrusted code, and run it in a throwaway machine or container.
+</Callout>
+
+## It runs your server command
+
+The `server` entry in `sealmark.yaml` is spawned as written, with your user's privileges: once for the core suite and once per database role for the database suite. A stdio server gets a harness-owned [sandbox](/docs/concepts/sandbox) as its working directory and a scrubbed environment instead of yours; the variables it receives are listed in the [sandbox](/docs/concepts/sandbox#what-the-server-gets) and [environment](/docs/reference/environment) pages. A path you write yourself is not scrubbed, so `run` and `doctor` warn about an absolute path that points outside the sandbox.
+
+## Keep credentials out of the config
+
+Never put real credentials or a real connection string in `sealmark.yaml`. The harness cannot know where a server really connects. If the config hard-codes a real database URL next to a `{dsn}` placeholder, probes such as `DROP TABLE audit_probe` and `TRUNCATE probe_t` could reach that database. Use only the placeholders for database access. Reports hide secret-looking values by name only; see [what the report hides](/docs/reference/environment#what-the-report-hides).
+
+## What it sends to your tools
+
+The [`robust-input`](/docs/reference/checks/robust-input) check calls up to the first 25 tools with arguments that break the tool's own schema, and a tool that does not validate its input may act on the values it coerces, so use throwaway credentials. Well-formed arguments go only to targets the harness owns (the sandbox, the loopback listener, the seeded database) and only to tools the [classifier](/docs/concepts/classification) placed with medium confidence or better. A command tool is probed only with `--active`.
+
+## What the harness contacts
+
+- **Your server**, and the processes it starts.
+- **A loopback listener** on `127.0.0.1` (and `[::1]` when the host has it), the only network target a server is sent to. It records requests, serves large and slow responses, and redirects a request only to itself or to a file inside the sandbox.
+- **The seeded database**, `sealmark_seed`, on the embedded Postgres or the one you name with `--pg`. The probes create and drop only seed objects.
+- **Nothing else.** The probes send no request to a private-range, link-local or public host. The one exception is a setting that is off by default: `net.allow_dns` lets a probe use a name (`127.0.0.1.nip.io`) that resolves through public DNS.
+
+## The embedded Postgres
+
+By default the harness starts a real Postgres process bound to `127.0.0.1` on a free port, with a temporary data directory and a random admin password. There is no Docker. It needs the optional `embedded-postgres` package, which installs a platform-specific Postgres build.
+## Using your own Postgres with `--pg`
+
+<Callout kind="warn" title="Use a throwaway instance">
+  `--pg` runs administrative SQL on the Postgres you name. Use a disposable or dedicated instance, never a shared or production one.
+</Callout>
+
+With `--pg <dsn> --yes` the harness connects with the DSN you give it. Write it as a `postgres://` URL with the user, password, host and port; a value that cannot be read as one is a configuration error (exit code 2). Only the host, port, user and password are used; the database name and parameters such as `sslmode` are ignored. It needs a superuser, which it checks first, and it refuses to run without `--yes`. It then:
+
+- runs `DROP DATABASE IF EXISTS sealmark_seed WITH (FORCE)`, which disconnects everyone on that database and destroys it;
+- creates or alters the roles `sm_analyst`, `sm_support` and `sm_admin` with `LOGIN`, `NOSUPERUSER`, `NOBYPASSRLS` and a random password generated for each run. If a role of that name already exists, its password and attributes are overwritten;
+- runs `CREATE DATABASE sealmark_seed`, then revokes `PUBLIC` access to it and grants `CONNECT` to the three roles;
+- terminates any session connected to `sealmark_seed`.
+
+At the end of the run it makes a best-effort attempt to drop `sealmark_seed` and the three roles again, including any role of those names that existed before the run. The roles belong to the whole cluster. A run that is killed hard leaves the roles behind. Their password was random and is not written anywhere, but the roles still exist in the cluster, and Postgres lets `PUBLIC` connect to other databases by default.
+
+## Cleanup
+
+Server processes, database sessions, stray backends, the sandbox, the seed database and roles (for `--pg`) and the embedded Postgres are cleaned up in a `finally` block and on Ctrl-C, SIGTERM and SIGHUP, including a Postgres that was still starting. On a signal the harness cleans up and exits with code 130. On Windows it also kills the server's whole process tree, because the SDK kills only the direct child and an `npx` wrapper would otherwise leave the real server running.
+
+Cleanup is best effort. A hard kill (power loss, `kill -9`) can leave a `sealmark-pg-` temporary directory and a Postgres process behind, and with `--pg` the `sm_*` roles and `sealmark_seed`. Check for them. The full sequence is on the [sandbox](/docs/concepts/sandbox#cleanup) page.
+
+## Publishing a result
+
+Running Sealmark on a server is a local test. Do not publish a failure in a named third-party server before its maintainer has seen it; see the [disclosure](/docs/disclosure) page.

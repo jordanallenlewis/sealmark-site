@@ -1,0 +1,47 @@
+export const meta = {
+  title: "Humans, CI and agents",
+  since: "0.3-draft",
+  status: "shipped",
+  description: "The same configuration works three ways: a person at a terminal, a CI job with flags only, and an agent that reads JSON and fixes the config with no human in the loop.",
+};
+
+Every setting is a key in `sealmark.yaml`, a `SEALMARK_*` environment variable and, where it makes sense, a flag; every output a program reads is stable JSON with an exit code; and every message that asks for a change names the key, flag or command to use. So one configuration gives the same report whoever runs it.
+
+## A person
+
+```text
+sealmark init --from-url http://127.0.0.1:8080/mcp --yes
+sealmark doctor
+sealmark init --probes --write --yes
+sealmark run
+```
+
+`doctor` starts the server the way `run` will, says which suites would run and why the others would not, and ends with **Suggestions**: what to add to `sealmark.yaml`, with the YAML to paste and the equivalent flags (a tool that looks scoped, a SQL tool with no backend, a fixed `Authorization` header, no valid calls). `init --probes` writes one valid call per tool, so the checks that need a working call have one.
+
+## CI
+
+No file is needed. The [CI guide](/docs/guides/ci) covers the job itself; for a server that fronts a backend, add the stub, the scope and the caller header:
+
+```text
+SEALMARK_SCOPE__ALLOW='["sales.public."]' \
+sealmark run --start "node server.js --backend {upstream} --port 8080" --url http://127.0.0.1:8080/mcp \
+  --upstream --scope-tool describe_table=table --header "Authorization: Bearer {bearer}" \
+  --format json --out report.json --fail-under B
+```
+
+`sealmark init --ci github` (or `gitlab`) prints a job with these lines when your `sealmark.yaml` declares them.
+
+## An agent
+
+An agent can take a server from nothing to a graded report without a person:
+
+1. `sealmark doctor --url <url> --json`: read `suggestions[]` (each has a stable `id`, a `kind`, the `why`, the `config` YAML and the equivalent `flags`), the tool classification and the test suite list (would run, or why not).
+2. Write `sealmark.yaml` from the suggestions, or pass the flags.
+3. `sealmark init --probes --write --yes`.
+4. `sealmark run --format json --out report.json` and read the exit code: 0 passed the gate, 1 below it, 2 a config error, 3 nothing graded, 4 the server or the harness failed.
+5. Read `report.json`: `packs.<id>.status` and `reason`, `checks[]` (`verdict`, `summary`, `evidence[].code`), `notCovered[]`, `warnings[]`, and `suggestions[]` again, now re-evaluated from the finished checks. For example, `upstream-credential` inconclusive because the server refused the minted tokens comes with the suggestion to set `identities.a` and `identities.b`; `scope-escape` inconclusive because no allowed name worked comes with the suggestion to check `scope.allow`.
+6. Change the config and run again. `--replay report.json` reproduces a run's locked settings.
+
+The JSON of two runs with the same configuration differs only in the fields named on [Output](/docs/reference/output).
+
+Related: [Verify a server that fronts a backend](/docs/guides/backend-servers), [CLI](/docs/reference/cli), [Configuration](/docs/reference/configuration).

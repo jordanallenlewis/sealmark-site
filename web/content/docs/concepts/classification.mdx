@@ -1,0 +1,76 @@
+export const meta = {
+  title: "Classification",
+  since: "0.2",
+  status: "shipped",
+  description: "How Sealmark decides what each tool takes, so a suite only calls a tool with a target the harness owns.",
+};
+
+Most MCP servers are not databases. Before any test suite runs, Sealmark reads each tool's name, description and input schema and decides what kind of argument it takes. Nothing is called to do this. The answer decides which suites may probe the tool, and it is printed in every report so you can check it.
+
+## Tool classes
+
+| Class | The tool takes | Example arguments |
+|---|---|---|
+| `sql` | a SQL string | `sql`, `query`, `statement` |
+| `path` | a file or directory path | `path`, `file`, `directory`, `dest` |
+| `url` | a web address | `url`, `uri`, `endpoint`, or a string with `format: uri` |
+| `command` | a program or shell string | `command`, `cmd`, `script`, or an argument list `args` |
+| `git` | a repository location | `repo_path`, `repository`, `git_dir` |
+| `text` | other free text | any string that matches nothing above |
+| `opaque` | nothing the harness can fill | no string arguments, every argument an enum, or a required argument it has no safe value for |
+
+Only string arguments and arrays of strings count. Names are compared without case, `_`, `-` or spaces, so `file_path`, `filePath` and `filepath` are one name. A tool that matches several classes gets one primary class by specificity (command, then sql, then git, then path, then url, then text) and the others are recorded as secondary. A secondary `url` (a `path` tool that also has a `url` parameter) is also probed by `net`, and the report says `secondary: url (probed by net)`. A secondary `path` or `git` is not probed, because a write probe there could only produce a vacuous pass; the tool is listed under "Not covered" with its primary class.
+
+## Confidence
+
+Each classification carries a confidence:
+
+- `low`: nothing strong. A generic name such as `name` or `target` with no hint in the tool's name or description stays low, and so does any tool the harness cannot fill every required argument for.
+- `medium`: a strong argument name (`path`, `url`, `command`), or a generic name backed by a hint in the tool's name or description.
+- `high`: a strong name and a hint from the name or description (`read_file` with a `path` argument).
+- `explicit`: you said so, with `tools.overrides` or `sql_tools`.
+
+A path or git tool whose `destructiveHint` is `true` has its confidence lowered one step, and the reason is printed.
+
+## Confidence gates what runs
+
+| Class and confidence | Suites that may call the tool |
+|---|---|
+| any class, `low` | `core` only, which sends it schema-invalid input |
+| `sql`, medium or above | `db` and `sqlite` |
+| `path`, medium or above | `fs` and `effects`, inside the sandbox |
+| `git`, medium or above | `git` (needs `{sandbox}` in the config) and `effects`, inside the sandbox |
+| `url`, medium or above, or a secondary `url` | `net` (and `effects` inside the sandbox) |
+| `command`, high or `explicit` | `exec`, only with `--active` (a command-line flag only, never a config file or an environment variable) and the sandbox on |
+| `command`, medium | `core` only |
+| `text`, `opaque`, excluded | `core` only |
+
+## What you see in a report
+
+The text report has a `Classification:` block with one line per tool: its class, its confidence, its annotation hints and the reason.
+
+```text
+Classification:
+  read_text_file  path    high  [readOnly]  ← param "path", name matches /read|file/
+  echo            text    low   core only: string parameters only, and none names a path, URL, command, SQL or repository; add it under tools: to include it
+  add             opaque  low   core only: the tool has no string parameters; add it under tools: to include it
+  packs applied: fs, effects, core
+```
+
+A tool that only the core checks reach is also listed under "Not covered", with a hint that depends on the reason: add the tool under `tools:` for an uncertain guess, or write a `probes:` entry when no override can make the arguments fillable. The JSON record carries the same rows as `classification`.
+
+## Fixing a wrong guess
+
+Say what a tool takes with `tools.overrides`. An override always wins, is printed as `override: tools.overrides`, and gets confidence `explicit`. An override that names a parameter the tool does not have is a configuration error (exit code 2) that lists the tool's parameters.
+
+```yaml
+tools:
+  overrides:
+    legacy_thing: { class: opaque }          # never probe this tool beyond core
+    fetch_page:   { class: url, params: { url: target } }
+  exclude: ["admin_*"]
+```
+
+`tools.include` (default `["*"]`) and `tools.exclude` are lists of name patterns, with `*` and `?`. A tool they leave out is not called by any suite, `core` included, and is shown as excluded. All three `tools.*` keys are locked, so setting one makes the run [CUSTOM](/docs/concepts/standard-vs-custom). SQL tools are found by the rules on the [configuration](/docs/reference/configuration#key-sql_tools) page, or named with `sql_tools`.
+
+Related: [Suites](/docs/concepts/packs), [Sandbox](/docs/concepts/sandbox), [Configuration](/docs/reference/configuration).

@@ -1,0 +1,36 @@
+export const meta = {
+  title: "read-only",
+  since: "0.1",
+  status: "shipped",
+  description: "Read-only by default.",
+};
+
+"Read-only by default" is the base promise of most database MCP servers. This check sends three plain writes through the server's SQL tool and then reads the database itself to see whether anything changed. The server's own answer is recorded but never trusted.
+
+## Probe details
+
+Run as the `sm_admin` role, once per SQL tool, after the harness resets the scratch state and seeds `probe_t` row 9010. The admin role can write in the seed, so any blocked write is the server's doing, not the database's.
+
+Before anything is judged, the harness runs a control read as admin through each SQL tool (`SELECT (SELECT count(*) FROM customers) AS n, current_user AS u`). The tool must return `100` and `sm_admin`. A tool that cannot is left out of every check, with a note in the evidence.
+
+After each statement the harness reads the database over its own separate superuser connection and checks whether the row exists, whether the tenant name changed, or whether the row is gone. A tool is clean if none of the three writes took effect; across several SQL tools, all clean is `pass`, some clean is `part`, none clean is `fail`.
+
+If the server times out or loses its connection during these probes, that is no evidence. The probe stops. If no write had taken effect by then, the check is `inconclusive` ("the server stopped answering during the write probes"). If one had, the write that was observed stands.
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| pass | none of the three plain writes changed the database, on any SQL tool |
+| partial | writes were blocked through some SQL tools and applied through others |
+| fail | the plain writes changed the database through every SQL tool |
+| inconclusive | the server stopped answering before any write was observed, or no SQL tool could run the control read as admin |
+
+With a role that can write, the only reason a write does not land is the server. Not critical, because the stronger version of the question is [mutating-sql](/docs/reference/checks/mutating-sql), which is.
+
+## Limits
+
+- Only three plain single-statement forms are tried. Indirect forms belong to `mutating-sql`.
+- A server that is read-only by default but offers a writable mode is graded in its default configuration only, and a server that supports writes behind a flag is graded as you configured it.
+- A write that fails for an unrelated reason, such as a syntax error, counts as blocked, because the check asks whether the database changed. A server that rolls back after reporting success is, correctly, read-only in effect.
+- A server that writes asynchronously, after the harness has already read the state, is missed. The harness reads immediately after the response.

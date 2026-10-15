@@ -1,0 +1,174 @@
+export const meta = {
+  title: "Run in CI",
+  since: "0.1",
+  status: "shipped",
+  description: "Fail a build when a graded suite is below the gate, with no config file: GitHub Actions, GitLab CI, or any system that runs Node and reads an exit code.",
+};
+
+`sealmark init --ci github` (or `gitlab`) prints a ready-to-paste job and writes nothing. The jobs below are the same thing with the moving parts explained.
+
+<Callout title="Availability">
+  These templates are checked as valid YAML by the test suite; they have not yet been run in a hosted CI system.
+</Callout>
+
+## What every job needs
+
+- **Node 22.13 or newer.** No Docker.
+- **Your server, installed.** Sealmark does not install it. `--start "<command>"` launches it, `--url <url>` is where it answers, and Sealmark waits for the URL (a 401 counts as up; a 404 or 5xx does not), grades, and stops the server. A server that is already running needs only `--url`. Failing to answer within `--start-timeout` (60 seconds) exits 4 with the server's last output.
+- **`CI=true`.** Sealmark then uses the `ci` profile: a summary in the job log and JUnit and JSON files in `sealmark-report/`. If your system does not set `CI`, add `--profile ci`. See [CI is detected](/docs/reference/cli#ci-is-detected).
+- **The gate.** The default is A: any graded suite below it exits 1. `--fail-under B` (or C, D, F) relaxes it, `--fail-under none` turns it off, and `--soft-fail` keeps the gate but exits 0 with a warning, so you need no `continue-on-error` or `allow_failure`. Exits 2, 3 and 4 still fail. What each code means: [Why an exit code happens](/docs/reference/cli#why-an-exit-code-happens).
+- **Auth.** `--bearer '${MCP_TOKEN}'`. Keep the single quotes: Sealmark reads the variable itself, so the token is never in the process list or a report.
+- **Reports kept on failure,** which is when you want them: save `sealmark-report/` as an artifact with `always`.
+
+A launched server runs inside the sandbox with a scrubbed environment, like a stdio server: a job variable it needs goes under `server.env` (as `${VAR}`) or into `SEALMARK_SANDBOX__KEEP_ENV`. Sealmark checks that the canary secrets it injects are not echoed. For a server that fronts a database or an API, the same job takes `--upstream`, `--scope-tool`, `--scope-allow` and a `{bearer}` header: see [Humans, CI and agents](/docs/guides/usage-modes#ci).
+
+The examples run the latest published `sealmark`; pin a version (`sealmark@<version>`) once you want reproducible runs.
+
+## GitHub Actions
+
+```yml
+# .github/workflows/sealmark.yml
+name: sealmark
+on: [push, pull_request]
+jobs:
+  sealmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # Install your server here (for example: run: npm ci).
+      - run: >
+          npx -y sealmark run
+          --start "my-server --port 8000"
+          --url http://localhost:8000/mcp
+        env:
+          MCP_TOKEN: ${{ secrets.MCP_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sealmark-report
+          path: sealmark-report/
+```
+
+The command is a YAML folded block (`>`) with one flag per line, so a flag never needs quoting; add a flag as one more line below `--url`.
+
+### Use the action
+
+<Callout title="Needs a public repository">
+  The action lives in `action/` of the Sealmark repository and can be used only once that repository is public. Until then, use the `npx` job above.
+</Callout>
+
+The action is a composite wrapper around the CLI. It does what the job above does, writes the `summary`, `json`, `junit` and `sarif` reports into `sealmark-report/`, uploads the SARIF file to code scanning, and keeps the folder as an artifact. The step fails exactly when the CLI exits non-zero.
+
+```yml
+permissions:
+  contents: read
+  security-events: write   # lets the SARIF upload create code-scanning alerts
+jobs:
+  sealmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Install your server here. The action does not install it.
+      - uses: <owner>/sealmark/action@<ref>   # a release tag or a commit SHA
+        with:
+          start: node ./dist/server.js
+          url: http://localhost:8000/mcp
+          bearer-env: MCP_TOKEN        # the NAME of the variable, never its value
+        env:
+          MCP_TOKEN: ${{ secrets.MCP_TOKEN }}
+```
+
+| Input | Meaning |
+|---|---|
+| `start`, `url` | The same as the CLI flags. With neither, nor `config`, the action stops with exit 2. |
+| `config` | A `sealmark.yaml` to use instead. |
+| `pack` | Suites to run, comma separated. |
+| `fail-under`, `soft-fail` | The gate: a letter or `none`, and `true` to warn instead of failing. |
+| `baseline`, `write-baseline`, `fail-on` | The baseline file, and what decides the exit code (`any`, `regressions`, `drift`, comma separated). |
+| `bearer-env` | The name of an environment variable that holds a bearer token. The action passes it as a `${NAME}` reference that Sealmark reads itself. |
+| `args` | Extra flags, split on whitespace with simple quoting, never through a shell. |
+| `version` | The Sealmark version to run. Defaults to the version the action ships with. |
+| `report-dir`, `upload-sarif`, `artifact`, `node-version`, `working-directory` | Where reports go (default `sealmark-report`), whether to upload SARIF and the report artifact (both default true), the Node version (24), and the directory to run in. |
+
+Outputs: `exit-code`, `report-dir`, `json`, `sarif`, `junit` (paths) and a one-line `summary`, which is also written to the job summary.
+
+The SARIF upload step has never run on a hosted runner, and code scanning has its own requirements for private repositories. If it is not available to you, set `upload-sarif: false` and read per-check results from the JUnit file.
+
+### A baseline
+
+To ratchet against an earlier report, write the job yourself and add `--baseline`:
+
+```yml
+      - run: npx -y sealmark run --profile ci --baseline sealmark-baseline.json
+```
+
+`--baseline` exits 2 when the file does not exist, so create it once on a clean main with `--write-baseline sealmark-baseline.json` and commit it. A pull request then fails if a suite is below the gate or regresses. `--fail-on regressions` gates on regressions only, and `--fail-on regressions,drift` also fails when the server's tools change: see [Catch tool-surface drift](/docs/guides/drift).
+
+## GitLab CI
+
+The one-command job. GitLab sets `CI=true`, so the `ci` profile applies.
+
+```yml
+# .gitlab-ci.yml
+sealmark:
+  stage: test
+  image: node:24
+  script:
+    # first, install your server with its own "- ..." line (for example: - npm ci)
+    - >
+      npx -y sealmark run
+      --start "my-server --port 8000"
+      --url http://localhost:8000/mcp
+  artifacts:
+    when: always
+    reports:
+      junit: sealmark-report/sealmark-report.junit.xml
+```
+
+The `junit` report shows each check in GitLab's test tab. Make `MCP_TOKEN` a masked CI variable.
+
+### With the database suite: a service Postgres
+
+Postgres refuses to run as root, and most GitLab images such as `node:24` run as root, so the embedded Postgres cannot start in them. That matters only when the `db` suite runs. Use a disposable `services:` Postgres and `--pg`:
+
+```yml
+# .gitlab-ci.yml
+# Use a disposable instance: --pg drops and recreates sealmark_seed and its sm_* roles.
+sealmark-db:
+  stage: test
+  image: node:24
+  services:
+    - postgres:16
+  variables:
+    POSTGRES_PASSWORD: ci-only
+  script:
+    - npm ci
+    - npx -y sealmark run --pg "postgres://postgres:ci-only@postgres:5432/postgres" --yes
+  artifacts:
+    when: always
+    reports:
+      junit: sealmark-report/sealmark-report.junit.xml
+```
+
+This job reads `sealmark.yaml` from your repository, with a `{dsn}` placeholder where your server takes its connection string. GitLab makes the service reachable as host `postgres`; `ci-only` protects only that throwaway container. Only the host, port, user and password of the URL are used. The CLI refuses `--pg` without `--yes`, because the run drops and recreates `sealmark_seed` and creates three roles with a public password.
+
+Never point `--pg` at a shared or production Postgres: [Safety](/docs/safety) has the full list of statements. On a non-root runner, drop `services`, `POSTGRES_PASSWORD`, `--pg` and `--yes` and let the embedded Postgres run (on `ubuntu-latest` it works unchanged).
+
+## Other systems
+
+Any system that runs Node and reads an exit code works. This script keeps the exit code so your CI can decide what to do with it:
+
+```bash
+set -u
+npx -y sealmark run --start "my-server --port 8000" --url http://localhost:8000/mcp
+code=$?
+echo "sealmark exit code: $code"
+exit $code
+```
+
+Treating every non-zero code as a failure is the safe default; branch on the code only if you want to tell a low grade (1) from a broken job (2 to 4). Add `--pg "postgres://postgres:<password>@<host>:5432/postgres" --yes` when the job uses a service Postgres. Naming `--out`, `--format` or `--out-dir` opts out of the `ci` profile's output defaults.
+
+Before you trust the gate: the job passes locally with the same flags, the reports are saved when it fails, and you decided what an inconclusive suite means for it (the `ci` profile counts it as failing; see [Troubleshooting](/docs/troubleshooting)).

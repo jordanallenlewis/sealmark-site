@@ -1,0 +1,61 @@
+export const meta = {
+  title: "robust-input",
+  since: "0.1",
+  status: "shipped",
+  description: "Survives malformed tool input.",
+};
+
+This check calls tools with arguments that break the tool's own schema and watches whether the server rejects them cleanly. A server that dies or hangs on one bad call is a denial of service for every agent that shares it.
+
+<Callout kind="warn" title="Side effect">
+  This check calls up to 25 tools with invalid arguments (and a read-only tool with no arguments once). A tool that does not validate its input may act on a coerced value. Run it against a sandbox configuration with throwaway credentials.
+</Callout>
+
+## Probe details
+
+The four variants in the Probes list are sent to up to the first 25 tools in the listing ([`checks.robust-input.max_tools`](/docs/reference/configuration#key-checks-robust-input-max_tools)). Each variant is skipped when it does not apply to the tool, and a property with no declared type is not probed, because any value might be valid.
+
+For the wrong-type call, the harness takes for each property the first of these values that violates the declared type and is not in the property's `enum`:
+
+```text
+12345
+"not-a-valid-value"
+true
+["x"]
+{"x": 1}
+```
+
+**The one valid call.** A tool with no properties at all that declares `readOnlyHint: true` gets a single `{}` call, because that call is valid by the schema and cannot change anything. It counts toward coverage only when the server answers it without an error: a read-only tool that rejects its own no-argument call is listed as not covered, and the coverage level stays at hygiene only. Any other tool with no argument the harness can safely malform needs a `probes:` entry. If no tool has arguments the harness can malform and no valid call was made, no call is made and the check is `n/a`.
+
+Each call has a hang limit of `max(2 s, --timeout-probe)`, 10 seconds by default. After the last variant of a tool, or after a protocol error, the harness sends `tools/list` to check the server is still alive. After three hangs it stops probing.
+
+## How a rejection is read
+
+A rejection can be an MCP error (`isError: true` or a JSON-RPC error), or a refusal in the text of a normal reply ("invalid input: ..."). A refusal in text without `isError` counts as a rejection, and the evidence says so: a client that reads `isError` cannot tell it from a success. A schema-invalid call that succeeds with no refusal is lenient.
+
+Every response is also scanned for a stack trace or internal path (the same scan runs on the replies to your own `probes:` calls):
+
+- a Python `Traceback (most recent call last)`, `File "...", line N` or `.py", line`;
+- a JavaScript frame of the form `at fn (file:line:col)`, including `file://`, drive-letter, absolute-path and `node:` frames;
+- `node_modules/` or `site-packages/` followed by a source file and a line number;
+- a `C:\Users\...`, `C:\Windows\...` or `C:\Program Files\...` path;
+- a Unix home-directory path (`/home/`, `/Users/`, `/root/`) that carries a `:line` suffix.
+
+A bare Unix home-directory path does not count, so an ENOENT message or a PATH dump is not flagged. The captured responses are also kept for [secret-echo](/docs/reference/checks/secret-echo) to scan.
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| fail | the server process exited or stopped answering, or any call got no answer within the hang limit |
+| partial | a response contains a stack trace or internal path, or a schema-invalid call succeeded without any refusal ("accepted schema-invalid arguments") |
+| pass | every invalid call was rejected cleanly and the server stayed responsive |
+| n/a | no tool has arguments the harness can safely malform, and no valid call was made |
+
+A crash or a hang takes the server away from every agent, so it fails. Leaking internals and accepting invalid input are hygiene problems, not outages, so they cost half a point.
+
+## Limits
+
+- At most four invalid shapes are tried per tool, and only for the first 25 tools. Nothing is said about fuzzing, oversized input, concurrency, untyped arguments or valid-looking hostile input.
+- Many JavaScript servers coerce `12345` to `"12345"` for a string parameter. That is lenient, common and harmless, and still reads as `part`.
+- A slow server can exceed the hang limit under load, and the `C:\Users\...` pattern also matches an ordinary error message that mentions a Windows user directory.

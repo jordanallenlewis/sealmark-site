@@ -1,0 +1,31 @@
+export const meta = {
+  title: "pii",
+  since: "0.1",
+  status: "shipped",
+  description: "Personal data masking respected.",
+};
+
+In the seed, the `sm_analyst` role has no SELECT right on `customers.email`. It may read only a masked view, `customers_masked`. This check asks whether the server hands out raw emails to that role anyway. It is a database control tested through the server: the question is whether the server **defeats** the grants, not whether the server masks anything itself.
+
+## Probe details
+
+**Control.** As `sm_analyst`, through the first SQL tool, `SELECT id, name FROM customers LIMIT 3` must return text matching `Customer N` (the word `Customer`, a space, a digit). If not, the check is `inconclusive`.
+
+**Probes.** The three reads in the Probes list run as `sm_analyst` through every SQL tool. The seed emails have the form `cust` plus four digits plus `@example.test`, so the leak pattern is `/cust\d{4}@example\.test/`. A masked value such as `c***@example.test` does not match. A permission-denied error is clean, and so is a response with no email at all. The verdict is decided from the response text.
+
+## Thresholds
+
+| Verdict | When |
+|---|---|
+| pass | no raw seed email in any response, on any SQL tool |
+| partial | raw emails leaked through some SQL tools but not others |
+| fail | the analyst role received raw emails through every SQL tool |
+| inconclusive | the control read failed |
+
+Raw personal data in a model's context is the harm the grant exists to prevent. If the server returns raw emails, it connects with more privilege than the role it was given.
+
+## Limits
+
+- The masking in the seed is a **column grant** that Postgres enforces. A server that does nothing but pass SQL through gets a pass if it connects as the analyst role.
+- Only the email column is checked: other personal-data shapes such as phone numbers or free text, other tables and other roles are not.
+- A server that returns the data base64-encoded or truncated is missed, and a masking scheme that leaves a value shaped like the seed address counts as a leak.

@@ -1,0 +1,38 @@
+export const meta = {
+  title: "Verdicts",
+  since: "0.1",
+  status: "shipped",
+  description: "Every check ends in one of five verdicts. A broken control is inconclusive, never a pass.",
+};
+
+Each check returns one verdict. The verdicts feed the [grade](/docs/concepts/grades), which owns the scoring, the critical cap and advisory checks. The evidence under each one says how it was established.
+
+## The five verdicts
+
+| Verdict | Means |
+|---|---|
+| <span className="chip c-pass">pass</span> | The probe looked for the bad outcome and did not see it. |
+| <span className="chip c-part">part</span> | Partly clean: some tools or cases were clean, others were not, or a smaller problem was found. |
+| <span className="chip c-fail">fail</span> | The bad outcome was seen. |
+| <span className="chip c-inconclusive">inconclusive</span> | The harness could not tell, so it does not guess. |
+| <span className="chip c-na">n/a</span> | The check does not apply to this server. |
+
+## How a verdict is reached
+
+<ol style={{ display: "grid", gap: "14px", paddingLeft: "1.3rem", margin: "18px 0" }}>
+  <li>
+    <strong>Does the check apply?</strong> If not: <span className="chip c-na">n/a</span>, with the reason.
+  </li>
+  <li>
+    <strong>Does the control pass?</strong> Before judging, the harness proves the tool can do what the probe needs, for example that a SQL tool can read the seed data. If the control fails: <span className="chip c-inconclusive">inconclusive</span>. Never <span className="chip c-pass">pass</span>.
+  </li>
+  <li>
+    <strong>Did the probe see the bad outcome?</strong> No: <span className="chip c-pass">pass</span>. Partly: <span className="chip c-part">part</span>. Yes: <span className="chip c-fail">fail</span>.
+  </li>
+</ol>
+
+A broken connection must not look like a secure server. That is why step 2 exists.
+
+## Several SQL tools
+
+A db check runs once per workable SQL tool. All tools clean is `pass`, some clean is `part`, none clean is `fail`.

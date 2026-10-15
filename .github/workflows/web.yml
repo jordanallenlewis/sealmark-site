@@ -1,0 +1,69 @@
+# Sealmark website checks. Runs on pull requests (and pushes to main). It builds and tests only; it deploys nothing.
+# The generated docs JSON (web/content/generated) comes from the real CLI, so this job builds the CLI first, regenerates
+# the JSON, and fails when the committed copy is stale. Then it runs the drift test and the static-export build.
+name: web
+
+on:
+  pull_request:
+    paths:
+      - "web/**"
+      - ".github/workflows/web.yml"
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/web.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install the website
+        working-directory: web
+        run: npm ci
+
+      # Regenerate content/generated/*.json from `sealmark describe --json`. If the committed JSON differs
+      # (including a new untracked file), the docs would drift from the CLI, so fail and show the difference.
+      - name: Regenerate the docs JSON and fail if it is stale
+        working-directory: web
+        run: |
+          npm run docs:gen
+          if [ -n "$(git status --porcelain -- content/generated)" ]; then
+            git --no-pager diff -- content/generated
+            echo "::error::web/content/generated is stale. Run 'npm run docs:gen' in web/ and commit the result."
+            exit 1
+          fi
+
+      - name: Lint and typecheck
+        working-directory: web
+        run: npm run lint && npx tsc --noEmit
+
+      # Rules 1 to 7: check pages, config keys, flags, YAML keys, links, frontmatter, the grade sentence.
+      - name: Docs drift test
+        working-directory: web
+        run: npm run docs:check
+
+      # Proves the drift test still fails on a fake flag, a bad key, a broken link, and so on.
+      - name: Docs drift test catches injected faults
+        working-directory: web
+        run: node scripts/docs-check.mjs --self-test
+
+      - name: Build the static export
+        working-directory: web
+        run: npm run build

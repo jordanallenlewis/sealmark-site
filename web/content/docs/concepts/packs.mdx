@@ -1,0 +1,40 @@
+export const meta = {
+  title: "Suites",
+  since: "0.1",
+  status: "shipped",
+  description: "A suite is a group of checks with its own grade. Twelve ship today (three of them candidate suites), plus your own probes.",
+};
+
+A test suite is a set of checks that apply to the same kind of server. Each suite gets its own letter. There is no combined grade.
+
+## Shipped
+
+Twelve test suites are built, plus your own `probes:`. Eight are in the standard profile; `exec` is opt-in (see [classification](/docs/concepts/classification#confidence-gates-what-runs)); `scope`, `sql-guard` and `upstream` are [candidate suites](/docs/methodology#candidate-suites), added when the config declares a backend stub or a scope.
+
+| Test suite | Applies when | What it measures |
+|---|---|---|
+| `core` | always | handshake and schemas, tool-poisoning indicators in tool, prompt and resource text, malformed-input survival, secret echo. Hygiene only |
+| `db` | a SQL tool and `{dsn}` | read-only by default, row-level security, mutating SQL, personal-data masking, row cap, timeout, and three advisory checks (write gate, audit and the `db-privilege` candidate) |
+| `sqlite` | a SQL tool and `{sqlite_path}` | the same ideas on an embedded engine, plus attach, vacuum and extension loading |
+| `fs` | a path tool | reads and writes outside the root (the write corpus mirrors the read corpus), link escapes, size cap |
+| `git` | a git tool and `{sandbox}` | repository scope, argument injection |
+| `net` | a URL tool | loopback requests, scheme allow-list, response caps, and `net-redirect` (scored, not critical) |
+| `http` | `server.url` is set | origin validation, authentication, protocol version, sessions, CORS, TLS, and an advisory bind-address check |
+| `effects` | an annotated tool with a harness-owned target | whether `readOnlyHint` and `openWorldHint` are honest |
+| `exec` | a command tool, opt-in | argument injection, working directory, timeout cap, allow-list |
+| `scope` (candidate) | `scope.tools` and `scope.allow` | identifiers outside the declared scope are refused in every spelling and never reach the backend |
+| `sql-guard` (candidate) | a SQL tool and the upstream stub | forbidden statements and out-of-scope references never reach the backend; the row cap is applied before it |
+| `upstream` (candidate) | the upstream stub and a valid call | each caller's own token reaches the backend; no token in replies or logs; error bodies not relayed; a slow backend does not hang the server |
+| custom | `probes:` with a `check:` | your own checks; see [custom probes](/docs/guides/custom-probes) |
+
+`core` is basic hygiene any server should pass: it sends only schema-invalid arguments, so an A says nothing about what the tools do. Every other suite runs only when the harness can give the server a target it owns: a sandbox directory, a loopback listener, a seeded database, the HTTP endpoint you configured, or an upstream stub that plays the server's backend ([guide](/docs/guides/backend-servers)). `db` is the deepest suite: it runs your server once per database role against a seeded synthetic Postgres and then checks the database.
+
+## When a suite is not graded
+
+A suite that cannot run is reported as not graded, with the reason, and a letter is never invented. `core` is still graded. The `db` suite needs a `{dsn}` placeholder, a SQL tool and a Postgres (embedded or your own); other suites need a tool of the right kind and a sandbox. If nothing at all is graded, the run exits 3.
+
+## Planned
+
+Suites that are designed but not built are on the [roadmap](/docs/roadmap).
+
+How the suites decide what to call is on the [classification](/docs/concepts/classification) page, where they call it on [sandbox](/docs/concepts/sandbox), and what makes a run CUSTOM on [standard vs custom](/docs/concepts/standard-vs-custom).

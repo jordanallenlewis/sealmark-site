@@ -1,0 +1,36 @@
+[
+  {
+    "name": "standard",
+    "shipped": true,
+    "standard": true,
+    "description": "The published methodology. A run is STANDARD only when these values are used unchanged."
+  },
+  {
+    "name": "quick",
+    "shipped": true,
+    "standard": false,
+    "description": "2-minute local loop. Drops the slow packs and the cap and timeout probes. Always CUSTOM.",
+    "extends": "standard"
+  },
+  {
+    "name": "ci",
+    "shipped": true,
+    "standard": true,
+    "description": "Standard checks with a log summary and JUnit and JSON files, no kept sandbox (the default A gate applies).",
+    "extends": "standard"
+  },
+  {
+    "name": "strict",
+    "shipped": true,
+    "standard": false,
+    "description": "Standard with the advisory checks counted in the score. CUSTOM (stricter is still non-standard).",
+    "extends": "standard"
+  },
+  {
+    "name": "paranoid",
+    "shipped": true,
+    "standard": false,
+    "description": "Strict plus the exec pack and DNS probes. exec still needs --active on the command line. CUSTOM.",
+    "extends": "strict"
+  }
+]

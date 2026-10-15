@@ -1,0 +1,38 @@
+[
+  {
+    "id": "adeu-mcp-server",
+    "name": "@adeu/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @adeu/mcp-server@1.7.1"
+  },
+  {
+    "id": "aetherwealth-mcp",
+    "name": "@aetherwealth/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @aetherwealth/mcp@0.2.17"
+  },
+  {
+    "id": "affiliate-networks-mcp",
+    "name": "affiliate-networks-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y affiliate-networks-mcp@0.19.0"
+  },
+  {
+    "id": "agent-bev-mcp-server",
+    "name": "@agent-bev/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @agent-bev/mcp-server@0.2.5"
+  },
+  {
+    "id": "pretrip-mcp",
+    "name": "pretrip-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y pretrip-mcp@1.0.1"
+  },
+  {
+    "id": "reddit-research-mcp",
+    "name": "jordanallenlewis/reddit-research-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/jordanallenlewis/reddit-research-mcp reddit-research-mcp"
+  }
+]
