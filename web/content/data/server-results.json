@@ -290,18 +290,18 @@
       "name": "@modelcontextprotocol/server-everything",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "2.0.0",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-everything@1.0.0",
+      "launch": "npx -y @modelcontextprotocol/server-everything@2.0.0",
       "transport": "stdio",
-      "toolCount": 13,
+      "toolCount": 16,
       "packs": [
         {
           "id": "core",
@@ -412,7 +412,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 13 well-formed tool(s)"
+          "summary": "handshake ok, 16 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -421,7 +421,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 13 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 7 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 16 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 7 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -430,7 +430,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "33 invalid call(s) rejected cleanly"
+          "summary": "48 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -448,7 +448,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "fail",
-          "summary": "the server instructions names 9 tool(s) the server does not offer (get-roots-list, roots, trigger-sampling-request, sampling, trigger-elicitation-request)"
+          "summary": "the server instructions names 12 tool(s) the server does not offer (initialize, simulate-research-query, trigger-sampling-request-async, trigger-elicitation-request-async, sampling)"
         },
         {
           "id": "net-loopback-ssrf",
@@ -457,7 +457,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "gzip-file-as-resource contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 9 probes reached it"
+          "summary": "gzip-file-as-resource contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 18 probes reached it"
         },
         {
           "id": "net-scheme-allowlist",
@@ -493,7 +493,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "get-env, get-resource-links, get-resource-reference, get-tiny-image declared read-only and changed nothing in the observed directories during a benign call (trigger-long-running-operation not judged: the control call failed)"
+          "summary": "get-env, get-resource-links, get-resource-reference, get-tiny-image, trigger-log-messages, trigger-resource-update declared read-only and changed nothing in the observed directories during a benign call (trigger-long-running-operation not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -502,7 +502,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "5 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "7 closed-world tool(s) called; none reached out beyond what was asked"
         },
         {
           "id": "undeclared-writes",
@@ -524,10 +524,10 @@
         }
       ],
       "coverage": {
-        "validCalls": 16,
-        "toolsCalledValid": 6,
-        "toolsTotal": 13,
-        "level": "low"
+        "validCalls": 28,
+        "toolsCalledValid": 8,
+        "toolsTotal": 16,
+        "level": "covered"
       },
       "badge": {
         "eligible": true
@@ -538,18 +538,18 @@
         "tool \"echo\" is covered by the core checks only: free-text parameter \"message\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get-annotated-message\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
         "tool \"get-env\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get-header-params\" is covered by the core checks only: free-text parameter \"region\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get-resource-links\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"get-resource-reference\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
         "tool \"get-structured-content\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
         "tool \"get-sum\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"get-tiny-image\" is covered by the core checks only: the tool takes no parameters",
-        "tool \"toggle-simulated-logging\" is covered by the core checks only: the tool takes no parameters",
-        "tool \"toggle-subscriber-updates\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"trigger-list-changed\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"trigger-log-messages\" is covered by the core checks only: the tool takes no parameters",
         "tool \"trigger-long-running-operation\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
-        "tool \"simulate-research-query\" is covered by the core checks only: free-text parameter \"topic\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "2 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"toggle-simulated-logging\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "tool \"toggle-subscriber-updates\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
-        "tool \"simulate-research-query\" was not covered by the core pack: requires task-based execution, which the harness does not use",
         "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
@@ -564,16 +564,16 @@
       "name": "mcp-server-fetch",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.10",
+      "versionTested": "2026.10.19",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-fetch==2026.10.10",
+      "launch": "uvx mcp-server-fetch==2026.10.19",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -820,16 +820,16 @@
       "name": "@modelcontextprotocol/server-filesystem",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "2.0.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-filesystem@1.0.0 {sandbox}",
+      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.0.0 {sandbox}",
       "transport": "stdio",
       "toolCount": 14,
       "packs": [
@@ -1076,16 +1076,16 @@
       "name": "mcp-server-git",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.10",
+      "versionTested": "2026.10.19",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-git==2026.10.10 --repository {sandbox}/repo",
+      "launch": "uvx mcp-server-git==2026.10.19 --repository {sandbox}/repo",
       "transport": "stdio",
       "toolCount": 12,
       "packs": [
@@ -1319,16 +1319,16 @@
       "name": "@modelcontextprotocol/server-memory",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "2.0.0",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-memory@1.0.0",
+      "launch": "npx -y @modelcontextprotocol/server-memory@2.0.0",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [
@@ -1836,16 +1836,16 @@
       "name": "@modelcontextprotocol/server-sequential-thinking",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "2.0.0",
       "serverInfoName": "server-sequential-thinking",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-sequential-thinking@1.0.0",
+      "launch": "npx -y @modelcontextprotocol/server-sequential-thinking@2.0.0",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -2289,16 +2289,16 @@
       "name": "mcp-server-time",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.10",
+      "versionTested": "2026.10.19",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-time==2026.10.10",
+      "launch": "uvx mcp-server-time==2026.10.19",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -3168,16 +3168,16 @@
       "name": "@upstash/context7-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.4.2",
+      "versionTested": "4.4.3",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-19",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @upstash/context7-mcp@4.4.2",
+      "launch": "npx -y @upstash/context7-mcp@4.4.3",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
