@@ -107,3 +107,16 @@
 {"id":"sqlite","version":"2025.4.25","testedAt":"2026-10-15","status":"ok","worst":"D","packs":{"core":"A","sqlite":"D"}}
 {"id":"text-editor","version":"1.2.2","testedAt":"2026-10-15","status":"ok","worst":"A","packs":{"core":"A"}}
 {"id":"time","version":"2026.10.10","testedAt":"2026-10-15","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"agentutility-mcp-agentops","version":"0.1.1","testedAt":"2026-10-19","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.0 -> 12.2.0 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0 | npm notice To update run: npm install -g npm@12.2.0 | npm notice)."}
+{"id":"agentutility-mcp-bestiary","version":"0.1.3","testedAt":"2026-10-19","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.0 -> 12.2.0 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0 | npm notice To update run: npm install -g npm@12.2.0 | npm notice)."}
+{"id":"agentutility-mcp-browser-workflow","version":"0.1.1","testedAt":"2026-10-19","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.0 -> 12.2.0 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0 | npm notice To update run: npm install -g npm@12.2.0 | npm notice)."}
+{"id":"agentutility-mcp-compose","version":"0.13.0","testedAt":"2026-10-19","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.0 -> 12.2.0 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0 | npm notice To update run: npm install -g npm@12.2.0 | npm notice)."}
+{"id":"agentutility-mcp-edge-finance","version":"0.18.8","testedAt":"2026-10-19","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.0 -> 12.2.0 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0 | npm notice To update run: npm install -g npm@12.2.0 | npm notice)."}
+{"id":"context7","version":"4.4.3","testedAt":"2026-10-19","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"everything","version":"2.0.0","testedAt":"2026-10-19","status":"ok","worst":"F","packs":{"core":"D","net":"F","effects":"A"}}
+{"id":"fetch","version":"2026.10.19","testedAt":"2026-10-19","status":"ok","worst":"A","packs":{"core":"A","net":"A"}}
+{"id":"filesystem","version":"2.0.0","testedAt":"2026-10-19","status":"ok","worst":"B","packs":{"core":"A","fs":"B","effects":"A"}}
+{"id":"git","version":"2026.10.19","testedAt":"2026-10-19","status":"ok","worst":"A","packs":{"core":"A","git":"A","effects":"A"}}
+{"id":"memory","version":"2.0.0","testedAt":"2026-10-19","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"sequential-thinking","version":"2.0.0","testedAt":"2026-10-19","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"time","version":"2026.10.19","testedAt":"2026-10-19","status":"ok","worst":"A","packs":{"core":"A"}}
