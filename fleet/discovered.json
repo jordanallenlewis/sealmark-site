@@ -34,5 +34,11 @@
     "name": "jordanallenlewis/reddit-research-mcp",
     "ecosystem": "github",
     "launch": "uvx --from git+https://github.com/jordanallenlewis/reddit-research-mcp reddit-readonly-mcp"
+  },
+  {
+    "id": "achromat-ai-mcp-server",
+    "name": "@achromat-ai/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @achromat-ai/mcp-server@0.1.2"
   }
 ]

@@ -9,7 +9,7 @@
       "round": "fleet",
       "versionTested": "1.5.0",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -290,16 +290,16 @@
       "name": "@modelcontextprotocol/server-everything",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.0",
+      "versionTested": "2.0.1",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-everything@2.0.0",
+      "launch": "npx -y @modelcontextprotocol/server-everything@2.0.1",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -564,16 +564,16 @@
       "name": "mcp-server-fetch",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.19",
+      "versionTested": "2026.10.24",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-fetch==2026.10.19",
+      "launch": "uvx mcp-server-fetch==2026.10.24",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -820,16 +820,16 @@
       "name": "@modelcontextprotocol/server-filesystem",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.0",
+      "versionTested": "2.0.1",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.0.0 {sandbox}",
+      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.0.1 {sandbox}",
       "transport": "stdio",
       "toolCount": 14,
       "packs": [
@@ -1078,7 +1078,7 @@
       "round": "fleet",
       "versionTested": "2026.10.19",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -1321,7 +1321,7 @@
       "round": "fleet",
       "versionTested": "2.0.0",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -1838,7 +1838,7 @@
       "round": "fleet",
       "versionTested": "2.0.0",
       "serverInfoName": "server-sequential-thinking",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2030,7 +2030,7 @@
       "round": "fleet",
       "versionTested": "2025.4.25",
       "serverInfoName": "mcp-2",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2291,7 +2291,7 @@
       "round": "fleet",
       "versionTested": "2026.10.19",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2484,7 +2484,7 @@
       "round": "fleet",
       "versionTested": "1.2.29",
       "serverInfoName": "mcp-server-filesystem",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2747,7 +2747,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "mcp-server-airbnb",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2940,7 +2940,7 @@
       "round": "fleet",
       "versionTested": "0.8.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -3168,16 +3168,16 @@
       "name": "@upstash/context7-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.4.3",
+      "versionTested": "4.4.4",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-10-19",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @upstash/context7-mcp@4.4.3",
+      "launch": "npx -y @upstash/context7-mcp@4.4.4",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -3575,7 +3575,7 @@
       "round": "fleet",
       "versionTested": "2.15.3",
       "serverInfoName": "git-mcp-server",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -3879,7 +3879,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4071,7 +4071,7 @@
       "round": "fleet",
       "versionTested": "0.7.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4302,7 +4302,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "database-server",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4568,7 +4568,7 @@
       "round": "fleet",
       "versionTested": "0.0.5",
       "serverInfoName": "fetch-mcp",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4797,7 +4797,7 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5049,7 +5049,7 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "postgres-mcp-server",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5373,7 +5373,7 @@
       "round": "fleet",
       "versionTested": "1.6.3",
       "serverInfoName": "mcp-fetch",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5602,7 +5602,7 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "mcp-knowledge-graph",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5803,16 +5803,16 @@
       "name": "markitdown-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "0.0.1a7",
+      "versionTested": "0.0.1a8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx markitdown-mcp==0.0.1a7",
+      "launch": "uvx markitdown-mcp==0.0.1a8",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -6026,7 +6026,7 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [
-        "the server announced no version, so the resolved package version (0.0.1a7) is shown"
+        "the server announced no version, so the resolved package version (0.0.1a8) is shown"
       ],
       "automated": true
     },
@@ -6037,7 +6037,7 @@
       "round": "fleet",
       "versionTested": "1.0.9",
       "serverInfoName": "mcp-sqlite",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6304,7 +6304,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6526,7 +6526,7 @@
       "round": "fleet",
       "versionTested": "0.4.0",
       "serverInfoName": "mcp-ripgrep",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6747,7 +6747,7 @@
       "round": "fleet",
       "versionTested": "0.6.2",
       "serverInfoName": "server-postgres",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7029,7 +7029,7 @@
       "round": "fleet",
       "versionTested": "1.2.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7253,7 +7253,7 @@
       "round": "fleet",
       "versionTested": "3.0.7",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7475,7 +7475,7 @@
       "round": "fleet",
       "versionTested": "0.2.17",
       "serverInfoName": "mcp",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7709,7 +7709,7 @@
       "round": "fleet",
       "versionTested": "0.20.0",
       "serverInfoName": "affiliate-networks-mcp",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -8601,7 +8601,7 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -8827,7 +8827,7 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "pretrip-mcp",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -9021,7 +9021,7 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "reddit-research-mcp",
-      "testedAt": "2026-10-15",
+      "testedAt": "2026-10-26",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -9146,7 +9146,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 10 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 10 tool definition(s), the server instructions and serverInfo, 1 prompt(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -9234,6 +9234,198 @@
         "tool \"get_posts\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
         "tool \"get_user_activity\" is covered by the core checks only: free-text parameter \"username\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"find_other_discussions\" is covered by the core checks only: free-text parameter \"post_or_url\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "achromat-ai-mcp-server",
+      "name": "@achromat-ai/mcp-server",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.1.2",
+      "serverInfoName": "mcp-server",
+      "testedAt": "2026-10-26",
+      "sealmark": {
+        "version": "0.2.2",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @achromat-ai/mcp-server@0.1.2",
+      "transport": "stdio",
+      "toolCount": 1,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 1 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 1 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "4 invalid call(s) rejected cleanly"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 4 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 1,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"achromat_register_identity\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
