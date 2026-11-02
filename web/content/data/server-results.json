@@ -9,7 +9,7 @@
       "round": "fleet",
       "versionTested": "1.5.0",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -290,16 +290,16 @@
       "name": "@modelcontextprotocol/server-everything",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.1",
+      "versionTested": "2.1.0",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-everything@2.0.1",
+      "launch": "npx -y @modelcontextprotocol/server-everything@2.1.0",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -367,17 +367,15 @@
         },
         {
           "id": "net",
-          "status": "graded",
-          "letter": "F",
-          "points": 1,
-          "scored": 3,
-          "pct": 33.33,
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
           "provisional": false,
           "capped": false,
-          "criticalFails": [
-            "net-loopback-ssrf"
-          ],
-          "reason": null
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 9 of 18 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
         },
         {
           "id": "sqlite",
@@ -456,8 +454,8 @@
           "label": "Refuses loopback targets (SSRF)",
           "critical": true,
           "advisory": false,
-          "verdict": "fail",
-          "summary": "gzip-file-as-resource contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 18 probes reached it"
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 9 of 18 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -465,8 +463,8 @@
           "label": "Only http(s) schemes accepted",
           "critical": true,
           "advisory": false,
-          "verdict": "part",
-          "summary": "the server accepts data: URLs (data); no file read and no raw connection was seen"
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 7 of 12 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-caps",
@@ -474,8 +472,8 @@
           "label": "Response size and time are capped",
           "critical": false,
           "advisory": false,
-          "verdict": "part",
-          "summary": "size: the reply was 0.00 MiB (limit 16 MiB); time: no reply within 18 s (timeout_probe_sec 10 + 8 s; a server whose own fetch timeout is longer fails this half although it caps: set --timeout-probe to its value)"
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
         },
         {
           "id": "net-redirect",
@@ -483,8 +481,8 @@
           "label": "Redirects are re-validated",
           "critical": false,
           "advisory": false,
-          "verdict": "inconclusive",
-          "summary": "redirects are followed; re-validation cannot be measured on a server that accepts loopback targets directly (it accepted every spelling the harness tried, so a refused hop has nothing to be compared with)"
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
         },
         {
           "id": "annotation-honesty",
@@ -519,18 +517,19 @@
           "label": "Refusals say what to do next",
           "critical": false,
           "advisory": true,
-          "verdict": "na",
-          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+          "verdict": "fail",
+          "summary": "0 of 9 refusal(s) say what to do instead or why retrying will not help (0 %)"
         }
       ],
       "coverage": {
-        "validCalls": 28,
-        "toolsCalledValid": 8,
+        "validCalls": 10,
+        "toolsCalledValid": 7,
         "toolsTotal": 16,
-        "level": "covered"
+        "level": "low"
       },
       "badge": {
-        "eligible": true
+        "eligible": false,
+        "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
         "tool \"gzip-file-as-resource\" also looks like a path tool (secondary class); only its primary class (url) was probed",
@@ -554,7 +553,8 @@
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
-        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
       "automated": true
@@ -564,16 +564,16 @@
       "name": "mcp-server-fetch",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.24",
+      "versionTested": "2026.10.28",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-fetch==2026.10.24",
+      "launch": "uvx mcp-server-fetch==2026.10.28",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -820,16 +820,16 @@
       "name": "@modelcontextprotocol/server-filesystem",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.1",
+      "versionTested": "2.1.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.0.1 {sandbox}",
+      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.1.0 {sandbox}",
       "transport": "stdio",
       "toolCount": 14,
       "packs": [
@@ -1076,16 +1076,16 @@
       "name": "mcp-server-git",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.19",
+      "versionTested": "2026.10.28",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-git==2026.10.19 --repository {sandbox}/repo",
+      "launch": "uvx mcp-server-git==2026.10.28 --repository {sandbox}/repo",
       "transport": "stdio",
       "toolCount": 12,
       "packs": [
@@ -1319,16 +1319,16 @@
       "name": "@modelcontextprotocol/server-memory",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.0",
+      "versionTested": "2.0.1",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-memory@2.0.0",
+      "launch": "npx -y @modelcontextprotocol/server-memory@2.0.1",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [
@@ -1838,7 +1838,7 @@
       "round": "fleet",
       "versionTested": "2.0.0",
       "serverInfoName": "server-sequential-thinking",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2030,7 +2030,7 @@
       "round": "fleet",
       "versionTested": "2025.4.25",
       "serverInfoName": "mcp-2",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2289,16 +2289,16 @@
       "name": "mcp-server-time",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.19",
+      "versionTested": "2026.10.28",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-time==2026.10.19",
+      "launch": "uvx mcp-server-time==2026.10.28",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -2484,7 +2484,7 @@
       "round": "fleet",
       "versionTested": "1.2.29",
       "serverInfoName": "mcp-server-filesystem",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2747,7 +2747,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "mcp-server-airbnb",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -2940,7 +2940,7 @@
       "round": "fleet",
       "versionTested": "0.8.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -3170,7 +3170,7 @@
       "round": "fleet",
       "versionTested": "4.4.4",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -3575,7 +3575,7 @@
       "round": "fleet",
       "versionTested": "2.15.3",
       "serverInfoName": "git-mcp-server",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -3879,7 +3879,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4071,7 +4071,7 @@
       "round": "fleet",
       "versionTested": "0.7.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4302,7 +4302,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "database-server",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4568,7 +4568,7 @@
       "round": "fleet",
       "versionTested": "0.0.5",
       "serverInfoName": "fetch-mcp",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -4797,7 +4797,7 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5049,7 +5049,7 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "postgres-mcp-server",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5373,7 +5373,7 @@
       "round": "fleet",
       "versionTested": "1.6.3",
       "serverInfoName": "mcp-fetch",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5602,7 +5602,7 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "mcp-knowledge-graph",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -5805,7 +5805,7 @@
       "round": "fleet",
       "versionTested": "0.0.1a8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6037,7 +6037,7 @@
       "round": "fleet",
       "versionTested": "1.0.9",
       "serverInfoName": "mcp-sqlite",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6304,7 +6304,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6526,7 +6526,7 @@
       "round": "fleet",
       "versionTested": "0.4.0",
       "serverInfoName": "mcp-ripgrep",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -6747,7 +6747,7 @@
       "round": "fleet",
       "versionTested": "0.6.2",
       "serverInfoName": "server-postgres",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7029,7 +7029,7 @@
       "round": "fleet",
       "versionTested": "1.2.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7253,7 +7253,7 @@
       "round": "fleet",
       "versionTested": "3.0.7",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7475,7 +7475,7 @@
       "round": "fleet",
       "versionTested": "0.2.17",
       "serverInfoName": "mcp",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -7709,7 +7709,7 @@
       "round": "fleet",
       "versionTested": "0.20.0",
       "serverInfoName": "affiliate-networks-mcp",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -8601,7 +8601,7 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -8827,7 +8827,7 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "pretrip-mcp",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -9021,7 +9021,7 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "reddit-research-mcp",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
@@ -9247,16 +9247,16 @@
       "name": "@achromat-ai/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.2",
+      "versionTested": "0.1.3",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-10-26",
+      "testedAt": "2026-11-02",
       "sealmark": {
         "version": "0.2.2",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @achromat-ai/mcp-server@0.1.2",
+      "launch": "npx -y @achromat-ai/mcp-server@0.1.3",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
