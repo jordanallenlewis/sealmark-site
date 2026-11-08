@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, RANK, SERVERS_RESULTS, deepPacks, worst, type Letter, type ServerResult } from "@/lib/results";
 import s from "./ResultsTicker.module.css";
+import { TickerControl } from "./TickerControl";
 
 const short = (n: string) => n.replace(/^@[^/]+\//, "");
 
@@ -36,9 +37,11 @@ export function ResultsTicker() {
   const row1 = mixed.slice(0, half);
   const row2 = mixed.slice(half);
   return (
+    <TickerControl>
     <figure className={s.ticker} aria-label={`Worst grade for each of the ${sorted.length} servers tested`}>
       <div className={s.row}><Set list={row1} /><Set list={row1} hidden /></div>
       <div className={`${s.row} ${s.rev}`}><Set list={row2} /><Set list={row2} hidden /></div>
     </figure>
+    </TickerControl>
   );
 }

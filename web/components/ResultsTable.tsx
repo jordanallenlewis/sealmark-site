@@ -1,18 +1,47 @@
 "use client";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, RANK, coverageWord, deepPacks, ecosystemLabel, gradedPacks, worst, type Letter, type ServerResult } from "@/lib/results-shared";
 import s from "@/app/results/results.module.css";
 
 type Filter = "all" | "failing" | "clean" | "hygiene";
+type Sort = "best" | "worst" | "name";
 const FILTERS: [Filter, string][] = [["all", "All"], ["failing", "Has a failing suite"], ["clean", "No failing suite"], ["hygiene", "Protocol only"]];
+const SORTS: Sort[] = ["best", "worst", "name"];
 
 // The results table with search, a filter and sort. Rows are plain links, so it works without the interactions too.
+// Search, filter and sort live in the query string (?q=&filter=&sort=, defaults omitted): read once after hydration,
+// written with replaceState, so a filtered view can be shared and survives a reload without a history entry per key.
 export function ResultsTable({ servers }: { servers: ServerResult[] }) {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
-  const [sort, setSort] = useState<"best" | "worst" | "name">("best");
+  const [sort, setSort] = useState<Sort>("best");
+  const synced = useRef(false);
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const f = p.get("filter") as Filter | null;
+    const o = p.get("sort") as Sort | null;
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time read of the URL after hydration (static export: no server query) */
+    if (p.get("q")) setQ(p.get("q") ?? "");
+    if (f && FILTERS.some(([k]) => k === f)) setFilter(f);
+    if (o && SORTS.includes(o)) setSort(o);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
+
+  useEffect(() => {
+    if (!synced.current) {
+      synced.current = true; // the first run is the hydration render; the read above has not applied yet
+      return;
+    }
+    const url = new URL(window.location.href);
+    const set = (k: string, v: string, def: string) => (v && v !== def ? url.searchParams.set(k, v) : url.searchParams.delete(k));
+    set("q", q.trim(), "");
+    set("filter", filter, "all");
+    set("sort", sort, "best");
+    if (url.href !== window.location.href) window.history.replaceState(window.history.state, "", url.href);
+  }, [q, filter, sort]);
 
   const rows = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -28,8 +57,9 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
     list.sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name);
       const wa = worst(a), wb = worst(b);
-      const d = (wb ? RANK[wb.letter] : -1) - (wa ? RANK[wa.letter] : -1) || a.name.localeCompare(b.name);
-      return sort === "best" ? d : -d || a.name.localeCompare(b.name);
+      const g = (wb ? RANK[wb.letter] : -1) - (wa ? RANK[wa.letter] : -1);
+      // flip only the grade order; ties always go by name, A to Z
+      return (sort === "best" ? g : -g) || a.name.localeCompare(b.name);
     });
     return list;
   }, [servers, q, filter, sort]);
@@ -44,7 +74,7 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
           ))}
         </div>
         <label className={s.sort}>Sort
-          <select value={sort} onChange={(e) => setSort(e.target.value as "best" | "worst" | "name")}>
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
             <option value="best">Best grade first</option>
             <option value="worst">Worst grade first</option>
             <option value="name">Name</option>

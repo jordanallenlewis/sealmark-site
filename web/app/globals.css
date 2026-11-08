@@ -102,7 +102,7 @@ p { margin: 0; }
 .ibox .pr { color: var(--ink-faint); user-select: none; }
 .copybtn { flex: none; background: var(--surface); border: 1px solid var(--border); color: var(--ink-muted); border-radius: 5px; padding: 5px 10px; font: 500 0.75rem var(--mono); cursor: pointer; transition: color var(--dur-fast) var(--ease-std), border-color var(--dur-fast) var(--ease-std); }
 .copybtn:hover { color: var(--ink); border-color: var(--ink-faint); }
-.copybtn[data-copied="true"] { color: var(--pass); border-color: var(--pass); }
+.copybtn[data-state="copied"] { color: var(--pass); border-color: var(--pass); }
 .avail { margin-top: 12px; font: 400 0.78rem/1.5 var(--mono); color: var(--ink-faint); }
 /* hero entrance: one soft rise per block, staggered; the finished state needs no JS */
 .rise { animation: rise var(--dur-reveal) var(--ease-std) both; animation-delay: calc(var(--i, 0) * var(--stagger)); }
