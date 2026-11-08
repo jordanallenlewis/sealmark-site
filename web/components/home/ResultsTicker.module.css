@@ -2,6 +2,9 @@
 .row { display: flex; width: max-content; animation: slide 90s linear infinite; }
 .row.rev { animation-direction: reverse; animation-duration: 110s; }
 .ticker:hover .row, .ticker:focus-within .row { animation-play-state: paused; }
+.shell[data-state="paused"] .row { animation-play-state: paused; }
+.shell { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.pp { justify-self: end; }
 .set { display: flex; gap: 12px; padding-right: 12px; flex: none; }
 .item { display: flex; align-items: center; gap: 11px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 8px 18px 8px 10px; text-decoration: none; color: var(--ink); white-space: nowrap; flex: none; transition: border-color 0.12s; }
 .item:hover, .item:focus-visible { border-color: var(--accent); outline: none; }
@@ -13,4 +16,5 @@
   .row { animation: none; width: auto; flex-wrap: wrap; }
   .set { flex-wrap: wrap; }
   .set[aria-hidden="true"] { display: none; }
+  .shell .pp { display: none; }
 }

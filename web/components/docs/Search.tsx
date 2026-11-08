@@ -5,6 +5,9 @@
 //   - every query word must match; a word of 3+ characters matches by prefix, shorter ones exactly
 //   - score per word: title 5, heading 3, body 1; whole-phrase bonus; top 8, at most 3 per page
 //   - "/" focuses the bar, arrows move, Enter opens, Esc closes
+//   - load state is one value on the root as data-state: idle | loading | ready | error (aria-busy while loading).
+//     An error is not terminal: focusing the bar again or pressing Retry fetches the index again.
+//   - the role=status live region sits outside the hidden results panel, so hit counts and errors are announced
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -110,6 +113,9 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
   const [cur, setCur] = useState(0);
   const [load, setLoad] = useState<Load>("idle");
   const [index, setIndex] = useState<Prepared[]>([]);
+  const abort = useRef<AbortController | null>(null);
+
+  useEffect(() => () => abort.current?.abort(), []);
 
   useEffect(() => {
     if (!hotkey) return;
@@ -124,16 +130,21 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
     return () => window.removeEventListener("keydown", onKey);
   }, [hotkey]);
 
-  function ensureIndex() {
-    if (load !== "idle") return;
+  // retry = true also refetches after an error (focus and the Retry button); typing only starts the first load.
+  function ensureIndex(retry = false) {
+    if (load === "loading" || load === "ready" || (load === "error" && !retry)) return;
     setLoad("loading");
-    fetch("/docs-index.json")
+    const ctl = new AbortController();
+    abort.current = ctl;
+    fetch("/docs-index.json", { signal: ctl.signal })
       .then((r) => (r.ok ? (r.json() as Promise<Entry[]>) : Promise.reject(new Error(String(r.status)))))
       .then((d) => {
         setIndex(prepare(d));
         setLoad("ready");
       })
-      .catch(() => setLoad("error"));
+      .catch(() => {
+        if (!ctl.signal.aborted) setLoad("error");
+      });
   }
 
   const hits = useMemo(() => (load === "ready" ? run(index, q) : []), [index, load, q]);
@@ -168,9 +179,11 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
 
   const message =
     load === "error" ? "Search is not available right now." : load === "loading" ? "Loading the index…" : load === "ready" && !hits.length ? `No results for “${q.trim()}”.` : "";
+  // What a screen reader hears: the message, or the hit count. Empty while the panel is closed.
+  const announce = !shown ? "" : message || `${hits.length} ${hits.length === 1 ? "result" : "results"}.`;
 
   return (
-    <div className={`${s.search} ${variant === "page" ? s.searchPage : ""}`.trim()} role="search" onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false); }}>
+    <div className={`${s.search} ${variant === "page" ? s.searchPage : ""}`.trim()} role="search" data-state={load} aria-busy={load === "loading" || undefined} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false); }}>
       <input
         ref={input}
         className={s.searchInput}
@@ -189,7 +202,7 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
         aria-activedescendant={shown && hits.length ? opt(active) : undefined}
         value={q}
         onFocus={() => {
-          ensureIndex();
+          ensureIndex(true);
           setOpen(true);
         }}
         onChange={(e) => {
@@ -217,8 +230,19 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
             </li>
           ))}
         </ul>
-        <p className={s.resMsg} role="status">{message}</p>
+        {message ? (
+          <p className={s.resMsg}>
+            {message}
+            {load === "error" ? (
+              <>
+                {" "}
+                <button type="button" className={s.resRetry} onClick={() => ensureIndex(true)}>Retry</button>
+              </>
+            ) : null}
+          </p>
+        ) : null}
       </div>
+      <p className="sr-only" role="status">{announce}</p>
     </div>
   );
 }
