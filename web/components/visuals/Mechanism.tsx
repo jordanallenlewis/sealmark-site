@@ -2,6 +2,7 @@
 import { Fragment, useId, useRef, type CSSProperties } from "react";
 import s from "./Mechanism.module.css";
 import { Logo } from "@/components/Logo";
+import { PlayPause } from "@/components/PlayPause";
 import { useAutoplay } from "./useAutoplay";
 
 // Hero canvas: the harness does not trust the server, it reads Postgres itself.
@@ -142,12 +143,17 @@ function Wires({ g, c, uid, className }: { g: Geo; c: Case; uid: string; classNa
 
 export function Mechanism({ auto = true, caption = "Example data: servers and results are invented." }: { auto?: boolean; caption?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const { playing, frame, setFrame } = useAutoplay(wrapRef, { loopMs: CASE_MS, frames: CASES.length, auto });
+  const { status, playing, pause, toggle, reduced, frame, setFrame } = useAutoplay(wrapRef, { loopMs: CASE_MS, frames: CASES.length, auto });
+  // A dot click pauses: the chosen case stays on screen (finished frame) until the user presses play.
+  const pick = (i: number) => {
+    pause();
+    setFrame(i);
+  };
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const c = CASES[frame];
 
   return (
-    <figure className={s.fig} aria-label="How the harness grades one check: it calls the server, then reads the database itself">
+    <figure className={s.fig} data-state={status} aria-label="How the harness grades one check: it calls the server, then reads the database itself">
       <div className={s.wrap} ref={wrapRef}>
         {/* The stage persists: cards and lifelines stay put. Only the layer below is keyed by case, so each case
             restarts its own timeline and fades out at the end instead of the whole stage resetting.
@@ -207,9 +213,10 @@ export function Mechanism({ auto = true, caption = "Example data: servers and re
       </div>
 
       <div className={s.ctrl}>
+        <PlayPause paused={status === "paused-user"} onToggle={toggle} hidden={!auto || reduced} />
         <div className={s.dots} role="group" aria-label="Example cases">
           {CASES.map((k, i) => (
-            <button key={k.name} type="button" aria-label={k.title} aria-current={i === frame} onClick={() => setFrame(i)}><span /></button>
+            <button key={k.name} type="button" aria-label={k.title} aria-current={i === frame} onClick={() => pick(i)}><span /></button>
           ))}
         </div>
         <span className={s.caseName}>case {frame + 1} of {CASES.length} · <b>{c.name}</b></span>

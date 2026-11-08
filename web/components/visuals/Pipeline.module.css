@@ -47,6 +47,7 @@
 .txtbtn { background: transparent; border: 1px solid var(--border); color: var(--ink-faint); border-radius: 4px; padding: 2px 9px; font: 500 0.72rem/1.5 var(--mono); cursor: pointer; transition: color var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms); }
 .txtbtn:hover { color: var(--ink); border-color: var(--ink-faint); }
 .txtbtn[aria-current="step"] { color: var(--accent); border-color: var(--border-strong); }
+.pp { margin-right: 8px; }
 
 .cap { margin-top: 14px; text-align: center; color: var(--ink-faint); font-size: 0.88rem; }
 
