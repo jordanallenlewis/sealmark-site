@@ -16,6 +16,12 @@ import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
 //
 // Extra, optional and backward compatible: `frames`, `auto` (false = never plays; dots still work),
 // `threshold`, and a `reduced` flag in the result.
+//
+// Play state is one value, `status` (put it on the root as data-state):
+//   "playing"      visible, motion allowed, not paused by the user
+//   "paused-user"  the user pressed pause or picked a frame; stays paused (also offscreen) until `play()`
+//   "paused-auto"  offscreen, reduced motion, or auto=false; resumes by itself when that ends
+// `pause()`, `play()` and `toggle()` drive the user part; show a PlayPause control unless `reduced`.
 
 type Opts = {
   loopMs: number;
@@ -24,8 +30,14 @@ type Opts = {
   threshold?: number;
 };
 
+export type PlayStatus = "playing" | "paused-user" | "paused-auto";
+
 type Result = {
+  status: PlayStatus;
   playing: boolean;
+  pause: () => void;
+  play: () => void;
+  toggle: () => void;
   frame: number;
   setFrame: (n: number, holdMs?: number) => void;
   reduced: boolean;
@@ -37,8 +49,10 @@ export function useAutoplay(ref: RefObject<Element | null>, { loopMs, frames, au
   const [frame, setFrameState] = useState(0);
   const [visible, setVisible] = useState(false);
   const [reduced, setReduced] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
   const hold = useRef<number | null>(null);
-  const playing = auto && visible && !reduced;
+  const status: PlayStatus = userPaused ? "paused-user" : auto && visible && !reduced ? "playing" : "paused-auto";
+  const playing = status === "playing";
 
   // visibility: at least `threshold` of the element, or most of the viewport when the element is taller than it
   useEffect(() => {
@@ -81,5 +95,9 @@ export function useAutoplay(ref: RefObject<Element | null>, { loopMs, frames, au
     setFrameState(frames ? ((n % frames) + frames) % frames : n);
   }, [frames]);
 
-  return { playing, frame, setFrame, reduced };
+  const pause = useCallback(() => setUserPaused(true), []);
+  const play = useCallback(() => setUserPaused(false), []);
+  const toggle = useCallback(() => setUserPaused((p) => !p), []);
+
+  return { status, playing, pause, play, toggle, frame, setFrame, reduced };
 }
