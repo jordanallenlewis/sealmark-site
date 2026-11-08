@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
+import { PlayPause } from "@/components/PlayPause";
 import { useAutoplay } from "./useAutoplay";
 import s from "./Pipeline.module.css";
 import { HOLD_MS } from "./motion";
@@ -128,19 +129,20 @@ export function Pipeline({ auto = true, compact = false, caption }: { auto?: boo
   const REST = steps.length; // all nodes done: the finished frame, and what server render and reduced motion show
   const FRAMES = steps.length + Math.ceil(HOLD_MS / ADVANCE_MS); // one frame per node, then rest on the finished state (compact: 8 x 0.7 s, 2.8 s hold)
   const ref = useRef<HTMLElement>(null);
-  const { playing, reduced, frame, setFrame } = useAutoplay(ref, { loopMs: ADVANCE_MS, frames: FRAMES, auto });
-  const [touched, setTouched] = useState(false); // once a dot is used, show that frame even when not playing
-  const at = playing || touched ? Math.min(frame, REST) : REST;
+  const { status, reduced, frame, setFrame, pause, toggle } = useAutoplay(ref, { loopMs: ADVANCE_MS, frames: FRAMES, auto });
+  // One state decides what shows: paused-auto (offscreen, reduced motion, server render) rests on the finished frame;
+  // playing and paused-user show the current frame.
+  const at = status === "paused-auto" ? REST : Math.min(frame, REST);
   const pick = (n: number) => {
-    setTouched(true);
-    setFrame(n, 6000); // hold the chosen frame for 6 s before the loop carries on (it never moves under reduced motion)
+    pause(); // a dot click pauses on the chosen frame until the user presses play
+    setFrame(n);
   };
   const label = compact
     ? `What one sealmark run does: ${steps.map((n) => n.label).join(", ")}`
     : "What one sealmark run does: read the config, start the server once for core and once per role for db, probe, observe, grade, record";
 
   return (
-    <figure ref={ref} className={s.fig} data-compact={compact} aria-label={label}>
+    <figure ref={ref} className={s.fig} data-compact={compact} data-state={status} aria-label={label}>
       <ol className={s.track} aria-hidden="true" style={{ "--n": steps.length } as CSSProperties}>
         {steps.map((n, i) => (
           <li key={n.id} className={s.node} data-state={i < at ? "done" : i === at ? "active" : "todo"}>
@@ -157,6 +159,7 @@ export function Pipeline({ auto = true, compact = false, caption }: { auto?: boo
       </ol>
 
       <div className={s.ctl} role="group" aria-label="Pipeline step" data-reduced={reduced}>
+        <PlayPause paused={status === "paused-user"} onToggle={toggle} hidden={!auto || reduced} className={s.pp} />
         {steps.map((n, i) => (
           <button key={n.id} type="button" className={s.dot} aria-label={`Show step ${i + 1}: ${n.label}${n.tag ? " " + n.tag : ""}`} aria-current={at === i ? "step" : undefined} onClick={() => pick(i)} />
         ))}
