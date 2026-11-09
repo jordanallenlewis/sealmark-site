@@ -45,7 +45,7 @@ npx sealmark run
 The report goes to stdout and progress to stderr. Sealmark runs every [test suite](/docs/concepts/packs) that has something to test; `core` sends only schema-invalid arguments, so an A from `core` alone says nothing about what your tools do. A short, invented excerpt for Server A:
 
 ```text
-PACK db  GRADE D  (5/5 scored, 80%)
+PACK db  GRADE D  (4/5 points, 80%)
   [FAIL] Personal data masking respected — customers.email returned unmasked to the analyst role.
   [PASS] Row-level security respected — no other-tenant rows returned through any tool.
   Capped at D: critical fail(s): Personal data masking respected. Without the cap this would be B (80%).

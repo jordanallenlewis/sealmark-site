@@ -50,7 +50,7 @@ At the end of the run it makes a best-effort attempt to drop `sealmark_seed` and
 
 ## Cleanup
 
-Server processes, database sessions, stray backends, the sandbox, the seed database and roles (for `--pg`) and the embedded Postgres are cleaned up in a `finally` block and on Ctrl-C, SIGTERM and SIGHUP, including a Postgres that was still starting. On a signal the harness cleans up and exits with code 130. On Windows it also kills the server's whole process tree, because the SDK kills only the direct child and an `npx` wrapper would otherwise leave the real server running.
+Server processes, database sessions, stray backends, the sandbox, the seed database and roles (for `--pg`) and the embedded Postgres are cleaned up in a `finally` block and on Ctrl-C, SIGTERM and SIGHUP, including a Postgres that was still starting. On a signal the harness cleans up and exits with 128 plus the signal number: 129 for SIGHUP, 130 for SIGINT (Ctrl-C), 143 for SIGTERM. On Windows it also kills the server's whole process tree, because the SDK kills only the direct child and an `npx` wrapper would otherwise leave the real server running.
 
 Cleanup is best effort. A hard kill (power loss, `kill -9`) can leave a `sealmark-pg-` temporary directory and a Postgres process behind, and with `--pg` the `sm_*` roles and `sealmark_seed`. Check for them. The full sequence is on the [sandbox](/docs/concepts/sandbox#cleanup) page.
 

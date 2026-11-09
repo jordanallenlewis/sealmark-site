@@ -1,4 +1,5 @@
 "use client";
+import { clsx } from "clsx";
 // (e) RoleLanes: one server, three database roles, before/after.
 // Teaches: the database suite starts the server once per role and watches what each role can see.
 // rls and pii are database controls tested through the server (verified: response);
@@ -110,7 +111,7 @@ export function RoleLanes({ auto = true }: { auto?: boolean }) {
           </p>
         </div>
         <div className={s.grade} aria-live="polite">
-          <span key={g.letter} className={`seal lg g-${g.letter}${pop && capped ? " " + s.pop : ""}`} role="img" aria-label={capped ? `Grade ${g.letter}, capped from ${g.raw}` : `Grade ${g.letter}`}>{g.letter}</span>
+          <span key={g.letter} className={clsx("seal lg", `g-${g.letter}`, pop && capped && s.pop)} role="img" aria-label={capped ? `Grade ${g.letter}, capped from ${g.raw}` : `Grade ${g.letter}`}>{g.letter}</span>
           <div className={s.gtext}>
             <b>database suite · grade {g.letter}</b>
             <span>
@@ -144,7 +145,7 @@ export function RoleLanes({ auto = true }: { auto?: boolean }) {
                   <span className={s.hint}>{out.hint}</span>
                 </div>
                 <div className={s.verdict}>
-                  <span className={`chip ${leaking ? "c-fail" : "c-pass"}`}>
+                  <span className={clsx("chip", leaking ? "c-fail" : "c-pass")}>
                     {leaking ? `fail · ${l.check}${l.crit ? " · critical" : ""}` : `pass · ${l.check}`}
                   </span>
                   {leaking && <span className={s.leakword}>✕ leak</span>}

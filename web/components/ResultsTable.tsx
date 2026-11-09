@@ -1,4 +1,5 @@
 "use client";
+import { clsx } from "clsx";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Seal } from "@/components/Seal";
@@ -70,7 +71,7 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
         <input className={s.search} type="search" placeholder="Search servers" aria-label="Search servers" value={q} onChange={(e) => setQ(e.target.value)} />
         <div className={s.pills} role="group" aria-label="Filter">
           {FILTERS.map(([k, label]) => (
-            <button key={k} type="button" className={`${s.pill}${filter === k ? " " + s.on : ""}`} aria-pressed={filter === k} onClick={() => setFilter(k)}>{label}</button>
+            <button key={k} type="button" className={clsx(s.pill, filter === k && s.on)} aria-pressed={filter === k} onClick={() => setFilter(k)}>{label}</button>
           ))}
         </div>
         <label className={s.sort}>Sort
@@ -81,10 +82,11 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
           </select>
         </label>
       </div>
-      <div className={s.tw}>
+      <div className={clsx(s.tw, s.twCards)}>
         <table className={s.table}>
+          <caption className="sr-only">Servers tested, with the protocol grade and the deeper suite grades</caption>
           <thead>
-            <tr><th>Server</th><th>Version</th><th>Protocol</th><th>Deeper suites</th><th>Coverage</th></tr>
+            <tr><th scope="col">Server</th><th scope="col">Version</th><th scope="col">Protocol</th><th scope="col">Deeper suites</th><th scope="col">Coverage</th></tr>
           </thead>
           <tbody>
             {rows.map((x) => {
@@ -93,16 +95,16 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
               return (
                 <tr key={x.id}>
                   <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small></td>
-                  <td className={s.muted}>{x.versionTested}</td>
+                  <td className={s.muted} data-label="Version">{x.versionTested}</td>
                   <td>{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
-                  <td>
+                  <td data-label="Deeper suites">
                     {deep.length ? (
                       <div className={s.packs}>
                         {deep.map((p) => <span key={p.id} className={s.pk}><Seal g={p.letter as Letter} prov={p.provisional} /> {PACK_LABEL[p.id] ?? p.id}</span>)}
                       </div>
                     ) : <span className={s.muted}>none applied</span>}
                   </td>
-                  <td className={s.muted}>{coverageWord(x)}</td>
+                  <td className={s.muted} data-label="Coverage">{coverageWord(x)}</td>
                 </tr>
               );
             })}

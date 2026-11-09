@@ -19,7 +19,7 @@ An ES module whose default export has these members. All of them are checked bef
 |---|---|
 | `id` | The suite id: `plugin:` followed by letters, digits, `.`, `_` or `-`, for example `plugin:short-names`. |
 | `version` | The plugin's own version, a non-empty string. |
-| `sealmark` | The range of Sealmark versions it works with: `>=0.2 <0.3`, `^0.2`, `~0.2.1`, `0.2.x`. A space means AND and `\|\|` means OR. A running Sealmark outside the range stops the run. |
+| `sealmark` | The range of Sealmark versions it works with: `^1.0`, `>=1.0 <2`, `~1.0.0`, `1.x`. A space means AND and `\|\|` means OR. A running Sealmark outside the range stops the run. |
 | `describe()` | The checks it can produce, as the same records `explain` prints: `id`, `pack`, `label`, `critical`, `advisory`, `scope`, `verifiedBy`, `probes`, `thresholds`, `falsePositive`, `falseNegative`, `configKeys`, `since` and `status`. |
 | `applies(ctx)` | `{ ok: true }`, or `{ ok: false, reason }` when the suite makes no sense for this server. |
 | `run(ctx)` | The probes themselves. It returns a list of check results. |
@@ -31,7 +31,7 @@ An ES module whose default export has these members. All of them are checked bef
 export default {
   id: "plugin:short-names",
   version: "0.1.0",
-  sealmark: ">=0.2 <0.3",
+  sealmark: "^1.0",
   describe: () => [{
     id: "short-tool-names", pack: "plugin:short-names", label: "Tool names are short",
     critical: false, advisory: false, scope: "server", verifiedBy: ["static"],

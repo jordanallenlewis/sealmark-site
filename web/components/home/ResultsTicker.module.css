@@ -7,7 +7,8 @@
 .pp { justify-self: end; }
 .set { display: flex; gap: 12px; padding-right: 12px; flex: none; }
 .item { display: flex; align-items: center; gap: 11px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 8px 18px 8px 10px; text-decoration: none; color: var(--ink); white-space: nowrap; flex: none; transition: border-color 0.12s; }
-.item:hover, .item:focus-visible { border-color: var(--accent); outline: none; }
+.item:hover, .item:focus-visible { border-color: var(--accent); }
+.item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .name { font-weight: 700; font-size: 0.95rem; }
 .sub { font: 0.72rem var(--font-mono), ui-monospace, monospace; color: var(--ink-faint); }
 @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }

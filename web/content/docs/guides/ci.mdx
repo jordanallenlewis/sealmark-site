@@ -56,8 +56,8 @@ The command is a YAML folded block (`>`) with one flag per line, so a flag never
 
 ### Use the action
 
-<Callout title="Needs a public repository">
-  The action lives in `action/` of the Sealmark repository and can be used only once that repository is public. Until then, use the `npx` job above.
+<Callout title="Not on the Marketplace">
+  The action lives in `action/` of the public Sealmark repository and is not listed on the GitHub Marketplace. Reference it by path and pin a release tag or a commit SHA.
 </Callout>
 
 The action is a composite wrapper around the CLI. It does what the job above does, writes the `summary`, `json`, `junit` and `sarif` reports into `sealmark-report/`, uploads the SARIF file to code scanning, and keeps the folder as an artifact. The step fails exactly when the CLI exits non-zero.
@@ -72,7 +72,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # Install your server here. The action does not install it.
-      - uses: <owner>/sealmark/action@<ref>   # a release tag or a commit SHA
+      - uses: jordanallenlewis/sealmark/action@v1.0.0   # a release tag or a commit SHA
         with:
           start: node ./dist/server.js
           url: http://localhost:8000/mcp

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { NavLinks } from "./NavLinks";
 import { RESULTS_PUBLIC } from "@/lib/results";
 
 export { Logo };
@@ -9,6 +10,8 @@ const LINKS: [href: string, label: string][] = [["/#how", "How it works"], ...(R
 
 export function Nav({ home = false }: { home?: boolean }) {
   return (
+    <>
+    {!home && <a className="skip" href="#main">Skip to content</a>}
     <header className="masthead">
       <div className="frame gutter">
         {home ? (
@@ -16,13 +19,12 @@ export function Nav({ home = false }: { home?: boolean }) {
         ) : (
           <Link className="brand" href="/" aria-label="Sealmark home"><Logo />Sealmark</Link>
         )}
-        <nav className="navlinks" aria-label="Site">
-          {LINKS.map(([h, l]) => <Link key={h} href={h}>{l}</Link>)}
-        </nav>
+        <NavLinks links={LINKS} />
         <div className="navright">
           <Link className="btn solid" href="/docs/quickstart/">Quickstart</Link>
         </div>
       </div>
     </header>
+    </>
   );
 }
