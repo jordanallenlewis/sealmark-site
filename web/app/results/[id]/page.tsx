@@ -8,6 +8,7 @@ import { Seal } from "@/components/Seal";
 import { PACK_LABEL, SERVERS_RESULTS, VERDICTS_CHECKED, coverageWord, ecosystemLabel, gradedPacks, launchLine, type Letter, type Verdict } from "@/lib/results";
 import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor } from "@/lib/history";
+import { ORIGIN, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import s from "../results.module.css";
 
@@ -19,7 +20,7 @@ type P = { params: Promise<{ id: string }> };
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { id } = await params;
   const x = SERVERS_RESULTS.find((v) => v.id === id);
-  return { title: x ? `${x.name} ${x.versionTested}: Sealmark results` : "Results" };
+  return x ? { title: `${x.name} ${x.versionTested}: MCP server grade | Sealmark`, description: serverDescription(x), alternates: { canonical: `/results/${x.id}/` } } : { title: "Results" };
 }
 
 const sentence = (t: string) => t.replace(/(^|[.!?]\s+)([a-z])/g, (_, a: string, b: string) => a + b.toUpperCase());
@@ -66,6 +67,14 @@ export default async function ServerPage({ params }: P) {
             </div>
           ))}
         </div>
+
+        {serverBadge(x) && (
+          <section aria-labelledby="badge-h" style={{ marginTop: 24 }}>
+            <h2 id="badge-h" className={s.packhead}>Badge for the README</h2>
+            <p className={s.muted}>The badge shows this automated result for version {x.versionTested}. It is a link to this page, not a certificate, and it changes when the next re-test does.</p>
+            <pre><code>{`[![Sealmark](${ORIGIN}/badge/${x.id}.svg)](${ORIGIN}/results/${x.id}/)`}</code></pre>
+          </section>
+        )}
 
         <p className={s.muted} style={{ marginTop: 14 }}>
           Coverage: {coverageWord(x)}
