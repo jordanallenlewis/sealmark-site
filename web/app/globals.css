@@ -1,4 +1,6 @@
 :root {
+  --skullet-base: var(--surface-2);
+  --skullet-highlight: var(--border);
   color-scheme: dark;
   --bg: #111214;
   --band-alt: #16171a;

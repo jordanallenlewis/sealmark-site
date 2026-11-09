@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { SkulletProvider } from "skullet/react";
 import "./globals.css";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { AUTHOR, SITE } from "@/lib/site";
@@ -20,12 +21,20 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false }, // not promoting yet: keep out of search until the owner says otherwise
 };
 
+// Every loading placeholder on the site is skullet (same package and pin as smallbatchmeetup.com), set in the site's own dark tokens.
+const skeletonTheme = { animation: "shimmer", speed: "slow", radius: "0.35em" } as const;
+
 export const viewport: Viewport = { themeColor: "#111214", colorScheme: "dark" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
-      <body><ScrollToTop />{children}</body>
+      <body>
+        <SkulletProvider mode="dark" theme={skeletonTheme}>
+          <ScrollToTop />
+          {children}
+        </SkulletProvider>
+      </body>
     </html>
   );
 }

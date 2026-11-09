@@ -1518,6 +1518,92 @@
     ]
   },
   {
+    "id": "http-session-binding",
+    "pack": "http",
+    "label": "A session id is bound to the caller that opened it",
+    "critical": false,
+    "advisory": true,
+    "scope": "server as deployed (Mcp-Session-Id handling across two callers; MCP authorization specification, session binding)",
+    "verifiedBy": [
+      "http"
+    ],
+    "probes": [
+      {
+        "id": "own-session",
+        "text": "identity A ({bearer:a}) opens a session and lists tools; identity B ({bearer:b}) opens a session of its own (B's control)",
+        "kind": "control"
+      },
+      {
+        "id": "other-caller",
+        "text": "tools/list on A's Mcp-Session-Id with B's token",
+        "kind": "session"
+      },
+      {
+        "id": "no-credential",
+        "text": "tools/list on A's Mcp-Session-Id with every credential header removed",
+        "kind": "session"
+      }
+    ],
+    "thresholds": {},
+    "falsePositive": "A server whose sessions are deliberately shared between callers (one tenant, one session pool) fails; the MCP specification says a session id must not be used as authentication and should be bound to the user.",
+    "falseNegative": "Only tools/list is tried on the borrowed session; a server that binds sessions for some methods only is not seen. Identities A and B come from {bearer:a} and {bearer:b}: without --oauth they are minted opaque tokens, and a server that refuses B's token on its own leaves the B leg inconclusive.",
+    "configKeys": [
+      "checks.http-session-binding.enabled",
+      "checks.http-session-binding.severity",
+      "identities.a",
+      "identities.b",
+      "oauth.issuer",
+      "server.headers"
+    ],
+    "since": "0.3-draft",
+    "status": "shipped",
+    "severity": "advisory",
+    "standardLocked": false,
+    "inStandardPacks": true,
+    "candidate": true,
+    "candidatePack": false,
+    "remediation": "Bind each session to the identity that opened it: on every request, authenticate the token first, then check that its subject is the one the session was created for, and refuse otherwise. A session id is not a credential: a request with a valid session id and no token, or another caller's token, must be refused. This check is advisory in the http pack (a round 7 candidate).",
+    "scoring": "advisory: reported with its verdict but not part of the score.",
+    "settings": [
+      {
+        "path": "checks.http-session-binding.enabled",
+        "default": true,
+        "description": "Run http-session-binding. false reports it as n/a (\"disabled by config\") so it stays visible. http-session-binding is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "checks.http-session-binding.severity",
+        "default": null,
+        "description": "Override how http-session-binding counts: critical, scored or advisory. null keeps the check's own severity. advisory removes it from the score. http-session-binding is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "identities.a",
+        "default": null,
+        "description": "Token the harness sends as caller A wherever the server config says {bearer} or {bearer:a}. null mints one per run. Set it when the server validates tokens it did not issue. ${VAR} is read from the environment. Treated as a secret: redacted in config show and in reports (flag --identity-a).",
+        "standardLocked": false
+      },
+      {
+        "path": "identities.b",
+        "default": null,
+        "description": "Token the harness sends as caller B ({bearer:b}). null mints one per run. Must differ from identities.a. Treated as a secret (flag --identity-b).",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.issuer",
+        "default": null,
+        "description": "Which OAuth issuer the server under test trusts. stub starts the harness's own authorization server on loopback (flag --oauth): {issuer} and {jwks} name it, and the caller identities ({bearer}, {bearer:a}, {bearer:b}) become tokens it signed for {audience}, sent as Authorization: Bearer. Point the server's issuer, JWKS URL and audience at those placeholders in server.env or server.args. external declares a server that trusts its own issuer: only the checks that need no harness-signed token run (oauth-discovery). null declares nothing.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.headers",
+        "default": null,
+        "description": "HTTP headers sent to the server (url transport). Values under secret-looking names are redacted.",
+        "standardLocked": false
+      }
+    ]
+  },
+  {
     "id": "http-cors",
     "pack": "http",
     "label": "No permissive CORS",
@@ -4599,6 +4685,581 @@
         "path": "upstream.kind",
         "default": null,
         "description": "Kind of the harness-owned upstream stub the server's backend is pointed at through {upstream}. http starts a loopback stub that records every request the server forwards (flag --upstream). null starts none. The stub needs a server Sealmark starts, and the server must use {upstream} in command, args, env, url, headers or files.",
+        "standardLocked": false
+      }
+    ]
+  },
+  {
+    "id": "upstream-token-passthrough",
+    "pack": "upstream",
+    "label": "The caller's access token is never passed to the upstream",
+    "critical": true,
+    "advisory": false,
+    "scope": "server (what the harness's upstream stub received from the server, and what the server printed or relayed)",
+    "thresholds": {},
+    "since": "0.3-draft",
+    "status": "shipped",
+    "verifiedBy": [
+      "upstream"
+    ],
+    "probes": [
+      {
+        "id": "identity-a",
+        "text": "every valid call as identity a, whose token is an access token the harness's issuer minted for this server ({audience}); every header, query and body the upstream stub receives is searched for the token and for its signature",
+        "kind": "corpus"
+      },
+      {
+        "id": "identity-b",
+        "text": "the same calls as identity b",
+        "kind": "corpus"
+      }
+    ],
+    "falsePositive": "None known: the token is minted for this run and audience-bound to the server under test, and the MCP authorization specification forbids passing it to an upstream API (the server must obtain its own token for the upstream).",
+    "falseNegative": "Only the harness's valid calls are observed; a tool the harness did not call can still forward the token. A token transformed beyond recognition (re-encoded, split) is not seen; its signature segment alone is searched for as well.",
+    "configKeys": [
+      "checks.upstream-token-passthrough.enabled",
+      "checks.upstream-token-passthrough.severity",
+      "identities.a",
+      "identities.b",
+      "oauth.issuer",
+      "upstream.credential_header",
+      "upstream.kind"
+    ],
+    "severity": "critical",
+    "standardLocked": false,
+    "inStandardPacks": false,
+    "candidate": true,
+    "candidatePack": true,
+    "remediation": "Never forward the token a client sent you to an upstream API: it was issued for this server (its audience), and passing it on lets the upstream act as the client and hides who called. Use a credential of the server's own for the upstream, or exchange the client's token for one issued to the upstream (a token exchange or on-behalf-of grant), and keep the original token out of headers, query strings and bodies you send onwards.",
+    "scoring": "critical and scored: pass = 1 point, part = 0.5, fail = 0. A fail caps the pack's grade at D, whatever the other checks scored.",
+    "settings": [
+      {
+        "path": "checks.upstream-token-passthrough.enabled",
+        "default": true,
+        "description": "Run upstream-token-passthrough. false reports it as n/a (\"disabled by config\") so it stays visible. upstream-token-passthrough is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "checks.upstream-token-passthrough.severity",
+        "default": null,
+        "description": "Override how upstream-token-passthrough counts: critical, scored or advisory. null keeps the check's own severity. advisory removes it from the score. upstream-token-passthrough is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "identities.a",
+        "default": null,
+        "description": "Token the harness sends as caller A wherever the server config says {bearer} or {bearer:a}. null mints one per run. Set it when the server validates tokens it did not issue. ${VAR} is read from the environment. Treated as a secret: redacted in config show and in reports (flag --identity-a).",
+        "standardLocked": false
+      },
+      {
+        "path": "identities.b",
+        "default": null,
+        "description": "Token the harness sends as caller B ({bearer:b}). null mints one per run. Must differ from identities.a. Treated as a secret (flag --identity-b).",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.issuer",
+        "default": null,
+        "description": "Which OAuth issuer the server under test trusts. stub starts the harness's own authorization server on loopback (flag --oauth): {issuer} and {jwks} name it, and the caller identities ({bearer}, {bearer:a}, {bearer:b}) become tokens it signed for {audience}, sent as Authorization: Bearer. Point the server's issuer, JWKS URL and audience at those placeholders in server.env or server.args. external declares a server that trusts its own issuer: only the checks that need no harness-signed token run (oauth-discovery). null declares nothing.",
+        "standardLocked": false
+      },
+      {
+        "path": "upstream.credential_header",
+        "default": "authorization",
+        "description": "Header the upstream-credential check reads the forwarded credential from (compared case-insensitively).",
+        "standardLocked": false
+      },
+      {
+        "path": "upstream.kind",
+        "default": null,
+        "description": "Kind of the harness-owned upstream stub the server's backend is pointed at through {upstream}. http starts a loopback stub that records every request the server forwards (flag --upstream). null starts none. The stub needs a server Sealmark starts, and the server must use {upstream} in command, args, env, url, headers or files.",
+        "standardLocked": false
+      }
+    ]
+  },
+  {
+    "id": "oauth-token-forgery",
+    "pack": "oauth",
+    "label": "Forged and unsigned tokens are refused",
+    "critical": true,
+    "advisory": false,
+    "scope": "server as deployed (the bearer tokens the endpoint accepts, and what it tells a client that has none)",
+    "thresholds": {},
+    "since": "0.3-draft",
+    "status": "shipped",
+    "verifiedBy": [
+      "http",
+      "authserver"
+    ],
+    "probes": [
+      {
+        "id": "control",
+        "text": "a well-formed RS256 token from the harness's issuer, unexpired, with the right iss, aud and scope: initialize and tools/list must succeed, or the check is inconclusive",
+        "kind": "control"
+      },
+      {
+        "id": "alg-none",
+        "text": "header alg \"none\", empty signature (header.payload.)",
+        "kind": "forgery"
+      },
+      {
+        "id": "alg-none-nodot",
+        "text": "header alg \"none\", no signature and no trailing dot (header.payload)",
+        "kind": "forgery"
+      },
+      {
+        "id": "alg-None",
+        "text": "header alg \"None\", empty signature (header.payload.)",
+        "kind": "forgery"
+      },
+      {
+        "id": "alg-None-nodot",
+        "text": "header alg \"None\", no signature and no trailing dot (header.payload)",
+        "kind": "forgery"
+      },
+      {
+        "id": "alg-NONE",
+        "text": "header alg \"NONE\", empty signature (header.payload.)",
+        "kind": "forgery"
+      },
+      {
+        "id": "alg-NONE-nodot",
+        "text": "header alg \"NONE\", no signature and no trailing dot (header.payload)",
+        "kind": "forgery"
+      },
+      {
+        "id": "sig-stripped",
+        "text": "RS256 header, signature removed (header.payload.)",
+        "kind": "forgery"
+      },
+      {
+        "id": "sig-random",
+        "text": "RS256 header, 256 random bytes in place of the signature",
+        "kind": "forgery"
+      },
+      {
+        "id": "payload-tampered",
+        "text": "a correctly signed token whose payload was changed after signing (sub sm-sub-admin, scope admin)",
+        "kind": "forgery"
+      },
+      {
+        "id": "untrusted-key",
+        "text": "RS256 signed by a key that is not in {jwks}, with the published kid",
+        "kind": "forgery"
+      },
+      {
+        "id": "hs256-pem",
+        "text": "alg HS256 with the published RSA public key (SPKI PEM bytes) as the HMAC secret: algorithm confusion",
+        "kind": "forgery"
+      },
+      {
+        "id": "hs256-jwk",
+        "text": "alg HS256 with the published public key as JWK JSON bytes as the HMAC secret",
+        "kind": "forgery"
+      },
+      {
+        "id": "jku",
+        "text": "RS256 signed by an attacker key, header jku pointing at the attacker key set ({issuer}/attacker/jwks); a fetch of that URL is recorded",
+        "kind": "forgery"
+      },
+      {
+        "id": "x5u",
+        "text": "RS256 signed by an attacker key, header x5u pointing at an attacker URL ({issuer}/attacker/x5u); a fetch of that URL is recorded",
+        "kind": "forgery"
+      },
+      {
+        "id": "kid-traversal",
+        "text": "alg HS256 with an empty key and kid \"../../../../../../dev/null\"",
+        "kind": "forgery"
+      },
+      {
+        "id": "kid-sql",
+        "text": "alg HS256 keyed with \"sm-kid-sql\" and kid \"x' UNION SELECT 'sm-kid-sql' -- \"",
+        "kind": "forgery"
+      }
+    ],
+    "falsePositive": "None known: every probe token is invalid by construction. A probe answered HTTP 500 is not counted as served, but is named in the evidence.",
+    "falseNegative": "Only initialize and tools/list are tried with each token; a server that checks tokens there but not on tools/call is not seen. The x5u URL serves a real certificate chain for the attacker key (a leaf and its own attacker CA, written by the harness's X.509 writer); a server that would trust x5u only for a chain to a CA it already trusts refuses it, which is correct.",
+    "configKeys": [
+      "checks.oauth-token-forgery.enabled",
+      "checks.oauth-token-forgery.severity",
+      "oauth.audience",
+      "oauth.issuer",
+      "server.headers",
+      "server.url"
+    ],
+    "severity": "critical",
+    "standardLocked": false,
+    "inStandardPacks": false,
+    "candidate": true,
+    "candidatePack": true,
+    "remediation": "Verify every token's signature with a key from the issuer you configured, and only with an algorithm you allow (for example RS256 only): refuse alg none in any spelling, an empty or wrong signature, a payload that no longer matches its signature, a key not in the issuer's key set, and HS256 tokens on an RSA key (never use the public key as an HMAC secret). Take keys from the configured JWKS URL only, never from a jku, x5u or kid in the token header, and never use kid as a file path or a query. If the check is inconclusive, the server did not trust the harness's issuer: set its issuer to {issuer}, its JWKS URL to {jwks} and its audience to {audience}.",
+    "scoring": "critical and scored: pass = 1 point, part = 0.5, fail = 0. A fail caps the pack's grade at D, whatever the other checks scored.",
+    "settings": [
+      {
+        "path": "checks.oauth-token-forgery.enabled",
+        "default": true,
+        "description": "Run oauth-token-forgery. false reports it as n/a (\"disabled by config\") so it stays visible. oauth-token-forgery is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "checks.oauth-token-forgery.severity",
+        "default": null,
+        "description": "Override how oauth-token-forgery counts: critical, scored or advisory. null keeps the check's own severity. advisory removes it from the score. oauth-token-forgery is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.audience",
+        "default": null,
+        "description": "The audience (RFC 8707 resource) the stub's tokens carry and the protected-resource metadata must name; the value of {audience}. null uses server.url in canonical form (no fragment, no trailing slash).",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.issuer",
+        "default": null,
+        "description": "Which OAuth issuer the server under test trusts. stub starts the harness's own authorization server on loopback (flag --oauth): {issuer} and {jwks} name it, and the caller identities ({bearer}, {bearer:a}, {bearer:b}) become tokens it signed for {audience}, sent as Authorization: Bearer. Point the server's issuer, JWKS URL and audience at those placeholders in server.env or server.args. external declares a server that trusts its own issuer: only the checks that need no harness-signed token run (oauth-discovery). null declares nothing.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.headers",
+        "default": null,
+        "description": "HTTP headers sent to the server (url transport). Values under secret-looking names are redacted.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.url",
+        "default": null,
+        "description": "URL of a Streamable HTTP server. Alone it must already be running; with command, Sealmark starts it and waits for this URL.",
+        "standardLocked": false
+      }
+    ]
+  },
+  {
+    "id": "oauth-claims",
+    "pack": "oauth",
+    "label": "Expired, early, wrong-issuer and wrong-audience tokens are refused",
+    "critical": true,
+    "advisory": false,
+    "scope": "server as deployed (the bearer tokens the endpoint accepts, and what it tells a client that has none)",
+    "thresholds": {},
+    "since": "0.3-draft",
+    "status": "shipped",
+    "verifiedBy": [
+      "http"
+    ],
+    "probes": [
+      {
+        "id": "control",
+        "text": "a well-formed RS256 token from the harness's issuer, unexpired, with the right iss, aud and scope: initialize and tools/list must succeed, or the check is inconclusive",
+        "kind": "control"
+      },
+      {
+        "id": "expired",
+        "text": "exp one hour in the past (iat two hours)",
+        "kind": "claims"
+      },
+      {
+        "id": "not-yet-valid",
+        "text": "nbf one hour in the future",
+        "kind": "claims"
+      },
+      {
+        "id": "no-exp",
+        "text": "no exp claim",
+        "kind": "claims"
+      },
+      {
+        "id": "wrong-issuer",
+        "text": "iss https://sm-other-issuer.example (signed by the same key)",
+        "kind": "claims"
+      },
+      {
+        "id": "wrong-audience",
+        "text": "aud \"sm-wrong-audience\"",
+        "kind": "claims"
+      },
+      {
+        "id": "no-audience",
+        "text": "no aud claim",
+        "kind": "claims"
+      },
+      {
+        "id": "other-resource",
+        "text": "aud https://other.example/mcp: a token the same issuer minted for another resource (RFC 8707)",
+        "kind": "claims"
+      }
+    ],
+    "falsePositive": "A server that accepts tokens without exp by design (the JWT access-token profile, RFC 9068, makes exp required) fails no-exp.",
+    "falseNegative": "Times are an hour off, so a server with a clock skew allowance of up to an hour passes; nothing within 60 s is probed. Only the claims listed are probed (not jti replay, not typ).",
+    "configKeys": [
+      "checks.oauth-claims.enabled",
+      "checks.oauth-claims.severity",
+      "oauth.audience",
+      "oauth.issuer",
+      "server.headers",
+      "server.url"
+    ],
+    "severity": "critical",
+    "standardLocked": false,
+    "inStandardPacks": false,
+    "candidate": true,
+    "candidatePack": true,
+    "remediation": "After the signature, check the claims on every request: exp is present and in the future, nbf (when present) is not in the future, iss is exactly the issuer you configured, and aud names this server's own resource URI (RFC 8707); refuse a token minted for another resource even by the same issuer. Allow at most a small clock skew (a minute).",
+    "scoring": "critical and scored: pass = 1 point, part = 0.5, fail = 0. A fail caps the pack's grade at D, whatever the other checks scored.",
+    "settings": [
+      {
+        "path": "checks.oauth-claims.enabled",
+        "default": true,
+        "description": "Run oauth-claims. false reports it as n/a (\"disabled by config\") so it stays visible. oauth-claims is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "checks.oauth-claims.severity",
+        "default": null,
+        "description": "Override how oauth-claims counts: critical, scored or advisory. null keeps the check's own severity. advisory removes it from the score. oauth-claims is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.audience",
+        "default": null,
+        "description": "The audience (RFC 8707 resource) the stub's tokens carry and the protected-resource metadata must name; the value of {audience}. null uses server.url in canonical form (no fragment, no trailing slash).",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.issuer",
+        "default": null,
+        "description": "Which OAuth issuer the server under test trusts. stub starts the harness's own authorization server on loopback (flag --oauth): {issuer} and {jwks} name it, and the caller identities ({bearer}, {bearer:a}, {bearer:b}) become tokens it signed for {audience}, sent as Authorization: Bearer. Point the server's issuer, JWKS URL and audience at those placeholders in server.env or server.args. external declares a server that trusts its own issuer: only the checks that need no harness-signed token run (oauth-discovery). null declares nothing.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.headers",
+        "default": null,
+        "description": "HTTP headers sent to the server (url transport). Values under secret-looking names are redacted.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.url",
+        "default": null,
+        "description": "URL of a Streamable HTTP server. Alone it must already be running; with command, Sealmark starts it and waits for this URL.",
+        "standardLocked": false
+      }
+    ]
+  },
+  {
+    "id": "oauth-discovery",
+    "pack": "oauth",
+    "label": "A client without a token is told where to authorize (RFC 9728)",
+    "critical": false,
+    "advisory": false,
+    "scope": "server as deployed (the bearer tokens the endpoint accepts, and what it tells a client that has none)",
+    "thresholds": {},
+    "since": "0.3-draft",
+    "status": "shipped",
+    "verifiedBy": [
+      "http"
+    ],
+    "probes": [
+      {
+        "id": "no-token-initialize",
+        "text": "initialize without a token: HTTP 401 with WWW-Authenticate: Bearer resource_metadata=\"<url>\"",
+        "kind": "discovery"
+      },
+      {
+        "id": "metadata",
+        "text": "GET the resource_metadata URL (same origin only) and the RFC 9728 well-known paths (path-suffixed and root): JSON whose resource is the server URL (no trailing slash) and whose authorization_servers is not empty (with --oauth: names {issuer})",
+        "kind": "discovery"
+      },
+      {
+        "id": "tools/list-no-token",
+        "text": "tools/list without a token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "tools/list-garbage-token",
+        "text": "tools/list with a garbage bearer token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "tools/call-no-token",
+        "text": "tools/call without a token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "tools/call-garbage-token",
+        "text": "tools/call with a garbage bearer token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "resources/list-no-token",
+        "text": "resources/list without a token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "resources/list-garbage-token",
+        "text": "resources/list with a garbage bearer token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "prompts/list-no-token",
+        "text": "prompts/list without a token: HTTP 401",
+        "kind": "discovery"
+      },
+      {
+        "id": "prompts/list-garbage-token",
+        "text": "prompts/list with a garbage bearer token: HTTP 401",
+        "kind": "discovery"
+      }
+    ],
+    "falsePositive": "A resource_metadata URL on another origin is not fetched (the harness contacts only the server's origin); the well-known paths are tried instead. A deployment that publishes its metadata only on another origin fails.",
+    "falseNegative": "The metadata is checked for resource and authorization_servers only; the authorization server's own metadata is not fetched. n/a when the server answers requests without a token (http-auth grades that).",
+    "configKeys": [
+      "checks.oauth-discovery.enabled",
+      "checks.oauth-discovery.severity",
+      "oauth.audience",
+      "oauth.issuer",
+      "server.headers",
+      "server.url"
+    ],
+    "severity": "scored",
+    "standardLocked": false,
+    "inStandardPacks": false,
+    "candidate": true,
+    "candidatePack": true,
+    "remediation": "Answer a request without a valid token with 401 and WWW-Authenticate: Bearer resource_metadata=\"<url>\", and serve that RFC 9728 document (also at /.well-known/oauth-protected-resource<path>): JSON with resource set to this server's URL exactly (https, no trailing slash) and authorization_servers listing the issuer clients should use. Check the token before anything else, on every method (tools/list, tools/call, resources/list, prompts/list), with or without a session.",
+    "scoring": "scored: pass = 1 point, part = 0.5, fail = 0. A fail lowers the pack's percentage but never caps the letter.",
+    "settings": [
+      {
+        "path": "checks.oauth-discovery.enabled",
+        "default": true,
+        "description": "Run oauth-discovery. false reports it as n/a (\"disabled by config\") so it stays visible. oauth-discovery is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "checks.oauth-discovery.severity",
+        "default": null,
+        "description": "Override how oauth-discovery counts: critical, scored or advisory. null keeps the check's own severity. advisory removes it from the score. oauth-discovery is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.audience",
+        "default": null,
+        "description": "The audience (RFC 8707 resource) the stub's tokens carry and the protected-resource metadata must name; the value of {audience}. null uses server.url in canonical form (no fragment, no trailing slash).",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.issuer",
+        "default": null,
+        "description": "Which OAuth issuer the server under test trusts. stub starts the harness's own authorization server on loopback (flag --oauth): {issuer} and {jwks} name it, and the caller identities ({bearer}, {bearer:a}, {bearer:b}) become tokens it signed for {audience}, sent as Authorization: Bearer. Point the server's issuer, JWKS URL and audience at those placeholders in server.env or server.args. external declares a server that trusts its own issuer: only the checks that need no harness-signed token run (oauth-discovery). null declares nothing.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.headers",
+        "default": null,
+        "description": "HTTP headers sent to the server (url transport). Values under secret-looking names are redacted.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.url",
+        "default": null,
+        "description": "URL of a Streamable HTTP server. Alone it must already be running; with command, Sealmark starts it and waits for this URL.",
+        "standardLocked": false
+      }
+    ]
+  },
+  {
+    "id": "oauth-scope",
+    "pack": "oauth",
+    "label": "Scopes are enforced and tokens are read from the header only",
+    "critical": false,
+    "advisory": false,
+    "scope": "server as deployed (the bearer tokens the endpoint accepts, and what it tells a client that has none)",
+    "thresholds": {},
+    "since": "0.3-draft",
+    "status": "shipped",
+    "verifiedBy": [
+      "http"
+    ],
+    "probes": [
+      {
+        "id": "control",
+        "text": "a well-formed RS256 token from the harness's issuer, unexpired, with the right iss, aud and scope: initialize and tools/list must succeed, or the check is inconclusive",
+        "kind": "control"
+      },
+      {
+        "id": "no-scope",
+        "text": "no scope claim (only when oauth.scopes is declared): refused, 403 insufficient_scope preferred, 401 accepted",
+        "kind": "scope"
+      },
+      {
+        "id": "unrelated-scope",
+        "text": "scope \"sm-unrelated\" (only when oauth.scopes is declared): refused, 403 insufficient_scope preferred, 401 accepted",
+        "kind": "scope"
+      },
+      {
+        "id": "query-token",
+        "text": "the control token as ?access_token= in the URL and no Authorization header: never served (RFC 6750 2.3; the MCP specification requires the header)",
+        "kind": "transport"
+      }
+    ],
+    "falsePositive": "None known: the scope probes run only for scopes the configuration says the server requires.",
+    "falseNegative": "Scopes are checked on initialize and tools/list only; a server that enforces scopes per tool is not probed tool by tool. Without oauth.scopes only the query-token leg runs.",
+    "configKeys": [
+      "checks.oauth-scope.enabled",
+      "checks.oauth-scope.severity",
+      "oauth.audience",
+      "oauth.issuer",
+      "oauth.scopes",
+      "server.headers",
+      "server.url"
+    ],
+    "severity": "scored",
+    "standardLocked": false,
+    "inStandardPacks": false,
+    "candidate": true,
+    "candidatePack": true,
+    "remediation": "Read the token from the Authorization header only, never from an access_token query parameter (URLs end up in logs). Refuse a token that lacks a scope the request needs, preferably with 403 and WWW-Authenticate: Bearer error=\"insufficient_scope\", scope=\"<needed>\". The scopes the check expects are oauth.scopes.",
+    "scoring": "scored: pass = 1 point, part = 0.5, fail = 0. A fail lowers the pack's percentage but never caps the letter.",
+    "settings": [
+      {
+        "path": "checks.oauth-scope.enabled",
+        "default": true,
+        "description": "Run oauth-scope. false reports it as n/a (\"disabled by config\") so it stays visible. oauth-scope is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "checks.oauth-scope.severity",
+        "default": null,
+        "description": "Override how oauth-scope counts: critical, scored or advisory. null keeps the check's own severity. advisory removes it from the score. oauth-scope is a candidate check, not part of the standard profile: changing this makes the run CUSTOM.",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.audience",
+        "default": null,
+        "description": "The audience (RFC 8707 resource) the stub's tokens carry and the protected-resource metadata must name; the value of {audience}. null uses server.url in canonical form (no fragment, no trailing slash).",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.issuer",
+        "default": null,
+        "description": "Which OAuth issuer the server under test trusts. stub starts the harness's own authorization server on loopback (flag --oauth): {issuer} and {jwks} name it, and the caller identities ({bearer}, {bearer:a}, {bearer:b}) become tokens it signed for {audience}, sent as Authorization: Bearer. Point the server's issuer, JWKS URL and audience at those placeholders in server.env or server.args. external declares a server that trusts its own issuer: only the checks that need no harness-signed token run (oauth-discovery). null declares nothing.",
+        "standardLocked": false
+      },
+      {
+        "path": "oauth.scopes",
+        "default": [],
+        "description": "Scopes the server requires: the control token carries them, and oauth-scope sends a token without them, which must be refused. Empty skips the scope probe.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.headers",
+        "default": null,
+        "description": "HTTP headers sent to the server (url transport). Values under secret-looking names are redacted.",
+        "standardLocked": false
+      },
+      {
+        "path": "server.url",
+        "default": null,
+        "description": "URL of a Streamable HTTP server. Alone it must already be running; with command, Sealmark starts it and waits for this URL.",
         "standardLocked": false
       }
     ]

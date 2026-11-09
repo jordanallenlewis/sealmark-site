@@ -6,8 +6,17 @@ export const meta = {
 };
 
 <Callout title="Draft methodology">
-  Until methodology 1.0, probes, thresholds and the formula can change, and results from different methodology versions must not be compared. Entries for 0.2.0 and 0.2.1 describe the repository build; check `npm view sealmark version` for what is published.
+  Until methodology 1.0, probes, thresholds and the formula can change, and results from different methodology versions must not be compared. Sealmark 1.0.0 is the CLI release; the methodology is still 0.3-draft. Entries for 0.2.0 and 0.2.1 describe the repository build; check `npm view sealmark version` for what is published.
 </Callout>
+
+## 1.0.0 (2026-11-09)
+
+The CLI reaches 1.0.0. **The methodology label stays `0.3-draft`:** STANDARD grades and the standard hash are the same as in 0.3.0. It includes the `oauth` candidate suite from 0.3.0 and every earlier check.
+
+## 0.3.0 (2026-11-09)
+
+- **The `oauth` candidate suite** (`oauth-token-forgery`, `oauth-claims`, `oauth-discovery`, `oauth-scope`), for HTTP servers that trust an OAuth issuer. The harness runs its own stub issuer (`--oauth`, `oauth.issuer: stub`) and sends tokens it signed; `--no-oauth-tls` serves the stub over plain http. Candidate suites are scored in their own suite and never reach the badge ([methodology](/docs/methodology#candidate-suites)). Configuration: [`oauth.*`](/docs/reference/configuration#oauth).
+- The checks reference now lists the candidate checks `http-session-binding` (`http` suite) and `upstream-token-passthrough` (`upstream` suite), both methodology 0.3-draft.
 
 ## 0.2.2
 
