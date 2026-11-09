@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { ResultsTable } from "@/components/ResultsTable";
 import { Seal } from "@/components/Seal";
 import { DATA, RESULTS_PUBLIC, RANK, SERVERS_RESULTS, SERVER_COUNT, VERDICTS_CHECKED, deepPacks, worst, type Letter } from "@/lib/results";
@@ -18,13 +19,14 @@ export default function ResultsPage() {
     return (
       <>
         <Nav />
-        <main className={`gutter ${s.wrap}`}>
+        <main id="main" className={`gutter ${s.wrap}`}>
           <h1 className={s.h1}>Results are coming</h1>
           <p className={s.lede}>
             Sealmark has been run on popular open-source MCP servers. The named results are published after each maintainer has been told privately
             and has had the chance to reply, under the coordinated disclosure policy. Until then, see the <Link href="/docs/methodology/">methodology</Link>.
           </p>
         </main>
+        <Footer />
       </>
     );
   }
@@ -39,7 +41,7 @@ export default function ResultsPage() {
   return (
     <>
       <Nav />
-      <main className={`gutter ${s.wrap}`}>
+      <main id="main" className={`gutter ${s.wrap}`}>
         <div className={s.preview}>Maintainers have not reviewed these results yet. Methodology {DATA.methodology} is a draft.</div>
         <p className={s.eyebrow}>Results · October 2026 · Sealmark {list[0]?.sealmark.version}</p>
         <h1 className={s.h1}>What Sealmark found on {SERVER_COUNT} public MCP servers</h1>
@@ -71,9 +73,10 @@ export default function ResultsPage() {
         <section className={s.sec} id="reliability">
           <h2>How reliable is Sealmark itself?</h2>
           <p>{DATA.verification.note} Sealmark makes mistakes. Here is every verdict that was checked against ground truth, so you can see how often it was right.</p>
-          <div className={s.tw}>
+          <div className={s.tw} tabIndex={0} role="region" aria-label="Verification results by run">
             <table className={s.vt}>
-              <thead><tr><th>Run</th><th>Correct pass</th><th>Correct fail</th><th>Wrong pass</th><th>Wrong fail</th><th>Inconclusive</th><th>Not applicable</th></tr></thead>
+              <caption className="sr-only">Sealmark verdicts checked against ground truth, by run</caption>
+              <thead><tr><th scope="col">Run</th><th scope="col">Correct pass</th><th scope="col">Correct fail</th><th scope="col">Wrong pass</th><th scope="col">Wrong fail</th><th scope="col">Inconclusive</th><th scope="col">Not applicable</th></tr></thead>
               <tbody>
                 {rounds.map((r) => (
                   <tr key={r.name}>
@@ -81,7 +84,7 @@ export default function ResultsPage() {
                     <td>{r.justifiedInconclusive + r.unjustifiedInconclusive}</td><td>{r.naCorrect + r.naWrong}</td>
                   </tr>
                 ))}
-                <tr><td><b>Total</b></td><td><b>{sum("truePass")}</b></td><td><b>{sum("trueFail")}</b></td><td><b>{sum("falsePass")}</b></td><td><b>{sum("falseFail")}</b></td><td><b>{sum("justifiedInconclusive") + sum("unjustifiedInconclusive")}</b></td><td><b>{sum("naCorrect") + sum("naWrong")}</b></td></tr>
+                <tr><th scope="row">Total</th><td><b>{sum("truePass")}</b></td><td><b>{sum("trueFail")}</b></td><td><b>{sum("falsePass")}</b></td><td><b>{sum("falseFail")}</b></td><td><b>{sum("justifiedInconclusive") + sum("unjustifiedInconclusive")}</b></td><td><b>{sum("naCorrect") + sum("naWrong")}</b></td></tr>
               </tbody>
             </table>
           </div>
@@ -90,6 +93,7 @@ export default function ResultsPage() {
 
         <DisputeNote />
       </main>
+      <Footer />
     </>
   );
 }

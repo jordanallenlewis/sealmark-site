@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/go
 import { SkulletProvider } from "skullet/react";
 import "./globals.css";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { TopLoader } from "@/components/TopLoader";
 import { AUTHOR, SITE } from "@/lib/site";
 import { METHODOLOGY } from "@/lib/data";
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body>
+        <TopLoader />
         <SkulletProvider mode="dark" theme={skeletonTheme}>
           <ScrollToTop />
           {children}

@@ -14,7 +14,7 @@ export const meta = {
 `sealmark run` does the following, in order.
 
 1. Reads the flags and the [configuration](/docs/reference/configuration#layers). A bad flag or an invalid config stops here with exit code 2.
-2. Starts the server once, inside a disposable sandbox (after writing any `server.files` into it), to read its tools and run the core suite. A server Sealmark does not launch (`--url` alone) or launches without a sandbox (`--start` with `--url`) is not sandboxed.
+2. Starts the server once, inside a disposable sandbox (after writing any `server.files` into it), to read its tools and run the core suite. A server Sealmark starts itself (`--start` with `--url`) runs in the sandbox like a stdio server; a server it does not launch (`--url` alone) cannot be sandboxed.
 3. Classifies each tool by what its arguments take (a path, a URL, a command, SQL, a repository, plain text). A tool it cannot classify gets the `core` checks only and is listed as not covered.
 4. Runs every other suite that applies, each against a target the harness owns, with fresh server sessions. The `db` and `sqlite` suites use a seeded synthetic database.
 5. Grades each suite, prints the report, and sets the exit code.

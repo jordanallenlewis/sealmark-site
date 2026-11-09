@@ -25,7 +25,7 @@ What the repository build does today is in the [changelog](/docs/changelog); che
 ## Built, not verified everywhere
 
 - **Windows.** The cleanup paths that kill a whole process tree, the `cmd.exe` quoting in the launcher and the `--fixture fs` junctions were written for Windows and have not been run on it. Run `npm test` on a Windows machine before relying on them.
-- **The GitHub Action** upload step has not run on a hosted runner: it works only once the repository is public. See [Use the action](/docs/guides/ci#use-the-action).
+- **The GitHub Action** is not published to the Marketplace; reference it by path from the public repository. See [Use the action](/docs/guides/ci#use-the-action).
 
 ## Not planned
 

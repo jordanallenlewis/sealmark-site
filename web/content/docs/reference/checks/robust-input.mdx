@@ -13,7 +13,7 @@ This check calls tools with arguments that break the tool's own schema and watch
 
 ## Probe details
 
-The four variants in the Probes list are sent to up to the first 25 tools in the listing ([`checks.robust-input.max_tools`](/docs/reference/configuration#key-checks-robust-input-max_tools)). Each variant is skipped when it does not apply to the tool, and a property with no declared type is not probed, because any value might be valid.
+The seven invalid variants in the Probes list are sent to up to the first 25 tools in the listing ([`checks.robust-input.max_tools`](/docs/reference/configuration#key-checks-robust-input-max_tools)). Each variant is skipped when it does not apply to the tool, and a property with no declared type is not probed, because any value might be valid.
 
 For the wrong-type call, the harness takes for each property the first of these values that violates the declared type and is not in the property's `enum`:
 
@@ -56,6 +56,6 @@ A crash or a hang takes the server away from every agent, so it fails. Leaking i
 
 ## Limits
 
-- At most four invalid shapes are tried per tool, and only for the first 25 tools. Nothing is said about fuzzing, oversized input, concurrency, untyped arguments or valid-looking hostile input.
+- At most seven invalid shapes are tried per tool, and only for the first 25 tools. Nothing is said about fuzzing, oversized input, concurrency, untyped arguments or valid-looking hostile input.
 - Many JavaScript servers coerce `12345` to `"12345"` for a string parameter. That is lenient, common and harmless, and still reads as `part`.
 - A slow server can exceed the hang limit under load, and the `C:\Users\...` pattern also matches an ordinary error message that mentions a Windows user directory.

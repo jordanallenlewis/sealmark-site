@@ -93,7 +93,7 @@ const STEPS: Step[] = [
   {
     id: "record",
     label: "record",
-    sub: ["sealmark.json", "--fail-under B"],
+    sub: ["--format json --out <file>", "--fail-under B"],
     icon: (
       <Ico>
         <path d="M8 4h8l5 5v15H8z" />
@@ -101,7 +101,7 @@ const STEPS: Step[] = [
         <path d="M12.5 13.5c-1.2 0-1.5.6-1.5 1.5s0 1.5-1 1.9c1 .4 1 .9 1 1.9s.3 1.5 1.5 1.5M16.5 13.5c1.2 0 1.5.6 1.5 1.5s0 1.5 1 1.9c-1 .4-1 .9-1 1.9s-.3 1.5-1.5 1.5" />
       </Ico>
     ),
-    words: "Write the result with the exact configuration and the evidence for every probe to sealmark.json. With --fail-under B the command exits 1 when a graded suite is below B.",
+    words: "Print the report, with the exact configuration and the evidence for every probe; --format json --out <file> writes it to a file. With --fail-under B the command exits 1 when a graded suite is below B.",
   },
 ];
 
