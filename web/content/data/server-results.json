@@ -7,16 +7,16 @@
       "name": "@bytebase/dbhub",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.5.0",
+      "versionTested": "1.6.0",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @bytebase/dbhub@1.5.0 --transport stdio --dsn {dsn}",
+      "launch": "npx -y @bytebase/dbhub@1.6.0 --transport stdio --dsn {dsn}",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -290,16 +290,16 @@
       "name": "@modelcontextprotocol/server-everything",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.1.0",
+      "versionTested": "2.2.1",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-everything@2.1.0",
+      "launch": "npx -y @modelcontextprotocol/server-everything@2.2.1",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -419,7 +419,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 16 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 7 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 16 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 8 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -564,16 +564,16 @@
       "name": "mcp-server-fetch",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.28",
+      "versionTested": "2026.11.4",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-fetch==2026.10.28",
+      "launch": "uvx mcp-server-fetch==2026.11.4",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -820,18 +820,18 @@
       "name": "@modelcontextprotocol/server-filesystem",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.1.0",
+      "versionTested": "2.2.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.1.0 {sandbox}",
+      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.2.0 {sandbox}",
       "transport": "stdio",
-      "toolCount": 14,
+      "toolCount": 16,
       "packs": [
         {
           "id": "core",
@@ -938,7 +938,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 14 well-formed tool(s)"
+          "summary": "handshake ok, 16 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -947,7 +947,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 14 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 16 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -956,7 +956,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "66 invalid call(s) rejected cleanly"
+          "summary": "76 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -965,7 +965,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 67 captured response(s), 1 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 77 captured response(s), 1 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -992,7 +992,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "50 write attempts aimed outside the root left the canary directory and the sibling root unchanged"
+          "summary": "78 write attempts aimed outside the root left the canary directory and the sibling root unchanged"
         },
         {
           "id": "fs-link-escape",
@@ -1001,7 +1001,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "22 reads, writes, edits and moves through a symbolic link to directory that points out of the root were refused"
+          "summary": "27 reads, writes, edits and moves through a symbolic link to directory that points out of the root were refused"
         },
         {
           "id": "fs-size-cap",
@@ -1028,7 +1028,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "12 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "13 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -1046,13 +1046,13 @@
           "critical": false,
           "advisory": true,
           "verdict": "pass",
-          "summary": "21 of 22 refusal(s) say what to do instead or why retrying will not help (95 %)"
+          "summary": "25 of 27 refusal(s) say what to do instead or why retrying will not help (93 %)"
         }
       ],
       "coverage": {
-        "validCalls": 139,
-        "toolsCalledValid": 14,
-        "toolsTotal": 14,
+        "validCalls": 140,
+        "toolsCalledValid": 16,
+        "toolsTotal": 16,
         "level": "covered"
       },
       "badge": {
@@ -1061,6 +1061,7 @@
       "notCovered": [
         "tool \"edit_file\" was not covered by the effects pack: an edit tool has no harmless control call",
         "tool \"move_file\" was not covered by the effects pack: a copy tool has no harmless control call",
+        "tool \"copy_file\" was not covered by the effects pack: a copy tool has no harmless control call",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"list_allowed_directories\" is covered by the core checks only: the tool takes no parameters",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
@@ -1076,18 +1077,18 @@
       "name": "mcp-server-git",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.28",
+      "versionTested": "2026.11.4",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-git==2026.10.28 --repository {sandbox}/repo",
+      "launch": "uvx mcp-server-git==2026.11.4 --repository {sandbox}/repo",
       "transport": "stdio",
-      "toolCount": 12,
+      "toolCount": 14,
       "packs": [
         {
           "id": "core",
@@ -1194,7 +1195,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 12 well-formed tool(s)"
+          "summary": "handshake ok, 14 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -1203,7 +1204,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 12 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 14 tool definition(s) and serverInfo, 2 prompt(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -1212,7 +1213,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "60 invalid call(s) rejected cleanly"
+          "summary": "70 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -1221,7 +1222,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 60 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 70 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -1239,7 +1240,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "git_status, git_diff_unstaged, git_diff_staged, git_diff, git_log, git_show, git_branch, git_commit, git_add, git_reset, git_create_branch, git_checkout refused the repositories outside {sandbox}/repo"
+          "summary": "git_status, git_diff_unstaged, git_diff_staged, git_diff, git_log, git_show, git_branch, git_remote, git_commit, git_add, git_reset, git_create_branch, git_checkout refused the repositories outside {sandbox}/repo (write-capable tools not judged: git_merge (no control call changed the harness repository))"
         },
         {
           "id": "git-arg-injection",
@@ -1248,7 +1249,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "11 value(s) starting with --output= were refused or treated as data; no file was created"
+          "summary": "12 value(s) starting with --output= were refused or treated as data; no file was created"
         },
         {
           "id": "annotation-honesty",
@@ -1257,7 +1258,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "git_status, git_diff_unstaged, git_diff_staged, git_diff, git_log, git_show, git_branch declared read-only and changed nothing in the observed directories during a benign call"
+          "summary": "git_status, git_diff_unstaged, git_diff_staged, git_diff, git_log, git_show, git_branch, git_remote declared read-only and changed nothing in the observed directories during a benign call"
         },
         {
           "id": "openworld-honesty",
@@ -1266,7 +1267,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "7 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "8 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -1288,20 +1289,22 @@
         }
       ],
       "coverage": {
-        "validCalls": 87,
-        "toolsCalledValid": 12,
-        "toolsTotal": 12,
+        "validCalls": 98,
+        "toolsCalledValid": 13,
+        "toolsTotal": 14,
         "level": "covered"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
+        "tool \"git_merge\" was not covered by the git pack: the control call on {sandbox}/repo changed nothing, so a refusal of the probes would mean nothing",
         "tool \"git_status\" was not covered by the git pack: no parameter other than the repository, a commit message and file content, so there is nothing to inject",
         "tool \"git_diff_unstaged\" was not covered by the git pack: no parameter other than the repository, a commit message and file content, so there is nothing to inject",
         "tool \"git_diff_staged\" was not covered by the git pack: no parameter other than the repository, a commit message and file content, so there is nothing to inject",
         "tool \"git_commit\" was not covered by the git pack: no parameter other than the repository, a commit message and file content, so there is nothing to inject",
         "tool \"git_reset\" was not covered by the git pack: no parameter other than the repository, a commit message and file content, so there is nothing to inject",
+        "tool \"git_remote\" was not covered by the git pack: no parameter other than the repository, a commit message and file content, so there is nothing to inject",
         "tool \"git_add\" was not covered by the git pack: a write-capable tool has no safe control call, so its probes can fail the check but cannot make it pass",
         "tool \"git_create_branch\" was not covered by the git pack: a write-capable tool has no safe control call, so its probes can fail the check but cannot make it pass",
         "tool \"git_checkout\" was not covered by the git pack: a write-capable tool has no safe control call, so its probes can fail the check but cannot make it pass",
@@ -1319,16 +1322,16 @@
       "name": "@modelcontextprotocol/server-memory",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.1",
+      "versionTested": "2.1.0",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-memory@2.0.1",
+      "launch": "npx -y @modelcontextprotocol/server-memory@2.1.0",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [
@@ -1455,7 +1458,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "43 invalid call(s) rejected cleanly"
+          "summary": "46 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -1464,7 +1467,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 44 captured response(s), 1 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 46 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -1513,7 +1516,7 @@
         }
       ],
       "coverage": {
-        "validCalls": 2,
+        "validCalls": 1,
         "toolsCalledValid": 1,
         "toolsTotal": 9,
         "level": "low"
@@ -1529,7 +1532,7 @@
         "tool \"delete_entities\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
         "tool \"delete_observations\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"delete_relations\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
-        "tool \"read_graph\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"read_graph\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
         "tool \"search_nodes\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"open_nodes\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
@@ -1836,16 +1839,16 @@
       "name": "@modelcontextprotocol/server-sequential-thinking",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.0",
+      "versionTested": "2.1.1",
       "serverInfoName": "server-sequential-thinking",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-sequential-thinking@2.0.0",
+      "launch": "npx -y @modelcontextprotocol/server-sequential-thinking@2.1.1",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -2030,9 +2033,9 @@
       "round": "fleet",
       "versionTested": "2025.4.25",
       "serverInfoName": "mcp-2",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2289,18 +2292,18 @@
       "name": "mcp-server-time",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.10.28",
+      "versionTested": "2026.11.4",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-time==2026.10.28",
+      "launch": "uvx mcp-server-time==2026.11.4",
       "transport": "stdio",
-      "toolCount": 2,
+      "toolCount": 3,
       "packs": [
         {
           "id": "core",
@@ -2407,7 +2410,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 2 well-formed tool(s)"
+          "summary": "handshake ok, 3 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -2416,7 +2419,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 2 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 3 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -2425,7 +2428,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "10 invalid call(s) rejected cleanly"
+          "summary": "13 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -2434,7 +2437,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 10 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 13 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -2458,7 +2461,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 2,
+        "toolsTotal": 3,
         "level": "hygiene-only"
       },
       "badge": {
@@ -2469,6 +2472,7 @@
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"get_current_time\" is covered by the core checks only: free-text parameter \"timezone\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"convert_time\" is covered by the core checks only: free-text parameter \"source_timezone\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_time_ago\" is covered by the core checks only: free-text parameter \"timezone\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -2484,9 +2488,9 @@
       "round": "fleet",
       "versionTested": "1.2.29",
       "serverInfoName": "mcp-server-filesystem",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2747,9 +2751,9 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "mcp-server-airbnb",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2940,9 +2944,9 @@
       "round": "fleet",
       "versionTested": "0.8.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3168,16 +3172,16 @@
       "name": "@upstash/context7-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.4.4",
+      "versionTested": "4.6.0",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @upstash/context7-mcp@4.4.4",
+      "launch": "npx -y @upstash/context7-mcp@4.6.0",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -3575,9 +3579,9 @@
       "round": "fleet",
       "versionTested": "2.15.3",
       "serverInfoName": "git-mcp-server",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3879,9 +3883,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4071,9 +4075,9 @@
       "round": "fleet",
       "versionTested": "0.7.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4302,9 +4306,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "database-server",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4568,9 +4572,9 @@
       "round": "fleet",
       "versionTested": "0.0.5",
       "serverInfoName": "fetch-mcp",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4797,9 +4801,9 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5049,9 +5053,9 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "postgres-mcp-server",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5373,9 +5377,9 @@
       "round": "fleet",
       "versionTested": "1.6.3",
       "serverInfoName": "mcp-fetch",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5602,9 +5606,9 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "mcp-knowledge-graph",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5805,9 +5809,9 @@
       "round": "fleet",
       "versionTested": "0.0.1a8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6037,9 +6041,9 @@
       "round": "fleet",
       "versionTested": "1.0.9",
       "serverInfoName": "mcp-sqlite",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6304,9 +6308,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6526,9 +6530,9 @@
       "round": "fleet",
       "versionTested": "0.4.0",
       "serverInfoName": "mcp-ripgrep",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6747,9 +6751,9 @@
       "round": "fleet",
       "versionTested": "0.6.2",
       "serverInfoName": "server-postgres",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7029,9 +7033,9 @@
       "round": "fleet",
       "versionTested": "1.2.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7251,16 +7255,16 @@
       "name": "@adeu/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.0.7",
+      "versionTested": "3.1.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @adeu/mcp-server@3.0.7",
+      "launch": "npx -y @adeu/mcp-server@3.1.0",
       "transport": "stdio",
       "toolCount": 6,
       "packs": [
@@ -7475,9 +7479,9 @@
       "round": "fleet",
       "versionTested": "0.2.17",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7709,9 +7713,9 @@
       "round": "fleet",
       "versionTested": "0.20.0",
       "serverInfoName": "affiliate-networks-mcp",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -8599,16 +8603,16 @@
       "name": "@agent-bev/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.2.5",
+      "versionTested": "0.2.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @agent-bev/mcp-server@0.2.5",
+      "launch": "npx -y @agent-bev/mcp-server@0.2.6",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [
@@ -8827,9 +8831,9 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "pretrip-mcp",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9021,9 +9025,9 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "reddit-research-mcp",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9247,16 +9251,16 @@
       "name": "@achromat-ai/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.3",
+      "versionTested": "0.1.4",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-02",
+      "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "0.3.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @achromat-ai/mcp-server@0.1.3",
+      "launch": "npx -y @achromat-ai/mcp-server@0.1.4",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
