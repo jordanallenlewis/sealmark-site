@@ -526,5 +526,455 @@
     "name": "@thrain/spotlight-mcp",
     "ecosystem": "npm",
     "launch": "npx -y @thrain/spotlight-mcp@0.1.2"
+  },
+  {
+    "id": "3dstreet-mcp",
+    "name": "3dstreet-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y 3dstreet-mcp@0.2.2"
+  },
+  {
+    "id": "addressintel-mcp",
+    "name": "addressintel-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y addressintel-mcp@1.1.2"
+  },
+  {
+    "id": "apick-mcp",
+    "name": "apick-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y apick-mcp@5.8.3"
+  },
+  {
+    "id": "apiguru-mcp",
+    "name": "apiguru-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx apiguru-mcp==1.1.60"
+  },
+  {
+    "id": "apillow-mcp",
+    "name": "apillow-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx apillow-mcp==0.1.7"
+  },
+  {
+    "id": "appscreen-mcp",
+    "name": "@appscreen/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @appscreen/mcp@0.30.0"
+  },
+  {
+    "id": "atlasyield-mcp",
+    "name": "@atlasyield/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @atlasyield/mcp@0.4.0"
+  },
+  {
+    "id": "backtest-auditor",
+    "name": "backtest-auditor",
+    "ecosystem": "pypi",
+    "launch": "uvx backtest-auditor==0.7.0"
+  },
+  {
+    "id": "betterjobs-mcp",
+    "name": "betterjobs-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y betterjobs-mcp@0.1.1"
+  },
+  {
+    "id": "brick-blue-mcp",
+    "name": "brick-blue-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y brick-blue-mcp@0.4.0"
+  },
+  {
+    "id": "call-grokbot",
+    "name": "call-grokbot",
+    "ecosystem": "npm",
+    "launch": "npx -y call-grokbot@0.1.2"
+  },
+  {
+    "id": "cleanor-mcp",
+    "name": "@cleanor/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @cleanor/mcp@0.6.1"
+  },
+  {
+    "id": "crawlio-browser",
+    "name": "crawlio-browser",
+    "ecosystem": "npm",
+    "launch": "npx -y crawlio-browser@1.11.0"
+  },
+  {
+    "id": "creatica-mcp",
+    "name": "@creatica/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @creatica/mcp@0.1.3"
+  },
+  {
+    "id": "darkknightcave-motion-mcp",
+    "name": "@darkknightcave/motion-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @darkknightcave/motion-mcp@0.1.2"
+  },
+  {
+    "id": "dchub-mcp-server",
+    "name": "dchub-mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y dchub-mcp-server@2.12.46"
+  },
+  {
+    "id": "devglow-mcp",
+    "name": "devglow-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y devglow-mcp@1.6.0"
+  },
+  {
+    "id": "doc-cheap-mcp",
+    "name": "@doc-cheap/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @doc-cheap/mcp@0.3.11"
+  },
+  {
+    "id": "durely-garmin-insights-mcp",
+    "name": "@durely/garmin-insights-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @durely/garmin-insights-mcp@0.5.2"
+  },
+  {
+    "id": "dwelldelta-mcp",
+    "name": "dwelldelta-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y dwelldelta-mcp@0.16.1"
+  },
+  {
+    "id": "feeling-search-mcp",
+    "name": "feeling-search-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y feeling-search-mcp@0.2.6"
+  },
+  {
+    "id": "fictura-mcp",
+    "name": "@fictura/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @fictura/mcp@0.1.2"
+  },
+  {
+    "id": "firecms-mcp-server",
+    "name": "@firecms/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @firecms/mcp-server@3.5.1"
+  },
+  {
+    "id": "formatika-mcp",
+    "name": "@formatika/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @formatika/mcp@0.1.2"
+  },
+  {
+    "id": "gage-mcp",
+    "name": "gage-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y gage-mcp@0.7.0"
+  },
+  {
+    "id": "hostbeam-mcp",
+    "name": "@hostbeam/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @hostbeam/mcp@0.1.4"
+  },
+  {
+    "id": "hovecapital-read-only-mysql-mcp-server",
+    "name": "@hovecapital/read-only-mysql-mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @hovecapital/read-only-mysql-mcp-server@0.1.1"
+  },
+  {
+    "id": "hovecapital-read-only-postgres-mcp-server",
+    "name": "@hovecapital/read-only-postgres-mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @hovecapital/read-only-postgres-mcp-server@0.1.0"
+  },
+  {
+    "id": "html-cloud-mcp",
+    "name": "html-cloud-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y html-cloud-mcp@0.6.0"
+  },
+  {
+    "id": "inite-club-mcp",
+    "name": "@inite/club-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @inite/club-mcp@1.3.0"
+  },
+  {
+    "id": "instantreply-co-mcp",
+    "name": "@instantreply.co/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @instantreply.co/mcp@0.8.0"
+  },
+  {
+    "id": "ipforai-mcp",
+    "name": "ipforai-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y ipforai-mcp@0.1.0"
+  },
+  {
+    "id": "leafwright-mcp",
+    "name": "@leafwright/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @leafwright/mcp@0.2.4"
+  },
+  {
+    "id": "llmaudit-mcp",
+    "name": "llmaudit-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y llmaudit-mcp@0.1.0"
+  },
+  {
+    "id": "longbook-mcp",
+    "name": "@longbook/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @longbook/mcp@1.50.0"
+  },
+  {
+    "id": "lovie",
+    "name": "lovie",
+    "ecosystem": "npm",
+    "launch": "npx -y lovie@1.0.10"
+  },
+  {
+    "id": "mackorn-cone-crusher",
+    "name": "mackorn-cone-crusher",
+    "ecosystem": "npm",
+    "launch": "npx -y mackorn-cone-crusher@0.2.0"
+  },
+  {
+    "id": "memeboat-mcp",
+    "name": "memeboat-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y memeboat-mcp@0.3.0"
+  },
+  {
+    "id": "model-finder-mcp",
+    "name": "model-finder-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx model-finder-mcp==1.3.7"
+  },
+  {
+    "id": "muovi-mcp-server",
+    "name": "@muovi/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @muovi/mcp-server@0.4.2"
+  },
+  {
+    "id": "noglow-mcp",
+    "name": "noglow-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y noglow-mcp@0.2.1"
+  },
+  {
+    "id": "oddsrail",
+    "name": "oddsrail",
+    "ecosystem": "pypi",
+    "launch": "uvx oddsrail==0.10.0"
+  },
+  {
+    "id": "operandi-mcp",
+    "name": "operandi-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx operandi-mcp==1.0.3"
+  },
+  {
+    "id": "paramability-mcp",
+    "name": "@paramability/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @paramability/mcp@1.0.0"
+  },
+  {
+    "id": "pascal-app-mcp",
+    "name": "@pascal-app/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @pascal-app/mcp@1.0.7"
+  },
+  {
+    "id": "percher-mcp",
+    "name": "@percher/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @percher/mcp@1.4.0"
+  },
+  {
+    "id": "provably-fair-mcp",
+    "name": "provably-fair-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y provably-fair-mcp@1.0.4"
+  },
+  {
+    "id": "ranchbot-mcp-server",
+    "name": "@ranchbot/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @ranchbot/mcp-server@0.2.0"
+  },
+  {
+    "id": "recordist-gateway",
+    "name": "@recordist/gateway",
+    "ecosystem": "npm",
+    "launch": "npx -y @recordist/gateway@0.1.10"
+  },
+  {
+    "id": "rlabs-cl-arketum",
+    "name": "@rlabs-cl/arketum",
+    "ecosystem": "npm",
+    "launch": "npx -y @rlabs-cl/arketum@1.1.0"
+  },
+  {
+    "id": "scope-bid-scope-aec-mcp",
+    "name": "@scope-bid/scope-aec-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @scope-bid/scope-aec-mcp@1.0.11"
+  },
+  {
+    "id": "scope-bid-scope-claims-mcp",
+    "name": "@scope-bid/scope-claims-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @scope-bid/scope-claims-mcp@1.0.11"
+  },
+  {
+    "id": "scope-bid-scope-mcp",
+    "name": "@scope-bid/scope-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @scope-bid/scope-mcp@1.0.11"
+  },
+  {
+    "id": "servelink-serve",
+    "name": "@servelink/serve",
+    "ecosystem": "npm",
+    "launch": "npx -y @servelink/serve@0.8.8"
+  },
+  {
+    "id": "spideriq-mcp-media",
+    "name": "@spideriq/mcp-media",
+    "ecosystem": "npm",
+    "launch": "npx -y @spideriq/mcp-media@1.1.0"
+  },
+  {
+    "id": "spideriq-mcp-publish",
+    "name": "@spideriq/mcp-publish",
+    "ecosystem": "npm",
+    "launch": "npx -y @spideriq/mcp-publish@1.25.0"
+  },
+  {
+    "id": "stratta-mcp",
+    "name": "@stratta/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @stratta/mcp@1.20.1"
+  },
+  {
+    "id": "swissco-mcp",
+    "name": "swissco-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx swissco-mcp==0.1.1"
+  },
+  {
+    "id": "takehub-mcp",
+    "name": "@takehub/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @takehub/mcp@1.1.2"
+  },
+  {
+    "id": "timeprooflabs-truthspine-mcp",
+    "name": "@timeprooflabs/truthspine-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @timeprooflabs/truthspine-mcp@0.2.2"
+  },
+  {
+    "id": "todoglow-mcp",
+    "name": "todoglow-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y todoglow-mcp@1.1.2"
+  },
+  {
+    "id": "trustrails-mcp-server",
+    "name": "@trustrails/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @trustrails/mcp-server@1.0.28"
+  },
+  {
+    "id": "uplink-code-mcp",
+    "name": "@uplink-code/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @uplink-code/mcp@0.1.4"
+  },
+  {
+    "id": "userintuition-ai-mcp",
+    "name": "@userintuition-ai/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @userintuition-ai/mcp@1.6.2"
+  },
+  {
+    "id": "vaaya-mcp",
+    "name": "@vaaya/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @vaaya/mcp@0.6.8"
+  },
+  {
+    "id": "vantic-sdk",
+    "name": "@vantic/sdk",
+    "ecosystem": "npm",
+    "launch": "npx -y @vantic/sdk@0.1.2"
+  },
+  {
+    "id": "veida-mcp",
+    "name": "veida-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y veida-mcp@0.1.0"
+  },
+  {
+    "id": "vertical-marketplace-mcp",
+    "name": "vertical-marketplace-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y vertical-marketplace-mcp@0.1.0"
+  },
+  {
+    "id": "vruum-mcp",
+    "name": "@vruum/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @vruum/mcp@0.15.1"
+  },
+  {
+    "id": "wavespeed-mcp",
+    "name": "@wavespeed/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @wavespeed/mcp@1.2.10"
+  },
+  {
+    "id": "wildcard-ai-deepcontext",
+    "name": "@wildcard-ai/deepcontext",
+    "ecosystem": "npm",
+    "launch": "npx -y @wildcard-ai/deepcontext@0.1.15"
+  },
+  {
+    "id": "wpconvert-mcp",
+    "name": "@wpconvert/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @wpconvert/mcp@0.4.0"
+  },
+  {
+    "id": "yomio-mcp-stdio",
+    "name": "yomio-mcp-stdio",
+    "ecosystem": "npm",
+    "launch": "npx -y yomio-mcp-stdio@1.0.0"
+  },
+  {
+    "id": "zendiq-mcp",
+    "name": "@zendiq/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @zendiq/mcp@1.0.6"
+  },
+  {
+    "id": "zensation-mcp",
+    "name": "@zensation/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @zensation/mcp@0.3.1"
   }
 ]
