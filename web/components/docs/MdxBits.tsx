@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 // Fallback MDX building blocks owned by work package D2: Status, Callout, Planned, Figure and the `pre` wrapper.
 // Tabs live in MdxTabs.tsx because they need client state. If D1 ships its own Status/Tabs/Code in this folder,
 // switch the imports in web/mdx-components.tsx and delete what is no longer used.
@@ -19,12 +20,12 @@ const STATUS: Record<StatusKind, { cls: string; extra?: string }> = {
 /** A small status pill. `planned` is dashed and says the word, so it never reads as shipped. */
 export function Status({ kind, children }: { kind: StatusKind; children?: ReactNode }) {
   const m = STATUS[kind] ?? STATUS.shipped;
-  return <span className={`chip ${m.cls} ${m.extra ?? ""} ${s.status}`.replace(/\s+/g, " ").trim()}>{children ?? kind}</span>;
+  return <span className={clsx("chip", m.cls, m.extra, s.status)}>{children ?? kind}</span>;
 }
 
 export function Callout({ kind = "note", title, children }: { kind?: "note" | "warn"; title?: string; children: ReactNode }) {
   return (
-    <aside className={`${s.callout} ${kind === "warn" ? s.calloutWarn : ""}`.trim()} role="note">
+    <aside className={clsx(s.callout, kind === "warn" && s.calloutWarn)} role="note">
       <span className={s.calloutTitle}>{title ?? (kind === "warn" ? "Warning" : "Note")}</span>
       {children}
     </aside>
@@ -74,7 +75,7 @@ export function Pre(props: ComponentPropsWithoutRef<"pre">) {
 /** GFM tables scroll inside their own box so the page never scrolls sideways. */
 export function Table(props: ComponentPropsWithoutRef<"table">) {
   return (
-    <div className={`tw ${s.tableWrap}`}>
+    <div className={clsx("tw", s.tableWrap)} tabIndex={0} role="region" aria-label="Table">
       <table {...props} className={s.mdxTable} />
     </div>
   );
