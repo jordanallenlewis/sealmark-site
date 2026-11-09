@@ -3,13 +3,13 @@
 // matrix output.
 //
 // Run from the repository root: node fleet/plan.mjs
-// Env: GITHUB_TOKEN (optional; github ecosystem), FORCE_ALL (1 = re-test everything), MAX_NEW (default 5),
+// Env: GITHUB_TOKEN (optional; github ecosystem), FORCE_ALL (1 = re-test everything), MAX_NEW (default 10),
 //      MAX_JOBS (default 40), STALE_DAYS (default 7).
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
-const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 5;
+const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 10;
 const MAX_JOBS = process.env.MAX_JOBS ? Number(process.env.MAX_JOBS) : 40;
 const STALE_DAYS = process.env.STALE_DAYS ? Number(process.env.STALE_DAYS) : 7;
 const EXCLUDE = process.env.FLEET_EXCLUDE ? new RegExp(process.env.FLEET_EXCLUDE, "i") : null;
@@ -75,11 +75,54 @@ function pinLaunch(launch, name, ecosystem, version) {
   return launch;
 }
 
-// Official registry servers we do not track yet; at most 5 pages, up to maxNew.
+// GitHub API GET with the optional token; null on any error.
+async function ghGet(path, raw = false) {
+  try {
+    const headers = { accept: raw ? "application/vnd.github.raw+json" : "application/vnd.github+json" };
+    if (process.env.GITHUB_TOKEN) headers.authorization = "Bearer " + process.env.GITHUB_TOKEN;
+    const res = await fetch("https://api.github.com/" + path, { headers });
+    if (!res.ok) return null;
+    return raw ? await res.text() : await res.json();
+  } catch {
+    return null;
+  }
+}
+
+// owner/repo from a registry repository entry, or null when it is not on GitHub.
+function githubRepo(server) {
+  const url = server.repository?.url ?? "";
+  const m = /^https:\/\/github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+?)(?:\.git)?\/?$/.exec(url);
+  return m ? m[1] + "/" + m[2] : null;
+}
+
+// Launch command for a GitHub-hosted server, found from the repo's own files; null when none is clear.
+async function githubLaunch(repo, sub) {
+  const base = "repos/" + repo + "/contents/" + (sub ? sub.replace(/^\/+|\/+$/g, "") + "/" : "");
+  const pkgText = await ghGet(base + "package.json", true);
+  if (pkgText) {
+    try {
+      const pkg = JSON.parse(pkgText);
+      if (pkg.bin && !sub) return "npx -y github:" + repo;
+    } catch {}
+  }
+  const py = await ghGet(base + "pyproject.toml", true);
+  if (py && !sub) {
+    const sect = /\[project\.scripts\]\s*\n([\s\S]*?)(?:\n\[|$)/.exec(py);
+    const script = sect && /^\s*["']?([A-Za-z0-9_.-]+)["']?\s*=/m.exec(sect[1]);
+    if (script) return "uvx --from git+https://github.com/" + repo + " " + script[1];
+  }
+  return null;
+}
+
+// Official registry servers we do not track yet. Pages through the whole registry until maxNew are found
+// (capped at 150 pages, 5 minutes). npm and PyPI packages first; otherwise a GitHub-hosted repo whose
+// own files say how to start it.
 async function discover(knownIds, maxNew) {
   const found = [];
+  const started = Date.now();
   let cursor = null;
-  for (let page = 0; page < 5 && found.length < maxNew; page++) {
+  let probes = 0;
+  for (let page = 0; page < 150 && found.length < maxNew && Date.now() - started < 300000; page++) {
     const url =
       "https://registry.modelcontextprotocol.io/v0/servers?limit=100" +
       (cursor ? "&cursor=" + encodeURIComponent(cursor) : "");
@@ -92,30 +135,57 @@ async function discover(knownIds, maxNew) {
       if (item._meta?.["io.modelcontextprotocol.registry/official"]?.isLatest !== true) continue;
       if (EXCLUDE && EXCLUDE.test(server.name ?? "")) continue;
       let pkg = null;
+      let hasOtherPkg = false;
       for (const p of server.packages ?? []) {
-        if (p.registryType !== "npm" && p.registryType !== "pypi") continue;
+        if (p.registryType !== "npm" && p.registryType !== "pypi") {
+          hasOtherPkg = true;
+          continue;
+        }
         if (p.transport?.type !== "stdio") continue;
         if ((p.environmentVariables ?? []).some((e) => e.isRequired === true)) continue;
         if ((p.packageArguments ?? []).some((a) => a.isRequired === true)) continue;
         pkg = p;
         break;
       }
-      if (!pkg) continue;
-      if (EXCLUDE && EXCLUDE.test(pkg.identifier ?? "")) continue;
-      const id = pkg.identifier
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-      if (!id || knownIds.has(id)) continue;
+      if (pkg) {
+        if (EXCLUDE && EXCLUDE.test(pkg.identifier ?? "")) continue;
+        const id = pkg.identifier
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        if (!id || knownIds.has(id)) continue;
+        knownIds.add(id);
+        found.push({
+          id,
+          name: pkg.identifier,
+          ecosystem: pkg.registryType,
+          launch:
+            pkg.registryType === "npm"
+              ? "npx -y " + pkg.identifier + "@" + pkg.version
+              : "uvx " + pkg.identifier + "==" + pkg.version,
+          version: pkg.version,
+          isNew: true,
+        });
+        if (found.length >= maxNew) break;
+        continue;
+      }
+      // GitHub-hosted: no usable npm/pypi stdio package, no required config, a repo at the root.
+      if (hasOtherPkg || (server.remotes ?? []).length > 0 || (server.packages ?? []).length > 0) continue;
+      const repo = githubRepo(server);
+      if (!repo || probes >= 60) continue;
+      if (EXCLUDE && EXCLUDE.test(repo)) continue;
+      const id = repo.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      if (!id || knownIds.has(id) || knownIds.has(repo.split("/")[1].toLowerCase())) continue;
+      probes++;
+      const launch = await githubLaunch(repo, server.repository?.subfolder);
+      if (!launch) continue;
+      knownIds.add(id);
       found.push({
         id,
-        name: pkg.identifier,
-        ecosystem: pkg.registryType,
-        launch:
-          pkg.registryType === "npm"
-            ? "npx -y " + pkg.identifier + "@" + pkg.version
-            : "uvx " + pkg.identifier + "==" + pkg.version,
-        version: pkg.version,
+        name: repo,
+        ecosystem: "github",
+        launch,
+        version: await latestVersion("github", repo),
         isNew: true,
       });
       if (found.length >= maxNew) break;
@@ -171,6 +241,10 @@ async function main() {
     });
   }
 
+  // Oldest results first; keep room for MAX_NEW new servers so a Sealmark release cannot crowd them out.
+  const age = new Map(tracked.map((s) => [s.id, Date.parse(s.testedAt ?? "") || 0]));
+  jobs.sort((a, b) => (age.get(a.id) ?? 0) - (age.get(b.id) ?? 0));
+  jobs.length = Math.min(jobs.length, Math.max(0, MAX_JOBS - MAX_NEW));
   jobs.push(...(await discover(new Set(tracked.map((s) => s.id)), MAX_NEW)));
   jobs.length = Math.min(jobs.length, MAX_JOBS);
 

@@ -1,0 +1,42 @@
+# Checks a pull request that touches the fleet: syntax, a dry plan, and workflow YAML. Builds and tests nothing else; deploys nothing.
+name: fleet-check
+
+on:
+  pull_request:
+    paths:
+      - "fleet/**"
+      - ".github/workflows/fleet.yml"
+      - ".github/workflows/fleet-check.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fleet-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+      - name: syntax
+        run: for f in fleet/*.mjs; do node --check "$f"; done
+      - name: workflow YAML parses
+        run: |
+          pip install -q pyyaml
+          python3 -c "import sys,yaml; [yaml.safe_load(open(f)) for f in sys.argv[1:]]; print('ok')" .github/workflows/*.yml
+      - name: dry plan (reads only; writes nothing tracked)
+        env:
+          MAX_NEW: '3'
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node fleet/plan.mjs
+          jq -e '.jobs | type == "array"' fleet-plan.json
+          git status --short
