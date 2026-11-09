@@ -7,12 +7,12 @@
     },
     {
       "name": "run",
-      "usage": "run [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--upstream] [--scope-tool <tool=param>]... [--scope-allow <id>]... [--scope-deny <id>]... [--identity-a <token>] [--identity-b <token>] [--soft-fail] [--config <path>] [--profile <name>] [--pack <id>]... [--server <name|all>] [--fail-under A-F] [--format <fmt>] [--out <file>] [--active] [--no-sandbox] [--replay <report.json>]",
+      "usage": "run [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--upstream] [--oauth] [--no-oauth-tls] [--scope-tool <tool=param>]... [--scope-allow <id>]... [--scope-deny <id>]... [--identity-a <token>] [--identity-b <token>] [--soft-fail] [--config <path>] [--profile <name>] [--pack <id>]... [--server <name|all>] [--fail-under A-F] [--format <fmt>] [--out <file>] [--active] [--no-sandbox] [--replay <report.json>]",
       "summary": "Grade the configured server(s) and print the report."
     },
     {
       "name": "doctor",
-      "usage": "doctor [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--upstream] [--scope-tool <tool=param>]... [--scope-allow <id>]... [--scope-deny <id>]... [--identity-a <token>] [--identity-b <token>] [--config <path>] [--profile <name>] [--server <name>] [--json]",
+      "usage": "doctor [--url <url>] [--start \"<command line>\"] [--header \"Name: value\"]... [--bearer <token>] [--start-timeout <sec>] [--name <name>] [--upstream] [--oauth] [--no-oauth-tls] [--scope-tool <tool=param>]... [--scope-allow <id>]... [--scope-deny <id>]... [--identity-a <token>] [--identity-b <token>] [--config <path>] [--profile <name>] [--server <name>] [--json]",
       "summary": "Check that sealmark can start your server: tools on PATH, the launcher, the sandbox, initialize and tools/list, the classification and why each pack would run or not."
     },
     {
@@ -550,6 +550,33 @@
       ],
       "schemaPath": "identities.b",
       "doc": "Token for caller B ({bearer:b}); must differ from --identity-a. Single-quote a CI secret as for --identity-a."
+    },
+    {
+      "name": "--oauth",
+      "type": "boolean",
+      "description": "Start the harness's stub OAuth issuer (oauth.issuer: stub): {issuer}, {jwks} and {audience} name it for the server's own settings, and the harness sends tokens it signed as Authorization: Bearer. The oauth pack then checks that forged, expired, wrong-audience and wrong-issuer tokens are refused.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "oauth.issuer",
+      "doc": "Start the harness's stub OAuth issuer (oauth.issuer: stub): {issuer}, {jwks} and {audience} name it for the server's own settings, and the harness sends tokens it signed as Authorization: Bearer. The oauth pack then checks that forged, expired, wrong-audience and wrong-issuer tokens are refused."
+    },
+    {
+      "name": "--oauth-tls",
+      "type": "boolean",
+      "negatable": true,
+      "description": "--no-oauth-tls serves the stub issuer over plain http instead of https (the default, with a throwaway CA in {ca_file}). Only for a server that cannot be given a CA file; a hardened server refuses an http trust root.",
+      "commands": [
+        "run",
+        "doctor",
+        "init",
+        "config show"
+      ],
+      "schemaPath": "oauth.tls",
+      "doc": "--no-oauth-tls serves the stub issuer over plain http instead of https (the default, with a throwaway CA in {ca_file}). Only for a server that cannot be given a CA file; a hardened server refuses an http trust root."
     },
     {
       "name": "--server",

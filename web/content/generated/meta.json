@@ -1,6 +1,6 @@
 {
   "methodology": "0.3-draft",
-  "cliVersion": "0.2.2",
+  "cliVersion": "1.0.0",
   "format": "sealmark.describe/1",
   "source": "describe"
 }

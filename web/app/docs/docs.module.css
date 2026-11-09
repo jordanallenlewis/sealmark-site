@@ -82,6 +82,8 @@
 .resSnip mark { background: var(--accent-wash); color: var(--accent-link); border-radius: 2px; }
 .resMsg { margin: 0; padding: 12px 14px; color: var(--ink-faint); font-size: 0.9rem; }
 .resMsg:empty { display: none; }
+.resSkel { display: grid; gap: 14px; padding: 14px; }
+.resSkelRow { display: grid; gap: 6px; }
 .resRetry { background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 1px 8px; color: var(--ink-muted); font: 500 0.8rem var(--mono); cursor: pointer; }
 .resRetry:hover { color: var(--ink); border-color: var(--ink-faint); }
 @media (max-width: 700px) {

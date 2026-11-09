@@ -24,7 +24,7 @@ A letter belongs to one server name and version, in one configuration. Grades ar
 ## Model
 
 - The harness is an MCP client. It calls tools directly, with fixed inputs. **No LLM is in the loop.**
-- There are twelve test suites (three of them [candidate suites](#candidate-suites)), and your own probes. See [Suites](/docs/concepts/packs) for when each applies and [classification](/docs/concepts/classification) for how a tool is placed.
+- There are thirteen test suites (four of them [candidate suites](#candidate-suites)), and your own probes. See [Suites](/docs/concepts/packs) for when each applies and [classification](/docs/concepts/classification) for how a tool is placed.
 - Every suite except `core` runs only when the harness can give the server a target it owns: a sandbox directory, a loopback listener, a seeded database, or the HTTP endpoint you configured. A suite that cannot run is reported as not graded, with the reason.
 - Each check returns a **verdict**: `pass`, `part` (partial), `fail`, `inconclusive` (the harness could not tell), or `na` (not applicable). See [verdicts](/docs/concepts/verdicts).
 - Each check carries a **scope** line, printed in every report. It says whether the check measures the *server's* behavior, or a *database control tested through the server*, which asks whether the server defeats a control the database already enforces.
@@ -151,7 +151,7 @@ The candidates in 0.3-draft are the two `core` advisories `refusal-quality` and 
 
 ### Candidate suites
 
-A **candidate pack** (`scope`, `sql-guard`, `upstream`) is a pack outside the standard pack list that a run adds when its declaration exists in the config: `scope` when `scope.tools` names a tool, `upstream` when `upstream.kind` is set, `sql-guard` when it is set and a SQL tool exists. A pack list you chose yourself (`--pack`, `packs:`) is left alone and the report says what was skipped. Its checks are scored inside the pack, so it gets its own letter, but every report labels it `candidate pack: not part of the standard profile`, it never makes a run badge-eligible, and its settings are not locked, so declaring a backend, a scope or identities keeps a run STANDARD. Promotion into the standard is the same methodology bump as for a candidate check, plus adding the pack to the standard pack list. How to declare them: [Verify a server that fronts a backend](/docs/guides/backend-servers).
+A **candidate pack** (`scope`, `sql-guard`, `upstream`, `oauth`) is a pack outside the standard pack list that a run adds when its declaration exists in the config: `scope` when `scope.tools` names a tool, `upstream` when `upstream.kind` is set, `oauth` when `oauth.issuer` is set, `sql-guard` when it is set and a SQL tool exists. A pack list you chose yourself (`--pack`, `packs:`) is left alone and the report says what was skipped. Its checks are scored inside the pack, so it gets its own letter, but every report labels it `candidate pack: not part of the standard profile`, it never makes a run badge-eligible, and its settings are not locked, so declaring a backend, a scope or identities keeps a run STANDARD. Promotion into the standard is the same methodology bump as for a candidate check, plus adding the pack to the standard pack list. How to declare them: [Verify a server that fronts a backend](/docs/guides/backend-servers).
 
 ## Safety notes
 

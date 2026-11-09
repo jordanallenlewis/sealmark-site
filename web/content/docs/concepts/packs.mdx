@@ -2,14 +2,14 @@ export const meta = {
   title: "Suites",
   since: "0.1",
   status: "shipped",
-  description: "A suite is a group of checks with its own grade. Twelve ship today (three of them candidate suites), plus your own probes.",
+  description: "A suite is a group of checks with its own grade. Thirteen ship today (four of them candidate suites), plus your own probes.",
 };
 
 A test suite is a set of checks that apply to the same kind of server. Each suite gets its own letter. There is no combined grade.
 
 ## Shipped
 
-Twelve test suites are built, plus your own `probes:`. Eight are in the standard profile; `exec` is opt-in (see [classification](/docs/concepts/classification#confidence-gates-what-runs)); `scope`, `sql-guard` and `upstream` are [candidate suites](/docs/methodology#candidate-suites), added when the config declares a backend stub or a scope.
+Thirteen test suites are built, plus your own `probes:`. Eight are in the standard profile; `exec` is opt-in (see [classification](/docs/concepts/classification#confidence-gates-what-runs)); `scope`, `sql-guard`, `upstream` and `oauth` are [candidate suites](/docs/methodology#candidate-suites), added when the config declares a backend stub, a scope or an OAuth issuer.
 
 | Test suite | Applies when | What it measures |
 |---|---|---|
@@ -25,6 +25,7 @@ Twelve test suites are built, plus your own `probes:`. Eight are in the standard
 | `scope` (candidate) | `scope.tools` and `scope.allow` | identifiers outside the declared scope are refused in every spelling and never reach the backend |
 | `sql-guard` (candidate) | a SQL tool and the upstream stub | forbidden statements and out-of-scope references never reach the backend; the row cap is applied before it |
 | `upstream` (candidate) | the upstream stub and a valid call | each caller's own token reaches the backend; no token in replies or logs; error bodies not relayed; a slow backend does not hang the server |
+| `oauth` (candidate) | `oauth.issuer` is set (`--oauth`) and `server.url` is set | forged, expired and wrong-audience tokens are refused, the claims are checked, discovery metadata is valid, and a token without the required scopes is refused |
 | custom | `probes:` with a `check:` | your own checks; see [custom probes](/docs/guides/custom-probes) |
 
 `core` is basic hygiene any server should pass: it sends only schema-invalid arguments, so an A says nothing about what the tools do. Every other suite runs only when the harness can give the server a target it owns: a sandbox directory, a loopback listener, a seeded database, the HTTP endpoint you configured, or an upstream stub that plays the server's backend ([guide](/docs/guides/backend-servers)). `db` is the deepest suite: it runs your server once per database role against a seeded synthetic Postgres and then checks the database.
