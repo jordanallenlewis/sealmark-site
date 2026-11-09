@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, RANK, SERVERS_RESULTS, deepPacks, worst, type Letter, type ServerResult } from "@/lib/results";
@@ -39,8 +40,8 @@ export function ResultsTicker() {
   return (
     <TickerControl>
     <figure className={s.ticker} aria-label={`Worst grade for each of the ${sorted.length} servers tested`}>
-      <div className={s.row}><Set list={row1} /><Set list={row1} hidden /></div>
-      <div className={`${s.row} ${s.rev}`}><Set list={row2} /><Set list={row2} hidden /></div>
+      <div className={s.row} style={{ "--n": row1.length } as CSSProperties}><Set list={row1} /><Set list={row1} hidden /></div>
+      <div className={`${s.row} ${s.rev}`} style={{ "--n": row2.length } as CSSProperties}><Set list={row2} /><Set list={row2} hidden /></div>
     </figure>
     </TickerControl>
   );
