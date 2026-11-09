@@ -46,5 +46,53 @@
     "name": "@extremely-agency/mcp",
     "ecosystem": "npm",
     "launch": "npx -y @extremely-agency/mcp@0.1.1"
+  },
+  {
+    "id": "anyforge-mcp-server",
+    "name": "@anyforge/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @anyforge/mcp-server@3.17.0"
+  },
+  {
+    "id": "aquex-reasonbook",
+    "name": "@aquex/reasonbook",
+    "ecosystem": "npm",
+    "launch": "npx -y @aquex/reasonbook@4.12.0"
+  },
+  {
+    "id": "atmy-mcp",
+    "name": "atmy-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y atmy-mcp@1.1.0"
+  },
+  {
+    "id": "autenai-mcp",
+    "name": "@autenai/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @autenai/mcp@0.1.5"
+  },
+  {
+    "id": "autonomad-travel",
+    "name": "autonomad-travel",
+    "ecosystem": "npm",
+    "launch": "npx -y autonomad-travel@1.4.4"
+  },
+  {
+    "id": "autonomad1-computeback-mcp",
+    "name": "@autonomad1/computeback-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @autonomad1/computeback-mcp@1.1.4"
+  },
+  {
+    "id": "autonomous-ai-harness-mcp",
+    "name": "@autonomous-ai/harness-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @autonomous-ai/harness-mcp@0.2.0"
+  },
+  {
+    "id": "bolthub-mcp",
+    "name": "@bolthub/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @bolthub/mcp@0.7.2"
   }
 ]
