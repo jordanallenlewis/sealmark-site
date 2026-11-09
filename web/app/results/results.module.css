@@ -83,3 +83,9 @@
   .table td:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
   .table td:nth-child(4), .table td:nth-child(5) { grid-column: 1 / -1; }
 }
+
+.hist { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.histRun { display: grid; justify-items: center; gap: 4px; min-width: 104px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; font: 0.78rem var(--font-mono), ui-monospace, monospace; color: var(--ink-muted); }
+.histRun small { color: var(--ink-faint); font-size: 0.72rem; }
+.histFail { width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; border: 1px dashed var(--border-strong, var(--border)); color: var(--ink-faint); font: 800 1.1rem var(--font-display), sans-serif; }
+.histLink { margin-top: 28px; }
