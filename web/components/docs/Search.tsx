@@ -8,6 +8,7 @@
 //   - load state is one value on the root as data-state: idle | loading | ready | error (aria-busy while loading).
 //     An error is not terminal: focusing the bar again or pressing Retry fetches the index again.
 //   - the role=status live region sits outside the hidden results panel, so hit counts and errors are announced
+import { SkeletonBox } from "skullet/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -230,6 +231,16 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
             </li>
           ))}
         </ul>
+        {load === "loading" ? (
+          <div className={s.resSkel} aria-hidden="true">
+            {[0, 1, 2].map((n) => (
+              <div key={n} className={s.resSkelRow}>
+                <SkeletonBox height="0.9rem" width={n === 1 ? "55%" : "70%"} radius="0.3em" />
+                <SkeletonBox height="0.7rem" width="90%" radius="0.3em" />
+              </div>
+            ))}
+          </div>
+        ) : null}
         {message ? (
           <p className={s.resMsg}>
             {message}
