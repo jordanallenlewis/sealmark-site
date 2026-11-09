@@ -40,5 +40,11 @@
     "name": "@achromat-ai/mcp-server",
     "ecosystem": "npm",
     "launch": "npx -y @achromat-ai/mcp-server@0.1.2"
+  },
+  {
+    "id": "extremely-agency-mcp",
+    "name": "@extremely-agency/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @extremely-agency/mcp@0.1.1"
   }
 ]
