@@ -1,4 +1,5 @@
 "use client";
+import { clsx } from "clsx";
 import { Fragment, useId, useRef, type CSSProperties } from "react";
 import s from "./Mechanism.module.css";
 import { Logo } from "@/components/Logo";
@@ -96,7 +97,7 @@ const CASES: Case[] = [
 ];
 
 const at = (ms: number, extra?: Record<string, string>): CSSProperties => ({ "--at": `${ms}ms`, ...extra }) as CSSProperties;
-const cx = (...c: (string | false | undefined)[]) => c.filter(Boolean).join(" ");
+const cx = clsx;
 
 function Seal() {
   return <Logo className={s.seal} />;

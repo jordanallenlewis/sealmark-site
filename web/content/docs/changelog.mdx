@@ -80,7 +80,7 @@ Left as they were, by decision: promoting `net-redirect` into the standard, scor
 Methodology 0.2.
 
 - **Breaking: the default gate is A.** `sealmark run` exits 1 for any graded suite below an A, in every profile. Before 0.2.0 there was no gate unless you passed `--fail-under`. Relax it with `--fail-under B`, `C`, `D` or `F`, turn it off with `--fail-under none`, or keep it and exit 0 with `--soft-fail`.
-- The `ci` profile sets no gate. `--fail-under` no longer opts a run out of the `ci` profile under `CI=true`; only `--out`, `--format` and `--out-dir` do.
+- The `ci` profile keeps the default A gate. `--fail-under` no longer opts a run out of the `ci` profile under `CI=true`; only `--out`, `--format` and `--out-dir` do.
 - Suites: `sqlite`, `fs`, `git`, `net`, `http`, `effects`, the opt-in `exec`, and custom `probes:`, next to `core` and `db`.
 - Configuration: layered files, profiles, `sealmark.local.yaml`, `SEALMARK_*` environment variables, `${VAR}` references, `tools.include` and `tools.exclude`, strict validation of unknown keys, and the STANDARD or CUSTOM label.
 - Commands: `doctor`, `list-checks`, `explain`, `describe --json`, `config show`, `config profiles`, `config migrate`, and `init --ci gitlab|github`.

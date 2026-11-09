@@ -1,4 +1,5 @@
 "use client";
+import { clsx } from "clsx";
 import { useEffect, useRef, type ReactNode, type ElementType } from "react";
 
 export function Reveal({ children, as: Tag = "div", className = "", delay = 0 }: { children: ReactNode; as?: ElementType; className?: string; delay?: number }) {
@@ -13,7 +14,7 @@ export function Reveal({ children, as: Tag = "div", className = "", delay = 0 }:
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  return <Tag ref={ref} className={`rv ${className}`} style={{ "--d": `${Math.min(delay, 120)}ms` } as React.CSSProperties}>{children}</Tag>;
+  return <Tag ref={ref} className={clsx("rv", className)} style={{ "--d": `${Math.min(delay, 120)}ms` } as React.CSSProperties}>{children}</Tag>;
 }
 
 // Adds the .reduce class to <html> when the user prefers reduced motion.

@@ -35,7 +35,7 @@ export default function Home() {
           id="how"
           kicker="How it works"
           title="One run, four steps."
-          caption={<>Start your server, call its tools with fixed inputs, read the database yourself, apply the published formula.<span className="subcap">Any MCP server over stdio or HTTP. Database checks: Postgres and SQLite today; DuckDB and MySQL <span className="planned">planned</span>.</span></>}
+          caption={<>Start your server, call its tools with fixed inputs, read the database yourself, apply the published formula.<span className="subcap">Any MCP server over stdio or HTTP. Database checks: Postgres and SQLite today; DuckDB <span className="planned">planned</span>.</span></>}
           more={{ href: "/docs/quickstart/", label: "Read the docs" }}
         >
           <Pipeline compact caption="One start for core, one per database role for db. No model in the loop." />

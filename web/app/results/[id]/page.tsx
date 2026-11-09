@@ -1,9 +1,11 @@
+import { clsx } from "clsx";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { Seal } from "@/components/Seal";
-import { PACK_LABEL, SERVERS_RESULTS, VERDICTS_CHECKED, coverageWord, gradedPacks, launchLine, type Letter, type Verdict } from "@/lib/results";
+import { PACK_LABEL, SERVERS_RESULTS, VERDICTS_CHECKED, coverageWord, ecosystemLabel, gradedPacks, launchLine, type Letter, type Verdict } from "@/lib/results";
 import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor } from "@/lib/history";
 import { DisputeNote } from "../DisputeNote";
@@ -38,13 +40,13 @@ export default async function ServerPage({ params }: P) {
   return (
     <>
       <Nav />
-      <main className={`gutter ${s.wrap}`}>
+      <main id="main" className={`gutter ${s.wrap}`}>
         <div className={s.preview}>{x.automated ? `Automated re-test on ${x.testedAt}: not checked by hand, and not yet reviewed by the maintainers.` : "Maintainers have not reviewed this result yet."}</div>
         <p className={s.crumb}><Link href="/results/">Results</Link> / {x.name}</p>
         <h1 className={s.h1} style={{ maxWidth: "28ch" }}>{x.name}</h1>
         <div className={s.meta}>
           <span>version tested {x.versionTested}</span>
-          <span>{x.ecosystem === "npm" ? "npm" : "PyPI"}</span>
+          <span>{ecosystemLabel(x)}</span>
           <span>tested {x.testedAt}</span>
           <span>Sealmark {x.sealmark.version}</span>
           <span>methodology {x.sealmark.methodology}</span>
@@ -74,14 +76,14 @@ export default async function ServerPage({ params }: P) {
         {packIds.map((pid) => (
           <div key={pid}>
             <h2 className={s.packhead}>{PACK_LABEL[pid] ?? pid} checks</h2>
-            <div className={s.tw} style={{ marginTop: 0 }}>
+            <div className={s.tw} style={{ marginTop: 0 }} tabIndex={0} role="region" aria-label={`${PACK_LABEL[pid] ?? pid} checks`}>
               <table className={s.checks}>
-                <thead><tr><th>Check</th><th>Verdict</th><th>What happened</th></tr></thead>
+                <thead><tr><th scope="col">Check</th><th scope="col">Verdict</th><th scope="col">What happened</th></tr></thead>
                 <tbody>
                   {x.checks.filter((c) => c.pack === pid).map((c) => (
                     <tr key={c.id}>
                       <td className={s.id}>{c.id}{c.critical && <span className={s.crit}>critical</span>}{c.advisory && <span className={s.muted}> (advisory)</span>}<div className={s.muted} style={{ fontFamily: "var(--font-sans)", whiteSpace: "normal" }}>{c.label}</div></td>
-                      <td><span className={`chip c-${c.verdict}${c.advisory ? " adv" : ""}`}>{WORD[c.verdict]}</span></td>
+                      <td><span className={clsx("chip", `c-${c.verdict}`, c.advisory && "adv")}>{WORD[c.verdict]}</span></td>
                       <td className={s.sum}>{c.summary}</td>
                     </tr>
                   ))}
@@ -125,6 +127,7 @@ export default async function ServerPage({ params }: P) {
           {next ? <Link href={`/results/${next.id}/`}>{next.name} →</Link> : <span />}
         </nav>
       </main>
+      <Footer />
     </>
   );
 }

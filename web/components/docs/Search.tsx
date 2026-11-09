@@ -1,4 +1,5 @@
 "use client";
+import { clsx } from "clsx";
 // Hand-rolled docs search over /docs-index.json (built by scripts/docs-index.mjs). Work package D1.
 //   - the index is fetched once, on first focus
 //   - words are split on anything that is not a letter or digit, so "T2-SECRET" is "t2" + "secret" and "--fail-under" is "fail" + "under"
@@ -184,7 +185,7 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
   const announce = !shown ? "" : message || `${hits.length} ${hits.length === 1 ? "result" : "results"}.`;
 
   return (
-    <div className={`${s.search} ${variant === "page" ? s.searchPage : ""}`.trim()} role="search" data-state={load} aria-busy={load === "loading" || undefined} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false); }}>
+    <div className={clsx(s.search, variant === "page" && s.searchPage)} role="search" data-state={load} aria-busy={load === "loading" || undefined} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false); }}>
       <input
         ref={input}
         className={s.searchInput}

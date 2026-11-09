@@ -8,6 +8,7 @@
 .seg button + button { border-left: 1px solid var(--border); }
 .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
 .seg button:focus-visible { outline-offset: -3px; }
+.seg button[aria-pressed="true"]:focus-visible { outline-color: var(--accent-ink); }
 .gloss { color: var(--ink-muted); font-size: 0.9rem; min-height: 2.8em; }
 
 .grade { display: flex; align-items: center; gap: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 20px 14px 22px; min-width: 0; }
