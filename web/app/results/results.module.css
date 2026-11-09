@@ -92,3 +92,9 @@
 .histRun small { color: var(--ink-faint); font-size: 0.72rem; }
 .histFail { width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; border: 1px dashed var(--border-strong, var(--border)); color: var(--ink-faint); font: 800 1.1rem var(--font-display), sans-serif; }
 .histLink { margin-top: 28px; }
+
+/* pagination */
+.pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin-top: 18px; }
+.pager .pill:disabled { opacity: 0.45; cursor: not-allowed; }
+.gap { color: var(--ink-faint); padding: 0 2px; }
+@media (pointer: coarse) { .pager .pill { min-width: 44px; } }
