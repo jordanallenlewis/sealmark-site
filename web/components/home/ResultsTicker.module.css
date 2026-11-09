@@ -1,6 +1,7 @@
-.ticker { display: grid; gap: 12px; margin: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.row { display: flex; width: max-content; animation: slide 90s linear infinite; }
-.row.rev { animation-direction: reverse; animation-duration: 110s; }
+/* Speed is per item (about 12 s per ~300 px pill, ~25 px/s), so it stays readable at any server count. */
+.ticker { --sec-per-item: 12s; display: grid; gap: 12px; margin: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.row { display: flex; width: max-content; animation: slide calc(var(--n, 40) * var(--sec-per-item)) linear infinite; }
+.row.rev { animation-direction: reverse; }
 .ticker:hover .row, .ticker:focus-within .row { animation-play-state: paused; }
 .shell[data-state="paused"] .row { animation-play-state: paused; }
 .shell { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
