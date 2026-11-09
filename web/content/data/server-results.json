@@ -9023,6 +9023,7 @@
       "name": "jordanallenlewis/reddit-research-mcp",
       "ecosystem": "github",
       "round": "fleet",
+      "refTested": "0.2.2",
       "versionTested": "0.2.2",
       "serverInfoName": "reddit-research-mcp",
       "testedAt": "2026-11-09",
