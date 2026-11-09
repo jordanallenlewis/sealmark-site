@@ -165,6 +165,18 @@ output:
   fail_on: [regressions, drift]
 ```
 
+## oauth
+
+Servers that sit behind OAuth 2.1 bearer tokens are tested against a stub authorization server the harness runs itself (flag `--oauth`). The `oauth.*` keys describe that arrangement:
+
+| Key | Default | What it does |
+|---|---|---|
+| `oauth.issuer` | `null` | `stub` starts the harness's own issuer on loopback; the `{issuer}`, `{jwks}` and `{audience}` placeholders and the `{bearer}`, `{bearer:a}`, `{bearer:b}` identities then work. `external` declares a server that trusts its own issuer, so only checks that need no harness-signed token run (`oauth-discovery`). |
+| `oauth.audience` | `null` | The audience (RFC 8707 resource) the stub's tokens carry. `null` uses `server.url` in canonical form. |
+| `oauth.scopes` | `[]` | Scopes the server requires. `oauth-scope` sends a token without them, which must be refused. Empty skips that probe. |
+| `oauth.tls` | `true` | Serve the stub over https with a throwaway CA made for the run (`--no-oauth-tls` serves plain http). |
+| `oauth.client_id` | `sealmark` | The `client_id` claim in the tokens the stub mints. |
+
 ## Other keys
 
 The type, default and lock state of every key are in the generated table. The keys that are explained elsewhere:

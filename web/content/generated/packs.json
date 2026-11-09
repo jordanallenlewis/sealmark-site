@@ -94,6 +94,7 @@
       "http-auth",
       "http-protocol-version",
       "http-session",
+      "http-session-binding",
       "http-cors",
       "http-bind",
       "http-tls"
@@ -142,7 +143,19 @@
       "upstream-credential-echo",
       "log-secret",
       "upstream-error-leak",
-      "upstream-slow"
+      "upstream-slow",
+      "upstream-token-passthrough"
+    ]
+  },
+  {
+    "id": "oauth",
+    "standard": false,
+    "candidate": true,
+    "checks": [
+      "oauth-token-forgery",
+      "oauth-claims",
+      "oauth-discovery",
+      "oauth-scope"
     ]
   }
 ]
