@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DocHeader } from "@/components/docs/MdxBits";
@@ -56,7 +57,7 @@ export default function ChecksIndexPage() {
                           <div style={{ fontWeight: 400 }}>{c.label}</div>
                         </th>
                         <td data-label="Weight">
-                          <span className={`chip ${c.critical ? "c-fail" : "c-na"}${c.advisory ? " adv" : ""}`}>{c.critical ? "critical" : c.advisory ? "advisory · not scored" : "scored"}</span>
+                          <span className={clsx("chip", c.critical ? "c-fail" : "c-na", c.advisory && "adv")}>{c.critical ? "critical" : c.advisory ? "advisory · not scored" : "scored"}</span>
                           {c.candidate ? <> <span className="chip c-inconclusive">candidate</span></> : null}
                         </td>
                         <td data-label="Decided by"><span className={s.chips}><VerifiedChips list={c.verifiedBy} /></span></td>

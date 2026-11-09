@@ -20,7 +20,7 @@ export default function HistoryPage() {
   return (
     <>
       <Nav />
-      <main className={`gutter ${s.wrap}`}>
+      <main id="main" className={`gutter ${s.wrap}`}>
         <p className={s.crumb}><Link href="/results/">Results</Link> / Over time</p>
         <h1 className={s.h1}>How the grades changed</h1>
         <p className={s.lede}>

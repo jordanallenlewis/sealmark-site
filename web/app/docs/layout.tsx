@@ -40,14 +40,14 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
       <div className={s.shell}>
-        <aside className={s.side}>
+        <aside className={s.side} aria-label="Docs navigation">
           <Sidebar nav={NAV} />
         </aside>
         <main id="docs-main" className={s.main}>
           {children}
           <PrevNext nav={NAV} />
         </main>
-        <aside className={s.tocCol}>
+        <aside className={s.tocCol} aria-label="On this page">
           <Toc />
         </aside>
       </div>
