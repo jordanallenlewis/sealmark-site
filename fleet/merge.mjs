@@ -72,6 +72,7 @@ for (const name of subfolders) {
     name: meta.name,
     ecosystem: meta.ecosystem,
     round: "fleet",
+    refTested: meta.ecosystem === "github" ? (meta.version ?? null) : undefined,
     versionTested: r.server?.resolved?.package?.version ?? meta.version ?? r.server?.version ?? null,
     serverInfoName: r.server?.name ?? null,
     testedAt: (r.startedAt ?? today).slice(0, 10),
@@ -126,6 +127,7 @@ for (const name of subfolders) {
   appendHistory({
     id: meta.id,
     version: entry.versionTested,
+    sealmark: entry.sealmark?.version ?? null,
     testedAt: entry.testedAt,
     status: "ok",
     worst,
