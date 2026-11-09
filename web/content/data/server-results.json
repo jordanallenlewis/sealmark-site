@@ -19781,7 +19781,7 @@
       "name": "memegician-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "1.1.0",
       "serverInfoName": "memegician-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
@@ -19790,9 +19790,9 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y memegician-mcp@1.0.0",
+      "launch": "npx -y memegician-mcp@1.1.0",
       "transport": "stdio",
-      "toolCount": 4,
+      "toolCount": 5,
       "packs": [
         {
           "id": "core",
@@ -19899,7 +19899,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 4 well-formed tool(s)"
+          "summary": "handshake ok, 5 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -19908,7 +19908,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 4 tool definition(s), the server instructions and serverInfo, 1 prompt(s), including parameter text: nothing suspicious"
+          "summary": "scanned 5 tool definition(s), the server instructions and serverInfo, 1 prompt(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -19917,7 +19917,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "17 invalid call(s) rejected cleanly"
+          "summary": "22 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -19926,7 +19926,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 17 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 22 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -19977,7 +19977,7 @@
       "coverage": {
         "validCalls": 1,
         "toolsCalledValid": 1,
-        "toolsTotal": 4,
+        "toolsTotal": 5,
         "level": "low"
       },
       "badge": {
@@ -19989,6 +19989,7 @@
         "tool \"get_meme_template\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"render_meme\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
         "tool \"get_trending_meme_templates\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"generate_memes\" is covered by the core checks only: free-text parameter \"situation\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -48956,7 +48957,7 @@
       "name": "@marketmayhem/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.1",
+      "versionTested": "0.3.0",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
@@ -48965,9 +48966,9 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @marketmayhem/mcp@0.1.1",
+      "launch": "npx -y @marketmayhem/mcp@0.3.0",
       "transport": "stdio",
-      "toolCount": 10,
+      "toolCount": 22,
       "packs": [
         {
           "id": "core",
@@ -49074,7 +49075,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 10 well-formed tool(s)"
+          "summary": "handshake ok, 22 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -49083,7 +49084,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 10 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 22 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -49092,7 +49093,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "41 invalid call(s) rejected cleanly"
+          "summary": "86 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -49101,7 +49102,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 41 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 86 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -49188,7 +49189,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 10,
+        "toolsTotal": 22,
         "level": "hygiene-only"
       },
       "badge": {
@@ -49201,13 +49202,20 @@
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"get_settings\" is covered by the core checks only: the tool takes no parameters",
         "tool \"new_launches\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"list_tokens\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"get_token\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"quote\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"buy\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"sell\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"tx_status\" is covered by the core checks only: free-text parameter \"hash\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"my_referral_earnings\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"twap\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"cancel_twap\" is covered by the core checks only: free-text parameter \"vault\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"twap_orders\" is covered by the core checks only: free-text parameter \"owner\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"place_order\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"my_orders\" is covered by the core checks only: the tool takes no parameters",
+        "8 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"get_settings\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"my_orders\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"claim_cashback\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
