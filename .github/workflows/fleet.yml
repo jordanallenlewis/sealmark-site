@@ -1,12 +1,12 @@
 name: fleet
 
 # Re-tests the tracked MCP servers on fresh GitHub-hosted machines and publishes the new grades.
-# Weekly, and by hand from the Actions tab. Each server runs in its own job with NO secrets and a
+# Daily, and by hand from the Actions tab. Each server runs in its own job with NO secrets and a
 # read-only token (they are third-party packages); only the collect job may push, only the deploy
 # job sees the Cloudflare token. fleet/plan.mjs picks the jobs, fleet/merge.mjs folds the reports in.
 on:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       force_all:
@@ -42,6 +42,7 @@ jobs:
           FORCE_ALL: ${{ github.event.inputs.force_all == 'true' && '1' || '' }}
           MAX_NEW: ${{ github.event.inputs.max_new || '5' }}
           FLEET_EXCLUDE: ${{ secrets.FLEET_EXCLUDE }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: node fleet/plan.mjs
 
   test:

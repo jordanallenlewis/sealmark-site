@@ -3,7 +3,7 @@
 // matrix output.
 //
 // Run from the repository root: node fleet/plan.mjs
-// Env: FORCE_ALL (1 = re-test everything), MAX_NEW (default 5),
+// Env: GITHUB_TOKEN (optional; github ecosystem), FORCE_ALL (1 = re-test everything), MAX_NEW (default 5),
 //      MAX_JOBS (default 40), STALE_DAYS (default 7).
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
@@ -37,6 +37,20 @@ async function latestVersion(ecosystem, name) {
       const res = await fetch("https://pypi.org/pypi/" + name + "/json");
       if (!res.ok) return null;
       return (await res.json()).info?.version ?? null;
+    }
+    if (ecosystem === "github") {
+      // name is "owner/repo"; newest release, else newest tag. Leading "v" dropped.
+      const headers = { accept: "application/vnd.github+json" };
+      if (process.env.GITHUB_TOKEN) headers.authorization = "Bearer " + process.env.GITHUB_TOKEN;
+      const rel = await fetch("https://api.github.com/repos/" + name + "/releases/latest", { headers });
+      if (rel.ok) {
+        const tag = (await rel.json()).tag_name;
+        if (tag) return String(tag).replace(/^v/, "");
+      }
+      const tags = await fetch("https://api.github.com/repos/" + name + "/tags?per_page=1", { headers });
+      if (!tags.ok) return null;
+      const t = (await tags.json())[0]?.name;
+      return t ? String(t).replace(/^v/, "") : null;
     }
     return null;
   } catch {
@@ -127,13 +141,20 @@ async function main() {
     if (typeof overrides[s.id] === "string") s.launch = overrides[s.id];
   }
 
+  // Latest Sealmark release: every grade records the Sealmark version that made it,
+  // and a new release makes every server due again.
+  const sealmarkLatest = await latestVersion("npm", "sealmark");
+
   const jobs = [];
   for (const s of tracked) {
     const launch = s.launch ?? "";
     if (launch.includes("<workspace>")) continue;
     const v = await latestVersion(s.ecosystem, s.name);
     let due = FORCE_ALL;
-    if (!due && v && v !== s.versionTested) due = true;
+    // GitHub-only servers compare the release or tag they were tested at (refTested).
+    const tested = s.ecosystem === "github" ? s.refTested : s.versionTested;
+    if (!due && v && v !== tested) due = true;
+    if (!due && sealmarkLatest && s.sealmark?.version !== sealmarkLatest) due = true;
     if (!due && !s.testedAt) due = true;
     if (!due && s.testedAt) {
       const days = (Date.now() - Date.parse(s.testedAt)) / 86400000;
@@ -144,7 +165,7 @@ async function main() {
       id: s.id,
       name: s.name,
       ecosystem: s.ecosystem,
-      launch: v ? pinLaunch(launch, s.name, s.ecosystem, v) : launch,
+      launch: v && s.ecosystem !== "github" ? pinLaunch(launch, s.name, s.ecosystem, v) : launch,
       version: v || s.versionTested || null,
       isNew: false,
     });
