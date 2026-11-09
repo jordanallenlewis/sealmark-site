@@ -68,7 +68,14 @@ jobs:
         run: |
           mkdir -p out
           printf '%s' "$META" > out/meta.json
-          npx -y sealmark@latest run --start "$LAUNCH" --format json --out out/sealmark.json --fail-under none || true
+          T0=$(date +%s)
+          set +e
+          timeout 420 npx -y sealmark@latest run --start "$LAUNCH" --format json --out out/sealmark.json --fail-under none
+          RC=$?
+          set -e
+          # timing and exit code feed fleet/telemetry.jsonl (no server output is kept here)
+          printf '{"durationS":%s,"exitCode":%s}' "$(( $(date +%s) - T0 ))" "$RC" > out/run.json
+          exit 0
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
@@ -94,11 +101,22 @@ jobs:
           pattern: report-*
           path: reports
       - run: node fleet/merge.mjs reports
+      - name: triage and trends (feedback loop into Sealmark)
+        run: |
+          node fleet/triage.mjs
+          node fleet/trends.mjs
+          { cat fleet/triage-summary.md; echo; cat fleet/trends-summary.md; } >> "$GITHUB_STEP_SUMMARY"
+      - name: file Sealmark issues (needs SEALMARK_ISSUES_TOKEN; otherwise Maya files them from triage.json)
+        env:
+          GH_TOKEN: ${{ secrets.SEALMARK_ISSUES_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then echo "SEALMARK_ISSUES_TOKEN not set: triage.json is committed, issues are filed by hq-builder."; exit 0; fi
+          node fleet/file-issues.mjs
       - name: commit the new grades
         run: |
           git config user.name "Jordan Lewis"
           git config user.email "42820601+jordanallenlewis@users.noreply.github.com"
-          git add web/content/data/server-results.json fleet/
+          git add web/content/data/server-results.json web/content/data/trends.json fleet/
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -m "fleet: automated re-test results $(date -u +%Y-%m-%d)"
           git pull --rebase origin main
