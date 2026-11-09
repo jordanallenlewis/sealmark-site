@@ -976,5 +976,107 @@
     "name": "@zensation/mcp",
     "ecosystem": "npm",
     "launch": "npx -y @zensation/mcp@0.3.1"
+  },
+  {
+    "id": "aminforou-mcp-gsc",
+    "name": "AminForou/mcp-gsc",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/AminForou/mcp-gsc mcp-gsc"
+  },
+  {
+    "id": "antvis-mcp-server-chart",
+    "name": "antvis/mcp-server-chart",
+    "ecosystem": "github",
+    "launch": "npx -y github:antvis/mcp-server-chart"
+  },
+  {
+    "id": "atilaahmettaner-tradingview-mcp",
+    "name": "atilaahmettaner/tradingview-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/atilaahmettaner/tradingview-mcp tradingview-mcp"
+  },
+  {
+    "id": "bethington-ghidra-mcp",
+    "name": "bethington/ghidra-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/bethington/ghidra-mcp bridge-mcp-ghidra"
+  },
+  {
+    "id": "blazickjp-arxiv-mcp-server",
+    "name": "blazickjp/arxiv-mcp-server",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/blazickjp/arxiv-mcp-server arxiv-mcp-server"
+  },
+  {
+    "id": "doobidoo-mcp-memory-service",
+    "name": "doobidoo/mcp-memory-service",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/doobidoo/mcp-memory-service memory"
+  },
+  {
+    "id": "exa-labs-exa-mcp-server",
+    "name": "exa-labs/exa-mcp-server",
+    "ecosystem": "github",
+    "launch": "npx -y github:exa-labs/exa-mcp-server"
+  },
+  {
+    "id": "firecrawl-firecrawl-mcp-server",
+    "name": "firecrawl/firecrawl-mcp-server",
+    "ecosystem": "github",
+    "launch": "npx -y github:firecrawl/firecrawl-mcp-server"
+  },
+  {
+    "id": "jgravelle-jcodemunch-mcp",
+    "name": "jgravelle/jcodemunch-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/jgravelle/jcodemunch-mcp jcodemunch-mcp"
+  },
+  {
+    "id": "joooook-12306-mcp",
+    "name": "Joooook/12306-mcp",
+    "ecosystem": "github",
+    "launch": "npx -y github:Joooook/12306-mcp"
+  },
+  {
+    "id": "marketmayhem-mcp",
+    "name": "@marketmayhem/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @marketmayhem/mcp@0.1.1"
+  },
+  {
+    "id": "openags-paper-search-mcp",
+    "name": "openags/paper-search-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/openags/paper-search-mcp paper-search-mcp"
+  },
+  {
+    "id": "promptguard-mcp-server",
+    "name": "@promptguard/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @promptguard/mcp-server@1.2.3"
+  },
+  {
+    "id": "ship-safe-mcp",
+    "name": "@ship-safe/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @ship-safe/mcp@0.6.4"
+  },
+  {
+    "id": "stickerdaniel-linkedin-mcp-server",
+    "name": "stickerdaniel/linkedin-mcp-server",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/stickerdaniel/linkedin-mcp-server mcp-server-linkedin"
+  },
+  {
+    "id": "taylorwilsdon-google-workspace-mcp",
+    "name": "taylorwilsdon/google_workspace_mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/taylorwilsdon/google_workspace_mcp workspace-mcp"
+  },
+  {
+    "id": "vibheksoni-stealth-browser-mcp",
+    "name": "vibheksoni/stealth-browser-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/vibheksoni/stealth-browser-mcp stealth-browser-mcp"
   }
 ]
