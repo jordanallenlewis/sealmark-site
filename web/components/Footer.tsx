@@ -30,6 +30,9 @@ export function Footer({ docs }: { docs?: { root: string; inner: string } }) {
           </div>
           <nav className="flinks" aria-label="Footer">
             <Link href="/docs/">Docs</Link>
+            <Link href="/results/">Graded servers</Link>
+            <Link href="/mcp-conformance-testing/">MCP conformance testing</Link>
+            <Link href="/compare/">Compare tools</Link>
             <Link href="/docs/methodology/">Methodology</Link>
             <Link href="/docs/disclosure/">Disclosure</Link>
             <Link href="/docs/changelog/">Changelog</Link>
