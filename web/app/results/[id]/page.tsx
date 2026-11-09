@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { Nav } from "@/components/Nav";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, SERVERS_RESULTS, VERDICTS_CHECKED, coverageWord, gradedPacks, launchLine, type Letter, type Verdict } from "@/lib/results";
+import { GradeHistory } from "@/components/GradeHistory";
+import { historyFor } from "@/lib/history";
 import { DisputeNote } from "../DisputeNote";
 import s from "../results.module.css";
 
@@ -31,6 +33,7 @@ export default async function ServerPage({ params }: P) {
   const idx = SERVERS_RESULTS.findIndex((v) => v.id === x.id);
   const prev = SERVERS_RESULTS[idx - 1];
   const next = SERVERS_RESULTS[idx + 1];
+  const hist = historyFor(x.id);
 
   return (
     <>
@@ -95,6 +98,14 @@ export default async function ServerPage({ params }: P) {
               {notGraded.map((p) => <li key={p.id}><b>{PACK_LABEL[p.id] ?? p.id}:</b> {sentence(`${p.status === "na" ? "not applicable" : p.status}${p.reason ? `. ${p.reason}` : ""}`)}</li>)}
               {x.notCovered.map((n, i) => <li key={i}>{sentence(n)}</li>)}
             </ul>
+          </section>
+        )}
+
+        {hist && hist.runs.length > 1 && (
+          <section className={s.sec}>
+            <h2>Grade over time</h2>
+            <GradeHistory runs={hist.runs} label={x.name} />
+            <p className={s.histLink}><Link href={`/results/history/#${x.id}`}>All servers over time</Link></p>
           </section>
         )}
 
