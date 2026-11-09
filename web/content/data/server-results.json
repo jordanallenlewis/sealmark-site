@@ -9684,7 +9684,7 @@
       "name": "@anyforge/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.17.0",
+      "versionTested": "3.18.0",
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
@@ -9693,9 +9693,9 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @anyforge/mcp-server@3.17.0",
+      "launch": "npx -y @anyforge/mcp-server@3.18.0",
       "transport": "stdio",
-      "toolCount": 230,
+      "toolCount": 242,
       "packs": [
         {
           "id": "core",
@@ -9802,7 +9802,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 230 well-formed tool(s)"
+          "summary": "handshake ok, 242 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -9880,7 +9880,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 230,
+        "toolsTotal": 242,
         "level": "hygiene-only"
       },
       "badge": {
@@ -9888,7 +9888,7 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 230 tools",
+        "malformed-input probes cover the first 25 of 242 tools",
         "SQL tool \"anyforge_update_objective\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"anyforge_list_connected_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"anyforge_list_report_filter_values\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -9915,7 +9915,7 @@
         "tool \"anyforge_preview_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"anyforge_cancel_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"anyforge_retry_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "196 more tool(s) are covered by the core checks only (see the classification)",
+        "208 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"anyforge_list_studio_artifacts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_studio_review\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_studio_checkpoint\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -9958,6 +9958,9 @@
         "tool \"anyforge_list_work_item_comments\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_post_work_item_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_share_work_item_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_edit_work_item_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_delete_work_item_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_resolve_work_item_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_split_work_item\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_merge_work_items\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_work_item_files\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -9976,13 +9979,19 @@
         "tool \"anyforge_dispatch_architect\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_update_initiative\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_delete_initiative\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_initiative_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_set_initiative_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_initiative_comments\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_post_initiative_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_resolve_initiative_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_programs\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_program\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_program\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_update_program\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_set_program_status_line\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_program_access\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_set_program_access\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_set_program_capacity_visibility\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_set_program_request_intake\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_delete_program\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_set_program_milestones\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -10081,6 +10090,7 @@
         "tool \"anyforge_accept_observability_signal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_dismiss_observability_signal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_audit_events\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_whoami\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_members\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_invite_person\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_people_invitations\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -10113,6 +10123,8 @@
         "tool \"anyforge_list_skills\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_skill\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_skill\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_search_context_library\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_read_library_doc\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_initiative_files\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_program_files\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_start_file_upload\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
