@@ -14,7 +14,7 @@ on:
         type: boolean
         default: false
       max_new:
-        description: 'New servers to add from the MCP Registry'
+        description: 'New servers to add per run (below 360 tracked, at least 60 are tried regardless)'
         default: '10'
 
 permissions:
