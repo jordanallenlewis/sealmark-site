@@ -1,0 +1,128 @@
+name: release-sync
+
+# Keeps sealmark.dev on the CLI version that is on npm. When a new `sealmark` release appears, this workflow, in ONE run:
+#   pins web/package.json to it, regenerates the docs JSON from that CLI, updates the hand-written version markers and the
+#   changelog (from the GitHub Release notes), builds, commits to main, deploys to Cloudflare, and checks the live site.
+# Any step failing makes the run red, so the site and the CLI never drift silently (GitHub emails the repo owner on a failed run).
+#
+# Triggers:
+#   repository_dispatch `sealmark-release` (payload: {"version": "1.2.3"}), sent by the sealmark repo's publish workflow
+#     when a SITE_DISPATCH_TOKEN secret exists there (it is optional; see the PR description);
+#   a poll every 30 minutes, which needs no secret and also heals a site that is behind (a failed deploy last time);
+#   workflow_dispatch from the Actions tab (version optional, defaults to npm latest).
+on:
+  repository_dispatch:
+    types: [sealmark-release]
+  schedule:
+    - cron: '11,41 * * * *'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Sealmark version to ship (default: the latest on npm)'
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: write   # only to commit the version bump to main, like fleet.yml's collect job
+    env:
+      REQUESTED: ${{ github.event.client_payload.version || github.event.inputs.version }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: f37b212eac72fedf8ef688eb7856ea4d
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+
+      - name: decide the version to ship
+        id: v
+        run: |
+          VERSION="$REQUESTED"
+          [ -n "$VERSION" ] || VERSION=$(npm view sealmark version)
+          case "$VERSION" in [0-9]*.[0-9]*.[0-9]*) ;; *) echo "::error::'$VERSION' is not an x.y.z version"; exit 1;; esac
+          # a release that was just published can take a while to be visible (npm validation): wait, and fail if it never is
+          for i in $(seq 1 40); do
+            npm view "sealmark@$VERSION" version >/dev/null 2>&1 && break
+            [ "$i" = 40 ] && { echo "::error::sealmark@$VERSION is not on npm after 20 minutes"; exit 1; }
+            sleep 30
+          done
+          PINNED=$(node -p "require('./web/package.json').devDependencies.sealmark")
+          LIVE=$(curl -fsS https://sealmark.dev/docs/ | grep -o 'Sealmark [0-9][0-9.]*, methodology' | head -1 | grep -o '[0-9][0-9.]*[0-9]' | head -1 || true)
+          echo "wanted=$VERSION pinned=$PINNED live=${LIVE:-unknown}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [ "$PINNED" = "$VERSION" ] && [ "$LIVE" = "$VERSION" ]; then echo "needed=false" >> "$GITHUB_OUTPUT"; else echo "needed=true" >> "$GITHUB_OUTPUT"; fi
+          echo "pinned=$PINNED" >> "$GITHUB_OUTPUT"
+
+      - name: already in sync
+        if: steps.v.outputs.needed == 'false'
+        run: echo "sealmark.dev already shows sealmark@${{ steps.v.outputs.version }}; nothing to do."
+
+      - name: pin the CLI, regenerate the docs JSON, update versions and changelog
+        if: steps.v.outputs.needed == 'true'
+        working-directory: web
+        env:
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          if [ "${{ steps.v.outputs.pinned }}" != "$VERSION" ]; then
+            npm install --save-dev --save-exact "sealmark@$VERSION"
+          else
+            npm ci
+          fi
+          npm run docs:gen
+          # changelog text: the GitHub Release notes of the matching tag, else a plain line (the sync never skips the entry)
+          if gh release view "v$VERSION" -R jordanallenlewis/sealmark --json body,publishedAt > "$RUNNER_TEMP/rel.json" 2>/dev/null; then
+            jq -r .body "$RUNNER_TEMP/rel.json" > "$RUNNER_TEMP/notes.md"
+            DATE=$(jq -r '.publishedAt[:10]' "$RUNNER_TEMP/rel.json")
+          else
+            echo "Sealmark CLI $VERSION. Release notes: https://github.com/jordanallenlewis/sealmark/releases/tag/v$VERSION" > "$RUNNER_TEMP/notes.md"
+            DATE=$(date -u +%Y-%m-%d)
+          fi
+          node scripts/version-sync.mjs "$VERSION" --notes-file "$RUNNER_TEMP/notes.md" --date "$DATE"
+          npm run version:check
+
+      - name: build (docs drift test, static export, page budget)
+        if: steps.v.outputs.needed == 'true'
+        working-directory: web
+        run: npm run build
+
+      - name: commit the version bump to main
+        if: steps.v.outputs.needed == 'true'
+        run: |
+          git config user.name "Jordan Lewis"
+          git config user.email "42820601+jordanallenlewis@users.noreply.github.com"
+          git add web/package.json web/package-lock.json web/content
+          if git diff --cached --quiet; then echo "nothing to commit (the repo already had this version; the site was behind)"; exit 0; fi
+          git commit -m "site: sealmark ${{ steps.v.outputs.version }} (release-sync)"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+      - name: deploy to Cloudflare
+        if: steps.v.outputs.needed == 'true'
+        working-directory: web
+        run: |
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || { echo "::error::CLOUDFLARE_API_TOKEN is not set: the version bump is on main but the site was NOT deployed"; exit 1; }
+          npx -y wrangler deploy
+
+      - name: the live site must show the new version
+        if: steps.v.outputs.needed == 'true'
+        run: |
+          for i in $(seq 1 20); do
+            LIVE=$(curl -fsS "https://sealmark.dev/docs/?v=$i" | grep -o 'Sealmark [0-9][0-9.]*, methodology' | head -1 | grep -o '[0-9][0-9.]*[0-9]' | head -1 || true)
+            [ "$LIVE" = "${{ steps.v.outputs.version }}" ] && { echo "sealmark.dev shows sealmark@$LIVE"; exit 0; }
+            sleep 15
+          done
+          echo "::error::deployed, but sealmark.dev still shows '${LIVE:-nothing}' instead of ${{ steps.v.outputs.version }}"
+          exit 1

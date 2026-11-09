@@ -12,6 +12,8 @@
     "docs:check": "node scripts/docs-check.mjs",
     "schema:sync": "node scripts/schema-sync.mjs",
     "schema:check": "node scripts/schema-sync.mjs --check",
+    "version:sync": "node scripts/version-sync.mjs",
+    "version:check": "node scripts/version-sync.mjs --check",
     "deploy:preview": "echo Static export is built into web/out by npm run build. To preview locally run npx wrangler dev. To deploy later run npx wrangler login then npx wrangler deploy. This script deploys nothing."
   },
   "dependencies": {
