@@ -65,8 +65,11 @@ export function CopyButton({ text, label = "Copy", className = "copybtn" }: { te
 
   const shown = status === "copied" ? "✓ Copied" : status === "selected" ? "Selected, copy now" : status === "failed" ? "Copy failed" : label;
   return (
-    <button ref={btn} type="button" className={className} onClick={go} aria-live="polite" data-state={status}>
-      {shown}
-    </button>
+    <>
+      <button ref={btn} type="button" className={className} onClick={go} data-state={status}>
+        {shown}
+      </button>
+      <span className="sr-only" role="status">{status === "idle" ? "" : shown}</span>
+    </>
   );
 }

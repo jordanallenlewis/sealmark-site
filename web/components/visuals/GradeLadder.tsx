@@ -1,4 +1,5 @@
 "use client";
+import { clsx } from "clsx";
 import { useId, useState, type CSSProperties } from "react";
 import { RANK, letterFor, type Letter } from "@/lib/data";
 import s from "./GradeLadder.module.css";
@@ -67,7 +68,7 @@ export function GradeLadder({ auto = true }: { auto?: boolean }) {
           </div>
 
           <div className={s.read} aria-live="polite">
-            <span className={`seal lg g-${final}${critInc ? " prov" : ""}`} role="img" aria-label={`Grade ${final}${critInc ? ", provisional" : ""}`}>{final}</span>
+            <span className={clsx("seal lg", `g-${final}`, critInc && "prov")} role="img" aria-label={`Grade ${final}${critInc ? ", provisional" : ""}`}>{final}</span>
             <span className={`${s.line} mono`} data-capped={capped}>{readout}</span>
           </div>
         </div>
@@ -76,7 +77,7 @@ export function GradeLadder({ auto = true }: { auto?: boolean }) {
           <ol className={s.ladder} aria-label="Grade bands">
             {ORDER.map((L) => (
               <li key={L} className={s.row} data-final={L === final} data-raw={capped && L === raw}>
-                <span className={`seal g-${L}${L === final && critInc ? " prov" : ""}`} aria-hidden="true">{L}</span>
+                <span className={clsx("seal", `g-${L}`, L === final && critInc && "prov")} aria-hidden="true">{L}</span>
                 <span className={`${s.band} mono`}>{BAND[L]}</span>
                 <span className={`${s.mark} mono`}>{L === final ? (capped ? "final · capped" : "final") : capped && L === raw ? "raw" : ""}</span>
               </li>

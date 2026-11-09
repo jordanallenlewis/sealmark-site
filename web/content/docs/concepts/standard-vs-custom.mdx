@@ -28,7 +28,7 @@ The header and the difference list are added by the report renderer after any te
 
 ## What is locked
 
-Every setting that can change a grade is a locked leaf of the standard profile (`sealmark describe --json` marks each key `standardLocked`). They are the per-check `enabled` and `severity` and each check's own thresholds and corpus (`checks.<id>.*`), `timeout_probe_sec`, `timeouts.call_ms` and `timeouts.probe_ms`, `retries.call`, `tools.include`, `tools.exclude` and `tools.overrides`, `net.control_url` and `net.allow_dns`, and `sandbox.enabled`, `scrub_env`, `keep_env`, `pack_timeout_sec` and `max_mib`. `sealmark list-checks` shows which checks are locked and `sealmark config show --origins` shows where each effective value came from. The published values are in `standard.yaml`.
+Every setting that can change a grade is a locked leaf of the standard profile (`sealmark describe --json` marks each key `standardLocked`). They are the per-check `enabled` and `severity` and each check's own thresholds and corpus (`checks.<id>.*`), `timeout_probe_sec`, `timeouts.call_ms` and `timeouts.probe_ms`, `tools.include`, `tools.exclude` and `tools.overrides`, `net.control_url` and `net.allow_dns`, and `sandbox.enabled`, `scrub_env`, `keep_env`, `pack_timeout_sec` and `max_mib`. `sealmark list-checks` shows which checks are locked and `sealmark config show --origins` shows where each effective value came from. The published values are in `standard.yaml`.
 
 Settings that do not change a grade are free: the server under test (`server.*`), `output.*`, `sql_tools`, `db.*`, `sandbox.dir` and `sandbox.keep`, `server.files`, and the test suite list as long as no standard suite is dropped.
 
