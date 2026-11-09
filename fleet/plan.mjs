@@ -4,13 +4,17 @@
 //
 // Run from the repository root: node fleet/plan.mjs
 // Env: GITHUB_TOKEN (optional; github ecosystem), FORCE_ALL (1 = re-test everything), MAX_NEW (default 10),
-//      MAX_JOBS (default 40), STALE_DAYS (default 7).
+//      MAX_JOBS (default 200; a GitHub matrix holds at most 256), STALE_DAYS (default 7),
+//      TARGET_TOTAL (default 360: below this many tracked servers a run grows the set by GROW_NEW, default 60,
+//      instead of MAX_NEW; shards of the matrix run 10 at a time, each in its own throwaway VM with no secrets).
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
 const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 10;
-const MAX_JOBS = process.env.MAX_JOBS ? Number(process.env.MAX_JOBS) : 40;
+const MAX_JOBS = process.env.MAX_JOBS ? Number(process.env.MAX_JOBS) : 200;
+const TARGET_TOTAL = process.env.TARGET_TOTAL ? Number(process.env.TARGET_TOTAL) : 360;
+const GROW_NEW = process.env.GROW_NEW ? Number(process.env.GROW_NEW) : 60;
 const STALE_DAYS = process.env.STALE_DAYS ? Number(process.env.STALE_DAYS) : 7;
 const EXCLUDE = process.env.FLEET_EXCLUDE ? new RegExp(process.env.FLEET_EXCLUDE, "i") : null;
 
@@ -120,7 +124,7 @@ async function githubLaunch(repo, sub) {
 // A new server that already failed to start at a version is not tried again until it publishes a new version, so a
 // handful of broken packages cannot fill every run's new slots. At most PER_PUBLISHER new servers per npm scope or
 // GitHub owner per run, so one publisher's family cannot take them all either.
-const PER_PUBLISHER = 2;
+const PER_PUBLISHER = process.env.PER_PUBLISHER ? Number(process.env.PER_PUBLISHER) : 3;
 
 function failedBefore() {
   const out = new Set();
@@ -238,6 +242,34 @@ async function discover(knownIds, maxNew) {
   return found;
 }
 
+// Second source: public GitHub repos tagged mcp-server, most starred first, whose own files say how to start them.
+// Search API only (30 requests a minute); the same no-credentials rules as the registry apply.
+async function discoverTopics(knownIds, maxNew) {
+  const found = [];
+  const failed = failedBefore();
+  const started = Date.now();
+  let probes = 0;
+  for (let page = 1; page <= 10 && found.length < maxNew && Date.now() - started < 240000; page++) {
+    const data = await ghGet("search/repositories?q=topic:mcp-server+archived:false&sort=stars&order=desc&per_page=50&page=" + page);
+    if (!data?.items?.length) break;
+    for (const it of data.items) {
+      if (found.length >= maxNew || probes >= 150) break;
+      const repo = it.full_name;
+      if (EXCLUDE && EXCLUDE.test(repo)) continue;
+      const id = repo.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      if (!id || knownIds.has(id) || knownIds.has(repo.split("/")[1].toLowerCase())) continue;
+      probes++;
+      const launch = await githubLaunch(repo, null);
+      if (!launch) continue;
+      const ghVersion = await latestVersion("github", repo);
+      if (failed.has(id + "@" + (ghVersion ?? ""))) continue;
+      knownIds.add(id);
+      found.push({ id, name: repo, ecosystem: "github", launch, version: ghVersion, isNew: true });
+    }
+  }
+  return found;
+}
+
 async function main() {
   const results = readJson("web/content/data/server-results.json", { servers: [] });
   const discovered = readJson("fleet/discovered.json", []);
@@ -287,9 +319,17 @@ async function main() {
   const age = new Map(tracked.map((s) => [s.id, Date.parse(s.testedAt ?? "") || 0]));
   jobs.sort((a, b) => (age.get(a.id) ?? 0) - (age.get(b.id) ?? 0));
   // Many registry servers fail to start without setup they don't declare, so try twice MAX_NEW to add about MAX_NEW.
-  const newTries = MAX_NEW * 2;
+  // Below TARGET_TOTAL the run grows the set (GROW_NEW unless a bigger MAX_NEW was asked for by hand).
+  const wantNew = tracked.length < TARGET_TOTAL ? Math.max(MAX_NEW, GROW_NEW) : MAX_NEW;
+  const newTries = wantNew * 2;
   jobs.length = Math.min(jobs.length, Math.max(0, MAX_JOBS - newTries));
-  jobs.push(...(await discover(new Set(tracked.map((s) => s.id)), newTries)));
+  const known = new Set(tracked.map((s) => s.id));
+  const fromRegistry = await discover(known, newTries);
+  jobs.push(...fromRegistry);
+  // Registry came up short of the tries: top up from GitHub topics while still below the target.
+  if (tracked.length < TARGET_TOTAL && fromRegistry.length < newTries) {
+    jobs.push(...(await discoverTopics(known, newTries - fromRegistry.length)));
+  }
   jobs.length = Math.min(jobs.length, MAX_JOBS);
 
   const plan = { generatedAt: new Date().toISOString(), jobs };
