@@ -45,6 +45,28 @@ const subfolders = fs
   .map((d) => d.name)
   .sort();
 
+const TELEMETRY = path.join("fleet", "telemetry.jsonl");
+if (!fs.existsSync(TELEMETRY)) fs.writeFileSync(TELEMETRY, "");
+// One structured record per server per run. Error text is scrubbed and cut: no secrets, paths or tool output.
+function scrub(text) {
+  return String(text ?? "")
+    .replace(/\/(home|Users|runner)\/[^\s:)"']+/g, "<path>")
+    .replace(/\b(gh[pousr]_|sk-|xox[bap]-|AKIA)[A-Za-z0-9_-]{8,}/g, "<secret>")
+    .replace(/\b[A-Za-z0-9_-]{32,}\b/g, "<token>")
+    .replace(/\d{4}-\d\d-\d\dT[\d_:.Z-]+/g, "<ts>")
+    .slice(0, 240);
+}
+// startFail = the server never started (not Sealmark's fault); crash = Sealmark itself threw; timeout; other.
+function failClass(error) {
+  const e = String(error ?? "");
+  if (/Connection closed|connect-timeout|did not answer initialize|Not signed in|ENOTCACHED|ETARGET|E404|fetch failed|ENOENT|No matching/i.test(e)) return "start-fail";
+  if (/TypeError|ReferenceError|RangeError|Unhandled|at .*\.(js|ts):\d+|internal error|assertion/i.test(e)) return "sealmark-crash";
+  if (/timed? ?out|timeout/i.test(e)) return "timeout";
+  return "other";
+}
+function appendTelemetry(rec) {
+  fs.appendFileSync(TELEMETRY, JSON.stringify(rec) + "\n");
+}
 const LETTERS = "FDCBA"; // ascending, F is the worst letter
 let merged = 0;
 let failed = 0;
@@ -55,6 +77,7 @@ for (const name of subfolders) {
   const meta = readJson(path.join(dir, "meta.json"));
   if (!meta || !meta.id) continue;
   const report = readJson(path.join(dir, "sealmark.json"));
+  const run = readJson(path.join(dir, "run.json"));
   if (!report || report.status === "failed") {
     appendHistory({
       id: meta.id,
@@ -62,6 +85,12 @@ for (const name of subfolders) {
       testedAt: today,
       status: "failed",
       error: report?.error ?? "no report",
+    });
+    appendTelemetry({
+      id: meta.id, ecosystem: meta.ecosystem, serverVersion: meta.version ?? null, testedAt: today,
+      sealmark: report?.sealmark?.version ?? "unknown", status: "failed",
+      failClass: report ? failClass(report.error) : "no-report", errorSig: scrub(report?.error ?? "no report"),
+      durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
     });
     failed += 1;
     continue;
@@ -124,6 +153,16 @@ for (const name of subfolders) {
     graded[p.id] = p.letter;
     if (worst === null || LETTERS.indexOf(p.letter) < LETTERS.indexOf(worst)) worst = p.letter;
   }
+  appendTelemetry({
+    id: meta.id, ecosystem: meta.ecosystem, serverVersion: entry.versionTested, testedAt: entry.testedAt,
+    sealmark: entry.sealmark?.version ?? null, status: "ok", worst,
+    packs: graded,
+    // rule hits: every check that did not pass, by id, with its verdict and whether it capped the grade
+    ruleHits: entry.checks.filter((c) => c.verdict !== "pass" && c.verdict !== "na").map((c) => [c.id, c.verdict, c.critical ? 1 : 0, c.advisory ? 1 : 0]),
+    checkCount: entry.checks.length,
+    notCovered: entry.notCovered.length, warnings: entry.warnings.length,
+    toolCount: entry.toolCount, durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
+  });
   appendHistory({
     id: meta.id,
     version: entry.versionTested,
