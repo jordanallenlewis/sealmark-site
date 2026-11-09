@@ -64,6 +64,11 @@ jobs:
         working-directory: web
         run: node scripts/docs-check.mjs --self-test
 
+      # The hand-written version markers and the changelog must name the pinned CLI (release-sync keeps them current).
+      - name: Version markers match the pinned CLI
+        working-directory: web
+        run: npm run version:check
+
       - name: Build the static export
         working-directory: web
         run: npm run build
