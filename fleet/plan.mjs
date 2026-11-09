@@ -117,8 +117,44 @@ async function githubLaunch(repo, sub) {
 // Official registry servers we do not track yet. Pages through the whole registry until maxNew are found
 // (capped at 150 pages, 5 minutes). npm and PyPI packages first; otherwise a GitHub-hosted repo whose
 // own files say how to start it.
+// A new server that already failed to start at a version is not tried again until it publishes a new version, so a
+// handful of broken packages cannot fill every run's new slots. At most PER_PUBLISHER new servers per npm scope or
+// GitHub owner per run, so one publisher's family cannot take them all either.
+const PER_PUBLISHER = 2;
+
+function failedBefore() {
+  const out = new Set();
+  let text = "";
+  try {
+    text = readFileSync("fleet/history.jsonl", "utf8");
+  } catch {
+    return out;
+  }
+  for (const line of text.split(/\r?\n/)) {
+    if (!line.trim()) continue;
+    try {
+      const r = JSON.parse(line);
+      if (r.status === "failed" && r.id) out.add(r.id + "@" + (r.version ?? ""));
+    } catch {
+      // skip a bad line
+    }
+  }
+  return out;
+}
+
+function publisher(name) {
+  const n = String(name ?? "").toLowerCase();
+  if (n.startsWith("@")) return n.split("/")[0];
+  if (n.includes("/")) return n.split("/")[0];
+  return n;
+}
+
 async function discover(knownIds, maxNew) {
   const found = [];
+  const failed = failedBefore();
+  const perPublisher = new Map();
+  const roomFor = (name) => (perPublisher.get(publisher(name)) ?? 0) < PER_PUBLISHER;
+  const take = (name) => perPublisher.set(publisher(name), (perPublisher.get(publisher(name)) ?? 0) + 1);
   const started = Date.now();
   let cursor = null;
   let probes = 0;
@@ -154,7 +190,9 @@ async function discover(knownIds, maxNew) {
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-+|-+$/g, "");
         if (!id || knownIds.has(id)) continue;
+        if (failed.has(id + "@" + pkg.version) || !roomFor(pkg.identifier)) continue;
         knownIds.add(id);
+        take(pkg.identifier);
         found.push({
           id,
           name: pkg.identifier,
@@ -176,16 +214,20 @@ async function discover(knownIds, maxNew) {
       if (EXCLUDE && EXCLUDE.test(repo)) continue;
       const id = repo.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
       if (!id || knownIds.has(id) || knownIds.has(repo.split("/")[1].toLowerCase())) continue;
+      if (!roomFor(repo)) continue;
       probes++;
       const launch = await githubLaunch(repo, server.repository?.subfolder);
       if (!launch) continue;
+      const ghVersion = await latestVersion("github", repo);
+      if (failed.has(id + "@" + (ghVersion ?? ""))) continue;
       knownIds.add(id);
+      take(repo);
       found.push({
         id,
         name: repo,
         ecosystem: "github",
         launch,
-        version: await latestVersion("github", repo),
+        version: ghVersion,
         isNew: true,
       });
       if (found.length >= maxNew) break;
@@ -244,8 +286,10 @@ async function main() {
   // Oldest results first; keep room for MAX_NEW new servers so a Sealmark release cannot crowd them out.
   const age = new Map(tracked.map((s) => [s.id, Date.parse(s.testedAt ?? "") || 0]));
   jobs.sort((a, b) => (age.get(a.id) ?? 0) - (age.get(b.id) ?? 0));
-  jobs.length = Math.min(jobs.length, Math.max(0, MAX_JOBS - MAX_NEW));
-  jobs.push(...(await discover(new Set(tracked.map((s) => s.id)), MAX_NEW)));
+  // Many registry servers fail to start without setup they don't declare, so try twice MAX_NEW to add about MAX_NEW.
+  const newTries = MAX_NEW * 2;
+  jobs.length = Math.min(jobs.length, Math.max(0, MAX_JOBS - newTries));
+  jobs.push(...(await discover(new Set(tracked.map((s) => s.id)), newTries)));
   jobs.length = Math.min(jobs.length, MAX_JOBS);
 
   const plan = { generatedAt: new Date().toISOString(), jobs };
