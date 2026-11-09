@@ -11,7 +11,7 @@
       "serverInfoName": "dbhub",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -294,7 +294,7 @@
       "serverInfoName": "server-everything",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -568,7 +568,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -824,7 +824,7 @@
       "serverInfoName": "server-filesystem",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -1081,7 +1081,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -1326,7 +1326,7 @@
       "serverInfoName": "server-memory",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -1843,7 +1843,7 @@
       "serverInfoName": "server-sequential-thinking",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2035,7 +2035,7 @@
       "serverInfoName": "mcp-2",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2296,7 +2296,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2490,7 +2490,7 @@
       "serverInfoName": "mcp-server-filesystem",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2753,7 +2753,7 @@
       "serverInfoName": "mcp-server-airbnb",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2946,7 +2946,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3176,7 +3176,7 @@
       "serverInfoName": "context7-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3581,7 +3581,7 @@
       "serverInfoName": "git-mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3885,7 +3885,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4077,7 +4077,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4308,7 +4308,7 @@
       "serverInfoName": "database-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4574,7 +4574,7 @@
       "serverInfoName": "fetch-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4803,7 +4803,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5055,7 +5055,7 @@
       "serverInfoName": "postgres-mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5379,7 +5379,7 @@
       "serverInfoName": "mcp-fetch",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5608,7 +5608,7 @@
       "serverInfoName": "mcp-knowledge-graph",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5811,7 +5811,7 @@
       "serverInfoName": "uvx",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7259,7 +7259,7 @@
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7481,7 +7481,7 @@
       "serverInfoName": "mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7715,7 +7715,7 @@
       "serverInfoName": "affiliate-networks-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -8607,7 +8607,7 @@
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -8833,7 +8833,7 @@
       "serverInfoName": "pretrip-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9028,7 +9028,7 @@
       "serverInfoName": "reddit-research-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9256,7 +9256,7 @@
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9448,7 +9448,7 @@
       "serverInfoName": "mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9688,7 +9688,7 @@
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10139,7 +10139,7 @@
       "serverInfoName": "reasonbook",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10371,7 +10371,7 @@
       "serverInfoName": "atmy-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10600,7 +10600,7 @@
       "serverInfoName": "mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10789,18 +10789,18 @@
       "name": "autonomad-travel",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.4.4",
+      "versionTested": "1.6.4",
       "serverInfoName": "autonomad-travel",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y autonomad-travel@1.4.4",
+      "launch": "npx -y autonomad-travel@1.6.4",
       "transport": "stdio",
-      "toolCount": 7,
+      "toolCount": 12,
       "packs": [
         {
           "id": "core",
@@ -10907,7 +10907,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 7 well-formed tool(s)"
+          "summary": "handshake ok, 12 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -10915,8 +10915,8 @@
           "label": "No tool-poisoning indicators in tool metadata",
           "critical": true,
           "advisory": false,
-          "verdict": "part",
-          "summary": "1 weak indicator(s) worth reading, none conclusive"
+          "verdict": "pass",
+          "summary": "scanned 12 tool definition(s), the server instructions and serverInfo, 3 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -10924,8 +10924,8 @@
           "label": "Survives malformed tool input",
           "critical": false,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "30 invalid call(s) rejected cleanly"
+          "verdict": "part",
+          "summary": "0 internals leak(s), 24 invalid call(s) accepted"
         },
         {
           "id": "secret-echo",
@@ -10934,7 +10934,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 31 captured response(s), 1 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 55 captured response(s), 25 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -10942,8 +10942,8 @@
           "label": "Server instructions name only tools that exist",
           "critical": false,
           "advisory": true,
-          "verdict": "na",
-          "summary": "the server sent no instructions"
+          "verdict": "fail",
+          "summary": "the server instructions names 3 tool(s) the server does not offer (what_happens_next, unavailable, reply)"
         },
         {
           "id": "annotation-honesty",
@@ -10952,7 +10952,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "get_capabilities declared read-only and changed nothing in the observed directories during a benign call (search_flights not judged: the control call failed)"
+          "summary": "get_capabilities, get_updates declared read-only and changed nothing in the observed directories during a benign call (search_flights not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -10961,7 +10961,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "1 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "2 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -10983,9 +10983,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 3,
-        "toolsCalledValid": 2,
-        "toolsTotal": 7,
+        "validCalls": 4,
+        "toolsCalledValid": 3,
+        "toolsTotal": 12,
         "level": "low"
       },
       "badge": {
@@ -10999,6 +10999,11 @@
         "tool \"search_events\" is covered by the core checks only: free-text parameter \"city\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"create_booking_intent\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; its required parameter \"offer_data\" cannot be filled by the harness; write a probes: entry to call it",
         "tool \"get_capabilities\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get_updates\" is covered by the core checks only: free-text parameter \"cursor\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"message_autonomad\" is covered by the core checks only: free-text parameter \"text\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"preview_booking_change\" is covered by the core checks only: free-text parameter \"reference\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"cancel_booking\" is covered by the core checks only: free-text parameter \"reference\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"request_booking_change\" is covered by the core checks only: free-text parameter \"reference\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -11016,7 +11021,7 @@
       "serverInfoName": "computeback-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -11269,7 +11274,7 @@
       "serverInfoName": "harness-mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -11487,7 +11492,7 @@
       "serverInfoName": "mcp",
       "testedAt": "2026-11-09",
       "sealmark": {
-        "version": "0.3.0",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
