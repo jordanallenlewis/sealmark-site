@@ -23,7 +23,7 @@ The exact checks, probes and thresholds are on the [checks](/docs/reference/chec
 
 ## Which test suites run
 
-There are twelve built-in test suites, plus your own `probes:`. Eight are in the standard profile. `exec` runs only with `--active`. `scope`, `sql-guard` and `upstream` are candidate suites, added when their declaration exists ([guide](/docs/guides/backend-servers)). Each suite runs only when the harness can give the server a target it owns; otherwise it is reported as not applicable, with the reason in the second column.
+There are thirteen built-in test suites, plus your own `probes:`. Eight are in the standard profile. `exec` runs only with `--active`. `scope`, `sql-guard`, `upstream` and `oauth` are candidate suites, added when their declaration exists ([guide](/docs/guides/backend-servers)). Each suite runs only when the harness can give the server a target it owns; otherwise it is reported as not applicable, with the reason in the second column.
 
 | Test suite | Not applicable when |
 |---|---|
