@@ -9438,6 +9438,246 @@
       ],
       "warnings": [],
       "automated": true
+    },
+    {
+      "id": "extremely-agency-mcp",
+      "name": "@extremely-agency/mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.1.1",
+      "serverInfoName": "mcp",
+      "testedAt": "2026-11-09",
+      "sealmark": {
+        "version": "0.3.0",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @extremely-agency/mcp@0.1.1",
+      "transport": "stdio",
+      "toolCount": 31,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "every control call failed, so the read-only annotation could not be checked"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 31 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 31 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "119 invalid call(s) rejected cleanly"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 120 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the read-only annotation could not be checked"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the closed-world annotation could not be checked"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 31,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "malformed-input probes cover the first 25 of 31 tools",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"list_agencies\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"list_requests\" is covered by the core checks only: free-text parameter \"agency\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"answer_request\" is covered by the core checks only: free-text parameter \"answer\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"reply_to_request\" is covered by the core checks only: free-text parameter \"text\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"give_task\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_agents\" is covered by the core checks only: free-text parameter \"agency\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"read_agent\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"write_agent_file\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_models\" is covered by the core checks only: free-text parameter \"agency\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"set_agent_models\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"set_agent\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"builder_guide\" is covered by the core checks only: free-text parameter \"agency\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "19 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"test_integration\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"publish_integration\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"test_event\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"give_events\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"give_tools\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"discard_integration\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"list_agencies\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
+      ],
+      "warnings": [],
+      "automated": true
     }
   ],
   "verification": {
