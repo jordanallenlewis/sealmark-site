@@ -12462,16 +12462,16 @@
       "name": "chainhilt",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.0.2",
+      "versionTested": "0.0.3",
       "serverInfoName": "chainhilt",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y chainhilt@0.0.2",
+      "launch": "npx -y chainhilt@0.0.3",
       "transport": "stdio",
       "toolCount": 6,
       "packs": [
