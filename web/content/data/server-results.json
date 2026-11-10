@@ -48544,10 +48544,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.429",
-      "versionTested": "1.108.429",
+      "refTested": "1.108.430",
+      "versionTested": "1.108.430",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
