@@ -29840,16 +29840,16 @@
       "name": "apiguru-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.1.60",
+      "versionTested": "1.1.61",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx apiguru-mcp==1.1.60",
+      "launch": "uvx apiguru-mcp==1.1.61",
       "transport": "stdio",
       "toolCount": 12,
       "packs": [
@@ -34341,16 +34341,16 @@
       "name": "@firecms/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.5.1",
+      "versionTested": "3.5.2",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @firecms/mcp-server@3.5.1",
+      "launch": "npx -y @firecms/mcp-server@3.5.2",
       "transport": "stdio",
       "toolCount": 45,
       "packs": [
@@ -39216,16 +39216,16 @@
       "name": "@pascal-app/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.7",
+      "versionTested": "1.1.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pascal-app/mcp@1.0.7",
+      "launch": "npx -y @pascal-app/mcp@1.1.0",
       "transport": "stdio",
       "toolCount": 89,
       "packs": [
@@ -45078,16 +45078,16 @@
       "name": "@vruum/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.15.1",
+      "versionTested": "0.16.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @vruum/mcp@0.15.1",
+      "launch": "npx -y @vruum/mcp@0.16.0",
       "transport": "stdio",
       "toolCount": 37,
       "packs": [
@@ -47808,10 +47808,10 @@
       "name": "doobidoo/mcp-memory-service",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "12.7.0",
-      "versionTested": "12.7.0",
+      "refTested": "12.8.0",
+      "versionTested": "12.8.0",
       "serverInfoName": "mcp-memory-service",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-10",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
@@ -48544,8 +48544,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.432",
-      "versionTested": "1.108.432",
+      "refTested": "1.108.433",
+      "versionTested": "1.108.433",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-10",
       "sealmark": {
