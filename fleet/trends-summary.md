@@ -4,9 +4,9 @@ Graded now: 209 servers; never graded: 170.
 
 | Sealmark | servers | graded | failed to start | A | B | C | D | F |
 |---|---|---|---|---|---|---|---|---|
-| pre-1.0 (unrecorded) | 208 | 214 | 227 | 106 | 33 | 0 | 26 | 49 |
+| pre-1.0 (unrecorded) | 208 | 214 | 233 | 106 | 33 | 0 | 26 | 49 |
 | 0.3.0 | 10 | 10 | 0 | 5 | 5 | 0 | 0 | 0 |
-| 1.0.0 | 208 | 238 | 0 | 139 | 72 | 2 | 15 | 10 |
+| 1.0.0 | 208 | 239 | 0 | 139 | 73 | 2 | 15 | 10 |
 
 | from | to | improved | regressed | unchanged |
 |---|---|---|---|---|

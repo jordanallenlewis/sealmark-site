@@ -1,5 +1,7 @@
 ## Fleet triage
 
-Window: 220 results (151 graded, 69 failed). 0 issue cluster(s).
+Window: 227 results (152 graded, 75 failed). 1 issue cluster(s).
 
-No clusters: nothing for Sealmark to fix from this window.
+| kind | cluster | servers |
+|---|---|---|
+| hardening | 31% of servers never start under the fleet harness | 70 |
