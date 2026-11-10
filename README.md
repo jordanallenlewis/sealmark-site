@@ -1,6 +1,6 @@
 # sealmark-site
 
-The website at [sealmark.dev](https://sealmark.dev) and the fleet that keeps its results current. Private. The tool itself lives in the public repository [jordanallenlewis/sealmark](https://github.com/jordanallenlewis/sealmark).
+The website at [sealmark.dev](https://sealmark.dev) and the fleet that keeps its results current. Public. The tool itself lives in the public repository [jordanallenlewis/sealmark](https://github.com/jordanallenlewis/sealmark).
 
 | Path | What |
 |---|---|
