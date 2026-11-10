@@ -14,6 +14,14 @@ export const metadata: Metadata = RESULTS_PUBLIC
 
 const LETTERS: Letter[] = ["A", "B", "C", "D", "F"];
 
+/** The newest test date in the results, as "November 10, 2026" (UTC): the fleet re-tests servers, so a fixed month goes stale. */
+function lastTested(list: readonly { testedAt?: string }[]): string {
+  const last = list.map((x) => x.testedAt ?? "").filter(Boolean).sort().at(-1);
+  if (!last) return "date unknown";
+  const d = new Date(`${last.slice(0, 10)}T00:00:00Z`);
+  return Number.isNaN(d.getTime()) ? last : d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+}
+
 export default function ResultsPage() {
   if (!RESULTS_PUBLIC) {
     return (
@@ -43,7 +51,7 @@ export default function ResultsPage() {
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
         <div className={s.preview}>Maintainers have not reviewed these results yet. Methodology {DATA.methodology} is a draft.</div>
-        <p className={s.eyebrow}>Results · October 2026 · Sealmark {list[0]?.sealmark.version}</p>
+        <p className={s.eyebrow}>Results · updated {lastTested(list)} · Sealmark {list[0]?.sealmark.version}</p>
         <h1 className={s.h1}>What Sealmark found on {SERVER_COUNT} public MCP servers</h1>
         <p className={s.lede}>
           Each server was installed the way its README says, run through Sealmark with
