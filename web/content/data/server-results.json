@@ -6306,16 +6306,16 @@
       "name": "mcp-server-motherduck",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.1.0",
+      "versionTested": "1.1.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx --from mcp-server-motherduck==1.1.0 mcp-server-motherduck --db-path :memory: --read-write",
+      "launch": "uvx --from mcp-server-motherduck==1.1.1 mcp-server-motherduck --db-path :memory: --read-write",
       "transport": "stdio",
       "toolCount": 4,
       "packs": [
@@ -12462,16 +12462,16 @@
       "name": "chainhilt",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.0.3",
+      "versionTested": "0.0.4",
       "serverInfoName": "chainhilt",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y chainhilt@0.0.3",
+      "launch": "npx -y chainhilt@0.0.4",
       "transport": "stdio",
       "toolCount": 6,
       "packs": [
@@ -16003,16 +16003,16 @@
       "name": "@haymon-ai/dbmcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.17.0",
+      "versionTested": "0.18.1",
       "serverInfoName": "dbmcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @haymon-ai/dbmcp@0.17.0",
+      "launch": "npx -y @haymon-ai/dbmcp@0.18.1",
       "transport": "stdio",
       "toolCount": 8,
       "packs": [
@@ -16156,8 +16156,8 @@
           "label": "Server instructions name only tools that exist",
           "critical": false,
           "advisory": true,
-          "verdict": "fail",
-          "summary": "the server instructions names 1 tool(s) the server does not offer (getTableSchema)"
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
         },
         {
           "id": "refusal-quality",
@@ -29357,7 +29357,7 @@
       "name": "apick-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "5.9.0",
+      "versionTested": "5.10.1",
       "serverInfoName": "apick-mcp",
       "testedAt": "2026-11-11",
       "sealmark": {
@@ -29366,9 +29366,9 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y apick-mcp@5.9.0",
+      "launch": "npx -y apick-mcp@5.10.1",
       "transport": "stdio",
-      "toolCount": 225,
+      "toolCount": 222,
       "packs": [
         {
           "id": "core",
@@ -29475,7 +29475,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 225 well-formed tool(s)"
+          "summary": "handshake ok, 222 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -29484,7 +29484,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 225 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 222 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -29589,7 +29589,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 225,
+        "toolsTotal": 222,
         "level": "hygiene-only"
       },
       "badge": {
@@ -29597,20 +29597,19 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 225 tools",
+        "malformed-input probes cover the first 25 of 222 tools",
         "tool \"youtube_subtitle_list\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"youtube_subtitle\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"instagram_profile\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"instagram_post\" was not covered by the net pack: only the first 6 URL tools are probed",
-        "tool \"tiktok_profile\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"amazon_product\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"x_profile\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"x_post\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"coupang_product\" was not covered by the net pack: only the first 6 URL tools are probed",
-        "tool \"naver_shopping_product\" was not covered by the net pack: only the first 6 URL tools are probed",
-        "tool \"linkedin_profile\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"linkedin_company\" was not covered by the net pack: only the first 6 URL tools are probed",
-        "3 more tool gaps in the capability packs are listed in each check's coverage in the JSON report",
+        "tool \"linkedin_job\" was not covered by the net pack: only the first 6 URL tools are probed",
+        "tool \"url_to_markdown\" was not covered by the net pack: only the first 6 URL tools are probed",
+        "tool \"web_capture_extract\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"transfer_1won\" is covered by the core checks only: free-text parameter \"account_num\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"account_realname\" is covered by the core checks only: free-text parameter \"account_num\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
@@ -29735,13 +29734,10 @@
         "tool \"youtube_subtitle\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"instagram_profile\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"instagram_post\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"tiktok_profile\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"amazon_product\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"x_profile\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"x_post\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"coupang_product\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"naver_shopping_product\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"linkedin_profile\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"linkedin_company\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"linkedin_job\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"url_to_markdown\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -32623,18 +32619,18 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.46",
+      "versionTested": "2.12.47",
       "serverInfoName": "dchub-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.46",
+      "launch": "npx -y dchub-mcp-server@2.12.47",
       "transport": "stdio",
-      "toolCount": 94,
+      "toolCount": 95,
       "packs": [
         {
           "id": "core",
@@ -32741,7 +32737,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 94 well-formed tool(s)"
+          "summary": "handshake ok, 95 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -32750,7 +32746,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 94 tool definition(s), the server instructions and serverInfo, 14 prompt(s) and 80 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 95 tool definition(s), the server instructions and serverInfo, 15 prompt(s) and 80 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -32822,7 +32818,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, simulate_scenario, list_standing_intents, cluster_sites_by_latency, source_capacity, read_inbox not judged: the control call failed)"
+          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, get_air_permit_context, simulate_scenario, list_standing_intents, cluster_sites_by_latency, source_capacity, read_inbox not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -32831,7 +32827,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "49 closed-world tool(s) called; none reached out beyond what was asked"
+          "summary": "50 closed-world tool(s) called; none reached out beyond what was asked"
         },
         {
           "id": "undeclared-writes",
@@ -32853,9 +32849,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 63,
-        "toolsCalledValid": 61,
-        "toolsTotal": 94,
+        "validCalls": 64,
+        "toolsCalledValid": 62,
+        "toolsTotal": 95,
         "level": "covered"
       },
       "badge": {
@@ -32863,7 +32859,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 94 tools",
+        "malformed-input probes cover the first 25 of 95 tools",
         "SQL tool \"discover_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search_facilities\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -32883,7 +32879,7 @@
         "tool \"get_grid_scoreboard\" is covered by the core checks only: the tool takes no parameters",
         "tool \"compare_isos\" is covered by the core checks only: free-text parameter \"isos\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_intelligence_index\" is covered by the core checks only: the tool takes no parameters",
-        "74 more tool(s) are covered by the core checks only (see the classification)",
+        "75 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"get_interconnection_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_refined_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_retirement_headroom\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -32938,6 +32934,7 @@
         "tool \"grid_transition_radar\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"deal_autopsy\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_permitting_intel\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_air_permit_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"simulate_scenario\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"research_task\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_standing_intents\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -33660,16 +33657,16 @@
       "name": "dwelldelta-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.16.1",
+      "versionTested": "0.17.0",
       "serverInfoName": "dwelldelta-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dwelldelta-mcp@0.16.1",
+      "launch": "npx -y dwelldelta-mcp@0.17.0",
       "transport": "stdio",
       "toolCount": 8,
       "packs": [
@@ -39217,16 +39214,16 @@
       "name": "@pascal-app/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.0",
+      "versionTested": "1.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pascal-app/mcp@1.1.0",
+      "launch": "npx -y @pascal-app/mcp@1.1.1",
       "transport": "stdio",
       "toolCount": 89,
       "packs": [
@@ -48545,8 +48542,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.434",
-      "versionTested": "1.108.434",
+      "refTested": "1.108.438",
+      "versionTested": "1.108.438",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-11",
       "sealmark": {
