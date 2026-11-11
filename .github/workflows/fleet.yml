@@ -112,6 +112,17 @@ jobs:
         run: |
           if [ -z "$GH_TOKEN" ]; then echo "SEALMARK_ISSUES_TOKEN not set: triage.json is committed, issues are filed by hq-builder."; exit 0; fi
           node fleet/file-issues.mjs
+      - name: tell server owners (one issue per repo; drafts only unless OWNER_ISSUES_TOKEN and OWNER_ISSUES_LIVE == "1")
+        env:
+          OWNER_ISSUES_TOKEN: ${{ secrets.OWNER_ISSUES_TOKEN }}
+          OWNER_ISSUES_LIVE: ${{ vars.OWNER_ISSUES_LIVE }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node fleet/notify-owners.mjs
+      - name: impact of owner notices (internal; reads GitHub and the notify D1, writes fleet/impact-summary.md)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node fleet/impact.mjs
       - name: commit the new grades
         run: |
           git config user.name "Jordan Lewis"
