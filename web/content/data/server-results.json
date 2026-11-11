@@ -7,16 +7,16 @@
       "name": "@bytebase/dbhub",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.6.0",
+      "versionTested": "1.6.1",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @bytebase/dbhub@1.6.0 --transport stdio --dsn {dsn}",
+      "launch": "npx -y @bytebase/dbhub@1.6.1 --transport stdio --dsn {dsn}",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -290,16 +290,16 @@
       "name": "@modelcontextprotocol/server-everything",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.2.1",
+      "versionTested": "2.3.0",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-everything@2.2.1",
+      "launch": "npx -y @modelcontextprotocol/server-everything@2.3.0",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -564,16 +564,16 @@
       "name": "mcp-server-fetch",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.11.4",
+      "versionTested": "2026.11.11",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-fetch==2026.11.4",
+      "launch": "uvx mcp-server-fetch==2026.11.11",
       "transport": "stdio",
       "toolCount": 1,
       "packs": [
@@ -820,16 +820,16 @@
       "name": "@modelcontextprotocol/server-filesystem",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.2.0",
+      "versionTested": "2.3.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.2.0 {sandbox}",
+      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.3.0 {sandbox}",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -1077,16 +1077,16 @@
       "name": "mcp-server-git",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.11.4",
+      "versionTested": "2026.11.11",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-git==2026.11.4 --repository {sandbox}/repo",
+      "launch": "uvx mcp-server-git==2026.11.11 --repository {sandbox}/repo",
       "transport": "stdio",
       "toolCount": 14,
       "packs": [
@@ -1322,16 +1322,16 @@
       "name": "@modelcontextprotocol/server-memory",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.1.0",
+      "versionTested": "2.1.1",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-memory@2.1.0",
+      "launch": "npx -y @modelcontextprotocol/server-memory@2.1.1",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [
@@ -2292,16 +2292,16 @@
       "name": "mcp-server-time",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.11.4",
+      "versionTested": "2026.11.11",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-time==2026.11.4",
+      "launch": "uvx mcp-server-time==2026.11.11",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -7255,16 +7255,16 @@
       "name": "@adeu/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.2.1",
+      "versionTested": "3.2.2",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @adeu/mcp-server@3.2.1",
+      "launch": "npx -y @adeu/mcp-server@3.2.2",
       "transport": "stdio",
       "toolCount": 6,
       "packs": [
@@ -11736,16 +11736,16 @@
       "name": "@ai-dossier/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.6.5",
+      "versionTested": "1.6.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @ai-dossier/mcp-server@1.6.5",
+      "launch": "npx -y @ai-dossier/mcp-server@1.6.6",
       "transport": "stdio",
       "toolCount": 10,
       "packs": [
@@ -13568,16 +13568,16 @@
       "name": "decimalai-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "0.1.4",
+      "versionTested": "0.1.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx decimalai-mcp==0.1.4",
+      "launch": "uvx decimalai-mcp==0.1.5",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -29357,18 +29357,18 @@
       "name": "apick-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "5.8.5",
+      "versionTested": "5.9.0",
       "serverInfoName": "apick-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y apick-mcp@5.8.5",
+      "launch": "npx -y apick-mcp@5.9.0",
       "transport": "stdio",
-      "toolCount": 224,
+      "toolCount": 225,
       "packs": [
         {
           "id": "core",
@@ -29475,7 +29475,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 224 well-formed tool(s)"
+          "summary": "handshake ok, 225 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -29484,7 +29484,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 224 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 225 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -29493,7 +29493,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "119 invalid call(s) rejected cleanly"
+          "summary": "118 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -29502,7 +29502,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 120 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 119 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -29589,7 +29589,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 224,
+        "toolsTotal": 225,
         "level": "hygiene-only"
       },
       "badge": {
@@ -29597,7 +29597,7 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 224 tools",
+        "malformed-input probes cover the first 25 of 225 tools",
         "tool \"youtube_subtitle_list\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"youtube_subtitle\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"instagram_profile\" was not covered by the net pack: only the first 6 URL tools are probed",
@@ -29616,6 +29616,7 @@
         "tool \"account_realname\" is covered by the core checks only: free-text parameter \"account_num\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"bank_code\" is covered by the core checks only: the tool takes no parameters",
         "tool \"crypto_market\" is covered by the core checks only: free-text parameter \"symbols\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"exchange_rate\" is covered by the core checks only: free-text parameter \"month\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"identi_card1\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"identi_card2\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"identi_card3\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
@@ -29623,8 +29624,8 @@
         "tool \"identi_card5\" is covered by the core checks only: free-text parameter \"rrn\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"identi_card_image1\" is covered by the core checks only: free-text parameter \"image_url\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"identi_card_image2\" is covered by the core checks only: free-text parameter \"image_url\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"identi_card_image3\" is covered by the core checks only: free-text parameter \"image_url\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "191 more tool(s) are covered by the core checks only (see the classification)",
+        "192 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"ocr_identi4\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"ocr_identi5\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"biz_detail\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"venture_biz_info\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -50977,6 +50978,266 @@
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "naulon-wayfarer-mcp",
+      "name": "@naulon/wayfarer-mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.7.9",
+      "serverInfoName": "wayfarer-mcp",
+      "testedAt": "2026-11-11",
+      "sealmark": {
+        "version": "1.0.0",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @naulon/wayfarer-mcp@0.7.9",
+      "transport": "stdio",
+      "toolCount": 7,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 27 of 27 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 7 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 7 tool definition(s), the server instructions and serverInfo, 3 prompt(s), including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "32 invalid call(s) rejected cleanly"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 33 captured response(s), 1 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "fail",
+          "summary": "the server instructions names 17 tool(s) the server does not offer (refused_by_publisher, terms, usage, ai-input, ai-train)"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 27 of 27 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 18 of 18 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "naulon_status, naulon_quote, naulon_read_held declared read-only and changed nothing in the observed directories during a benign call"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "1 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 4,
+        "toolsCalledValid": 3,
+        "toolsTotal": 7,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "a pack has an inconclusive critical check"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"naulon_discover\" is covered by the core checks only: free-text parameter \"topic\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"naulon_status\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"naulon_appraise\" is covered by the core checks only: free-text parameter \"topic\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"naulon_research\" is covered by the core checks only: free-text parameter \"topic\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
       "automated": true
