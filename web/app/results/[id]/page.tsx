@@ -10,6 +10,7 @@ import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor } from "@/lib/history";
 import { ORIGIN, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
+import { NotifyForm } from "../NotifyForm";
 import s from "../results.module.css";
 
 export const dynamicParams = false;
@@ -125,6 +126,8 @@ export default async function ServerPage({ params }: P) {
           <p>Started with the standard settings like this; put it in <code>sealmark.yaml</code> as the server:</p>
           <div className={s.code}>{launchLine(x)}</div>
         </section>
+
+        <NotifyForm server={x.id} name={x.name} />
 
         <p className={s.muted} style={{ marginTop: 28 }}>
           Each of {VERDICTS_CHECKED} verdicts was checked independently, and Sealmark was wrong on some: <Link href="/results/#reliability">how reliable Sealmark is</Link>.
