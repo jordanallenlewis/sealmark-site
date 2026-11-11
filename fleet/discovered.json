@@ -1078,5 +1078,11 @@
     "name": "vibheksoni/stealth-browser-mcp",
     "ecosystem": "github",
     "launch": "uvx --from git+https://github.com/vibheksoni/stealth-browser-mcp stealth-browser-mcp"
+  },
+  {
+    "id": "naulon-wayfarer-mcp",
+    "name": "@naulon/wayfarer-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @naulon/wayfarer-mcp@0.7.9"
   }
 ]
