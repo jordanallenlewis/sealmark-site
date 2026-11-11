@@ -10801,16 +10801,16 @@
       "name": "autonomad-travel",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.6.4",
+      "versionTested": "1.6.5",
       "serverInfoName": "autonomad-travel",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y autonomad-travel@1.6.4",
+      "launch": "npx -y autonomad-travel@1.6.5",
       "transport": "stdio",
       "toolCount": 12,
       "packs": [
@@ -48544,10 +48544,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.433",
-      "versionTested": "1.108.433",
+      "refTested": "1.108.434",
+      "versionTested": "1.108.434",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
@@ -50291,10 +50291,10 @@
       "name": "taylorwilsdon/google_workspace_mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "2.4.0",
-      "versionTested": "2.4.0",
+      "refTested": "2.4.1",
+      "versionTested": "2.4.1",
       "serverInfoName": "google_workspace_mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-11",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
