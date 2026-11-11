@@ -121,7 +121,7 @@ export function issueDraft({ id, server, repo }) {
     ISSUE_MARKER(id),
     `Hi! [Sealmark](${ORIGIN}) is an open-source behavioural test suite for MCP servers. It started \`${server.name}\` ${server.versionTested} with its default settings on ${server.testedAt} and graded it **${letter}**.`,
     `| Pack | Grade | Points |\n|---|---|---|\n${rows}`,
-    failing.length ? `Checks that failed:\n\n${top}${failing.length > 5 ? `\n- and ${failing.length - 5} more on the results page` : ""}` : `No check failed outright.`,
+    failing.length ? `Checks that failed:\n\n${top}${failing.length > 5 ? `\n- and ${failing.length - 5} more on the results page` : ""}` : letter === "A" ? `No check failed.` : `No check failed outright; the results page shows what kept it from an A (checks that only partly passed or could not finish).`,
     `Full results, with what was and was not covered: ${resultsUrl(id)}`,
     `This is an automated re-test, not a review by hand, and Sealmark can be wrong. If a verdict looks wrong, reply here or email disclosure@sealmark.dev and we recheck it.`,
     ...(badgeEligible(server) ? [`Badge, if you want one (it links to the results and updates with each re-test):\n\n\`\`\`md\n[![Sealmark](${badgeUrl(id)})](${resultsUrl(id)})\n\`\`\``] : []),

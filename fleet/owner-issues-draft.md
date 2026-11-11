@@ -48,7 +48,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 |---|---|---|
 | Protocol | B | 1.5/2 |
 
-No check failed outright.
+No check failed outright; the results page shows what kept it from an A (checks that only partly passed or could not finish).
 
 Full results, with what was and was not covered: https://sealmark.dev/results/3dstreet-mcp/
 
@@ -70,7 +70,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 |---|---|---|
 | Protocol | A | 4/4 |
 
-No check failed outright.
+No check failed.
 
 Full results, with what was and was not covered: https://sealmark.dev/results/achromat-ai-mcp-server/
 
@@ -92,7 +92,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 |---|---|---|
 | Protocol | A | 4/4 |
 
-No check failed outright.
+No check failed.
 
 Full results, with what was and was not covered: https://sealmark.dev/results/addressintel-mcp/
 
@@ -115,7 +115,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 | Protocol | A | 4/4 |
 | Effects | A | 1/1 |
 
-No check failed outright.
+No check failed.
 
 Full results, with what was and was not covered: https://sealmark.dev/results/affiliate-networks-mcp/
 
@@ -144,7 +144,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 | Protocol | B | 3.5/4 |
 | Effects | A | 2/2 |
 
-No check failed outright.
+No check failed outright; the results page shows what kept it from an A (checks that only partly passed or could not finish).
 
 Full results, with what was and was not covered: https://sealmark.dev/results/agent-bev-mcp-server/
 
@@ -172,7 +172,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 |---|---|---|
 | Protocol | A | 4/4 |
 
-No check failed outright.
+No check failed.
 
 Full results, with what was and was not covered: https://sealmark.dev/results/aminforou-mcp-gsc/
 
@@ -194,7 +194,7 @@ Hi! [Sealmark](https://sealmark.dev) is an open-source behavioural test suite fo
 |---|---|---|
 | Protocol | B | 3.5/4 |
 
-No check failed outright.
+No check failed outright; the results page shows what kept it from an A (checks that only partly passed or could not finish).
 
 Full results, with what was and was not covered: https://sealmark.dev/results/antvis-mcp-server-chart/
 
