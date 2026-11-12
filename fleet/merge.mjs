@@ -4,6 +4,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { recordFailedAttempt } from "../web/lib/retest.mjs";
 
 const RESULTS = path.join("web", "content", "data", "server-results.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
@@ -79,6 +80,9 @@ for (const name of subfolders) {
   const report = readJson(path.join(dir, "sealmark.json"));
   const run = readJson(path.join(dir, "run.json"));
   if (!report || report.status === "failed") {
+    const kind = report ? failClass(report.error) : "no-report";
+    // Keep the last grade, but say on it that this re-test failed (web/lib/retest.mjs); a new server gets no entry.
+    recordFailedAttempt(results.servers, meta.id, today, kind);
     appendHistory({
       id: meta.id,
       version: meta.version,
@@ -89,7 +93,7 @@ for (const name of subfolders) {
     appendTelemetry({
       id: meta.id, ecosystem: meta.ecosystem, serverVersion: meta.version ?? null, testedAt: today,
       sealmark: report?.sealmark?.version ?? "unknown", status: "failed",
-      failClass: report ? failClass(report.error) : "no-report", errorSig: scrub(report?.error ?? "no report"),
+      failClass: kind, errorSig: scrub(report?.error ?? "no report"),
       durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
     });
     failed += 1;
