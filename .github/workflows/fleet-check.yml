@@ -28,6 +28,8 @@ jobs:
           node-version: '24'
       - name: syntax
         run: for f in fleet/*.mjs; do node --check "$f"; done
+      - name: unit tests (launch overrides the planner can run)
+        run: node --test fleet/overrides.test.mjs
       - name: workflow YAML parses
         run: |
           pip install -q pyyaml
