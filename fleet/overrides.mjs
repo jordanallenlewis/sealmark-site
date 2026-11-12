@@ -14,3 +14,11 @@ export function unplannableOverrides(overrides) {
     .map(([id]) => id)
     .sort();
 }
+
+// True when an override exists that the stored grade was not made with, so the server must be re-tested even though its version,
+// the Sealmark version and its age are unchanged. `stored` is the launch saved with the grade (pinned to the tested version),
+// `wanted` the override, `version` the version tested and `pin(launch, version)` pins a launch to it, as plan.mjs does for jobs.
+export function launchChanged(stored, wanted, version, pin) {
+  if (typeof stored !== "string" || !canPlan(wanted)) return false;
+  return pin(wanted, version) !== stored;
+}
