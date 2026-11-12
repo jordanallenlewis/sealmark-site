@@ -23204,16 +23204,16 @@
       "name": "rightcard-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.17",
+      "versionTested": "0.1.20",
       "serverInfoName": "rightcard-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y rightcard-mcp@0.1.17",
+      "launch": "npx -y rightcard-mcp@0.1.20",
       "transport": "stdio",
       "toolCount": 5,
       "packs": [
@@ -48542,10 +48542,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.438",
-      "versionTested": "1.108.438",
+      "refTested": "1.108.440",
+      "versionTested": "1.108.440",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
@@ -50289,10 +50289,10 @@
       "name": "taylorwilsdon/google_workspace_mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "2.4.1",
-      "versionTested": "2.4.1",
+      "refTested": "2.4.2",
+      "versionTested": "2.4.2",
       "serverInfoName": "google_workspace_mcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
