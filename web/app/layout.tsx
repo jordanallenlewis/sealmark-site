@@ -4,6 +4,7 @@ import { SkulletProvider } from "skullet/react";
 import "./globals.css";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { TopLoader } from "@/components/TopLoader";
+import { VisitBeacon } from "@/components/VisitBeacon";
 import { AUTHOR, SITE } from "@/lib/site";
 import { METHODOLOGY } from "@/lib/data";
 import { jsonLd, softwareJsonLd } from "@/lib/seo";
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <TopLoader />
         <SkulletProvider mode="dark" theme={skeletonTheme}>
           <ScrollToTop />
+          <VisitBeacon />
           {children}
         </SkulletProvider>
       </body>
