@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - "fleet/**"
+      - "web/worker/notify-core.mjs"
       - "web/lib/retest.mjs"
       - ".github/workflows/fleet.yml"
       - ".github/workflows/fleet-check.yml"
@@ -29,8 +30,8 @@ jobs:
           node-version: '24'
       - name: syntax
         run: for f in fleet/*.mjs; do node --check "$f"; done
-      - name: unit tests (launch overrides the planner can run; failed re-tests shown on the grade)
-        run: node --test fleet/overrides.test.mjs fleet/retest.test.mjs
+      - name: unit tests (launch overrides, failed re-tests, owner notices, impact join and attribution)
+        run: node --test "fleet/*.test.mjs"
       - name: workflow YAML parses
         run: |
           pip install -q pyyaml

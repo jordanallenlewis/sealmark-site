@@ -1,0 +1,1062 @@
+{
+  "3dstreet-mcp": {
+    "repo": "3DStreet/3dstreet-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "achromat-ai-mcp-server": {
+    "repo": "achromat-ai/achromat-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "addressintel-mcp": {
+    "repo": "RantumBits/addressintel-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "adeu-mcp-server": {
+    "repo": "dealfluence/adeu",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "aetherwealth-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "affiliate-networks-mcp": {
+    "repo": "bobberrisford/affiliatemcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "agent-bev-mcp-server": {
+    "repo": "agent-bev/bev-door",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "agent-infra-fs": {
+    "repo": "bytedance/UI-TARS-desktop",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "ai-dossier-mcp-server": {
+    "repo": "imboard-ai/ai-dossier",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "airbnb": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "aminforou-mcp-gsc": {
+    "repo": "AminForou/mcp-gsc",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "antvis-mcp-server-chart": {
+    "repo": "antvis/mcp-server-chart",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "anyforge-mcp-server": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "apick-mcp": {
+    "repo": "lead788/apick-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "apiguru-mcp": {
+    "repo": "apiguru-app/agent-kit",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "apillow-mcp": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "appscreen-mcp": {
+    "repo": "omelas-tech/appscreen-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "aquex-reasonbook": {
+    "repo": "kneelinghorse/reasonbook",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "arxiv": {
+    "repo": "blazickjp/arxiv-mcp-server",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "atilaahmettaner-tradingview-mcp": {
+    "repo": "atilaahmettaner/tradingview-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "atlasyield-mcp": {
+    "repo": "gveshk/atlasyield-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "atmy-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "autenai-mcp": {
+    "repo": "auten-ai/auten-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "autonomad-travel": {
+    "repo": "autonomad-ai/autonomad",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "autonomad1-computeback-mcp": {
+    "repo": "Autonomad1/computeback-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "autonomous-ai-harness-mcp": {
+    "repo": "autonomous-ai/openharness",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "backtest-auditor": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "bethington-ghidra-mcp": {
+    "repo": "bethington/ghidra-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "betterjobs-mcp": {
+    "repo": "nickvorobiov/betterjobs",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "blazickjp-arxiv-mcp-server": {
+    "repo": "blazickjp/arxiv-mcp-server",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "bolthub-mcp": {
+    "repo": "signaltech-org/bolthub-sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "brick-blue-mcp": {
+    "repo": "brick-blue/brick-blue-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "call-grokbot": {
+    "repo": "ZensHQ/call-grokbot",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "callmcp-server": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "certscore-mcp": {
+    "repo": "ergoveritas1-alt/certscore.ai",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "chainhilt": {
+    "repo": "bancorprotocol/chainhilt-wallet",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "clarxai-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "cleanor-mcp": {
+    "repo": "cleanor-app/cleanor-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "clelp-mcp-server": {
+    "repo": "oscarsterling/clelp-skills",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "context7": {
+    "repo": "upstash/context7",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "cookwala-mcp": {
+    "repo": "amado2k5/cookwala",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "crawlio-browser": {
+    "repo": "Crawlio-app/crawlio-browser",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "creatica-mcp": {
+    "repo": "anup-a/web-backgrounds",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "cyanheads-fs": {
+    "repo": "cyanheads/filesystem-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "cyanheads-git": {
+    "repo": "cyanheads/git-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "darkknightcave-motion-mcp": {
+    "repo": "DKC-Engineering/motion-library",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "datavidence-financials": {
+    "repo": "datavidence/datavidence-financials-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "dbhub": {
+    "repo": "bytebase/dbhub",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "dchub-mcp-server": {
+    "repo": "azmartone67/dchub-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "decimalai-mcp": {
+    "repo": "decimal-labs/decimalai-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "deepdna-mcp": {
+    "repo": "alfonsoguv/deepdna-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "demomagic-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "devglow-mcp": {
+    "repo": "aesopfrom0/devglow-releases",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "dinglebear-rytdl": {
+    "repo": "dinglebear-ai/rytdl",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "doc-cheap-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "doobidoo-mcp-memory-service": {
+    "repo": "doobidoo/mcp-memory-service",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "duckdb-mcp": {
+    "repo": "ktanaka101/mcp-server-duckdb",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "duckduckgo": {
+    "repo": "nickclyde/duckduckgo-mcp-server",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "durely-garmin-insights-mcp": {
+    "repo": "durely/garmin-insights-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "dwelldelta-mcp": {
+    "repo": "xcelerent/dwelldelta-tools",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "dxpert-uns-tools": {
+    "repo": "dxpert-ai/uns-tools",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "ekwo-ai-mcp": {
+    "repo": "Ekwo-ai/ekwo-os",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "elicitly": {
+    "repo": "elicitly/elicitly",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "everything": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "exa-labs-exa-mcp-server": {
+    "repo": "exa-labs/exa-mcp-server",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "executeautomation-db": {
+    "repo": "executeautomation/mcp-database-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "extremely-agency-mcp": {
+    "repo": "maxkxd/extremely-autonomous-agents",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "feeling-search-mcp": {
+    "repo": "xixi048/feeling-search-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "fetch": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "fetch-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "fictura-mcp": {
+    "repo": "Apex-Byte-Technologies/fictura_sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "filesystem": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "firecms-mcp-server": {
+    "repo": "firecmsco/firecms",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "firecrawl-firecrawl-mcp-server": {
+    "repo": "firecrawl/firecrawl-mcp-server",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "fleet-memory-mcp": {
+    "repo": "Holetron-lab/fleet-memory",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "formachines-errata-mcp": {
+    "repo": "formachines-ai/errata-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "formatika-mcp": {
+    "repo": "formatika-app/mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "gage-mcp": {
+    "repo": "DebenLabs/gage-sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "galaxymovies-mcp": {
+    "repo": "NickFasulo/galaxymovies-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-12"
+  },
+  "gency-ai-gency-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "getvetai-mcp": {
+    "repo": "getvetai/mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "git": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "git-mcp-py": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "haymon-ai-dbmcp": {
+    "repo": "haymon-ai/dbmcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "henkey-postgres": {
+    "repo": "HenkDz/postgresql-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "hostbeam-mcp": {
+    "repo": "PunkAbeat/hostbeam-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "hovecapital-read-only-mysql-mcp-server": {
+    "repo": "hovecapital/read-only-local-mysql-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "hovecapital-read-only-postgres-mcp-server": {
+    "repo": "hovecapital/read-only-local-postgres-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "html-cloud-mcp": {
+    "repo": "viljamilaurila/html-cloud",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "inite-club-mcp": {
+    "repo": "inite-ai/inite-club-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "inite-visibility": {
+    "repo": "inite-ai/inite-visibility",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "instantreply-co-mcp": {
+    "repo": "suleimandoescsec/instantreply-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "intodns-mcp": {
+    "repo": "RoscoNL/intodns-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "ipforai-mcp": {
+    "repo": "xjokerabab/ipforai",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "jgravelle-jcodemunch-mcp": {
+    "repo": "jgravelle/jcodemunch-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "joooook-12306-mcp": {
+    "repo": "Joooook/12306-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "justdrop-mcp": {
+    "repo": "Managed-Digital-LLC/justdrop-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "kavel-mcp": {
+    "repo": "hanshs474/kavel-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "kawacode-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "kazuph-fetch": {
+    "repo": "kazuph/mcp-fetch",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "keenable-mcp": {
+    "repo": "keenableai/keenable-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "knowledge-graph": {
+    "repo": "itseasy21/mcp-knowledge-graph",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "korala-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "lawai-mcp-server": {
+    "repo": "risk-ai/lawai-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "leadgreen-mcp": {
+    "repo": "katonic-dev/leadgreen-ai",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "leafwright-mcp": {
+    "repo": "Tactic-Systems/leafwright",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "llmaudit-mcp": {
+    "repo": "nahuelsoria/llmaudit-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "llmintel-mcp": {
+    "repo": "hivemindunit/llmintel-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "longbook-mcp": {
+    "repo": "MXmaster2s/longbook-code",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "lovie": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "mackorn-cone-crusher": {
+    "repo": "LeifDai/MACKORN-hydraulic-cone-crusher",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "mafdet-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "mainbook-mcp": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "makerportal-mcp": {
+    "repo": "makerportal/mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "marketmayhem-mcp": {
+    "repo": "Comovis/MarketMayhem-MCP",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "markitdown": {
+    "repo": "microsoft/markitdown",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "maxwellintl-x402-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "mcp-sqlite": {
+    "repo": "jparkerweb/mcp-sqlite",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "mcpcap": {
+    "repo": "mcpcap/mcpcap",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "meetlark-mcp-server": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "memeboat-mcp": {
+    "repo": "memebo-at/memeboat-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "memegician-mcp": {
+    "repo": "Notysoty/memegician-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "memory": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "mirastack-redfish-mcp": {
+    "repo": "mirastacklabs-ai/mirastack-redfish-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "model-finder-mcp": {
+    "repo": "Abhiindigloo/EvalHarness",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "motherduck": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "muovi-mcp-server": {
+    "repo": "muovi-latam/mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "naulon-wayfarer-mcp": {
+    "repo": "naulonapp/naulon",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "noglow-mcp": {
+    "repo": "aesopfrom0/noglow-releases",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "nudg3-mcp": {
+    "repo": "NUDG3-AI/nudg3-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "oddsrail": {
+    "repo": "hmesutozsoy/oddsrail",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "openags-paper-search-mcp": {
+    "repo": "openags/paper-search-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "operandi-mcp": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "optimalai-optibot-mcp": {
+    "repo": "Optimal-AI/optibot-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "ordercore-mcp": {
+    "repo": "RulezZzOr/ordercore-examples",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "overwing-mcp": {
+    "repo": "frod27/overwing-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "paramability-mcp": {
+    "repo": "GoMorko/paramability-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "paraplex-mcp": {
+    "repo": "Paraplex-AI/paraplex-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "pascal-app-mcp": {
+    "repo": "pascalorg/editor",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "percher-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "plugmcp-mcp": {
+    "repo": "plugmcp-ai/plugmcp-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "popdot-mcp": {
+    "repo": "popdot-ai/popdot-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "postgres-mcp": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "pretrip-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "promptguard-mcp-server": {
+    "repo": "promptguardhq/promptguard",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "provably-fair-mcp": {
+    "repo": "promptcoinapp/provably-fair-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "proxyllm-mcp": {
+    "repo": "proxyllm-ai/proxyllm-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "quorum-mcp-server": {
+    "repo": "piyush-tkd/quorum-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "radmail-mcp": {
+    "repo": "radmail-ai/radmail-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "ranchbot-mcp-server": {
+    "repo": "RanchBot/mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "rapay-mcp-server": {
+    "repo": "Ra-Pay-AI/rapay",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "raven-mcp": {
+    "repo": "rhinocap/raven-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "recordist-gateway": {
+    "repo": "recordist-app/gateway",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "reddit-research-mcp": {
+    "repo": "jordanallenlewis/reddit-research-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "rightcard-mcp": {
+    "repo": "rightcard/rightcard-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "rillsoft-rillsoft-project-mcp": {
+    "repo": "rillsoft/rillsoft-project-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "ripgrep": {
+    "repo": "mcollina/mcp-ripgrep",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "rlabs-cl-arketum": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "satohub-mcp": {
+    "repo": "satohubai/mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "saymaker-mcp": {
+    "repo": "hanshs474/saymaker-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "scope-bid-scope-aec-mcp": {
+    "repo": "scope-bid/scope-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "scope-bid-scope-claims-mcp": {
+    "repo": "scope-bid/scope-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "scope-bid-scope-mcp": {
+    "repo": "scope-bid/scope-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "sequential-thinking": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "servelink-serve": {
+    "repo": "servelink-swyftlabs/serve-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "server-postgres": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "ship-safe-mcp": {
+    "repo": "Tgoldi/shipsafe",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "shipeasy-mcp": {
+    "repo": "shipeasy-ai/shipeasy",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "shiplightai-mcp": {
+    "repo": "ShiplightAI/shiplight-cli",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "smartmemory-compose-mcp": {
+    "repo": "smartmemory/compose",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "smartmemory-mcp": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "snowsure-mcp-server": {
+    "repo": "mikeslone/snowsure-web",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "spaces-mcp-server": {
+    "repo": "neltomw/spaces-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "spideriq-mcp-gate": {
+    "repo": "SpiderIQ/SpiderIQ",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "spideriq-mcp-leads": {
+    "repo": "SpiderIQ/SpiderIQ",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "spideriq-mcp-mail": {
+    "repo": "SpiderIQ/SpiderIQ",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "spideriq-mcp-media": {
+    "repo": "SpiderIQ/SpiderIQ",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "spideriq-mcp-publish": {
+    "repo": "SpiderIQ/SpiderIQ",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "sqlite": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "ssid-mcp": {
+    "repo": "Drumworks/ssid-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "stickerdaniel-linkedin-mcp-server": {
+    "repo": "stickerdaniel/linkedin-mcp-server",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "stratta-mcp": {
+    "repo": "hugogebel-boop/stratta-v2",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "swissco-mcp": {
+    "repo": "prospex-ch/swissco-cli",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "synchronex-mcp-proxy": {
+    "repo": "kmdesle/synchronex",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "takehub-mcp": {
+    "repo": "mauurda/takehub",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "tanvo-mcp": {
+    "repo": "tanvoai/tanvo-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "taylorwilsdon-google-workspace-mcp": {
+    "repo": "taylorwilsdon/google_workspace_mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "tensorfeed-mcp-server": {
+    "repo": "RipperMercs/tensorfeed-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "tensorfeed-x402-base-mcp": {
+    "repo": "RipperMercs/tensorfeed-x402-base-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "testivai-mcp": {
+    "repo": "testivai/testivai-oss",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "text-editor": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "textile-designer-ai-mcp": {
+    "repo": "ScientiaAI/textile-designer-ai-claude",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "thrain-blackout-mcp": {
+    "repo": "thrain-ai/blackout-pdf",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "thrain-spotlight-mcp": {
+    "repo": "thrain-ai/spotlight-pdf",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "time": {
+    "repo": "modelcontextprotocol/servers",
+    "source": "pypi",
+    "resolvedAt": "2026-11-11"
+  },
+  "timeprooflabs-truthspine-mcp": {
+    "repo": "TimeProofLabs/truthspine-app",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "todoglow-mcp": {
+    "repo": "aesopfrom0/todoglow-releases",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "trustrails-mcp-server": {
+    "repo": "james-webdev/trustrails-mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "uplink-code-mcp": {
+    "repo": "uplink-code/uplink-ai",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "userintuition-ai-mcp": {
+    "repo": "Pen-and-Paper-AI/userintuition-mcpserver-ts",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "vaaya-mcp": {
+    "repo": "vaaya-ai/vaaya-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "vantic-sdk": {
+    "repo": "vanticlabs/vantic",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "veida-mcp": {
+    "repo": "hanshs474/veida-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "vertical-marketplace-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "vibheksoni-stealth-browser-mcp": {
+    "repo": "vibheksoni/stealth-browser-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-11"
+  },
+  "vruum-mcp": {
+    "repo": "vruum-gtm/mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "wavespeed-mcp": {
+    "repo": "WaveSpeedAI/mcp-server",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "wildcard-ai-deepcontext": {
+    "repo": "Wildcard-Official/deepcontext",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "wpconvert-mcp": {
+    "repo": "FTWAgency/wpconvert-devtools",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "yomio-mcp-stdio": {
+    "repo": "ArtemGontar/yomio",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "zendiq-mcp": {
+    "repo": "ZendIQ/ZendIQ-Agent-API",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  },
+  "zensation-mcp": {
+    "repo": "zensation-ai/zenbrain",
+    "source": "npm",
+    "resolvedAt": "2026-11-11"
+  }
+}
