@@ -1832,7 +1832,12 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "lastAttempt": {
+        "date": "2026-11-12",
+        "status": "failed",
+        "kind": "start-fail"
+      }
     },
     {
       "id": "sequential-thinking",
@@ -3172,16 +3177,16 @@
       "name": "@upstash/context7-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.6.0",
+      "versionTested": "4.7.0",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @upstash/context7-mcp@4.6.0",
+      "launch": "npx -y @upstash/context7-mcp@4.7.0",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -12236,7 +12241,12 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "lastAttempt": {
+        "date": "2026-11-12",
+        "status": "failed",
+        "kind": "start-fail"
+      }
     },
     {
       "id": "certscore-mcp",
@@ -15007,16 +15017,16 @@
       "name": "elicitly",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.8.4",
+      "versionTested": "0.8.5",
       "serverInfoName": "elicitly",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y elicitly@0.8.4",
+      "launch": "npx -y elicitly@0.8.5",
       "transport": "stdio",
       "toolCount": 4,
       "packs": [
@@ -25306,18 +25316,18 @@
       "name": "smartmemory-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.4.94",
+      "versionTested": "2.0.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx smartmemory-mcp==1.4.94",
+      "launch": "uvx smartmemory-mcp==2.0.1",
       "transport": "stdio",
-      "toolCount": 17,
+      "toolCount": 42,
       "packs": [
         {
           "id": "core",
@@ -25405,15 +25415,15 @@
         },
         {
           "id": "effects",
-          "status": "inconclusive",
-          "letter": null,
-          "points": null,
-          "scored": null,
-          "pct": null,
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "every control call failed, so the read-only annotation could not be checked"
+          "reason": null
         }
       ],
       "checks": [
@@ -25424,7 +25434,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 17 well-formed tool(s)"
+          "summary": "handshake ok, 42 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -25433,7 +25443,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 17 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 42 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -25442,7 +25452,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "73 invalid call(s) rejected cleanly"
+          "summary": "101 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -25451,7 +25461,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 73 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 103 captured response(s), 1 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -25459,8 +25469,8 @@
           "label": "Server instructions name only tools that exist",
           "critical": false,
           "advisory": true,
-          "verdict": "na",
-          "summary": "the server sent no instructions"
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
         },
         {
           "id": "annotation-honesty",
@@ -25468,8 +25478,8 @@
           "label": "Read-only tools change nothing",
           "critical": true,
           "advisory": false,
-          "verdict": "inconclusive",
-          "summary": "every control call failed, so the read-only annotation could not be checked"
+          "verdict": "pass",
+          "summary": "whoami declared read-only and changed nothing in the observed directories during a benign call (list_workspaces, memory_policy_bundle, decision_list, procedure_list not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -25477,8 +25487,8 @@
           "label": "Closed-world tools stay on the machine",
           "critical": false,
           "advisory": false,
-          "verdict": "inconclusive",
-          "summary": "every control call failed, so the closed-world annotation could not be checked"
+          "verdict": "pass",
+          "summary": "7 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -25486,8 +25496,8 @@
           "label": "Unannotated tools leave the sandbox unchanged",
           "critical": false,
           "advisory": true,
-          "verdict": "pass",
-          "summary": "memory_import carry no annotations and changed nothing"
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check"
         },
         {
           "id": "refusal-quality",
@@ -25500,33 +25510,50 @@
         }
       ],
       "coverage": {
-        "validCalls": 1,
-        "toolsCalledValid": 2,
-        "toolsTotal": 17,
+        "validCalls": 8,
+        "toolsCalledValid": 7,
+        "toolsTotal": 42,
         "level": "low"
       },
       "badge": {
-        "eligible": false,
-        "reason": "core-only run: no capability pack was graded"
+        "eligible": true
       },
       "notCovered": [
-        "tool \"memory_export\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "malformed-input probes cover the first 25 of 42 tools",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"login\" is covered by the core checks only: free-text parameter \"api_key\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"whoami\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"switch_workspace\" is covered by the core checks only: free-text parameter \"workspace\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_workspaces\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"create_workspace\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"switch_team\" is covered by the core checks only: free-text parameter \"team_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"memory_ingest\" is covered by the core checks only: free-text parameter \"content\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_search\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"memory_recall\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"get_working_context\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"read_around\" is covered by the core checks only: free-text parameter \"item_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_get\" is covered by the core checks only: free-text parameter \"item_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_explain\" is covered by the core checks only: free-text parameter \"memory_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"memory_recall_pack\" is covered by the core checks only: free-text parameter \"query\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"memory_policy_bundle\" is covered by the core checks only: free-text parameter \"workflow\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "3 more tool(s) are covered by the core checks only (see the classification)",
-        "tool \"whoami\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "28 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"decision_supersede\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_retract\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_reinforce\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_link_evidence\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"evidence_record\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_contradict\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_provenance\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_find_conflicts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_create_pending\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_resolve_requirement\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_try_activate\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"procedure_create\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"procedure_get\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"procedure_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"procedure_promote\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"procedure_dismiss\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"procedure_record_outcome\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"list_workspaces\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
         "tool \"memory_policy_bundle\" was not covered by the core pack: needs probes: to be called (no argument the harness can safely malform)",
+        "tool \"memory_save\" was not covered by the core pack: needs probes: to be called (no argument the harness can safely malform)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
