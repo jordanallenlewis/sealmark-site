@@ -1,6 +1,6 @@
 {
   "airbnb": "npx -y @openbnb/mcp-server-airbnb@0.3.0",
-  "cyanheads-fs": "sh -c 'npm install --silent --no-audit --no-fund --prefix /tmp/sealmark-cyanheads-fs @cyanheads/filesystem-mcp-server@1.0.4 1>&2 && exec node /tmp/sealmark-cyanheads-fs/node_modules/@cyanheads/filesystem-mcp-server/dist/index.js'",
+  "cyanheads-fs": "sh -c 'npm install --silent --no-audit --no-fund --prefix /tmp/sealmark-cyanheads-fs @cyanheads/filesystem-mcp-server@1.0.4 1>&2 && exec env FS_BASE_DIRECTORY=\"$0\" node /tmp/sealmark-cyanheads-fs/node_modules/@cyanheads/filesystem-mcp-server/dist/index.js' {sandbox}",
   "fetch-mcp": "npx -y fetch-mcp@0.0.5",
   "postgres-mcp": "uvx --with \"mcp<2\" postgres-mcp@0.3.0 {dsn}"
 }
