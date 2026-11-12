@@ -39292,7 +39292,7 @@
       "name": "@pascal-app/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.2",
+      "versionTested": "1.1.3",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-12",
       "sealmark": {
@@ -39301,7 +39301,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pascal-app/mcp@1.1.2",
+      "launch": "npx -y @pascal-app/mcp@1.1.3",
       "transport": "stdio",
       "toolCount": 89,
       "packs": [
