@@ -17,7 +17,7 @@ on:
         description: 'New servers to add per run (below 360 tracked, at least 60 are tried regardless)'
         default: '10'
       file_owner_issues:
-        description: 'File one hand-approved batch of owner issues (the top of fleet/owner-issues-draft.md; needs OWNER_ISSUES_TOKEN)'
+        description: 'File one hand-approved batch of owner issues: only the entries of the committed fleet/owner-issues-draft.md, only if each still renders byte for byte (needs OWNER_ISSUES_TOKEN)'
         type: boolean
         default: false
 
@@ -93,6 +93,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write # the "Owner replies to Sealmark issues" tracking issue in this repository (notify step)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -117,13 +118,18 @@ jobs:
           if [ -z "$GH_TOKEN" ]; then echo "SEALMARK_ISSUES_TOKEN not set: triage.json is committed, issues are filed by hq-builder."; exit 0; fi
           node fleet/file-issues.mjs
       # Posted by the bot account (OWNER_ISSUES_TOKEN), never a personal one. Live when the OWNER_ISSUES_LIVE variable
-      # is "1", or for one run started by hand with file_owner_issues ticked (how the first batches are approved).
-      # Security findings are never posted: those repositories are held in a gitignored private queue (count only in
-      # the log). MAX_OWNER_ISSUES caps issues per run; 2 until the variable is set (8 once the first runs read well).
+      # is "1", or for one run started by hand with file_owner_issues ticked (how the first batches are approved: that
+      # run posts only the committed draft's entries, byte for byte). Security findings are never posted: those
+      # repositories are held in a gitignored private queue (count only in the log). MAX_OWNER_ISSUES caps issues per
+      # run; 2 until the variable is set. continue-on-error: a failure here never stops the impact, commit and deploy
+      # steps after it (the ledger the script wrote so far is still committed).
       - name: tell server owners (one issue per repo; drafts only unless OWNER_ISSUES_TOKEN and OWNER_ISSUES_LIVE == "1")
+        continue-on-error: true
+        timeout-minutes: 30
         env:
           OWNER_ISSUES_TOKEN: ${{ secrets.OWNER_ISSUES_TOKEN }}
           OWNER_ISSUES_LIVE: ${{ (vars.OWNER_ISSUES_LIVE == '1' || github.event.inputs.file_owner_issues == 'true') && '1' || '' }}
+          OWNER_ISSUES_APPROVED: ${{ github.event.inputs.file_owner_issues == 'true' && '1' || '' }}
           MAX_OWNER_ISSUES: ${{ vars.MAX_OWNER_ISSUES || '2' }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node fleet/notify-owners.mjs
