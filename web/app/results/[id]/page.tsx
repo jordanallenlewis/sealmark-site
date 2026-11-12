@@ -32,11 +32,10 @@ const WORD: Record<Verdict, string> = { pass: "pass", part: "partial", fail: "fa
 const DOCUMENTED = new Set((registry as { id: string }[]).map((c) => c.id));
 const label = (pack: string) => PACK_LABEL[pack] ?? pack;
 
-// What a weak signal means, per check (lib/disclosure.mjs WEAK_PART). Scoring is unchanged: a partial is half a point.
+// What a weak signal means, per check (WEAK_PART in fleet/security-checks.mjs, via lib/disclosure.mjs). Scoring is unchanged: a partial is half a point.
 const WEAK: Record<string, string> = {
   "tool-poisoning": "Some wording in the tool text is worth a read, but none of it is conclusive.",
   "annotation-honesty": "A tool declared read-only changed only cache files, in its sandbox home or temp folder.",
-  "net-scheme-allowlist": "The server accepts data: URLs, but no file was read and no raw connection was made.",
 };
 
 // The placeholders a start command can hold, in plain words (docs: /docs/reference/configuration/#placeholders).
