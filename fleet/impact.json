@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11",
+  "generatedAt": "2026-11-12",
   "mode": "real",
   "summary": {
     "notified": 0,
@@ -13,10 +13,10 @@
     "topFixedChecks": [],
     "base": {
       "servers": 36,
-      "released": 12,
+      "released": 13,
       "improved": 1,
       "regressed": 0,
-      "medianDaysToImprovement": 5
+      "medianDaysToImprovement": 4
     }
   },
   "notices": []
