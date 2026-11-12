@@ -1,14 +1,14 @@
 # Owner-notice impact
 
-Written 2026-11-11 by `fleet/impact.mjs`. Internal: not published on sealmark.dev. No notices yet. Base-rate window: the last 14 days (2026-10-28 to 2026-11-11), for reference.
+Written 2026-11-12 by `fleet/impact.mjs`. Internal: not published on sealmark.dev. No notices yet. Base-rate window: the last 14 days (2026-10-29 to 2026-11-12), for reference.
 
 | | Notified | Base rate (never notified) |
 |---|---|---|
 | Servers | 0 | 36 |
-| Released a new version since | 0 (n/a) | 12 (33%) |
+| Released a new version since | 0 (n/a) | 13 (36%) |
 | Improved after notice (better letter on a new version) | 0 (n/a; n/a of releasers) | 1 (3%; 8% of releasers) |
 | Regressed (worse letter on a new version) | 0 | 0 |
-| Median days to first improvement | n/a | 5 |
+| Median days to first improvement | n/a | 4 |
 | Acted on Sealmark (direct evidence) | 0 | not measured |
 | Improved, with direct evidence | 0 | not measured |
 
@@ -17,7 +17,3 @@ Written 2026-11-11 by `fleet/impact.mjs`. Internal: not published on sealmark.de
 ## Checks fixed most often (failing at notice, passing on the latest new version)
 
 None yet (or no per-check data for the versions involved; per-check data starts 2026-11-09).
-
-## Notes
-
-- email notices not read: CLOUDFLARE_API_TOKEN is not set
