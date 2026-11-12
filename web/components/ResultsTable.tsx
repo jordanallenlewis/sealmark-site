@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Pagination } from "@/components/Pagination";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, RANK, coverageWord, deepPacks, ecosystemLabel, gradedPacks, worst, type Letter, type ServerResult } from "@/lib/results-shared";
+import { retestShort } from "@/lib/retest.mjs";
 import s from "@/app/results/results.module.css";
 
 type Filter = "all" | "failing" | "clean" | "hygiene";
@@ -108,7 +109,7 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
               const deep = deepPacks(x);
               return (
                 <tr key={x.id}>
-                  <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small></td>
+                  <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small>{retestShort(x) && <small>{retestShort(x)}</small>}</td>
                   <td className={s.muted} data-label="Version">{x.versionTested}</td>
                   <td>{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
                   <td data-label="Deeper suites">
