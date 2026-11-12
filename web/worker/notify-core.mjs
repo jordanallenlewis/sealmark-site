@@ -108,25 +108,65 @@ export function changeEmail({ id, row, change, unsubscribeUrl }) {
   return { subject, text, html: htmlBody };
 }
 
-// The one GitHub issue opened per repo on a server's first grade (fleet/notify-owners.mjs).
+// ---- the one GitHub issue opened per repository on a server's first grade (fleet/notify-owners.mjs) ----
+
 export const ISSUE_MARKER = (id) => `<!-- sealmark-owner-notice:${id} -->`;
-export function issueDraft({ id, server, repo }) {
+export const AUTHOR_URL = "https://github.com/jordanallenlewis";
+export const METHODOLOGY_URL = `${ORIGIN}/docs/methodology/#grading-formula`;
+
+const gradedPacks = (server) => (server.packs ?? []).filter((p) => p.status === "graded" && p.letter);
+const areaName = (id) => PACK_LABEL[id] ?? id;
+const article = (letter) => (letter === "A" || letter === "F" ? "an" : "a"); // "an A", "a B"
+
+// Scored checks in graded test areas that did not fully pass (advisory, n/a and inconclusive are not scored).
+export function notPassed(server) {
+  const areas = new Set(gradedPacks(server).map((p) => p.id));
+  return (server.checks ?? []).filter((c) => !c.advisory && areas.has(c.pack) && (c.verdict === "fail" || c.verdict === "part"));
+}
+
+// The paragraph under the first one. `listed` are the failing or partly passing checks the issue may name (the caller
+// decides which are safe to name: fleet/security-checks.mjs); with none, every scored check must have passed.
+export function issueReason({ server, listed = [] }) {
+  const cov = server.coverage ?? {};
+  const n = cov.toolsCalledValid ?? 0;
+  const m = cov.toolsTotal ?? server.toolCount ?? 0;
+  let text;
+  if (!listed.length) {
+    if (letterOf(server) !== "A" || notPassed(server).length) throw new Error(`${server.id}: the reason names no check, but not every scored check passed`);
+    text = cov.level === "hygiene-only"
+      ? `Every scored check passed. Only ${n} of ${m} tools could be called with default settings, so this grade covers the handshake and tool metadata only.`
+      : `Every scored check passed. ${n} of ${m} tools answered a valid call.`;
+  } else {
+    const areas = gradedPacks(server).map((p) => `${areaName(p.id)} ${p.letter}`).join(", ");
+    const bullets = listed.map((c) => `- \`${c.id}\`: ${String(c.summary ?? "").trim()} (${c.verdict === "fail" ? "failed" : "partly passed, half credit"})`).join("\n");
+    text = `The grade is the lowest test-area grade (${areas}). It comes from:\n\n${bullets}`;
+  }
+  const provisional = gradedPacks(server).filter((p) => p.provisional).map((p) => areaName(p.id));
+  if (provisional.length) text += `\n\nThe ${provisional.join(" and ")} grade is provisional: a check that could lower it did not finish in this run.`;
+  return text;
+}
+
+// The reproduce line (`sealmark run --start "<command line>"`, checked against `sealmark run --help`).
+export const reproduce = (server) => `npx -y sealmark@${server.sealmark?.version ?? "latest"} run --start "${server.launch}"`;
+
+// The issue. `also` are other graded servers from the same repository, each already cleared to be named.
+export function issueDraft({ id, server, repo, listed = [], also = [] }) {
   const letter = letterOf(server);
-  const failing = (server.checks ?? []).filter((c) => c.verdict === "fail" && !c.advisory);
-  const graded = (server.packs ?? []).filter((p) => p.status === "graded" && p.letter);
-  const title = `Sealmark graded ${server.name} ${server.versionTested}: ${letter}`;
-  const rows = graded.map((p) => `| ${PACK_LABEL[p.id] ?? p.id} | ${p.letter} | ${p.points}/${p.scored} |`).join("\n");
-  const top = failing.slice(0, 5).map((c) => `- \`${c.id}\` ${c.label}: ${c.summary}`).join("\n");
+  const title = `Automated Sealmark test of ${server.name} ${server.versionTested}: ${letter}`;
+  const links = [
+    `- What was tested and what was not: ${resultsUrl(id)}`,
+    `- How grades work: ${METHODOLOGY_URL}`,
+    `- Reproduce it: \`${reproduce(server)}\``,
+    ...also.map((x) => `- Also tested from this repository: \`${x.name}\` ${x.versionTested} got ${article(letterOf(x))} **${letterOf(x)}**: ${resultsUrl(x.id)}`),
+  ].join("\n");
   const body = [
     ISSUE_MARKER(id),
-    `Hi! [Sealmark](${ORIGIN}) is an open-source behavioural test suite for MCP servers. It started \`${server.name}\` ${server.versionTested} with its default settings on ${server.testedAt} and graded it **${letter}**.`,
-    `| Pack | Grade | Points |\n|---|---|---|\n${rows}`,
-    failing.length ? `Checks that failed:\n\n${top}${failing.length > 5 ? `\n- and ${failing.length - 5} more on the results page` : ""}` : letter === "A" ? `No check failed.` : `No check failed outright; the results page shows what kept it from an A (checks that only partly passed or could not finish).`,
-    `Full results, with what was and was not covered: ${resultsUrl(id)}`,
-    `This is an automated re-test, not a review by hand, and Sealmark can be wrong. If a verdict looks wrong, reply here or email disclosure@sealmark.dev and we recheck it.`,
-    ...(badgeEligible(server) ? [`Badge, if you want one (it links to the results and updates with each re-test):\n\n\`\`\`md\n[![Sealmark](${badgeUrl(id)})](${resultsUrl(id)})\n\`\`\``] : []),
-    `The fleet re-tests new versions every 6 hours. To get an email when this grade changes, use the form on the results page. This is the only issue Sealmark opens on this repository; close it whenever you like, and reply "opt out" if you do not want it to post here again.`,
-    `Security findings are never posted in an issue like this one: they are reported privately first, as described in the [disclosure policy](${ORIGIN}/disclosure/).`,
+    `Hi. [Sealmark](${ORIGIN}) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](${AUTHOR_URL}). An automated run started \`${server.name}\` ${server.versionTested} with \`${server.launch}\` on ${server.testedAt}. It got ${article(letter)} **${letter}**.`,
+    issueReason({ server, listed }),
+    links,
+    `This is automated and can be wrong. If a result looks wrong, reply here and we will recheck it and correct the page. If you want the server taken off sealmark.dev, say so and we will remove it.`,
+    `This is the only issue Sealmark will open here. Close it whenever you like.`,
   ].join("\n\n");
   return { repo, title, body };
 }
+

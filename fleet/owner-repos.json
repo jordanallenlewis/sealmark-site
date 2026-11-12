@@ -440,9 +440,10 @@
     "resolvedAt": "2026-11-11"
   },
   "html-cloud-mcp": {
-    "repo": "viljamilaurila/html-cloud",
+    "repo": "ninjami/html-cloud",
     "source": "npm",
-    "resolvedAt": "2026-11-11"
+    "resolvedAt": "2026-11-11",
+    "movedFrom": "viljamilaurila/html-cloud"
   },
   "inite-club-mcp": {
     "repo": "inite-ai/inite-club-mcp",
