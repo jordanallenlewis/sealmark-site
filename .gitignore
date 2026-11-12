@@ -6,3 +6,7 @@ dist/
 *.log
 .check.js
 .claude/
+
+# owner notices held for a private security report (fleet/notify-owners.mjs); never commit, this repo is public
+fleet/owner-private-queue.json
+fleet/owner-private-draft.md

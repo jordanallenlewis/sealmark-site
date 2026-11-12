@@ -98,3 +98,13 @@
 .pager .pill:disabled { opacity: 0.45; cursor: not-allowed; }
 .gap { color: var(--ink-faint); padding: 0 2px; }
 @media (pointer: coarse) { .pager .pill { min-width: 44px; } }
+/* grade alerts form (NotifyForm.tsx) */
+.notifyRow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; max-width: 40rem; }
+.notifyInput { flex: 1 1 16rem; min-width: 0; font: 400 0.95rem var(--sans); color: var(--ink); background: var(--surface); border: 1px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; }
+.notifyInput::placeholder { color: var(--ink-faint); }
+.notifyInput:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.notify[data-state="sending"] .notifyRow { opacity: 0.7; }
+.notify .btn:disabled, .notifyInput:disabled { cursor: progress; }
+.notify p[role="status"]:empty { margin: 0; }
+.sec p.notifyErr { color: var(--fail); font-size: 0.9rem; }
+@media (pointer: coarse) { .notifyInput, .notify .btn { min-height: 44px; } }
