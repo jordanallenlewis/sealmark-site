@@ -389,6 +389,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "galaxymovies-mcp": {
+    "repo": "NickFasulo/galaxymovies-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-12"
+  },
   "gency-ai-gency-mcp": {
     "repo": null,
     "source": "npm",
