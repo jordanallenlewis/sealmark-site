@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { badgeEligible, changeEmail, confirmEmail, failingChecks, gradeChange, gradeRow, issueDraft, letterOf, ISSUE_MARKER } from "../web/worker/notify-core.mjs";
-import { DEFAULT_MAX_ISSUES, FRESH_DAYS, OPT_OUT, draftFor, maxIssues, parseRepo, plan, privateEntry, renderDrafts, renderPrivate, repoFromLaunch, repoFromNpm, repoFromPypi, staleReason } from "./notify-owners.mjs";
+import { DEFAULT_MAX_ISSUES, FRESH_DAYS, OPT_OUT, draftFor, maxIssues, parseRepo, plan, privateEntry, renderDrafts, renderPrivate, repoFromLaunch, repoFromNpm, repoFromPypi, staleReason, weekStart, weeklySummary } from "./notify-owners.mjs";
 import { SECURITY_CHECKS, isSecurityCheck, securityFindings } from "./security-checks.mjs";
 import registry from "../web/content/generated/checks.json" with { type: "json" };
 import { attribute, baseRate, indexFailing, indexHistory, joinNotice, median, renderSummary, summarize } from "./impact.mjs";
@@ -170,6 +170,30 @@ test("freshness: older than 14 days or a failed latest re-test waits; a later go
   assert.match(why.old, /waits for a fresh grade/);
   assert.match(why.failed, /latest re-test failed/);
   assert.match(why["mix-old"], /older than 14 days/);
+});
+
+test("issue footer links the disclosure policy", () => {
+  assert.match(issueDraft({ id: "demo", server: server(), repo: "o/r" }).body, /reported privately first, as described in the \[disclosure policy\]\(https:\/\/sealmark\.dev\/disclosure\/\)/);
+});
+
+test("weekly summary: last 7 days and all time, letter moves since the notice", () => {
+  assert.equal(weekStart("2026-11-12"), "2026-11-09");
+  assert.equal(weekStart("2026-11-09"), "2026-11-09");
+  assert.equal(weekStart("2026-11-15"), "2026-11-09");
+  const ledger = {
+    issues: [{ id: "a", repo: "o/a", at: "2026-11-10", letter: "C", repliedAt: "2026-11-11" }, { id: "b", repo: "o/b", at: "2026-10-01", letter: "B" }, { id: "gone", repo: "o/g", at: "2026-11-09", letter: "A" }],
+    emails: [{ at: "2026-11-12" }, { at: "2026-10-02" }],
+  };
+  const optout = { repos: ["o/b", "o/x"], at: { "o/b": "2026-11-08" } };
+  const servers = [server({ id: "a", packs: [pack("core", "A")] }), server({ id: "b", packs: [pack("core", "D")] })];
+  const md = weeklySummary({ ledger, optout, servers, today: "2026-11-12" });
+  assert.match(md, /^# Owner notices: week of 2026-11-09/);
+  assert.match(md, /"Last 7 days" is 2026-11-06 to 2026-11-12/);
+  assert.match(md, /\|---\|---\|---\|\n\| Issues opened \| 2 \| 3 \|/, "header and rows form one table");
+  assert.match(md, /\| Repositories that replied \| 1 \| 1 \|/);
+  assert.match(md, /\| Opted out \| 1 \| 2 \|/);
+  assert.match(md, /\| Grade-change emails \(notices\) \| 1 \| 2 \|/);
+  assert.match(md, /1 up, 1 down, 0 same, 1 not graded now/);
 });
 
 test("cap: 2 by default, MAX_OWNER_ISSUES when it is a whole number, the rest wait", () => {

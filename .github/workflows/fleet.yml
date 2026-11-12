@@ -16,6 +16,10 @@ on:
       max_new:
         description: 'New servers to add per run (below 360 tracked, at least 60 are tried regardless)'
         default: '10'
+      file_owner_issues:
+        description: 'File one hand-approved batch of owner issues (the top of fleet/owner-issues-draft.md; needs OWNER_ISSUES_TOKEN)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -112,12 +116,14 @@ jobs:
         run: |
           if [ -z "$GH_TOKEN" ]; then echo "SEALMARK_ISSUES_TOKEN not set: triage.json is committed, issues are filed by hq-builder."; exit 0; fi
           node fleet/file-issues.mjs
+      # Posted by the bot account (OWNER_ISSUES_TOKEN), never a personal one. Live when the OWNER_ISSUES_LIVE variable
+      # is "1", or for one run started by hand with file_owner_issues ticked (how the first batches are approved).
       # Security findings are never posted: those repositories are held in a gitignored private queue (count only in
       # the log). MAX_OWNER_ISSUES caps issues per run; 2 until the variable is set (8 once the first runs read well).
       - name: tell server owners (one issue per repo; drafts only unless OWNER_ISSUES_TOKEN and OWNER_ISSUES_LIVE == "1")
         env:
           OWNER_ISSUES_TOKEN: ${{ secrets.OWNER_ISSUES_TOKEN }}
-          OWNER_ISSUES_LIVE: ${{ vars.OWNER_ISSUES_LIVE }}
+          OWNER_ISSUES_LIVE: ${{ (vars.OWNER_ISSUES_LIVE == '1' || github.event.inputs.file_owner_issues == 'true') && '1' || '' }}
           MAX_OWNER_ISSUES: ${{ vars.MAX_OWNER_ISSUES || '2' }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node fleet/notify-owners.mjs

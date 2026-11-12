@@ -4,9 +4,15 @@
 //   node fleet/notify-owners.mjs            draft or file, depending on the gate below
 //   node fleet/notify-owners.mjs --dry      never files; writes the drafts file even when the gate is open
 //
-// Gate: issues are opened only when the OWNER_ISSUES_TOKEN secret is set AND the repository variable
-// OWNER_ISSUES_LIVE is "1". Otherwise the next issues are written to fleet/owner-issues-draft.md for review.
-// Per run at most MAX_OWNER_ISSUES issues (default 2 for the first live runs; 8 is the intended later value).
+// Gate: issues are opened only when the OWNER_ISSUES_TOKEN secret is set AND OWNER_ISSUES_LIVE is "1" (the repository
+// variable, or one hand-approved batch: the fleet workflow's "file_owner_issues" input). Otherwise the next issues are
+// written to fleet/owner-issues-draft.md for review. Per run at most MAX_OWNER_ISSUES issues (default 2; 8 later).
+// Sender: the Sealmark bot GitHub account; its token (classic, public_repo scope: a fine-grained token cannot open
+// issues on repositories the account does not belong to) is OWNER_ISSUES_TOKEN. The
+// script posts as whoever the token belongs to and refuses an account in SELF (never Jordan's personal account).
+//
+// Every run also writes fleet/owner-weekly.md (sent, opted out, replied, grade changes since the notice) once a week,
+// and prints it to the Actions step summary each run.
 //
 // Who gets a public issue, in order (plan() below):
 //   - skipped for good: no GitHub repo, already notified, opted out, our own repo, repo missing, archived, fork;
@@ -28,7 +34,7 @@
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { ISSUE_MARKER, ORIGIN, failingChecks, issueDraft, letterOf } from "../web/worker/notify-core.mjs";
+import { ISSUE_MARKER, ORIGIN, RANK, failingChecks, issueDraft, letterOf } from "../web/worker/notify-core.mjs";
 import { failedSince } from "../web/lib/retest.mjs";
 import { SECURITY_CHECKS, isSecurityCheck, securityFindings } from "./security-checks.mjs";
 
@@ -40,6 +46,7 @@ export const FILES = {
   draft: "fleet/owner-issues-draft.md",
   privateQueue: "fleet/owner-private-queue.json",
   privateDraft: "fleet/owner-private-draft.md",
+  weekly: "fleet/owner-weekly.md",
 };
 // Issues per run: MAX_OWNER_ISSUES when it is a whole number of at least 1, else 2. Raise the repository variable to 8
 // once the first live runs read well.
@@ -182,7 +189,7 @@ export function renderDrafts({ drafts, waiting, skipped, held = 0, reason, today
     `# Owner issues: drafts`,
     `Written by \`fleet/notify-owners.mjs\` on ${today}. Not filed: ${reason}. These are the issues the next live run would open (at most ${max} per run)${waiting ? `; ${waiting} more repositories wait for later runs` : ""}.`,
   ];
-  if (held) parts.push(`${held} ${held === 1 ? "repository is" : "repositories are"} held for private handling under the [disclosure policy](${ORIGIN}/docs/disclosure/) and not listed here.`);
+  if (held) parts.push(`${held} ${held === 1 ? "repository is" : "repositories are"} held for private handling under the [disclosure policy](${ORIGIN}/disclosure/) and not listed here.`);
   for (const d of drafts) parts.push(`---\n\n## ${d.repo}\n\n**Title:** ${d.title}\n\n${d.body}`);
   if (!drafts.length) parts.push(`No repository is due an issue.`);
   if (skipped.length) parts.push(`---\n\n## Skipped\n\n${skipped.map((s) => `- \`${s.id}\`${s.repo ? ` (${s.repo})` : ""}: ${s.reason}`).join("\n")}`);
@@ -234,6 +241,46 @@ export function renderPrivate({ entries, today }) {
   return parts.join("\n\n") + "\n";
 }
 
+// ---- the weekly summary ----
+
+// The Monday (UTC) of the week `day` falls in, YYYY-MM-DD.
+export function weekStart(day) {
+  const d = new Date(`${day}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
+  return d.toISOString().slice(0, 10);
+}
+
+// Counts for the last 7 days and all time: issues sent, opt-outs, replies, and where each notified server's letter
+// stands now against the letter in the notice. Pure.
+export function weeklySummary({ ledger, optout, servers, today }) {
+  const since = new Date(Date.parse(today) - 6 * 864e5).toISOString().slice(0, 10);
+  const recent = (d) => Boolean(d) && d >= since && d <= today;
+  const issues = ledger.issues ?? [];
+  const emails = ledger.emails ?? [];
+  const optAt = optout.at ?? {};
+  const byId = new Map(servers.map((s) => [s.id, s]));
+  const moves = { up: 0, down: 0, same: 0, ungraded: 0 };
+  for (const i of issues) {
+    const now = byId.get(i.id) ? letterOf(byId.get(i.id)) : null;
+    if (!now || !i.letter) moves.ungraded += 1;
+    else if (now === i.letter) moves.same += 1;
+    else moves[RANK[now] > RANK[i.letter] ? "up" : "down"] += 1;
+  }
+  const row = (label, week, all) => `| ${label} | ${week} | ${all} |`;
+  return [
+    `# Owner notices: week of ${weekStart(today)}`,
+    `Written by \`fleet/notify-owners.mjs\` on ${today}. "Last 7 days" is ${since} to ${today}.`,
+    [
+      `| | Last 7 days | All time |\n|---|---|---|`,
+      row("Issues opened", issues.filter((i) => recent(i.at)).length, issues.length),
+      row("Repositories that replied", issues.filter((i) => recent(i.repliedAt)).length, issues.filter((i) => i.repliedAt).length),
+      row("Opted out", Object.values(optAt).filter(recent).length, (optout.repos ?? []).length),
+      row("Grade-change emails (notices)", emails.filter((e) => recent(e.at)).length, emails.length),
+    ].join("\n"),
+    `Notified servers, letter now against the letter in the notice: ${moves.up} up, ${moves.down} down, ${moves.same} same, ${moves.ungraded} not graded now. A better letter alone is not proof the notice caused it; fleet/impact-summary.md compares with servers never notified.`,
+  ].join("\n\n") + "\n";
+}
+
 // "opt out" (any case, with or without the space or hyphen) in a reply that is not Sealmark's own.
 export const OPT_OUT = /\bopt[\s-]?out\b/i;
 
@@ -244,7 +291,7 @@ async function main() {
   const today = new Date().toISOString().slice(0, 10);
   const token = process.env.OWNER_ISSUES_TOKEN ?? "";
   const live = Boolean(token) && process.env.OWNER_ISSUES_LIVE === "1" && !process.argv.includes("--dry");
-  const reason = live ? "" : !token ? "the OWNER_ISSUES_TOKEN secret is not set" : process.env.OWNER_ISSUES_LIVE !== "1" ? "the OWNER_ISSUES_LIVE variable is not \"1\"" : "--dry";
+  const reason = live ? "" : !token ? "the OWNER_ISSUES_TOKEN secret (the bot account's token) is not set" : process.env.OWNER_ISSUES_LIVE !== "1" ? "the OWNER_ISSUES_LIVE variable is not \"1\"" : "--dry";
   const readToken = token || process.env.GH_TOKEN || process.env.GITHUB_TOKEN || "";
   const servers = readJson(FILES.results, { servers: [] }).servers;
   const cache = readJson(FILES.repos, {});
@@ -276,11 +323,20 @@ async function main() {
     if (!i.number || optout.repos.some((r) => r.toLowerCase() === i.repo.toLowerCase())) continue;
     try {
       const comments = await api(`/repos/${i.repo}/issues/${i.number}/comments?per_page=100`);
-      const hit = Array.isArray(comments) && comments.find((c) => c.user?.type !== "Bot" && c.user?.login !== i.author && OPT_OUT.test(c.body ?? ""));
-      if (hit) { optout.repos.push(i.repo); console.log(`opt-out recorded: ${i.repo} (${hit.html_url})`); }
+      const people = Array.isArray(comments) ? comments.filter((c) => c.user?.type !== "Bot" && c.user?.login !== i.author) : [];
+      if (people.length && !i.repliedAt) i.repliedAt = people[0].created_at?.slice(0, 10) ?? today;
+      const hit = people.find((c) => OPT_OUT.test(c.body ?? ""));
+      if (hit) { optout.repos.push(i.repo); (optout.at ??= {})[i.repo] = today; console.log(`opt-out recorded: ${i.repo} (${hit.html_url})`); }
     } catch (e) { console.log(`opt-out check failed for ${i.repo}: ${e.message}`); }
   }
   writeJson(FILES.optout, optout);
+  writeJson(FILES.ledger, ledger); // repliedAt
+
+  // the weekly summary: rewritten when a new week starts; the step summary gets it every run
+  const week = weeklySummary({ ledger, optout, servers, today });
+  const prev = fs.existsSync(FILES.weekly) ? fs.readFileSync(FILES.weekly, "utf8") : "";
+  if (!prev.includes(`week of ${weekStart(today)}`)) fs.writeFileSync(FILES.weekly, week);
+  if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `\n${week}\n`);
 
   const first = plan({ servers, cache, ledger, optout, max: Infinity, today });
   const meta = {};
@@ -314,6 +370,7 @@ async function main() {
   const env = { ...process.env, GH_TOKEN: token };
   const gh = (args, input) => execFileSync("gh", args, { encoding: "utf8", input, env });
   const me = JSON.parse(gh(["api", "user"])).login;
+  if (SELF.includes(me.toLowerCase())) throw new Error(`OWNER_ISSUES_TOKEN belongs to ${me}: owner issues are posted by the bot account only`);
   let opened = 0;
   for (const e of ready) {
     const d = draftFor(e);

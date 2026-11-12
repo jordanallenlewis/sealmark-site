@@ -20,9 +20,15 @@ The docs pages are generated from the published CLI: `web/package.json` pins `se
 
 Deploys: `fleet.yml` and `release-sync.yml` deploy `main` automatically. By hand: `cd web && npm run build && npx wrangler deploy`.
 
-Secrets: `FLEET_EXCLUDE` (a regular expression of package names the fleet must not grade), `CLOUDFLARE_API_TOKEN` (deploy; also needs D1 edit and Email Sending for the Worker's bindings, and D1 read for `impact.mjs`) and the optional `SEALMARK_ISSUES_TOKEN` (files grading issues in the sealmark repository).
+Secrets: `FLEET_EXCLUDE` (a regular expression of package names the fleet must not grade), `CLOUDFLARE_API_TOKEN` (deploy: Workers Scripts edit is enough for the Worker with its D1, email and cron bindings; D1 read lets `impact.mjs` count sent emails, and without it that step only logs that it could not), the optional `SEALMARK_ISSUES_TOKEN` (files grading issues in the sealmark repository) and `OWNER_ISSUES_TOKEN` (owner issues, below).
 
-Owner notices, both off until switched on:
+Owner notices:
 
-- **Email alerts** (results-page form, double opt-in): set the Worker secret `NOTIFY_SECRET` (`cd web && npx wrangler secret put NOTIFY_SECRET`, any long random string; without it the form answers "not set up yet"), then change `vars.NOTIFY_LIVE` in `web/wrangler.jsonc` to `"1"` and deploy. Until then every email is logged, not sent. Privacy note: `/notify/`.
-- **GitHub issues to owners**: add the secret `OWNER_ISSUES_TOKEN` (a token that can open issues on public repositories) and set the repository variable `OWNER_ISSUES_LIVE` to `1`. Until both are set, `fleet/owner-issues-draft.md` shows what would be filed. At most 8 per run; never on archived repos, forks, repos with issues off, our own repos, or repos in `fleet/owner-optout.json` (a reply of "opt out" adds them, forever).
+- **Email alerts** (results-page form, double opt-in): on. The Worker secret `NOTIFY_SECRET` is set and `vars.NOTIFY_LIVE` in `web/wrangler.jsonc` is `"1"`; they send from `grades@notify.sealmark.dev`. Kill switch: set `NOTIFY_LIVE` to `"0"` and deploy, and every email is logged instead of sent. Privacy note: `/notify/`.
+- **GitHub issues to owners**: posted by the Sealmark bot account (`<BOT_LOGIN>`), never a personal one; the script refuses a token that belongs to an account in `SELF`. The bot account's token is the secret `OWNER_ISSUES_TOKEN`. It must be able to open issues on other people's public repositories: a classic token with the `public_repo` scope (a fine-grained token only reaches repositories the account owns or belongs to). Until it is set, `fleet/owner-issues-draft.md` shows what would be filed.
+  - The first batches are approved by hand: read the draft on `main`, then run the fleet workflow by hand with `file_owner_issues` ticked. That run files the top of the draft (re-tests run first, so check the run's draft if grades moved).
+  - Then set the repository variable `OWNER_ISSUES_LIVE` to `1` and every run files on its own.
+  - `MAX_OWNER_ISSUES` (repository variable) caps issues per run: 2 until it is set; 8 is the planned later value.
+  - Never on archived repos, forks, repos with issues off, our own repos, or repos in `fleet/owner-optout.json` (a reply of "opt out" adds them, forever). Only fresh grades: a grade older than 14 days, or one whose latest re-test failed, waits for a new one.
+  - Security findings never go in an issue (`fleet/security-checks.mjs` lists the checks). Those repositories are held in `fleet/owner-private-queue.json` and `fleet/owner-private-draft.md`, which are gitignored and never sent: run `node fleet/notify-owners.mjs --dry` locally to see them and report them by hand under the [disclosure policy](https://sealmark.dev/disclosure/).
+  - `fleet/owner-weekly.md` (rewritten each week, also in every fleet run's summary) counts issues opened, replies, opt-outs, grade-change emails and letter moves since the notice.
