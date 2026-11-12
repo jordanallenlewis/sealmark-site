@@ -40,3 +40,10 @@ test("fleet/overrides.json has no override the planner would skip forever", () =
   const overrides = JSON.parse(readFileSync(new URL("./overrides.json", import.meta.url), "utf8"));
   assert.deepEqual(unplannableOverrides(overrides), []);
 });
+
+test("cyanheads-fs passes {sandbox} as its root, or the fs pack is never graded", () => {
+  const overrides = JSON.parse(readFileSync(new URL("./overrides.json", import.meta.url), "utf8"));
+  const launch = overrides["cyanheads-fs"];
+  assert.match(launch, /\{sandbox\}/);
+  assert.match(launch, /FS_BASE_DIRECTORY/);
+});
