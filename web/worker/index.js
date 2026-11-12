@@ -7,6 +7,7 @@
 //   GET  /api/notify/unsubscribe-all?s=&t=   the same, for every server the address follows
 //   scheduled (hourly)               compares each server's grade in worker/grades.json (rebuilt with every fleet deploy)
 //                                    to the last one told, and emails confirmed subscribers once per letter change.
+// Also /api/visit and /api/visits: where visitors come from (worker/visits.mjs; referrer host and UTM only).
 // Kill switch: nothing is emailed unless the NOTIFY_LIVE var is "1"; otherwise each send is logged instead.
 // Secrets: NOTIFY_SECRET (HMAC key for links and the rate-limit hashes). D1: sealmark-notify (worker/migrations).
 // Optional Turnstile on subscribe (off): NOTIFY_TURNSTILE "1" plus the TURNSTILE_SECRET secret; the form then has to
@@ -16,6 +17,7 @@
 // "send" (email as usual) for one deploy, then remove it.
 import GRADES from "./grades.json" with { type: "json" };
 import { FROM, ORIGIN, REPLY_TO, changeEmail, confirmEmail, gradeChange, holdInconclusive } from "./notify-core.mjs";
+import { purgeVisits, recordVisit, visitsReport } from "./visits.mjs";
 
 const HOUR = 3600_000;
 const DAY = 24 * HOUR;
@@ -352,11 +354,14 @@ const worker = {
     if (p === "/api/notify/confirm" && (m === "GET" || m === "POST")) return confirm(request, url, env);
     if (p === "/api/notify/unsubscribe" && (m === "GET" || m === "POST")) return unsubscribe(request, url, env, false);
     if (p === "/api/notify/unsubscribe-all" && (m === "GET" || m === "POST")) return unsubscribe(request, url, env, true);
+    if (p === "/api/visit" && m === "POST") return recordVisit(request, env);
+    if (p === "/api/visits" && m === "GET") return visitsReport(request, url, env);
     if (p.startsWith("/api/")) return json({ ok: false, message: "Not found." }, 404);
     return env.ASSETS.fetch(request);
   },
   async scheduled(_event, env, ctx) {
     ctx.waitUntil(tick(env));
+    ctx.waitUntil(purgeVisits(env));
   },
 };
 

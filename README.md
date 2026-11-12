@@ -7,7 +7,7 @@ The website at [sealmark.dev](https://sealmark.dev) and the fleet that keeps its
 | `web/` | Next.js static site: docs, results pages. `cd web && npm ci && npm run dev` |
 | `web/content/data/server-results.json` | The one data file behind the results pages |
 | `fleet/` | `plan.mjs` picks servers to re-test (new versions, stale results, a few new ones from the MCP Registry); `merge.mjs` folds the reports into the results file and `history.jsonl` |
-| `web/worker/` | The Worker in front of the static site: only `/api/notify/*` (grade-change email alerts, D1 `sealmark-notify`, hourly cron). `notify-core.mjs` holds the email and issue texts |
+| `web/worker/` | The Worker in front of the static site: only `/api/*`. `/api/notify/*` is the grade-change email alerts (D1 `sealmark-notify`, hourly cron); `notify-core.mjs` holds the email and issue texts. `/api/visit` counts page views with the referring host and UTM params only (`visits.mjs`, privacy note `/privacy/`) |
 | `fleet/notify-owners.mjs` | One GitHub issue per server repository on its first grade; drafts in `fleet/owner-issues-draft.md` until switched on |
 | `fleet/impact.mjs` | What happened to grades after owners were told, against a never-notified base rate: `fleet/impact-summary.md` (internal, not on the site) |
 | `.github/workflows/fleet.yml` | Re-test every 6 hours (and by hand) on GitHub-hosted machines; commits the new grades and deploys when `CLOUDFLARE_API_TOKEN` is set |
@@ -21,6 +21,8 @@ The docs pages are generated from the published CLI: `web/package.json` pins `se
 Deploys: `fleet.yml` and `release-sync.yml` deploy `main` automatically. By hand: `cd web && npm run build && npx wrangler deploy`.
 
 Secrets: `FLEET_EXCLUDE` (a regular expression of package names the fleet must not grade), `CLOUDFLARE_API_TOKEN` (deploy: Workers Scripts edit is enough for the Worker with its D1, email and cron bindings; D1 read lets `impact.mjs` count sent emails, and without it that step only logs that it could not), the optional `SEALMARK_ISSUES_TOKEN` (files grading issues in the sealmark repository) and `OWNER_ISSUES_TOKEN` (owner issues, below).
+
+Visit counts: the Worker secret `VISITS_TOKEN` (not a repository secret) guards the owner's report, `GET https://sealmark.dev/api/visits?days=30` with `Authorization: Bearer <token>` (JSON: visits per day, UTM sources, referring sites, pages, the last 50 landings). Rows hold the page, the referring host and the UTM params, nothing else, and are deleted after 365 days. Migration `0003_visits.sql` is applied with `npx wrangler d1 migrations apply sealmark-notify --remote`.
 
 Owner notices:
 
