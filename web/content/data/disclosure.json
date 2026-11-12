@@ -1,0 +1,135 @@
+{
+  "about": [
+    "Disclosure status of each security finding shown on the results pages, keyed by \"<server id>/<check id>\". Read by web/lib/disclosure.mjs.",
+    "status: pending-report (found, not reported yet), reported (reported privately on reportedAt), fixed (a fixed version is out), published (the report is public).",
+    "While pending-report or reported, the results page hides the evidence, the tool names and the start command. A reported finding goes public on publishAfter (default reportedAt + 90 days); fixed and published are public at once.",
+    "A finding with no entry here counts as pending-report, so a new finding from a re-test is redacted until someone marks it. Dates are YYYY-MM-DD."
+  ],
+  "findings": {
+    "dbhub/mutating-sql": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "everything/secret-echo": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "postgres-mcp/mutating-sql": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "sqlite/sqlite-file-write": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "agent-infra-fs/fs-read-escape": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "agent-infra-fs/fs-write-escape": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "agent-infra-fs/fs-link-escape": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "cyanheads-fs/fs-link-escape": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "cyanheads-git/net-loopback-ssrf": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "executeautomation-db/sqlite-file-read": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "executeautomation-db/sqlite-file-write": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "fetch-mcp/net-loopback-ssrf": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "henkey-postgres/mutating-sql": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "kazuph-fetch/net-loopback-ssrf": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "markitdown/net-loopback-ssrf": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "markitdown/net-scheme-allowlist": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "mcp-sqlite/sqlite-mutating-sql": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "mcp-sqlite/sqlite-file-read": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "mcp-sqlite/sqlite-file-write": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "server-postgres/mutating-sql": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "cleanor-mcp/net-loopback-ssrf": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "percher-mcp/tool-poisoning": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "percher-mcp/net-loopback-ssrf": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "wpconvert-mcp/tool-poisoning": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    },
+    "zensation-mcp/annotation-honesty": {
+      "status": "pending-report",
+      "reportedAt": null,
+      "publishAfter": null
+    }
+  }
+}

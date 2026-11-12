@@ -10,7 +10,7 @@ import s from "../results.module.css";
 
 export const metadata: Metadata = {
   title: "Results over time: Sealmark grade history",
-  description: "The worst grade each tracked MCP server got in every fleet re-test, with the version tested and the Sealmark version.",
+  description: "The worst grade each tracked MCP server got in every automated re-test, with the version tested and the Sealmark version.",
 };
 
 export default function HistoryPage() {
@@ -24,7 +24,7 @@ export default function HistoryPage() {
         <p className={s.crumb}><Link href="/results/">Results</Link> / Over time</p>
         <h1 className={s.h1}>How the grades changed</h1>
         <p className={s.lede}>
-          Every tracked server is re-tested automatically on fresh machines: the fleet runs every 6 hours and re-tests a server when it publishes a new version, when Sealmark releases one, or when its last test is 7 days old. Each seal is the worst grade across the suites graded in that run.
+          Every tracked server is re-tested automatically on fresh machines. Automated re-tests run every 6 hours and pick up a server when it publishes a new version, when Sealmark releases one, or when its last test is 7 days old. Each seal is the worst grade across the test areas graded in that run.
           A dash means the server could not be started that day, which says nothing about its grade. Automated re-tests are not checked by hand.
           {last ? ` Latest run: ${last}.` : ""}
         </p>

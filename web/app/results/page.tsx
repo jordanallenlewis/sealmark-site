@@ -73,7 +73,7 @@ export default function ResultsPage() {
         <section className={s.sec}>
           <h2>How to read a grade</h2>
           <div className={s.cards}>
-            <div className={s.card}><h3>Protocol only means hygiene</h3><p>The protocol suite calls tools only with invalid input, so a server that does little scores well there. Look at the deeper suites.</p></div>
+            <div className={s.card}><h3>Protocol only means hygiene</h3><p>The protocol test area calls tools only with invalid input, so a server that does little scores well there. Look at the deeper test areas. A server&rsquo;s grade is its lowest test-area grade.</p></div>
             <div className={s.card}><h3>An A is not an endorsement</h3><p>It means these probes passed for one version and configuration; every page lists what was not covered. See <Link href="/docs/concepts/grades/">how grades work</Link> and <Link href="/docs/methodology/#what-an-a-means">what an A means</Link>.</p></div>
           </div>
         </section>
