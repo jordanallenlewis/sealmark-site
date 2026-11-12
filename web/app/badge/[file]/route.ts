@@ -9,5 +9,5 @@ export async function GET(_: Request, { params }: P) {
   const { file } = await params;
   const hit = badgeServers().find(({ x }) => `${x.id}.svg` === file);
   if (!hit) return new Response("not found", { status: 404 });
-  return new Response(badgeSvg(hit.b.label, hit.b.message, hit.b.letter), { headers: { "content-type": "image/svg+xml" } });
+  return new Response(badgeSvg(hit.b.label, hit.b.message, hit.b.letter, hit.b.note), { headers: { "content-type": "image/svg+xml" } });
 }
