@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-11T23:59:23.935Z",
-  "window": 322,
-  "graded": 189,
-  "failed": 133,
+  "generatedAt": "2026-11-12T05:22:04.629Z",
+  "window": 331,
+  "graded": 192,
+  "failed": 139,
   "clusters": [
     {
       "servers": [
@@ -38,8 +38,8 @@
         "hardening"
       ],
       "title": "38% of servers never start under the fleet harness",
-      "count": 121,
-      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n- 103x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 16x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
+      "count": 126,
+      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n- 108x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 16x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
     }
   ]
 }
