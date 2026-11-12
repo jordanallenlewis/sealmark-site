@@ -36,7 +36,7 @@ export default function Page() {
         <p>Every grade email has a link to stop them, and mail apps that show an unsubscribe button use the same link. Or reply to any of the emails and we stop them by hand. Stopped addresses get nothing more for that server.</p>
 
         <h2 className={s.packhead}>For server owners</h2>
-        <p>Sealmark may also open one GitHub issue on a server&apos;s repository when it is first graded, with the grade, the failing checks and a link to this form. It opens at most one per repository; reply &quot;opt out&quot; on it and Sealmark never opens another. To dispute a grade, see the <Link href="/docs/disclosure/">disclosure policy</Link>.</p>
+        <p>Sealmark may also open one GitHub issue on a server&apos;s repository when it is first graded, with the grade, the failing checks and a link to this form. It opens at most one per repository; reply &quot;opt out&quot; on it and Sealmark never opens another. A security finding never goes in that issue; it is reported privately under the <Link href="/disclosure/">disclosure policy</Link>.</p>
       </main>
       <Footer />
     </>

@@ -34,7 +34,7 @@ export function Footer({ docs }: { docs?: { root: string; inner: string } }) {
             <Link href="/mcp-conformance-testing/">MCP conformance testing</Link>
             <Link href="/compare/">Compare tools</Link>
             <Link href="/docs/methodology/">Methodology</Link>
-            <Link href="/docs/disclosure/">Disclosure</Link>
+            <Link href="/disclosure/">Disclosure</Link>
             <Link href="/docs/changelog/">Changelog</Link>
             <a href="https://github.com/jordanallenlewis/sealmark" rel="noopener">GitHub</a>
             <a href={`mailto:${CONTACT.email}`}>Contact</a>

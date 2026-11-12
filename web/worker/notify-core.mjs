@@ -126,6 +126,7 @@ export function issueDraft({ id, server, repo }) {
     `This is an automated re-test, not a review by hand, and Sealmark can be wrong. If a verdict looks wrong, reply here or email disclosure@sealmark.dev and we recheck it.`,
     ...(badgeEligible(server) ? [`Badge, if you want one (it links to the results and updates with each re-test):\n\n\`\`\`md\n[![Sealmark](${badgeUrl(id)})](${resultsUrl(id)})\n\`\`\``] : []),
     `The fleet re-tests new versions every 6 hours. To get an email when this grade changes, use the form on the results page. This is the only issue Sealmark opens on this repository; close it whenever you like, and reply "opt out" if you do not want it to post here again.`,
+    `Security findings are never posted in an issue like this one: they are reported privately first, as described in the [disclosure policy](${ORIGIN}/disclosure/).`,
   ].join("\n\n");
   return { repo, title, body };
 }
