@@ -78,6 +78,11 @@ jobs:
         working-directory: web
         run: npm run version:check
 
+      # The grade-alert Worker's routes and hourly tick, on SQLite built from worker/migrations, with a fake email binding.
+      - name: Worker tests
+        working-directory: web
+        run: node --test "worker/*.test.mjs"
+
       - name: Build the static export
         working-directory: web
         run: npm run build

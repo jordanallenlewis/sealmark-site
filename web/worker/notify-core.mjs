@@ -34,7 +34,28 @@ export function badgeEligible(server) {
 export function gradeRow(server) {
   const checks = Object.fromEntries((server.checks ?? []).map((c) => [c.id, c.label]));
   const packs = (server.packs ?? []).filter((p) => p.status === "graded" && p.letter).map((p) => ({ id: p.id, letter: p.letter }));
-  return { name: server.name, version: server.versionTested, testedAt: server.testedAt, letter: letterOf(server), packs, failing: failingChecks(server), labels: checks, badge: badgeEligible(server) };
+  const inconclusive = (server.packs ?? []).filter((p) => p.status === "inconclusive").map((p) => p.id);
+  return { name: server.name, version: server.versionTested, testedAt: server.testedAt, sealmark: sealmarkKey(server), letter: letterOf(server), packs, inconclusive, failing: failingChecks(server), labels: checks, badge: badgeEligible(server) };
+}
+
+// The Sealmark build that graded the server: CLI version and methodology. When it moves, a grade can move with no
+// change in the server, so the Worker records the new grade without an up/down email. Null when unknown.
+export function sealmarkKey(server) {
+  const s = server.sealmark;
+  return s && (s.version || s.methodology) ? `${s.version ?? "?"}/${s.methodology ?? "?"}` : null;
+}
+
+// A test area graded last time and inconclusive now says nothing new about the server, so for alerts it keeps its
+// last letter (a flaky probe must not send "went up" then "went down"). `prev.packs` is the last told [{id, letter}].
+// Returns the row with those packs held, the letter recomputed, and `held` naming them; the row itself otherwise.
+export function holdInconclusive(prev, cur) {
+  const before = new Map((prev?.packs ?? []).filter((p) => p.letter).map((p) => [p.id, p.letter]));
+  const now = new Set((cur.packs ?? []).map((p) => p.id));
+  const held = (cur.inconclusive ?? []).filter((id) => before.has(id) && !now.has(id));
+  if (!held.length) return cur;
+  const packs = [...cur.packs, ...held.map((id) => ({ id, letter: before.get(id) }))];
+  const letter = packs.reduce((a, b) => (RANK[b.letter] < RANK[a.letter] ? b : a)).letter;
+  return { ...cur, packs, letter, held };
 }
 
 // What moved between the last notified state and now. `prev` is {letter, failing[]} or null (never recorded).
@@ -72,24 +93,25 @@ export function confirmEmail({ id, row, confirmUrl }) {
   const text = [
     `Someone (we hope you) asked for an email when the Sealmark grade of ${row.name} changes.`,
     `Its grade now: ${row.letter ?? "not graded"} (${packLine(row) || "no pack graded"}), version ${row.version}, tested ${row.testedAt}.`,
-    `Confirm: ${confirmUrl}`,
-    `If you did not ask for this, ignore this email. Nothing more is sent unless the link is opened.`,
+    `Confirm (the link works for 7 days): ${confirmUrl}`,
+    `If you did not ask for this, ignore this email. Nothing more is sent unless the link is opened and confirmed.`,
     `Results: ${resultsUrl(id)}`,
   ].join("\n\n");
   const htmlBody = html(
     [
       `Someone (we hope you) asked for an email when the Sealmark grade of <b>${esc(row.name)}</b> changes.`,
       `Its grade now: <b>${esc(row.letter ?? "not graded")}</b> (${esc(packLine(row) || "no pack graded")}), version ${esc(row.version)}, tested ${esc(row.testedAt)}.`,
-      `<a href="${esc(confirmUrl)}">Confirm grade alerts</a>`,
-      `If you did not ask for this, ignore this email. Nothing more is sent unless the link is opened.`,
+      `<a href="${esc(confirmUrl)}">Confirm grade alerts</a> (the link works for 7 days)`,
+      `If you did not ask for this, ignore this email. Nothing more is sent unless the link is opened and confirmed.`,
     ],
     `<a href="${esc(resultsUrl(id))}">Results for ${esc(row.name)}</a>`,
   );
   return { subject, text, html: htmlBody };
 }
 
-// The one email a confirmed subscriber gets when the letter moves.
-export function changeEmail({ id, row, change, unsubscribeUrl }) {
+// The one email a confirmed subscriber gets when the letter moves. `unsubscribeAllUrl` (optional) stops every
+// Sealmark alert to the address, not only this server's.
+export function changeEmail({ id, row, change, unsubscribeUrl, unsubscribeAllUrl }) {
   const verb = change.direction === "up" ? "went up" : "went down";
   const subject = `Sealmark: ${row.name} ${verb} from ${change.from} to ${change.to}`;
   const name = (cid) => `${cid} (${row.labels?.[cid] ?? "check"})`;
@@ -99,11 +121,13 @@ export function changeEmail({ id, row, change, unsubscribeUrl }) {
   ];
   if (change.fixed.length) lines.push(`Now passing: ${change.fixed.map(name).join("; ")}.`);
   if (change.broke.length) lines.push(`Now failing: ${change.broke.map(name).join("; ")}.`);
+  if (row.held?.length) lines.push(`Not settled this run, so the last grade is kept: ${row.held.map((p) => PACK_LABEL[p] ?? p).join(", ")}.`);
   const links = [`Full results: ${resultsUrl(id)}`, ...(row.badge ? [`Badge: ${badgeUrl(id)}`] : [])];
-  const text = [...lines, ...links, `Stop these emails: ${unsubscribeUrl}`].join("\n\n");
+  const stops = [`Stop these emails: ${unsubscribeUrl}`, ...(unsubscribeAllUrl ? [`Stop all Sealmark alerts to this address: ${unsubscribeAllUrl}`] : [])];
+  const text = [...lines, ...links, ...stops].join("\n\n");
   const htmlBody = html(
     lines.map(esc).concat([`<a href="${esc(resultsUrl(id))}">Full results</a>${row.badge ? ` · <a href="${esc(badgeUrl(id))}">Badge</a>` : ""}`]),
-    `Automated re-test, not checked by hand. <a href="${esc(unsubscribeUrl)}">Stop these emails</a>.`,
+    `Automated re-test, not checked by hand. <a href="${esc(unsubscribeUrl)}">Stop these emails</a>${unsubscribeAllUrl ? ` · <a href="${esc(unsubscribeAllUrl)}">Stop all Sealmark alerts</a>` : ""}.`,
   );
   return { subject, text, html: htmlBody };
 }
