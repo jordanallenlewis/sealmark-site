@@ -108,3 +108,23 @@
 .notify p[role="status"]:empty { margin: 0; }
 .sec p.notifyErr { color: var(--fail); font-size: 0.9rem; }
 @media (pointer: coarse) { .notifyInput, .notify .btn { min-height: 44px; } }
+
+/* overall grade (results/[id]): the server's letter, the rule behind it, and how much it covers */
+.overall { display: flex; gap: 22px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; margin: 30px 0 0; max-width: 76ch; }
+.overall :global(.seal) { margin: 6px; }
+.overall h2 { font-family: var(--font-display), sans-serif; font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; margin: 0 0 4px; }
+.overall p { color: var(--ink-muted); margin: 4px 0 0; font-size: 0.95rem; }
+.flag { color: var(--part); font-weight: 600; }
+.noGrade { width: 72px; height: 72px; border-radius: 50%; display: inline-grid; place-items: center; border: 2px dashed var(--border-strong, var(--border)); color: var(--ink-faint); font: 800 1.6rem var(--font-display), sans-serif; flex: none; }
+.areasHead { font: 600 0.8rem var(--font-mono), ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 26px 0 0; }
+.gradeRow.areas { margin-top: 12px; }
+.gradeBox .flag { display: block; font: 0.75rem var(--font-mono), ui-monospace, monospace; }
+/* a security finding under private disclosure, and a weak signal (a partial that is not a finding) */
+.checks .weak { color: var(--part); font: 600 0.72rem var(--font-mono), ui-monospace, monospace; letter-spacing: 0.06em; margin-left: 6px; text-transform: uppercase; }
+.checks .id a { color: inherit; text-decoration-color: var(--border-strong, var(--border)); text-underline-offset: 3px; }
+.checks .id a:hover { color: var(--accent-link); }
+.private { color: var(--ink-muted); border-left: 3px solid var(--part); padding-left: 10px; }
+.private b { color: var(--ink); }
+.note h2.noteHead { font-family: var(--font-display), sans-serif; font-weight: 800; font-size: 1.1rem; margin: 0 0 6px; color: var(--ink); }
+.note p { margin: 6px 0 0; }
+@media (max-width: 600px) { .overall { flex-direction: column; align-items: flex-start; } }
