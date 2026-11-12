@@ -6,6 +6,8 @@
   // secret (set on the Worker 2026-11-12). Kill switch: set NOTIFY_LIVE to "0" and deploy; sends are then only logged.
   // D1 migrations are not applied by the deploy: after adding one run `npx wrangler d1 migrations apply sealmark-notify
   // --remote` (the hourly tick refuses to run until 0002 is in).
+  // Visit counts (worker/visits.mjs, D1 table visits): the owner reads GET /api/visits?days=30 with
+  // `Authorization: Bearer <VISITS_TOKEN>`, a Worker secret (`npx wrangler secret put VISITS_TOKEN`).
   // Optional, all unset: NOTIFY_MASS_CHANGE "baseline" or "send" releases a held mass change (worker/index.js) for one
   // deploy; NOTIFY_TURNSTILE "1" requires a Turnstile token on subscribe, with the TURNSTILE_SECRET secret and the
   // public TURNSTILE_SITE_KEY for the form (no widget exists yet, so leave it off).
