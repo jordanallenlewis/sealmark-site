@@ -9,6 +9,7 @@
 //      instead of MAX_NEW; shards of the matrix run 10 at a time, each in its own throwaway VM with no secrets).
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
+import { canPlan } from "./overrides.mjs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
 const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 10;
@@ -292,7 +293,7 @@ async function main() {
   const jobs = [];
   for (const s of tracked) {
     const launch = s.launch ?? "";
-    if (launch.includes("<workspace>")) continue;
+    if (!canPlan(launch)) continue;
     const v = await latestVersion(s.ecosystem, s.name);
     let due = FORCE_ALL;
     // GitHub-only servers compare the release or tag they were tested at (refTested).
