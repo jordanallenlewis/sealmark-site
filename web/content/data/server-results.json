@@ -3374,7 +3374,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "sh -c 'npm install --silent --no-audit --no-fund --prefix /tmp/sealmark-cyanheads-fs @cyanheads/filesystem-mcp-server@1.0.4 1>&2 && exec node /tmp/sealmark-cyanheads-fs/node_modules/@cyanheads/filesystem-mcp-server/dist/index.js'",
+      "launch": "sh -c 'npm install --silent --no-audit --no-fund --prefix /tmp/sealmark-cyanheads-fs @cyanheads/filesystem-mcp-server@1.0.4 1>&2 && exec env FS_BASE_DIRECTORY=\"$0\" node /tmp/sealmark-cyanheads-fs/node_modules/@cyanheads/filesystem-mcp-server/dist/index.js' {sandbox}",
       "transport": "stdio",
       "toolCount": 10,
       "packs": [
@@ -3416,15 +3416,17 @@
         },
         {
           "id": "fs",
-          "status": "na",
-          "letter": null,
-          "points": null,
-          "scored": null,
-          "pct": null,
+          "status": "graded",
+          "letter": "D",
+          "points": 2,
+          "scored": 4,
+          "pct": 50,
           "provisional": false,
           "capped": false,
-          "criticalFails": [],
-          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+          "criticalFails": [
+            "fs-link-escape"
+          ],
+          "reason": null
         },
         {
           "id": "git",
@@ -3522,6 +3524,42 @@
           "summary": "the server sent no instructions"
         },
         {
+          "id": "fs-read-escape",
+          "pack": "fs",
+          "label": "Reads stay inside the allowed root",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "17 path variants aimed outside the root were refused or returned nothing, on read_file, list_files"
+        },
+        {
+          "id": "fs-write-escape",
+          "pack": "fs",
+          "label": "Writes stay inside the allowed root",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "42 write attempts aimed outside the root left the canary directory and the sibling root unchanged"
+        },
+        {
+          "id": "fs-link-escape",
+          "pack": "fs",
+          "label": "Links cannot lead out of the allowed root",
+          "critical": true,
+          "advisory": false,
+          "verdict": "fail",
+          "summary": "a link inside the root led to a file outside it: read_file via link-dir; read_file via link-file; list_files via link-dir; write_file via link-dir-write"
+        },
+        {
+          "id": "fs-size-cap",
+          "pack": "fs",
+          "label": "Large file reads are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "fail",
+          "summary": "read_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap)"
+        },
+        {
           "id": "annotation-honesty",
           "pack": "effects",
           "label": "Read-only tools change nothing",
@@ -3554,29 +3592,28 @@
           "label": "Refusals say what to do next",
           "critical": false,
           "advisory": true,
-          "verdict": "na",
-          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+          "verdict": "fail",
+          "summary": "0 of 2 refusal(s) say what to do instead or why retrying will not help (0 %)"
         }
       ],
       "coverage": {
-        "validCalls": 2,
-        "toolsCalledValid": 2,
+        "validCalls": 48,
+        "toolsCalledValid": 6,
         "toolsTotal": 10,
-        "level": "low"
+        "level": "covered"
       },
       "badge": {
-        "eligible": false,
-        "reason": "core-only run: no capability pack was graded"
+        "eligible": true
       },
       "notCovered": [
-        "tool \"set_filesystem_default\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"write_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"update_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"delete_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"delete_directory\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"create_directory\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"move_path\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"copy_path\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"set_filesystem_default\" was not covered by the fs pack: the classifier rated this a path tool with high confidence, but its name and description do not say whether it reads, writes or lists, so it was not called",
+        "tool \"delete_file\" was not covered by the fs pack: a delete tool is never called by the standard probes; add a custom probe to test it",
+        "tool \"delete_directory\" was not covered by the fs pack: a delete tool is never called by the standard probes; add a custom probe to test it",
+        "tool \"update_file\" was not covered by the fs pack: the control write inside {sandbox} did not create a file (Relative path provided, but no default filesystem path has been set for this ses...)",
+        "tool \"write_file\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
+        "tool \"create_directory\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
+        "tool \"move_path\" was not covered by the effects pack: a copy tool has no harmless control call",
+        "tool \"copy_path\" was not covered by the effects pack: a copy tool has no harmless control call",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
