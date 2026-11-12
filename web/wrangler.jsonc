@@ -4,6 +4,11 @@
   // Deploy: fleet.yml and release-sync.yml deploy main; by hand `npm run build && npx wrangler deploy`.
   // Alerts are on: NOTIFY_LIVE "1" (here; a dashboard value is overwritten by the next deploy) and the NOTIFY_SECRET
   // secret (set on the Worker 2026-11-12). Kill switch: set NOTIFY_LIVE to "0" and deploy; sends are then only logged.
+  // D1 migrations are not applied by the deploy: after adding one run `npx wrangler d1 migrations apply sealmark-notify
+  // --remote` (the hourly tick refuses to run until 0002 is in).
+  // Optional, all unset: NOTIFY_MASS_CHANGE "baseline" or "send" releases a held mass change (worker/index.js) for one
+  // deploy; NOTIFY_TURNSTILE "1" requires a Turnstile token on subscribe, with the TURNSTILE_SECRET secret and the
+  // public TURNSTILE_SITE_KEY for the form (no widget exists yet, so leave it off).
   "name": "sealmark",
   "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
