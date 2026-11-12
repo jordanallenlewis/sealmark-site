@@ -5,6 +5,9 @@
 // possible vulnerability in someone else's server: under the disclosure policy (web/content/docs/disclosure.mdx) it
 // is reported privately first, so the whole repository goes to the private queue, never to a public issue.
 //
+// The public results pages (web/lib/disclosure.mjs) import this classification too: a check this file does not list as
+// PUBLIC or ADVISORY is redacted there while its finding is under private disclosure.
+//
 // Every check in the registry (web/content/generated/checks.json) is classified here by hand, and
 // fleet/notify.test.mjs fails when the registry gains a check that is not: a new check must be classified on purpose.
 import registry from "../web/content/generated/checks.json" with { type: "json" };
@@ -96,11 +99,12 @@ export function isSecurityCheck(check) {
 }
 
 // Weak signals: results that lower or qualify a grade without showing a problem. Never a finding, never named in an
-// issue, and a grade they alone pull below an A waits for a clearer re-test (fleet/notify-owners.mjs).
+// issue, and never redacted on the public results pages (web/lib/disclosure.mjs imports WEAK_PART and isWeakSignal).
+// In the owner notices, a grade they alone pull below an A waits for a clearer re-test (fleet/notify-owners.mjs).
 //   tool-poisoning "part": weak indicators only, none conclusive
 //   annotation-honesty "part": a read-only tool changed only caches (the sandbox home or temp)
 //   any "inconclusive" verdict
-const WEAK_PART = {
+export const WEAK_PART = {
   "tool-poisoning": /^\d+ weak indicator\(s\) worth reading, none conclusive\.?$/,
   "annotation-honesty": /^declared read-only; only caches changed\b/,
 };
