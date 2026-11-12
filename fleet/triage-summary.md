@@ -1,7 +1,7 @@
 ## Fleet triage
 
-Window: 365 results (200 graded, 165 failed). 1 issue cluster(s).
+Window: 377 results (203 graded, 174 failed). 1 issue cluster(s).
 
 | kind | cluster | servers |
 |---|---|---|
-| hardening | 41% of servers never start under the fleet harness | 150 |
+| hardening | 42% of servers never start under the fleet harness | 159 |

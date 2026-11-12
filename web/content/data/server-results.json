@@ -32697,16 +32697,16 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.47",
+      "versionTested": "2.12.48",
       "serverInfoName": "dchub-mcp-server",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.47",
+      "launch": "npx -y dchub-mcp-server@2.12.48",
       "transport": "stdio",
       "toolCount": 95,
       "packs": [
@@ -32896,7 +32896,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, get_air_permit_context, simulate_scenario, list_standing_intents, cluster_sites_by_latency, source_capacity, read_inbox not judged: the control call failed)"
+          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, simulate_scenario, cluster_sites_by_latency, source_capacity declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_air_permit_context, list_standing_intents, read_inbox not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -39292,7 +39292,7 @@
       "name": "@pascal-app/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.3",
+      "versionTested": "1.1.4",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-12",
       "sealmark": {
@@ -39301,7 +39301,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pascal-app/mcp@1.1.3",
+      "launch": "npx -y @pascal-app/mcp@1.1.4",
       "transport": "stdio",
       "toolCount": 89,
       "packs": [
@@ -48620,8 +48620,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.440",
-      "versionTested": "1.108.440",
+      "refTested": "1.108.442",
+      "versionTested": "1.108.442",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-12",
       "sealmark": {
