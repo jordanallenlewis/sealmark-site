@@ -6,16 +6,31 @@
 //
 // Gate: issues are opened only when the OWNER_ISSUES_TOKEN secret is set AND the repository variable
 // OWNER_ISSUES_LIVE is "1". Otherwise the next issues are written to fleet/owner-issues-draft.md for review.
+// Per run at most MAX_OWNER_ISSUES issues (default 2 for the first live runs; 8 is the intended later value).
 //
-// Files (all tracked, committed by the collect job):
+// Who gets a public issue, in order (plan() below):
+//   - skipped for good: no GitHub repo, already notified, opted out, our own repo, repo missing, archived, fork;
+//   - HELD for private handling: any graded server of the repo fails (or partly fails) a security check
+//     (fleet/security-checks.mjs). The whole repository is held, its other failures too: the disclosure policy
+//     reports security findings privately first (a GitHub Security Advisory), never in a public issue. Held repos
+//     go to fleet/owner-private-queue.json and fleet/owner-private-draft.md, which are gitignored, never committed
+//     and never sent by this script; the public draft and the log give only their count;
+//   - skipped, issues off (only the public issue needs them);
+//   - waiting for a fresh grade: a server whose grade is older than FRESH_DAYS or whose latest re-test failed is
+//     left out; a repository with no fresh server waits for the next good re-test.
+//
+// Files (tracked, committed by the collect job):
 //   fleet/owner-repos.json      server id -> GitHub repo (or null), resolved from the launch line or npm/PyPI metadata
 //   fleet/owner-notified.json   the notice ledger: every issue opened, with the baseline fleet/impact.mjs measures from
 //   fleet/owner-optout.json     repositories that asked not to hear from Sealmark; honoured forever, never pruned
 //   fleet/owner-issues-draft.md the issues the next live run would open (rewritten each run while the gate is shut)
+// Not tracked (.gitignore): fleet/owner-private-queue.json and fleet/owner-private-draft.md, rewritten every run.
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { ISSUE_MARKER, failingChecks, issueDraft, letterOf } from "../web/worker/notify-core.mjs";
+import { ISSUE_MARKER, ORIGIN, failingChecks, issueDraft, letterOf } from "../web/worker/notify-core.mjs";
+import { failedSince } from "../web/lib/retest.mjs";
+import { SECURITY_CHECKS, isSecurityCheck, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
   results: "web/content/data/server-results.json",
@@ -23,8 +38,18 @@ export const FILES = {
   ledger: "fleet/owner-notified.json",
   optout: "fleet/owner-optout.json",
   draft: "fleet/owner-issues-draft.md",
+  privateQueue: "fleet/owner-private-queue.json",
+  privateDraft: "fleet/owner-private-draft.md",
 };
-export const MAX_ISSUES = Number(process.env.MAX_OWNER_ISSUES ?? 8); // per run
+// Issues per run: MAX_OWNER_ISSUES when it is a whole number of at least 1, else 2. Raise the repository variable to 8
+// once the first live runs read well.
+export const DEFAULT_MAX_ISSUES = 2;
+export function maxIssues(value) {
+  const n = Number(String(value ?? "").trim() || NaN);
+  return Number.isInteger(n) && n >= 1 ? n : DEFAULT_MAX_ISSUES;
+}
+export const MAX_ISSUES = maxIssues(process.env.MAX_OWNER_ISSUES);
+export const FRESH_DAYS = 14; // a grade older than this waits for a re-test before its owner is told
 export const SELF = ["jordanallenlewis"]; // never notify our own repositories
 const RESOLVE_AGAIN_DAYS = 30; // a server with no repo found is looked up again after this long
 
@@ -76,9 +101,20 @@ export async function resolveRepo(server) {
   return { repo: null, source: "unknown ecosystem" };
 }
 
-// Which graded servers get an issue this run, and why the others do not. Pure: callers pass the repo metadata.
+// Why a graded server's grade is not fresh enough to tell its owner about, or null when it is.
+export function staleReason(server, today) {
+  const failed = failedSince(server);
+  if (failed) return `latest re-test failed on ${failed.date}; waits for a fresh grade`;
+  const days = (Date.parse(today) - Date.parse(server.testedAt)) / 864e5;
+  if (!(days <= FRESH_DAYS)) return `grade from ${server.testedAt} is older than ${FRESH_DAYS} days; waits for a fresh grade`;
+  return null;
+}
+
+// Which graded servers get an issue this run, which repositories are held for a private report, and why the others
+// get neither. Pure: callers pass the repo metadata.
 //   cache: id -> {repo}; ledger: {issues: [...]}; optout: {repos: [...]}; meta: repo -> GitHub repo object or {missing}
-export function plan({ servers, cache, ledger, optout, meta = {}, max = MAX_ISSUES }) {
+//   today: YYYY-MM-DD, for freshness
+export function plan({ servers, cache, ledger, optout, meta = {}, max = MAX_ISSUES, today = new Date().toISOString().slice(0, 10) }) {
   const notified = new Set((ledger.issues ?? []).map((i) => i.repo.toLowerCase()));
   const opted = new Set((optout.repos ?? []).map((r) => r.toLowerCase()));
   const byRepo = new Map();
@@ -88,27 +124,39 @@ export function plan({ servers, cache, ledger, optout, meta = {}, max = MAX_ISSU
     const repo = cache[server.id]?.repo;
     if (!repo) { skipped.push({ id: server.id, reason: "no GitHub repository found" }); continue; }
     const key = repo.toLowerCase();
-    if (byRepo.has(key)) { byRepo.get(key).also.push(server); continue; }
-    byRepo.set(key, { repo, server, also: [] });
+    if (!byRepo.has(key)) byRepo.set(key, { repo, servers: [] });
+    byRepo.get(key).servers.push(server);
   }
   const send = [];
-  for (const [key, entry] of byRepo) {
+  const held = [];
+  for (const [key, { repo, servers: graded }] of byRepo) {
+    const m = meta[repo];
     const why = notified.has(key) ? "already notified"
       : opted.has(key) ? "opted out"
       : SELF.includes(key.split("/")[0]) ? "our own repository"
-      : meta[entry.repo]?.missing ? "repository not found"
-      : meta[entry.repo]?.archived ? "archived"
-      : meta[entry.repo]?.fork ? "fork"
-      : meta[entry.repo] && meta[entry.repo].has_issues === false ? "issues disabled"
+      : m?.missing ? "repository not found"
+      : m?.archived ? "archived"
+      : m?.fork ? "fork"
       : null;
-    if (why) { if (why !== "already notified") skipped.push({ id: entry.server.id, repo: entry.repo, reason: why }); continue; }
-    send.push(entry);
+    if (why) { if (why !== "already notified") skipped.push({ id: graded[0].id, repo, reason: why }); continue; }
+    // A security finding on any of the repo's servers, fresh or not, holds the whole repository: no public issue.
+    if (graded.some((x) => securityFindings(x).length)) { held.push({ repo, servers: graded }); continue; }
+    if (m && m.has_issues === false) { skipped.push({ id: graded[0].id, repo, reason: "issues disabled" }); continue; }
+    const fresh = [];
+    for (const x of graded) {
+      const stale = staleReason(x, today);
+      if (stale) skipped.push({ id: x.id, repo, reason: stale });
+      else fresh.push(x);
+    }
+    if (fresh.length) send.push({ repo, server: fresh[0], also: fresh.slice(1) });
   }
-  return { send: send.slice(0, max), waiting: Math.max(0, send.length - max), skipped };
+  return { send: send.slice(0, max), waiting: Math.max(0, send.length - max), skipped, held };
 }
 
 // The issue for one repository. A repo with several graded servers gets one issue that names the others.
+// Refuses a repository with a security finding: plan() holds those, and this is the second lock.
 export function draftFor(entry) {
+  if ([entry.server, ...entry.also].some((x) => securityFindings(x).length)) throw new Error(`${entry.repo}: security finding, held for a private report; no public issue`);
   const d = issueDraft({ id: entry.server.id, server: entry.server, repo: entry.repo });
   if (entry.also.length) {
     const more = entry.also.map((x) => `- \`${x.name}\` ${x.versionTested}: **${letterOf(x)}**, https://sealmark.dev/results/${encodeURIComponent(x.id)}/`).join("\n");
@@ -127,14 +175,62 @@ export function baseline(entry, issue, at) {
   };
 }
 
-export function renderDrafts({ drafts, waiting, skipped, reason, today }) {
+// The public drafts file (tracked). Held repositories appear only as a count: naming them would say where a security
+// finding is before its maintainer has heard of it.
+export function renderDrafts({ drafts, waiting, skipped, held = 0, reason, today, max = MAX_ISSUES }) {
   const parts = [
     `# Owner issues: drafts`,
-    `Written by \`fleet/notify-owners.mjs\` on ${today}. Not filed: ${reason}. These are the issues the next live run would open (at most ${MAX_ISSUES} per run)${waiting ? `; ${waiting} more repositories wait for later runs` : ""}.`,
+    `Written by \`fleet/notify-owners.mjs\` on ${today}. Not filed: ${reason}. These are the issues the next live run would open (at most ${max} per run)${waiting ? `; ${waiting} more repositories wait for later runs` : ""}.`,
   ];
+  if (held) parts.push(`${held} ${held === 1 ? "repository is" : "repositories are"} held for private handling under the [disclosure policy](${ORIGIN}/docs/disclosure/) and not listed here.`);
   for (const d of drafts) parts.push(`---\n\n## ${d.repo}\n\n**Title:** ${d.title}\n\n${d.body}`);
   if (!drafts.length) parts.push(`No repository is due an issue.`);
   if (skipped.length) parts.push(`---\n\n## Skipped\n\n${skipped.map((s) => `- \`${s.id}\`${s.repo ? ` (${s.repo})` : ""}: ${s.reason}`).join("\n")}`);
+  return parts.join("\n\n") + "\n";
+}
+
+// ---- the private queue: security findings, reported privately first, never sent by this script ----
+
+const rerun = (x) => `npx -y sealmark@${x.sealmark?.version ?? "latest"} run --start ${JSON.stringify(x.launch)}`;
+
+// One queue entry per held repository: what a private report would contain and where it would go.
+//   pvr: true / false / null (unknown) for GitHub private vulnerability reporting on the repo
+export function privateEntry({ repo, servers }, { today, pvr = null } = {}) {
+  return {
+    repo,
+    status: "not sent",
+    channel: pvr === true ? `GitHub private vulnerability reporting: https://github.com/${repo}/security/advisories/new`
+      : pvr === false ? `private vulnerability reporting is off: look for SECURITY.md or a listed security contact; if none, record that and wait`
+      : `unknown: check https://github.com/${repo}/security for private vulnerability reporting or SECURITY.md`,
+    servers: servers.map((x) => ({
+      id: x.id, name: x.name, version: x.versionTested, testedAt: x.testedAt, letter: letterOf(x),
+      fresh: !staleReason(x, today), stale: staleReason(x, today),
+      rerun: rerun(x), results: `${ORIGIN}/results/${encodeURIComponent(x.id)}/`,
+      security: securityFindings(x).map((c) => ({ id: c.id, label: c.label, verdict: c.verdict, summary: c.summary })),
+      otherFailing: failingChecks(x).filter((id) => !isSecurityCheck((x.checks ?? []).find((c) => c.id === id))),
+    })),
+  };
+}
+
+export function renderPrivate({ entries, today }) {
+  const parts = [
+    `# Owner notices held for private handling`,
+    `PRIVATE. Written by \`fleet/notify-owners.mjs\` on ${today}; gitignored, never committed, never sent. Each repository below has a failing (or partly failing) security check, so it gets no public issue. Under the disclosure policy a person reports it privately: a GitHub Security Advisory draft (private vulnerability reporting) on the repository, else a private contact; a 14-day reply window with one reminder; publication at a fix or at day 90. Re-test first where the grade is not fresh.`,
+    `Security checks: ${[...SECURITY_CHECKS].sort().map((id) => `\`${id}\``).join(", ")} (fleet/security-checks.mjs).`,
+  ];
+  if (!entries.length) parts.push(`No repository is held.`);
+  for (const e of entries) {
+    const lines = [`---\n\n## ${e.repo}`, `**Channel:** ${e.channel}`];
+    for (const x of e.servers) {
+      const sec = x.security.map((c) => `- \`${c.id}\` ${c.label} (${c.verdict}): ${c.summary}`).join("\n") || "- none on this server";
+      lines.push(`### ${x.name} ${x.version}: ${x.letter}, tested ${x.testedAt}${x.fresh ? "" : ` (NOT FRESH: ${x.stale})`}`,
+        `**Draft advisory title:** ${x.security.length ? `${x.security.map((c) => c.label).join("; ")} in ${x.name} ${x.version}` : "(covered by the advisory above)"}`,
+        `Security findings:\n\n${sec}`,
+        `Other failing checks (in the same private report, not posted publicly): ${x.otherFailing.length ? x.otherFailing.map((id) => `\`${id}\``).join(", ") : "none"}`,
+        `Reproduce: \`${x.rerun}\``, `Results page: ${x.results}`);
+    }
+    parts.push(lines.join("\n\n"));
+  }
   return parts.join("\n\n") + "\n";
 }
 
@@ -186,18 +282,31 @@ async function main() {
   }
   writeJson(FILES.optout, optout);
 
-  const first = plan({ servers, cache, ledger, optout, max: Infinity });
+  const first = plan({ servers, cache, ledger, optout, max: Infinity, today });
   const meta = {};
   for (const e of first.send.slice(0, MAX_ISSUES * 2)) {
     try { meta[e.repo] = await api(`/repos/${e.repo}`); } catch (err) { console.log(`repo check failed for ${e.repo}: ${err.message}`); }
   }
-  const { send, waiting, skipped } = plan({ servers, cache, ledger, optout, meta: Object.fromEntries(Object.entries(meta)), max: MAX_ISSUES });
+  // held repositories: archived / fork, and whether private vulnerability reporting is on. Never logged by name (the
+  // Actions log of this public repository would say where a security finding is).
+  const pvr = {};
+  for (const e of first.held) {
+    try { meta[e.repo] = await api(`/repos/${e.repo}`); } catch { console.log(`repo check failed for a held repository`); }
+    try { const r = await api(`/repos/${e.repo}/private-vulnerability-reporting`); pvr[e.repo] = r.missing ? null : r.enabled === true; } catch { pvr[e.repo] = null; }
+  }
+  const { send, waiting, skipped, held } = plan({ servers, cache, ledger, optout, meta, max: MAX_ISSUES, today });
   // only candidates whose repo was checked go out live: an unchecked one may be archived or have issues off
   const ready = send.filter((e) => meta[e.repo] && !meta[e.repo].missing);
 
+  // the private queue: rewritten every run, gitignored, never sent from here
+  const entries = held.map((h) => privateEntry(h, { today, pvr: pvr[h.repo] ?? null }));
+  writeJson(FILES.privateQueue, { generated: today, note: "PRIVATE: security findings held from public owner issues; report by hand under the disclosure policy", entries });
+  fs.writeFileSync(FILES.privateDraft, renderPrivate({ entries, today }));
+  console.log(`held for private handling: ${held.length} repositories (not named here; see ${FILES.privateDraft} in a local run)`);
+
   if (!live) {
-    fs.writeFileSync(FILES.draft, renderDrafts({ drafts: ready.map(draftFor), waiting: waiting + send.length - ready.length, skipped, reason, today }));
-    console.log(`not live (${reason}): ${ready.length} drafts in ${FILES.draft}, ${skipped.length} skipped`);
+    fs.writeFileSync(FILES.draft, renderDrafts({ drafts: ready.map(draftFor), waiting: waiting + send.length - ready.length, skipped, held: held.length, reason, today }));
+    console.log(`not live (${reason}): ${ready.length} drafts in ${FILES.draft}, ${skipped.length} skipped, cap ${MAX_ISSUES} per run`);
     return;
   }
 
@@ -222,7 +331,7 @@ async function main() {
     writeJson(FILES.ledger, ledger);
   }
   if (fs.existsSync(FILES.draft)) fs.rmSync(FILES.draft);
-  console.log(`owner issues opened: ${opened}; ${waiting} repositories wait for later runs; ${skipped.length} skipped`);
+  console.log(`owner issues opened: ${opened} (cap ${MAX_ISSUES}); ${waiting} repositories wait for later runs; ${skipped.length} skipped; ${held.length} held for private handling`);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) await main();

@@ -3,7 +3,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { badgeEligible, changeEmail, confirmEmail, failingChecks, gradeChange, gradeRow, issueDraft, letterOf, ISSUE_MARKER } from "../web/worker/notify-core.mjs";
-import { OPT_OUT, draftFor, parseRepo, plan, renderDrafts, repoFromLaunch, repoFromNpm, repoFromPypi } from "./notify-owners.mjs";
+import { DEFAULT_MAX_ISSUES, FRESH_DAYS, OPT_OUT, draftFor, maxIssues, parseRepo, plan, privateEntry, renderDrafts, renderPrivate, repoFromLaunch, repoFromNpm, repoFromPypi, staleReason } from "./notify-owners.mjs";
+import { SECURITY_CHECKS, isSecurityCheck, securityFindings } from "./security-checks.mjs";
+import registry from "../web/content/generated/checks.json" with { type: "json" };
 import { attribute, baseRate, indexFailing, indexHistory, joinNotice, median, renderSummary, summarize } from "./impact.mjs";
 
 const pack = (id, letter, extra = {}) => ({ id, status: "graded", letter, points: 3, scored: 4, provisional: false, ...extra });
@@ -83,12 +85,12 @@ test("repo resolution from launch lines, npm and PyPI metadata", () => {
 });
 
 test("plan: one issue per repo, skips, opt-out forever, cap per run", () => {
-  const s = (id, repo, letter = "B", testedAt = "2026-11-01") => ({ ...server({ id, testedAt, packs: [pack("core", letter)] }), _repo: repo });
+  const s = (id, repo, letter = "B", testedAt = "2026-11-01") => ({ ...server({ id, testedAt, packs: [pack("core", letter)], checks: [check("protocol", "pass"), check("robust-input", "fail")] }), _repo: repo });
   const servers = [s("a", "o/one"), s("a2", "O/One"), s("b", "o/two"), s("c", "o/three"), s("d", "jordanallenlewis/x"), s("e", "o/arch"), s("f", "o/fork"), s("g", "o/noissues"), s("h", null), s("i", "o/opted"), s("j", "o/done"),
     { ...server({ id: "k", packs: [{ id: "core", status: "error", letter: null }] }), _repo: "o/ungraded" }];
   const cache = Object.fromEntries(servers.map((x) => [x.id, { repo: x._repo }]));
   const meta = { "o/arch": { archived: true }, "o/fork": { fork: true }, "o/noissues": { has_issues: false } };
-  const out = plan({ servers, cache, ledger: { issues: [{ repo: "o/done" }] }, optout: { repos: ["O/OPTED"] }, meta, max: 2 });
+  const out = plan({ servers, cache, ledger: { issues: [{ repo: "o/done" }] }, optout: { repos: ["O/OPTED"] }, meta, max: 2, today: "2026-11-05" });
   assert.deepEqual(out.send.map((e) => e.repo), ["o/one", "o/two"]);
   assert.deepEqual(out.send[0].also.map((x) => x.id), ["a2"], "same repo, any case: one issue naming both");
   assert.equal(out.waiting, 1);
@@ -105,6 +107,83 @@ test("plan: one issue per repo, skips, opt-out forever, cap per run", () => {
 test("opt-out wording", () => {
   for (const t of ["opt out", "Please OPT-OUT", "optout thanks"]) assert.match(t, OPT_OUT);
   assert.doesNotMatch("we opted to keep it", OPT_OUT);
+});
+
+// ---- security routing, freshness, cap ----
+const repoOf = (servers) => Object.fromEntries(servers.map((x) => [x.id, { repo: x._repo }]));
+const plain = (id, repo, extra = {}) => ({ ...server({ id, testedAt: "2026-11-10", packs: [pack("core", "B")], checks: [check("protocol", "pass"), check("robust-input", "fail")], ...extra }), _repo: repo });
+
+test("security class: every critical registry check, the named scored ones, never advisory", () => {
+  for (const c of registry) if (c.severity === "critical") assert.ok(SECURITY_CHECKS.has(c.id), `${c.id} is critical`);
+  for (const id of ["fs-read-escape", "fs-write-escape", "fs-link-escape", "exec-injection", "exec-cwd", "mutating-sql", "sqlite-mutating-sql", "sql-guard-statements", "net-redirect", "net-loopback-ssrf", "tool-poisoning", "secret-echo"]) assert.ok(SECURITY_CHECKS.has(id), id);
+  for (const id of ["protocol", "robust-input", "db-rowcap", "fs-size-cap", "net-caps", "read-only"]) assert.ok(!SECURITY_CHECKS.has(id), id);
+  for (const id of SECURITY_CHECKS) assert.ok(registry.some((c) => c.id === id), `${id} is in the registry`);
+  assert.equal(isSecurityCheck({ id: "brand-new", critical: true }), true, "a result's own critical flag counts");
+  assert.equal(isSecurityCheck({ id: "fs-read-escape", advisory: true }), false);
+  const x = server({ checks: [check("mutating-sql", "part"), check("net-redirect", "fail"), check("tool-poisoning", "part"), check("annotation-honesty", "part"), check("exec-cwd", "inconclusive"), check("robust-input", "fail")] });
+  assert.deepEqual(securityFindings(x).map((c) => c.id), ["mutating-sql", "net-redirect"], "fail counts; part only where it means a partial bypass; inconclusive never");
+});
+
+test("security routing: the whole repo is held, never drafted publicly, and named only in the private queue", () => {
+  const servers = [
+    plain("ok", "o/ok"),
+    plain("sec", "o/sec", { checks: [check("protocol", "pass"), check("fs-write-escape", "fail"), check("robust-input", "fail")] }),
+    plain("sec-also-clean", "o/sec"), // same repo, no finding of its own: held with it
+    plain("old-sec", "o/oldsec", { testedAt: "2026-09-01", checks: [check("mutating-sql", "part")] }), // stale still holds
+  ];
+  const out = plan({ servers, cache: repoOf(servers), ledger: { issues: [] }, optout: { repos: [] }, max: 8, today: "2026-11-12" });
+  assert.deepEqual(out.send.map((e) => e.repo), ["o/ok"]);
+  assert.deepEqual(out.held.map((h) => h.repo).sort(), ["o/oldsec", "o/sec"]);
+  assert.deepEqual(out.held.find((h) => h.repo === "o/sec").servers.map((x) => x.id).sort(), ["sec", "sec-also-clean"]);
+  assert.ok(!out.skipped.some((s) => /sec/.test(s.id)), "held repos are not listed in the public skipped list");
+  assert.throws(() => draftFor({ repo: "o/sec", server: servers[2], also: [servers[1]] }), /held for a private report/);
+  const md = renderDrafts({ drafts: out.send.map(draftFor), waiting: 0, skipped: out.skipped, held: out.held.length, reason: "test", today: "2026-11-12", max: 2 });
+  assert.match(md, /2 repositories are held for private handling/);
+  assert.doesNotMatch(md, /o\/sec|o\/oldsec|fs-write-escape|mutating-sql/);
+  const entries = out.held.map((h) => privateEntry(h, { today: "2026-11-12", pvr: h.repo === "o/sec" }));
+  const sec = entries.find((e) => e.repo === "o/sec");
+  assert.match(sec.channel, /security\/advisories\/new/);
+  assert.equal(sec.status, "not sent");
+  assert.deepEqual(sec.servers.find((x) => x.id === "sec").security.map((c) => c.id), ["fs-write-escape"]);
+  assert.deepEqual(sec.servers.find((x) => x.id === "sec").otherFailing, ["robust-input"]);
+  assert.match(sec.servers[0].rerun, /^npx -y sealmark@\S+ run --start "/);
+  const old = entries.find((e) => e.repo === "o/oldsec").servers[0];
+  assert.equal(old.fresh, false);
+  const pmd = renderPrivate({ entries, today: "2026-11-12" });
+  assert.match(pmd, /^# Owner notices held for private handling\n\nPRIVATE/);
+  assert.match(pmd, /`fs-write-escape` label fs-write-escape \(fail\)/);
+  assert.match(pmd, /NOT FRESH/);
+});
+
+test("freshness: older than 14 days or a failed latest re-test waits; a later good grade clears it", () => {
+  const today = "2026-11-12";
+  assert.equal(FRESH_DAYS, 14);
+  assert.equal(staleReason({ testedAt: "2026-10-29" }, today), null, "exactly 14 days is fresh");
+  assert.match(staleReason({ testedAt: "2026-10-28" }, today), /older than 14 days/);
+  assert.match(staleReason({ testedAt: "2026-11-09", lastAttempt: { date: "2026-11-12", status: "failed", kind: "start-fail" } }, today), /latest re-test failed on 2026-11-12/);
+  assert.equal(staleReason({ testedAt: "2026-11-11", lastAttempt: { date: "2026-11-10", status: "failed", kind: "timeout" } }, today), null, "a failure before the grade is old news");
+  const servers = [plain("fresh", "o/a"), plain("old", "o/b", { testedAt: "2026-10-01" }), plain("failed", "o/c", { lastAttempt: { date: "2026-11-11", status: "failed", kind: "timeout" } }),
+    plain("mix-old", "o/d", { testedAt: "2026-10-01" }), plain("mix-new", "o/d")];
+  const out = plan({ servers, cache: repoOf(servers), ledger: { issues: [] }, optout: { repos: [] }, max: 8, today });
+  assert.deepEqual(out.send.map((e) => [e.repo, e.server.id, e.also.map((x) => x.id)]), [["o/d", "mix-new", []], ["o/a", "fresh", []]], "repos in order of their oldest grade, as before");
+  const why = Object.fromEntries(out.skipped.map((s) => [s.id, s.reason]));
+  assert.match(why.old, /waits for a fresh grade/);
+  assert.match(why.failed, /latest re-test failed/);
+  assert.match(why["mix-old"], /older than 14 days/);
+});
+
+test("cap: 2 by default, MAX_OWNER_ISSUES when it is a whole number, the rest wait", () => {
+  assert.equal(DEFAULT_MAX_ISSUES, 2);
+  assert.equal(maxIssues(undefined), 2);
+  assert.equal(maxIssues(""), 2, "an unset Actions variable arrives as an empty string");
+  assert.equal(maxIssues("8"), 8);
+  assert.equal(maxIssues(" 3 "), 3);
+  for (const bad of ["0", "-1", "2.5", "lots"]) assert.equal(maxIssues(bad), 2, bad);
+  const servers = Array.from({ length: 5 }, (_, i) => plain(`s${i}`, `o/r${i}`));
+  const out = plan({ servers, cache: repoOf(servers), ledger: { issues: [] }, optout: { repos: [] }, max: maxIssues(""), today: "2026-11-12" });
+  assert.equal(out.send.length, 2);
+  assert.equal(out.waiting, 3);
+  assert.match(renderDrafts({ drafts: [], waiting: 3, skipped: [], reason: "r", today: "2026-11-12", max: 2 }), /at most 2 per run\); 3 more repositories wait/);
 });
 
 // ---- impact ----
