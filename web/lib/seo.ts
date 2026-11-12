@@ -1,7 +1,7 @@
 // One place for everything search engines and AI assistants read: canonical URLs, JSON-LD, badge text, llms.txt text.
 // Every sentence here is a claim about the product: keep it true and keep it plain (checked against the CLI source).
 import { SITE } from "./site";
-import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, PACK_LABEL, type ServerResult, type Letter } from "./results";
+import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, redactionsFor, PACK_LABEL, type ServerResult, type Letter } from "./results";
 import { DATA } from "./results";
 import { badgeEligible } from "@/worker/notify-core.mjs";
 
@@ -31,19 +31,24 @@ export const softwareJsonLd = {
 
 export const jsonLd = (o: object) => JSON.stringify(o).replace(/</g, "\\u003c");
 
-export const serverBadge = (x: ServerResult): { label: string; message: string; letter: Letter } | null => {
+// The badge names each test area the way the results page does ("protocol A · network D", not the CLI's "core A").
+// A grade that includes a finding under private disclosure still counts; the tooltip says so.
+export const PRIVATE_FINDING = "includes a finding under private disclosure";
+export const serverBadge = (x: ServerResult): { label: string; message: string; letter: Letter; note: string | null } | null => {
   if (!badgeEligible(x)) return null;
   const g = gradedPacks(x);
   const w = worst(x);
-  return { label: "sealmark", message: g.map((p) => `${p.id} ${p.letter}`).join(" · "), letter: (w?.letter ?? "F") as Letter };
+  const message = g.map((p) => `${(PACK_LABEL[p.id] ?? p.id).toLowerCase()} ${p.letter}`).join(" · ");
+  return { label: "sealmark", message, letter: (w?.letter ?? "F") as Letter, note: redactionsFor(x).size ? PRIVATE_FINDING : null };
 };
 
 const COLOR: Record<Letter, string> = { A: "#2ea44f", B: "#4c9f38", C: "#c7a400", D: "#d9822b", F: "#d73a49" };
 const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
-export const badgeSvg = (label: string, message: string, letter: Letter) => {
+export const badgeSvg = (label: string, message: string, letter: Letter, note?: string | null) => {
   const w = (t: string) => Math.round(t.length * 6.4 + 14);
   const lw = w(label), mw = w(message), tot = lw + mw;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${tot}" height="20" role="img" aria-label="${esc(label)}: ${esc(message)}"><title>${esc(label)}: ${esc(message)}</title><rect width="${lw}" height="20" fill="#555"/><rect x="${lw}" width="${mw}" height="20" fill="${COLOR[letter]}"/><g fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle"><text x="${lw / 2}" y="14">${esc(label)}</text><text x="${lw + mw / 2}" y="14">${esc(message)}</text></g></svg>`;
+  const alt = `${esc(label)}: ${esc(message)}${note ? ` (${esc(note)})` : ""}`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${tot}" height="20" role="img" aria-label="${alt}"><title>${alt}</title><rect width="${lw}" height="20" fill="#555"/><rect x="${lw}" width="${mw}" height="20" fill="${COLOR[letter]}"/><g fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle"><text x="${lw / 2}" y="14">${esc(label)}</text><text x="${lw + mw / 2}" y="14">${esc(message)}</text></g></svg>`;
 };
 
 export const badgeServers = () => SERVERS_RESULTS.flatMap((x) => { const b = serverBadge(x); return b ? [{ x, b }] : []; });

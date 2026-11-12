@@ -46,6 +46,8 @@ The formula is the same as in methodology 0.1 and 0.2. It is computed per suite,
 8. **Excluded.** Non-advisory checks that are `inconclusive` or `na` leave the denominator and are listed in the result.
 9. Advisory checks are shown, labelled "advisory, not scored", and never change the letter. A **candidate** check in a standard suite is advisory until a methodology bump promotes it; the checks of a candidate suite are scored inside that suite, which stays off the badge (see [Candidate checks](#candidate-checks)).
 
+**The server's grade.** The server's grade is its lowest test-area grade: the worst letter among the suites graded in that run, provisional if that suite's grade is. A server with protocol A and network D has grade D. The results pages show this letter first, then each suite's own grade.
+
 The report prints the score as points over scored checks (`PACK core  GRADE B  (3/4 points, 75% · 1 of 5 checks not scored)`), so the fraction means the same in the text, markdown and summary formats. Worked examples and the reason for the bands are on the [grades](/docs/concepts/grades) page. The checks and their weights are in the [checks reference](/docs/reference/checks).
 
 **The exit code.** The default gate is A: `sealmark run` exits 1 when a graded suite is below an A, so a suite graded B fails it. A provisional `A*` does not meet the A gate (a critical question was unanswered), but a provisional B meets `--fail-under B`. The `ci` profile also counts an inconclusive suite as a failure at the gate. See [CLI](/docs/reference/cli) and [Configuration](/docs/reference/configuration#output).

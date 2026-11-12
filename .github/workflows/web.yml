@@ -7,11 +7,14 @@ on:
   pull_request:
     paths:
       - "web/**"
+      # the site's redaction list must agree with this one (web/lib/disclosure.test.mjs)
+      - "fleet/security-checks.mjs"
       - ".github/workflows/web.yml"
   push:
     branches: [main]
     paths:
       - "web/**"
+      - "fleet/security-checks.mjs"
       - ".github/workflows/web.yml"
 
 permissions:
@@ -53,6 +56,12 @@ jobs:
       - name: Lint and typecheck
         working-directory: web
         run: npm run lint && npx tsc --noEmit
+
+      # Redaction of security findings on the results pages (and its agreement with fleet/security-checks.mjs),
+      # and the results-page copy helpers.
+      - name: Unit tests
+        working-directory: web
+        run: npm test
 
       # Rules 1 to 7: check pages, config keys, flags, YAML keys, links, frontmatter, the grade sentence.
       - name: Docs drift test
