@@ -6,6 +6,8 @@ dist/
 *.log
 .check.js
 .claude/
+# Turbopack build cache at its root (web/next.config.ts sets the root to the repository so web/ can import fleet/)
+.next/
 
 # owner notices held for a private security report (fleet/notify-owners.mjs); never commit, this repo is public
 fleet/owner-private-queue.json
