@@ -1,8 +1,19 @@
 // Real-world results: ONE data file (content/data/server-results.json), generated from Sealmark's own JSON reports of the
 // default-configuration run. Review or gate this file as a unit before deploying (owner rule: real server names are shown).
 import raw from "@/content/data/server-results.json";
+import disclosureFile from "@/content/data/disclosure.json";
 import { deepPacks, gradedPacks, type ServerResult } from "./results-shared";
+import { redactedChecks, type Disclosure, type DisclosureEntry } from "./disclosure.mjs";
 export * from "./results-shared";
+export { isSecurityCheck, isSecurityFinding, isWeakSignal } from "./disclosure.mjs";
+export type { Disclosure };
+
+// Security findings under private disclosure (lib/disclosure.mjs). Their status lives in content/data/disclosure.json;
+// the build date decides whether a reported finding has reached its publish date.
+const DISCLOSURE = (disclosureFile as { findings: Record<string, DisclosureEntry> }).findings;
+export const BUILD_DATE = new Date().toISOString().slice(0, 10);
+/** The checks on this server whose details stay off the public page, with their disclosure state. */
+export const redactionsFor = (x: ServerResult): Map<string, Disclosure> => redactedChecks(x, DISCLOSURE, BUILD_DATE);
 
 type Round = { name: string; truePass: number; trueFail: number; falsePass: number; falseFail: number; unjustifiedInconclusive: number; justifiedInconclusive: number; naCorrect: number; naWrong: number; unverified: number };
 export const DATA = raw as unknown as { generatedFrom: string; methodology: string; servers: ServerResult[]; verification: { note: string; rounds: Round[] } };
