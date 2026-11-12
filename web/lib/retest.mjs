@@ -33,7 +33,7 @@ export function recordFailedAttempt(servers, id, date, kind) {
  * The failed attempt that is newer than (or as new as) the grade, or null.
  * @param {{ testedAt?: string, lastAttempt?: LastAttempt | null }} server
  */
-function failedSince(server) {
+export function failedSince(server) {
   const a = server.lastAttempt;
   if (!a || a.status !== "failed" || typeof a.date !== "string" || !a.date || !server.testedAt) return null;
   if (a.date < server.testedAt) return null;
