@@ -2,31 +2,11 @@ export const meta = {
   title: "Disclosure policy",
   since: "0.1",
   status: "shipped",
-  description: "How Sealmark handles a probe that finds a real vulnerability in someone else's server. A draft, not final.",
+  description: "Where the disclosure policy lives, and what to do with a failure you find in someone else's server.",
 };
 
-<Callout kind="warn" title="Draft policy">
-  This policy was written before the first report has gone out and is not final until it is published here with a version number. Its reference point is ISO/IEC 29147 on vulnerability disclosure.
-</Callout>
-
-Probes can find real vulnerabilities: a row-level-security bypass, unmasked personal data, a mutation that gets past a read-only filter. The policy is built around the people who maintain the servers, who fix first; where a CVE is warranted, the advisory process requests it.
-
-Anyone can run the CLI on any server on their own machine. That output is a local result, not a public grade. Sealmark publishes a grade for a named third-party server only if the maintainer opted in or the finding has gone through this timeline, and a payload for an unpatched server is never published.
-
-## The timeline
-
-| When | What happens |
-|---|---|
-| Day 0 | A check finds a bypass. The cell becomes **held** and the grade is provisional (`*`). The result stays private, and the server is never described as leaking while a report is open. |
-| Day 0 | The finding is reported privately to the maintainer, with the exact rerun command and the evidence. The channel is a GitHub Security Advisory on the server's repository (a private draft); failing that, a private issue or email to a listed contact. If none exists, the report says so and waits. |
-| Within 14 days | If the maintainer acknowledges the report, the clock below runs with their involvement. If there is no reply, one reminder goes through the same channel. Silence is recorded; it is not treated as consent. |
-| Up to day 90 | The maintainer can fix the problem and ask for a regrade of the patched version at any time. |
-| At a fix, or at day 90 | The result is published with the fix status and the grades of both versions. The maintainer's reply is published beside it, as a right-of-reply paragraph on the evidence page. |
-
-## What "held" means
-
-On the website, a result for a named server can be **held**: a critical finding under coordinated disclosure. A held cell is shown as `held`, not as a grade or a probe payload, until the window closes, and a held critical check is never silently dropped from a displayed grade. This is separate from the CLI's `inconclusive` verdict, which means the harness could not tell ([Troubleshooting](/docs/troubleshooting)).
+The policy for security findings in other people's servers is on one page: [sealmark.dev/disclosure](/disclosure/). In short: a private report through GitHub private vulnerability reporting, 14 days to reply with one reminder, and publication at a fix or at day 90. A security finding is never posted in a public issue.
 
 ## If you run Sealmark on someone else's server
 
-A bypass your own run shows in a server you do not maintain is a local result. Give the maintainer the chance to fix it before you share it, in the same spirit as the timeline. See also [Safety](/docs/safety).
+A bypass your own run shows in a server you do not maintain is a local result. Give the maintainer the chance to fix it before you share it, in the same spirit: report it privately, wait for a reply, and publish once it is fixed or 90 days have passed. See also [Safety](/docs/safety).

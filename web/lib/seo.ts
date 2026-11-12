@@ -1,8 +1,9 @@
 // One place for everything search engines and AI assistants read: canonical URLs, JSON-LD, badge text, llms.txt text.
 // Every sentence here is a claim about the product: keep it true and keep it plain (checked against the CLI source).
 import { SITE } from "./site";
-import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, RANK, PACK_LABEL, type ServerResult, type Letter } from "./results";
+import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, PACK_LABEL, type ServerResult, type Letter } from "./results";
 import { DATA } from "./results";
+import { badgeEligible } from "@/worker/notify-core.mjs";
 
 export const ORIGIN = `https://${SITE.host}`;
 export const canonical = (path: string) => `${ORIGIN}${path.endsWith("/") ? path : `${path}/`}`;
@@ -31,10 +32,8 @@ export const softwareJsonLd = {
 export const jsonLd = (o: object) => JSON.stringify(o).replace(/</g, "\\u003c");
 
 export const serverBadge = (x: ServerResult): { label: string; message: string; letter: Letter } | null => {
-  if (x.standard !== true || x.badge?.eligible === false) return null;
+  if (!badgeEligible(x)) return null;
   const g = gradedPacks(x);
-  const deep = g.filter((p) => p.id !== "core");
-  if (!deep.length || g.some((p) => p.provisional)) return null;
   const w = worst(x);
   return { label: "sealmark", message: g.map((p) => `${p.id} ${p.letter}`).join(" · "), letter: (w?.letter ?? "F") as Letter };
 };

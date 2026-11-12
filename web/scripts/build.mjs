@@ -22,6 +22,8 @@ for (const [name, label] of [["docs-check.mjs", "docs:check"], ["docs-index.mjs"
   if (existsSync(file)) step(label, [file]);
   else console.log(`build: skipping ${label} (scripts/${name} does not exist yet)`);
 }
+// The grade table the notify Worker bundles (worker/grades.json, generated, untracked).
+step("notify-grades", [resolve(web, "scripts", "notify-grades.mjs")]);
 step("next build", [nextBin, "build"]);
 // Per-page weight ceilings and "no docs code on the marketing pages" (scripts/budget.mjs).
 step("budget", [resolve(web, "scripts", "budget.mjs")]);

@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-11-11",
+  "mode": "real",
+  "summary": {
+    "notified": 0,
+    "byChannel": {},
+    "released": 0,
+    "improved": 0,
+    "regressed": 0,
+    "improvedWithDirectSignal": 0,
+    "actedOnSealmark": 0,
+    "medianDaysToImprovement": null,
+    "topFixedChecks": [],
+    "base": {
+      "servers": 36,
+      "released": 12,
+      "improved": 1,
+      "regressed": 0,
+      "medianDaysToImprovement": 5
+    }
+  },
+  "notices": []
+}
