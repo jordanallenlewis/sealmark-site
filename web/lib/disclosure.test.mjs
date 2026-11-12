@@ -1,6 +1,6 @@
 // node --test lib/   (npm test in web/)
-// The site's redaction list (lib/disclosure.mjs) must agree with the fleet's security list (fleet/security-checks.mjs)
-// on every check the CLI ships, and the redaction must hide what the disclosure policy promises.
+// The site's redaction (lib/disclosure.mjs) takes its classification from the fleet's allowlist (fleet/security-checks.mjs);
+// these tests prove the two agree on every check the CLI ships and that the redaction hides what the policy promises.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -14,7 +14,16 @@ const disclosure = json("../content/data/disclosure.json");
 
 test("site and fleet agree on which registry checks are security findings", () => {
   const disagree = registry.filter((c) => isSecurityCheck(c) !== fleet.isSecurityCheck(c)).map((c) => c.id);
-  assert.deepEqual(disagree, [], `update lib/disclosure.mjs PUBLIC_CHECKS or fleet/security-checks.mjs: ${disagree.join(", ")}`);
+  assert.deepEqual(disagree, [], `classify the check in fleet/security-checks.mjs: ${disagree.join(", ")}`);
+});
+
+test("the site is never less strict than the fleet, whatever flags a result carries", () => {
+  for (const id of [...registry.map((c) => c.id), "brand-new-check"])
+    for (const critical of [true, false, undefined])
+      for (const advisory of [true, false, undefined]) {
+        const c = { id, critical, advisory };
+        if (fleet.isSecurityCheck(c)) assert.equal(isSecurityCheck(c), true, JSON.stringify(c));
+      }
 });
 
 test("every public check is a real check id (no stale entries)", () => {
@@ -22,12 +31,15 @@ test("every public check is a real check id (no stale entries)", () => {
   assert.deepEqual([...PUBLIC_CHECKS].filter((id) => !ids.has(id)), []);
 });
 
-test("weak-signal partials are security checks and never a partial bypass in the fleet list", () => {
-  for (const id of WEAK_PART) {
-    assert.equal(isSecurityCheck({ id }), true, id);
-    assert.equal(fleet.PART_IS_FINDING.has(id), false, id);
-  }
-  for (const id of fleet.PART_IS_FINDING) assert.equal(isSecurityFinding({ id, critical: true, verdict: "part" }), true, id);
+test("weak-signal partials are security checks and the same rule as the fleet's", () => {
+  for (const id of WEAK_PART) assert.equal(isSecurityCheck({ id }), true, id);
+  for (const x of results.servers)
+    for (const c of x.checks)
+      if (c.verdict === "part" && isSecurityCheck(c)) assert.equal(isWeakSignal(c), fleet.isWeakSignal(c), `${x.id}/${c.id}`);
+  // a part on a security check that is not a weak signal is a finding, on the site and in the fleet
+  const dataUrl = { id: "net-scheme-allowlist", critical: true, verdict: "part", summary: "the server accepts data: URLs (data); no file read and no raw connection was seen" };
+  assert.equal(isSecurityFinding(dataUrl), true);
+  assert.deepEqual(fleet.securityFindings({ checks: [dataUrl] }).map((c) => c.id), ["net-scheme-allowlist"]);
 });
 
 test("fails closed: an unknown check id is security, and a critical flag always is", () => {
@@ -39,10 +51,17 @@ test("fails closed: an unknown check id is security, and a critical flag always 
 });
 
 test("weak signals", () => {
-  assert.equal(isWeakSignal({ id: "annotation-honesty", critical: true, verdict: "part" }), true);
-  assert.equal(isWeakSignal({ id: "tool-poisoning", critical: true, verdict: "part" }), true);
-  assert.equal(isWeakSignal({ id: "tool-poisoning", critical: true, verdict: "fail" }), false);
-  assert.equal(isSecurityFinding({ id: "annotation-honesty", critical: true, verdict: "part" }), false);
+  const tp = { id: "tool-poisoning", critical: true, summary: "2 weak indicator(s) worth reading, none conclusive" };
+  const ah = { id: "annotation-honesty", critical: true, summary: "declared read-only; only caches changed (sandbox home or temp): list_scenes" };
+  assert.equal(isWeakSignal({ ...ah, verdict: "part" }), true);
+  assert.equal(isWeakSignal({ ...tp, verdict: "part" }), true);
+  assert.equal(isWeakSignal({ ...tp, verdict: "fail" }), false);
+  assert.equal(isSecurityFinding({ ...ah, verdict: "part" }), false);
+  assert.equal(isSecurityFinding({ ...tp, verdict: "part" }), false);
+  // fail closed: a part without the weak-signal wording is a finding
+  assert.equal(isWeakSignal({ id: "annotation-honesty", critical: true, verdict: "part" }), false);
+  assert.equal(isSecurityFinding({ id: "annotation-honesty", critical: true, verdict: "part", summary: "declared read-only; wrote /etc/x" }), true);
+  assert.equal(isSecurityFinding({ id: "tool-poisoning", critical: true, verdict: "part", summary: "hidden instruction in description" }), true);
 });
 
 test("disclosure state: default, reported, day 90, fixed, published", () => {
