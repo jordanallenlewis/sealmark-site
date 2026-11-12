@@ -3,7 +3,7 @@ import { Logo } from "./Logo";
 import { AUTHOR, CONTACT } from "@/lib/site";
 
 const Byline = () => (
-  <>Created by <a href={AUTHOR.url} rel="author noopener" target="_blank">{AUTHOR.name}</a></>
+  <>Created by <a href={AUTHOR.footerUrl} rel="author noopener" target="_blank">{AUTHOR.name}</a></>
 );
 
 // Home: the full footer. Docs: the slim one-row footer, styled by the docs shell (it passes its own classes);
