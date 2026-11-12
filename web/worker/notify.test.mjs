@@ -12,7 +12,7 @@ import { holdInconclusive } from "./notify-core.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tmp = mkdtempSync(join(tmpdir(), "sealmark-worker-"));
-for (const f of ["index.js", "notify-core.mjs"]) copyFileSync(join(here, f), join(tmp, f));
+for (const f of ["index.js", "notify-core.mjs", "visits.mjs"]) copyFileSync(join(here, f), join(tmp, f));
 writeFileSync(join(tmp, "grades.json"), "{}");
 writeFileSync(join(tmp, "package.json"), JSON.stringify({ type: "module" }));
 const { default: worker } = await import(pathToFileURL(join(tmp, "index.js")).href);
