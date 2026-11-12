@@ -11,6 +11,8 @@ export type ServerResult = {
   badge?: { eligible: boolean; reason?: string } | null;
   notCovered: string[]; warnings: string[];
   automated?: boolean; round?: string;
+  // set by fleet/merge.mjs when the latest re-test failed; the grade above is from the earlier run (web/lib/retest.mjs)
+  lastAttempt?: { date: string; status: "failed"; kind: string } | null;
 };
 
 export const RANK: Record<Letter, number> = { F: 0, D: 1, C: 2, B: 3, A: 4 };
