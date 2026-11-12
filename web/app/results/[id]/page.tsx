@@ -11,6 +11,7 @@ import { historyFor } from "@/lib/history";
 import { ORIGIN, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import { NotifyForm } from "../NotifyForm";
+import { retestNote } from "@/lib/retest.mjs";
 import s from "../results.module.css";
 
 export const dynamicParams = false;
@@ -43,7 +44,10 @@ export default async function ServerPage({ params }: P) {
     <>
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
-        <div className={s.preview}>{x.automated ? `Automated re-test on ${x.testedAt}: not checked by hand, and not yet reviewed by the maintainers.` : "Maintainers have not reviewed this result yet."}</div>
+        <div className={s.preview}>
+          {x.automated ? `Automated re-test on ${x.testedAt}: not checked by hand, and not yet reviewed by the maintainers.` : "Maintainers have not reviewed this result yet."}
+          {retestNote(x) && ` ${retestNote(x)}`}
+        </div>
         <p className={s.crumb}><Link href="/results/">Results</Link> / {x.name}</p>
         <h1 className={s.h1} style={{ maxWidth: "28ch" }}>{x.name}</h1>
         <div className={s.meta}>

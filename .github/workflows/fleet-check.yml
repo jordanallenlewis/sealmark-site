@@ -6,6 +6,7 @@ on:
     paths:
       - "fleet/**"
       - "web/worker/notify-core.mjs"
+      - "web/lib/retest.mjs"
       - ".github/workflows/fleet.yml"
       - ".github/workflows/fleet-check.yml"
 
@@ -29,7 +30,7 @@ jobs:
           node-version: '24'
       - name: syntax
         run: for f in fleet/*.mjs; do node --check "$f"; done
-      - name: unit tests (owner notices, impact join and attribution)
+      - name: unit tests (launch overrides, failed re-tests, owner notices, impact join and attribution)
         run: node --test "fleet/*.test.mjs"
       - name: workflow YAML parses
         run: |
