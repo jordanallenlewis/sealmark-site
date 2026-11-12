@@ -1084,5 +1084,11 @@
     "name": "@naulon/wayfarer-mcp",
     "ecosystem": "npm",
     "launch": "npx -y @naulon/wayfarer-mcp@0.7.9"
+  },
+  {
+    "id": "galaxymovies-mcp",
+    "name": "galaxymovies-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y galaxymovies-mcp@1.0.1"
   }
 ]
