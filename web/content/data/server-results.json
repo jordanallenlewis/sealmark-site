@@ -39292,16 +39292,16 @@
       "name": "@pascal-app/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.1",
+      "versionTested": "1.1.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-12",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pascal-app/mcp@1.1.1",
+      "launch": "npx -y @pascal-app/mcp@1.1.2",
       "transport": "stdio",
       "toolCount": 89,
       "packs": [
