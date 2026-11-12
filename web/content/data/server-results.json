@@ -3364,17 +3364,17 @@
       "id": "cyanheads-fs",
       "name": "@cyanheads/filesystem-mcp-server",
       "ecosystem": "npm",
-      "round": "new20",
+      "round": "fleet",
       "versionTested": "1.0.4",
-      "serverInfoName": "cyanheads-fs",
-      "testedAt": "2026-10-13",
+      "serverInfoName": "sh",
+      "testedAt": "2026-11-12",
       "sealmark": {
-        "version": "0.2.1",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "node <workspace>",
+      "launch": "sh -c 'npm install --silent --no-audit --no-fund --prefix /tmp/sealmark-cyanheads-fs @cyanheads/filesystem-mcp-server@1.0.4 1>&2 && exec node /tmp/sealmark-cyanheads-fs/node_modules/@cyanheads/filesystem-mcp-server/dist/index.js'",
       "transport": "stdio",
       "toolCount": 10,
       "packs": [
@@ -3416,17 +3416,15 @@
         },
         {
           "id": "fs",
-          "status": "graded",
-          "letter": "F",
-          "points": 1.5,
-          "scored": 4,
-          "pct": 37.5,
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
           "provisional": false,
           "capped": false,
-          "criticalFails": [
-            "fs-link-escape"
-          ],
-          "reason": null
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
         },
         {
           "id": "git",
@@ -3474,7 +3472,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "no tool declares annotations, so there is nothing to compare with what the sandbox observed"
+          "reason": "no tool declares readOnlyHint: true"
         }
       ],
       "checks": [
@@ -3494,7 +3492,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 10 tool definition(s), including parameter text: nothing suspicious (1 listing(s) failed and were not scanned)"
+          "summary": "scanned 10 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -3503,7 +3501,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "40 invalid call(s) rejected cleanly"
+          "summary": "52 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -3512,65 +3510,81 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 40 captured response(s)"
+          "summary": "canary secrets absent from tools/list and 52 captured response(s), 0 of them successful result(s)"
         },
         {
-          "id": "fs-read-escape",
-          "pack": "fs",
-          "label": "Reads stay inside the allowed root",
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
           "critical": true,
           "advisory": false,
-          "verdict": "part",
-          "summary": "15 path variants aimed outside the root were refused or returned nothing, on read_file, list_files, but set_filesystem_default (the control call on {sandbox}/ok.txt failed (Default path must be absolute.))"
+          "verdict": "na",
+          "summary": "no tool declares readOnlyHint: true"
         },
         {
-          "id": "fs-write-escape",
-          "pack": "fs",
-          "label": "Writes stay inside the allowed root",
-          "critical": true,
-          "advisory": false,
-          "verdict": "pass",
-          "summary": "12 write attempts aimed outside the root left the canary directory and the sibling root unchanged"
-        },
-        {
-          "id": "fs-link-escape",
-          "pack": "fs",
-          "label": "Links cannot lead out of the allowed root",
-          "critical": true,
-          "advisory": false,
-          "verdict": "fail",
-          "summary": "a link inside the root led to a file outside it: read_file via link-dir; read_file via link-file; list_files via link-dir; write_file write via link-dir-write"
-        },
-        {
-          "id": "fs-size-cap",
-          "pack": "fs",
-          "label": "Large file reads are capped",
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
           "critical": false,
           "advisory": false,
-          "verdict": "fail",
-          "summary": "read_file: the connection dropped or the call timed out (the response was too large for the transport)"
+          "verdict": "na",
+          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "read_file, list_files carry no annotations and changed nothing"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
         }
       ],
       "coverage": {
-        "validCalls": 21,
-        "toolsCalledValid": 5,
+        "validCalls": 2,
+        "toolsCalledValid": 2,
         "toolsTotal": 10,
-        "level": "covered"
+        "level": "low"
       },
       "badge": {
-        "eligible": true
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "tool \"delete_file\" was not covered by the fs pack: a delete tool is never called by the standard probes; add a custom probe to test it",
-        "tool \"delete_directory\" was not covered by the fs pack: a delete tool is never called by the standard probes; add a custom probe to test it",
-        "tool \"set_filesystem_default\" was not covered by the fs pack: the control call on {sandbox}/ok.txt failed (Default path must be absolute.)",
+        "tool \"set_filesystem_default\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"write_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"update_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"delete_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"delete_directory\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"create_directory\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"move_path\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"copy_path\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
-        "tool \"update_file\" is covered by the core checks only: would be path (param \"path\", name matches /file/), but required parameter \"blocks\" cannot be filled by the harness; write a probes: entry to call it",
-        "tool \"move_path\" is covered by the core checks only: string parameters only, and none names a path, URL, command, SQL or repository; add it under tools: to include it",
-        "tool \"copy_path\" is covered by the core checks only: string parameters only, and none names a path, URL, command, SQL or repository; add it under tools: to include it",
-        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container."
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
-      "warnings": []
+      "warnings": [],
+      "automated": true
     },
     {
       "id": "cyanheads-git",
@@ -51235,6 +51249,205 @@
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "galaxymovies-mcp",
+      "name": "galaxymovies-mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "1.0.1",
+      "serverInfoName": "galaxymovies-mcp",
+      "testedAt": "2026-11-12",
+      "sealmark": {
+        "version": "1.0.0",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y galaxymovies-mcp@1.0.1",
+      "transport": "stdio",
+      "toolCount": 7,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 7 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 7 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "30 invalid call(s) rejected cleanly"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 30 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 7,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"list_providers\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get_streaming_changes\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_arrivals\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_departures\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"where_to_watch\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "tool \"calendar_feed_url\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"rss_feed_url\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_providers\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
       "automated": true
