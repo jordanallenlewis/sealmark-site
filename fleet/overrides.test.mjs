@@ -4,7 +4,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { canPlan, unplannableOverrides } from "./overrides.mjs";
+import { canPlan, unplannableOverrides, launchChanged } from "./overrides.mjs";
 
 test("canPlan accepts a launch a fleet VM can run", () => {
   assert.equal(canPlan("npx -y fetch-mcp@0.0.5"), true);
@@ -46,4 +46,19 @@ test("cyanheads-fs passes {sandbox} as its root, or the fs pack is never graded"
   const launch = overrides["cyanheads-fs"];
   assert.match(launch, /\{sandbox\}/);
   assert.match(launch, /FS_BASE_DIRECTORY/);
+});
+
+test("launchChanged: an override that differs from the launch the stored grade was made with makes the server due", () => {
+  const pin = (l, v) => l.replace(/@[0-9.]+/, "@" + v);
+  assert.equal(launchChanged("npx -y a@1.0.0", "npx -y a@1.0.0", "1.0.0", pin), false);
+  // The stored launch is pinned to the version tested; the override is compared at that same version.
+  assert.equal(launchChanged("npx -y a@2.0.0", "npx -y a@1.0.0", "2.0.0", pin), false);
+  assert.equal(launchChanged("npx -y a@1.0.0", "npx -y a@1.0.0 --flag", "1.0.0", pin), true);
+});
+
+test("launchChanged: nothing to compare means not changed", () => {
+  const pin = (l) => l;
+  assert.equal(launchChanged("npx -y a@1", undefined, "1", pin), false);
+  assert.equal(launchChanged(undefined, "npx -y a@1", "1", pin), false);
+  assert.equal(launchChanged("npx -y a@1", "node <workspace>", "1", pin), false);
 });

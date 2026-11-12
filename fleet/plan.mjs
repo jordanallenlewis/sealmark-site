@@ -9,7 +9,7 @@
 //      instead of MAX_NEW; shards of the matrix run 10 at a time, each in its own throwaway VM with no secrets).
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
-import { canPlan } from "./overrides.mjs";
+import { canPlan, launchChanged } from "./overrides.mjs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
 const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 10;
@@ -283,7 +283,11 @@ async function main() {
   const tracked = [...byId.values()];
 
   for (const s of tracked) {
-    if (typeof overrides[s.id] === "string") s.launch = overrides[s.id];
+    if (typeof overrides[s.id] === "string") {
+      // An override the stored grade was not made with makes the server due now, not in STALE_DAYS.
+      s.launchChanged = launchChanged(s.launch, overrides[s.id], s.versionTested, (l, v) => (v ? pinLaunch(l, s.name, s.ecosystem, v) : l));
+      s.launch = overrides[s.id];
+    }
   }
 
   // Latest Sealmark release: every grade records the Sealmark version that made it,
@@ -295,7 +299,7 @@ async function main() {
     const launch = s.launch ?? "";
     if (!canPlan(launch)) continue;
     const v = await latestVersion(s.ecosystem, s.name);
-    let due = FORCE_ALL;
+    let due = FORCE_ALL || s.launchChanged === true;
     // GitHub-only servers compare the release or tag they were tested at (refTested).
     const tested = s.ecosystem === "github" ? s.refTested : s.versionTested;
     if (!due && v && v !== tested) due = true;
