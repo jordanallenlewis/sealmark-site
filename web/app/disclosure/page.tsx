@@ -35,7 +35,7 @@ export default function Page() {
         <p>Each results page shows the automated grade and every check&apos;s verdict from the day of the test. A security finding still counts in the grade, and the page says the grade includes a finding under private disclosure.</p>
         <p>Until a fix or day 90, the page leaves out what would help someone use the finding: the evidence, the tools involved, the details of the other security checks in the same test area, and the command that repeats our run. The badge stays, and its tooltip says the same thing.</p>
         <p>Sealmark and its checks are open source, so anyone can run the same tests on a public server. We do not claim the steps are secret; we only keep our own results from pointing at the problem before the maintainer can fix it.</p>
-        <p>A partial on tool poisoning, on read-only honesty when only cache files changed, or on data: URLs with no file read is a weak signal, not a finding. Those are shown in full.</p>
+        <p>A partial on tool poisoning with only weak, inconclusive indicators, or on read-only honesty when only cache files changed, is a weak signal, not a finding. Those are shown in full.</p>
 
         <h2 className={s.packhead}>A verdict you think is wrong</h2>
         <p>Reply on the GitHub issue or the private report, or email disclosure@sealmark.dev with the server and the version. We re-test, correct the page if we were wrong, and add your reply. A fixed version can be re-graded at any time, and maintainers can ask for their server to be removed.</p>

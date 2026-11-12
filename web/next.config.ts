@@ -1,3 +1,4 @@
+import path from "node:path";
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
@@ -12,6 +13,9 @@ const nextConfig: NextConfig = {
   // 'graph' keeps the docs shell stylesheet off the marketing pages: with the default merge strategy Turbopack folded
   // docs.module.css (56 KB) into the CSS chunk the home page loads. See scripts/build.mjs for the enforced budget.
   experimental: { cssChunking: "graph" },
+  // The repository root, not web/: lib/disclosure.mjs imports fleet/security-checks.mjs, the one list of checks that
+  // are safe to name publicly (shared with the owner notices), and Turbopack resolves nothing outside its root.
+  turbopack: { root: path.join(__dirname, "..") },
 };
 
 // Plugins are passed by package name (strings) because Turbopack cannot take JS functions.
