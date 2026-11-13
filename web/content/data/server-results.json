@@ -7311,16 +7311,16 @@
       "name": "@adeu/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.2.2",
+      "versionTested": "4.0.1",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @adeu/mcp-server@3.2.2",
+      "launch": "npx -y @adeu/mcp-server@4.0.1",
       "transport": "stdio",
       "toolCount": 6,
       "packs": [
@@ -23265,16 +23265,16 @@
       "name": "rightcard-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.20",
+      "versionTested": "0.1.21",
       "serverInfoName": "rightcard-mcp",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y rightcard-mcp@0.1.20",
+      "launch": "npx -y rightcard-mcp@0.1.21",
       "transport": "stdio",
       "toolCount": 5,
       "packs": [
@@ -47884,10 +47884,10 @@
       "name": "doobidoo/mcp-memory-service",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "12.8.0",
-      "versionTested": "12.8.0",
+      "refTested": "12.9.0",
+      "versionTested": "12.9.0",
       "serverInfoName": "mcp-memory-service",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
@@ -48620,8 +48620,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.443",
-      "versionTested": "1.108.443",
+      "refTested": "1.108.444",
+      "versionTested": "1.108.444",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-13",
       "sealmark": {
@@ -50134,10 +50134,10 @@
       "name": "stickerdaniel/linkedin-mcp-server",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "4.29.0",
-      "versionTested": "4.29.0",
+      "refTested": "4.30.0",
+      "versionTested": "4.30.0",
       "serverInfoName": "linkedin-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
@@ -50146,7 +50146,7 @@
       "configHash": "sha256:d13e7893a0ac",
       "launch": "uvx --from git+https://github.com/stickerdaniel/linkedin-mcp-server mcp-server-linkedin",
       "transport": "stdio",
-      "toolCount": 25,
+      "toolCount": 26,
       "packs": [
         {
           "id": "core",
@@ -50253,7 +50253,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 25 well-formed tool(s)"
+          "summary": "handshake ok, 26 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -50262,7 +50262,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 25 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 26 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -50298,7 +50298,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "get_session_status declared read-only and changed nothing in the observed directories during a benign call (get_my_profile, get_saved_jobs, get_inbox, get_feed not judged: the control call failed)"
+          "summary": "get_session_status, connect_instagram_tiktok_and_more declared read-only and changed nothing in the observed directories during a benign call (get_my_profile, get_saved_jobs, get_inbox, get_feed not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -50307,7 +50307,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "1 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "2 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -50329,15 +50329,16 @@
         }
       ],
       "coverage": {
-        "validCalls": 6,
-        "toolsCalledValid": 5,
-        "toolsTotal": 25,
+        "validCalls": 7,
+        "toolsCalledValid": 6,
+        "toolsTotal": 26,
         "level": "low"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
+        "malformed-input probes cover the first 25 of 26 tools",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"get_person_profile\" is covered by the core checks only: free-text parameter \"linkedin_username\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"search_people\" is covered by the core checks only: argument \"location\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
@@ -50351,7 +50352,8 @@
         "tool \"get_job_details\" is covered by the core checks only: free-text parameter \"job_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_job_apply_url\" is covered by the core checks only: free-text parameter \"job_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_easy_apply_form\" is covered by the core checks only: free-text parameter \"job_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "13 more tool(s) are covered by the core checks only (see the classification)",
+        "14 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"connect_instagram_tiktok_and_more\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_my_profile\" was not covered by the core pack: needs probes: to be called (no argument the harness can safely malform)",
         "tool \"close_session\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
@@ -51062,16 +51064,16 @@
       "name": "@naulon/wayfarer-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.7.9",
+      "versionTested": "0.8.0",
       "serverInfoName": "wayfarer-mcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @naulon/wayfarer-mcp@0.7.9",
+      "launch": "npx -y @naulon/wayfarer-mcp@0.8.0",
       "transport": "stdio",
       "toolCount": 7,
       "packs": [

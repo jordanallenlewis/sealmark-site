@@ -114,9 +114,9 @@ This is the only issue Sealmark will open here. Close it whenever you like.
 - `uplink-code-mcp` (uplink-code/uplink-ai): no tool answered a valid call with default settings (0 of 15), so the grade covers the handshake and tool metadata only
 - `vaaya-mcp` (vaaya-ai/vaaya-mcp): no tool answered a valid call with default settings (0 of 16), so the grade covers the handshake and tool metadata only
 - `vantic-sdk` (vanticlabs/vantic): no tool answered a valid call with default settings (0 of 4), so the grade covers the handshake and tool metadata only
-- `doobidoo-mcp-memory-service` (doobidoo/mcp-memory-service): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `userintuition-ai-mcp` (Pen-and-Paper-AI/userintuition-mcpserver-ts): no tool answered a valid call with default settings (0 of 79), so the grade covers the handshake and tool metadata only
 - `pascal-app-mcp` (pascalorg/editor): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `taylorwilsdon-google-workspace-mcp` (taylorwilsdon/google_workspace_mcp): no tool answered a valid call with default settings (0 of 119), so the grade covers the handshake and tool metadata only
+- `doobidoo-mcp-memory-service` (doobidoo/mcp-memory-service): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `jgravelle-jcodemunch-mcp` (jgravelle/jcodemunch-mcp): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `vruum-mcp` (vruum-gtm/mcp): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
