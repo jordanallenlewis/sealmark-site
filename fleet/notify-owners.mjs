@@ -41,6 +41,7 @@
 //   fleet/owner-notified.json   the ledger: issues opened (with the baseline fleet/impact.mjs measures from), failed
 //                               posts per repository, replies, and the tracking issue's number
 //   fleet/owner-optout.json     repositories that asked not to hear from Sealmark; honoured forever, never pruned
+//   fleet/owner-pick.json       optional {"repos": ["owner/repo"]}: when not empty, only those repositories are drafted or posted
 //   fleet/owner-issues-draft.md the issues the next live run would open (rewritten each run while the gate is shut)
 //   fleet/owner-weekly.md       the weekly counts and the replies of the last 7 days
 // Not tracked (.gitignore): fleet/owner-private-queue.json and fleet/owner-private-draft.md, rewritten every run.
@@ -56,6 +57,7 @@ export const FILES = {
   repos: "fleet/owner-repos.json",
   ledger: "fleet/owner-notified.json",
   optout: "fleet/owner-optout.json",
+  pick: "fleet/owner-pick.json",
   draft: "fleet/owner-issues-draft.md",
   privateQueue: "fleet/owner-private-queue.json",
   privateDraft: "fleet/owner-private-draft.md",
@@ -762,7 +764,11 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   // 3. plan, checking candidates over the network until `max` are eligible (or the lookup budget is spent)
   const approved = g.approved && live ? parseDrafts(committedDraft) : null;
   if (approved && !approved.size) log(`hand-approved run, but the committed ${FILES.draft} lists no issue: nothing to post`);
-  const only = approved ? new Set(approved.keys()) : null;
+  // fleet/owner-pick.json {"repos": [...]}: when it lists repositories, only those are drafted and (in an approved run) posted.
+  // Empty or missing: no restriction. Lets a first batch be chosen by hand instead of taking the top of the alphabet.
+  const pickList = (readJson(FILES.pick, { repos: [] }).repos ?? []).map((r) => String(r).toLowerCase());
+  const picked = pickList.length ? new Set(pickList) : null;
+  const only = approved ? new Set([...approved.keys()].filter((r) => !picked || picked.has(r.toLowerCase()))) : picked;
   const meta = {};
   const facts = {};
   const roots = new Map();
