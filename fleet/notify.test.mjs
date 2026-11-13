@@ -628,3 +628,19 @@ test("summarize and render keep the honest labels", () => {
   assert.match(renderSummary({ summary: s, rows, mode: "simulate", today: "t" }), /SIMULATED[\s\S]*Simulation, not real notices/);
   assert.equal(median([3, 1, 2, 10]), 2.5);
 });
+
+test("main: fleet/owner-pick.json restricts the drafts and an approved run to the repositories it names", async () => {
+  const servers = [at("a", "o1/a"), at("b", "o2/b"), at("c", "o3/c")];
+  const pick = JSON.stringify({ repos: ["O3/C"] });
+  const first = fakeWorld({ servers });
+  first.files.set(FILES.pick, pick);
+  await main({ env: {}, argv: [], io: first.io, fetchFn: first.fetchFn, sleep: async () => {}, now: clock, log: () => {} });
+  assert.deepEqual([...parseDrafts(first.files.get(FILES.draft)).keys()], ["o3/c"], "only the picked repository is drafted");
+  const w = fakeWorld({ servers, draft: first.files.get(FILES.draft) });
+  w.files.set(FILES.pick, pick);
+  const gh = fakeGh();
+  await main({ env: { OWNER_ISSUES_TOKEN: "tok", OWNER_ISSUES_LIVE: "1", OWNER_ISSUES_APPROVED: "1" }, argv: [], io: w.io, fetchFn: w.fetchFn, gh, sleep: async () => {}, now: clock, log: () => {} });
+  assert.equal(gh.created().length, 1);
+  assert.match(JSON.stringify(gh.created()), /o3\/c/);
+  assert.doesNotMatch(JSON.stringify(gh.created()), /o1\/a|o2\/b/);
+});
