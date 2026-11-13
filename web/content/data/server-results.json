@@ -1834,7 +1834,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-12",
+        "date": "2026-11-13",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -12243,7 +12243,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-12",
+        "date": "2026-11-13",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -45154,16 +45154,16 @@
       "name": "@vruum/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.16.0",
+      "versionTested": "0.17.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @vruum/mcp@0.16.0",
+      "launch": "npx -y @vruum/mcp@0.17.0",
       "transport": "stdio",
       "toolCount": 37,
       "packs": [
@@ -45281,7 +45281,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "part",
-          "summary": "16 weak indicator(s) worth reading, none conclusive"
+          "summary": "17 weak indicator(s) worth reading, none conclusive"
         },
         {
           "id": "robust-input",
@@ -48620,10 +48620,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.442",
-      "versionTested": "1.108.442",
+      "refTested": "1.108.443",
+      "versionTested": "1.108.443",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
@@ -49649,16 +49649,16 @@
       "name": "@promptguard/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.2.4",
+      "versionTested": "1.2.5",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @promptguard/mcp-server@1.2.4",
+      "launch": "npx -y @promptguard/mcp-server@1.2.5",
       "transport": "stdio",
       "toolCount": 6,
       "packs": [

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12",
+  "generatedAt": "2026-11-13",
   "mode": "real",
   "summary": {
     "notified": 0,
@@ -16,7 +16,7 @@
       "released": 13,
       "improved": 1,
       "regressed": 0,
-      "medianDaysToImprovement": 4
+      "medianDaysToImprovement": 3
     }
   },
   "notices": []
