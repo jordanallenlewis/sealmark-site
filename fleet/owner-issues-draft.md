@@ -1,6 +1,6 @@
 # Owner issues: drafts
 
-Written by `fleet/notify-owners.mjs` on 2026-11-13. Not filed: --dry. These are the issues the next live run would open (at most 2 per run). A run started by hand with `file_owner_issues` posts only the entries below, and only when the issue still renders byte for byte as shown here.
+Written by `fleet/notify-owners.mjs` on 2026-11-13. Not filed: the OWNER_ISSUES_LIVE variable is not "1". These are the issues the next live run would open (at most 2 per run). A run started by hand with `file_owner_issues` posts only the entries below, and only when the issue still renders byte for byte as shown here.
 
 18 repositories are held for private handling under the [disclosure policy](https://sealmark.dev/disclosure/) and not listed here.
 

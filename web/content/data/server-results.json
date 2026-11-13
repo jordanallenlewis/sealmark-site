@@ -1549,15 +1549,15 @@
       "ecosystem": "pypi",
       "round": "fleet",
       "versionTested": "0.3.0",
-      "serverInfoName": "mcp-2",
-      "testedAt": "2026-10-15",
+      "serverInfoName": "sh",
+      "testedAt": "2026-11-13",
       "sealmark": {
-        "version": "0.2.2",
+        "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx --with \"mcp<2\" postgres-mcp@0.3.0 {dsn}",
+      "launch": "sh -c 'o=$(mktemp) && echo pglast==7.20 > \"$o\" && exec uvx --overrides \"$o\" --with \"mcp<2\" postgres-mcp@0.3.0 \"$0\"' {dsn}",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [
@@ -1832,12 +1832,7 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true,
-      "lastAttempt": {
-        "date": "2026-11-13",
-        "status": "failed",
-        "kind": "start-fail"
-      }
+      "automated": true
     },
     {
       "id": "sequential-thinking",
@@ -14693,16 +14688,16 @@
       "name": "@ekwo-ai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.25.0",
+      "versionTested": "0.25.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @ekwo-ai/mcp@0.25.0",
+      "launch": "npx -y @ekwo-ai/mcp@0.25.2",
       "transport": "stdio",
       "toolCount": 77,
       "packs": [
@@ -29915,16 +29910,16 @@
       "name": "apiguru-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.1.61",
+      "versionTested": "1.1.62",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx apiguru-mcp==1.1.61",
+      "launch": "uvx apiguru-mcp==1.1.62",
       "transport": "stdio",
       "toolCount": 12,
       "packs": [
@@ -42419,16 +42414,16 @@
       "name": "@stratta/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.20.1",
+      "versionTested": "1.21.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-13",
       "sealmark": {
         "version": "1.0.0",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @stratta/mcp@1.20.1",
+      "launch": "npx -y @stratta/mcp@1.21.0",
       "transport": "stdio",
       "toolCount": 59,
       "packs": [
@@ -42546,7 +42541,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 59 tool definition(s), the server instructions and serverInfo, 3 prompt(s) and 2 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 59 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 2 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
