@@ -4,7 +4,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { canPlan, unplannableOverrides, launchChanged } from "./overrides.mjs";
+import { canPlan, unplannableOverrides, launchChanged, stuckOverrides } from "./overrides.mjs";
 
 test("canPlan accepts a launch a fleet VM can run", () => {
   assert.equal(canPlan("npx -y fetch-mcp@0.0.5"), true);
@@ -61,4 +61,19 @@ test("launchChanged: nothing to compare means not changed", () => {
   assert.equal(launchChanged("npx -y a@1", undefined, "1", pin), false);
   assert.equal(launchChanged(undefined, "npx -y a@1", "1", pin), false);
   assert.equal(launchChanged("npx -y a@1", "node <workspace>", "1", pin), false);
+});
+
+test("stuckOverrides names an override that has failed every re-test for 7 days, and only that", () => {
+  const now = new Date("2026-11-13T12:00:00Z");
+  const o = { a: "x", b: "x", c: "x", d: "x" };
+  const run = (id, testedAt, status) => ({ id, testedAt, status });
+  const history = [
+    run("a", "2026-11-01", "failed"), run("a", "2026-11-12", "failed"), // failing for 12 days
+    run("b", "2026-11-01", "failed"), run("b", "2026-11-10", "ok"), run("b", "2026-11-12", "failed"), // failed only since the 12th
+    run("c", "2026-11-01", "ok"), // fine
+    run("e", "2026-10-01", "failed"), // no override: not our business
+  ];
+  assert.deepEqual(stuckOverrides(o, history, 7, now), ["a"]);
+  assert.deepEqual(stuckOverrides(o, [], 7, now), []);
+  assert.deepEqual(stuckOverrides(undefined, undefined, 7, now), []);
 });
