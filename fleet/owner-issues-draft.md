@@ -1,6 +1,6 @@
 # Owner issues: drafts
 
-Written by `fleet/notify-owners.mjs` on 2026-11-12. Not filed: the OWNER_ISSUES_LIVE variable is not "1". These are the issues the next live run would open (at most 2 per run); 112 more not checked this run. A run started by hand with `file_owner_issues` posts only the entries below, and only when the issue still renders byte for byte as shown here.
+Written by `fleet/notify-owners.mjs` on 2026-11-13. Not filed: the OWNER_ISSUES_LIVE variable is not "1". These are the issues the next live run would open (at most 2 per run); 112 more not checked this run. A run started by hand with `file_owner_issues` posts only the entries below, and only when the issue still renders byte for byte as shown here.
 
 18 repositories are held for private handling under the [disclosure policy](https://sealmark.dev/disclosure/) and not listed here.
 
@@ -116,7 +116,7 @@ This is the only issue Sealmark will open here. Close it whenever you like.
 - `vantic-sdk` (vanticlabs/vantic): no tool answered a valid call with default settings (0 of 4), so the grade covers the handshake and tool metadata only
 - `doobidoo-mcp-memory-service` (doobidoo/mcp-memory-service): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `userintuition-ai-mcp` (Pen-and-Paper-AI/userintuition-mcpserver-ts): no tool answered a valid call with default settings (0 of 79), so the grade covers the handshake and tool metadata only
-- `vruum-mcp` (vruum-gtm/mcp): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
-- `jgravelle-jcodemunch-mcp` (jgravelle/jcodemunch-mcp): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `pascal-app-mcp` (pascalorg/editor): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
 - `taylorwilsdon-google-workspace-mcp` (taylorwilsdon/google_workspace_mcp): no tool answered a valid call with default settings (0 of 119), so the grade covers the handshake and tool metadata only
+- `jgravelle-jcodemunch-mcp` (jgravelle/jcodemunch-mcp): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
+- `vruum-mcp` (vruum-gtm/mcp): the grade below A comes only from weak signals (partial results with nothing conclusive, or checks that did not finish); waits for a clearer re-test
