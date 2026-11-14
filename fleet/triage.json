@@ -1,9 +1,23 @@
 {
-  "generatedAt": "2026-11-14T05:45:55.480Z",
-  "window": 500,
-  "graded": 296,
-  "failed": 204,
+  "generatedAt": "2026-11-14T13:23:14.541Z",
+  "window": 587,
+  "graded": 376,
+  "failed": 211,
   "clusters": [
+    {
+      "servers": [
+        "mrexodia-ida-pro-mcp",
+        "vaaya-mcp"
+      ],
+      "key": "slow:run",
+      "kind": "slow-path",
+      "labels": [
+        "performance"
+      ],
+      "title": "Slow runs: 3 servers took over 5 min or timed out",
+      "count": 3,
+      "detail": "Longest: 329 s. Find which probe or pack dominates and add a per-probe budget."
+    },
     {
       "servers": [
         "54yyyu-zotero-mcp",
@@ -37,9 +51,9 @@
       "labels": [
         "hardening"
       ],
-      "title": "38% of servers never start under the fleet harness",
-      "count": 189,
-      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n- 165x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 22x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
+      "title": "33% of servers never start under the fleet harness",
+      "count": 196,
+      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. The CLI types each start failure (sealmark 1.0.1); by kind:\n- unknown: 5\n- missing-runtime: 1\n- initialize-timeout: 1\n- untyped (older CLI or no kind): 189\nTop signatures:\n- 171x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 23x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
     },
     {
       "servers": [

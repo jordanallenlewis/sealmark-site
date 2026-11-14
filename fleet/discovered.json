@@ -1096,5 +1096,11 @@
     "name": "agent-tools-mcp",
     "ecosystem": "pypi",
     "launch": "uvx agent-tools-mcp==0.5.2"
+  },
+  {
+    "id": "shiwake-ai-mcp",
+    "name": "shiwake-ai-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y shiwake-ai-mcp@1.1.1"
   }
 ]

@@ -850,6 +850,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "shiwake-ai-mcp": {
+    "repo": "iszgroup/shiwake-ai-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-14"
+  },
   "smartmemory-compose-mcp": {
     "repo": "smartmemory/compose",
     "source": "npm",
