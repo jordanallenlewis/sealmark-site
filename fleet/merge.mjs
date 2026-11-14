@@ -65,6 +65,9 @@ function failClass(error) {
   if (/timed? ?out|timeout/i.test(e)) return "timeout";
   return "other";
 }
+// The CLI's typed start failure (cli/src/start-failure.ts). Only the fixed kind is kept: the advice and any server text stay out.
+const START_KINDS = new Set(["dependency-resolution", "needs-credentials", "missing-runtime", "bad-launch", "initialize-timeout", "unknown"]);
+const startKindOf = (report) => (typeof report?.startFailure?.kind === "string" && START_KINDS.has(report.startFailure.kind) ? report.startFailure.kind : undefined);
 function appendTelemetry(rec) {
   fs.appendFileSync(TELEMETRY, JSON.stringify(rec) + "\n");
 }
@@ -82,7 +85,7 @@ for (const name of subfolders) {
   if (!report || report.status === "failed") {
     const kind = report ? failClass(report.error) : "no-report";
     // Keep the last grade, but say on it that this re-test failed (web/lib/retest.mjs); a new server gets no entry.
-    recordFailedAttempt(results.servers, meta.id, today, kind);
+    recordFailedAttempt(results.servers, meta.id, today, kind, startKindOf(report));
     appendHistory({
       id: meta.id,
       version: meta.version,
@@ -93,7 +96,7 @@ for (const name of subfolders) {
     appendTelemetry({
       id: meta.id, ecosystem: meta.ecosystem, serverVersion: meta.version ?? null, testedAt: today,
       sealmark: report?.sealmark?.version ?? "unknown", status: "failed",
-      failClass: kind, errorSig: scrub(report?.error ?? "no report"),
+      failClass: kind, errorSig: scrub(report?.error ?? "no report"), startKind: startKindOf(report),
       durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
     });
     failed += 1;
