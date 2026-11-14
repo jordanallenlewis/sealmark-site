@@ -705,6 +705,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "pidgeon-ai-mcp": {
+    "repo": "pidgeon-ai/pidgeon-js",
+    "source": "npm",
+    "resolvedAt": "2026-11-14"
+  },
   "plugmcp-mcp": {
     "repo": "plugmcp-ai/plugmcp-mcp",
     "source": "npm",

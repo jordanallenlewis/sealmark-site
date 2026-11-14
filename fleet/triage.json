@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-11-14T19:01:25.090Z",
+  "generatedAt": "2026-11-14T22:08:58.082Z",
   "window": 600,
-  "graded": 479,
-  "failed": 121,
-  "clusters": []
+  "graded": 480,
+  "failed": 120,
+  "clusters": [],
+  "surfaceChanged": []
 }

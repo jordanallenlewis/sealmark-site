@@ -1102,5 +1102,11 @@
     "name": "shiwake-ai-mcp",
     "ecosystem": "npm",
     "launch": "npx -y shiwake-ai-mcp@1.1.1"
+  },
+  {
+    "id": "pidgeon-ai-mcp",
+    "name": "@pidgeon-ai/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @pidgeon-ai/mcp@1.3.0"
   }
 ]
