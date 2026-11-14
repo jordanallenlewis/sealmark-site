@@ -25,7 +25,7 @@ export default function Page() {
 
         <h2 className={s.packhead}>How it is reported</h2>
         <ol>
-          <li><strong>Privately, through GitHub.</strong> We file a private vulnerability report (a draft security advisory) on the server&apos;s repository. If the repository does not accept those, we use the security contact it lists. If it lists none, we note that and wait.</li>
+          <li><strong>Privately, by email.</strong> We write to the maintainer from notify.sealmark.dev. We use the security contact in the repository&apos;s SECURITY.md or security policy; if there is none, the maintainer address on the npm or PyPI package; if there is none, the address the owner shows on their public GitHub profile. We never use addresses taken from commits. The email is plain text, has no tracking, says what we found and how to reproduce it, and you can reply to it. Where the repository has GitHub private vulnerability reporting turned on, we also file a private report there. If we find no private contact at all, we note that and wait.</li>
           <li><strong>Never in a public issue.</strong> Sealmark opens one automated GitHub issue per repository to tell owners their grade. A repository with a security finding does not get that issue.</li>
           <li><strong>14 days to reply.</strong> If there is no reply in 14 days, we send one reminder through the same channel. No reply is not taken as agreement.</li>
           <li><strong>Published at a fix, or at day 90.</strong> The full report, with the steps to reproduce, is published when a fixed version is out or 90 days after the first report, whichever comes first. It names the fix status and both versions&apos; grades. The maintainer&apos;s reply, if they send one, is published beside it.</li>
@@ -38,7 +38,7 @@ export default function Page() {
         <p>A partial on tool poisoning with only weak, inconclusive indicators, or on read-only honesty when only cache files changed, is a weak signal, not a finding. Those are shown in full.</p>
 
         <h2 className={s.packhead}>A verdict you think is wrong</h2>
-        <p>Reply on the GitHub issue or the private report, or email disclosure@sealmark.dev with the server and the version. We re-test, correct the page if we were wrong, and add your reply. A fixed version can be re-graded at any time, and maintainers can ask for their server to be removed.</p>
+        <p>Reply on the GitHub issue, to our email or on the private report, or email disclosure@sealmark.dev with the server and the version. We re-test, correct the page if we were wrong, and add your reply. A fixed version can be re-graded at any time, and maintainers can ask for their server to be removed.</p>
 
         <p>Running Sealmark on a server you do not maintain? See <Link href="/docs/disclosure/">the docs page</Link> on sharing a result you found yourself.</p>
       </main>
