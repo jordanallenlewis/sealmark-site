@@ -22,7 +22,6 @@ export default function Home() {
         {RESULTS_PUBLIC && (
           <Section
             id="results"
-            kicker="Results"
             title={<>We tested {SERVER_COUNT} popular MCP servers.</>}
             caption={<>{BELOW_A_COUNT} fell short of an A somewhere. {CRIT_FAIL_COUNT} failed a critical check.</>}
             more={{ href: "/results/", label: "See all results" }}
@@ -33,7 +32,6 @@ export default function Home() {
 
         <Section
           id="how"
-          kicker="How it works"
           title="One run, four steps."
           caption={<>Start your server, call its tools with fixed inputs, read the database yourself, apply the published formula.<span className="subcap">Any MCP server over stdio or HTTP. Database checks: Postgres and SQLite today; DuckDB <span className="planned">planned</span>.</span></>}
           more={{ href: "/docs/quickstart/", label: "Read the docs" }}
