@@ -2,8 +2,10 @@
   "generatedAt": "2026-11-14",
   "mode": "real",
   "summary": {
-    "notified": 0,
-    "byChannel": {},
+    "notified": 2,
+    "byChannel": {
+      "issue": 2
+    },
     "released": 0,
     "improved": 0,
     "regressed": 0,
@@ -12,12 +14,103 @@
     "medianDaysToImprovement": null,
     "topFixedChecks": [],
     "base": {
-      "servers": 36,
-      "released": 13,
-      "improved": 1,
+      "servers": 212,
+      "released": 0,
+      "improved": 0,
       "regressed": 0,
-      "medianDaysToImprovement": 2
+      "medianDaysToImprovement": null
     }
   },
-  "notices": []
+  "notices": [
+    {
+      "channel": "issue",
+      "id": "hostbeam-mcp",
+      "repo": "PunkAbeat/hostbeam-mcp",
+      "also": [],
+      "at": "2026-11-14",
+      "postedAt": "2026-11-14T18:14:01.112Z",
+      "version": "0.1.4",
+      "letter": "A",
+      "failing": [],
+      "number": 1,
+      "url": "https://github.com/PunkABeat/hostbeam-mcp/issues/1",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-14",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    },
+    {
+      "channel": "issue",
+      "id": "mirastack-redfish-mcp",
+      "repo": "mirastacklabs-ai/mirastack-redfish-mcp",
+      "also": [],
+      "at": "2026-11-14",
+      "postedAt": "2026-11-14T18:15:02.249Z",
+      "version": "0.1.2",
+      "letter": "A",
+      "failing": [],
+      "number": 3,
+      "url": "https://github.com/mirastacklabs-ai/mirastack-redfish-mcp/issues/3",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-14",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    }
+  ]
 }
