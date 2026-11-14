@@ -13,6 +13,7 @@ import { historyFor } from "@/lib/history";
 import { ORIGIN, PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import { NotifyForm } from "../NotifyForm";
+import { CopyButton } from "@/components/CopyButton";
 import { retestNote } from "@/lib/retest.mjs";
 import s from "../results.module.css";
 
@@ -79,14 +80,16 @@ function CheckRow({ c, priv, held }: { c: CheckResult; priv: Disclosure | undefi
     <tr>
       <td className={s.id}>
         {DOCUMENTED.has(c.id) ? <Link href={`/docs/reference/checks/${c.id}/`} title={`What ${c.id} checks`}>{c.id}</Link> : c.id}
-        {weak ? <span className={s.weak}>weak signal</span> : c.critical && <span className={s.crit}>critical</span>}
+        {weak ? <span className={s.weak}>weak signal</span> : c.critical && <span className={clsx(s.crit, c.verdict === "fail" && s.critFail)}>critical</span>}
         {c.advisory && <span className={s.muted}> (advisory)</span>}
         <div className={s.muted} style={{ fontFamily: "var(--font-sans)", whiteSpace: "normal" }}>{c.label}</div>
       </td>
-      <td><span className={clsx("chip", `c-${c.verdict}`, c.advisory && "adv")}>{WORD[c.verdict]}</span></td>
-      <td className={s.sum}>
-        {priv ? <PrivateNote d={priv} /> : held ? <span className={s.muted}>Details held back while a security finding in this test area is reported privately.</span> : c.summary}
-        {weak && !held && <div className={s.muted} style={{ marginTop: 6 }}>Weak signal, not a security finding. {WEAK[c.id] ?? ""} A partial counts as half a point.</div>}
+      <td data-label="Verdict"><span className={clsx("chip", `c-${c.verdict}`, c.advisory && "adv")}>{WORD[c.verdict]}</span></td>
+      <td className={s.sum} data-label="What happened">
+        <div className={s.sumText}>
+          {priv ? <PrivateNote d={priv} /> : held ? <span className={s.muted}>Details held back while a security finding in this test area is reported privately.</span> : c.summary}
+          {weak && !held && <div className={s.muted} style={{ marginTop: 6 }}>Weak signal, not a security finding. {WEAK[c.id] ?? ""} A partial counts as half a point.</div>}
+        </div>
       </td>
     </tr>
   );
@@ -110,6 +113,8 @@ export default async function ServerPage({ params }: P) {
   const holes = placeholdersIn(x.launch);
   const packHasPrivate = (pid: string) => x.checks.some((c) => c.pack === pid && priv.has(c.id));
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));
+  const badgeMd = `[![Sealmark](${ORIGIN}/badge/${x.id}.svg)](${ORIGIN}/results/${x.id}/)`;
+  const repro = reproduceCommand(x.sealmark.version, x.launch);
 
   return (
     <>
@@ -138,6 +143,7 @@ export default async function ServerPage({ params }: P) {
             {!noTools && <p>The server&apos;s grade is its lowest test-area grade. <Link href="/docs/methodology/#grading-formula">How grading works</Link></p>}
             {priv.size > 0 && <p className={s.flag}>The grade {PRIVATE_FINDING}. It still counts in full.</p>}
             <p>{cov.text}</p>
+            <p className={s.disputeLink}><a href="#dispute-h">Think this is wrong?</a></p>
           </div>
         </section>
 
@@ -157,26 +163,19 @@ export default async function ServerPage({ params }: P) {
           ))}
         </div>
 
-        {serverBadge(x) && (
-          <section aria-labelledby="badge-h" style={{ marginTop: 24 }}>
-            <h2 id="badge-h" className={s.packhead}>Badge for the README</h2>
-            <p className={s.muted}>The badge shows this automated result for version {x.versionTested}. It is a link to this page, not a certificate, and it changes when the next re-test does.</p>
-            <pre><code>{`[![Sealmark](${ORIGIN}/badge/${x.id}.svg)](${ORIGIN}/results/${x.id}/)`}</code></pre>
-          </section>
-        )}
-
         {packIds.map((pid) => (
-          <div key={pid}>
-            <h2 className={s.packhead}>{label(pid)} checks</h2>
-            <div className={s.tw} style={{ marginTop: 0 }} tabIndex={0} role="region" aria-label={`${label(pid)} checks`}>
-              <table className={s.checks}>
+          <section key={pid}>
+            <h2 id={`checks-${pid}`} className={s.packhead}>{label(pid)} checks</h2>
+            <div className={clsx(s.tw, s.twChecks)} style={{ marginTop: 0 }} tabIndex={0} role="region" aria-label={`${label(pid)} checks`}>
+              <table className={clsx(s.checks, s.evidence)}>
+                <colgroup><col className={s.colCheck} /><col className={s.colVerdict} /><col /></colgroup>
                 <thead><tr><th scope="col">Check</th><th scope="col">Verdict</th><th scope="col">What happened</th></tr></thead>
                 <tbody>
                   {x.checks.filter((c) => c.pack === pid).map((c) => <CheckRow key={c.id} c={c} priv={priv.get(c.id)} held={!priv.has(c.id) && packHasPrivate(pid) && isSecurityCheck(c)} />)}
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
         ))}
         <p className={s.muted} style={{ marginTop: 10 }}>Each check id links to what it tests and how to fix a failure. The same text is in <code>sealmark explain &lt;id&gt;</code>.</p>
 
@@ -198,6 +197,17 @@ export default async function ServerPage({ params }: P) {
           </section>
         )}
 
+        {serverBadge(x) && (
+          <section className={s.sec} aria-labelledby="badge-h">
+            <h2 id="badge-h">Badge for the README</h2>
+            <p>The badge shows this automated result for version {x.versionTested}. It is a link to this page, not a certificate, and it changes when the next re-test does.</p>
+            <div className={`ibox ${s.cmd}`}>
+              <pre tabIndex={0} aria-label="Badge Markdown">{badgeMd}</pre>
+              <CopyButton text={badgeMd} />
+            </div>
+          </section>
+        )}
+
         <section className={s.sec}>
           <h2>Run it yourself</h2>
           {priv.size > 0 ? (
@@ -205,7 +215,10 @@ export default async function ServerPage({ params }: P) {
           ) : (
             <>
               <p>This repeats the run with the same Sealmark version and the standard settings, starting the server the same way:</p>
-              <div className={s.code}>{reproduceCommand(x.sealmark.version, x.launch)}</div>
+              <div className={`ibox ${s.cmd}`}>
+                <pre tabIndex={0} aria-label="Command to repeat this run">{repro}</pre>
+                <CopyButton text={repro} />
+              </div>
               {holes.length > 0 && (
                 <>
                   <p>The words in braces are placeholders. Sealmark fills them in when it starts the server, so leave them as they are:</p>

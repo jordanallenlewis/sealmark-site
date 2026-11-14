@@ -51,8 +51,8 @@ export default function ResultsPage() {
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
         <div className={s.preview}>Maintainers have not reviewed these results yet. Methodology {DATA.methodology} is a draft.</div>
-        <p className={s.eyebrow}>Results · updated {lastTested(list)} · Sealmark {list[0]?.sealmark.version}</p>
         <h1 className={s.h1}>What Sealmark found on {SERVER_COUNT} public MCP servers</h1>
+        <p className={s.meta}>Updated {lastTested(list)} · Sealmark {list[0]?.sealmark.version}</p>
         <p className={s.lede}>
           Each server was installed the way its README says, run through Sealmark with
           the standard settings. The October 2026 verdicts were checked independently by reading the source and making direct calls; later automated re-tests are marked on each server&rsquo;s page. Open a server to see each check, what it measured and what was not covered.
