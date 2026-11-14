@@ -68,9 +68,13 @@ const sigs = new Map();
 for (const r of start) { const k = r.errorSig.replace(/\d+/g, "#").slice(0, 80); sigs.set(k, (sigs.get(k) ?? 0) + 1); }
 const startRate = recent.length ? start.length / recent.length : 0;
 if (recent.length >= MIN_N && startRate >= 0.3) {
+  const kinds = new Map();
+  for (const r of start) kinds.set(r.startKind ?? "", (kinds.get(r.startKind ?? "") ?? 0) + 1);
+  const byKind = [...kinds.entries()].filter(([k]) => k).sort((a, b) => b[1] - a[1]).map(([k, n]) => `- ${k}: ${n}`);
+  if (kinds.get("")) byKind.push(`- untyped (older CLI or no kind): ${kinds.get("")}`);
   const top = [...sigs.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([k, n]) => `- ${n}x \`${k}\``).join("\n");
   add({ key: "hardening:start-fail", kind: "hardening", labels: ["hardening"], title: `${Math.round(startRate * 100)}% of servers never start under the fleet harness`,
-    servers: start.map((r) => r.id), count: start.length, detail: "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n" + top });
+    servers: start.map((r) => r.id), count: start.length, detail: "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. The CLI types each start failure (sealmark 1.0.1); by kind:\n" + byKind.join("\n") + "\nTop signatures:\n" + top });
 }
 
 // 5. Regression candidates: same server version, different Sealmark version, worse grade.
