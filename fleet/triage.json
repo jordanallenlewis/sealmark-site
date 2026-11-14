@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-13T15:43:17.018Z",
-  "window": 408,
-  "graded": 216,
-  "failed": 192,
+  "generatedAt": "2026-11-14T05:45:55.480Z",
+  "window": 500,
+  "graded": 296,
+  "failed": 204,
   "clusters": [
     {
       "servers": [
@@ -37,9 +37,23 @@
       "labels": [
         "hardening"
       ],
-      "title": "43% of servers never start under the fleet harness",
-      "count": 177,
-      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n- 155x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 20x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
+      "title": "38% of servers never start under the fleet harness",
+      "count": 189,
+      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n- 165x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 22x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
+    },
+    {
+      "servers": [
+        "atmy-mcp"
+      ],
+      "key": "regression:grade-drop",
+      "kind": "regression",
+      "labels": [
+        "bug",
+        "regression"
+      ],
+      "title": "Grade drops with no server change: 1 server(s) on 1.0.0 to 1.0.1",
+      "count": 1,
+      "detail": "Same server version, newer Sealmark, lower grade. Either a new rule is catching a real problem (add the server to the corpus as a true positive) or a rule regressed (false positive). Decide per server:\n- atmy-mcp: B to C"
     }
   ]
 }

@@ -1090,5 +1090,11 @@
     "name": "galaxymovies-mcp",
     "ecosystem": "npm",
     "launch": "npx -y galaxymovies-mcp@1.0.1"
+  },
+  {
+    "id": "agent-tools-mcp",
+    "name": "agent-tools-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx agent-tools-mcp==0.5.2"
   }
 ]

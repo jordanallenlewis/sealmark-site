@@ -39,6 +39,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "agent-tools-mcp": {
+    "repo": "AgentTools-Cloud/AgentToolsCollection",
+    "source": "pypi",
+    "resolvedAt": "2026-11-14"
+  },
   "ai-dossier-mcp-server": {
     "repo": "imboard-ai/ai-dossier",
     "source": "npm",

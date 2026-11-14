@@ -7530,9 +7530,9 @@
       "round": "fleet",
       "versionTested": "0.2.17",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7764,9 +7764,9 @@
       "round": "fleet",
       "versionTested": "0.20.0",
       "serverInfoName": "affiliate-networks-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -8656,9 +8656,9 @@
       "round": "fleet",
       "versionTested": "0.2.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -8882,9 +8882,9 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "pretrip-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9077,9 +9077,9 @@
       "refTested": "0.2.2",
       "versionTested": "0.2.2",
       "serverInfoName": "reddit-research-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9305,9 +9305,9 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9497,9 +9497,9 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -9737,9 +9737,9 @@
       "round": "fleet",
       "versionTested": "3.18.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10200,9 +10200,9 @@
       "round": "fleet",
       "versionTested": "4.12.0",
       "serverInfoName": "reasonbook",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10432,24 +10432,24 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "atmy-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
       "launch": "npx -y atmy-mcp@1.1.0",
       "transport": "stdio",
-      "toolCount": 11,
+      "toolCount": 12,
       "packs": [
         {
           "id": "core",
           "status": "graded",
-          "letter": "B",
-          "points": 3.5,
+          "letter": "C",
+          "points": 2.5,
           "scored": 4,
-          "pct": 87.5,
+          "pct": 62.5,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -10547,8 +10547,8 @@
           "label": "Valid MCP handshake and tool schemas",
           "critical": false,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "handshake ok, 11 well-formed tool(s)"
+          "verdict": "part",
+          "summary": "1 non-JSON-RPC line(s) on stdout"
         },
         {
           "id": "tool-poisoning",
@@ -10557,7 +10557,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 11 tool definition(s), the server instructions and serverInfo, 2 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 12 tool definition(s), the server instructions and serverInfo, 2 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -10565,8 +10565,8 @@
           "label": "Survives malformed tool input",
           "critical": false,
           "advisory": false,
-          "verdict": "part",
-          "summary": "0 internals leak(s), 6 invalid call(s) accepted"
+          "verdict": "fail",
+          "summary": "server hung on malformed input"
         },
         {
           "id": "secret-echo",
@@ -10575,7 +10575,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 44 captured response(s), 7 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 46 captured response(s), 7 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -10626,7 +10626,7 @@
       "coverage": {
         "validCalls": 1,
         "toolsCalledValid": 1,
-        "toolsTotal": 11,
+        "toolsTotal": 12,
         "level": "low"
       },
       "badge": {
@@ -10646,6 +10646,7 @@
         "tool \"get_sensor\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"get_sensor_readings\" is covered by the core checks only: free-text parameter \"from\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_sensors_average\" is covered by the core checks only: free-text parameter \"from\": no path, URL, command, SQL or repository signal; its required parameter \"ids\" cannot be filled by the harness; write a probes: entry to call it",
+        "tool \"get_home_environment\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -10661,9 +10662,9 @@
       "round": "fleet",
       "versionTested": "0.1.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -11082,9 +11083,9 @@
       "round": "fleet",
       "versionTested": "1.1.4",
       "serverInfoName": "computeback-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -11335,9 +11336,9 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "harness-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -11553,9 +11554,9 @@
       "round": "fleet",
       "versionTested": "0.7.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -12238,7 +12239,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-13",
+        "date": "2026-11-14",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -12250,9 +12251,9 @@
       "round": "fleet",
       "versionTested": "0.2.35",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -12755,9 +12756,9 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -12976,9 +12977,9 @@
       "round": "fleet",
       "versionTested": "1.1.9",
       "serverInfoName": "clelp-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -13170,9 +13171,9 @@
       "round": "fleet",
       "versionTested": "0.3.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -13400,9 +13401,9 @@
       "round": "fleet",
       "versionTested": "0.1.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -13820,9 +13821,9 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -14040,9 +14041,9 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -14244,9 +14245,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "rytdl",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -14469,9 +14470,9 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "uns-tools",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -15235,9 +15236,9 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "fleet-memory-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -15864,9 +15865,9 @@
       "round": "fleet",
       "versionTested": "0.4.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -16260,9 +16261,9 @@
       "round": "fleet",
       "versionTested": "1.3.0",
       "serverInfoName": "visibility",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -16341,7 +16342,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "reason": "the listener saw nothing, but 52 of 54 probes were not explicitly refused (52 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "sqlite",
@@ -16421,7 +16422,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "summary": "the listener saw nothing, but 52 of 54 probes were not explicitly refused (52 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -16430,7 +16431,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "no scheme had an observable effect, but 36 of 36 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "summary": "no scheme had an observable effect, but 34 of 36 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-caps",
@@ -16483,8 +16484,8 @@
           "label": "Refusals say what to do next",
           "critical": false,
           "advisory": true,
-          "verdict": "na",
-          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+          "verdict": "fail",
+          "summary": "0 of 2 refusal(s) say what to do instead or why retrying will not help (0 %)"
         }
       ],
       "coverage": {
@@ -16498,10 +16499,10 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "tool \"check_ai_access\" (url) was not probed by the net pack: the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
-        "tool \"check_identity_files\" (url) was not probed by the net pack: the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
-        "tool \"check_page_signals\" (url) was not probed by the net pack: the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
-        "tool \"analyze_site\" (url) was not probed by the net pack: the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tool \"check_ai_access\" (url) was not probed by the net pack: the listener saw nothing, but 52 of 54 probes were not explicitly refused (52 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tool \"check_identity_files\" (url) was not probed by the net pack: the listener saw nothing, but 52 of 54 probes were not explicitly refused (52 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tool \"check_page_signals\" (url) was not probed by the net pack: the listener saw nothing, but 52 of 54 probes were not explicitly refused (52 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tool \"analyze_site\" (url) was not probed by the net pack: the listener saw nothing, but 52 of 54 probes were not explicitly refused (52 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
         "tool \"compare_sites\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tool \"visibility_history\" was not covered by the net pack: only the first 6 URL tools are probed",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
@@ -16512,6 +16513,7 @@
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it",
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
@@ -16524,9 +16526,9 @@
       "round": "fleet",
       "versionTested": "1.11.3",
       "serverInfoName": "intodns-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -16814,9 +16816,9 @@
       "round": "fleet",
       "versionTested": "0.1.6",
       "serverInfoName": "justdrop-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -17035,9 +17037,9 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "kavel-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -17231,9 +17233,9 @@
       "round": "fleet",
       "versionTested": "10.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -17467,9 +17469,9 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -17481,10 +17483,10 @@
         {
           "id": "core",
           "status": "graded",
-          "letter": "A",
-          "points": 4,
+          "letter": "B",
+          "points": 3,
           "scored": 4,
-          "pct": 100,
+          "pct": 75,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -17600,8 +17602,8 @@
           "label": "Survives malformed tool input",
           "critical": false,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "10 invalid call(s) rejected cleanly"
+          "verdict": "fail",
+          "summary": "server died on malformed input"
         },
         {
           "id": "secret-echo",
@@ -17722,9 +17724,9 @@
       "round": "fleet",
       "versionTested": "0.9.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -17939,9 +17941,9 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "lawai-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -18139,9 +18141,9 @@
       "round": "fleet",
       "versionTested": "0.3.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -18341,9 +18343,9 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -18563,9 +18565,9 @@
       "round": "fleet",
       "versionTested": "1.7.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -18761,9 +18763,9 @@
       "round": "fleet",
       "versionTested": "0.5.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -18987,9 +18989,9 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -19186,9 +19188,9 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "x402-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -19428,9 +19430,9 @@
       "round": "fleet",
       "versionTested": "0.10.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -19654,9 +19656,9 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -19851,9 +19853,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "memegician-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -20073,9 +20075,9 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -20354,9 +20356,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -20558,9 +20560,9 @@
       "round": "fleet",
       "versionTested": "1.7.0",
       "serverInfoName": "optibot-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -20803,9 +20805,9 @@
       "round": "fleet",
       "versionTested": "0.2.18",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -21028,9 +21030,9 @@
       "round": "fleet",
       "versionTested": "0.15.0",
       "serverInfoName": "overwing-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -21321,9 +21323,9 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "paraplex-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -21565,9 +21567,9 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "plugmcp-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -21699,7 +21701,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "part",
-          "summary": "0 internals leak(s), 8 invalid call(s) accepted"
+          "summary": "0 internals leak(s), 4 invalid call(s) accepted"
         },
         {
           "id": "secret-echo",
@@ -21708,7 +21710,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 38 captured response(s), 8 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 38 captured response(s), 4 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -21794,9 +21796,9 @@
       "round": "fleet",
       "versionTested": "2.0.0",
       "serverInfoName": "popdot-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -21992,9 +21994,9 @@
       "round": "fleet",
       "versionTested": "1.0.2",
       "serverInfoName": "proxyllm-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -22219,9 +22221,9 @@
       "round": "fleet",
       "versionTested": "4.0.0",
       "serverInfoName": "quorum-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -22456,9 +22458,9 @@
       "round": "fleet",
       "versionTested": "0.5.0",
       "serverInfoName": "radmail-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -22660,9 +22662,9 @@
       "round": "fleet",
       "versionTested": "1.3.2",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -22887,9 +22889,9 @@
       "round": "fleet",
       "versionTested": "3.0.0",
       "serverInfoName": "raven-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -23459,9 +23461,9 @@
       "refTested": "10.0.626",
       "versionTested": "10.0.626",
       "serverInfoName": "rillsoft-project-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -23797,9 +23799,9 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -23870,15 +23872,15 @@
         },
         {
           "id": "net",
-          "status": "graded",
-          "letter": "A",
-          "points": 1,
-          "scored": 1,
-          "pct": 100,
-          "provisional": true,
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": null
+          "reason": "the listener saw nothing, but 9 of 9 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
         },
         {
           "id": "sqlite",
@@ -23958,7 +23960,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "every loopback probe was refused, but a data: URL with no host got the same reply word for word, so the refusal does not describe the target (the tool may refuse every URL; set net.control_url to a URL it can reach)"
+          "summary": "the listener saw nothing, but 9 of 9 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -23966,8 +23968,8 @@
           "label": "Only http(s) schemes accepted",
           "critical": true,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "6 scored probes (javascript: is recorded, not scored) with file:, ftp:, gopher:, dict: and data: URLs had no observable effect (6 explicitly refused for the scheme)"
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 6 of 6 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-caps",
@@ -24020,19 +24022,19 @@
           "label": "Refusals say what to do next",
           "critical": false,
           "advisory": true,
-          "verdict": "fail",
-          "summary": "0 of 9 refusal(s) say what to do instead or why retrying will not help (0 %)"
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
         }
       ],
       "coverage": {
-        "validCalls": 30,
+        "validCalls": 21,
         "toolsCalledValid": 21,
         "toolsTotal": 48,
         "level": "low"
       },
       "badge": {
         "eligible": false,
-        "reason": "a pack is provisional: a critical check was inconclusive"
+        "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
         "malformed-input probes cover the first 25 of 48 tools",
@@ -24084,7 +24086,8 @@
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
-        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
       "automated": true
@@ -24096,9 +24099,9 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "saymaker-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -24293,9 +24296,9 @@
       "round": "fleet",
       "versionTested": "2.16.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -24745,9 +24748,9 @@
       "round": "fleet",
       "versionTested": "0.2.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -25012,9 +25015,9 @@
       "round": "fleet",
       "versionTested": "0.7.2",
       "serverInfoName": "compose-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -25564,9 +25567,9 @@
       "round": "fleet",
       "versionTested": "3.7.0",
       "serverInfoName": "snowsure-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -25818,9 +25821,9 @@
       "round": "fleet",
       "versionTested": "1.10.0",
       "serverInfoName": "spaces-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -25952,7 +25955,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "part",
-          "summary": "0 internals leak(s), 8 invalid call(s) accepted"
+          "summary": "0 internals leak(s), 7 invalid call(s) accepted"
         },
         {
           "id": "secret-echo",
@@ -25961,7 +25964,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 114 captured response(s), 10 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 114 captured response(s), 9 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -26015,7 +26018,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "whoami, list_spaces, list_kits, browse_marketplace declared read-only and changed nothing in the observed directories during a benign call"
+          "summary": "whoami, list_spaces, list_kits declared read-only and changed nothing in the observed directories during a benign call (browse_marketplace not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -26094,9 +26097,9 @@
       "round": "fleet",
       "versionTested": "1.16.0",
       "serverInfoName": "mcp-gate",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -26349,9 +26352,9 @@
       "round": "fleet",
       "versionTested": "1.19.1",
       "serverInfoName": "mcp-leads",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -26665,9 +26668,9 @@
       "round": "fleet",
       "versionTested": "1.15.1",
       "serverInfoName": "mcp-mail",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -26970,9 +26973,9 @@
       "round": "fleet",
       "versionTested": "0.4.1",
       "serverInfoName": "ssid-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -27202,9 +27205,9 @@
       "round": "fleet",
       "versionTested": "1.2.1",
       "serverInfoName": "mcp-proxy",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -27401,9 +27404,9 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "tanvo-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -27628,9 +27631,9 @@
       "round": "fleet",
       "versionTested": "2.0.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -27860,9 +27863,9 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "x402-base-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -28129,9 +28132,9 @@
       "round": "fleet",
       "versionTested": "0.9.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -28332,9 +28335,9 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -28606,9 +28609,9 @@
       "round": "fleet",
       "versionTested": "1.4.0",
       "serverInfoName": "blackout-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -28826,9 +28829,9 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "spotlight-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -29044,9 +29047,9 @@
       "round": "fleet",
       "versionTested": "0.2.3",
       "serverInfoName": "3dstreet-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -29235,9 +29238,9 @@
       "round": "fleet",
       "versionTested": "1.1.2",
       "serverInfoName": "addressintel-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -30177,16 +30180,16 @@
       "name": "apillow-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "0.1.7",
+      "versionTested": "0.1.8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx apillow-mcp==0.1.7",
+      "launch": "uvx apillow-mcp==0.1.8",
       "transport": "stdio",
       "toolCount": 10,
       "packs": [
@@ -30418,9 +30421,9 @@
       "round": "fleet",
       "versionTested": "0.30.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -51505,6 +51508,213 @@
         "tool \"calendar_feed_url\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"rss_feed_url\" is covered by the core checks only: free-text parameter \"provider\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"list_providers\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "agent-tools-mcp",
+      "name": "agent-tools-mcp",
+      "ecosystem": "pypi",
+      "round": "fleet",
+      "versionTested": "0.5.2",
+      "serverInfoName": "uvx",
+      "testedAt": "2026-11-14",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "uvx agent-tools-mcp==0.5.2",
+      "transport": "stdio",
+      "toolCount": 16,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 16 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 16 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "64 invalid call(s) rejected cleanly"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 64 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "fail",
+          "summary": "the server instructions names 1 tool(s) the server does not offer (typed_data)"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 16,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"search\" is covered by the core checks only: free-text parameter \"intent\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get\" is covered by the core checks only: free-text parameter \"slug\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_categories\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"search_mcp_servers\" is covered by the core checks only: free-text parameter \"intent\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_mcp_server\" is covered by the core checks only: free-text parameter \"slug\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"search_agents\" is covered by the core checks only: free-text parameter \"intent\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_agent\" is covered by the core checks only: free-text parameter \"slug\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"search_all\" is covered by the core checks only: free-text parameter \"intent\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"stats\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"ask\" is covered by the core checks only: free-text parameter \"question\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"recommend\" is covered by the core checks only: free-text parameter \"intent\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"prepare_paid_verification\" is covered by the core checks only: free-text parameter \"slug\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "4 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"list_categories\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"stats\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"create_api_key\" was not covered by the core pack: needs probes: to be called (no argument the harness can safely malform)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
