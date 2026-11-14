@@ -1,59 +1,7 @@
 {
-  "generatedAt": "2026-11-14T18:13:55.833Z",
+  "generatedAt": "2026-11-14T19:01:25.090Z",
   "window": 600,
-  "graded": 382,
-  "failed": 218,
-  "clusters": [
-    {
-      "servers": [
-        "mrexodia-ida-pro-mcp",
-        "vaaya-mcp"
-      ],
-      "key": "slow:run",
-      "kind": "slow-path",
-      "labels": [
-        "performance"
-      ],
-      "title": "Slow runs: 3 servers took over 5 min or timed out",
-      "count": 3,
-      "detail": "Longest: 329 s. Find which probe or pack dominates and add a per-probe budget."
-    },
-    {
-      "servers": [
-        "54yyyu-zotero-mcp",
-        "apify-apify-mcp-server",
-        "atomicstrata-llm-wiki-compiler",
-        "brightdata-brightdata-mcp",
-        "callmcp-server",
-        "chrisryugj-kordoc",
-        "chrisryugj-korean-law-mcp",
-        "chromedevtools-chrome-devtools-mcp",
-        "cjo4m06-mcp-shrimp-task-manager",
-        "czlonkowski-n8n-mcp",
-        "d4vinci-scrapling",
-        "deedy5-ddgs",
-        "evalstate-fast-agent",
-        "evil0ctal-douyin-tiktok-download-api",
-        "geekjourneyx-md2wechat-skill",
-        "getsentry-mobilebuildmcp",
-        "google-gemini-gemini-cli",
-        "haris-musa-excel-mcp-server",
-        "huangjunsen0406-py-xiaozhi",
-        "jerbouma-financetoolkit",
-        "jnmetacode-agency-orchestrator",
-        "jordan-gibbs-hyperresearch",
-        "kajisho5-ffmpeg-skill",
-        "knockoutez-wigolo",
-        "llmsresearch-paperbanana"
-      ],
-      "key": "hardening:start-fail",
-      "kind": "hardening",
-      "labels": [
-        "hardening"
-      ],
-      "title": "34% of servers never start under the fleet harness",
-      "count": 203,
-      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. The CLI types each start failure (sealmark 1.0.1); by kind:\n- unknown: 9\n- missing-runtime: 2\n- initialize-timeout: 2\n- dependency-resolution: 1\n- untyped (older CLI or no kind): 189\nTop signatures:\n- 177x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 24x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
-    }
-  ]
+  "graded": 479,
+  "failed": 121,
+  "clusters": []
 }
