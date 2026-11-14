@@ -9,15 +9,19 @@ on:
     - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
+      dry_run:
+        description: 'Test run (untick for a real run): owner issues are only drafted (notify-owners --dry, without the bot token), and nothing is committed, filed or deployed (the site is built, not deployed)'
+        type: boolean
+        default: true
       force_all:
-        description: 'Re-test every tracked server, not only new versions and stale results'
+        description: 'Re-test every tracked server (up to the 256-job matrix), not only new versions and stale results'
         type: boolean
         default: false
       max_new:
         description: 'New servers to add per run (below 360 tracked, at least 60 are tried regardless)'
         default: '10'
       file_owner_issues:
-        description: 'File one hand-approved batch of owner issues: only the entries of the committed fleet/owner-issues-draft.md, only if each still renders byte for byte (needs OWNER_ISSUES_TOKEN)'
+        description: 'File one hand-approved batch of owner issues: only the entries of the committed fleet/owner-issues-draft.md, only if each still renders byte for byte (needs OWNER_ISSUES_TOKEN; untick dry_run too)'
         type: boolean
         default: false
 
@@ -28,9 +32,14 @@ concurrency:
   group: fleet
   cancel-in-progress: false
 
+env:
+  # "1" for a run started by hand unless dry_run was unticked; scheduled runs are always real. Fails safe: only an
+  # explicit false makes a hand-started run real.
+  DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && format('{0}', inputs.dry_run) != 'false' && '1' || '' }}
+
 jobs:
   plan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
       count: ${{ steps.plan.outputs.count }}
@@ -52,19 +61,26 @@ jobs:
   test:
     needs: plan
     if: needs.plan.outputs.count != '0'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 8
     permissions:
       contents: read
     strategy:
       fail-fast: false
-      max-parallel: 10
+      # 16 of the account's 20 concurrent hosted jobs, so other workflows still start; plan.mjs orders the matrix
+      # longest expected run first.
+      max-parallel: 16
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
+      # No caches in these jobs: they run third-party packages, and nothing they write may reach another run.
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '24'
-      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
+          package-manager-cache: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: false
+          ignore-empty-workdir: true
       - name: run Sealmark
         env:
           META: ${{ toJSON(matrix) }}
@@ -80,7 +96,7 @@ jobs:
           # timing and exit code feed fleet/telemetry.jsonl (no server output is kept here)
           printf '{"durationS":%s,"exitCode":%s}' "$(( $(date +%s) - T0 ))" "$RC" > out/run.json
           exit 0
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: report-${{ matrix.id }}
@@ -90,18 +106,21 @@ jobs:
   collect:
     needs: [plan, test]
     if: always() && needs.plan.outputs.count != '0'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: write
       issues: write # the "Owner replies to Sealmark issues" tracking issue in this repository (notify step)
     steps:
+      - name: test run notice
+        if: env.DRY_RUN == '1'
+        run: echo "**Test run (dry_run):** owner issues are drafted only; nothing is committed, filed or deployed." >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '24'
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: report-*
           path: reports
@@ -112,6 +131,7 @@ jobs:
           node fleet/trends.mjs
           { cat fleet/triage-summary.md; echo; cat fleet/trends-summary.md; } >> "$GITHUB_STEP_SUMMARY"
       - name: file Sealmark issues (needs SEALMARK_ISSUES_TOKEN; otherwise Maya files them from triage.json)
+        if: env.DRY_RUN != '1'
         env:
           GH_TOKEN: ${{ secrets.SEALMARK_ISSUES_TOKEN }}
         run: |
@@ -123,16 +143,17 @@ jobs:
       # repositories are held in a gitignored private queue (count only in the log). MAX_OWNER_ISSUES caps issues per
       # run; 2 until the variable is set. continue-on-error: a failure here never stops the impact, commit and deploy
       # steps after it (the ledger the script wrote so far is still committed).
+      # A test run (DRY_RUN) cannot post: no bot token, OWNER_ISSUES_LIVE empty, and --dry, each enough on its own.
       - name: tell server owners (one issue per repo; drafts only unless OWNER_ISSUES_TOKEN and OWNER_ISSUES_LIVE == "1")
         continue-on-error: true
         timeout-minutes: 30
         env:
-          OWNER_ISSUES_TOKEN: ${{ secrets.OWNER_ISSUES_TOKEN }}
-          OWNER_ISSUES_LIVE: ${{ (vars.OWNER_ISSUES_LIVE == '1' || github.event.inputs.file_owner_issues == 'true') && '1' || '' }}
-          OWNER_ISSUES_APPROVED: ${{ github.event.inputs.file_owner_issues == 'true' && '1' || '' }}
+          OWNER_ISSUES_TOKEN: ${{ env.DRY_RUN != '1' && secrets.OWNER_ISSUES_TOKEN || '' }}
+          OWNER_ISSUES_LIVE: ${{ env.DRY_RUN != '1' && (vars.OWNER_ISSUES_LIVE == '1' || github.event.inputs.file_owner_issues == 'true') && '1' || '' }}
+          OWNER_ISSUES_APPROVED: ${{ env.DRY_RUN != '1' && github.event.inputs.file_owner_issues == 'true' && '1' || '' }}
           MAX_OWNER_ISSUES: ${{ vars.MAX_OWNER_ISSUES || '2' }}
           GITHUB_TOKEN: ${{ github.token }}
-        run: node fleet/notify-owners.mjs
+        run: node fleet/notify-owners.mjs ${DRY_RUN:+--dry}
       - name: impact of owner notices (internal; reads GitHub and the notify D1, writes fleet/impact-summary.md)
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -140,6 +161,7 @@ jobs:
         run: node fleet/impact.mjs
       - name: commit the new grades
         run: |
+          if [ "$DRY_RUN" = "1" ]; then echo "test run: nothing committed"; git status --short | head -20; exit 0; fi
           git config user.name "Jordan Lewis"
           git config user.email "42820601+jordanallenlewis@users.noreply.github.com"
           git add web/content/data/server-results.json web/content/data/trends.json fleet/
@@ -150,7 +172,7 @@ jobs:
 
   deploy:
     needs: collect
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: f37b212eac72fedf8ef688eb7856ea4d
@@ -163,11 +185,16 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+      # npm cache keyed on the lockfile (npm ci checks every package against its integrity hash)
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         if: env.CLOUDFLARE_API_TOKEN != ''
         with:
           node-version: '24'
-      - name: build and deploy the website
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: build and deploy the website (a test run builds only)
         if: env.CLOUDFLARE_API_TOKEN != ''
         run: |
-          cd web && npm ci && npm run build && npx -y wrangler deploy
+          cd web && npm ci && npm run build
+          if [ "$DRY_RUN" = "1" ]; then echo "test run: built, not deployed"; exit 0; fi
+          npx -y wrangler deploy
