@@ -77,18 +77,25 @@ if (recent.length >= MIN_N && startRate >= 0.3) {
     servers: start.map((r) => r.id), count: start.length, detail: "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. The CLI types each start failure (sealmark 1.0.1); by kind:\n" + byKind.join("\n") + "\nTop signatures:\n" + top });
 }
 
-// 5. Regression candidates: same server version, different Sealmark version, worse grade.
+// 5. Regression candidates: same server version, different Sealmark version, worse grade, no gain in tools.
+// More tools on the same id@version is a server change (a bridge to a remote endpoint can gain tools without a new
+// package version, sealmark#24), so it is listed apart. Fewer or zero tools stays a regression candidate: a Sealmark
+// bug in listing tools (paging, a crash in tools/list) looks exactly like that.
 const byKey = new Map();
 for (const r of ok) {
   const k = r.id + "@" + r.serverVersion;
   (byKey.get(k) ?? byKey.set(k, []).get(k)).push(r);
 }
 const regress = [];
+const surfaceChanged = [];
+const toolsKnown = (r) => Number.isInteger(r.toolCount) && r.toolCount > 0;
 for (const [k, rs] of byKey) {
   const vs = [...new Set(rs.map((r) => r.sealmark))];
   if (vs.length < 2) continue;
   const a = rs[rs.length - 2], b = rs[rs.length - 1];
-  if (a.sealmark !== b.sealmark && LETTERS.indexOf(b.worst) < LETTERS.indexOf(a.worst)) regress.push({ id: r0(k), from: a, to: b });
+  if (a.sealmark === b.sealmark || LETTERS.indexOf(b.worst) >= LETTERS.indexOf(a.worst)) continue;
+  if (toolsKnown(a) && toolsKnown(b) && b.toolCount > a.toolCount) surfaceChanged.push({ id: r0(k), from: a, to: b });
+  else regress.push({ id: r0(k), from: a, to: b });
 }
 function r0(k) { return k.split("@")[0]; }
 if (regress.length) {
@@ -97,9 +104,10 @@ if (regress.length) {
     detail: "Same server version, newer Sealmark, lower grade. Either a new rule is catching a real problem (add the server to the corpus as a true positive) or a rule regressed (false positive). Decide per server:\n" + regress.slice(0, 15).map((x) => `- ${x.id}: ${x.from.worst} to ${x.to.worst}`).join("\n") });
 }
 
-const out = { generatedAt: new Date().toISOString(), window: recent.length, graded: ok.length, failed: failed.length, clusters };
+const out = { generatedAt: new Date().toISOString(), window: recent.length, graded: ok.length, failed: failed.length, clusters, surfaceChanged: surfaceChanged.map((x) => x.id) };
 fs.writeFileSync("fleet/triage.json", JSON.stringify(out, null, 2) + "\n");
 const md = ["## Fleet triage", "", `Window: ${recent.length} results (${ok.length} graded, ${failed.length} failed). ${clusters.length} issue cluster(s).`, "",
-  ...(clusters.length ? ["| kind | cluster | servers |", "|---|---|---|", ...clusters.map((c) => `| ${c.kind} | ${c.title.replace(/\|/g, "/")} | ${c.count} |`)] : ["No clusters: nothing for Sealmark to fix from this window."])];
+  ...(clusters.length ? ["| kind | cluster | servers |", "|---|---|---|", ...clusters.map((c) => `| ${c.kind} | ${c.title.replace(/\|/g, "/")} | ${c.count} |`)] : ["No clusters: nothing for Sealmark to fix from this window."]),
+  ...(surfaceChanged.length ? ["", `Grade drops left out of the regression check because the server gained tools on the same version (a server change, not Sealmark): ${surfaceChanged.slice(0, 15).map((x) => `${x.id} (${x.from.toolCount} to ${x.to.toolCount} tools, ${x.from.worst} to ${x.to.worst})`).join(", ")}${surfaceChanged.length > 15 ? `, and ${surfaceChanged.length - 15} more (fleet/triage.json)` : ""}`] : [])];
 fs.writeFileSync("fleet/triage-summary.md", md.join("\n") + "\n");
 console.log(md.join("\n"));
