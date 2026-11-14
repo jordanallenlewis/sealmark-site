@@ -2,7 +2,7 @@
 // (fleet/merge.mjs) and words it next to the grade it did not replace (results pages), so an old grade never reads
 // as current. Pure functions, no I/O: covered by fleet/retest.test.mjs.
 
-/** @typedef {{ date: string, status: "failed", kind: string }} LastAttempt */
+/** @typedef {{ date: string, status: "failed", kind: string, startKind?: string }} LastAttempt */
 
 // failClass values from fleet/merge.mjs that get their own words; anything else (other, no-report) is stored as "other".
 /** @type {Record<string, { note: string, short: string }>} */
@@ -13,6 +13,18 @@ const WORDS = {
 };
 const FAILED = { note: "failed", short: "failed" };
 
+// The CLI's typed start failure (sealmark 1.0.1 `startFailure.kind`). The kind comes from heuristics on the error text,
+// so the words say "looks like", never "is". `unknown` and anything else keep the plain words.
+/** @type {Record<string, { note: string, short: string }>} */
+const START_WORDS = {
+  "needs-credentials": { note: "could not start the server (it looks like it needs a credential)", short: "server did not start (looks like it needs a credential)" },
+  "missing-runtime": { note: "could not start the server (a runtime it needs is missing)", short: "server did not start (a runtime it needs is missing)" },
+  "dependency-resolution": { note: "could not start the server (a dependency could not be installed)", short: "server did not start (a dependency could not be installed)" },
+  "bad-launch": { note: "could not start the server (the launch command did not work)", short: "server did not start (the launch command did not work)" },
+  "initialize-timeout": { note: "could not start the server (it did not answer in time)", short: "server did not start (it did not answer in time)" },
+};
+const has = (o, k) => typeof k === "string" && Object.prototype.hasOwnProperty.call(o, k);
+
 /**
  * Marks the graded entry for `id` with a failed attempt and keeps its grade. A server with no entry gets none.
  * A successful re-test replaces the whole entry, which clears the mark.
@@ -20,12 +32,14 @@ const FAILED = { note: "failed", short: "failed" };
  * @param {string} id
  * @param {string} date YYYY-MM-DD
  * @param {string | undefined} kind failClass from fleet/merge.mjs
+ * @param {string | undefined} [startKind] the CLI's typed start failure kind; kept only for a start-fail
  * @returns {boolean} whether an entry was marked
  */
-export function recordFailedAttempt(servers, id, date, kind) {
+export function recordFailedAttempt(servers, id, date, kind, startKind) {
   const entry = servers.find((s) => s.id === id);
   if (!entry) return false;
-  entry.lastAttempt = { date, status: "failed", kind: kind && Object.prototype.hasOwnProperty.call(WORDS, kind) ? kind : "other" };
+  const k = kind && Object.prototype.hasOwnProperty.call(WORDS, kind) ? kind : "other";
+  entry.lastAttempt = { date, status: "failed", kind: k, ...(k === "start-fail" && has(START_WORDS, startKind) ? { startKind } : {}) };
   return true;
 }
 
@@ -41,7 +55,7 @@ export function failedSince(server) {
 }
 
 /** @param {LastAttempt} a */
-const what = (a) => (Object.prototype.hasOwnProperty.call(WORDS, a.kind) ? WORDS[a.kind] : FAILED);
+const what = (a) => (a.kind === "start-fail" && has(START_WORDS, a.startKind) ? START_WORDS[a.startKind] : Object.prototype.hasOwnProperty.call(WORDS, a.kind) ? WORDS[a.kind] : FAILED);
 
 /**
  * One sentence for the server page, or null.
