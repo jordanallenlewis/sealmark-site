@@ -99,19 +99,21 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
       </div>
       <div ref={top} className={clsx(s.tw, s.twCards)} style={{ scrollMarginTop: 80 }}>
         <table className={s.table}>
-          <caption className="sr-only">Servers tested, with the protocol grade and the deeper suite grades</caption>
+          <caption className="sr-only">Servers tested, with the server grade (its lowest test-area grade), the protocol grade and the deeper suite grades</caption>
           <thead>
-            <tr><th scope="col">Server</th><th scope="col">Version</th><th scope="col">Protocol</th><th scope="col">Deeper suites</th><th scope="col">Coverage</th></tr>
+            <tr><th scope="col">Server</th><th scope="col">Version</th><th scope="col">Grade</th><th scope="col">Protocol</th><th scope="col">Deeper suites</th><th scope="col">Coverage</th></tr>
           </thead>
           <tbody>
             {shown.map((x) => {
               const core = gradedPacks(x).find((p) => p.id === "core");
               const deep = deepPacks(x);
+              const w = x.toolCount === 0 && (!x.coverage || x.coverage.toolsTotal === 0) ? null : worst(x);
               return (
                 <tr key={x.id}>
                   <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small>{retestShort(x) && <small>{retestShort(x)}</small>}</td>
                   <td className={s.muted} data-label="Version">{x.versionTested}</td>
-                  <td>{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
+                  <td className={s.gradeCell} data-label="Grade">{w ? <Seal g={w.letter as Letter} prov={w.provisional} /> : <span className={s.muted}>no grade</span>}</td>
+                  <td data-label="Protocol">{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
                   <td data-label="Deeper suites">
                     {deep.length ? (
                       <div className={s.packs}>
@@ -123,7 +125,7 @@ export function ResultsTable({ servers }: { servers: ServerResult[] }) {
                 </tr>
               );
             })}
-            {rows.length === 0 && <tr><td colSpan={5} className={s.muted}>No server matches. Clear the search or the filter.</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={6} className={s.muted}>No server matches. Clear the search or the filter.</td></tr>}
           </tbody>
         </table>
       </div>

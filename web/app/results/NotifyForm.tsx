@@ -43,14 +43,14 @@ export function NotifyForm({ server, name }: { server: string; name: string }) {
       {state.phase !== "sent" && (
         <form className={s.notifyRow} onSubmit={onSubmit} noValidate>
           <label htmlFor="notify-email" className="sr-only">Email address</label>
-          <input id="notify-email" name="email" type="email" autoComplete="email" inputMode="email" required placeholder="you@example.com" className={s.notifyInput} disabled={busy} />
+          <input id="notify-email" name="email" type="email" autoComplete="email" inputMode="email" required placeholder="you@example.com" className={s.notifyInput} disabled={busy} aria-invalid={state.phase === "error" || undefined} aria-describedby="notify-msg" />
           <button type="submit" className="btn" disabled={busy}>{busy ? "Sending..." : "Email me when this grade changes"}</button>
         </form>
       )}
-      <p role="status" className={state.phase === "error" ? s.notifyErr : s.muted}>
+      <p role="status" id="notify-msg" className={state.phase === "error" ? s.notifyErr : s.muted}>
         {state.phase === "sent" || state.phase === "error" ? state.message : ""}
       </p>
-      <p className={s.muted}><Link href="/notify/">What is stored and how to stop the emails</Link></p>
+      <p className={`${s.muted} ${s.stopLink}`}><Link href="/notify/">What is stored and how to stop the emails</Link></p>
     </section>
   );
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { GradeHistory } from "@/components/GradeHistory";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { loadHistory } from "@/lib/history";
 import { RESULTS_PUBLIC } from "@/lib/results";
 import { DisputeNote } from "../DisputeNote";
@@ -36,6 +37,7 @@ export default function HistoryPage() {
         ))}
         <DisputeNote />
       </main>
+      <Footer />
     </>
   );
 }
