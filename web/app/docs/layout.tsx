@@ -32,6 +32,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             <span className={s.brandText}>Sealmark</span>
           </Link>
           <span className={s.crumb}>docs</span>
+          <Link className={s.headLink} href="/results/">Results</Link>
           <Search hotkey />
           <MethodologyBadge className={s.headBadge} />
           <Drawer badge={<MethodologyBadge />}>

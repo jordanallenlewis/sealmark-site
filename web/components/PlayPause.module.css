@@ -1,5 +1,5 @@
 /* Same look as the Pipeline's "all" text button: small mono pill, faint until hovered. */
-.btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink-faint); border-radius: 4px; padding: 2px 9px; font: 500 0.72rem/1.5 var(--mono); cursor: pointer; transition: color var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms); }
+.btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink-faint); border-radius: 4px; padding: 2px 9px; min-height: 24px; font: 500 0.72rem/1.5 var(--mono); cursor: pointer; transition: color var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms); }
 .btn:hover { color: var(--ink); border-color: var(--ink-faint); }
 .btn[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }

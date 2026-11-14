@@ -14,7 +14,7 @@ function Set({ list, hidden }: { list: ServerResult[]; hidden?: boolean }) {
         const w = worst(x);
         const deep = deepPacks(x);
         return (
-          <Link key={x.id} className={s.item} href={`/results/${x.id}/`} tabIndex={hidden ? -1 : undefined}>
+          <Link key={x.id} className={s.item} href={`/results/${x.id}/`} tabIndex={-1}>
             <span>{w ? <Seal g={w.letter as Letter} prov={w.provisional} /> : null}</span>
             <span className={s.name}>{short(x.name)}</span>
             <span className={s.sub}>{deep.length ? deep.map((p) => `${(PACK_LABEL[p.id] ?? p.id).toLowerCase()} ${p.letter}`).join(" · ") : "protocol only"}</span>
@@ -27,6 +27,7 @@ function Set({ list, hidden }: { list: ServerResult[]; hidden?: boolean }) {
 
 // "Tested on" ticker: two slow rows of every tested server with its worst grade, drifting in opposite directions.
 // Not "used by": these are servers Sealmark was run against, not customers. Each item links to its evidence page.
+// Items are out of the tab order (215 moving links); keyboard users go on to "See all results", the same list.
 export function ResultsTicker() {
   const sorted = [...SERVERS_RESULTS].sort((a, b) => {
     const wa = worst(a), wb = worst(b);
