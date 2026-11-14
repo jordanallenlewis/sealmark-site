@@ -157,9 +157,12 @@ export function issueReason({ server, listed = [] }) {
   let text;
   if (!listed.length) {
     if (letterOf(server) !== "A" || notPassed(server).length) throw new Error(`${server.id}: the reason names no check, but not every scored check passed`);
+    // Name the graded areas: an A covers only them (an area with nothing to test, or an inconclusive one, is not graded).
+    const graded = gradedPacks(server).map((p) => `${areaName(p.id)} ${p.letter}`).join(", ");
+    const passed = `Every scored check passed${graded ? ` (${graded})` : ""}, so there is nothing to fix.`;
     text = cov.level === "hygiene-only"
-      ? `Every scored check passed. Only ${n} of ${m} tools could be called with default settings, so this grade covers the handshake and tool metadata only.`
-      : `Every scored check passed. ${n} of ${m} tools answered a valid call.`;
+      ? `${passed} Only ${n} of ${m} tools could be called with default settings, so this grade covers the handshake and tool metadata only.`
+      : `${passed} ${n} of ${m} tools answered a test call with valid arguments.`;
   } else {
     const areas = gradedPacks(server).map((p) => `${areaName(p.id)} ${p.letter}`).join(", ");
     const bullets = listed.map((c) => `- \`${c.id}\`: ${String(c.summary ?? "").trim()} (${c.verdict === "fail" ? "failed" : "partly passed, half credit"})`).join("\n");
@@ -176,7 +179,7 @@ export const reproduce = (server) => `npx -y sealmark@${server.sealmark?.version
 // The issue. `also` are other graded servers from the same repository, each already cleared to be named.
 export function issueDraft({ id, server, repo, listed = [], also = [] }) {
   const letter = letterOf(server);
-  const title = `Automated Sealmark test of ${server.name} ${server.versionTested}: ${letter}`;
+  const title = `Automated Sealmark test of ${server.name} ${server.versionTested}: graded ${letter}`;
   const links = [
     `- What was tested and what was not: ${resultsUrl(id)}`,
     `- How grades work: ${METHODOLOGY_URL}`,
@@ -185,7 +188,7 @@ export function issueDraft({ id, server, repo, listed = [], also = [] }) {
   ].join("\n");
   const body = [
     ISSUE_MARKER(id),
-    `Hi. [Sealmark](${ORIGIN}) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](${AUTHOR_URL}). An automated run started \`${server.name}\` ${server.versionTested} with \`${server.launch}\` on ${server.testedAt}. It got ${article(letter)} **${letter}**.`,
+    `Hi. [Sealmark](${ORIGIN}) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](${AUTHOR_URL}). An automated run started \`${server.name}\` ${server.versionTested} with \`${server.launch}\` on ${server.testedAt}. It got ${article(letter)} **${letter}** (grades run from A to F). Results are public on sealmark.dev, so we tell each server's owner once.`,
     issueReason({ server, listed }),
     links,
     `This is automated and can be wrong. If a result looks wrong, reply here and we will recheck it and correct the page. If you want the server taken off sealmark.dev, say so and we will remove it.`,

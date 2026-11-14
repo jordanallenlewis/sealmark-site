@@ -89,10 +89,10 @@ const FOOTER = "This is automated and can be wrong. If a result looks wrong, rep
 test("template: a grade below A names each failing or partial check, exactly in this shape", () => {
   const s = server({ packs: [pack("core", "B"), pack("fs", "D")], checks: [check("protocol", "pass"), check("robust-input", "part", { summary: "3 invalid call(s) accepted" }), check("fs-size-cap", "fail", { pack: "fs", summary: "read_file: no cap" })] });
   const d = draftFor({ repo: "o/r", server: s, also: [] });
-  assert.equal(d.title, "Automated Sealmark test of @demo/mcp 1.2.0: D");
+  assert.equal(d.title, "Automated Sealmark test of @demo/mcp 1.2.0: graded D");
   assert.equal(d.body, [
     "<!-- sealmark-owner-notice:demo -->",
-    "Hi. [Sealmark](https://sealmark.dev) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](https://github.com/jordanallenlewis). An automated run started `@demo/mcp` 1.2.0 with `npx -y @demo/mcp@1.2.0` on 2026-11-10. It got a **D**.",
+    "Hi. [Sealmark](https://sealmark.dev) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](https://github.com/jordanallenlewis). An automated run started `@demo/mcp` 1.2.0 with `npx -y @demo/mcp@1.2.0` on 2026-11-10. It got a **D** (grades run from A to F). Results are public on sealmark.dev, so we tell each server's owner once.",
     "The grade is the lowest test-area grade (Protocol B, Files D). It comes from:\n\n- `robust-input`: 3 invalid call(s) accepted (partly passed, half credit)\n- `fs-size-cap`: read_file: no cap (failed)",
     "- What was tested and what was not: https://sealmark.dev/results/demo/\n- How grades work: https://sealmark.dev/docs/methodology/#grading-formula\n- Reproduce it: `npx -y sealmark@1.0.0 run --start \"npx -y @demo/mcp@1.2.0\"`",
     FOOTER,
@@ -102,9 +102,9 @@ test("template: a grade below A names each failing or partial check, exactly in 
 
 test("template: an A with tools covered, and an A with hygiene-only coverage, say coverage plainly", () => {
   const a = draftFor({ repo: "o/r", server: allPass(), also: [] });
-  assert.match(a.body, /It got an \*\*A\*\*\.\n\nEvery scored check passed\. 3 of 4 tools answered a valid call\.\n\n- What was tested/);
+  assert.match(a.body, /It got an \*\*A\*\* \(grades run from A to F\)\. Results are public on sealmark\.dev, so we tell each server's owner once\.\n\nEvery scored check passed \(Protocol A\), so there is nothing to fix\. 3 of 4 tools answered a test call with valid arguments\.\n\n- What was tested/);
   const h = draftFor({ repo: "o/r", server: allPass({ coverage: hygiene }), also: [] });
-  assert.match(h.body, /\n\nEvery scored check passed\. Only 0 of 4 tools could be called with default settings, so this grade covers the handshake and tool metadata only\.\n\n/);
+  assert.match(h.body, /\n\nEvery scored check passed \(Protocol A\), so there is nothing to fix\. Only 0 of 4 tools could be called with default settings, so this grade covers the handshake and tool metadata only\.\n\n/);
   assert.ok(a.body.startsWith(ISSUE_MARKER("demo")), "the hidden marker stays first");
   const p = draftFor({ repo: "o/r", server: allPass({ packs: [pack("core", "A"), pack("net", "A", { provisional: true })] }), also: [] });
   assert.match(p.body, /The Network grade is provisional/, "a provisional grade says so in the reason");
