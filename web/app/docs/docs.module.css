@@ -10,6 +10,8 @@
 .badge { display: inline-flex; align-items: center; gap: 6px; font: 500 0.75rem var(--mono); color: var(--accent-link); border: 1px solid var(--border-strong); background: var(--accent-wash); border-radius: 999px; padding: 4px 11px; text-decoration: none; white-space: nowrap; flex: none; }
 .badge:hover { border-color: var(--accent); }
 .headBadge { margin-left: auto; }
+.headLink { color: var(--ink-faint); text-decoration: none; font-size: 0.92rem; font-weight: 500; flex: none; padding-block: 2px; margin-left: 6px; }
+.headLink:hover { color: var(--ink); }
 .menuBtn { display: none; margin-left: auto; flex: none; background: transparent; border: 1px solid var(--border); color: var(--ink); border-radius: 6px; padding: 7px 12px; font: 500 0.9rem var(--sans); cursor: pointer; white-space: nowrap; }
 .menuBtn:hover { border-color: var(--ink-faint); }
 
@@ -63,7 +65,7 @@
 
 /* ---- search ---- */
 .search { position: relative; flex: 1 1 auto; max-width: 420px; min-width: 0; margin-left: 12px; }
-.searchInput { width: 100%; font: 400 0.92rem var(--sans); color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 34px 9px 12px; }
+.searchInput { width: 100%; font: 400 0.92rem var(--sans); color: var(--ink); background: var(--surface); border: 1px solid var(--control-border); border-radius: 8px; padding: 9px 34px 9px 12px; }
 .searchInput::placeholder { color: var(--ink-faint); }
 .searchInput:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
 .searchKey { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font: 500 0.75rem var(--mono); line-height: 1.5; color: var(--ink-faint); border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; pointer-events: none; }
@@ -93,7 +95,7 @@
   .results { left: 12px; right: 12px; width: auto; top: calc(100% + 6px); }
 }
 @media (max-width: 560px) {
-  .crumb, .brandText { display: none; }
+  .crumb, .brandText, .headLink { display: none; }
   .search { margin-left: 4px; }
 }
 /* the big box on the 404 page: results sit in the flow under the input */
@@ -116,12 +118,12 @@
 .main :where(article h2:not([class])) { font-size: 1.65rem; letter-spacing: -0.01em; margin: 2.2em 0 0.6em; }
 .main :where(article h3:not([class])) { font-size: 1.25rem; margin: 1.8em 0 0.5em; }
 .main :where(article h4:not([class])) { font-size: 1.05rem; margin: 1.5em 0 0.4em; }
-.main :where(article p:not([class])) { margin: 0 0 1em; color: var(--ink-muted); }
-.main :where(article ul:not([class]), article ol:not([class])) { margin: 0 0 1em; padding-left: 1.4em; color: var(--ink-muted); }
+.main :where(article p:not([class])) { margin: 0 0 1em; color: var(--ink-muted); max-width: 66ch; }
+.main :where(article ul:not([class]), article ol:not([class])) { margin: 0 0 1em; padding-left: 1.4em; color: var(--ink-muted); max-width: 68ch; }
 .main :where(article li:not([class])) { margin: 0.3em 0; }
 .main :where(article li > p:not([class])) { margin: 0.3em 0; }
 .main :where(article strong) { color: var(--ink); }
-.main :where(article blockquote:not([class])) { margin: 1.2em 0; padding: 2px 0 2px 16px; border-left: 3px solid var(--border-strong); color: var(--ink-muted); }
+.main :where(article blockquote:not([class])) { margin: 1.2em 0; padding: 2px 0 2px 16px; border-left: 1px solid var(--border-strong); color: var(--ink-muted); }
 .main :where(article hr:not([class])) { border: 0; border-top: 1px solid var(--border); margin: 2.4em 0; }
 .main :where(article :not(pre) > code:not([class])) { font: 0.86em var(--mono); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; color: var(--ink); overflow-wrap: anywhere; }
 .main :where(article img) { max-width: 100%; height: auto; }

@@ -33,18 +33,18 @@
 .node[data-state="done"] { color: var(--ink-muted); }
 
 .txt { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; max-width: 100%; }
-.txt b { font: 600 0.78rem/1.35 var(--mono); color: var(--ink); overflow-wrap: anywhere; }
+.txt b { font: 600 0.78rem/1.35 var(--mono); color: var(--ink); overflow-wrap: break-word; }
 .tag { font: 600 0.7rem/1.3 var(--mono); font-style: normal; color: var(--accent-ink); background: var(--accent); border-radius: 999px; padding: 0 8px; letter-spacing: 0.04em; }
-.txt small { font: 0.72rem/1.4 var(--mono); color: var(--ink-faint); overflow-wrap: anywhere; }
+.txt small { font: 0.72rem/1.4 var(--mono); color: var(--ink-faint); overflow-wrap: break-word; }
 
 /* dots + text buttons */
 .ctl { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 6px; margin-top: 22px; }
 .dot { position: relative; width: 26px; height: 24px; border: 0; background: transparent; padding: 0; cursor: pointer; }
-.dot::before { content: ""; position: absolute; left: 3px; right: 3px; top: 10px; height: 4px; border-radius: 2px; background: var(--border); transition: background-color var(--dur-fast, 180ms) var(--ease-std, cubic-bezier(.4, 0, .2, 1)); }
+.dot::before { content: ""; position: absolute; left: 3px; right: 3px; top: 10px; height: 4px; border-radius: 2px; background: var(--control-border); transition: background-color var(--dur-fast, 180ms) var(--ease-std, cubic-bezier(.4, 0, .2, 1)); }
 .dot[aria-current="step"]::before { background: var(--accent); }
 .dot:hover::before { background: var(--ink-faint); }
 .dot[aria-current="step"]:hover::before { background: var(--accent); }
-.txtbtn { background: transparent; border: 1px solid var(--border); color: var(--ink-faint); border-radius: 4px; padding: 2px 9px; font: 500 0.72rem/1.5 var(--mono); cursor: pointer; transition: color var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms); }
+.txtbtn { background: transparent; border: 1px solid var(--border); color: var(--ink-faint); border-radius: 4px; padding: 2px 9px; min-height: 24px; min-width: 24px; font: 500 0.72rem/1.5 var(--mono); cursor: pointer; transition: color var(--dur-fast, 180ms), border-color var(--dur-fast, 180ms); }
 .txtbtn:hover { color: var(--ink); border-color: var(--ink-faint); }
 .txtbtn[aria-current="step"] { color: var(--accent); border-color: var(--border-strong); }
 .pp { margin-right: 8px; }

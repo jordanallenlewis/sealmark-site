@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // The masthead links. In-page anchors (/#how) carry `anc`, which phones hide so Docs and the Quickstart button always fit;
-// Results (`wide`) goes below 400px (globals.css, masthead). The current section gets aria-current="page".
+// Results (`wide`) stays at every width. The current section gets aria-current="page", underlined in gold.
 export function NavLinks({ links }: { links: [href: string, label: string][] }) {
   const path = usePathname() ?? "/";
   return (

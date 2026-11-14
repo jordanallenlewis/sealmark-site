@@ -72,10 +72,24 @@ export function Pre(props: ComponentPropsWithoutRef<"pre">) {
   );
 }
 
+/** The column headings of a GFM table, for the name of its scroll region ("Table: Check, Verdict, Meaning"). */
+function headings(node: ReactNode): string[] {
+  for (const child of Children.toArray(node)) {
+    if (!isValidElement(child)) continue;
+    const kids = (child.props as { children?: ReactNode }).children;
+    if (child.type === "th") return [textOf(kids).trim()];
+    if (child.type === "tr") return Children.toArray(kids).map((c) => (isValidElement(c) ? textOf((c.props as { children?: ReactNode }).children).trim() : "")).filter(Boolean);
+    const found = headings(kids);
+    if (found.length) return found;
+  }
+  return [];
+}
+
 /** GFM tables scroll inside their own box so the page never scrolls sideways. */
 export function Table(props: ComponentPropsWithoutRef<"table">) {
+  const cols = headings(props.children);
   return (
-    <div className={clsx("tw", s.tableWrap)} tabIndex={0} role="region" aria-label="Table">
+    <div className={clsx("tw", s.tableWrap)} tabIndex={0} role="region" aria-label={cols.length ? `Table: ${cols.join(", ")}` : "Table"}>
       <table {...props} className={s.mdxTable} />
     </div>
   );

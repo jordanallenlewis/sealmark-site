@@ -23,13 +23,14 @@ export default function Page() {
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
         <h1 className={s.h1}>Sealmark compared with other MCP testing tools</h1>
-        <p className={s.lede}>Short version: they answer different questions. The official conformance framework asks &quot;does this server follow the protocol?&quot; The Inspector asks &quot;what is this server doing right now?&quot; Sealmark asks &quot;does this server&apos;s tools behave safely and correctly, and what grade does that earn?&quot; Use them together.</p>
+        <p className={s.lede}>Short version: they answer different questions. The official conformance framework asks &quot;does this server follow the protocol?&quot; The Inspector asks &quot;what is this server doing right now?&quot; Sealmark asks &quot;do this server&apos;s tools behave safely and correctly, and what grade does that earn?&quot; Use them together.</p>
         <div className={s.tw} tabIndex={0} role="region" aria-label="Comparison table">
           <table className={s.checks}>
-            <thead><tr><th scope="col"></th><th scope="col">Sealmark</th><th scope="col">MCP Inspector</th><th scope="col">MCP conformance framework</th></tr></thead>
+            <thead><tr><th scope="col"><span className="sr-only">Aspect</span></th><th scope="col">Sealmark</th><th scope="col">MCP Inspector</th><th scope="col">MCP conformance framework</th></tr></thead>
             <tbody>{ROWS.map((r) => (<tr key={r[0]}><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
           </table>
         </div>
+        <p className={`${s.muted} ${s.scrollHint}`}>The table scrolls sideways to show all three tools.</p>
         <h2 className={s.packhead}>Security scanners and eval platforms</h2>
         <p>These overlap with Sealmark on safety, but most decide from what a server says (its tool descriptions, its source, a model&apos;s reading of either). Sealmark decides from what a call did.</p>
         <ul>

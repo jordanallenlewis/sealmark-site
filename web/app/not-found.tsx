@@ -24,6 +24,7 @@ export default function NotFound() {
           </Link>
           <nav aria-label="Site" className={s.siteNav}>
             <Link href="/">Home</Link>
+            <Link href="/results/">Results</Link>
             <Link href="/docs/">Docs</Link>
           </nav>
         </div>

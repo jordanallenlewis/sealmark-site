@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { CopyButton } from "@/components/CopyButton";
 import { SERVER_COUNT } from "@/lib/results";
 import { INSTALL, WHAT_IT_IS, canonical, jsonLd } from "@/lib/seo";
 import s from "../results/results.module.css";
@@ -27,7 +28,10 @@ export default function Page() {
         <h1 className={s.h1}>MCP conformance testing</h1>
         <p className={s.lede}>{WHAT_IT_IS}</p>
         <h2 className={s.packhead}>Run it in one command</h2>
-        <pre><code>{INSTALL}</code></pre>
+        <div className={`ibox ${s.cmd}`}>
+          <pre tabIndex={0} aria-label="Install and run command">{INSTALL}</pre>
+          <CopyButton text={INSTALL} />
+        </div>
         <p className={s.muted}>Needs Node.js. Other ways to run it (a URL, a config file, CI) are in the <Link href="/docs/quickstart/">quickstart</Link>.</p>
         <h2 className={s.packhead}>What it checks</h2>
         <p>Protocol hygiene (the <b>core</b> suite) for every server, then suites for what the tools do when the server has them: database, files, git, network, HTTP, commands and side effects. Each check is listed with its evidence in the <Link href="/docs/reference/checks/">check reference</Link>; the rules for grading are in the <Link href="/docs/methodology/">methodology</Link>.</p>

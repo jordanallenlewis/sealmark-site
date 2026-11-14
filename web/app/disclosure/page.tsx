@@ -38,7 +38,7 @@ export default function Page() {
         <p>A partial on tool poisoning with only weak, inconclusive indicators, or on read-only honesty when only cache files changed, is a weak signal, not a finding. Those are shown in full.</p>
 
         <h2 className={s.packhead}>A verdict you think is wrong</h2>
-        <p>Reply on the GitHub issue or the private report, or email disclosure@sealmark.dev with the server and the version. We re-test, correct the page if we were wrong, and add your reply. A fixed version can be re-graded at any time, and maintainers can ask for their server to be removed.</p>
+        <p>Reply on the GitHub issue or the private report, or email <a href="mailto:disclosure@sealmark.dev">disclosure@sealmark.dev</a> with the server and the version. We re-test, correct the page if we were wrong, and add your reply. A fixed version can be re-graded at any time, and maintainers can ask for their server to be removed.</p>
 
         <p>Running Sealmark on a server you do not maintain? See <Link href="/docs/disclosure/">the docs page</Link> on sharing a result you found yourself.</p>
       </main>
