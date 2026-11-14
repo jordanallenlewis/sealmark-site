@@ -1054,3 +1054,64 @@
 {"id":"yomio-mcp-stdio","version":"1.0.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
 {"id":"zendiq-mcp","version":"1.0.6","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
 {"id":"zensation-mcp","version":"0.3.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"A","effects":"D"}}
+{"id":"aamio","version":"0.7.3","testedAt":"2026-11-14","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"adeu-mcp-server","version":"4.0.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"ai-dossier-mcp-server","version":"1.6.6","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"apick-mcp","version":"5.10.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"apiguru-mcp","version":"1.1.62","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"autonomad-travel","version":"1.6.6","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B","effects":"A"}}
+{"id":"callmcp-server","version":"0.1.5","testedAt":"2026-11-14","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"chainhilt","version":"0.0.4","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"chrisryugj-kordoc","version":"4.24.79","testedAt":"2026-11-14","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"context7","version":"4.7.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"cyanheads-fs","version":"1.0.4","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"A","fs":"D"}}
+{"id":"dbhub","version":"1.6.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"F","packs":{"core":"A","db":"F"}}
+{"id":"dchub-mcp-server","version":"2.12.54","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"decimalai-mcp","version":"0.1.5","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"doobidoo-mcp-memory-service","version":"12.9.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B","effects":"A"}}
+{"id":"duckdb-mcp","version":"1.1.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"duckduckgo","version":"0.7.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","net":"A"}}
+{"id":"dwelldelta-mcp","version":"0.17.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"ekwo-ai-mcp","version":"0.25.2","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"elicitly","version":"0.8.6","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"everything","version":"2.3.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"D","effects":"A"}}
+{"id":"executeautomation-db","version":"1.1.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"F","packs":{"core":"B","sqlite":"F"}}
+{"id":"fetch","version":"2026.11.11","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","net":"A"}}
+{"id":"fetch-mcp","version":"0.0.5","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"F","packs":{"core":"A","net":"F"}}
+{"id":"filesystem","version":"2.3.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"A","fs":"B","effects":"A"}}
+{"id":"firecms-mcp-server","version":"3.5.2","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"formachines-errata-mcp","version":"0.1.3","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"galaxymovies-mcp","version":"1.0.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"gency-ai-gency-mcp","version":"0.7.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"git","version":"2026.11.11","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","git":"A","effects":"A"}}
+{"id":"git-mcp-py","version":"0.2.5","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"haymon-ai-dbmcp","version":"0.18.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"henkey-postgres","version":"1.0.7","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"B","db":"D"}}
+{"id":"jerbouma-financetoolkit","version":"2.3.4","testedAt":"2026-11-14","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr:     from financetoolkit.mcp_server.mcp_controller import main |   File \"/home/runner/work/_temp/setup-uv-cache/archive-v0/YFGEUznZ-pk5Wxxu/lib/python3.14/site-packages/financetoolkit/mcp_server/mcp_controller.py\", line 15, in <module> |     import anyio | ModuleNotFoundError: No module named 'anyio')."}
+{"id":"jgravelle-jcodemunch-mcp","version":"1.108.446","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"A","effects":"B"}}
+{"id":"kajisho5-ffmpeg-skill","version":"3.8.16","testedAt":"2026-11-14","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"kawacode-mcp","version":"10.3.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"kazuph-fetch","version":"1.6.3","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"A","net":"D"}}
+{"id":"knowledge-graph","version":"1.0.7","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"markitdown","version":"0.0.1a8","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"F","packs":{"core":"A","net":"F"}}
+{"id":"mcp-sqlite","version":"1.0.9","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"F","packs":{"core":"A","sqlite":"F"}}
+{"id":"memory","version":"2.1.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"motherduck","version":"1.1.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"naulon-wayfarer-mcp","version":"0.8.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"pascal-app-mcp","version":"1.1.4","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B","effects":"B"}}
+{"id":"postgres-mcp","version":"0.3.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"F","packs":{"core":"A","db":"F"}}
+{"id":"promptguard-mcp-server","version":"1.2.5","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B","effects":"A"}}
+{"id":"rightcard-mcp","version":"0.1.21","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"ripgrep","version":"0.4.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"samuelgursky-davinci-resolve-mcp","version":"5.2.11","testedAt":"2026-11-14","status":"failed","error":"the server did not answer initialize within 60 s (--connect-timeout). The first start of an npx or uvx server downloads it: run the command once by hand, pin the version, or raise the limit."}
+{"id":"server-postgres","version":"0.6.2","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"A","db":"D"}}
+{"id":"smartmemory-mcp","version":"2.0.1","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"stickerdaniel-linkedin-mcp-server","version":"4.30.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"stratta-mcp","version":"1.22.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"taylorwilsdon-google-workspace-mcp","version":"2.4.2","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"B","effects":"D"}}
+{"id":"text-editor","version":"1.2.2","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"time","version":"2026.11.11","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"trusty-squire-mcp","version":"1.1.40","testedAt":"2026-11-14","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"userintuition-ai-mcp","version":"1.6.3","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"vruum-mcp","version":"0.17.0","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"D","packs":{"core":"B","effects":"D"}}
+{"id":"wavespeed-mcp","version":"1.2.11","sealmark":"1.0.1","testedAt":"2026-11-14","status":"ok","worst":"A","packs":{"core":"A"}}

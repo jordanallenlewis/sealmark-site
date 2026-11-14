@@ -9,9 +9,9 @@
       "round": "fleet",
       "versionTested": "1.6.1",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -292,9 +292,9 @@
       "round": "fleet",
       "versionTested": "2.3.0",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -566,9 +566,9 @@
       "round": "fleet",
       "versionTested": "2026.11.11",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -822,9 +822,9 @@
       "round": "fleet",
       "versionTested": "2.3.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -1079,9 +1079,9 @@
       "round": "fleet",
       "versionTested": "2026.11.11",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -1324,9 +1324,9 @@
       "round": "fleet",
       "versionTested": "2.1.1",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -1550,9 +1550,9 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "sh",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -2294,9 +2294,9 @@
       "round": "fleet",
       "versionTested": "2026.11.11",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3174,9 +3174,9 @@
       "round": "fleet",
       "versionTested": "4.7.0",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3367,9 +3367,9 @@
       "round": "fleet",
       "versionTested": "1.0.4",
       "serverInfoName": "sh",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -3934,9 +3934,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4126,9 +4126,9 @@
       "round": "fleet",
       "versionTested": "0.7.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4357,9 +4357,9 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "database-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4623,9 +4623,9 @@
       "round": "fleet",
       "versionTested": "0.0.5",
       "serverInfoName": "fetch-mcp",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -4852,9 +4852,9 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5104,9 +5104,9 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "postgres-mcp-server",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5428,9 +5428,9 @@
       "round": "fleet",
       "versionTested": "1.6.3",
       "serverInfoName": "mcp-fetch",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5657,9 +5657,9 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "mcp-knowledge-graph",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -5860,9 +5860,9 @@
       "round": "fleet",
       "versionTested": "0.0.1a8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6092,9 +6092,9 @@
       "round": "fleet",
       "versionTested": "1.0.9",
       "serverInfoName": "mcp-sqlite",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6359,9 +6359,9 @@
       "round": "fleet",
       "versionTested": "1.1.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6581,9 +6581,9 @@
       "round": "fleet",
       "versionTested": "0.4.0",
       "serverInfoName": "mcp-ripgrep",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -6802,9 +6802,9 @@
       "round": "fleet",
       "versionTested": "0.6.2",
       "serverInfoName": "server-postgres",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7084,9 +7084,9 @@
       "round": "fleet",
       "versionTested": "1.2.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-09",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -7308,9 +7308,9 @@
       "round": "fleet",
       "versionTested": "4.0.1",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -10853,16 +10853,16 @@
       "name": "autonomad-travel",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.6.5",
+      "versionTested": "1.6.6",
       "serverInfoName": "autonomad-travel",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y autonomad-travel@1.6.5",
+      "launch": "npx -y autonomad-travel@1.6.6",
       "transport": "stdio",
       "toolCount": 12,
       "packs": [
@@ -10870,9 +10870,9 @@
           "id": "core",
           "status": "graded",
           "letter": "B",
-          "points": 3.5,
+          "points": 3,
           "scored": 4,
-          "pct": 87.5,
+          "pct": 75,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -10988,8 +10988,8 @@
           "label": "Survives malformed tool input",
           "critical": false,
           "advisory": false,
-          "verdict": "part",
-          "summary": "0 internals leak(s), 24 invalid call(s) accepted"
+          "verdict": "fail",
+          "summary": "server hung on malformed input"
         },
         {
           "id": "secret-echo",
@@ -10998,7 +10998,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 55 captured response(s), 25 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 3 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -11047,7 +11047,7 @@
         }
       ],
       "coverage": {
-        "validCalls": 4,
+        "validCalls": 3,
         "toolsCalledValid": 3,
         "toolsTotal": 12,
         "level": "low"
@@ -11790,9 +11790,9 @@
       "round": "fleet",
       "versionTested": "1.6.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -12521,9 +12521,9 @@
       "round": "fleet",
       "versionTested": "0.0.4",
       "serverInfoName": "chainhilt",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -13627,9 +13627,9 @@
       "round": "fleet",
       "versionTested": "0.1.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -14691,9 +14691,9 @@
       "round": "fleet",
       "versionTested": "0.25.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -15013,16 +15013,16 @@
       "name": "elicitly",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.8.5",
+      "versionTested": "0.8.6",
       "serverInfoName": "elicitly",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y elicitly@0.8.5",
+      "launch": "npx -y elicitly@0.8.6",
       "transport": "stdio",
       "toolCount": 4,
       "packs": [
@@ -15432,9 +15432,9 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "errata-mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -15626,9 +15626,9 @@
       "round": "fleet",
       "versionTested": "0.7.1",
       "serverInfoName": "gency-mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -16062,9 +16062,9 @@
       "round": "fleet",
       "versionTested": "0.18.1",
       "serverInfoName": "dbmcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -17231,7 +17231,7 @@
       "name": "@kawacode/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "10.1.1",
+      "versionTested": "10.3.0",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-14",
       "sealmark": {
@@ -17240,7 +17240,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @kawacode/mcp@10.1.1",
+      "launch": "npx -y @kawacode/mcp@10.3.0",
       "transport": "stdio",
       "toolCount": 20,
       "packs": [
@@ -23264,9 +23264,9 @@
       "round": "fleet",
       "versionTested": "0.1.21",
       "serverInfoName": "rightcard-mcp",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -25316,9 +25316,9 @@
       "round": "fleet",
       "versionTested": "2.0.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -29435,9 +29435,9 @@
       "round": "fleet",
       "versionTested": "5.10.1",
       "serverInfoName": "apick-mcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -29915,9 +29915,9 @@
       "round": "fleet",
       "versionTested": "1.1.62",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -32695,18 +32695,18 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.48",
+      "versionTested": "2.12.54",
       "serverInfoName": "dchub-mcp-server",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.48",
+      "launch": "npx -y dchub-mcp-server@2.12.54",
       "transport": "stdio",
-      "toolCount": 95,
+      "toolCount": 96,
       "packs": [
         {
           "id": "core",
@@ -32813,7 +32813,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 95 well-formed tool(s)"
+          "summary": "handshake ok, 96 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -32822,7 +32822,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 95 tool definition(s), the server instructions and serverInfo, 15 prompt(s) and 80 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 96 tool definition(s), the server instructions and serverInfo, 15 prompt(s) and 80 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -32894,7 +32894,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, simulate_scenario, cluster_sites_by_latency, source_capacity declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_air_permit_context, list_standing_intents, read_inbox not judged: the control call failed)"
+          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, dchub_services, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, get_air_permit_context, simulate_scenario, list_standing_intents, cluster_sites_by_latency, source_capacity, read_inbox not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -32903,7 +32903,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "50 closed-world tool(s) called; none reached out beyond what was asked"
+          "summary": "51 closed-world tool(s) called; none reached out beyond what was asked"
         },
         {
           "id": "undeclared-writes",
@@ -32925,9 +32925,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 64,
-        "toolsCalledValid": 62,
-        "toolsTotal": 95,
+        "validCalls": 65,
+        "toolsCalledValid": 63,
+        "toolsTotal": 96,
         "level": "covered"
       },
       "badge": {
@@ -32935,7 +32935,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 95 tools",
+        "malformed-input probes cover the first 25 of 96 tools",
         "SQL tool \"discover_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search_facilities\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -32955,7 +32955,7 @@
         "tool \"get_grid_scoreboard\" is covered by the core checks only: the tool takes no parameters",
         "tool \"compare_isos\" is covered by the core checks only: free-text parameter \"isos\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_intelligence_index\" is covered by the core checks only: the tool takes no parameters",
-        "75 more tool(s) are covered by the core checks only (see the classification)",
+        "76 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"get_interconnection_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_refined_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_retirement_headroom\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -33000,6 +33000,7 @@
         "tool \"get_backup_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"summarize_for_citation\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"why_dchub\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"dchub_services\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_dchub_recommendation\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"rank_markets\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"find_alternatives\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -33735,9 +33736,9 @@
       "round": "fleet",
       "versionTested": "0.17.0",
       "serverInfoName": "dwelldelta-mcp",
-      "testedAt": "2026-11-11",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -34494,9 +34495,9 @@
       "round": "fleet",
       "versionTested": "3.5.2",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -39369,9 +39370,9 @@
       "round": "fleet",
       "versionTested": "1.1.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -42494,18 +42495,18 @@
       "name": "@stratta/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.21.0",
+      "versionTested": "1.22.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @stratta/mcp@1.21.0",
+      "launch": "npx -y @stratta/mcp@1.22.0",
       "transport": "stdio",
-      "toolCount": 59,
+      "toolCount": 60,
       "packs": [
         {
           "id": "core",
@@ -42612,7 +42613,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 59 well-formed tool(s)"
+          "summary": "handshake ok, 60 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -42621,7 +42622,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 59 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 2 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 60 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 2 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -42690,7 +42691,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 59,
+        "toolsTotal": 60,
         "level": "hygiene-only"
       },
       "badge": {
@@ -42698,7 +42699,7 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 59 tools",
+        "malformed-input probes cover the first 25 of 60 tools",
         "tool \"record_decision\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"add_attachment\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
@@ -42715,6 +42716,7 @@
         "tool \"list_sites\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"get_site\" is covered by the core checks only: free-text parameter \"siteId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "36 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"record_decision\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"load_dossier\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"resolve_question\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_attachments\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -44004,9 +44006,9 @@
       "round": "fleet",
       "versionTested": "1.6.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -45231,9 +45233,9 @@
       "round": "fleet",
       "versionTested": "0.17.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -45476,9 +45478,9 @@
       "round": "fleet",
       "versionTested": "1.2.11",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-10",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -47962,9 +47964,9 @@
       "refTested": "12.9.0",
       "versionTested": "12.9.0",
       "serverInfoName": "mcp-memory-service",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -48698,12 +48700,12 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.444",
-      "versionTested": "1.108.444",
+      "refTested": "1.108.446",
+      "versionTested": "1.108.446",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -49729,9 +49731,9 @@
       "round": "fleet",
       "versionTested": "1.2.5",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -50215,9 +50217,9 @@
       "refTested": "4.30.0",
       "versionTested": "4.30.0",
       "serverInfoName": "linkedin-mcp-server",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -50450,16 +50452,16 @@
       "refTested": "2.4.2",
       "versionTested": "2.4.2",
       "serverInfoName": "google_workspace_mcp",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
       "launch": "uvx --from git+https://github.com/taylorwilsdon/google_workspace_mcp workspace-mcp",
       "transport": "stdio",
-      "toolCount": 119,
+      "toolCount": 118,
       "packs": [
         {
           "id": "core",
@@ -50566,7 +50568,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 119 well-formed tool(s)"
+          "summary": "handshake ok, 118 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -50644,14 +50646,14 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 119,
+        "toolsTotal": 118,
         "level": "hygiene-only"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 119 tools",
+        "malformed-input probes cover the first 25 of 118 tools",
         "tool \"create_drive_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"import_to_google_doc\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"import_to_google_slides\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
@@ -50671,7 +50673,7 @@
         "tool \"list_gmail_labels\" is covered by the core checks only: free-text parameter \"user_google_email\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"manage_gmail_label\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"list_gmail_filters\" is covered by the core checks only: free-text parameter \"user_google_email\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "99 more tool(s) are covered by the core checks only (see the classification)",
+        "98 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"check_drive_file_public_access\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"update_drive_file\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_drive_shareable_link\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -50735,7 +50737,6 @@
         "tool \"create_presentation\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_presentation\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"batch_update_presentation\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"get_page\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"render_page_to_image\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_presentation_comments\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"manage_presentation_comment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -51144,9 +51145,9 @@
       "round": "fleet",
       "versionTested": "0.8.0",
       "serverInfoName": "wayfarer-mcp",
-      "testedAt": "2026-11-13",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
@@ -51404,9 +51405,9 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "galaxymovies-mcp",
-      "testedAt": "2026-11-12",
+      "testedAt": "2026-11-14",
       "sealmark": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-14T13:23:14.541Z",
-  "window": 587,
-  "graded": 376,
-  "failed": 211,
+  "generatedAt": "2026-11-14T18:13:55.833Z",
+  "window": 600,
+  "graded": 382,
+  "failed": 218,
   "clusters": [
     {
       "servers": [
@@ -51,23 +51,9 @@
       "labels": [
         "hardening"
       ],
-      "title": "33% of servers never start under the fleet harness",
-      "count": 196,
-      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. The CLI types each start failure (sealmark 1.0.1); by kind:\n- unknown: 5\n- missing-runtime: 1\n- initialize-timeout: 1\n- untyped (older CLI or no kind): 189\nTop signatures:\n- 171x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 23x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
-    },
-    {
-      "servers": [
-        "atmy-mcp"
-      ],
-      "key": "regression:grade-drop",
-      "kind": "regression",
-      "labels": [
-        "bug",
-        "regression"
-      ],
-      "title": "Grade drops with no server change: 1 server(s) on 1.0.0 to 1.0.1",
-      "count": 1,
-      "detail": "Same server version, newer Sealmark, lower grade. Either a new rule is catching a real problem (add the server to the corpus as a true positive) or a rule regressed (false positive). Decide per server:\n- atmy-mcp: B to C"
+      "title": "34% of servers never start under the fleet harness",
+      "count": 203,
+      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. The CLI types each start failure (sealmark 1.0.1); by kind:\n- unknown: 9\n- missing-runtime: 2\n- initialize-timeout: 2\n- dependency-resolution: 1\n- untyped (older CLI or no kind): 189\nTop signatures:\n- 177x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 24x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
     }
   ]
 }

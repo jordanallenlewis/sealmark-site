@@ -9,7 +9,7 @@
       "version": "pre-1.0 (unrecorded)",
       "servers": 215,
       "graded": 214,
-      "failed": 369,
+      "failed": 376,
       "letters": {
         "B": 33,
         "A": 106,
@@ -48,15 +48,15 @@
     },
     {
       "version": "1.0.1",
-      "servers": 160,
-      "graded": 160,
+      "servers": 213,
+      "graded": 214,
       "failed": 0,
       "letters": {
-        "B": 50,
-        "A": 97,
+        "B": 59,
+        "A": 129,
         "C": 2,
-        "D": 7,
-        "F": 4
+        "D": 14,
+        "F": 10
       },
       "firstSeen": "2026-11-14",
       "lastSeen": "2026-11-14"
@@ -82,7 +82,7 @@
       "to": "1.0.1",
       "improved": 0,
       "regressed": 1,
-      "unchanged": 157
+      "unchanged": 210
     }
   ]
 }
