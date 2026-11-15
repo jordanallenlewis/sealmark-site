@@ -55,4 +55,14 @@ Regenerate the file in CI on your main branch rather than by hand, so the badge 
 
 With several servers in one run the command exits 2 and says to run with `--server <name>`.
 
+## Servers sealmark.dev grades
+
+Every server on [Results](/results/) whose latest automated run qualifies for a badge (the same rules as the table above) has three files under `https://sealmark.dev/badge/`, rebuilt with each re-test. They are labelled `sealmark` and name test areas the way the results page does (`protocol A`, not `core A`):
+
+- `<id>.svg`: the flat badge, one letter per graded test area.
+- `<id>-card.svg`: a card with the server name, its grade (the lowest test-area grade), the version tested and the test date.
+- `<id>.json`: a [shields.io endpoint](https://shields.io/endpoint) document, for `https://img.shields.io/endpoint?url=https%3A%2F%2Fsealmark.dev%2Fbadge%2F<id>.json`.
+
+The server's results page has copy-paste snippets for each one in Markdown, HTML and reStructuredText, linked back to that page. These badges show the public automated run, not a self-reported one, and change when the next re-test does.
+
 Related: [Standard vs custom](/docs/concepts/standard-vs-custom), [Output](/docs/reference/output), [CLI](/docs/reference/cli).

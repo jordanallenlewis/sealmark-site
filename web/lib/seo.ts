@@ -44,15 +44,7 @@ export const serverBadge = (x: ServerResult): { label: string; message: string; 
   return { label: "sealmark", message, letter: (w?.letter ?? "F") as Letter, note: redactionsFor(x).size ? PRIVATE_FINDING : null };
 };
 
-const COLOR: Record<Letter, string> = { A: "#2ea44f", B: "#4c9f38", C: "#c7a400", D: "#d9822b", F: "#d73a49" };
-const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
-export const badgeSvg = (label: string, message: string, letter: Letter, note?: string | null) => {
-  const w = (t: string) => Math.round(t.length * 6.4 + 14);
-  const lw = w(label), mw = w(message), tot = lw + mw;
-  const alt = `${esc(label)}: ${esc(message)}${note ? ` (${esc(note)})` : ""}`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${tot}" height="20" role="img" aria-label="${alt}"><title>${alt}</title><rect width="${lw}" height="20" fill="#555"/><rect x="${lw}" width="${mw}" height="20" fill="${COLOR[letter]}"/><g fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle"><text x="${lw / 2}" y="14">${esc(label)}</text><text x="${lw + mw / 2}" y="14">${esc(message)}</text></g></svg>`;
-};
-
+// The files themselves are drawn by lib/badge.mjs (flat badge, card, shields endpoint), tested in lib/badge.test.mjs.
 export const badgeServers = () => SERVERS_RESULTS.flatMap((x) => { const b = serverBadge(x); return b ? [{ x, b }] : []; });
 
 export const serverDescription = (x: ServerResult) => {
