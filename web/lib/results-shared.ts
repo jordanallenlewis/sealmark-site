@@ -15,18 +15,25 @@ export type ServerResult = {
   lastAttempt?: { date: string; status: "failed"; kind: string; startKind?: string } | null;
 };
 
+type PackLite = Pick<PackResult, "id" | "status" | "letter" | "provisional">;
+/** What the /results/ table receives: the allowlisted fields of lib/results-list.mjs, nothing else. */
+export type ListRow = Pick<ServerResult, "id" | "name" | "ecosystem" | "versionTested" | "toolCount" | "lastAttempt"> & {
+  packs: PackLite[];
+  coverage?: { level: string; toolsTotal: number } | null;
+};
+
 export const RANK: Record<Letter, number> = { F: 0, D: 1, C: 2, B: 3, A: 4 };
 export const PACK_LABEL: Record<string, string> = { core: "Protocol", db: "Database", sqlite: "SQLite", fs: "Files", git: "Git", net: "Network", http: "HTTP", effects: "Effects", exec: "Commands", custom: "Custom" };
 
-export const gradedPacks = (s: ServerResult) => s.packs.filter((p) => p.status === "graded" && p.letter);
-export const worst = (s: ServerResult): { letter: Letter; provisional: boolean } | null => {
+export const gradedPacks = <P extends PackLite>(s: { packs: P[] }) => s.packs.filter((p) => p.status === "graded" && p.letter);
+export const worst = (s: { packs: PackLite[] }): { letter: Letter; provisional: boolean } | null => {
   const g = gradedPacks(s);
   if (!g.length) return null;
   const w = g.reduce((a, b) => (RANK[b.letter as Letter] < RANK[a.letter as Letter] ? b : a));
   return { letter: w.letter as Letter, provisional: w.provisional };
 };
-export const deepPacks = (s: ServerResult) => gradedPacks(s).filter((p) => p.id !== "core");
-export const coverageWord = (s: ServerResult) =>
+export const deepPacks = <P extends PackLite>(s: { packs: P[] }) => gradedPacks(s).filter((p) => p.id !== "core");
+export const coverageWord = (s: Pick<ListRow, "coverage">) =>
   !s.coverage ? "unknown" : s.coverage.level === "covered" ? "covered" : s.coverage.level === "low" ? "low" : "hygiene only";
 export const launchLine = (s: ServerResult) => (s.ecosystem === "npm" ? `npx -y ${s.name}@${s.versionTested}` : s.ecosystem === "github" ? s.launch : `uvx ${s.name}==${s.versionTested}`);
-export const ecosystemLabel = (s: ServerResult) => (s.ecosystem === "npm" ? "npm" : s.ecosystem === "github" ? "GitHub" : "PyPI");
+export const ecosystemLabel = (s: Pick<ServerResult, "ecosystem">) => (s.ecosystem === "npm" ? "npm" : s.ecosystem === "github" ? "GitHub" : "PyPI");

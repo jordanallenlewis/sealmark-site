@@ -8,6 +8,8 @@
 //      and configHash are null on a server with any private finding; no file under out/data/v1 contains a redacted
 //      summary or a withheld start command of a server (its own file, the list and the changes; another server can share a
 //      generic summary such as a pass sentence); and no file shows a check summary its page does not
+//   6  the /results/ list page, with the data its client components receive (out/results/index.html and the page's
+//      flight payload files), contains no redacted summary or withheld start command of any server
 //   5  changes.json and openapi.json parse, and every path in openapi.json exists in out/
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -87,6 +89,16 @@ for (const [id, where, t] of secrets) {
   if (!t) continue;
   const enc = JSON.stringify(t).slice(1, -1);
   if ((body(join(api, "servers", `${id}.json`)) + shared).includes(enc)) fail(4, `${where}: withheld text appears in the API files`);
+}
+
+// Rule 6: the list page embeds its client components' props in the page itself; none of any server's private text may be there.
+{
+  const listFiles = readdirSync(resultsDir).filter((f) => /^index\.(html|txt)$/.test(f) || /^__next\..*\.txt$/.test(f));
+  const listBody = listFiles.map((f) => body(join(resultsDir, f))).join("\n");
+  if (!listFiles.includes("index.html")) fail(6, "out/results/index.html was not built");
+  for (const [, where, t] of secrets) {
+    if (t && listBody.includes(JSON.stringify(t).slice(1, -1))) fail(6, `${where}: withheld text appears in the /results/ page payload`);
+  }
 }
 
 for (const name of ["changes.json", "openapi.json"]) {
