@@ -7,7 +7,7 @@ import path from "node:path";
 import { recordFailedAttempt } from "../web/lib/retest.mjs";
 import { writeNotGraded } from "./not-graded.mjs";
 import { recordArgs } from "./registry-args.mjs";
-import { checkTools, serverTools } from "./check-tools.mjs";
+import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-tools.mjs";
 
 /** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
 const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
@@ -129,6 +129,9 @@ for (const name of subfolders) {
     toolCount: (r.server?.tools ?? []).length,
     // The tool names the server declared in this run (the per-tool table's rows).
     ...withKey("tools", serverTools(r.server, r.checks ?? [])),
+    // Each tool's input schema as a short hash, and the hashes of the last graded run on an earlier day (tool drift on
+    // the results page, site#54). Hashes only; nothing for a server with a security finding (fleet/check-tools.mjs).
+    ...withKey("toolSchemas", toolSchemas(r.server, r.checks ?? [])),
     packs: Object.entries(r.packs ?? {}).map(([id, p]) => ({
       id: id,
       status: p.status,
@@ -159,6 +162,10 @@ for (const name of subfolders) {
     automated: true,
   };
   const idx = results.servers.findIndex((s) => s.id === meta.id);
+  if (entry.toolSchemas) {
+    const before = schemasBefore(idx >= 0 ? results.servers[idx] : undefined, entry.testedAt);
+    if (before) entry.toolSchemasBefore = before;
+  }
   if (idx >= 0) results.servers[idx] = entry;
   else results.servers.push(entry);
   merged += 1;
