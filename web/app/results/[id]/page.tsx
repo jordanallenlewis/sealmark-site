@@ -20,6 +20,8 @@ import { CopyButton } from "@/components/CopyButton";
 import { retestNote } from "@/lib/retest.mjs";
 import s from "../results.module.css";
 import { BadgeSnippets } from "@/components/BadgeSnippets";
+import { FILL, installConfig } from "@/lib/install-config.mjs";
+import { relatedServers } from "@/lib/related.mjs";
 
 export const dynamicParams = false;
 // With no published results, export one placeholder route; the page answers it with notFound().
@@ -56,6 +58,21 @@ const PLACEHOLDER: Record<string, string> = {
   "{password}": "a part of the test database's connection string",
   "{database}": "a part of the test database's connection string",
   "{upstream}": "the URL of a stub service that Sealmark runs",
+};
+
+// What the reader puts in place of each run placeholder in "Add it to an MCP client" (lib/install-config.mjs).
+const FILL_WORDS: Record<string, string> = {
+  "{dsn}": "your Postgres connection string",
+  "{sandbox}": "a folder the server may use",
+  "{dir}": "a folder the server may use",
+  "{sandbox_home}": "a home folder for the server",
+  "{sqlite_path}": "your SQLite database file",
+  "{host}": "your database host",
+  "{port}": "your database port",
+  "{user}": "your database user",
+  "{password}": "your database password",
+  "{database}": "your database name",
+  "{upstream}": "the URL of the service the server talks to",
 };
 
 /** Why a test area did not run, in the page's words. */
@@ -199,6 +216,10 @@ export default async function ServerPage({ params }: P) {
   const repro = reproduceCommand(x.sealmark.version, x.launch);
   const byTool = noTools ? null : toolVerdicts(x, priv);
   const drift = toolDrift(x, since, priv);
+  const inst = installConfig(x, { withheld: priv.size > 0 });
+  const fills = inst ? [...new Map(inst.fill.map((p) => [FILL[p], FILL_WORDS[p]])).entries()] : [];
+  const related = relatedServers(x, SERVERS_RESULTS);
+  const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
   return (
     <>
@@ -305,6 +326,29 @@ export default async function ServerPage({ params }: P) {
           </section>
         )}
 
+        {inst && (
+          <section className={s.sec} aria-labelledby="install-h">
+            <h2 id="install-h">Add it to an MCP client</h2>
+            <p>This starts version {x.versionTested}, the version graded on this page, with the start command from the test run. For a client that reads an <code>mcpServers</code> JSON file:</p>
+            <div className={`ibox ${s.cmd}`}>
+              <pre tabIndex={0} data-third-party="" aria-label="Client configuration in JSON">{inst.json}</pre>
+              <CopyButton text={inst.json} />
+            </div>
+            <p>Or add it to Claude Code:</p>
+            <div className={`ibox ${s.cmd}`}>
+              <pre tabIndex={0} data-third-party="" aria-label="Command to add it to Claude Code">{inst.claude}</pre>
+              <CopyButton text={inst.claude} />
+            </div>
+            {fills.length > 0 && (
+              <>
+                <p>The test run gave the server a throwaway database or folder, which Sealmark prepared first. Replace these values with your own, and where one is followed by a file or folder name (such as <code>/repo</code> or <code>/papers</code>), make sure that path exists:</p>
+                <ul className={s.list}>{fills.map(([v, words]) => <li key={v}><code>{v}</code>: {words}</li>)}</ul>
+              </>
+            )}
+            <p className={s.muted}>The test run started the server with no API keys or other secrets, and with a cleaned environment. If the server needs some, its own documentation says how to pass them.</p>
+          </section>
+        )}
+
         <section className={s.sec}>
           <h2>Run it yourself</h2>
           {priv.size > 0 ? (
@@ -329,6 +373,21 @@ export default async function ServerPage({ params }: P) {
             </>
           )}
         </section>
+
+        {related.length > 0 && (
+          <section className={s.sec} aria-labelledby="related-h">
+            <h2 id="related-h">Related servers</h2>
+            <p>Other servers graded in the same test {related.some((r) => r.shared.length > 1) || new Set(related.flatMap((r) => r.shared)).size > 1 ? "areas" : "area"}, most areas in common first, then by grade.</p>
+            <ul className={s.list}>
+              {related.map((r) => (
+                <li key={r.id}>
+                  <Link href={`/results/${r.id}/`} data-third-party="">{r.name}</Link>
+                  {r.letter ? ` · grade ${r.letter}${r.provisional ? " (provisional)" : ""}` : ""}{relatedHeld.has(r.id) ? ` (the grade ${PRIVATE_FINDING})` : ""} · {r.shared.map(label).join(", ")}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <NotifyForm server={x.id} name={x.name} />
 
