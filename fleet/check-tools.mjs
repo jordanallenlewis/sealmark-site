@@ -81,7 +81,7 @@ export function toolSchemas(server, checks) {
   for (const t of server.surface) {
     const name = t && typeof t === "object" ? t.name : undefined;
     const hash = t && typeof t === "object" ? t.inputSchemaHash : undefined;
-    if (names([name]).length !== 1 || typeof hash !== "string" || !HASH.test(hash)) return undefined;
+    if (name === "__proto__" || names([name]).length !== 1 || typeof hash !== "string" || !HASH.test(hash)) return undefined;
     if (Object.prototype.hasOwnProperty.call(out, name)) return undefined;
     out[name] = hash.slice(0, 12);
   }

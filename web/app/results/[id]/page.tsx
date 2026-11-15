@@ -125,7 +125,7 @@ function DriftLines({ d }: { d: ToolDrift }) {
   return (
     <>
       {d.added.length > 0 && <li>Newly listed {d.added.length === 1 ? "tool" : "tools"}: <Names list={d.added} />.</li>}
-      {d.changed.length > 0 && <li>Input schema changed (the parameters a tool accepts): <Names list={d.changed} />.</li>}
+      {d.changed.length > 0 && <li>Input schema changed (any part of it, parameter wording included): <Names list={d.changed} />.</li>}
       {d.removed.length > 0 && <li>Not in this run&apos;s tool list: <Names list={d.removed} />. A tool can be missing because of how the run read the list, so this is not proof the server removed it.</li>}
     </>
   );

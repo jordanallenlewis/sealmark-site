@@ -85,6 +85,7 @@ test("toolSchemas keeps nothing when any tool cannot be kept (a gap would read a
     { name: "nohash" },
     { name: "short", inputSchemaHash: "zz" },
     { name: "ok", inputSchemaHash: "e".repeat(64) },
+    { name: "__proto__", inputSchemaHash: "c".repeat(64) },
   ];
   for (const bad of odd.slice(1)) assert.equal(toolSchemas({ surface: [odd[0], bad] }, []), undefined, JSON.stringify(bad));
   assert.deepEqual(toolSchemas({ surface: [odd[0]] }, []), { ok: "cccccccccccc" });

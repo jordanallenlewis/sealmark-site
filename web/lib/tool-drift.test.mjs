@@ -6,7 +6,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { toolDrift } from "./tool-drift.mjs";
 
-const change = { from: { date: "2026-11-14" }, to: { date: "2026-11-15" } };
+const change = { from: { date: "2026-11-14", sealmark: "1.0.1" }, to: { date: "2026-11-15", sealmark: "1.0.1" } };
 const h = (c) => c.repeat(12);
 const server = (now, before, extra = {}) => ({ id: "x", testedAt: "2026-11-15", checks: [{ id: "protocol", pack: "core", verdict: "pass" }], toolSchemas: now, toolSchemasBefore: before, ...extra });
 
@@ -42,4 +42,10 @@ test("nothing when any stored name is not plain or any hash is malformed", () =>
   assert.equal(toolDrift(server({ "bad‮name": h("1") }, ok), change), null);
   assert.equal(toolDrift(server({ a: "zz" }, ok), change), null);
   assert.equal(toolDrift(server({ a: h("1") }, { date: "2026-11-14", schemas: { "x​y": h("2") } }), change), null);
+});
+
+test("nothing when the two runs used different Sealmark versions, or either is unknown", () => {
+  const ok = { date: "2026-11-14", schemas: { a: h("2") } };
+  assert.equal(toolDrift(server({ a: h("1") }, ok), { from: { date: "2026-11-14", sealmark: "1.0.0" }, to: { date: "2026-11-15", sealmark: "1.0.1" } }), null);
+  assert.equal(toolDrift(server({ a: h("1") }, ok), { from: { date: "2026-11-14" }, to: { date: "2026-11-15" } }), null);
 });

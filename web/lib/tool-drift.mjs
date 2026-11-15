@@ -24,7 +24,7 @@ function clean(m) {
 
 /**
  * @param {{ testedAt?: string, checks?: any[], toolSchemas?: unknown, toolSchemasBefore?: unknown }} x a ServerResult
- * @param {{ from: { date: string }, to: { date: string } } | null} change changeSinceLast() for this page
+ * @param {{ from: { date: string, sealmark?: string }, to: { date: string, sealmark?: string } } | null} change changeSinceLast() for this page
  * @param {Map<string, unknown>} [redactions] redactionsFor(x): any entry means a finding is held, so no tool is named
  * @returns {{ added: string[], removed: string[], changed: string[] } | null}
  */
@@ -32,6 +32,8 @@ export function toolDrift(x, change, redactions) {
   if (!change || !x || x.testedAt !== change.to?.date) return null;
   if (redactions && redactions.size > 0) return null;
   if ((Array.isArray(x.checks) ? x.checks : []).some(isSecurityFinding)) return null;
+  // A new Sealmark version can read a schema differently, which would flag every tool: compare like with like only.
+  if (!change.from?.sealmark || change.from.sealmark !== change.to?.sealmark) return null;
   const before = x.toolSchemasBefore;
   if (!before || typeof before !== "object" || before.date !== change.from?.date) return null;
   const now = clean(x.toolSchemas);

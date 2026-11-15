@@ -82,12 +82,12 @@ It prints `regression:`, `improved:`, `drift:` and `note:` lines, or with `--jso
 
 ## Drift on the results pages
 
-Each server page on sealmark.dev has a "Since the run on" block that compares the run it shows with the graded run before it. When both runs recorded their tool surface, the block also lists the tools that are newly listed, the tools whose input schema changed (the parameters a tool accepts), and the tools that are not in this run's tool list. The data is the same `inputSchemaHash` a baseline keeps, cut to 12 characters. Neither the schema nor the description is stored or shown. Description and annotation changes are not shown there; `sealmark diff` reports those.
+Each server page on sealmark.dev has a "Since the run on" block that compares the run it shows with the graded run before it. When both runs recorded their tool surface, the block also lists the tools that are newly listed, the tools whose input schema changed (any part of it, so a reworded parameter description counts), and the tools that are not in this run's tool list. The data is the same `inputSchemaHash` a baseline keeps, cut to 12 characters. Neither the schema nor the description is stored or shown. A tool's own description and annotations are not shown there, and nor is which parameter changed; `sealmark diff` reports those. It compares only two runs made with the same Sealmark version.
 
 Limits:
 
 - It shows only from a server's second re-test after this was added. Older runs did not record their tool surface.
-- A server with a security finding, held or published, shows no tool names here (the [disclosure policy](/docs/disclosure)). Neither does a server whose tool list could not be stored in full (over 200 tools, or a name with unusual characters).
+- A server with a security finding, held or published, shows no tool names here (the [disclosure policy](/docs/disclosure)). Neither does a server whose tool list could not be stored in full (over 200 tools, a name with unusual characters, or tool data that was incomplete in either run).
 - A tool missing from one run's list can come from how that run read the list. The page does not say the server removed it.
 
 ## What it does not do
