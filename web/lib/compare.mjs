@@ -9,14 +9,14 @@
 export const OTHER_GRADERS = [
   {
     name: "Glama",
-    url: "https://glama.ai/mcp/methodology",
+    url: "https://glama.ai/mcp/servers",
     what: "a registry that grades each listed server's tool descriptions (with a language model), its license and its maintenance, and watches its build in a sandbox for risky behavior.",
     checked: "2026-11-15",
   },
   {
     name: "YawLabs mcp-compliance",
     url: "https://github.com/YawLabs/mcp-compliance",
-    what: "a CLI that runs 88 protocol tests across 8 categories and grades a server A to F on spec compliance.",
+    what: "a CLI that runs protocol tests (88 for the 2025-11-25 spec, 103 for 2026-07-28) and grades a server A to F on spec compliance.",
     checked: "2026-11-15",
   },
   {
@@ -48,14 +48,14 @@ export const GLAMA = {
   rows: /** @type {GlamaRow[]} */ ([
     {
       aspect: "What the grade is about",
-      sealmark: "What a server's tools did when called: database rows, files, outbound requests and processes.",
+      sealmark: "Mostly what a server's tools did when called: database rows, files, outbound requests and processes. The always-on protocol area also checks schemas and tool text for signs of tool poisoning.",
       glama: "How well each tool is described (its Tool Definition Quality Score), plus separate license and maintenance grades.",
       sources: [METHOD, TDQS, "https://glama.ai/mcp/servers"],
     },
     {
       aspect: "Calls the tools",
-      sealmark: "Yes. Every check calls a tool with fixed, published inputs.",
-      glama: "Its sandbox lists tools, resources and prompts and stores their schemas. The methodology does not describe calling tools with set inputs, and connector health checks say they do not call tools.",
+      sealmark: "Yes. Checks call tools with fixed, published inputs.",
+      glama: "Its sandbox lists tools, resources and prompts and stores their schemas. The methodology does not describe grading from tool calls, and connector health checks say they do not call tools.",
       sources: [METHOD],
     },
     {
@@ -72,8 +72,8 @@ export const GLAMA = {
     },
     {
       aspect: "Can a maintainer rerun it",
-      sealmark: "Yes. The same CLI version and config hash give the same verdicts on any machine.",
-      glama: "The description rubric is published. The sandbox ruleset is deliberately not fully disclosed.",
+      sealmark: "Yes. The same server version, CLI version and config hash give the same verdicts.",
+      glama: "The description scorer is published as a package on npm and PyPI; its rubric stage is a model's judgment. The sandbox ruleset is deliberately not fully disclosed.",
       sources: [METHOD, TDQS],
     },
     {
@@ -88,7 +88,7 @@ export const GLAMA = {
     { text: "It lists far more servers, so it is the better place to discover what exists.", sources: ["https://glama.ai/mcp/servers"] },
     { text: "You can connect to a remote server and call its tools from the browser, with nothing to install.", sources: ["https://glama.ai/mcp/inspector"] },
     { text: "It tells authors how to improve tool descriptions so models pick the right tool.", sources: [TDQS] },
-    { text: "It shows license and maintenance signals next to each listing.", sources: [METHOD] },
+    { text: "It shows license and maintenance grades next to each listing.", sources: ["https://glama.ai/mcp/servers"] },
   ],
 };
 

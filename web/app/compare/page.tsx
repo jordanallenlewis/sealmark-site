@@ -41,7 +41,7 @@ export default function Page() {
           <li><b>MCPJam</b>: an inspector and evaluation platform that runs your server with real models across many clients and scores agent behavior, with CI runs. Pick it to learn whether models use your tools well; Sealmark has no model in the loop, so the same server and settings always get the same grade.</li>
         </ul>
         <h2 className={s.packhead}>Other graders</h2>
-        <p>Several tools now give an MCP server a letter grade. Most grade protocol compliance, what a server declares, or how its tools are described. A Sealmark grade comes from what tool calls changed outside the reply (database rows, files, outbound requests, processes), and its public results are re-tested on a schedule, so the same server can earn different grades from different tools without either being wrong.</p>
+        <p>Several tools now give an MCP server a letter grade. Most grade protocol compliance, what a server declares, or how its tools are described. A Sealmark grade comes mostly from what tool calls changed outside the reply (database rows, files, outbound requests, processes), on top of protocol and schema checks, and its public results are re-tested on a schedule, so the same server can earn different grades from different tools without either being wrong.</p>
         <ul>
           {OTHER_GRADERS.map((g) => (<li key={g.name}><b><a href={g.url} rel="noopener">{g.name}</a></b>: {g.what}{g.name === "Glama" ? <> <Link href="/compare/glama/">Sealmark and Glama side by side</Link>.</> : null}</li>))}
         </ul>

@@ -33,14 +33,14 @@ export default function Page() {
         <ul>{GLAMA.stronger.map((x) => (<li key={x.text}>{x.text} <span className={s.muted}>(<Sources urls={x.sources} />)</span></li>))}</ul>
         <h2 className={s.packhead}>Where Sealmark adds something</h2>
         <ul>
-          <li>Every check calls a tool with a fixed input and decides from what changed: <Link href="/docs/methodology/">the methodology</Link> lists each probe.</li>
-          <li>No language model in the grade, so anyone can rerun a verdict and get the same answer. Each results page shows the command.</li>
-          <li>Public results for {SERVER_COUNT} servers, each with every check, its evidence and its grade history: <Link href="/results/">graded servers</Link>.</li>
+          <li>Most checks call a tool with a fixed input and decide from what changed in the database, files, network or processes; the protocol area also checks schemas and tool text. <Link href="/docs/methodology/">The methodology</Link> lists each probe.</li>
+          <li>No language model in the grade, so anyone can rerun a verdict on the same server version and get the same answer. Results pages show the command, except while a finding is being reported privately to the maintainer.</li>
+          <li>Public results for {SERVER_COUNT} servers with every check and its evidence (held back during a private disclosure), and grade history once a server has been re-tested: <Link href="/results/">graded servers</Link>.</li>
           <li>A gate for CI: a grade threshold, SARIF and a GitHub Action, on your own code before you publish: <Link href="/docs/guides/ci/">CI guide</Link>.</li>
         </ul>
         <h2 className={s.packhead}>When to use which</h2>
         <ul>
-          <li><b>You are choosing among many servers, or want models to pick your tools more often:</b> Glama.</li>
+          <li><b>You are choosing among many servers, or want agents to pick the right tool from your descriptions:</b> Glama.</li>
           <li><b>You need to know, with evidence anyone can reproduce, what your tools do with bad or hostile input:</b> Sealmark.</li>
           <li><b>You maintain a server:</b> both. They measure different things, and fixing one does not fix the other.</li>
         </ul>
