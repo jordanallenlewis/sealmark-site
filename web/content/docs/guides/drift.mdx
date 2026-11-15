@@ -80,6 +80,16 @@ npx sealmark diff before.json after.json --json
 
 It prints `regression:`, `improved:`, `drift:` and `note:` lines, or with `--json` one document, `{ "format": "sealmark.diff/1", "regressions": [...], "improvements": [...], "notes": [...], "drift": [...] }`. Reports of several servers are matched by name. Either file can be a `--write-baseline` file or the output of `--format json`.
 
+## Drift on the results pages
+
+Each server page on sealmark.dev has a "Since the run on" block that compares the run it shows with the graded run before it. When both runs recorded their tool surface, the block also lists the tools that are newly listed, the tools whose input schema changed (the parameters a tool accepts), and the tools that are not in this run's tool list. The data is the same `inputSchemaHash` a baseline keeps, cut to 12 characters. Neither the schema nor the description is stored or shown. Description and annotation changes are not shown there; `sealmark diff` reports those.
+
+Limits:
+
+- It shows only from a server's second re-test after this was added. Older runs did not record their tool surface.
+- A server with a security finding, held or published, shows no tool names here (the [disclosure policy](/docs/disclosure)). Neither does a server whose tool list could not be stored in full (over 200 tools, or a name with unusual characters).
+- A tool missing from one run's list can come from how that run read the list. The page does not say the server removed it.
+
 ## What it does not do
 
 Drift compares what a server declares. It does not read a tool's behaviour, so a server that keeps its declaration and changes what the tool does is not caught by this: that is what the suites are for. A scored drift check would be a methodology decision (see [Candidate checks](/docs/methodology#candidate-checks)).

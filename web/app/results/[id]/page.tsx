@@ -12,6 +12,7 @@ import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor, toolCountsFor } from "@/lib/history";
 import { changeSinceLast, type Change, type ChangeItem } from "@/lib/changes.mjs";
 import { toolVerdicts, type ToolRow } from "@/lib/tool-verdicts.mjs";
+import { toolDrift, type ToolDrift } from "@/lib/tool-drift.mjs";
 import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import { NotifyForm } from "../NotifyForm";
@@ -113,17 +114,36 @@ function changeText(i: ChangeItem) {
   }
 }
 
-function SinceLast({ c }: { c: Change }) {
+// Tool drift (site#54): tool names are the server's own text, so each list carries data-third-party for home-check.
+const SHOWN = 12;
+function Names({ list }: { list: string[] }) {
+  const more = list.length - SHOWN;
+  return <span data-third-party="">{list.slice(0, SHOWN).join(", ")}{more > 0 ? ` and ${more} more` : ""}</span>;
+}
+
+function DriftLines({ d }: { d: ToolDrift }) {
+  return (
+    <>
+      {d.added.length > 0 && <li>Newly listed {d.added.length === 1 ? "tool" : "tools"}: <Names list={d.added} />.</li>}
+      {d.changed.length > 0 && <li>Input schema changed (the parameters a tool accepts): <Names list={d.changed} />.</li>}
+      {d.removed.length > 0 && <li>Not in this run&apos;s tool list: <Names list={d.removed} />. A tool can be missing because of how the run read the list, so this is not proof the server removed it.</li>}
+    </>
+  );
+}
+
+function SinceLast({ c, drift }: { c: Change; drift: ToolDrift | null }) {
+  const drifted = !!drift && drift.added.length + drift.removed.length + drift.changed.length > 0;
   const same = [
     !c.gradeChanged && "the same grade in every test area",
+    drift && !drifted && "the same tools with the same input schemas",
     !c.items.some((i) => i.kind === "version") && c.from.version && c.to.version && `the same server version (${c.to.version})`,
     !c.items.some((i) => i.kind === "sealmark") && c.from.sealmark && c.to.sealmark && `the same Sealmark version (${c.to.sealmark})`,
   ].filter(Boolean) as string[];
   return (
     <div className={s.since}>
       <h3>Since the run on <time dateTime={c.from.date}>{c.from.date}</time></h3>
-      {c.items.length > 0 && <ul>{c.items.map((i, n) => <li key={n} data-dir={i.kind === "grade" ? i.dir : undefined}>{changeText(i)}</li>)}</ul>}
-      {same.length > 0 && <p>{c.items.length > 0 ? "Unchanged: " : "Same as that run: "}{same.join(", ")}.</p>}
+      {(c.items.length > 0 || drifted) && <ul>{c.items.map((i, n) => <li key={n} data-dir={i.kind === "grade" ? i.dir : undefined}>{changeText(i)}</li>)}{drifted && drift && <DriftLines d={drift} />}</ul>}
+      {same.length > 0 && <p>{c.items.length > 0 || drifted ? "Unchanged: " : "Same as that run: "}{same.join(", ")}.</p>}
       {c.failedBetween > 0 && <p>On {count(c.failedBetween, "day", "days")} in between the re-test failed to run, which says nothing about the grade.</p>}
     </div>
   );
@@ -178,6 +198,7 @@ export default async function ServerPage({ params }: P) {
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));
   const repro = reproduceCommand(x.sealmark.version, x.launch);
   const byTool = noTools ? null : toolVerdicts(x, priv);
+  const drift = toolDrift(x, since, priv);
 
   return (
     <>
@@ -270,7 +291,7 @@ export default async function ServerPage({ params }: P) {
         {hist && hist.runs.length > 1 && (
           <section className={s.sec}>
             <h2>Grade over time</h2>
-            {since && <SinceLast c={since} />}
+            {since && <SinceLast c={since} drift={drift} />}
             <GradeHistory runs={hist.runs} label={x.name} />
             <p className={s.histLink}><Link href={`/results/history/#${x.id}`}>All servers over time</Link></p>
           </section>
