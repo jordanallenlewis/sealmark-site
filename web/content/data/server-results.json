@@ -32693,7 +32693,7 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.55",
+      "versionTested": "2.12.57",
       "serverInfoName": "dchub-mcp-server",
       "testedAt": "2026-11-15",
       "sealmark": {
@@ -32702,7 +32702,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.55",
+      "launch": "npx -y dchub-mcp-server@2.12.57",
       "transport": "stdio",
       "toolCount": 96,
       "packs": [
@@ -45474,16 +45474,16 @@
       "name": "@wavespeed/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.2.11",
+      "versionTested": "1.2.13",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-15",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @wavespeed/mcp@1.2.11",
+      "launch": "npx -y @wavespeed/mcp@1.2.13",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -51807,16 +51807,16 @@
       "name": "shiwake-ai-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.1",
+      "versionTested": "1.1.3",
       "serverInfoName": "shiwake-ai-mcp",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-15",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y shiwake-ai-mcp@1.1.1",
+      "launch": "npx -y shiwake-ai-mcp@1.1.3",
       "transport": "stdio",
       "toolCount": 9,
       "packs": [

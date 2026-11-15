@@ -9,7 +9,7 @@
       "version": "pre-1.0 (unrecorded)",
       "servers": 215,
       "graded": 214,
-      "failed": 388,
+      "failed": 391,
       "letters": {
         "B": 33,
         "A": 106,
@@ -49,11 +49,11 @@
     {
       "version": "1.0.1",
       "servers": 214,
-      "graded": 435,
+      "graded": 438,
       "failed": 0,
       "letters": {
         "B": 118,
-        "A": 264,
+        "A": 267,
         "C": 4,
         "D": 29,
         "F": 20
