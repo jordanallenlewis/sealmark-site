@@ -23,11 +23,16 @@ test("one row per declared tool, in the server's order, with each public check t
     chk("robust-input", "fail", { probed: ["write_file"], notCovered: [] }),
   ]));
   assert.deepEqual(t.rows.map((r) => r.tool), ["read_file", "write_file", "list_dir"]);
-  assert.deepEqual(t.rows[0].called, [{ id: "protocol", pack: "core", verdict: "pass" }]);
+  assert.deepEqual(t.rows[0].called, [{ id: "protocol", pack: "core", verdict: "pass", advisory: false }]);
   assert.deepEqual(t.rows[1].called.map((c) => `${c.id}:${c.verdict}`), ["protocol:pass", "robust-input:fail"]);
   assert.deepEqual(t.rows[2].called, []);
-  assert.deepEqual(t.rows[2].notCalled, [{ id: "protocol", pack: "core" }]);
-  assert.equal(t.cut, false);
+  assert.deepEqual(t.rows[2].notCalled, [{ id: "protocol", pack: "core", advisory: false }]);
+  assert.equal(t.missing, false);
+});
+
+test("an advisory check keeps its advisory mark, so its verdict is not read as scored", () => {
+  const t = toolVerdicts(server([chk("instructions-hygiene", "fail", { probed: ["read_file"], notCovered: [] }, { advisory: true })], ["read_file"]));
+  assert.deepEqual(t.rows[0].called, [{ id: "instructions-hygiene", pack: "core", verdict: "fail", advisory: true }]);
 });
 
 test("a tool a check called but the declared list lacks is still listed, after the declared ones", () => {
@@ -64,9 +69,13 @@ test("names that are not plain tool names are dropped, never cut or shown", () =
   assert.deepEqual(t.rows.map((r) => r.tool), ["ok_tool"]);
 });
 
-test("a check the fleet capped says so", () => {
-  const t = toolVerdicts(server([chk("protocol", "pass", { probed: ["read_file"], notCovered: [], cut: 3 })]));
-  assert.equal(t.cut, true);
+test("missing names are flagged: a capped list, fewer names than the server's tool count, or names dropped as not plain", () => {
+  const full = { probed: ["read_file", "write_file", "list_dir"], notCovered: [] };
+  assert.equal(toolVerdicts({ ...server([chk("protocol", "pass", full)]), toolCount: 3 }).missing, false);
+  assert.equal(toolVerdicts({ ...server([chk("protocol", "pass", { ...full, cut: 3 })]), toolCount: 3 }).missing, true);
+  // The fleet caps the declared list at 200 without recording a cut; the tool count still says how many there were.
+  assert.equal(toolVerdicts({ ...server([chk("protocol", "pass", full)]), toolCount: 250 }).missing, true);
+  assert.equal(toolVerdicts({ ...server([chk("protocol", "pass", full)], ["read_file", "write_file", "list_dir", "bad()"]), toolCount: 4 }).missing, true);
 });
 
 test("real data: no entry with a security finding or a redaction gets a table", async () => {

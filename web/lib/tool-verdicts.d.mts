@@ -1,2 +1,3 @@
-export type ToolRow = { tool: string; called: { id: string; pack: string; verdict: string }[]; notCalled: { id: string; pack: string }[] };
-export function toolVerdicts(x: { tools?: unknown; checks?: unknown[] }, redactions?: Map<string, unknown>): { rows: ToolRow[]; cut: boolean } | null;
+export type ToolCheck = { id: string; pack: string; verdict: string; advisory: boolean };
+export type ToolRow = { tool: string; called: ToolCheck[]; notCalled: Omit<ToolCheck, "verdict">[] };
+export function toolVerdicts(x: { tools?: unknown; toolCount?: number; checks?: unknown[] }, redactions?: Map<string, unknown>): { rows: ToolRow[]; missing: boolean } | null;

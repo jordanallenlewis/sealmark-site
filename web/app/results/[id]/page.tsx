@@ -139,17 +139,18 @@ function checkLink(id: string) {
 function ToolRowView({ r }: { r: ToolRow }) {
   return (
     <tr>
-      <td className={s.id}>{r.tool}</td>
+      {/* data-third-party: the server's own tool name, which scripts/home-check.mjs must not read as our status wording */}
+      <td className={s.id} data-third-party="">{r.tool}</td>
       <td data-label="Called by">
         {r.called.length === 0 ? <span className={s.muted}>No check listed here called it with a valid call.</span> : (
           <ul className={s.toolChecks}>
-            {r.called.map((c) => <li key={c.id}>{checkLink(c.id)} <span className={clsx("chip", `c-${c.verdict}`)}>{WORD[c.verdict as Verdict] ?? c.verdict}</span></li>)}
+            {r.called.map((c) => <li key={c.id}>{checkLink(c.id)} <span className={clsx("chip", `c-${c.verdict}`, c.advisory && "adv")}>{WORD[c.verdict as Verdict] ?? c.verdict}</span>{c.advisory && <span className={s.muted}>(advisory)</span>}</li>)}
           </ul>
         )}
       </td>
-      <td data-label="Could not call">
+      <td data-label="Not exercised by">
         {r.notCalled.length === 0 ? <span className={s.muted}>None</span> : (
-          <ul className={s.toolChecks}>{r.notCalled.map((c) => <li key={c.id}>{checkLink(c.id)}</li>)}</ul>
+          <ul className={s.toolChecks}>{r.notCalled.map((c) => <li key={c.id}>{checkLink(c.id)}{c.advisory && <span className={s.muted}>(advisory)</span>}</li>)}</ul>
         )}
       </td>
     </tr>
@@ -244,12 +245,12 @@ export default async function ServerPage({ params }: P) {
         {byTool && (
           <section className={s.sec} aria-labelledby="tools-h">
             <h2 id="tools-h">By tool</h2>
-            <p>Which checks called each tool with a valid call in this run, and which could not call it. A verdict belongs to the whole check, not to one tool: a failed check that called three tools does not say which one failed. Security checks are left out of this table.</p>
-            {byTool.cut && <p className={s.muted}>This server has more tools than the run kept names for, so some are missing here.</p>}
+            <p>Which checks called each tool with a valid call in this run, and which did not exercise it. A check can leave a tool out for several reasons: a limit Sealmark sets, a tool left out by design, input the run could not fill in, or a call that returned an error. The CLI report gives the reason. A verdict belongs to the whole check, not to one tool: a failed check that called three tools does not say which one failed. Security checks are left out of this table.</p>
+            {byTool.missing && <p className={s.muted}>Some of this server&apos;s tool names are not shown: the run keeps a limited number, and names with unusual characters are left out.</p>}
             <div className={clsx(s.tw, s.twChecks)} tabIndex={0} role="region" aria-labelledby="tools-h">
               <table className={clsx(s.checks, s.evidence, s.byTool)}>
                 <colgroup><col className={s.colCheck} /><col /><col /></colgroup>
-                <thead><tr><th scope="col">Tool</th><th scope="col">Called by</th><th scope="col">Could not call</th></tr></thead>
+                <thead><tr><th scope="col">Tool</th><th scope="col">Called by</th><th scope="col">Not exercised by</th></tr></thead>
                 <tbody>{byTool.rows.map((r) => <ToolRowView key={r.tool} r={r} />)}</tbody>
               </table>
             </div>
