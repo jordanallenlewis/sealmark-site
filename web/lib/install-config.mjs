@@ -1,5 +1,5 @@
-// "Add it to a client" on a results page (site#55). The snippet starts the exact version that was graded, the
-// same way the run did, so the page never suggests a setup it did not test. Placeholders that Sealmark fills in
+// "Add it to a client" on a results page (site#55). The snippet starts the exact version that was graded (only
+// commands that pin it get one), so the page never suggests a setup it did not test. Placeholders that Sealmark fills in
 // for a run (a throwaway database or folder) become values the reader replaces. No snippet when the command is
 // withheld under private disclosure, wrapped in a fleet shell script, or not a plain npx/uvx command.
 import { shellArg } from "./results-copy.mjs";
@@ -20,7 +20,7 @@ export const FILL = {
 };
 
 const RUNNERS = new Set(["npx", "uvx"]);
-const KEY = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+const KEY = /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
 const PLAIN = /^[A-Za-z0-9_\-.,/:=+]+$/;
 
 /**
@@ -49,7 +49,7 @@ export function splitLaunch(s) {
 }
 
 /**
- * @param {{ id: string; transport?: string; launch: string }} x
+ * @param {{ id: string; transport?: string; launch: string; versionTested: string }} x
  * @param {{ withheld?: boolean }} [opt]
  * @returns {{ json: string; claude: string; fill: string[] } | null}
  */
@@ -57,6 +57,8 @@ export function installConfig(x, opt = {}) {
   if (opt.withheld || x.transport !== "stdio" || !KEY.test(x.id)) return null;
   const words = splitLaunch(x.launch);
   if (!words || words.length < 2 || !RUNNERS.has(words[0])) return null;
+  // Only a command that pins the graded version: an unpinned git or latest launch installs whatever is there now.
+  if (!x.versionTested || !words.some((w) => w.endsWith(`@${x.versionTested}`) || w.endsWith(`==${x.versionTested}`))) return null;
   const fill = new Set();
   const args = [];
   for (const w of words) {

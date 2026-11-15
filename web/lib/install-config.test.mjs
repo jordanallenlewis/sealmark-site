@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { installConfig, splitLaunch } from "./install-config.mjs";
 
-const srv = (launch, extra = {}) => ({ id: "demo", transport: "stdio", launch, ...extra });
+const srv = (launch, extra = {}) => ({ id: "demo", transport: "stdio", launch, versionTested: launch.match(/(?:@|==)([0-9][^\s"]*)/)?.[1] ?? "9.9.9", ...extra });
 
 test("splits a start command the way a POSIX shell would, quotes included", () => {
   assert.deepEqual(splitLaunch("npx -y @a/b@1.0.0 --flag {dsn}"), ["npx", "-y", "@a/b@1.0.0", "--flag", "{dsn}"]);
@@ -41,19 +41,26 @@ test("a fleet harness wrapper, another program, a remote server or a withheld co
   assert.equal(installConfig(srv("npx -y a@1 --x {mystery}")), null);
 });
 
-test("the JSON key is a safe name even for an id with dots", () => {
-  assert.equal(Object.keys(JSON.parse(installConfig(srv("npx -y a@1", { id: "io.github.x.y" })).json).mcpServers)[0], "io.github.x.y");
+test("the JSON key is a plain name; an id with a space or a dot gets no snippet", () => {
   assert.equal(installConfig(srv("npx -y a@1", { id: "bad id" })), null);
+  assert.equal(installConfig(srv("npx -y a@1", { id: "io.github.x" })), null);
 });
 
-test("real data: every published stdio server that is not wrapped in sh gets a snippet, and no braces survive", () => {
+test("a command that does not pin the graded version gets no snippet", () => {
+  assert.equal(installConfig(srv("npx -y github:exa-labs/exa-mcp-server", { versionTested: "3.4.3" })), null);
+  assert.equal(installConfig(srv("uvx --from git+https://github.com/a/b b", { versionTested: "2.5.0" })), null);
+  assert.equal(installConfig(srv("npx -y a@1.2.3", { versionTested: "1.2.4" })), null);
+  assert.ok(installConfig(srv("uvx a==1.2.3", { versionTested: "1.2.3" })));
+});
+
+test("real data: every published stdio server that pins its version and is not wrapped in sh gets a snippet, and no braces survive", () => {
   const data = JSON.parse(readFileSync(new URL("../content/data/server-results.json", import.meta.url), "utf8"));
   let made = 0;
   for (const x of data.servers) {
     const c = installConfig(x);
-    if (!c) { assert.ok(x.launch.startsWith("sh ") || x.transport !== "stdio", `${x.id}: ${x.launch}`); continue; }
+    if (!c) { assert.ok(x.launch.startsWith("sh ") || x.transport !== "stdio" || x.ecosystem === "github", `${x.id}: ${x.launch}`); continue; }
     made++;
     assert.doesNotMatch(c.json + c.claude, /[{][a-z_]+(:[a-z]+)?[}]/, x.id);
   }
-  assert.ok(made > 200, `only ${made} snippets`);
+  assert.ok(made > 150, `only ${made} snippets`);
 });

@@ -219,6 +219,7 @@ export default async function ServerPage({ params }: P) {
   const inst = installConfig(x, { withheld: priv.size > 0 });
   const fills = inst ? [...new Map(inst.fill.map((p) => [FILL[p], FILL_WORDS[p]])).entries()] : [];
   const related = relatedServers(x, SERVERS_RESULTS);
+  const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
   return (
     <>
@@ -328,23 +329,23 @@ export default async function ServerPage({ params }: P) {
         {inst && (
           <section className={s.sec} aria-labelledby="install-h">
             <h2 id="install-h">Add it to an MCP client</h2>
-            <p>This starts version {x.versionTested}, the version graded on this page, with the same command the test run used. For a client that reads an <code>mcpServers</code> JSON file:</p>
+            <p>This starts version {x.versionTested}, the version graded on this page, with the start command from the test run. For a client that reads an <code>mcpServers</code> JSON file:</p>
             <div className={`ibox ${s.cmd}`}>
-              <pre tabIndex={0} aria-label="Client configuration in JSON">{inst.json}</pre>
+              <pre tabIndex={0} data-third-party="" aria-label="Client configuration in JSON">{inst.json}</pre>
               <CopyButton text={inst.json} />
             </div>
             <p>Or add it to Claude Code:</p>
             <div className={`ibox ${s.cmd}`}>
-              <pre tabIndex={0} aria-label="Command to add it to Claude Code">{inst.claude}</pre>
+              <pre tabIndex={0} data-third-party="" aria-label="Command to add it to Claude Code">{inst.claude}</pre>
               <CopyButton text={inst.claude} />
             </div>
             {fills.length > 0 && (
               <>
-                <p>The test run gave the server a throwaway database or folder here. Replace these values with your own:</p>
+                <p>The test run gave the server a throwaway database or folder, which Sealmark prepared first. Replace these values with your own, and where one is followed by a file or folder name (such as <code>/repo</code> or <code>/papers</code>), make sure that path exists:</p>
                 <ul className={s.list}>{fills.map(([v, words]) => <li key={v}><code>{v}</code>: {words}</li>)}</ul>
               </>
             )}
-            <p className={s.muted}>The test run started the server with no API keys or other secrets. If the server needs some, its own documentation says how to pass them.</p>
+            <p className={s.muted}>The test run started the server with no API keys or other secrets, and with a cleaned environment. If the server needs some, its own documentation says how to pass them.</p>
           </section>
         )}
 
@@ -381,7 +382,7 @@ export default async function ServerPage({ params }: P) {
               {related.map((r) => (
                 <li key={r.id}>
                   <Link href={`/results/${r.id}/`} data-third-party="">{r.name}</Link>
-                  {r.letter ? ` · grade ${r.letter}${r.provisional ? " (provisional)" : ""}` : ""} · {r.shared.map(label).join(", ")}
+                  {r.letter ? ` · grade ${r.letter}${r.provisional ? " (provisional)" : ""}` : ""}{relatedHeld.has(r.id) ? ` (the grade ${PRIVATE_FINDING})` : ""} · {r.shared.map(label).join(", ")}
                 </li>
               ))}
             </ul>
