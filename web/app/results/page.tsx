@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { ResultsTable } from "@/components/ResultsTable";
 import { Seal } from "@/components/Seal";
 import { DATA, RESULTS_PUBLIC, RANK, SERVERS_RESULTS, SERVER_COUNT, VERDICTS_CHECKED, deepPacks, worst, type Letter } from "@/lib/results";
+import { listRow } from "@/lib/results-list.mjs";
 import { DisputeNote } from "./DisputeNote";
 import { NotGraded } from "./NotGraded";
 import s from "./results.module.css";
@@ -69,7 +70,7 @@ export default function ResultsPage() {
         </div>
 
         <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link></p>
-        <ResultsTable servers={list} />
+        <ResultsTable servers={list.map(listRow)} />
         <NotGraded />
 
         <section className={s.sec}>
