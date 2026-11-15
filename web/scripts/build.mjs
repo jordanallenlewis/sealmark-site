@@ -29,3 +29,5 @@ step("next build", [nextBin, "build"]);
 step("budget", [resolve(web, "scripts", "budget.mjs")]);
 // The home page stays simple and the copy policy holds (word ceiling, no sealmark.ai, no status wording, honesty lines).
 step("home-check", [resolve(web, "scripts", "home-check.mjs")]);
+// The /data/v1/ JSON files agree with the results pages (scripts/api-check.mjs).
+step("api-check", [resolve(web, "scripts", "api-check.mjs")]);
