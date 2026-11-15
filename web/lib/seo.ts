@@ -4,10 +4,12 @@ import { SITE } from "./site";
 import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, redactionsFor, PACK_LABEL, type ServerResult, type Letter } from "./results";
 import { DATA } from "./results";
 import { badgeEligible } from "@/worker/notify-core.mjs";
+import pkg from "../package.json";
 
 export const ORIGIN = `https://${SITE.host}`;
 export const canonical = (path: string) => `${ORIGIN}${path.endsWith("/") ? path : `${path}/`}`;
-export const CLI_VERSION = "1.0.0";
+// The CLI release the site documents: the version pinned in package.json (release-sync bumps it), never typed here.
+export const CLI_VERSION: string = pkg.devDependencies.sealmark;
 
 export const WHAT_IT_IS =
   "Sealmark is an open-source command-line tool that checks how an MCP server behaves. It starts the server, calls its tools with fixed inputs (no language model in the loop), checks what actually happened, and prints a letter grade per test suite with the evidence behind it.";
@@ -75,6 +77,7 @@ ${DOCS.map((p) => `- ${canonical(p)}`).join("\n")}
 ## Guides
 - [What is MCP conformance testing?](${canonical("/mcp-conformance-testing/")})
 - [Sealmark compared with other MCP testing tools](${canonical("/compare/")})
+- [Sealmark and Glama: behavior grade vs description grade](${canonical("/compare/glama/")})
 
 ## Source
 - https://github.com/jordanallenlewis/sealmark
