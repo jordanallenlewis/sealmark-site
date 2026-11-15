@@ -1,0 +1,1245 @@
+{
+  "count": 176,
+  "byReason": {
+    "unknown": 143,
+    "missing-runtime": 2,
+    "dependency-resolution": 8,
+    "initialize-timeout": 12,
+    "bad-launch": 4,
+    "needs-credentials": 7
+  },
+  "servers": [
+    {
+      "id": "54yyyu-zotero-mcp",
+      "version": "0.17.2",
+      "lastTried": "2026-11-15",
+      "attempts": 5,
+      "reason": "unknown"
+    },
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.24.80",
+      "lastTried": "2026-11-15",
+      "attempts": 18,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "3.9.0",
+      "lastTried": "2026-11-15",
+      "attempts": 15,
+      "reason": "unknown"
+    },
+    {
+      "id": "keepstateai-cli",
+      "version": "0.1.45",
+      "lastTried": "2026-11-15",
+      "attempts": 4,
+      "reason": "unknown"
+    },
+    {
+      "id": "tabrunner-mcp",
+      "version": "0.17.6",
+      "lastTried": "2026-11-15",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "trusty-squire-mcp",
+      "version": "1.1.44-rc.1",
+      "lastTried": "2026-11-15",
+      "attempts": 4,
+      "reason": "unknown"
+    },
+    {
+      "id": "aamio",
+      "version": "0.7.3",
+      "lastTried": "2026-11-14",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "apify-apify-mcp-server",
+      "version": "0.21.10",
+      "lastTried": "2026-11-14",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "firmary-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-14",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "jerbouma-financetoolkit",
+      "version": "2.3.4",
+      "lastTried": "2026-11-14",
+      "attempts": 2,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "oddessentials-agent-guild",
+      "version": "1.33.2",
+      "lastTried": "2026-11-14",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "openosint-openosint",
+      "version": "2.38.1",
+      "lastTried": "2026-11-14",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.3.2",
+      "lastTried": "2026-11-14",
+      "attempts": 9,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.77.1",
+      "lastTried": "2026-11-14",
+      "attempts": 6,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "samanhappy-mcphub",
+      "version": "1.2.4",
+      "lastTried": "2026-11-14",
+      "attempts": 3,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.2.11",
+      "lastTried": "2026-11-14",
+      "attempts": 11,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "zils-cli",
+      "version": "0.4.22",
+      "lastTried": "2026-11-14",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "annsa",
+      "version": "1.0.8",
+      "lastTried": "2026-11-13",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "brandrail",
+      "version": "0.10.4",
+      "lastTried": "2026-11-13",
+      "attempts": 3,
+      "reason": "unknown"
+    },
+    {
+      "id": "zereight-gitlab-mcp",
+      "version": "2.3.27",
+      "lastTried": "2026-11-13",
+      "attempts": 5,
+      "reason": "unknown"
+    },
+    {
+      "id": "jordan-gibbs-hyperresearch",
+      "version": "0.13.2",
+      "lastTried": "2026-11-12",
+      "attempts": 3,
+      "reason": "unknown"
+    },
+    {
+      "id": "kadmo-cli",
+      "version": "0.5.1",
+      "lastTried": "2026-11-12",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "sciground-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-12",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "simulator-use",
+      "version": "0.16.0",
+      "lastTried": "2026-11-12",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "statuz-cli",
+      "version": "2.4.0",
+      "lastTried": "2026-11-12",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "tares",
+      "version": "1.57.0",
+      "lastTried": "2026-11-12",
+      "attempts": 3,
+      "reason": "unknown"
+    },
+    {
+      "id": "chromedevtools-chrome-devtools-mcp",
+      "version": "chrome-devtools-mcp-v1.13.0",
+      "lastTried": "2026-11-11",
+      "attempts": 2,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "marker-inc-korea-autorag",
+      "version": "2.13.12",
+      "lastTried": "2026-11-11",
+      "attempts": 3,
+      "reason": "unknown"
+    },
+    {
+      "id": "mobile-next-mobile-mcp",
+      "version": "1.0.17",
+      "lastTried": "2026-11-11",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "brightdata-brightdata-mcp",
+      "version": "4.8.0",
+      "lastTried": "2026-11-10",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "google-gemini-gemini-cli",
+      "version": "0.68.0",
+      "lastTried": "2026-11-10",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "mirobody",
+      "version": "1.6.1",
+      "lastTried": "2026-11-10",
+      "attempts": 2,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "xbrlkit",
+      "version": "0.21.6",
+      "lastTried": "2026-11-10",
+      "attempts": 3,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "agentdomain-mcp",
+      "version": "1.0.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "agentutility-mcp-agentops",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-bestiary",
+      "version": "0.1.3",
+      "lastTried": "2026-11-09",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-browser-workflow",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-compose",
+      "version": "0.13.0",
+      "lastTried": "2026-11-09",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-edge-finance",
+      "version": "0.18.8",
+      "lastTried": "2026-11-09",
+      "attempts": 4,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-edge-market",
+      "version": "0.15.6",
+      "lastTried": "2026-11-09",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-locale",
+      "version": "0.8.7",
+      "lastTried": "2026-11-09",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-matchpoint",
+      "version": "0.1.4",
+      "lastTried": "2026-11-09",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-mediakit",
+      "version": "0.11.9",
+      "lastTried": "2026-11-09",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-model-router",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-prooflayer",
+      "version": "0.2.4",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-retail",
+      "version": "0.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-rollforge",
+      "version": "0.1.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-statline",
+      "version": "0.1.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-synthforge",
+      "version": "0.8.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-web-probe",
+      "version": "0.32.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "agentutility-mcp-wordmint",
+      "version": "0.16.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "ankimcp-anki-mcp-server",
+      "version": "0.27.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "apick-subagent",
+      "version": "1.0.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "ato-mcp",
+      "version": "2.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "atomicstrata-llm-wiki-compiler",
+      "version": "1.5.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "bolthub-mcp-registry",
+      "version": "0.1.6",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "borealhost-mcp",
+      "version": "0.4.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "bourdon",
+      "version": "0.32.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "businys-mcp-server",
+      "version": "1.0.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "buywhere-buywhere-mcp",
+      "version": "0.4.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "celo-buy",
+      "version": "0.8.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "chrisryugj-korean-law-mcp",
+      "version": "4.15.23",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "cjo4m06-mcp-shrimp-task-manager",
+      "version": "1.0.21",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "clevertech-mcp-server",
+      "version": "0.3.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "clize-clize",
+      "version": "0.52.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "clize-domains",
+      "version": "0.35.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "clize-inbox",
+      "version": "0.35.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "clize-sites",
+      "version": "0.35.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "clize-storefront",
+      "version": "0.35.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "contextburn",
+      "version": "0.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "contextlayer-mcp",
+      "version": "0.0.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "counterparts",
+      "version": "0.3.47",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "ctxl",
+      "version": "0.0.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "ctxl-mcp",
+      "version": "0.0.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "cuvo-health",
+      "version": "1.0.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "czlonkowski-n8n-mcp",
+      "version": "2.102.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "d4vinci-scrapling",
+      "version": "0.5.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "datarunner",
+      "version": "0.3.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "datum-mcp-server",
+      "version": "1.7.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "deedy5-ddgs",
+      "version": "9.16.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "dinglebear-soma",
+      "version": "0.10.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "dsail",
+      "version": "1.0.6",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "easylabs-mcp-server",
+      "version": "0.5.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "etincel",
+      "version": "0.10.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "evalstate-fast-agent",
+      "version": "0.10.53",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "evil0ctal-douyin-tiktok-download-api",
+      "version": "5.1.11",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "flydocs-cli",
+      "version": "1.3.46",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "forloopcodes-contextplus",
+      "version": null,
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "geekjourneyx-md2wechat-skill",
+      "version": "3.8.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "getsentry-mobilebuildmcp",
+      "version": "2.7.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "greyridge-x402-tools",
+      "version": "0.8.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "haris-musa-excel-mcp-server",
+      "version": "2.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 2,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "hashgrid",
+      "version": "1.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "hermitsh-texts-mcp",
+      "version": "0.5.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "huangjunsen0406-py-xiaozhi",
+      "version": "2.1.4",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "huddoai",
+      "version": "0.10.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "hypaware",
+      "version": "1.43.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "icemoon-mcp",
+      "version": "1.0.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "insightsocial",
+      "version": "0.3.9",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "jau123-meigen-ai-design-mcp",
+      "version": "3.4.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "jnmetacode-agency-orchestrator",
+      "version": "desktop-v0.4.14",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "kadal-store",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "kellian-mcp",
+      "version": "1.0.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "kleos-cli",
+      "version": "0.2.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "kloudy",
+      "version": "0.4.4",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "knockoutez-wigolo",
+      "version": "0.3.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "lbrain-coding-agents",
+      "version": "0.1.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "lfg-labs-t3-watch",
+      "version": "0.6.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "llmsresearch-paperbanana",
+      "version": "0.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "machins",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "manavarya09-design-extract",
+      "version": "13.3.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "marketintell",
+      "version": "0.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "mcp-proxy-for-aws",
+      "version": "1.1.6",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "memcell",
+      "version": "2.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "mentu-navigator",
+      "version": "1.0.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "minishlab-semble",
+      "version": "0.7.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "mocopo",
+      "version": "0.8.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "modelcontextprotocol-python-sdk",
+      "version": "2.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "mrexodia-ida-pro-mcp",
+      "version": "1.4.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "nauro",
+      "version": "1.23.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "nginx-proxy-manager-mcp-full",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "nocturnusai-mcp",
+      "version": "0.3.11",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "note1ai-mcp",
+      "version": "1.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "octapi-mcp",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "oobe-protocol-labs-sap-mcp-server",
+      "version": "0.7.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "open-webui-mcpo",
+      "version": "0.0.20",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "openwebhook",
+      "version": "1.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "oraios-serena",
+      "version": "2.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "orangepro-mcp-server",
+      "version": "0.2.60",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "perplexity-ai-mcp-server",
+      "version": "1.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "poppy-memory",
+      "version": "0.3.6",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "positif-ai",
+      "version": "0.2.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "punitarani-fli",
+      "version": "fli-js-v0.0.4",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "reka-mcp",
+      "version": "0.1.10",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "replylayer-mcp",
+      "version": "0.15.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "sanctuary-framework-mcp-server",
+      "version": "1.8.4",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "sansan0-trendradar",
+      "version": "6.11.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "satohub-kit",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "securenow",
+      "version": "8.12.4",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "smartmemory-stratum",
+      "version": "0.7.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "sparfenyuk-mcp-proxy",
+      "version": "0.15.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "spark-apps-quickpeek",
+      "version": "1.2.10",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "spark-apps-vidlet",
+      "version": "1.2.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "speedyapply-jobspy",
+      "version": "1.4.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "srift-transfer",
+      "version": "4.4.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "storybloq-agkit",
+      "version": "0.6.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "takara-ai-miru-code",
+      "version": "1.10.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "talix-stubs",
+      "version": "0.6.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "telbase",
+      "version": "0.14.0-beta.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "tenjin-cli",
+      "version": "0.1.0-alpha.15",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "timescale-pg-aiguide",
+      "version": "0.6.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "tokonomix-council-mcp",
+      "version": "1.14.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "toolaby",
+      "version": "1.15.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "toolprint-hypertool-mcp",
+      "version": "0.0.42",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "topy-ai-ceo-mcp",
+      "version": "0.2.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "topy-ai-cfo-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "topy-ai-coo-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "topy-ai-cpo-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "topy-ai-cro-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "topy-ai-cso-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "topy-ai-cto-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "needs-credentials"
+    },
+    {
+      "id": "trailhq-trail-code",
+      "version": "0.21.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "uarpie",
+      "version": "0.3.23",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "unpaper-cli",
+      "version": "0.3.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "vargai-mcp",
+      "version": "0.9.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "veyora",
+      "version": "0.2.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "vitali87-code-graph-rag",
+      "version": "0.6.30",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "vmoranv-jshookmcp",
+      "version": "0.4.3",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "wilm-ai-wilma-cli",
+      "version": "2.5.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "windsock-mcp",
+      "version": "0.1.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "workpods-agent-ready",
+      "version": "0.1.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "workpods-local-seo",
+      "version": "1.0.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "ytdl-rmcp",
+      "version": "1.0.2",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "yusufkaraaslan-skill-seekers",
+      "version": "3.10.0",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "zhizhuodemao-js-reverse-mcp",
+      "version": "4.0.5",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "zhuyansen-new-term-radar",
+      "version": "0.6.1",
+      "lastTried": "2026-11-09",
+      "attempts": 1,
+      "reason": "unknown"
+    }
+  ]
+}

@@ -107,7 +107,9 @@ const files = htmlFiles(out);
 const WHITELIST = /table-preview|preview_table|preview tool/gi;
 for (const f of files) {
   const name = relative(out, f).split("\\").join("/");
-  const html = noCode(readFileSync(f, "utf8"));
+  // Cells marked data-third-party hold other people's package names and versions (the "Not graded yet" list on
+  // /results/): "foo-mock" or "1.0.0-beta.2" there is their data, not our status wording.
+  const html = removeElements(noCode(readFileSync(f, "utf8")), (n, a) => /\sdata-third-party(?:[\s=/]|$)/.test(a));
   const text = decode(html);
   if (/sealmark\.ai/i.test(readFileSync(f, "utf8"))) fail(2, `out/${name} mentions sealmark.ai (the domain is sealmark.dev).`);
   // "early preview" is a subset of "preview", so one pass over the text without the tool names covers both.
