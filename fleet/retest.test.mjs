@@ -218,3 +218,20 @@ test("merge.mjs: a successful re-test replaces the entry and clears the failed a
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("merge.mjs: a failed try records the registry arguments it was started with, so the same try is not repeated", () => {
+  const dir = scratch([]);
+  try {
+    const startFail = { status: "failed", error: "Connection closed" };
+    report(dir, "a", { id: "tares", version: "0.4.0", ecosystem: "pypi", isNew: true, launch: "uvx tares==0.4.0 mcp", args: ["mcp"] }, startFail);
+    report(dir, "b", { id: "bare", version: "1.0.0", ecosystem: "npm", isNew: true, launch: "npx -y bare@1.0.0" }, startFail);
+    report(dir, "c", { id: "odd", version: "1.0.0", ecosystem: "npm", isNew: true, args: ["ok", 7] }, startFail);
+    merge(dir);
+    const hist = fs.readFileSync(path.join(dir, "fleet", "history.jsonl"), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    assert.deepEqual(hist.find((h) => h.id === "tares").args, ["mcp"]);
+    assert.equal("args" in hist.find((h) => h.id === "bare"), false);
+    assert.equal("args" in hist.find((h) => h.id === "odd"), false);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
