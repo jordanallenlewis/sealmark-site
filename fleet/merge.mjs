@@ -128,7 +128,7 @@ for (const name of subfolders) {
     transport: r.server?.transport ?? null,
     toolCount: (r.server?.tools ?? []).length,
     // The tool names the server declared in this run (the per-tool table's rows).
-    ...withKey("tools", serverTools(r.server)),
+    ...withKey("tools", serverTools(r.server, r.checks ?? [])),
     packs: Object.entries(r.packs ?? {}).map(([id, p]) => ({
       id: id,
       status: p.status,
@@ -150,7 +150,7 @@ for (const name of subfolders) {
       verdict: c.verdict,
       summary: c.summary,
       // The tools this check called, for per-tool verdicts; public checks only (fleet/check-tools.mjs).
-      ...withKey("tools", checkTools(c)),
+      ...withKey("tools", checkTools(c, { checks: r.checks })),
     })),
     coverage: r.coverage ?? null,
     badge: r.badge ?? null,

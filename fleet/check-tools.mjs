@@ -6,9 +6,9 @@
 // A critical result, a check classified "private", an advisory-class check that a newer CLI scores, and any id
 // fleet/security-checks.mjs does not know name no tool. Only tool names are kept: never the CLI's reasons, the
 // arguments or any server output. No verdict or grade is read or changed here.
-import { CHECK_CLASS } from "./security-checks.mjs";
+import { CHECK_CLASS, securityFindings } from "./security-checks.mjs";
 
-/** At most this many names per list; tool names are cut to 128 characters. */
+/** At most this many names per list; a name over 128 characters or with unusual characters is dropped. */
 export const MAX_TOOLS = 200;
 const MAX_NAME = 128;
 
@@ -16,8 +16,10 @@ const MAX_NAME = 128;
 function names(list) {
   const out = [];
   for (const n of list) {
-    if (typeof n !== "string" || n === "") continue;
-    const name = n.slice(0, MAX_NAME);
+    // Only plain tool names: printable ASCII and letters, no control, bidi or zero-width characters, and a name that is
+    // too long is dropped rather than cut (a cut name could merge two tools).
+    if (typeof n !== "string" || n === "" || n.length > MAX_NAME || !/^[\p{L}\p{N} _.:\/@+#-]+$/u.test(n)) continue;
+    const name = n;
     if (!out.includes(name)) out.push(name);
   }
   return out;
@@ -30,13 +32,16 @@ function namesTools(check) {
   return cls === "public" || (cls === "advisory" && check.advisory === true);
 }
 
+/** A server with any security finding (held or not) names no tool anywhere: a sibling check could point to the tool behind it. */
+const hasFinding = (server) => securityFindings({ checks: server.checks ?? [] }).length > 0;
+
 /**
  * The tools one check called with a valid call (`probed`) and the ones it could not (`notCovered`), or undefined.
  * @param {{ id: string, critical?: boolean, advisory?: boolean, coverage?: { probed?: unknown, notCovered?: unknown } }} check
  * @returns {{ probed: string[], notCovered: string[], cut?: number } | undefined}
  */
-export function checkTools(check) {
-  if (!check || !namesTools(check)) return undefined;
+export function checkTools(check, server) {
+  if (!check || !namesTools(check) || (server && hasFinding(server))) return undefined;
   const c = check.coverage;
   if (!c || !Array.isArray(c.probed)) return undefined;
   const probed = names(c.probed);
@@ -49,10 +54,10 @@ export function checkTools(check) {
 
 /**
  * The tool names the server declared in this run (a report's `server.tools`), or undefined when the report has none.
- * @param {{ tools?: unknown } | undefined} server
+ * @param {{ tools?: unknown } | undefined} server @param {object[]} [checks] the report's checks
  * @returns {string[] | undefined}
  */
-export function serverTools(server) {
-  if (!server || !Array.isArray(server.tools)) return undefined;
+export function serverTools(server, checks) {
+  if (!server || !Array.isArray(server.tools) || (checks && hasFinding({ checks }))) return undefined;
   return names(server.tools.map((t) => (t && typeof t === "object" ? t.name : t))).slice(0, MAX_TOOLS);
 }

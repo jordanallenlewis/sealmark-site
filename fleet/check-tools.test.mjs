@@ -8,6 +8,7 @@ import { CHECK_CLASS } from "./security-checks.mjs";
 const publicId = Object.keys(CHECK_CLASS).find((id) => CHECK_CLASS[id] === "public");
 const advisoryId = Object.keys(CHECK_CLASS).find((id) => CHECK_CLASS[id] === "advisory");
 const privateId = Object.keys(CHECK_CLASS).find((id) => CHECK_CLASS[id] === "private");
+
 const cov = { probed: ["read_file", "list_dir"], notCovered: [{ tool: "write_file", reason: "no target" }], validCalls: 3 };
 
 test("a public check keeps the tool names it called and could not call, without reasons", () => {
@@ -36,12 +37,23 @@ test("long lists are capped and say how many were cut", () => {
   const out = checkTools({ id: publicId, verdict: "pass", coverage: { probed: many, notCovered: [] } });
   assert.equal(out.probed.length, MAX_TOOLS);
   assert.equal(out.cut, 5);
-  const long = "x".repeat(500);
-  assert.equal(checkTools({ id: publicId, verdict: "pass", coverage: { probed: [long], notCovered: [] } }).probed[0].length, 128);
 });
 
 test("serverTools keeps declared tool names (strings or {name}), deduplicated and capped", () => {
   assert.deepEqual(serverTools({ tools: ["a", { name: "b" }, "a", null, 3] }), ["a", "b"]);
   assert.equal(serverTools({}), undefined);
   assert.equal(serverTools({ tools: Array.from({ length: 400 }, (_, i) => `t${i}`) }).length, MAX_TOOLS);
+});
+
+test("a server with any security finding names no tool, on any check or in its tool list", () => {
+  const finding = { id: privateId, verdict: "fail" };
+  const pub = { id: publicId, verdict: "pass", coverage: cov };
+  assert.equal(checkTools(pub, { checks: [pub, finding] }), undefined);
+  assert.ok(checkTools(pub, { checks: [pub, { id: privateId, verdict: "pass" }] }));
+  assert.equal(serverTools({ tools: ["a"] }, [pub, finding]), undefined);
+  assert.deepEqual(serverTools({ tools: ["a"] }, [pub]), ["a"]);
+});
+
+test("names with control, bidi or zero-width characters, or over 128 characters, are dropped", () => {
+  assert.deepEqual(serverTools({ tools: ["ok_tool", "a\u202eb", "a\u200bb", "a\nb", "x".repeat(129), "get-data.v2"] }), ["ok_tool", "get-data.v2"]);
 });
