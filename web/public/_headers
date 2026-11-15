@@ -1,0 +1,3 @@
+/data/v1/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Expose-Headers: ETag

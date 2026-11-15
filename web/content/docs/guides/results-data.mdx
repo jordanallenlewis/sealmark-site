@@ -1,0 +1,48 @@
+export const meta = {
+  title: "Results data (JSON)",
+  since: "1.0.1",
+  status: "shipped",
+  description: "Read the grades on sealmark.dev as JSON: every graded server, one server in full, grade changes, and an OpenAPI 3.1 description. No key.",
+};
+
+The grades on the [results pages](/results/) are also plain JSON files on sealmark.dev. There is no key and no sign-up, any origin may read them (CORS is open), and they are rebuilt from the same data as the pages each time the site deploys, so a file and its page always say the same thing. The build checks that before every deploy.
+
+| File | What it holds |
+|---|---|
+| `https://sealmark.dev/data/v1/servers.json` | every graded server: overall grade, the letter for each graded test area, version tested, test date, links to its page and file |
+| `https://sealmark.dev/data/v1/servers/<id>.json` | one server in full: every test area (graded or with the reason it was not), every check with its verdict and summary, what was not covered, grade history and the command that repeats the run |
+| `https://sealmark.dev/data/v1/changes.json` | grade changes between two successful re-tests of the same server, newest first (the last 500) |
+| `https://sealmark.dev/data/v1/openapi.json` | an OpenAPI 3.1 description of the four files |
+
+`<id>` is the last part of the server's results page address: `/results/<id>/`.
+
+```bash
+# every server graded below A in some test area
+curl -s https://sealmark.dev/data/v1/servers.json | jq -r '.servers[] | select(.grade != "A" and .grade != null) | "\(.grade) \(.name) \(.versionTested)"'
+
+# one server: each check and its verdict
+curl -s https://sealmark.dev/data/v1/servers/<id>.json | jq -r '.checks[] | "\(.verdict) \(.id)"'
+
+# grade changes this month
+curl -s https://sealmark.dev/data/v1/changes.json | jq '.changes[] | select(.date >= "2026-11-01")'
+```
+
+## Fields
+
+- `grade` is the server's grade: the lowest grade across the test areas that were graded. It is `null` when nothing was graded or the server declared no tools. `provisional` is `true` when an inconclusive critical check makes that grade provisional ([grades](/docs/concepts/grades)).
+- `packs` in the list maps each graded test area to its letter. In a server's file, `packDetails` lists every test area with its points, whether a critical fail capped it, and why an area that did not run was not graded.
+- `checks[].verdict` is `pass`, `part`, `fail`, `inconclusive` or `na` ([verdicts](/docs/concepts/verdicts)); `checks[].docs` links to what the check tests.
+- `lastAttemptFailed` is the date of a later re-test that could not finish; the grade shown is from the run before it. `lastAttempt` says why.
+- `history` lists the automated runs of that server, one per day (the last that day), oldest first; a failed run has no grade and says nothing about the server.
+- `changes[]` names the Sealmark version of both runs (`previousSealmark`, `sealmark`): a change across a Sealmark upgrade can come from Sealmark, not the server.
+- `reproduce` is the command that repeats the run with the same Sealmark version and the standard settings.
+
+## What the files leave out
+
+The files follow the [disclosure policy](/docs/disclosure) exactly as the pages do. While a security finding on a server is being reported to its maintainer privately, that check's `summary` is `null` and its `disclosure` is `"private"` (with the report and publish dates once it is reported), the summaries of the other security checks in the same test area are held back too (`"held-with-sibling"`), and `launch`, `reproduce` and `configHash` are `null`. The verdicts and grades stay.
+
+The grades are automated re-tests of one version with the default settings, not endorsements and not checked by hand. A server you maintain shows something wrong: say so on its results page.
+
+## Stability
+
+`v1` in the path is the version of these files. New fields may appear within `v1`; renaming or removing one means a new path. `updated` in the list and the changes is the newest test or run date, not the deploy time, so a file whose data did not change keeps its `ETag`, and a client that sends `If-None-Match` gets a `304`. Browsers can read the `ETag` from another origin and revalidate from their own cache.
