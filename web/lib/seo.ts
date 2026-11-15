@@ -77,7 +77,6 @@ ${DOCS.map((p) => `- ${canonical(p)}`).join("\n")}
 ## Guides
 - [What is MCP conformance testing?](${canonical("/mcp-conformance-testing/")})
 - [Sealmark compared with other MCP testing tools](${canonical("/compare/")})
-- [Sealmark and Glama: behavior grade vs description grade](${canonical("/compare/glama/")})
 
 ## Source
 - https://github.com/jordanallenlewis/sealmark
