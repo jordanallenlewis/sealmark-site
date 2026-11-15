@@ -14,7 +14,7 @@
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
 import { canPlan, launchChanged } from "./overrides.mjs";
-import { registryArgs, registryLaunch, failedKey, failedKeys } from "./registry-args.mjs";
+import { registryLaunch, failedKey, failedKeys, usablePackage, packageId, knownPackage } from "./registry-args.mjs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
 const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 10;
@@ -190,25 +190,6 @@ function probe(repo, sub) {
   return probed.get(key);
 }
 
-// The npm or PyPI stdio package a registry entry can be started from with no required settings, the fixed arguments
-// it declares, and whether it lists a package of another kind.
-function usablePackage(server) {
-  let hasOtherPkg = false;
-  for (const p of server.packages ?? []) {
-    if (p.registryType !== "npm" && p.registryType !== "pypi") {
-      hasOtherPkg = true;
-      continue;
-    }
-    if (p.transport?.type !== "stdio") continue;
-    if ((p.environmentVariables ?? []).some((e) => e.isRequired === true)) continue;
-    // null: a required argument with no fixed value. Fixed arguments (a subcommand such as `mcp`) go in the launch line.
-    const args = registryArgs(p);
-    if (args === null) continue;
-    return { pkg: p, args, hasOtherPkg };
-  }
-  return { pkg: null, hasOtherPkg };
-}
-
 const repoId = (repo) =>
   repo
     .toLowerCase()
@@ -253,11 +234,9 @@ async function discover(knownIds, maxNew) {
       const { pkg, args, hasOtherPkg } = usablePackage(server);
       if (pkg) {
         if (EXCLUDE && EXCLUDE.test(pkg.identifier ?? "")) continue;
-        const id = pkg.identifier
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "");
-        if (!id || knownIds.has(id)) continue;
+        const id = packageId(pkg.identifier);
+        // Any of the entry's packages already known: one listing per server, even if another package is picked now.
+        if (!id || knownIds.has(id) || knownPackage(server, knownIds)) continue;
         // A failed try is repeated at the same version only with different registry arguments.
         if (failed.has(failedKey(id, pkg.version, args)) || !roomFor(pkg.identifier)) continue;
         knownIds.add(id);

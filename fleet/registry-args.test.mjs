@@ -3,7 +3,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { registryArgs, registryLaunch, failedKey, failedKeys, recordArgs } from "./registry-args.mjs";
+import { registryArgs, registryLaunch, failedKey, failedKeys, recordArgs, usablePackage, packageId, knownPackage } from "./registry-args.mjs";
 
 const pos = (value, extra = {}) => ({ type: "positional", value, ...extra });
 const named = (name, value, extra = {}) => ({ type: "named", name, ...(value === undefined ? {} : { value }), ...extra });
@@ -88,4 +88,43 @@ test("recordArgs keeps only a non-empty array of strings", () => {
   assert.deepEqual(recordArgs({ args: "mcp" }), {});
   assert.deepEqual(recordArgs({ args: ["mcp", 1] }), {});
   assert.deepEqual(recordArgs(null), {});
+});
+
+test("a required argument is never dropped: if it cannot be passed, the package is not usable", () => {
+  const req = pos("mcp", { isRequired: true });
+  assert.equal(registryArgs({ runtimeArguments: [named("-y")], packageArguments: [req] }), null);
+  assert.equal(registryArgs({ packageArguments: [pos(undefined, { valueHint: "dir" }), req] }), null);
+  assert.equal(registryArgs({ packageArguments: [named("bad name", "x"), req] }), null);
+  assert.equal(registryArgs({ packageArguments: [{ type: "other", value: "x" }, req] }), null);
+});
+
+const npmPkg = (identifier, extra = {}) => ({ registryType: "npm", identifier, version: "1.0.0", transport: { type: "stdio" }, ...extra });
+
+test("usablePackage takes the first stdio npm or PyPI package it can start, with its arguments", () => {
+  assert.deepEqual(usablePackage({ packages: [npmPkg("a", { packageArguments: [pos("mcp")] })] }).args, ["mcp"]);
+  // A package whose required argument cannot be passed is skipped for the next one, as before.
+  const server = { packages: [npmPkg("first", { runtimeArguments: [named("-y")], packageArguments: [pos("mcp", { isRequired: true })] }), npmPkg("second")] };
+  const r = usablePackage(server);
+  assert.equal(r.pkg.identifier, "second");
+  assert.deepEqual(r.args, []);
+  assert.equal(usablePackage({ packages: [npmPkg("e", { environmentVariables: [{ name: "K", isRequired: true }] })] }).pkg, null);
+  assert.equal(usablePackage({ packages: [{ ...npmPkg("h"), transport: { type: "streamable-http" } }] }).pkg, null);
+  const other = usablePackage({ packages: [{ registryType: "oci", identifier: "x" }] });
+  assert.equal(other.pkg, null);
+  assert.equal(other.hasOtherPkg, true);
+  assert.equal(usablePackage({}).pkg, null);
+});
+
+test("packageId and knownPackage: a server is known if any of its packages is, so it never gets a second listing", () => {
+  assert.equal(packageId("@Scope/My.Pkg"), "scope-my-pkg");
+  const known = new Set(["second"]);
+  assert.equal(knownPackage({ packages: [npmPkg("first"), { ...npmPkg("second"), registryType: "pypi" }] }, known), true);
+  assert.equal(knownPackage({ packages: [npmPkg("first")] }, known), false);
+  assert.equal(knownPackage({}, known), false);
+});
+
+test("the key merge.mjs writes for a failed try is the key plan.mjs looks up", () => {
+  const meta = { id: "tares", version: "0.4.0", args: ["mcp"] };
+  const line = JSON.stringify({ id: meta.id, version: meta.version, ...recordArgs(meta), status: "failed" });
+  assert.ok(failedKeys(line).has(failedKey("tares", "0.4.0", ["mcp"])));
 });

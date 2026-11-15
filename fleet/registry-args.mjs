@@ -19,8 +19,13 @@ const fixed = (a) => (typeof a?.value === "string" && SAFE_VALUE.test(a.value) ?
  */
 export function registryArgs(pkg) {
   const declared = Array.isArray(pkg?.packageArguments) ? pkg.packageArguments : [];
-  const required = declared.some((a) => a?.isRequired === true && fixed(a) === null);
-  if (required) return null;
+  const args = fixedArgs(pkg, declared);
+  // A required argument that is not in the launch line means the package cannot start: never drop one.
+  if (args.length === 0 && declared.some((a) => a?.isRequired === true)) return null;
+  return args;
+}
+
+function fixedArgs(pkg, declared) {
   if (Array.isArray(pkg?.runtimeArguments) && pkg.runtimeArguments.length > 0) return [];
   const out = [];
   for (const a of declared) {
@@ -32,13 +37,49 @@ export function registryArgs(pkg) {
     } else if (a?.type === "named") {
       if (typeof a.name !== "string" || !SAFE_NAME.test(a.name)) return [];
       // An optional named argument with no fixed value is left to the server's own default.
-      if (value === null) continue;
+      if (value === null) {
+        if (a.isRequired === true) return [];
+        continue;
+      }
       out.push(a.name, value);
     } else {
       return [];
     }
   }
   return out;
+}
+
+/** The id the fleet gives a registry package (also its results page slug). */
+export const packageId = (identifier) =>
+  String(identifier ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+/**
+ * The npm or PyPI stdio package a registry entry can be started from with no required settings, the fixed arguments
+ * it declares, and whether it lists a package of another kind.
+ */
+export function usablePackage(server) {
+  let hasOtherPkg = false;
+  for (const p of server?.packages ?? []) {
+    if (p.registryType !== "npm" && p.registryType !== "pypi") {
+      hasOtherPkg = true;
+      continue;
+    }
+    if (p.transport?.type !== "stdio") continue;
+    if ((p.environmentVariables ?? []).some((e) => e.isRequired === true)) continue;
+    // null: a required argument we cannot pass. Fixed arguments (a subcommand such as `mcp`) go in the launch line.
+    const args = registryArgs(p);
+    if (args === null) continue;
+    return { pkg: p, args, hasOtherPkg };
+  }
+  return { pkg: null, args: [], hasOtherPkg };
+}
+
+/** True when any package of this registry entry is already tracked or tried under its own id. */
+export function knownPackage(server, knownIds) {
+  return (server?.packages ?? []).some((p) => p?.identifier && knownIds.has(packageId(p.identifier)));
 }
 
 /** The launch line for a registry package at a version, with its fixed arguments. */
