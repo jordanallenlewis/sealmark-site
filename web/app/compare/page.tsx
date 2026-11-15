@@ -4,9 +4,8 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import s from "../results/results.module.css";
 import { CLI_VERSION } from "@/lib/seo";
-import { OTHER_GRADERS } from "@/lib/compare.mjs";
 
-const DESC = "An honest comparison of Sealmark with the MCP Inspector, the official MCP conformance framework, MCP security scanners (Snyk Agent Scan, Cisco mcp-scanner), MCPJam and other MCP graders such as Glama: what each one checks, and when to use which.";
+const DESC = "An honest comparison of Sealmark with the MCP Inspector, the official MCP conformance framework, MCP security scanners (Snyk Agent Scan, Cisco mcp-scanner) and MCPJam: what each one checks, and when to use which.";
 export const metadata: Metadata = { title: "Sealmark compared with other MCP testing tools", description: DESC, alternates: { canonical: "/compare/" } };
 
 const CHECKED = "2026-11-10";
@@ -40,12 +39,6 @@ export default function Page() {
           <li><b>Cisco AI Defense mcp-scanner</b>: scans tools, prompts and resources with YARA rules, an LLM judge and Cisco&apos;s API, and can scan a server&apos;s source code and its Python dependencies for known vulnerabilities. Pick it for supply-chain and source checks, which Sealmark does not do.</li>
           <li><b>MCPJam</b>: an inspector and evaluation platform that runs your server with real models across many clients and scores agent behavior, with CI runs. Pick it to learn whether models use your tools well; Sealmark has no model in the loop, so the same server and settings always get the same grade.</li>
         </ul>
-        <h2 className={s.packhead}>Other graders</h2>
-        <p>Several tools now give an MCP server a letter grade. Most grade protocol compliance, what a server declares, or how its tools are described. A Sealmark grade comes mostly from what tool calls changed outside the reply (database rows, files, outbound requests, processes), on top of protocol and schema checks, and its public results are re-tested on a schedule, so the same server can earn different grades from different tools without either being wrong.</p>
-        <ul>
-          {OTHER_GRADERS.map((g) => (<li key={g.name}><b><a href={g.url} rel="noopener">{g.name}</a></b>: {g.what}{g.name === "Glama" ? <> <Link href="/compare/glama/">Sealmark and Glama side by side</Link>.</> : null}</li>))}
-        </ul>
-        <p className={s.muted}>Read from each tool&apos;s own page on {OTHER_GRADERS[0].checked}.</p>
         <h2 className={s.packhead}>When to pick which</h2>
         <ul>
           <li><b>You are building a server and want to see requests:</b> the Inspector.</li>
