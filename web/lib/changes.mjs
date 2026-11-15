@@ -22,16 +22,17 @@ export function changeSinceLast(runs, testedAt, toolCounts = {}) {
   const a = runs[prev];
   const b = runs[at];
   const items = [];
-  if (a.version && b.version && a.version !== b.version) items.push({ kind: "version", from: a.version, to: b.version });
-  if (a.sealmark && b.sealmark && a.sealmark !== b.sealmark) items.push({ kind: "sealmark", from: a.sealmark, to: b.sealmark });
   const was = a.packs ?? {};
   const now = b.packs ?? {};
+  // Grade moves first, so a version line never reads as the reason for them.
   for (const pack of Object.keys(was)) {
     if (!(pack in now)) continue;
     if (was[pack] !== now[pack]) items.push({ kind: "grade", pack, from: was[pack], to: now[pack], dir: better(now[pack], was[pack]) ? "up" : "down" });
   }
   for (const pack of Object.keys(was)) if (!(pack in now)) items.push({ kind: "gone", pack, from: was[pack] });
   for (const pack of Object.keys(now)) if (!(pack in was)) items.push({ kind: "new", pack, to: now[pack] });
+  if (a.version && b.version && a.version !== b.version) items.push({ kind: "version", from: a.version, to: b.version });
+  if (a.sealmark && b.sealmark && a.sealmark !== b.sealmark) items.push({ kind: "sealmark", from: a.sealmark, to: b.sealmark });
   const tFrom = toolCounts[a.date];
   const tTo = toolCounts[b.date];
   if (Number.isInteger(tFrom) && Number.isInteger(tTo) && tFrom !== tTo) items.push({ kind: "tools", from: tFrom, to: tTo, dir: tTo > tFrom ? "up" : "down" });
@@ -44,14 +45,30 @@ export function changeSinceLast(runs, testedAt, toolCounts = {}) {
   };
 }
 
-/** date -> tool count of one server's graded runs in fleet/telemetry.jsonl (text). A later line for the same day wins. */
-export function toolCountsFrom(text, id) {
-  const out = {};
+const samePacks = (x = {}, y = {}) => {
+  const kx = Object.keys(x);
+  return kx.length === Object.keys(y).length && kx.every((k) => x[k] === y[k]);
+};
+
+/**
+ * date -> tool count of one server's graded runs, from fleet/telemetry.jsonl (text). history.jsonl keeps one line per day
+ * and telemetry can hold other lines that day (backfilled runs of older versions), so a count is taken only from lines of
+ * the same run as the history line (same server version, Sealmark version and grades), and only when those lines agree.
+ */
+export function toolCountsFrom(text, id, runs) {
+  const byDate = new Map(runs.filter((r) => r.status === "ok").map((r) => [r.date, r]));
+  const seen = new Map();
   for (const line of text.split("\n")) {
     if (!line.trim()) continue;
-    const r = JSON.parse(line);
-    if (r.id !== id || r.status !== "ok" || !Number.isInteger(r.toolCount)) continue;
-    out[r.testedAt] = r.toolCount;
+    const t = JSON.parse(line);
+    if (t.id !== id || t.status !== "ok" || !Number.isInteger(t.toolCount)) continue;
+    const r = byDate.get(t.testedAt);
+    if (!r || t.serverVersion !== r.version || (t.sealmark ?? undefined) !== (r.sealmark ?? undefined) || !samePacks(t.packs, r.packs)) continue;
+    const counts = seen.get(t.testedAt) ?? new Set();
+    counts.add(t.toolCount);
+    seen.set(t.testedAt, counts);
   }
+  const out = {};
+  for (const [date, counts] of seen) if (counts.size === 1) out[date] = [...counts][0];
   return out;
 }

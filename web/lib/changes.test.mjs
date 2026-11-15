@@ -65,6 +65,12 @@ test("server version and Sealmark version changes; an unknown Sealmark version o
     { kind: "sealmark", from: "1.0.0", to: "1.0.1" },
   ]);
   assert.equal(c.gradeChanged, false);
+  // Grade moves come first, so a version line never reads as the reason for them.
+  const both = changeSinceLast(
+    [run("2026-11-05", "1.0.0", { core: "A" }, { sealmark: "1.0.0" }), run("2026-11-14", "1.0.0", { core: "B" }, { sealmark: "1.0.1" })],
+    "2026-11-14", { "2026-11-05": 3, "2026-11-14": 4 },
+  );
+  assert.deepEqual(both.items.map((i) => i.kind), ["grade", "sealmark", "tools"]);
   const old = changeSinceLast(
     [run("2026-11-05", "1.0.0", { core: "A" }, { sealmark: undefined }), run("2026-11-14", "1.0.0", { core: "A" })],
     "2026-11-14",
@@ -83,14 +89,28 @@ test("tool count change only when both runs recorded one; a drop is flagged so t
   assert.deepEqual(changeSinceLast(runs, "2026-11-14", { "2026-11-05": 3, "2026-11-14": 3 }).items, []);
 });
 
-test("toolCountsFrom reads graded telemetry lines for one server; a later line for the same day wins", () => {
+test("toolCountsFrom takes a count only from telemetry lines of the same run as the history line, and only when they agree", () => {
+  const runs = [
+    { date: "2026-11-05", version: "1.2.0", sealmark: "1.0.0", status: "ok", packs: { core: "A" } },
+    { date: "2026-11-06", version: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" } },
+    { date: "2026-11-07", version: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" } },
+    { date: "2026-11-08", version: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" } },
+  ];
   const lines = [
-    { id: "a", testedAt: "2026-11-05", status: "ok", toolCount: 4 },
-    { id: "a", testedAt: "2026-11-05", status: "ok", toolCount: 5 },
-    { id: "a", testedAt: "2026-11-06", status: "failed" },
-    { id: "b", testedAt: "2026-11-05", status: "ok", toolCount: 9 },
+    // 11-05: the matching run, then a backfilled line of an older version written later that day: the older one is ignored.
+    { id: "a", testedAt: "2026-11-05", serverVersion: "1.2.0", sealmark: "1.0.0", status: "ok", packs: { core: "A" }, toolCount: 5 },
+    { id: "a", testedAt: "2026-11-05", serverVersion: "0.9.0", sealmark: "1.0.0", status: "ok", packs: { core: "A" }, toolCount: 2 },
+    // 11-06: two lines of the same run that disagree: no count.
+    { id: "a", testedAt: "2026-11-06", serverVersion: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" }, toolCount: 7 },
+    { id: "a", testedAt: "2026-11-06", serverVersion: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" }, toolCount: 8 },
+    // 11-07: same version, different grades: not the same run.
+    { id: "a", testedAt: "2026-11-07", serverVersion: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "C" }, toolCount: 9 },
+    // 11-08: a failed line and another server's line are ignored.
+    { id: "a", testedAt: "2026-11-08", status: "failed" },
+    { id: "a", testedAt: "2026-11-08", serverVersion: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" }, toolCount: 7 },
+    { id: "b", testedAt: "2026-11-08", serverVersion: "1.3.0", sealmark: "1.0.1", status: "ok", packs: { core: "B" }, toolCount: 99 },
   ].map((o) => JSON.stringify(o)).join("\n");
-  assert.deepEqual(toolCountsFrom(lines + "\n\n", "a"), { "2026-11-05": 5 });
+  assert.deepEqual(toolCountsFrom(lines + "\n\n", "a", runs), { "2026-11-05": 5, "2026-11-08": 7 });
 });
 
 test("real data: every graded server whose page run is in the history yields a well-formed comparison", () => {
@@ -104,12 +124,26 @@ test("real data: every graded server whose page run is in the history yields a w
     days.set(r.testedAt, { date: r.testedAt, version: r.version ?? "", sealmark: r.sealmark, status: r.status === "ok" ? "ok" : "failed", packs: r.packs ?? {} });
     byId.set(r.id, days);
   }
+  const telemetry = readFileSync(new URL("../../fleet/telemetry.jsonl", import.meta.url), "utf8");
+  const tele = telemetry.split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l));
   let compared = 0;
   for (const x of results) {
     const runs = [...(byId.get(x.id)?.values() ?? [])].sort((a, b) => a.date.localeCompare(b.date));
-    const c = changeSinceLast(runs, x.testedAt);
+    const counts = toolCountsFrom(telemetry, x.id, runs);
+    const c = changeSinceLast(runs, x.testedAt, counts);
     if (!c) continue;
     compared += 1;
+    // The history run the block compares from is the run the page shows: same version and the same graded areas.
+    const shown = runs.find((r) => r.date === x.testedAt);
+    assert.equal(shown.version, x.versionTested ?? "", `${x.id} version`);
+    const graded = Object.fromEntries(x.packs.filter((p) => p.status === "graded" && p.letter).map((p) => [p.id, p.letter]));
+    assert.deepEqual(shown.packs, graded, `${x.id} packs`);
+    // Every tool count used comes from a telemetry line of that very run (same version, Sealmark version and grades).
+    for (const [date, n] of Object.entries(counts)) {
+      const r = runs.find((v) => v.date === date);
+      const same = tele.filter((t) => t.id === x.id && t.testedAt === date && t.status === "ok" && t.serverVersion === r.version && t.sealmark === r.sealmark && JSON.stringify(t.packs) === JSON.stringify(r.packs));
+      assert.ok(same.length > 0 && same.every((t) => t.toolCount === n), `${x.id} ${date} tool count ${n}`);
+    }
     assert.ok(c.from.date < c.to.date, x.id);
     for (const it of c.items) assert.ok(["version", "sealmark", "grade", "new", "gone", "tools"].includes(it.kind), `${x.id} ${it.kind}`);
   }

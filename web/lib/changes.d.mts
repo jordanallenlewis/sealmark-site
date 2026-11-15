@@ -11,4 +11,4 @@ export type ChangeItem =
 export type RunRef = { date: string; version: string; sealmark?: string };
 export type Change = { from: RunRef; to: RunRef; failedBetween: number; items: ChangeItem[]; gradeChanged: boolean };
 export function changeSinceLast(runs: RunLite[], testedAt: string, toolCounts?: Record<string, number>): Change | null;
-export function toolCountsFrom(text: string, id: string): Record<string, number>;
+export function toolCountsFrom(text: string, id: string, runs: RunLite[]): Record<string, number>;

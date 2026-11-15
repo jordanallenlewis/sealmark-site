@@ -122,8 +122,8 @@ function SinceLast({ c }: { c: Change }) {
     <div className={s.since}>
       <h3>Since the run on <time dateTime={c.from.date}>{c.from.date}</time></h3>
       {c.items.length > 0 && <ul>{c.items.map((i, n) => <li key={n} data-dir={i.kind === "grade" ? i.dir : undefined}>{changeText(i)}</li>)}</ul>}
-      {same.length > 0 && <p>{c.items.length > 0 ? "Unchanged: " : "Nothing changed: "}{same.join(", ")}.</p>}
-      {c.failedBetween > 0 && <p>The server did not start in {count(c.failedBetween, "re-test", "re-tests")} in between, which says nothing about its grade.</p>}
+      {same.length > 0 && <p>{c.items.length > 0 ? "Unchanged: " : "Same as that run: "}{same.join(", ")}.</p>}
+      {c.failedBetween > 0 && <p>On {count(c.failedBetween, "day", "days")} in between the re-test failed to run, which says nothing about the grade.</p>}
     </div>
   );
 }
@@ -143,7 +143,7 @@ export default async function ServerPage({ params }: P) {
   const prev = SERVERS_RESULTS[idx - 1];
   const next = SERVERS_RESULTS[idx + 1];
   const hist = historyFor(x.id);
-  const since = hist ? changeSinceLast(hist.runs, x.testedAt, toolCountsFor(x.id)) : null;
+  const since = hist ? changeSinceLast(hist.runs, x.testedAt, toolCountsFor(x.id, hist.runs)) : null;
   const holes = placeholdersIn(x.launch);
   const packHasPrivate = (pid: string) => x.checks.some((c) => c.pack === pid && priv.has(c.id));
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));

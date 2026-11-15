@@ -31,9 +31,10 @@ export function loadHistory(): ServerHistory[] {
 
 export const historyFor = (id: string) => loadHistory().find((h) => h.id === id);
 
-// Tool counts per graded run, from fleet/telemetry.jsonl (history.jsonl does not record them). Read once per build.
+// Tool counts per graded run, from fleet/telemetry.jsonl (history.jsonl does not record them); only from lines of the
+// same run as the history line (lib/changes.mjs). Read once per build.
 let telemetry: string | undefined;
-export function toolCountsFor(id: string): Record<string, number> {
+export function toolCountsFor(id: string, runs: Run[]): Record<string, number> {
   telemetry ??= readFileSync(resolve(process.cwd(), "..", "fleet", "telemetry.jsonl"), "utf8");
-  return toolCountsFrom(telemetry, id);
+  return toolCountsFrom(telemetry, id, runs);
 }
