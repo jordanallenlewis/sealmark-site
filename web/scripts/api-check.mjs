@@ -3,12 +3,16 @@
 //   1  out/data/v1/servers.json lists exactly the servers that have a page under out/results/<id>/
 //   2  every listed server has out/data/v1/servers/<id>.json, and the list and the file agree on the grade
 //   3  that grade equals the page's heading ("Grade B", "Grade B (provisional)", "No grade", "No tools to test")
-//   4  a page that withholds the repeat command (a security finding reported privately) has launch and reproduce null,
-//      and the file holds no check summary the page does not show
+//   4  private disclosure, recomputed here from the raw data and content/data/disclosure.json (not from the page):
+//      every redacted finding and its security siblings in the same test area have summary null; launch, reproduce
+//      and configHash are null on a server with any private finding; no file under out/data/v1 contains a redacted
+//      summary or a withheld start command of a server (its own file, the list and the changes; another server can share a
+//      generic summary such as a pass sentence); and no file shows a check summary its page does not
 //   5  changes.json and openapi.json parse, and every path in openapi.json exists in out/
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isSecurityCheck, redactedChecks } from "../lib/disclosure.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -24,6 +28,11 @@ if (!existsSync(join(api, "servers.json"))) {
   process.exit(1);
 }
 const list = read(join(api, "servers.json"));
+// Same inputs as lib/results.ts: the data file, the disclosure file and the build date (UTC).
+const RAW = new Map(read(join(web, "content", "data", "server-results.json")).servers.map((x) => [x.id, x]));
+const DISCLOSURE = read(join(web, "content", "data", "disclosure.json")).findings;
+const TODAY = new Date().toISOString().slice(0, 10);
+const secrets = []; // [server id, where, text that must not appear in that server's file, the list or the changes]
 const resultsDir = join(out, "results");
 const pages = readdirSync(resultsDir, { withFileTypes: true })
   .filter((e) => e.isDirectory() && existsSync(join(resultsDir, e.name, "index.html")) && e.name !== "history")
@@ -53,11 +62,31 @@ for (const s of list.servers) {
   if (!none && !want) fail(3, `${s.id}: unknown grade heading "${heading}"; update this check`);
   else if (none ? doc.grade !== null : doc.grade !== want[1] || doc.provisional !== Boolean(want[2])) fail(3, `${s.id}: page "${heading}", file ${doc.grade}${doc.provisional ? " (provisional)" : ""}`);
   const pageText = text(html);
-  const withheld = pageText.includes("The command for this run is withheld");
-  if (withheld && (doc.launch !== null || doc.reproduce !== null)) fail(4, `${s.id}: page withholds the command, file has it`);
+  const raw = RAW.get(s.id);
+  const red = raw ? redactedChecks(raw, DISCLOSURE, TODAY) : new Map();
+  if (red.size > 0) {
+    if (doc.launch !== null || doc.reproduce !== null || doc.configHash !== null) fail(4, `${s.id}: a finding is private, the file still has launch, reproduce or configHash`);
+    if (!pageText.includes("The command for this run is withheld")) fail(4, `${s.id}: a finding is private but the page does not say the command is withheld; update this check`);
+    secrets.push([s.id, s.id, raw.launch]);
+    const privPacks = new Set(raw.checks.filter((c) => red.has(c.id)).map((c) => c.pack));
+    for (const c of raw.checks) {
+      if (!red.has(c.id) && !(privPacks.has(c.pack) && isSecurityCheck(c))) continue;
+      if (c.summary) secrets.push([s.id, `${s.id}/${c.id}`, c.summary]);
+      const f = doc.checks.find((y) => y.id === c.id);
+      if (!f || f.summary !== null) fail(4, `${s.id}/${c.id}: summary must be null while the finding is private`);
+    }
+  }
   for (const c of doc.checks) {
     if (c.summary && !pageText.includes(c.summary.trim())) fail(4, `${s.id}/${c.id}: file shows a summary the page does not`);
   }
+}
+
+const body = (f) => (existsSync(f) ? readFileSync(f, "utf8") : "");
+const shared = body(join(api, "servers.json")) + body(join(api, "changes.json"));
+for (const [id, where, t] of secrets) {
+  if (!t) continue;
+  const enc = JSON.stringify(t).slice(1, -1);
+  if ((body(join(api, "servers", `${id}.json`)) + shared).includes(enc)) fail(4, `${where}: withheld text appears in the API files`);
 }
 
 for (const name of ["changes.json", "openapi.json"]) {

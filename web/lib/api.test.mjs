@@ -52,7 +52,7 @@ test("a private finding hides its summary, its security siblings in the same are
   const d = serverDoc(x, { letter: "F", provisional: false }, redactions, [], SITE);
   const by = Object.fromEntries(d.checks.map((c) => [c.id, c]));
   assert.equal(by["mutating-sql"].summary, null);
-  assert.equal(by["mutating-sql"].disclosure.status, "pending-report");
+  assert.deepEqual(by["mutating-sql"].disclosure, { status: "private", reportedAt: null, publishAfter: null }, "one public state, never 'not reported yet'");
   assert.equal(by["mutating-sql"].verdict, "fail", "the verdict stays, as on the page");
   assert.equal(by["read-only"].summary, null, "security sibling in the same area is held back");
   assert.equal(by["read-only"].disclosure.status, "held-with-sibling");
@@ -60,8 +60,26 @@ test("a private finding hides its summary, its security siblings in the same are
   assert.equal(by["secret-echo"].summary, "secret-echo said pass", "another area is not held");
   assert.equal(d.launch, null);
   assert.equal(d.reproduce, null);
+  assert.equal(d.configHash, null, "the hash covers the start command");
   const text = JSON.stringify(d);
   assert.ok(!text.includes("mutating-sql said fail") && !text.includes("--dsn"), "nothing redacted leaks anywhere in the document");
+});
+
+test("a reported finding still private shows its report and publish dates, as the page does", () => {
+  const x = server();
+  const r = redactedChecks(x, { "srv/mutating-sql": { status: "reported", reportedAt: "2026-11-10" } }, "2026-11-15");
+  const d = serverDoc(x, null, r, [], SITE);
+  assert.deepEqual(d.checks.find((c) => c.id === "mutating-sql").disclosure, { status: "private", reportedAt: "2026-11-10", publishAfter: "2027-02-08" });
+});
+
+test("the v1 field lists are fixed: adding is fine, renaming or removing needs a new path", () => {
+  const d = serverDoc(server(), null, new Map(), [], SITE);
+  const v1 = ["id", "name", "ecosystem", "versionTested", "testedAt", "grade", "provisional", "packs", "toolCount", "transport", "lastAttemptFailed", "page", "json",
+    "sealmark", "standard", "configHash", "automated", "coverage", "packDetails", "checks", "notCovered", "lastAttempt", "launch", "reproduce", "history"];
+  for (const k of v1) assert.ok(k in d, `server file lost ${k}`);
+  for (const k of ["id", "pack", "label", "critical", "advisory", "verdict", "weakSignal", "summary", "disclosure", "docs"]) assert.ok(k in d.checks[0], `check lost ${k}`);
+  const props = openapiDoc(SITE, "1").components.schemas;
+  for (const k of v1) assert.ok(k in props.ServerSummary.properties || k in props.Server.properties, `OpenAPI does not describe ${k}`);
 });
 
 test("a reported finding past its publish date is public again", () => {
@@ -84,27 +102,30 @@ test("changes: only between successful runs, failed runs skipped, per-area diff,
     { id: "b", name: "b", linked: false, runs: [run("2026-11-04", "B", { core: "B" }), run("2026-11-06", "A", { core: "A" })] },
     { id: "c", name: "c", linked: true, runs: [run("2026-11-04", "A", { core: "A" })] },
   ];
-  const d = changesDoc(h, SITE, "2026-11-15T00:00:00Z");
+  const d = changesDoc(h, SITE);
+  assert.equal(d.updated, "2026-11-06");
   assert.equal(d.total, 2);
   assert.deepEqual(d.changes.map((c) => [c.date, c.id, c.from, c.to]), [["2026-11-06", "b", "B", "A"], ["2026-11-05", "a", "A", "C"]]);
   assert.deepEqual(d.changes[1].packs, { fs: { from: null, to: "C" } });
   assert.equal(d.changes[1].previousVersion, "1");
   assert.equal(d.changes[0].page, null, "a server without a results page links nowhere");
   assert.equal(d.changes[1].page, "https://sealmark.dev/results/a/");
-  const one = changesDoc(h, SITE, "x", 1);
+  const one = changesDoc(h, SITE, 1);
   assert.equal(one.count, 1);
   assert.equal(one.total, 2);
 });
 
 test("changes: an area letter that moves while the worst grade stays is still a change", () => {
-  const d = changesDoc([{ id: "a", name: "a", linked: true, runs: [{ date: "1", version: "1", status: "ok", worst: "D", packs: { core: "A", db: "D" } }, { date: "2", version: "1", status: "ok", worst: "D", packs: { core: "B", db: "D" } }] }], SITE, "x");
+  const d = changesDoc([{ id: "a", name: "a", linked: true, runs: [{ date: "1", version: "1", status: "ok", worst: "D", packs: { core: "A", db: "D" } }, { date: "2", version: "1", status: "ok", worst: "D", packs: { core: "B", db: "D" } }] }], SITE);
   assert.equal(d.total, 1);
   assert.deepEqual(d.changes[0].packs, { core: { from: "A", to: "B" } });
 });
 
 test("list document counts its servers", () => {
-  const d = serversDoc([serverSummary(server(), null, SITE)], { methodology: "0.3-draft", generatedAt: "t" });
-  assert.equal(d.count, 1);
+  const d = serversDoc([serverSummary(server(), null, SITE), serverSummary(server({ id: "b", testedAt: "2026-11-15" }), null, SITE)], "0.3-draft");
+  assert.equal(d.count, 2);
+  assert.equal(d.updated, "2026-11-15", "newest test date, not the build time, so the file is stable across deploys");
+  assert.equal(serversDoc([], "x").updated, null);
   assert.equal(d.version, "v1");
 });
 

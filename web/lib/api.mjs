@@ -58,7 +58,7 @@ export function serverDoc(x, grade, redactions, runs, site) {
     ...serverSummary(x, grade, site),
     sealmark: { version: x.sealmark.version, methodology: x.sealmark.methodology },
     standard: x.standard,
-    configHash: x.configHash,
+    configHash: held ? null : x.configHash, // hashes the run config, start command included
     automated: x.automated === true,
     coverage: x.coverage ?? null,
     packDetails: x.packs.map((p) => ({
@@ -72,7 +72,8 @@ export function serverDoc(x, grade, redactions, runs, site) {
         id: c.id, pack: c.pack, label: c.label, critical: c.critical, advisory: c.advisory, verdict: c.verdict,
         weakSignal: isWeakSignal(c),
         summary: d || sibling ? null : c.summary,
-        disclosure: d ? { status: d.status, reportedAt: d.reportedAt, publishAfter: d.publishAfter } : sibling ? { status: "held-with-sibling" } : null,
+        // One public state, as on the page: "private" (dates only once it is reported) or "held-with-sibling".
+        disclosure: d ? { status: "private", reportedAt: d.reportedAt && d.publishAfter ? d.reportedAt : null, publishAfter: d.reportedAt && d.publishAfter ? d.publishAfter : null } : sibling ? { status: "held-with-sibling" } : null,
         docs: `${site}/docs/reference/checks/${c.id}/`,
       };
     }),
@@ -87,10 +88,12 @@ export function serverDoc(x, grade, redactions, runs, site) {
 /**
  * The list document.
  * @param {ReturnType<typeof serverSummary>[]} items
- * @param {{ methodology: string, generatedAt: string }} meta
+ * @param {string} methodology
  */
-export function serversDoc(items, meta) {
-  return { version: API_VERSION, generatedAt: meta.generatedAt, methodology: meta.methodology, count: items.length, servers: items };
+export function serversDoc(items, methodology) {
+  // `updated` is the newest test date, not the build time, so an unchanged list keeps its ETag across deploys.
+  const updated = items.reduce((m, x) => (x.testedAt > m ? x.testedAt : m), "") || null;
+  return { version: API_VERSION, updated, methodology, count: items.length, servers: items };
 }
 
 /**
@@ -98,14 +101,15 @@ export function serversDoc(items, meta) {
  * runs without breaking the comparison: it says nothing about the grade. The first run of a server is not a change.
  * @param {{ id: string, name: string, linked: boolean, runs: { date: string, version: string, sealmark?: string, status: string, worst?: string, packs: Record<string, string> }[] }[]} histories
  * @param {string} site
- * @param {string} generatedAt
  * @param {number} [limit]
  */
-export function changesDoc(histories, site, generatedAt, limit = CHANGES_LIMIT) {
+export function changesDoc(histories, site, limit = CHANGES_LIMIT) {
   const out = [];
+  let updated = "";
   for (const h of histories) {
     let prev = null;
     for (const r of h.runs) {
+      if (r.date > updated) updated = r.date;
       if (r.status !== "ok" || !r.worst) continue;
       if (prev) {
         const packs = {};
@@ -115,7 +119,7 @@ export function changesDoc(histories, site, generatedAt, limit = CHANGES_LIMIT) 
         if (prev.worst !== r.worst || Object.keys(packs).length) {
           out.push({
             date: r.date, id: h.id, name: h.name, from: prev.worst, to: r.worst, packs,
-            previousVersion: prev.version, version: r.version, sealmark: r.sealmark ?? null,
+            previousVersion: prev.version, version: r.version, previousSealmark: prev.sealmark ?? null, sealmark: r.sealmark ?? null,
             page: h.linked ? site + pagePath(h.id) : null,
           });
         }
@@ -124,7 +128,7 @@ export function changesDoc(histories, site, generatedAt, limit = CHANGES_LIMIT) 
     }
   }
   out.sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
-  return { version: API_VERSION, generatedAt, count: Math.min(out.length, limit), total: out.length, changes: out.slice(0, limit) };
+  return { version: API_VERSION, updated: updated || null, count: Math.min(out.length, limit), total: out.length, changes: out.slice(0, limit) };
 }
 
 const str = { type: "string" };
@@ -174,13 +178,15 @@ export function openapiDoc(site, cliVersion) {
     components: {
       schemas: {
         ServerSummary: summary,
-        ServerList: { type: "object", properties: { version: str, generatedAt: { type: "string", format: "date-time" }, methodology: str, count: { type: "integer" }, servers: { type: "array", items: { $ref: "#/components/schemas/ServerSummary" } } } },
+        ServerList: { type: "object", properties: { version: str, updated: { type: ["string", "null"], format: "date", description: "newest test date in the list" }, methodology: str, count: { type: "integer" }, servers: { type: "array", items: { $ref: "#/components/schemas/ServerSummary" } } } },
         Server: {
           allOf: [{ $ref: "#/components/schemas/ServerSummary" }],
           type: "object",
           properties: {
             sealmark: { type: "object", properties: { version: str, methodology: str } },
-            standard: { type: ["boolean", "null"] }, configHash: str, automated: { type: "boolean" },
+            standard: { type: ["boolean", "null"] }, configHash: { ...strOrNull, description: "null while a security finding is reported privately" }, automated: { type: "boolean" },
+            coverage: { type: ["object", "null"], properties: { level: str, validCalls: { type: "integer" }, toolsCalledValid: { type: "integer" }, toolsTotal: { type: "integer" } } },
+            lastAttempt: { type: ["object", "null"], description: "a later re-test that failed; the grade is from the run before it", properties: { date: str, status: str, kind: str, startKind: str } },
             packDetails: { type: "array", description: "every test area, graded or not, with the reason it was not", items: { type: "object", properties: { id: str, status: str, letter, points: { type: ["number", "null"] }, scored: { type: ["number", "null"] }, pct: { type: ["number", "null"] }, provisional: { type: "boolean" }, capped: { type: "boolean" }, criticalFails: { type: "array", items: str }, reason: strOrNull } } },
             checks: {
               type: "array",
@@ -190,7 +196,7 @@ export function openapiDoc(site, cliVersion) {
                   id: str, pack: str, label: str, critical: { type: "boolean" }, advisory: { type: "boolean" },
                   verdict: { type: "string", enum: ["pass", "part", "fail", "inconclusive", "na"] }, weakSignal: { type: "boolean" },
                   summary: { ...strOrNull, description: "null while a security finding in this test area is reported privately" },
-                  disclosure: { type: ["object", "null"], properties: { status: str, reportedAt: strOrNull, publishAfter: strOrNull } },
+                  disclosure: { type: ["object", "null"], properties: { status: { type: "string", enum: ["private", "held-with-sibling"] }, reportedAt: strOrNull, publishAfter: strOrNull } },
                   docs: { type: "string", format: "uri" },
                 },
               },
@@ -198,14 +204,14 @@ export function openapiDoc(site, cliVersion) {
             notCovered: { type: "array", items: str },
             launch: { ...strOrNull, description: "null while a security finding is reported privately" },
             reproduce: { ...strOrNull, description: "command that repeats the run; null while a security finding is reported privately" },
-            history: { type: "array", items: { type: "object", properties: { date: str, version: str, sealmark: strOrNull, status: { type: "string", enum: ["ok", "failed"] }, grade: letter, packs: { type: "object", additionalProperties: str } } } },
+            history: { type: "array", description: "one run per day (the last that day), oldest first", items: { type: "object", properties: { date: str, version: str, sealmark: strOrNull, status: { type: "string", enum: ["ok", "failed"] }, grade: letter, packs: { type: "object", additionalProperties: str } } } },
           },
         },
         ChangeList: {
           type: "object",
           properties: {
-            version: str, generatedAt: { type: "string", format: "date-time" }, count: { type: "integer" }, total: { type: "integer" },
-            changes: { type: "array", items: { type: "object", properties: { date: str, id: str, name: str, from: letter, to: letter, packs: { type: "object" }, previousVersion: str, version: str, sealmark: strOrNull, page: { type: ["string", "null"] } } } },
+            version: str, updated: { type: ["string", "null"], format: "date", description: "newest run date in the history" }, count: { type: "integer" }, total: { type: "integer" },
+            changes: { type: "array", items: { type: "object", properties: { date: str, id: str, name: str, from: letter, to: letter, packs: { type: "object" }, previousVersion: str, version: str, previousSealmark: strOrNull, sealmark: strOrNull, page: { type: ["string", "null"] } } } },
           },
         },
       },

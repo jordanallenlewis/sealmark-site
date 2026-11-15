@@ -33,15 +33,16 @@ curl -s https://sealmark.dev/data/v1/changes.json | jq '.changes[] | select(.dat
 - `packs` in the list maps each graded test area to its letter. In a server's file, `packDetails` lists every test area with its points, whether a critical fail capped it, and why an area that did not run was not graded.
 - `checks[].verdict` is `pass`, `part`, `fail`, `inconclusive` or `na` ([verdicts](/docs/concepts/verdicts)); `checks[].docs` links to what the check tests.
 - `lastAttemptFailed` is the date of a later re-test that could not finish; the grade shown is from the run before it. `lastAttempt` says why.
-- `history` lists every automated run of that server with its grade; a failed run has no grade and says nothing about the server.
+- `history` lists the automated runs of that server, one per day (the last that day), oldest first; a failed run has no grade and says nothing about the server.
+- `changes[]` names the Sealmark version of both runs (`previousSealmark`, `sealmark`): a change across a Sealmark upgrade can come from Sealmark, not the server.
 - `reproduce` is the command that repeats the run with the same Sealmark version and the standard settings.
 
 ## What the files leave out
 
-The files follow the [disclosure policy](/docs/disclosure) exactly as the pages do. While a security finding on a server is being reported to its maintainer privately, that check's `summary` is `null` with a `disclosure` state, the summaries of the other security checks in the same test area are held back too (`"held-with-sibling"`), and `launch` and `reproduce` are `null`. The verdicts and grades stay.
+The files follow the [disclosure policy](/docs/disclosure) exactly as the pages do. While a security finding on a server is being reported to its maintainer privately, that check's `summary` is `null` and its `disclosure` is `"private"` (with the report and publish dates once it is reported), the summaries of the other security checks in the same test area are held back too (`"held-with-sibling"`), and `launch`, `reproduce` and `configHash` are `null`. The verdicts and grades stay.
 
 The grades are automated re-tests of one version with the default settings, not endorsements and not checked by hand. A server you maintain shows something wrong: say so on its results page.
 
 ## Stability
 
-`v1` in the path is the version of these files. A field may be added within `v1`; a field is never renamed or removed without a new path, and the old path keeps working for at least 90 days after the new one appears. Files are served with an `ETag`, so a client that sends `If-None-Match` gets a `304` when nothing changed.
+`v1` in the path is the version of these files. New fields may appear within `v1`; renaming or removing one means a new path. `updated` in the list and the changes is the newest test or run date, not the deploy time, so a file whose data did not change keeps its `ETag`, and a client that sends `If-None-Match` gets a `304`. Browsers can read the `ETag` from another origin and revalidate from their own cache.
