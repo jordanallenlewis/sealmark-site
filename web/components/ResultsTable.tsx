@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Pagination } from "@/components/Pagination";
 import { Seal } from "@/components/Seal";
-import { PACK_LABEL, RANK, coverageWord, deepPacks, ecosystemLabel, gradedPacks, worst, type Letter, type ServerResult } from "@/lib/results-shared";
+import { PACK_LABEL, RANK, coverageWord, deepPacks, ecosystemLabel, gradedPacks, worst, type Letter, type ListRow } from "@/lib/results-shared";
 import { retestShort } from "@/lib/retest.mjs";
 import s from "@/app/results/results.module.css";
 
@@ -17,7 +17,7 @@ const PAGE_SIZE = 25;
 // The results table with search, a filter and sort. Rows are plain links, so it works without the interactions too.
 // Search, filter and sort live in the query string (?q=&filter=&sort=, defaults omitted): read once after hydration,
 // written with replaceState (the page too, as ?page=, 25 servers a page, omitted on page 1), so a filtered view can be shared and survives a reload without a history entry per key.
-export function ResultsTable({ servers }: { servers: ServerResult[] }) {
+export function ResultsTable({ servers }: { servers: ListRow[] }) {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("best");
