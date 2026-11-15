@@ -14,6 +14,7 @@
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
 import { canPlan, launchChanged } from "./overrides.mjs";
+import { registryLaunch, failedKey, failedKeys, usablePackage, packageId, knownPackage } from "./registry-args.mjs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
 const MAX_NEW = process.env.MAX_NEW ? Number(process.env.MAX_NEW) : 10;
@@ -133,24 +134,13 @@ async function githubLaunch(repo, sub) {
 // GitHub owner per run, so one publisher's family cannot take them all either.
 const PER_PUBLISHER = process.env.PER_PUBLISHER ? Number(process.env.PER_PUBLISHER) : 3;
 
+// Keys (fleet/registry-args.mjs failedKey) of every try that failed: same server, version and registry arguments.
 function failedBefore() {
-  const out = new Set();
-  let text = "";
   try {
-    text = readFileSync("fleet/history.jsonl", "utf8");
+    return failedKeys(readFileSync("fleet/history.jsonl", "utf8"));
   } catch {
-    return out;
+    return new Set();
   }
-  for (const line of text.split(/\r?\n/)) {
-    if (!line.trim()) continue;
-    try {
-      const r = JSON.parse(line);
-      if (r.status === "failed" && r.id) out.add(r.id + "@" + (r.version ?? ""));
-    } catch {
-      // skip a bad line
-    }
-  }
-  return out;
 }
 
 function publisher(name) {
@@ -200,23 +190,6 @@ function probe(repo, sub) {
   return probed.get(key);
 }
 
-// The npm or PyPI stdio package a registry entry can be started from with no required settings, and whether it
-// lists a package of another kind.
-function usablePackage(server) {
-  let hasOtherPkg = false;
-  for (const p of server.packages ?? []) {
-    if (p.registryType !== "npm" && p.registryType !== "pypi") {
-      hasOtherPkg = true;
-      continue;
-    }
-    if (p.transport?.type !== "stdio") continue;
-    if ((p.environmentVariables ?? []).some((e) => e.isRequired === true)) continue;
-    if ((p.packageArguments ?? []).some((a) => a.isRequired === true)) continue;
-    return { pkg: p, hasOtherPkg };
-  }
-  return { pkg: null, hasOtherPkg };
-}
-
 const repoId = (repo) =>
   repo
     .toLowerCase()
@@ -258,26 +231,23 @@ async function discover(knownIds, maxNew) {
     }
     for (const item of latest) {
       const server = item.server;
-      const { pkg, hasOtherPkg } = usablePackage(server);
+      const { pkg, args, hasOtherPkg } = usablePackage(server);
       if (pkg) {
         if (EXCLUDE && EXCLUDE.test(pkg.identifier ?? "")) continue;
-        const id = pkg.identifier
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "");
-        if (!id || knownIds.has(id)) continue;
-        if (failed.has(id + "@" + pkg.version) || !roomFor(pkg.identifier)) continue;
+        const id = packageId(pkg.identifier);
+        // Any of the entry's packages already known: one listing per server, even if another package is picked now.
+        if (!id || knownIds.has(id) || knownPackage(server, knownIds)) continue;
+        // A failed try is repeated at the same version only with different registry arguments.
+        if (failed.has(failedKey(id, pkg.version, args)) || !roomFor(pkg.identifier)) continue;
         knownIds.add(id);
         take(pkg.identifier);
         found.push({
           id,
           name: pkg.identifier,
           ecosystem: pkg.registryType,
-          launch:
-            pkg.registryType === "npm"
-              ? "npx -y " + pkg.identifier + "@" + pkg.version
-              : "uvx " + pkg.identifier + "==" + pkg.version,
+          launch: registryLaunch(pkg.registryType, pkg.identifier, pkg.version, args),
           version: pkg.version,
+          ...(args.length ? { args } : {}),
           isNew: true,
         });
         if (found.length >= maxNew) break;
@@ -294,7 +264,7 @@ async function discover(knownIds, maxNew) {
       probes++;
       const { launch, version: ghVersion } = await probe(repo, server.repository?.subfolder);
       if (!launch) continue;
-      if (failed.has(id + "@" + (ghVersion ?? ""))) continue;
+      if (failed.has(failedKey(id, ghVersion, []))) continue;
       knownIds.add(id);
       take(repo);
       found.push({
@@ -342,7 +312,7 @@ async function discoverTopics(knownIds, maxNew) {
       probes++;
       const { launch, version: ghVersion } = await probe(repo, null);
       if (!launch) continue;
-      if (failed.has(id + "@" + (ghVersion ?? ""))) continue;
+      if (failed.has(failedKey(id, ghVersion, []))) continue;
       knownIds.add(id);
       found.push({ id, name: repo, ecosystem: "github", launch, version: ghVersion, isNew: true });
     }
