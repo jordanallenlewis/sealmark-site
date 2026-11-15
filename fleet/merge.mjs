@@ -5,6 +5,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { recordFailedAttempt } from "../web/lib/retest.mjs";
+import { writeNotGraded } from "./not-graded.mjs";
 
 const RESULTS = path.join("web", "content", "data", "server-results.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
@@ -183,4 +184,6 @@ for (const name of subfolders) {
 
 fs.writeFileSync(RESULTS, JSON.stringify(results, null, 2) + "\n");
 fs.writeFileSync(DISCOVERED, JSON.stringify(discovered, null, 2) + "\n");
-console.log(`merged ${merged} report(s), ${failed} failed, ${added} new`);
+// The "Not graded yet" list on /results/ (fleet/not-graded.mjs), from the history and results just written.
+const notGraded = writeNotGraded();
+console.log(`merged ${merged} report(s), ${failed} failed, ${added} new, ${notGraded.count} not graded yet`);

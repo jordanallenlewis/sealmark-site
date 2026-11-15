@@ -167,6 +167,24 @@ test("merge.mjs: a start failure marks the graded entry, a new server that fails
   }
 });
 
+test("merge.mjs: writes fleet/not-graded.json with new servers that failed, typed, without their error text", () => {
+  const dir = scratch([graded()]);
+  try {
+    report(dir, "a", { id: "postgres-mcp", version: "0.3.0", ecosystem: "pypi" }, { status: "failed", error: "Connection closed" });
+    report(dir, "b", { id: "brand-new", version: "1.0.0", ecosystem: "npm", isNew: true }, {
+      status: "failed", error: "Connection closed (server stderr: secret-text-here)", startFailure: { kind: "needs-credentials", advice: "x" },
+    });
+    const days = merge(dir);
+    const out = JSON.parse(fs.readFileSync(path.join(dir, "fleet", "not-graded.json"), "utf8"));
+    assert.equal(out.count, 1);
+    assert.deepEqual({ ...out.servers[0], lastTried: null }, { id: "brand-new", version: "1.0.0", lastTried: null, attempts: 1, reason: "needs-credentials" });
+    assert.ok(days.includes(out.servers[0].lastTried));
+    assert.ok(!JSON.stringify(out).includes("secret-text-here"));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("merge.mjs: a graded server whose re-test left no report is marked too", () => {
   const dir = scratch([graded()]);
   try {
