@@ -10,6 +10,9 @@ export type ServerResult = {
   sealmark: { version: string; methodology: string }; standard: boolean | null; configHash: string; launch: string; transport: string; toolCount: number;
   /** Tool names the server declared in this run (fleet/check-tools.mjs); absent until the fleet re-tests it. */
   tools?: string[];
+  /** Each tool's input schema as a 12-character hash, and the hashes of the last graded run on an earlier day (fleet/check-tools.mjs). */
+  toolSchemas?: Record<string, string>;
+  toolSchemasBefore?: { date: string; schemas: Record<string, string> };
   packs: PackResult[]; checks: CheckResult[];
   coverage?: { level: string; validCalls: number; toolsCalledValid: number; toolsTotal: number } | null;
   badge?: { eligible: boolean; reason?: string } | null;

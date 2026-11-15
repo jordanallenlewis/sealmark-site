@@ -61,3 +61,43 @@ export function serverTools(server, checks) {
   if (!server || !Array.isArray(server.tools) || (checks && hasFinding({ checks }))) return undefined;
   return names(server.tools.map((t) => (t && typeof t === "object" ? t.name : t))).slice(0, MAX_TOOLS);
 }
+
+const HASH = /^[0-9a-f]{12,}$/;
+
+/**
+ * Tool schema drift (site#54): each declared tool's input schema, as the first 12 hex characters of the CLI's
+ * `inputSchemaHash` (sha256 of the schema's canonical JSON, from the report's `server.surface`). Only a hash: never the
+ * schema, the description or any other server text. Same rule as serverTools: nothing for a server with a security finding,
+ * and nothing at all when any tool cannot be kept (unplain name, bad hash, repeat, over MAX_TOOLS).
+ * @param {{ surface?: unknown } | undefined} server @param {object[]} [checks] the report's checks
+ * @returns {Record<string, string> | undefined}
+ */
+export function toolSchemas(server, checks) {
+  if (!server || !Array.isArray(server.surface) || (checks && hasFinding({ checks }))) return undefined;
+  // All or nothing: a dropped, repeated or capped tool would read as "added" or "no longer listed" on the next run.
+  if (server.surface.length > MAX_TOOLS) return undefined;
+  if (Array.isArray(server.tools) && server.tools.length !== server.surface.length) return undefined;
+  const out = {};
+  for (const t of server.surface) {
+    const name = t && typeof t === "object" ? t.name : undefined;
+    const hash = t && typeof t === "object" ? t.inputSchemaHash : undefined;
+    if (name === "__proto__" || names([name]).length !== 1 || typeof hash !== "string" || !HASH.test(hash)) return undefined;
+    if (Object.prototype.hasOwnProperty.call(out, name)) return undefined;
+    out[name] = hash.slice(0, 12);
+  }
+  return out;
+}
+
+/**
+ * The schema hashes of the last graded run on an earlier date than `testedAt`, kept on the new entry as its baseline.
+ * The entry being replaced is the last graded run: from an earlier day, its hashes are the baseline; from the same day,
+ * the baseline it carried is kept (the page compares with the previous day's run, as fleet/history.jsonl does).
+ * @param {{ testedAt?: string, toolSchemas?: Record<string, string>, toolSchemasBefore?: { date: string, schemas: Record<string, string> } } | undefined} old
+ * @param {string} testedAt
+ */
+export function schemasBefore(old, testedAt) {
+  if (!old || typeof old.testedAt !== "string") return undefined;
+  if (old.testedAt < testedAt) return old.toolSchemas ? { date: old.testedAt, schemas: old.toolSchemas } : undefined;
+  if (old.testedAt === testedAt) return old.toolSchemasBefore ?? undefined;
+  return undefined;
+}
