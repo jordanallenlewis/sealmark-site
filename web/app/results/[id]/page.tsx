@@ -9,7 +9,8 @@ import { PACK_LABEL, SERVERS_RESULTS, VERDICTS_CHECKED, deepPacks, ecosystemLabe
 import { count, coverageNote, placeholdersIn, plainWords, reproduceCommand, sentence } from "@/lib/results-copy.mjs";
 import registry from "@/content/generated/checks.json";
 import { GradeHistory } from "@/components/GradeHistory";
-import { historyFor } from "@/lib/history";
+import { historyFor, toolCountsFor } from "@/lib/history";
+import { changeSinceLast, type Change, type ChangeItem } from "@/lib/changes.mjs";
 import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import { NotifyForm } from "../NotifyForm";
@@ -96,6 +97,37 @@ function CheckRow({ c, priv, held }: { c: CheckResult; priv: Disclosure | undefi
   );
 }
 
+// "Since the last run" (site#54): the run this page shows against the graded run before it. Facts from the history only;
+// it never says why something moved. Fewer tools can be a listing problem in the run, so a drop is never called a server change.
+function changeText(i: ChangeItem) {
+  switch (i.kind) {
+    case "grade": return <><b>{label(i.pack)}</b> grade went {i.dir} from {i.from} to {i.to}.</>;
+    case "new": return <><b>{label(i.pack)}</b> was graded in this run ({i.to}) but not in the one before.</>;
+    case "gone": return <><b>{label(i.pack)}</b> was not graded in this run (it was {i.from} before).</>;
+    case "version": return <>Server version changed from {i.from} to {i.to}.</>;
+    case "sealmark": return <>Sealmark changed from {i.from} to {i.to}.</>;
+    case "tools": return i.dir === "up"
+      ? <>The server listed {i.to} tools, {i.to - i.from} more than before ({i.from}).</>
+      : <>This run saw {i.to} tools, {i.from - i.to} fewer than before ({i.from}). A drop can come from how the run read the tool list, so it is not proof the server removed tools.</>;
+  }
+}
+
+function SinceLast({ c }: { c: Change }) {
+  const same = [
+    !c.gradeChanged && "the same grade in every test area",
+    !c.items.some((i) => i.kind === "version") && c.from.version && c.to.version && `the same server version (${c.to.version})`,
+    !c.items.some((i) => i.kind === "sealmark") && c.from.sealmark && c.to.sealmark && `the same Sealmark version (${c.to.sealmark})`,
+  ].filter(Boolean) as string[];
+  return (
+    <div className={s.since}>
+      <h3>Since the run on <time dateTime={c.from.date}>{c.from.date}</time></h3>
+      {c.items.length > 0 && <ul>{c.items.map((i, n) => <li key={n} data-dir={i.kind === "grade" ? i.dir : undefined}>{changeText(i)}</li>)}</ul>}
+      {same.length > 0 && <p>{c.items.length > 0 ? "Unchanged: " : "Nothing changed: "}{same.join(", ")}.</p>}
+      {c.failedBetween > 0 && <p>The server did not start in {count(c.failedBetween, "re-test", "re-tests")} in between, which says nothing about its grade.</p>}
+    </div>
+  );
+}
+
 export default async function ServerPage({ params }: P) {
   const { id } = await params;
   const x = SERVERS_RESULTS.find((v) => v.id === id);
@@ -111,6 +143,7 @@ export default async function ServerPage({ params }: P) {
   const prev = SERVERS_RESULTS[idx - 1];
   const next = SERVERS_RESULTS[idx + 1];
   const hist = historyFor(x.id);
+  const since = hist ? changeSinceLast(hist.runs, x.testedAt, toolCountsFor(x.id)) : null;
   const holes = placeholdersIn(x.launch);
   const packHasPrivate = (pid: string) => x.checks.some((c) => c.pack === pid && priv.has(c.id));
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));
@@ -192,6 +225,7 @@ export default async function ServerPage({ params }: P) {
         {hist && hist.runs.length > 1 && (
           <section className={s.sec}>
             <h2>Grade over time</h2>
+            {since && <SinceLast c={since} />}
             <GradeHistory runs={hist.runs} label={x.name} />
             <p className={s.histLink}><Link href={`/results/history/#${x.id}`}>All servers over time</Link></p>
           </section>

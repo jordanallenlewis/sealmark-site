@@ -3,6 +3,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { SERVERS_RESULTS, type Letter } from "@/lib/results";
+import { toolCountsFrom } from "@/lib/changes.mjs";
 
 export type Run = { date: string; version: string; sealmark?: string; status: "ok" | "failed"; worst?: Letter; packs: Record<string, Letter> };
 export type ServerHistory = { id: string; name: string; linked: boolean; runs: Run[] };
@@ -29,3 +30,10 @@ export function loadHistory(): ServerHistory[] {
 }
 
 export const historyFor = (id: string) => loadHistory().find((h) => h.id === id);
+
+// Tool counts per graded run, from fleet/telemetry.jsonl (history.jsonl does not record them). Read once per build.
+let telemetry: string | undefined;
+export function toolCountsFor(id: string): Record<string, number> {
+  telemetry ??= readFileSync(resolve(process.cwd(), "..", "fleet", "telemetry.jsonl"), "utf8");
+  return toolCountsFrom(telemetry, id);
+}
