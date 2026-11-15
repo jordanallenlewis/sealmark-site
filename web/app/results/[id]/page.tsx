@@ -10,12 +10,13 @@ import { count, coverageNote, placeholdersIn, plainWords, reproduceCommand, sent
 import registry from "@/content/generated/checks.json";
 import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor } from "@/lib/history";
-import { ORIGIN, PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
+import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import { NotifyForm } from "../NotifyForm";
 import { CopyButton } from "@/components/CopyButton";
 import { retestNote } from "@/lib/retest.mjs";
 import s from "../results.module.css";
+import { BadgeSnippets } from "@/components/BadgeSnippets";
 
 export const dynamicParams = false;
 // With no published results, export one placeholder route; the page answers it with notFound().
@@ -113,7 +114,6 @@ export default async function ServerPage({ params }: P) {
   const holes = placeholdersIn(x.launch);
   const packHasPrivate = (pid: string) => x.checks.some((c) => c.pack === pid && priv.has(c.id));
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));
-  const badgeMd = `[![Sealmark](${ORIGIN}/badge/${x.id}.svg)](${ORIGIN}/results/${x.id}/)`;
   const repro = reproduceCommand(x.sealmark.version, x.launch);
 
   return (
@@ -201,10 +201,7 @@ export default async function ServerPage({ params }: P) {
           <section className={s.sec} aria-labelledby="badge-h">
             <h2 id="badge-h">Badge for the README</h2>
             <p>The badge shows this automated result for version {x.versionTested}. It is a link to this page, not a certificate, and it changes when the next re-test does.</p>
-            <div className={`ibox ${s.cmd}`}>
-              <pre tabIndex={0} aria-label="Badge Markdown">{badgeMd}</pre>
-              <CopyButton text={badgeMd} />
-            </div>
+            <BadgeSnippets id={x.id} name={x.name} />
           </section>
         )}
 
