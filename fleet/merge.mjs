@@ -7,6 +7,10 @@ import path from "node:path";
 import { recordFailedAttempt } from "../web/lib/retest.mjs";
 import { writeNotGraded } from "./not-graded.mjs";
 import { recordArgs } from "./registry-args.mjs";
+import { checkTools, serverTools } from "./check-tools.mjs";
+
+/** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
+const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
 
 const RESULTS = path.join("web", "content", "data", "server-results.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
@@ -123,6 +127,8 @@ for (const name of subfolders) {
     launch: meta.launch,
     transport: r.server?.transport ?? null,
     toolCount: (r.server?.tools ?? []).length,
+    // The tool names the server declared in this run (the per-tool table's rows).
+    ...withKey("tools", serverTools(r.server)),
     packs: Object.entries(r.packs ?? {}).map(([id, p]) => ({
       id: id,
       status: p.status,
@@ -143,6 +149,8 @@ for (const name of subfolders) {
       advisory: !!c.advisory,
       verdict: c.verdict,
       summary: c.summary,
+      // The tools this check called, for per-tool verdicts; public checks only (fleet/check-tools.mjs).
+      ...withKey("tools", checkTools(c)),
     })),
     coverage: r.coverage ?? null,
     badge: r.badge ?? null,
