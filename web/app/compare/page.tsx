@@ -3,8 +3,10 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import s from "../results/results.module.css";
+import { CLI_VERSION } from "@/lib/seo";
+import { OTHER_GRADERS } from "@/lib/compare.mjs";
 
-const DESC = "An honest comparison of Sealmark with the MCP Inspector, the official MCP conformance framework, MCP security scanners (Snyk Agent Scan, Cisco mcp-scanner) and MCPJam: what each one checks, and when to use which.";
+const DESC = "An honest comparison of Sealmark with the MCP Inspector, the official MCP conformance framework, MCP security scanners (Snyk Agent Scan, Cisco mcp-scanner), MCPJam and other MCP graders such as Glama: what each one checks, and when to use which.";
 export const metadata: Metadata = { title: "Sealmark compared with other MCP testing tools", description: DESC, alternates: { canonical: "/compare/" } };
 
 const CHECKED = "2026-11-10";
@@ -38,6 +40,12 @@ export default function Page() {
           <li><b>Cisco AI Defense mcp-scanner</b>: scans tools, prompts and resources with YARA rules, an LLM judge and Cisco&apos;s API, and can scan a server&apos;s source code and its Python dependencies for known vulnerabilities. Pick it for supply-chain and source checks, which Sealmark does not do.</li>
           <li><b>MCPJam</b>: an inspector and evaluation platform that runs your server with real models across many clients and scores agent behavior, with CI runs. Pick it to learn whether models use your tools well; Sealmark has no model in the loop, so the same server and settings always get the same grade.</li>
         </ul>
+        <h2 className={s.packhead}>Other graders</h2>
+        <p>Several tools now give an MCP server a letter grade. Most grade protocol compliance, what a server declares, or how its tools are described. A Sealmark grade comes from what tool calls changed outside the reply (database rows, files, outbound requests, processes), and its public results are re-tested on a schedule, so the same server can earn different grades from different tools without either being wrong.</p>
+        <ul>
+          {OTHER_GRADERS.map((g) => (<li key={g.name}><b><a href={g.url} rel="noopener">{g.name}</a></b>: {g.what}{g.name === "Glama" ? <> <Link href="/compare/glama/">Sealmark and Glama side by side</Link>.</> : null}</li>))}
+        </ul>
+        <p className={s.muted}>Read from each tool&apos;s own page on {OTHER_GRADERS[0].checked}.</p>
         <h2 className={s.packhead}>When to pick which</h2>
         <ul>
           <li><b>You are building a server and want to see requests:</b> the Inspector.</li>
@@ -48,11 +56,11 @@ export default function Page() {
         <ul>
           <li>It does not replace the official protocol suite, and it is not run by the MCP project.</li>
           <li>Its grades are for one version and one configuration; a server it could not start has no grade.</li>
-          <li>It is young: version 1.0.0, one maintainer.</li>
+          <li>It is young (version {CLI_VERSION}), and its public results cover far fewer servers than the large registries list.</li>
           <li>It does not look at source code, dependencies or known vulnerabilities, and it cannot see prompt injection carried in tool output (that needs a model to read the output).</li>
           <li>It has no interactive UI and no machine-wide scan of every installed server.</li>
         </ul>
-        <p className={s.muted}>Sources, checked {CHECKED} from each project&apos;s public repository: <a href="https://github.com/modelcontextprotocol/inspector" rel="noopener">modelcontextprotocol/inspector</a>, <a href="https://github.com/modelcontextprotocol/conformance" rel="noopener">modelcontextprotocol/conformance</a>, <a href="https://github.com/snyk/agent-scan" rel="noopener">snyk/agent-scan</a>, <a href="https://github.com/cisco-ai-defense/mcp-scanner" rel="noopener">cisco-ai-defense/mcp-scanner</a>, <a href="https://github.com/MCPJam/inspector" rel="noopener">MCPJam/inspector</a>. Other tools exist; this page lists the most relevant. Something wrong? Email the maintainer from the footer and it gets fixed.</p>
+        <p className={s.muted}>Sources, checked {CHECKED} from each project&apos;s public repository: <a href="https://github.com/modelcontextprotocol/inspector" rel="noopener">modelcontextprotocol/inspector</a>, <a href="https://github.com/modelcontextprotocol/conformance" rel="noopener">modelcontextprotocol/conformance</a>, <a href="https://github.com/snyk/agent-scan" rel="noopener">snyk/agent-scan</a>, <a href="https://github.com/cisco-ai-defense/mcp-scanner" rel="noopener">cisco-ai-defense/mcp-scanner</a>, <a href="https://github.com/MCPJam/inspector" rel="noopener">MCPJam/inspector</a>. Other tools exist; this page lists the most relevant. Something wrong? Email us from the footer and we will fix it.</p>
         <p><Link href="/mcp-conformance-testing/">What is MCP conformance testing?</Link> · <Link href="/results/">Graded servers</Link></p>
       </main>
       <Footer />
