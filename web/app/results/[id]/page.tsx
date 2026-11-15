@@ -11,6 +11,7 @@ import registry from "@/content/generated/checks.json";
 import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor, toolCountsFor } from "@/lib/history";
 import { changeSinceLast, type Change, type ChangeItem } from "@/lib/changes.mjs";
+import { toolVerdicts, type ToolRow } from "@/lib/tool-verdicts.mjs";
 import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
 import { NotifyForm } from "../NotifyForm";
@@ -128,6 +129,33 @@ function SinceLast({ c }: { c: Change }) {
   );
 }
 
+// "By tool" (site#54): which public checks called each tool with a valid call, with that check's verdict. A check's
+// verdict is for the whole check, so the page never turns it into a grade for one tool. No row for a server with a
+// security finding or a held check (lib/tool-verdicts.mjs).
+function checkLink(id: string) {
+  return DOCUMENTED.has(id) ? <Link href={`/docs/reference/checks/${id}/`}>{id}</Link> : <>{id}</>;
+}
+
+function ToolRowView({ r }: { r: ToolRow }) {
+  return (
+    <tr>
+      <td className={s.id}>{r.tool}</td>
+      <td data-label="Called by">
+        {r.called.length === 0 ? <span className={s.muted}>No check listed here called it with a valid call.</span> : (
+          <ul className={s.toolChecks}>
+            {r.called.map((c) => <li key={c.id}>{checkLink(c.id)} <span className={clsx("chip", `c-${c.verdict}`)}>{WORD[c.verdict as Verdict] ?? c.verdict}</span></li>)}
+          </ul>
+        )}
+      </td>
+      <td data-label="Could not call">
+        {r.notCalled.length === 0 ? <span className={s.muted}>None</span> : (
+          <ul className={s.toolChecks}>{r.notCalled.map((c) => <li key={c.id}>{checkLink(c.id)}</li>)}</ul>
+        )}
+      </td>
+    </tr>
+  );
+}
+
 export default async function ServerPage({ params }: P) {
   const { id } = await params;
   const x = SERVERS_RESULTS.find((v) => v.id === id);
@@ -148,6 +176,7 @@ export default async function ServerPage({ params }: P) {
   const packHasPrivate = (pid: string) => x.checks.some((c) => c.pack === pid && priv.has(c.id));
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));
   const repro = reproduceCommand(x.sealmark.version, x.launch);
+  const byTool = noTools ? null : toolVerdicts(x, priv);
 
   return (
     <>
@@ -211,6 +240,21 @@ export default async function ServerPage({ params }: P) {
           </section>
         ))}
         <p className={s.muted} style={{ marginTop: 10 }}>Each check id links to what it tests and how to fix a failure. The same text is in <code>sealmark explain &lt;id&gt;</code>.</p>
+
+        {byTool && (
+          <section className={s.sec} aria-labelledby="tools-h">
+            <h2 id="tools-h">By tool</h2>
+            <p>Which checks called each tool with a valid call in this run, and which could not call it. A verdict belongs to the whole check, not to one tool: a failed check that called three tools does not say which one failed. Security checks are left out of this table.</p>
+            {byTool.cut && <p className={s.muted}>This server has more tools than the run kept names for, so some are missing here.</p>}
+            <div className={clsx(s.tw, s.twChecks)} tabIndex={0} role="region" aria-labelledby="tools-h">
+              <table className={clsx(s.checks, s.evidence, s.byTool)}>
+                <colgroup><col className={s.colCheck} /><col /><col /></colgroup>
+                <thead><tr><th scope="col">Tool</th><th scope="col">Called by</th><th scope="col">Could not call</th></tr></thead>
+                <tbody>{byTool.rows.map((r) => <ToolRowView key={r.tool} r={r} />)}</tbody>
+              </table>
+            </div>
+          </section>
+        )}
 
         {(notGraded.length > 0 || x.notCovered.length > 0) && (
           <section className={s.sec}>

@@ -2,10 +2,14 @@
 export type Verdict = "pass" | "part" | "fail" | "inconclusive" | "na";
 export type Letter = "A" | "B" | "C" | "D" | "F";
 export type PackResult = { id: string; status: string; letter: Letter | null; points: number | null; scored: number | null; pct: number | null; provisional: boolean; capped: boolean; criticalFails: string[]; reason?: string | null };
-export type CheckResult = { id: string; pack: string; label: string; critical: boolean; advisory: boolean; verdict: Verdict; summary: string };
+export type CheckResult = { id: string; pack: string; label: string; critical: boolean; advisory: boolean; verdict: Verdict; summary: string;
+  /** Tools this check called with a valid call, and the ones it could not (fleet/check-tools.mjs; public checks only). */
+  tools?: { probed: string[]; notCovered: string[]; cut?: number } };
 export type ServerResult = {
   id: string; name: string; ecosystem: "npm" | "pypi" | "github"; versionTested: string; testedAt: string;
   sealmark: { version: string; methodology: string }; standard: boolean | null; configHash: string; launch: string; transport: string; toolCount: number;
+  /** Tool names the server declared in this run (fleet/check-tools.mjs); absent until the fleet re-tests it. */
+  tools?: string[];
   packs: PackResult[]; checks: CheckResult[];
   coverage?: { level: string; validCalls: number; toolsCalledValid: number; toolsTotal: number } | null;
   badge?: { eligible: boolean; reason?: string } | null;
