@@ -18,7 +18,7 @@ export function NotGraded() {
       <h2 id="not-graded-h">Not graded yet: {LIST.count} servers</h2>
       <p>
         The fleet also tried these servers and got no grade. It starts each one with a default launch command (the package run with npx or uvx,
-        or the start command its repository gives), the standard settings and no secrets, so many of these are limits of that default run, not
+        plus any fixed arguments its MCP Registry entry lists, or the start command its repository gives), the standard settings and no secrets, so many of these are limits of that default run, not
         problems with the server. This is not a grade and says nothing about what the servers do. Each one leaves the list as soon as a run grades it.
         See <Link href="/docs/concepts/grades/#not-graded-yet">what &ldquo;not graded yet&rdquo; means</Link>.
       </p>
@@ -50,7 +50,7 @@ export function NotGraded() {
           </table>
         </div>
       </details>
-      <p className={s.muted}>Maintainers: if your server needs an argument or a setting to start, email <a href="mailto:disclosure@sealmark.dev">disclosure@sealmark.dev</a>.</p>
+      <p className={s.muted}>Maintainers: if your server needs a setting to start, or an argument your registry entry does not list with a fixed value, email <a href="mailto:disclosure@sealmark.dev">disclosure@sealmark.dev</a>.</p>
     </section>
   );
 }

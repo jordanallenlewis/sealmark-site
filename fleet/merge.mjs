@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { recordFailedAttempt } from "../web/lib/retest.mjs";
 import { writeNotGraded } from "./not-graded.mjs";
+import { recordArgs } from "./registry-args.mjs";
 
 const RESULTS = path.join("web", "content", "data", "server-results.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
@@ -90,6 +91,9 @@ for (const name of subfolders) {
     appendHistory({
       id: meta.id,
       version: meta.version,
+      // The registry arguments this try was started with: plan.mjs tries a server again at the same version only with
+      // different arguments (fleet/registry-args.mjs failedKey).
+      ...recordArgs(meta),
       testedAt: today,
       status: "failed",
       error: report?.error ?? "no report",
