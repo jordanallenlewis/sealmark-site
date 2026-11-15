@@ -65,6 +65,7 @@ ${DOCS.map((p) => `- ${canonical(p)}`).join("\n")}
 ## Results
 - [Graded MCP servers (${SERVER_COUNT} so far)](${canonical("/results/")}): one page per server with every check and its evidence. Grades are automated re-tests of one version with the default settings, not endorsements.
 - [Grade history](${canonical("/results/history/")})
+- [Results as JSON](${ORIGIN}/data/v1/servers.json): every graded server; one server at ${ORIGIN}/data/v1/servers/<id>.json, grade changes at ${ORIGIN}/data/v1/changes.json, OpenAPI 3.1 at ${ORIGIN}/data/v1/openapi.json. No key. Fields: ${canonical("/docs/guides/results-data")}
 
 ## Guides
 - [What is MCP conformance testing?](${canonical("/mcp-conformance-testing/")})
