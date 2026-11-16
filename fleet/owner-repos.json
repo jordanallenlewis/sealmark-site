@@ -900,6 +900,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "rechtssysteem-ai-rechtssysteem-mcp": {
+    "repo": "rechtssysteem-ai/rechtssysteem-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-16"
+  },
   "recordist-gateway": {
     "repo": "recordist-app/gateway",
     "source": "npm",

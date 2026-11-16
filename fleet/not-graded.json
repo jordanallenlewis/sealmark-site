@@ -1,14 +1,35 @@
 {
   "count": 144,
   "byReason": {
-    "unknown": 104,
+    "missing-runtime": 4,
+    "initialize-timeout": 11,
+    "unknown": 102,
     "dependency-resolution": 14,
-    "missing-runtime": 2,
     "bad-launch": 5,
-    "needs-credentials": 8,
-    "initialize-timeout": 11
+    "needs-credentials": 8
   },
   "servers": [
+    {
+      "id": "apify-apify-mcp-server",
+      "version": "0.21.11",
+      "lastTried": "2026-11-16",
+      "attempts": 7,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ato-mcp",
+      "version": "2.3.1",
+      "lastTried": "2026-11-16",
+      "attempts": 2,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.24.81",
+      "lastTried": "2026-11-16",
+      "attempts": 19,
+      "reason": "missing-runtime"
+    },
     {
       "id": "dinglebear-soma",
       "version": "0.10.0",
@@ -24,11 +45,25 @@
       "reason": "unknown"
     },
     {
+      "id": "samanhappy-mcphub",
+      "version": "1.2.5",
+      "lastTried": "2026-11-16",
+      "attempts": 4,
+      "reason": "initialize-timeout"
+    },
+    {
       "id": "vitali87-code-graph-rag",
       "version": "0.6.62",
       "lastTried": "2026-11-16",
       "attempts": 2,
       "reason": "unknown"
+    },
+    {
+      "id": "vmoranv-jshookmcp",
+      "version": "release-0.4.6",
+      "lastTried": "2026-11-16",
+      "attempts": 2,
+      "reason": "missing-runtime"
     },
     {
       "id": "54yyyu-zotero-mcp",
@@ -50,13 +85,6 @@
       "lastTried": "2026-11-15",
       "attempts": 2,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "chrisryugj-kordoc",
-      "version": "4.24.80",
-      "lastTried": "2026-11-15",
-      "attempts": 18,
-      "reason": "missing-runtime"
     },
     {
       "id": "cortex-rmcp",
@@ -171,13 +199,6 @@
       "reason": "bad-launch"
     },
     {
-      "id": "apify-apify-mcp-server",
-      "version": "0.21.10",
-      "lastTried": "2026-11-14",
-      "attempts": 6,
-      "reason": "unknown"
-    },
-    {
       "id": "jerbouma-financetoolkit",
       "version": "2.3.4",
       "lastTried": "2026-11-14",
@@ -189,13 +210,6 @@
       "version": "3.77.1",
       "lastTried": "2026-11-14",
       "attempts": 6,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "samanhappy-mcphub",
-      "version": "1.2.4",
-      "lastTried": "2026-11-14",
-      "attempts": 3,
       "reason": "initialize-timeout"
     },
     {
@@ -404,13 +418,6 @@
     {
       "id": "ankimcp-anki-mcp-server",
       "version": "0.27.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "ato-mcp",
-      "version": "2.3.0",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "initialize-timeout"
@@ -971,13 +978,6 @@
     {
       "id": "vargai-mcp",
       "version": "0.9.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "unknown"
-    },
-    {
-      "id": "vmoranv-jshookmcp",
-      "version": "0.4.3",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "unknown"

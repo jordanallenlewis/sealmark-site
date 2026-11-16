@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-11-16",
   "total": {
-    "trackedWithGrade": 258,
+    "trackedWithGrade": 259,
     "everFailedOnly": 144
   },
   "byVersion": [
@@ -9,7 +9,7 @@
       "version": "pre-1.0 (unrecorded)",
       "servers": 220,
       "graded": 214,
-      "failed": 414,
+      "failed": 420,
       "letters": {
         "B": 33,
         "A": 106,
@@ -48,12 +48,12 @@
     },
     {
       "version": "1.0.1",
-      "servers": 257,
-      "graded": 501,
+      "servers": 258,
+      "graded": 510,
       "failed": 0,
       "letters": {
-        "B": 135,
-        "A": 306,
+        "B": 139,
+        "A": 311,
         "C": 4,
         "D": 35,
         "F": 21
