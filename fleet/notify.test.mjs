@@ -564,6 +564,19 @@ test("main: writes the public owner status: no reply, then a maintainer reply an
   assert.ok(!second.files.get(FILES.status).includes("amy"));
 });
 
+test("main: an issue lookup that errors (5xx) never stops opt-out handling", async () => {
+  const servers = [at("a", "o1/a")];
+  const ledger = { issues: [{ channel: "issue", id: "a", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", at: "2026-11-11", author: "sealmark-bot", letter: "B", failing: [], named: [] }], emails: [] };
+  const comments = { "o1/a": [{ id: 31, user: { login: "amy", type: "User" }, author_association: "OWNER", body: "Please opt us out.", created_at: "2026-11-12T08:00:00Z", html_url: "u" }] };
+  const w = fakeWorld({ servers, ledger, comments });
+  const inner = w.fetchFn;
+  const fetchFn = async (url, init) => (/\/issues\/5$/.test(new URL(url).pathname) ? json({ message: "boom" }, 502) : inner(url, init));
+  const logs = [];
+  await main({ env: {}, argv: [], io: w.io, fetchFn, sleep: async () => {}, now: clock, log: (m) => logs.push(m) });
+  assert.deepEqual(JSON.parse(w.files.get(FILES.optout)).repos, ["o1/a"]);
+  assert.ok(logs.some((l) => /issue state check failed/.test(l)));
+});
+
 test("main: a failed issue lookup keeps the last public status instead of guessing", async () => {
   const servers = [at("a", "o1/a")];
   const ledger = { issues: [{ channel: "issue", id: "a", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", at: "2026-11-11", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] };

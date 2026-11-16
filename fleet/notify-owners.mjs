@@ -319,6 +319,7 @@ export function baseline(entry, issue, at, postedAt = null) {
   return {
     channel: "issue", id: entry.server.id, repo: entry.repo, also: entry.also.map((x) => x.id),
     at, postedAt, version: entry.server.versionTested, letter: letterOf(entry.server), failing: failingChecks(entry.server),
+    named: listedChecks(entry.server).map((c) => c.id), // the checks the issue lists: what the server page measures a fix against
     number: issue?.number ?? null, url: issue?.url ?? null, badgeAtNotice: issue?.badgeAtNotice ?? null,
   };
 }
@@ -723,10 +724,11 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     if (!i.number) continue;
     try {
       const comments = await api(`/repos/${i.repo}/issues/${i.number}/comments?per_page=100`);
-      const issue = await api(`/repos/${i.repo}/issues/${i.number}`);
-      if (i.url && Array.isArray(comments) && issue && !issue.missing) {
-        computed.set(i.url, ownerStatus({ notice: i, issue, comments, server: byId.get(i.id) }));
-      }
+      // its own try: a failed issue lookup must never stop the reply and opt-out handling below
+      try {
+        const issue = await api(`/repos/${i.repo}/issues/${i.number}`);
+        if (i.url && Array.isArray(comments) && issue && !issue.missing) computed.set(i.url, ownerStatus({ notice: i, issue, comments, server: byId.get(i.id) }));
+      } catch (e) { log(`issue state check failed for ${i.repo}: ${e.message}`); }
       const people = Array.isArray(comments) ? comments.filter((c) => !isBot(c.user, i.author)) : [];
       if (people.length && !i.repliedAt) i.repliedAt = people[0].created_at?.slice(0, 10) ?? today;
       for (const c of people) {

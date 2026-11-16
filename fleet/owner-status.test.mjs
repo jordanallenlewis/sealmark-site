@@ -2,19 +2,22 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { ownerStatus, statusFile, isOwnerComment } from "./owner-status.mjs";
 
-const notice = { id: "srv", also: ["srv-b"], repo: "o/r", at: "2026-11-14", number: 3, url: "https://github.com/o/r/issues/3", author: "sealmark-bot", failing: ["robust-input"] };
+const notice = { id: "srv", also: ["srv-b"], repo: "o/r", at: "2026-11-14", number: 3, url: "https://github.com/o/r/issues/3", author: "sealmark-bot", failing: ["robust-input"], named: ["robust-input", "schema-x"] };
 const open = { state: "open", closed_at: null };
 const com = (login, assoc, over = {}) => ({ id: Math.random(), user: { login, type: "User" }, author_association: assoc, created_at: "2026-11-15T10:00:00Z", ...over });
-const server = (verdict, over = {}) => ({ id: "srv", testedAt: "2026-11-16", packs: [{ id: "core", status: "graded", letter: "A" }], checks: [{ id: "robust-input", verdict }], ...over });
+const server = (verdict, over = {}, other = verdict) => ({ id: "srv", testedAt: "2026-11-16", packs: [{ id: "core", status: "graded", letter: "A" }], checks: [{ id: "robust-input", verdict }, { id: "schema-x", verdict: other }], ...over });
 const st = (o) => ownerStatus({ notice, issue: open, comments: [], server: server("fail"), ...o });
 
 test("no human comment: none", () => {
   assert.equal(st({}).state, "none");
   assert.equal(st({}).issueUrl, notice.url);
 });
-test("bots, Sealmark's own comments and drive-by users are not a reply", () => {
-  const c = [com("sealmark-bot", "NONE"), com("dependabot[bot]", "NONE", { user: { login: "dependabot[bot]", type: "Bot" } }), com("rando", "NONE"), com("fan", "CONTRIBUTOR")];
+test("bots and Sealmark's own comments are not a reply", () => {
+  const c = [com("sealmark-bot", "NONE"), com("dependabot[bot]", "NONE", { user: { login: "dependabot[bot]", type: "Bot" } })];
   assert.equal(st({ comments: c }).state, "none");
+});
+test("a passer-by is not a maintainer reply", () => {
+  assert.notEqual(st({ comments: [com("rando", "NONE"), com("fan", "CONTRIBUTOR")] })?.state, "replied");
 });
 test("owner, member or collaborator comment is a reply, with its date", () => {
   for (const a of ["OWNER", "MEMBER", "COLLABORATOR"]) {
@@ -44,7 +47,7 @@ test("fixed needs a re-test after the notice, a graded run, a clean latest attem
   assert.notEqual(st({ server: { ...server("pass"), checks: [] } }).state, "fixed");
 });
 test("a notice with no failing checks (an A) is never fixed, and a close is just closed", () => {
-  const r = ownerStatus({ notice: { ...notice, failing: [] }, issue: { state: "closed", closed_at: "2026-11-15T00:00:00Z" }, comments: [], server: server("pass") });
+  const r = ownerStatus({ notice: { ...notice, failing: [], named: [] }, issue: { state: "closed", closed_at: "2026-11-15T00:00:00Z" }, comments: [], server: server("pass") });
   assert.equal(r.state, "closed");
   assert.equal(r.stillFailing, false);
 });
@@ -65,4 +68,41 @@ test("statusFile keys every id of a notice, keeps old entries when a lookup fail
   assert.equal(g.notices["srv-b"].state, "none");
   assert.ok(!JSON.stringify(g).includes("maint"));
   assert.equal(g.updated, "2026-11-16");
+});
+
+test("fixed needs every check the issue NAMED to pass, including a partial one", () => {
+  assert.equal(st({ server: server("pass", {}, "part") }).state, "none");
+  assert.equal(st({ server: server("pass", {}, "pass") }).state, "fixed");
+  assert.equal(st({ server: server("pass", {}, "inconclusive") }).state, "none");
+});
+test("still failing only from a current graded run with a named check at fail", () => {
+  const closed = { state: "closed", closed_at: "2026-11-17T09:00:00Z" };
+  assert.equal(st({ issue: closed, server: server("fail") }).stillFailing, true);
+  assert.equal(st({ issue: closed, server: server("fail", { testedAt: "2026-11-14" }) }).stillFailing, false, "no re-test since the notice");
+  assert.equal(st({ issue: closed, server: server("part") }).stillFailing, false, "partial or unsure is not a fail");
+  assert.equal(st({ issue: closed, server: server("inconclusive") }).stillFailing, false);
+  assert.equal(st({ issue: closed, server: server("fail", { lastAttempt: { date: "2026-11-17", status: "failed", kind: "start-fail" } }) }).stillFailing, false);
+  assert.equal(st({ issue: closed, server: server("fail", { packs: [] }) }).stillFailing, false, "no longer graded");
+  assert.equal(st({ issue: closed, server: undefined }).stillFailing, false);
+});
+test("an old ledger line without 'named' or 'at' never claims a fix or a failure", () => {
+  const { named, ...old } = notice;
+  assert.equal(ownerStatus({ notice: old, issue: open, comments: [], server: server("pass") }).state, "none");
+  assert.equal(ownerStatus({ notice: old, issue: { state: "closed", closed_at: "2026-11-17" }, comments: [], server: server("fail") }).stillFailing, false);
+  assert.notEqual(ownerStatus({ notice: { ...notice, at: undefined }, issue: open, comments: [], server: server("pass") }).state, "fixed");
+});
+test("a comment by someone GitHub does not class as a maintainer: we cannot say 'no reply yet'", () => {
+  assert.equal(st({ comments: [com("someone", "NONE")] }), null);
+  assert.equal(st({ comments: [com("someone", "CONTRIBUTOR")] }), null);
+  assert.equal(st({ comments: [com("someone", "NONE"), com("maint", "OWNER")] }).state, "replied");
+  assert.equal(st({ comments: [com("someone", "NONE")], issue: { state: "closed", closed_at: "2026-11-17" } }).state, "closed");
+});
+test("a sibling server in the same repository never gets the fixed or still-failing claim", () => {
+  const f = statusFile({ ledgerIssues: [notice], computed: new Map([[notice.url, st({ server: server("pass"), comments: [com("maint", "OWNER")] })]]), previous: {}, today: "2026-11-16" });
+  assert.equal(f.notices.srv.state, "fixed");
+  assert.equal(f.notices["srv-b"].state, "replied");
+  assert.equal(f.notices["srv-b"].retestedAt, null);
+  const g = statusFile({ ledgerIssues: [notice], computed: new Map([[notice.url, st({ issue: { state: "closed", closed_at: "2026-11-17" }, server: server("fail") })]]), previous: {}, today: "2026-11-16" });
+  assert.equal(g.notices.srv.stillFailing, true);
+  assert.equal(g.notices["srv-b"].stillFailing, false);
 });

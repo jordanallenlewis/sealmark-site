@@ -22,7 +22,7 @@ test("each state has its own label, the issue link and a dated sentence", () => 
   assert.equal(ownerNotice({ ...base, state: "fixed", retestedAt: "2026-11-16" }).label, "Re-test passes");
   assert.match(ownerNotice({ ...base, state: "fixed", retestedAt: "2026-11-16" }).text, /pass in a later re-test, run on 16 Nov 2026/);
   const closed = ownerNotice({ ...base, state: "closed", closedAt: "2026-11-17", stillFailing: true });
-  assert.match(closed.text, /closed on 17 Nov 2026\. The latest re-test still shows/);
+  assert.match(closed.text, /closed on 17 Nov 2026\. The latest re-test still shows a check it named as failing/);
   assert.doesNotMatch(ownerNotice({ ...base, state: "closed", closedAt: "2026-11-17" }).text, /still shows/);
 });
 test("a reply stays visible after a close or a fix", () => {

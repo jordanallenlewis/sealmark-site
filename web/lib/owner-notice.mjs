@@ -24,7 +24,7 @@ export function ownerNotice(e) {
     case "fixed":
       return { state: "fixed", label: "Re-test passes", issueUrl: e.issueUrl, text: `${intro} The checks it named pass in a later re-test${retested ? `, run on ${retested}` : ""}.${replied ? ` A maintainer replied on ${replied}.` : ""}` };
     case "closed":
-      return { state: "closed", label: "Issue closed", issueUrl: e.issueUrl, text: `${intro} The issue was closed${closed ? ` on ${closed}` : ""}.${e.stillFailing ? " The latest re-test still shows the checks it named as failing." : ""}${replied ? ` A maintainer replied on ${replied}.` : ""}` };
+      return { state: "closed", label: "Issue closed", issueUrl: e.issueUrl, text: `${intro} The issue was closed${closed ? ` on ${closed}` : ""}.${e.stillFailing ? " The latest re-test still shows a check it named as failing." : ""}${replied ? ` A maintainer replied on ${replied}.` : ""}` };
     case "replied":
       return { state: "replied", label: "Maintainer replied", issueUrl: e.issueUrl, text: `${intro} A maintainer replied${replied ? ` on ${replied}` : ""}.` };
     case "none":
