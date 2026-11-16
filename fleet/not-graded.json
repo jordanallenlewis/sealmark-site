@@ -10,6 +10,27 @@
   },
   "servers": [
     {
+      "id": "dinglebear-soma",
+      "version": "0.10.0",
+      "lastTried": "2026-11-16",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "3.10.1",
+      "lastTried": "2026-11-16",
+      "attempts": 17,
+      "reason": "unknown"
+    },
+    {
+      "id": "vitali87-code-graph-rag",
+      "version": "0.6.62",
+      "lastTried": "2026-11-16",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
       "id": "54yyyu-zotero-mcp",
       "version": "0.17.2",
       "lastTried": "2026-11-15",
@@ -71,13 +92,6 @@
       "lastTried": "2026-11-15",
       "attempts": 3,
       "reason": "bad-launch"
-    },
-    {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "3.10.0",
-      "lastTried": "2026-11-15",
-      "attempts": 16,
-      "reason": "unknown"
     },
     {
       "id": "kleos-cli",
@@ -556,13 +570,6 @@
       "reason": "unknown"
     },
     {
-      "id": "dinglebear-soma",
-      "version": "0.10.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "unknown"
-    },
-    {
       "id": "easylabs-mcp-server",
       "version": "0.5.0",
       "lastTried": "2026-11-09",
@@ -964,13 +971,6 @@
     {
       "id": "vargai-mcp",
       "version": "0.9.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "unknown"
-    },
-    {
-      "id": "vitali87-code-graph-rag",
-      "version": "0.6.30",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "unknown"

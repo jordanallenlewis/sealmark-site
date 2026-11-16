@@ -1348,5 +1348,23 @@
     "name": "@zils/cli",
     "ecosystem": "npm",
     "launch": "npx -y @zils/cli@0.4.22 mcp"
+  },
+  {
+    "id": "dinglebear-synapse",
+    "name": "@dinglebear/synapse",
+    "ecosystem": "npm",
+    "launch": "npx -y @dinglebear/synapse@1.0.0 mcp"
+  },
+  {
+    "id": "dinglebear-yarr",
+    "name": "@dinglebear/yarr",
+    "ecosystem": "npm",
+    "launch": "npx -y @dinglebear/yarr@2.2.2 mcp"
+  },
+  {
+    "id": "nove-mcp",
+    "name": "nove-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y nove-mcp@1.0.0"
   }
 ]
