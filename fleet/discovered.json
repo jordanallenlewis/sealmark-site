@@ -1366,5 +1366,11 @@
     "name": "nove-mcp",
     "ecosystem": "npm",
     "launch": "npx -y nove-mcp@1.0.0"
+  },
+  {
+    "id": "rechtssysteem-ai-rechtssysteem-mcp",
+    "name": "rechtssysteem-ai/rechtssysteem-mcp",
+    "ecosystem": "github",
+    "launch": "uvx --from git+https://github.com/rechtssysteem-ai/rechtssysteem-mcp rechtssysteem-mcp"
   }
 ]
