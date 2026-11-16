@@ -15,6 +15,7 @@ import { toolVerdicts, type ToolRow } from "@/lib/tool-verdicts.mjs";
 import { toolDrift, type ToolDrift } from "@/lib/tool-drift.mjs";
 import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
 import { DisputeNote } from "../DisputeNote";
+import { OwnerNotice } from "../OwnerNotice";
 import { NotifyForm } from "../NotifyForm";
 import { CopyButton } from "@/components/CopyButton";
 import { retestNote } from "@/lib/retest.mjs";
@@ -394,6 +395,7 @@ export default async function ServerPage({ params }: P) {
         <p className={s.muted} style={{ marginTop: 28 }}>
           Each of {VERDICTS_CHECKED} verdicts was checked independently, and Sealmark was wrong on some: <Link href="/results/#reliability">how reliable Sealmark is</Link>.
         </p>
+        <OwnerNotice id={x.id} />
         <DisputeNote privateReport={priv.size > 0} />
         <nav className={s.nav2} aria-label="Other servers">
           {prev ? <Link href={`/results/${prev.id}/`}>← {prev.name}</Link> : <span />}
