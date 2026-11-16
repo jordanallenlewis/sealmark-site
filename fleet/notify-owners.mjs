@@ -50,6 +50,7 @@ import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { ISSUE_MARKER, ORIGIN, RANK, failingChecks, issueDraft, letterOf, notPassed } from "../web/worker/notify-core.mjs";
 import { failedSince } from "../web/lib/retest.mjs";
+import { ownerStatus, statusFile } from "./owner-status.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -62,6 +63,7 @@ export const FILES = {
   privateQueue: "fleet/owner-private-queue.json",
   privateDraft: "fleet/owner-private-draft.md",
   weekly: "fleet/owner-weekly.md",
+  status: "fleet/owner-status.json", // public: what each server page shows about its issue (fleet/owner-status.mjs)
 };
 // Issues per run: MAX_OWNER_ISSUES when it is a whole number of at least 1, else 2.
 export const DEFAULT_MAX_ISSUES = 2;
@@ -317,6 +319,7 @@ export function baseline(entry, issue, at, postedAt = null) {
   return {
     channel: "issue", id: entry.server.id, repo: entry.repo, also: entry.also.map((x) => x.id),
     at, postedAt, version: entry.server.versionTested, letter: letterOf(entry.server), failing: failingChecks(entry.server),
+    named: listedChecks(entry.server).map((c) => c.id), // the checks the issue lists: what the server page measures a fix against
     number: issue?.number ?? null, url: issue?.url ?? null, badgeAtNotice: issue?.badgeAtNotice ?? null,
   };
 }
@@ -715,10 +718,17 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   ledger.replies ??= [];
   const seen = new Set(ledger.replies.map((r) => String(r.id)));
   const fresh = [];
+  const computed = new Map(); // issue url -> public status (null when the lookup failed: the page keeps its last one)
+  const byId = new Map(servers.map((x) => [x.id, x]));
   for (const i of ledger.issues) {
     if (!i.number) continue;
     try {
       const comments = await api(`/repos/${i.repo}/issues/${i.number}/comments?per_page=100`);
+      // its own try: a failed issue lookup must never stop the reply and opt-out handling below
+      try {
+        const issue = await api(`/repos/${i.repo}/issues/${i.number}`);
+        if (i.url && Array.isArray(comments) && issue && !issue.missing) computed.set(i.url, ownerStatus({ notice: i, issue, comments, server: byId.get(i.id) }));
+      } catch (e) { log(`issue state check failed for ${i.repo}: ${e.message}`); }
       const people = Array.isArray(comments) ? comments.filter((c) => !isBot(c.user, i.author)) : [];
       if (people.length && !i.repliedAt) i.repliedAt = people[0].created_at?.slice(0, 10) ?? today;
       for (const c of people) {
@@ -731,6 +741,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   }
   writeJson(FILES.optout, optout);
   writeJson(FILES.ledger, ledger);
+  writeJson(FILES.status, statusFile({ ledgerIssues: ledger.issues, computed, previous: readJson(FILES.status, { notices: {} }), today }));
 
   // the tracking issue in this repository, with the workflow's own token (never the bot's), only on Actions
   if (fresh.length || (ledger.replies.length && !ledger.tracking?.number)) {
