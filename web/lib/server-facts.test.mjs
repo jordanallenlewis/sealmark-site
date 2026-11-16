@@ -30,7 +30,7 @@ test("the facts, in the page's words", () => {
 
 test("the latest release is the graded one: said so, never 'newer'", () => {
   assert.equal(view(entry({ latest: { version: "1.7.1", date: "2026-11-01" } })).latest.graded, true);
-  assert.equal(serverFacts(entry({ source: "github", latest: { version: "1.7.1", date: null } }), { ...server, ecosystem: "github", versionTested: "v1.7.1" }, { held: false, today: "2026-11-16" }).latest.graded, true);
+  assert.equal(view(entry({ latest: { version: "v1.7.1", date: null } })).latest.graded, true);
 });
 
 test("a license read from the repository says so", () => {
@@ -40,6 +40,7 @@ test("a license read from the repository says so", () => {
 test("a server under private disclosure shows no repository facts", () => {
   const f = view(entry(), { held: true });
   assert.equal(f.repo, null);
+  assert.equal(f.latest, null, "a newer release beside a held finding would point at the fix");
   assert.equal(f.license, "MIT");
 });
 
@@ -51,7 +52,7 @@ test("an old entry is not shown: the facts may no longer be true", () => {
 
 test("someone else's text is checked again before it reaches the page", () => {
   assert.equal(view(entry({ license: "MIT\u202eTIM" })).license, "MIT TIM");
-  assert.equal(view(entry({ license: "x".repeat(41) })).license, null);
+  assert.equal(view(entry({ license: "x".repeat(61) })).license, null);
   assert.equal(view(entry({ repo: { name: "o/r/../../evil", pushedAt: null, archived: false, openIssues: 1 } })).repo, null);
   assert.equal(view(entry({ repo: { name: "o/r", pushedAt: "nope", archived: "yes", openIssues: -3 } })).repo.openIssues, null);
   assert.equal(view(entry({ repo: { name: "o/r", pushedAt: "nope", archived: "yes", openIssues: 2 } })).repo.archived, false);
@@ -65,11 +66,24 @@ test("PyPI and GitHub sources are named", () => {
 });
 
 test("npm's own license words are spelled out", () => {
-  assert.equal(view(entry({ license: "SEE LICENSE IN LICENSE.md" })).license, "a custom license (LICENSE.md in the package)");
+  assert.equal(view(entry({ license: "SEE LICENSE IN LICENSE.md" })).license, "in the file LICENSE.md, as the package says");
   assert.equal(view(entry({ license: "UNLICENSED" })).license, "UNLICENSED (npm's word for no rights granted to others)");
   assert.equal(view(entry({ license: "Unlicense" })).license, "Unlicense");
 });
 
 test("a server started from its repository has no package: its license is simply the repository's", () => {
   assert.equal(view(entry({ source: "github", licenseFrom: "repo" })).licenseFrom, "package");
+});
+
+test("review fixes: a server started from its repository", () => {
+  const gh = serverFacts(entry({ source: "github", latest: { version: "1.7.1", date: "2026-11-01" } }), { ...server, ecosystem: "github" }, { held: false, today: "2026-11-16" });
+  assert.equal(gh.latest.graded, null, "an unpinned repository launch: which commit was graded is unknown");
+  assert.equal(gh.kind, "project");
+  assert.equal(view(entry()).kind, "package");
+});
+
+test("review fixes: npm's words only for npm, plain ASCII licenses only", () => {
+  assert.equal(view(entry({ source: "pypi", license: "UNLICENSED" })).license, "UNLICENSED");
+  assert.equal(view(entry({ license: "MIT\u3164" })).license, null);
+  assert.equal(view(entry({ license: "MIT, Apache Software License, BSD License" })).license, "MIT, Apache Software License, BSD License");
 });

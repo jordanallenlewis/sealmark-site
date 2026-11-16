@@ -621,7 +621,7 @@
         "name": "upstash/context7",
         "pushedAt": "2026-11-16",
         "archived": false,
-        "openIssues": 50
+        "openIssues": 51
       }
     },
     "contextburn": {
@@ -921,7 +921,7 @@
         "name": "doobidoo/mcp-memory-service",
         "pushedAt": "2026-11-16",
         "archived": false,
-        "openIssues": 33
+        "openIssues": 34
       },
       "licenseFrom": "repo"
     },
@@ -938,7 +938,7 @@
     "duckdb-mcp": {
       "checkedAt": "2026-11-16",
       "source": "pypi",
-      "license": "MIT License",
+      "license": null,
       "latest": {
         "version": "1.1.0",
         "date": "2025-05-05"
@@ -2082,7 +2082,7 @@
         "name": "naulonapp/naulon",
         "pushedAt": "2026-11-16",
         "archived": false,
-        "openIssues": 1
+        "openIssues": 0
       }
     },
     "nauro": {
@@ -3086,7 +3086,7 @@
         "name": "taylorwilsdon/google_workspace_mcp",
         "pushedAt": "2026-11-14",
         "archived": false,
-        "openIssues": 92
+        "openIssues": 94
       },
       "licenseFrom": "repo"
     },

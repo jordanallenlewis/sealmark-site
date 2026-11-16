@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { clean, collect, githubLatest, lookup, npmLatest, npmLicense, pypiLatest, pypiLicense, repoFacts } from "./server-facts.mjs";
+import { clean, collect, githubGetter, githubLatest, lookup, npmLatest, npmLicense, pypiLatest, pypiLicense, repoFacts } from "./server-facts.mjs";
 
 const json = (body, status = 200) => ({ ok: status < 400, status, json: async () => body });
 const ghRepo = (over = {}) => ({ full_name: "o/r", license: { spdx_id: "Apache-2.0" }, pushed_at: "2026-11-10T08:00:00Z", archived: false, open_issues_count: 4, ...over });
@@ -86,4 +86,38 @@ test("collect: at most max lookups, oldest first", async () => {
   const fetchFn = async (url) => { seen.push(url.split("/").pop()); return json({ "dist-tags": { latest: "1.0.0" } }); };
   await collect({ servers, repos: {}, previous, today: "2026-11-16", fetchFn, api: async () => ({}), max: 2 });
   assert.deepEqual(seen, ["c", "b"]);
+});
+
+test("review fixes: classifiers, several npm licenses, no repository stand-in when the package names one", async () => {
+  assert.equal(pypiLicense({ classifiers: ["License :: OSI Approved"] }), null);
+  assert.equal(pypiLicense({ classifiers: ["License :: OSI Approved :: MIT License", "License :: OSI Approved :: Apache Software License"] }), "MIT License, Apache Software License");
+  assert.equal(pypiLicense({ license: "Other", classifiers: [] }), "Other");
+  assert.equal(npmLicense({ licenses: [{ type: "MIT" }, { type: "Apache-2.0" }] }), null);
+  const api = async () => ghRepo({ license: { spdx_id: "MIT" } });
+  const long = async () => json({ "dist-tags": { latest: "1.0.0" }, versions: { "1.0.0": { license: "x".repeat(80) } } });
+  const e = await lookup({ id: "a", ecosystem: "npm", name: "a" }, "o/r", { fetchFn: long, api, today: "2026-11-16" });
+  assert.equal(e.license, null, "the package names a license we cannot show: the repository's MIT is no stand-in");
+  const prop = async () => json({ info: { version: "1.0", license: "UNKNOWN", classifiers: ["License :: OSI Approved"] }, urls: [] });
+  assert.equal((await lookup({ id: "p", ecosystem: "pypi", name: "p" }, "o/r", { fetchFn: prop, api, today: "2026-11-16" })).license, null);
+});
+
+test("review fixes: collect stops on a GitHub rate limit and at its time budget", async () => {
+  const servers = ["a", "b", "c"].map((id) => ({ id, ecosystem: "github", name: `o/${id}` }));
+  const repos = { a: { repo: "o/a" }, b: { repo: "o/b" }, c: { repo: "o/c" } };
+  let calls = 0;
+  const limited = async () => { calls += 1; const e = new Error("403"); e.status = 403; throw e; };
+  await collect({ servers, repos, previous: { servers: {} }, today: "2026-11-16", fetchFn: async () => json({}), api: limited });
+  assert.equal(calls, 1, "no more GitHub calls after a 403");
+  let t = 0;
+  const seen = [];
+  await collect({ servers, repos, previous: { servers: {} }, today: "2026-11-16", fetchFn: async () => json({}), api: async (p) => { seen.push(p); t += 1000; return ghRepo(); }, budgetMs: 1500, clock: () => t });
+  assert.ok(seen.filter((p) => !p.endsWith("/releases/latest")).length < 3, "stops when the budget is used");
+});
+
+test("githubGetter: its own token and timeout; 404 is missing", async () => {
+  let init;
+  const get = githubGetter(async (url, i) => { init = i; return json({}, 404); }, "gt");
+  assert.deepEqual(await get("/repos/o/r"), { missing: true });
+  assert.equal(init.headers.authorization, "Bearer gt");
+  assert.ok(init.signal, "every request has a timeout");
 });

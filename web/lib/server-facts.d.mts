@@ -9,8 +9,9 @@ export type ServerFactsEntry = {
 };
 export type ServerFacts = {
   license: string | null;
+  kind: "package" | "project";
   licenseFrom: "package" | "repo";
-  latest: { version: string; date: string | null; graded: boolean } | null;
+  latest: { version: string; date: string | null; graded: boolean | null } | null;
   repo: { name: string; url: string; pushed: string | null; archived: boolean; openIssues: number | null } | null;
   checked: string;
   from: string;

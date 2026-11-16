@@ -331,7 +331,7 @@ export default async function ServerPage({ params }: P) {
 
         {facts && (
           <section className={s.sec} aria-labelledby="facts-h">
-            <h2 id="facts-h">Package facts</h2>
+            <h2 id="facts-h">{facts.kind === "project" ? "Project facts" : "Package facts"}</h2>
             <dl className={s.facts}>
               {facts.license && (
                 <>
@@ -344,7 +344,7 @@ export default async function ServerPage({ params }: P) {
                   <dt>Latest release</dt>
                   <dd>
                     <span data-third-party="">{facts.latest.version}</span>{facts.latest.date ? `, published ${facts.latest.date}` : ""}
-                    {facts.latest.graded ? " (the version graded on this page)" : <>. This page graded <span data-third-party="">{x.versionTested}</span>.</>}
+                    {facts.latest.graded === true ? " (the version graded on this page)" : facts.latest.graded === false ? <>. This page graded <span data-third-party="">{x.versionTested}</span>.</> : ""}
                   </dd>
                 </>
               )}
@@ -367,7 +367,7 @@ export default async function ServerPage({ params }: P) {
                 </>
               )}
             </dl>
-            <p className={s.muted}>From {facts.from}, checked {facts.checked}. Plain facts about the package; they play no part in the grade.</p>
+            <p className={s.muted}>From {facts.from}, checked {facts.checked}. Plain facts about the {facts.kind}; they play no part in the grade.</p>
           </section>
         )}
 

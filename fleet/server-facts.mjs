@@ -10,6 +10,8 @@
 export const FILE = "fleet/server-facts.json";
 export const REFRESH_DAYS = 1; // an entry younger than this is not looked up again
 export const MAX_LOOKUPS = 400; // servers looked up per run (the oldest entries first)
+export const FETCH_MS = 15_000; // one request; a slow registry never holds the owner step
+export const BUDGET_MS = 6 * 60_000; // the whole collection per run; what is left waits for the next run
 
 const day = (d) => (typeof d === "string" && /^\d{4}-\d{2}-\d{2}/.test(d) ? d.slice(0, 10) : null);
 
@@ -20,21 +22,32 @@ export function clean(text, max = 60) {
   return s && s.length <= max ? s : null;
 }
 
-/** npm's license field: "MIT", {type: "MIT"}, or the legacy licenses array. */
+/** npm's license field: "MIT", {type: "MIT"}, or the legacy licenses array (one entry only; several: not shown). */
 export function npmLicense(meta) {
-  const l = meta?.license ?? (Array.isArray(meta?.licenses) ? meta.licenses[0] : null);
-  return clean(typeof l === "string" ? l : l?.type, 40);
+  const ls = Array.isArray(meta?.licenses) ? meta.licenses : null;
+  const l = meta?.license ?? (ls?.length === 1 ? ls[0] : null);
+  return clean(typeof l === "string" ? l : l?.type, 60);
+}
+/** The package says something about its license, whether or not we can show it (then the repository's is no stand-in). */
+export function npmNamesLicense(meta) {
+  return Boolean(meta?.license || (Array.isArray(meta?.licenses) && meta.licenses.length));
 }
 
-/** PyPI: the SPDX license_expression, else a short license field, else the last License classifier. */
+const UNSET = /^(unknown|none|)$/i; // setuptools writes UNKNOWN for a missing field
+const licenseClassifiers = (info) => (info?.classifiers ?? []).filter((c) => typeof c === "string" && c.startsWith("License ::"));
+
+/** PyPI: the SPDX license_expression, else a one-line license field, else the License classifiers (a bare "OSI Approved" names none). */
 export function pypiLicense(info) {
-  const expr = clean(info?.license_expression, 40);
+  const expr = clean(info?.license_expression, 60);
   if (expr) return expr;
-  const raw = typeof info?.license === "string" && !/[\r\n]/.test(info.license.trim()) ? clean(info.license, 40) : null;
-  if (raw && !/^(unknown|none|other)$/i.test(raw)) return raw;
-  const cls = (info?.classifiers ?? []).filter((c) => typeof c === "string" && c.startsWith("License ::")).pop();
-  const last = cls ? cls.split("::").pop() : null;
-  return last && !/^\s*other\/proprietary license\s*$/i.test(last) ? clean(last, 40) : null;
+  const field = typeof info?.license === "string" ? info.license.trim() : "";
+  if (field && !/[\r\n]/.test(field) && !UNSET.test(field)) return clean(field, 60);
+  const names = licenseClassifiers(info).map((c) => c.split("::").map((x) => x.trim())).filter((parts) => parts.length >= 3).map((parts) => parts.pop());
+  return names.length ? clean([...new Set(names)].join(", "), 60) : null;
+}
+export function pypiNamesLicense(info) {
+  const field = typeof info?.license === "string" ? info.license.trim() : "";
+  return Boolean(clean(info?.license_expression, 1000) || (field && !UNSET.test(field)) || licenseClassifiers(info).length);
 }
 
 /** The npm dist-tag latest and its publish date, from the full packument. */
@@ -79,9 +92,22 @@ const npmDocUrl = (name) => `https://registry.npmjs.org/${String(name).replace("
 const pypiUrl = (name) => `https://pypi.org/pypi/${encodeURIComponent(name)}/json`;
 
 async function getJson(fetchFn, url) {
-  const res = await fetchFn(url, { headers: { accept: "application/json", "user-agent": "sealmark-fleet" } });
+  const res = await fetchFn(url, { headers: { accept: "application/json", "user-agent": "sealmark-fleet" }, signal: AbortSignal.timeout(FETCH_MS) });
   if (!res.ok) throw new Error(`${url}: ${res.status}`);
   return res.json();
+}
+
+/** GitHub GET with its own timeout and token: {missing: true} on 404; an error with .status otherwise. */
+export function githubGetter(fetchFn, token) {
+  return async (path) => {
+    const res = await fetchFn(`https://api.github.com${path}`, {
+      headers: { accept: "application/vnd.github+json", "user-agent": "sealmark-fleet", ...(token ? { authorization: `Bearer ${token}` } : {}) },
+      signal: AbortSignal.timeout(FETCH_MS),
+    });
+    if (res.status === 404) return { missing: true };
+    if (!res.ok) { const e = new Error(`GitHub GET ${path}: ${res.status}`); e.status = res.status; throw e; }
+    return res.json();
+  };
 }
 
 /**
@@ -91,14 +117,18 @@ async function getJson(fetchFn, url) {
  */
 export async function lookup(server, repo, { fetchFn, api, today }) {
   const out = { checkedAt: today, source: server.ecosystem, license: null, latest: null, repo: null };
+  let named = false; // the package states a license (even one we cannot show): the repository's is then no stand-in
   if (server.ecosystem === "npm") {
     const doc = await getJson(fetchFn, npmDocUrl(server.name));
+    const meta = doc?.versions?.[doc?.["dist-tags"]?.latest] ?? doc;
     out.latest = npmLatest(doc);
-    out.license = npmLicense(doc?.versions?.[doc?.["dist-tags"]?.latest] ?? doc);
+    out.license = npmLicense(meta);
+    named = npmNamesLicense(meta);
   } else if (server.ecosystem === "pypi") {
     const meta = await getJson(fetchFn, pypiUrl(server.name));
     out.latest = pypiLatest(meta);
     out.license = pypiLicense(meta?.info);
+    named = pypiNamesLicense(meta?.info);
   } else if (server.ecosystem !== "github") {
     throw new Error(`unknown ecosystem ${server.ecosystem}`);
   }
@@ -106,7 +136,7 @@ export async function lookup(server, repo, { fetchFn, api, today }) {
     out.repo = repoFacts(await api(`/repos/${repo}`));
     if (server.ecosystem === "github" && out.repo) out.latest = githubLatest(await api(`/repos/${repo}/releases/latest`));
   }
-  if (!out.license && out.repo?.license) { out.license = out.repo.license; out.licenseFrom = "repo"; }
+  if (!out.license && !named && out.repo?.license) { out.license = out.repo.license; out.licenseFrom = "repo"; }
   if (out.repo) delete out.repo.license;
   return out;
 }
@@ -118,7 +148,8 @@ const age = (from, today) => (Date.parse(today) - Date.parse(from)) / 864e5;
  * most max); failures keep the old entry; servers no longer in results are dropped. Never throws.
  *   repos: fleet/owner-repos.json (id -> {repo}); previous: the last file
  */
-export async function collect({ servers, repos, previous, today, fetchFn, api, max = MAX_LOOKUPS, sleep = async () => {}, log = () => {} }) {
+export async function collect({ servers, repos, previous, today, fetchFn, api, max = MAX_LOOKUPS, budgetMs = BUDGET_MS, clock = Date.now, sleep = async () => {}, log = () => {} }) {
+  const start = clock();
   const old = previous?.servers ?? {};
   const keep = {};
   const due = [];
@@ -129,11 +160,18 @@ export async function collect({ servers, repos, previous, today, fetchFn, api, m
   }
   due.sort((a, b) => String(old[a.id]?.checkedAt ?? "").localeCompare(String(old[b.id]?.checkedAt ?? "")));
   let ok = 0, failed = 0;
+  let tried = 0, stop = null;
   for (const x of due.slice(0, max)) {
+    if (clock() - start > budgetMs) { stop = "time budget used"; break; }
+    tried += 1;
     try { keep[x.id] = await lookup(x, repos[x.id]?.repo ?? null, { fetchFn, api, today }); ok += 1; }
-    catch (e) { failed += 1; log(`facts lookup failed for ${x.id}: ${String(e.message ?? e).slice(0, 120)}`); }
+    catch (e) {
+      failed += 1;
+      log(`facts lookup failed for ${x.id}: ${String(e.message ?? e).slice(0, 120)}`);
+      if (e.status === 403 || e.status === 429) { stop = `GitHub said ${e.status} (rate limit?)`; break; }
+    }
     await sleep(100);
   }
-  log(`facts: ${ok} looked up, ${failed} failed, ${Math.max(0, due.length - max)} left for the next run, ${Object.keys(keep).length} servers`);
+  log(`facts: ${ok} looked up, ${failed} failed, ${due.length - tried} left for the next run${stop ? ` (stopped: ${stop})` : ""}, ${Object.keys(keep).length} servers`);
   return { servers: Object.fromEntries(Object.entries(keep).sort(([a], [b]) => a.localeCompare(b))) };
 }

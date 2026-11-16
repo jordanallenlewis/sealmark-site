@@ -16,11 +16,12 @@ function clean(text, max) {
   const s = text.replace(/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu, " ").replace(/\s+/g, " ").trim();
   return s && s.length <= max ? s : null;
 }
-/** npm's special license values in plain words; anything else as written. */
-function licenseWords(l) {
-  if (!l) return null;
+/** npm's special license values in plain words (npm packages only); anything else as written. Plain ASCII only. */
+function licenseWords(l, source) {
+  if (!l || !/^[\x20-\x7E]+$/.test(l)) return null;
+  if (source !== "npm") return l;
   const file = /^SEE LICEN[CS]E IN\s+(\S+)$/i.exec(l)?.[1];
-  if (file) return `a custom license (${file} in the package)`;
+  if (file) return `in the file ${file}, as the package says`;
   if (l === "UNLICENSED") return "UNLICENSED (npm's word for no rights granted to others)";
   return l;
 }
@@ -36,9 +37,12 @@ export function serverFacts(e, server, { held, today }) {
   const checked = dayWords(e.checkedAt);
   if (!checked || (Date.parse(today) - Date.parse(String(e.checkedAt).slice(0, 10))) / 864e5 > STALE_DAYS) return null;
 
-  const license = licenseWords(clean(e.license, 40));
+  const license = licenseWords(clean(e.license, 60), e.source);
   const v = clean(e.latest?.version, 40);
-  const latest = v && VERSION.test(v) ? { version: v, date: dayWords(e.latest?.date), graded: bareVersion(v) === bareVersion(server.versionTested) } : null;
+  // A repository launch starts the default branch, so which commit was graded is not a release: no comparison.
+  const graded = server.ecosystem === "github" || e.source === "github" ? null : bareVersion(v) === bareVersion(server.versionTested);
+  // Held: a newer release beside a withheld finding would point at the fix.
+  const latest = !held && v && VERSION.test(v) ? { version: v, date: dayWords(e.latest?.date), graded } : null;
   const r = e.repo;
   const repo = !held && r && REPO.test(String(r.name ?? ""))
     ? {
@@ -53,6 +57,7 @@ export function serverFacts(e, server, { held, today }) {
   const pkg = SOURCE[e.source] ?? null;
   return {
     license,
+    kind: e.source === "github" ? "project" : "package",
     licenseFrom: e.licenseFrom === "repo" && e.source !== "github" ? "repo" : "package",
     latest,
     repo,
