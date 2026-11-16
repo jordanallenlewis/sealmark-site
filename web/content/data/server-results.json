@@ -12239,7 +12239,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-15",
+        "date": "2026-11-16",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -27627,18 +27627,72 @@
       "name": "@tensorfeed/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.6",
+      "versionTested": "2.1.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @tensorfeed/mcp-server@2.0.6",
+      "launch": "npx -y @tensorfeed/mcp-server@2.1.0",
       "transport": "stdio",
-      "toolCount": 24,
+      "toolCount": 25,
+      "tools": [
+        "get_ai_news",
+        "ask_tensorfeed",
+        "find_tensorfeed_data",
+        "get_ai_status",
+        "is_service_down",
+        "get_model_pricing",
+        "account_status",
+        "route_verdict",
+        "provider_reliability_verdict",
+        "x402_settlement_verdict",
+        "x402_publisher_verdict",
+        "stack_safety_verdict",
+        "benchmark_trust_verdict",
+        "failover_verdict",
+        "ssvc_verdict",
+        "pricing_series",
+        "benchmark_series",
+        "status_uptime",
+        "status_leaderboard",
+        "whats_new",
+        "compare_models",
+        "provider_deepdive",
+        "list_watches",
+        "create_watch",
+        "delete_watch"
+      ],
+      "toolSchemas": {
+        "account_status": "7a014b717a77",
+        "ask_tensorfeed": "7f7d262851d8",
+        "benchmark_series": "5c4841a14f28",
+        "benchmark_trust_verdict": "5f7eec060fc7",
+        "compare_models": "811fbf9cb587",
+        "create_watch": "6c664dd65e37",
+        "delete_watch": "0df51508bbc0",
+        "failover_verdict": "dd17e2979a0e",
+        "find_tensorfeed_data": "cf017cf74c8b",
+        "get_ai_news": "f3b6507865f4",
+        "get_ai_status": "7a014b717a77",
+        "get_model_pricing": "7a014b717a77",
+        "is_service_down": "da613cfd16e5",
+        "list_watches": "7a014b717a77",
+        "pricing_series": "527a050ff20c",
+        "provider_deepdive": "09e0a5f3c1c9",
+        "provider_reliability_verdict": "798d017c1752",
+        "route_verdict": "339638e67924",
+        "ssvc_verdict": "5fbe6d53f72e",
+        "stack_safety_verdict": "e2adb213f2d7",
+        "status_leaderboard": "a77e61c757d2",
+        "status_uptime": "94dab2b35134",
+        "whats_new": "877349829a3b",
+        "x402_publisher_verdict": "4b8bbcb62b7a",
+        "x402_settlement_verdict": "57febb460ec5"
+      },
       "packs": [
         {
           "id": "core",
@@ -27745,7 +27799,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 24 well-formed tool(s)"
+          "summary": "handshake ok, 25 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -27754,7 +27808,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 24 tool definition(s) and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 25 tool definition(s) and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -27763,7 +27817,17 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "91 invalid call(s) rejected cleanly"
+          "summary": "96 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "get_ai_status",
+              "get_model_pricing"
+            ],
+            "notCovered": [
+              "account_status",
+              "list_watches"
+            ]
+          }
         },
         {
           "id": "secret-echo",
@@ -27772,7 +27836,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 95 captured response(s), 2 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 100 captured response(s), 2 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -27808,7 +27872,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -27823,7 +27891,7 @@
       "coverage": {
         "validCalls": 13,
         "toolsCalledValid": 11,
-        "toolsTotal": 24,
+        "toolsTotal": 25,
         "level": "low"
       },
       "badge": {
@@ -27832,6 +27900,7 @@
       "notCovered": [
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"get_ai_news\" is covered by the core checks only: free-text parameter \"category\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"ask_tensorfeed\" is covered by the core checks only: free-text parameter \"question\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"find_tensorfeed_data\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"get_ai_status\" is covered by the core checks only: the tool takes no parameters",
         "tool \"is_service_down\" is covered by the core checks only: free-text parameter \"service\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
@@ -27842,8 +27911,7 @@
         "tool \"x402_settlement_verdict\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
         "tool \"x402_publisher_verdict\" is covered by the core checks only: free-text parameter \"domain\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"stack_safety_verdict\" is covered by the core checks only: free-text parameter \"packages\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"benchmark_trust_verdict\" is covered by the core checks only: free-text parameter \"benchmark\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "12 more tool(s) are covered by the core checks only (see the classification)",
+        "13 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"account_status\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
         "tool \"list_watches\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
@@ -49151,10 +49219,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.450",
-      "versionTested": "1.108.450",
+      "refTested": "1.108.453",
+      "versionTested": "1.108.453",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -49394,7 +49462,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "announce_model": "df1e1614ccd3",
+          "jcodemunch_guide": "efddc7bd8bbc",
+          "menu": "a012f0ac53fd",
+          "order": "b1250b32632f",
+          "route": "76c96ce1f6d7",
+          "set_tool_tier": "e6fdd064098d"
+        }
+      }
     },
     {
       "id": "joooook-12306-mcp",
@@ -55074,16 +55153,16 @@
       "name": "@flydocs/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.3.46",
+      "versionTested": "1.3.47",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @flydocs/cli@1.3.46 mcp",
+      "launch": "npx -y @flydocs/cli@1.3.47 mcp",
       "transport": "stdio",
       "toolCount": 19,
       "tools": [
@@ -55368,7 +55447,31 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "change_context": "9bffb567da9e",
+          "issue_acceptance_update": "e87ad3b06a84",
+          "issue_activate": "acd631d5b319",
+          "issue_bulk_update": "9f26e0dfcd9a",
+          "issue_comment": "d0a302e65a33",
+          "issue_create": "e0d350fa2c3e",
+          "issue_description": "ac1ca61adf95",
+          "issue_get": "39061a520ae3",
+          "issue_link": "6b89b4a29702",
+          "issue_list": "5688919d10d2",
+          "issue_pr": "d8c3128d1897",
+          "issue_transition": "0986458c2c5c",
+          "issue_update": "f432c78b534f",
+          "milestone_create": "69e129ec9808",
+          "milestone_list": "34918b5e1ad5",
+          "milestone_update": "460b78f0daa6",
+          "project_update": "f239f45cae23",
+          "session_start": "1d004549ee51",
+          "session_wrap": "7344c8a83a6c"
+        }
+      }
     },
     {
       "id": "huddoai",
@@ -55725,16 +55828,16 @@
       "name": "hypaware",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.43.0",
+      "versionTested": "1.52.0",
       "serverInfoName": "hypaware",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y hypaware@1.43.0 mcp serve",
+      "launch": "npx -y hypaware@1.52.0 mcp serve",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -55920,7 +56023,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "query_sql": "526e4a222f09"
+        }
+      }
     },
     {
       "id": "insightsocial",
@@ -56173,16 +56282,16 @@
       "name": "@kadal/store",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.1",
+      "versionTested": "0.1.3",
       "serverInfoName": "store",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @kadal/store@0.1.1 mcp",
+      "launch": "npx -y @kadal/store@0.1.3 mcp",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -56200,9 +56309,9 @@
         "download_to_folder"
       ],
       "toolSchemas": {
-        "create_buy_link": "872d847ded6b",
-        "download_to_folder": "5d0bc880db66",
-        "get_download_links": "f52ac6c76098",
+        "create_buy_link": "72b6d978f1f0",
+        "download_to_folder": "b20245419c97",
+        "get_download_links": "00f61371116b",
         "get_product": "375255f64f79",
         "list_library": "7a014b717a77",
         "list_my_notes": "bb306a92961b",
@@ -56439,7 +56548,24 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "create_buy_link": "872d847ded6b",
+          "download_to_folder": "5d0bc880db66",
+          "get_download_links": "f52ac6c76098",
+          "get_product": "375255f64f79",
+          "list_library": "7a014b717a77",
+          "list_my_notes": "bb306a92961b",
+          "list_shelves": "7a014b717a77",
+          "project_summary": "89bb5e00448a",
+          "recommend": "7a59ac9f5af2",
+          "report_problem": "486c94df0581",
+          "search_products": "83c22a92f071",
+          "whoami": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "kadmo-cli",
@@ -57777,18 +57903,18 @@
       "name": "kloudy",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.4.4",
+      "versionTested": "1.0.3",
       "serverInfoName": "kloudy",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y kloudy@0.4.4 mcp",
+      "launch": "npx -y kloudy@1.0.3 mcp",
       "transport": "stdio",
-      "toolCount": 10,
+      "toolCount": 13,
       "tools": [
         "find_mcp_tools",
         "kloudy_connect_card",
@@ -57799,28 +57925,34 @@
         "kloudy_build_state",
         "kloudy_project_stage",
         "kloudy_team",
-        "kloudy_team_files"
+        "kloudy_conference",
+        "kloudy_team_files",
+        "show_pending_chooser_link",
+        "receive_website_selection"
       ],
       "toolSchemas": {
         "find_mcp_tools": "306fbe1d25e8",
         "kloudy_build_answer": "987ec5bc1809",
         "kloudy_build_start": "f13508635d42",
         "kloudy_build_state": "21f0b49aad90",
+        "kloudy_conference": "3157f6128be5",
         "kloudy_connect_card": "009945dbceb0",
         "kloudy_project_stage": "416cd04a52d9",
-        "kloudy_team": "5e3c2732f0db",
+        "kloudy_team": "b607a73ba813",
         "kloudy_team_files": "c654b7c29c27",
+        "receive_website_selection": "5bfce32cff65",
+        "show_pending_chooser_link": "99334726611c",
         "show_tool_preferences_card": "065cbb3ea6f0",
-        "show_visual_setup_choices": "42d6a78e5b3a"
+        "show_visual_setup_choices": "9ab89eb0bb2c"
       },
       "packs": [
         {
           "id": "core",
           "status": "graded",
           "letter": "B",
-          "points": 3,
+          "points": 3.5,
           "scored": 4,
-          "pct": 75,
+          "pct": 87.5,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -57919,7 +58051,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 10 well-formed tool(s)"
+          "summary": "handshake ok, 13 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -57927,8 +58059,8 @@
           "label": "No tool-poisoning indicators in tool metadata",
           "critical": true,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "scanned 10 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "verdict": "part",
+          "summary": "1 weak indicator(s) worth reading, none conclusive"
         },
         {
           "id": "robust-input",
@@ -57936,10 +58068,12 @@
           "label": "Survives malformed tool input",
           "critical": false,
           "advisory": false,
-          "verdict": "fail",
-          "summary": "server died on malformed input",
+          "verdict": "pass",
+          "summary": "55 invalid call(s) rejected cleanly",
           "tools": {
-            "probed": [],
+            "probed": [
+              "show_pending_chooser_link"
+            ],
             "notCovered": []
           }
         },
@@ -57950,7 +58084,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 20 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 56 captured response(s), 1 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -57999,10 +58133,10 @@
         }
       ],
       "coverage": {
-        "validCalls": 0,
-        "toolsCalledValid": 0,
-        "toolsTotal": 10,
-        "level": "hygiene-only"
+        "validCalls": 1,
+        "toolsCalledValid": 1,
+        "toolsTotal": 13,
+        "level": "low"
       },
       "badge": {
         "eligible": false,
@@ -58019,14 +58153,32 @@
         "tool \"kloudy_build_state\" is covered by the core checks only: free-text parameter \"flowId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"kloudy_project_stage\" is covered by the core checks only: free-text parameter \"flowId\": no path, URL, command, SQL or repository signal; its required parameter \"draft\" cannot be filled by the harness; write a probes: entry to call it",
         "tool \"kloudy_team\" is covered by the core checks only: free-text parameter \"connection\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"kloudy_conference\" is covered by the core checks only: free-text parameter \"connection\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"kloudy_team_files\" is covered by the core checks only: generic param \"name\"; name matches /files|file/; destructiveHint is true: confidence lowered one step; add it under tools: to include it",
+        "tool \"show_pending_chooser_link\" is covered by the core checks only: the tool takes no parameters",
+        "1 more tool(s) are covered by the core checks only (see the classification)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "find_mcp_tools": "306fbe1d25e8",
+          "kloudy_build_answer": "987ec5bc1809",
+          "kloudy_build_start": "f13508635d42",
+          "kloudy_build_state": "21f0b49aad90",
+          "kloudy_connect_card": "009945dbceb0",
+          "kloudy_project_stage": "416cd04a52d9",
+          "kloudy_team": "5e3c2732f0db",
+          "kloudy_team_files": "c654b7c29c27",
+          "show_tool_preferences_card": "065cbb3ea6f0",
+          "show_visual_setup_choices": "42d6a78e5b3a"
+        }
+      }
     },
     {
       "id": "memcell",
@@ -58563,16 +58715,16 @@
       "name": "@oddessentials/agent-guild",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.33.2",
+      "versionTested": "1.35.0",
       "serverInfoName": "agent-guild",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @oddessentials/agent-guild@1.33.2 mcp",
+      "launch": "npx -y @oddessentials/agent-guild@1.35.0 mcp",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -58816,7 +58968,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "fireworks": "99334726611c",
+          "guild_status": "99334726611c",
+          "list_sessions": "99334726611c",
+          "read_replies": "becf08782fc0",
+          "read_reply": "51a32cb1904a",
+          "read_screen": "51a32cb1904a",
+          "start_session": "2e8e9096dda6",
+          "stop_session": "51a32cb1904a"
+        }
+      }
     },
     {
       "id": "orangepro-mcp-server",
@@ -59109,16 +59274,16 @@
       "name": "poppy-memory",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "0.3.6",
+      "versionTested": "0.4.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx poppy-memory==0.3.6 serve",
+      "launch": "uvx poppy-memory==0.4.1 serve",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -59325,23 +59490,36 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "consolidate": "e22262056812",
+          "context": "54e558ecf21f",
+          "edit": "835601127129",
+          "forget": "2417a7dde4cb",
+          "recall": "7ed4bda33c37",
+          "recall_full": "2a98795e87e2",
+          "recall_index": "62df746eef34",
+          "remember": "ac4d2f442195"
+        }
+      }
     },
     {
       "id": "satohub-kit",
       "name": "@satohub/kit",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.0",
+      "versionTested": "0.1.1",
       "serverInfoName": "kit",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @satohub/kit@0.1.0 mcp",
+      "launch": "npx -y @satohub/kit@0.1.1 mcp",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -59618,220 +59796,51 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "actions_describe": "88217d92235c",
+          "actions_search": "dec8a7a4b1ac",
+          "chain_read": "7be723aa8209",
+          "execute": "9c7862db058b",
+          "status": "99334726611c",
+          "swap_prepare": "3f0f93992302",
+          "swap_quote": "27d1c654012a",
+          "x402_prepare": "abbdfba8fd84"
+        }
+      }
     },
     {
       "id": "securenow",
       "name": "securenow",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "8.12.4",
+      "versionTested": "8.26.0",
       "serverInfoName": "securenow",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y securenow@8.12.4 mcp",
+      "launch": "npx -y securenow@8.26.0 mcp",
       "transport": "stdio",
-      "toolCount": 90,
-      "tools": [
-        "securenow_auth_status",
-        "securenow_apps_list",
-        "securenow_apps_create",
-        "securenow_apps_info",
-        "securenow_firewall_apps",
-        "securenow_firewall_status",
-        "securenow_firewall_enable",
-        "securenow_firewall_disable",
-        "securenow_firewall_set_threshold",
-        "securenow_firewall_test_ip",
-        "securenow_traces_list",
-        "securenow_traces_show",
-        "securenow_logs_list",
-        "securenow_logs_for_trace",
-        "securenow_notifications_list",
-        "securenow_notifications_unread",
-        "securenow_notifications_read",
-        "securenow_notifications_get",
-        "securenow_notifications_batch_get",
-        "securenow_human_actions_list",
-        "securenow_human_actions_grouped_list",
-        "securenow_alert_review_runs_list",
-        "securenow_alert_review_runs_count",
-        "securenow_alert_review_run_get",
-        "securenow_alert_review_run_resolve",
-        "securenow_alert_review_run_dismiss",
-        "securenow_alert_review_run_keep_alive",
-        "securenow_alert_review_run_apply_group_decision",
-        "securenow_alert_review_apply_group_decision",
-        "securenow_alert_review_group_similar",
-        "securenow_human_action_report",
-        "securenow_human_action_block",
-        "securenow_human_action_decision_report_add",
-        "securenow_human_action_close_no_write",
-        "securenow_human_action_false_positive",
-        "securenow_human_case_action_update",
-        "securenow_human_case_decision_report_add",
-        "securenow_ip_lookup",
-        "securenow_ip_traces",
-        "securenow_forensics_query",
-        "securenow_forensics_library",
-        "securenow_analytics_summary",
-        "securenow_automation_rules_list",
-        "securenow_automation_defaults_ensure",
-        "securenow_automation_rule_get",
-        "securenow_automation_rule_create",
-        "securenow_automation_rule_update",
-        "securenow_automation_rule_dry_run",
-        "securenow_automation_rule_execute",
-        "securenow_automation_rule_delete",
-        "securenow_rate_limit_list",
-        "securenow_rate_limit_get",
-        "securenow_rate_limit_test",
-        "securenow_rate_limit_remove",
-        "securenow_rate_limit_parse",
-        "securenow_rate_limit_create_from_text",
-        "securenow_alert_rules_list",
-        "securenow_alert_rule_get",
-        "securenow_alert_rule_versions",
-        "securenow_alert_rule_version_get",
-        "securenow_alert_rule_rollback",
-        "securenow_alert_rule_update",
-        "securenow_alert_rule_query_update",
-        "securenow_alert_rule_instant_update",
-        "securenow_alert_rule_conditions_get",
-        "securenow_alert_rule_condition_update",
-        "securenow_alert_rule_condition_candidate_test",
-        "securenow_alert_rule_condition_diff",
-        "securenow_alert_rule_test",
-        "securenow_alert_rule_candidate_test",
-        "securenow_alert_rule_test_result",
-        "securenow_alert_rule_exclusions_list",
-        "securenow_alert_rule_exclusion_add",
-        "securenow_alert_rule_exclusion_remove",
-        "securenow_blocklist_list",
-        "securenow_blocklist_pending_list",
-        "securenow_blocklist_pending_approve",
-        "securenow_blocklist_pending_reject",
-        "securenow_blocklist_pending_bulk_approve",
-        "securenow_blocklist_pending_bulk_reject",
-        "securenow_blocklist_add",
-        "securenow_blocklist_remove",
-        "securenow_blocklist_unblock",
-        "securenow_blocklist_stats",
-        "securenow_allowlist_list",
-        "securenow_allowlist_add",
-        "securenow_allowlist_remove",
-        "securenow_trusted_list",
-        "securenow_trusted_add",
-        "securenow_trusted_remove"
-      ],
-      "toolSchemas": {
-        "securenow_alert_review_apply_group_decision": "f7d9d0eea47e",
-        "securenow_alert_review_group_similar": "d1247adf93e8",
-        "securenow_alert_review_run_apply_group_decision": "f7d9d0eea47e",
-        "securenow_alert_review_run_dismiss": "6d4a8194bbf8",
-        "securenow_alert_review_run_get": "f3aee03b72a7",
-        "securenow_alert_review_run_keep_alive": "55ecd5356224",
-        "securenow_alert_review_run_resolve": "6d4a8194bbf8",
-        "securenow_alert_review_runs_count": "24688588c513",
-        "securenow_alert_review_runs_list": "1ce959b16c07",
-        "securenow_alert_rule_candidate_test": "848e834fe510",
-        "securenow_alert_rule_condition_candidate_test": "e4c4b5aab6ba",
-        "securenow_alert_rule_condition_diff": "ed8a35e15269",
-        "securenow_alert_rule_condition_update": "ff54764f91d3",
-        "securenow_alert_rule_conditions_get": "76fe2e4074f2",
-        "securenow_alert_rule_exclusion_add": "212bddf8e3f5",
-        "securenow_alert_rule_exclusion_remove": "7543d228d17d",
-        "securenow_alert_rule_exclusions_list": "76fe2e4074f2",
-        "securenow_alert_rule_get": "76fe2e4074f2",
-        "securenow_alert_rule_instant_update": "52c83173a6ec",
-        "securenow_alert_rule_query_update": "e15c421ac8cb",
-        "securenow_alert_rule_rollback": "9b4e0445335d",
-        "securenow_alert_rule_test": "87ed6d98ffef",
-        "securenow_alert_rule_test_result": "945abede6ad8",
-        "securenow_alert_rule_update": "271efca1cdfa",
-        "securenow_alert_rule_version_get": "eb42c6493b5b",
-        "securenow_alert_rule_versions": "96c5614a7bf8",
-        "securenow_alert_rules_list": "d746974fa9af",
-        "securenow_allowlist_add": "0f5ad48dd049",
-        "securenow_allowlist_list": "459caea550a7",
-        "securenow_allowlist_remove": "27a5e182a279",
-        "securenow_analytics_summary": "82f6bbd61920",
-        "securenow_apps_create": "962e71e3146c",
-        "securenow_apps_info": "2ed477b38fa0",
-        "securenow_apps_list": "d746974fa9af",
-        "securenow_auth_status": "d746974fa9af",
-        "securenow_automation_defaults_ensure": "75664fdd8018",
-        "securenow_automation_rule_create": "a75af910dd82",
-        "securenow_automation_rule_delete": "0ff5ac9403fb",
-        "securenow_automation_rule_dry_run": "20901c6d2048",
-        "securenow_automation_rule_execute": "0ff5ac9403fb",
-        "securenow_automation_rule_get": "349d5050f14b",
-        "securenow_automation_rule_update": "8cdf985ad119",
-        "securenow_automation_rules_list": "d746974fa9af",
-        "securenow_blocklist_add": "cabe26b32afa",
-        "securenow_blocklist_list": "19839dbb8bd6",
-        "securenow_blocklist_pending_approve": "2a831a91dd50",
-        "securenow_blocklist_pending_bulk_approve": "e12dd59cd43c",
-        "securenow_blocklist_pending_bulk_reject": "16429a7520ac",
-        "securenow_blocklist_pending_list": "8be13bc3a93d",
-        "securenow_blocklist_pending_reject": "2a831a91dd50",
-        "securenow_blocklist_remove": "6962cdb0d199",
-        "securenow_blocklist_stats": "d746974fa9af",
-        "securenow_blocklist_unblock": "6962cdb0d199",
-        "securenow_firewall_apps": "d746974fa9af",
-        "securenow_firewall_disable": "8d23c0d58624",
-        "securenow_firewall_enable": "8d23c0d58624",
-        "securenow_firewall_set_threshold": "638f93794127",
-        "securenow_firewall_status": "fcac3fe8c86c",
-        "securenow_firewall_test_ip": "7067d9219653",
-        "securenow_forensics_library": "d746974fa9af",
-        "securenow_forensics_query": "2fdb6fdb1a1d",
-        "securenow_human_action_block": "4ae6efed20a4",
-        "securenow_human_action_close_no_write": "a7776b017ae9",
-        "securenow_human_action_decision_report_add": "1a2b51b1c976",
-        "securenow_human_action_false_positive": "8465b06dc73a",
-        "securenow_human_action_report": "eb5e5170f577",
-        "securenow_human_actions_grouped_list": "49233a14b1cd",
-        "securenow_human_actions_list": "b84e5a745168",
-        "securenow_human_case_action_update": "3c35c50ddf34",
-        "securenow_human_case_decision_report_add": "10c151e4e967",
-        "securenow_ip_lookup": "39c1962d45c5",
-        "securenow_ip_traces": "b63525d16151",
-        "securenow_logs_for_trace": "c2d2897a2686",
-        "securenow_logs_list": "e4532185b063",
-        "securenow_notifications_batch_get": "96c438162d95",
-        "securenow_notifications_get": "bbf1a610ab0a",
-        "securenow_notifications_list": "cd0d448c3470",
-        "securenow_notifications_read": "434f9362e993",
-        "securenow_notifications_unread": "d746974fa9af",
-        "securenow_rate_limit_create_from_text": "a179dbc7ee1a",
-        "securenow_rate_limit_get": "2a7d24c5b77f",
-        "securenow_rate_limit_list": "935054e21415",
-        "securenow_rate_limit_parse": "9907d5a226a2",
-        "securenow_rate_limit_remove": "9838b2eaea53",
-        "securenow_rate_limit_test": "c81bf10fde88",
-        "securenow_traces_list": "62efffc81921",
-        "securenow_traces_show": "c2d2897a2686",
-        "securenow_trusted_add": "222187cf2f90",
-        "securenow_trusted_list": "c846d007b911",
-        "securenow_trusted_remove": "b8d2064e92c4"
-      },
+      "toolCount": 125,
       "packs": [
         {
           "id": "core",
           "status": "graded",
-          "letter": "B",
-          "points": 3,
+          "letter": "D",
+          "points": 2,
           "scored": 4,
-          "pct": 75,
+          "pct": 50,
           "provisional": false,
           "capped": false,
-          "criticalFails": [],
+          "criticalFails": [
+            "tool-poisoning"
+          ],
           "reason": null
         },
         {
@@ -59927,7 +59936,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 90 well-formed tool(s)"
+          "summary": "handshake ok, 125 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -59935,8 +59944,8 @@
           "label": "No tool-poisoning indicators in tool metadata",
           "critical": true,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "scanned 90 tool definition(s) and serverInfo, 9 prompt(s) and 5 resource(s), including parameter text: nothing suspicious"
+          "verdict": "fail",
+          "summary": "1 strong indicator(s) in tool metadata, 1 weak"
         },
         {
           "id": "robust-input",
@@ -59945,79 +59954,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "fail",
-          "summary": "server died on malformed input",
-          "tools": {
-            "probed": [
-              "securenow_auth_status"
-            ],
-            "notCovered": [
-              "securenow_alert_review_run_dismiss",
-              "securenow_alert_review_run_keep_alive",
-              "securenow_alert_review_run_apply_group_decision",
-              "securenow_alert_review_apply_group_decision",
-              "securenow_alert_review_group_similar",
-              "securenow_human_action_report",
-              "securenow_human_action_block",
-              "securenow_human_action_decision_report_add",
-              "securenow_human_action_close_no_write",
-              "securenow_human_action_false_positive",
-              "securenow_human_case_action_update",
-              "securenow_human_case_decision_report_add",
-              "securenow_ip_lookup",
-              "securenow_ip_traces",
-              "securenow_forensics_query",
-              "securenow_forensics_library",
-              "securenow_analytics_summary",
-              "securenow_automation_rules_list",
-              "securenow_automation_defaults_ensure",
-              "securenow_automation_rule_get",
-              "securenow_automation_rule_create",
-              "securenow_automation_rule_update",
-              "securenow_automation_rule_dry_run",
-              "securenow_automation_rule_execute",
-              "securenow_automation_rule_delete",
-              "securenow_rate_limit_list",
-              "securenow_rate_limit_get",
-              "securenow_rate_limit_test",
-              "securenow_rate_limit_remove",
-              "securenow_rate_limit_parse",
-              "securenow_rate_limit_create_from_text",
-              "securenow_alert_rules_list",
-              "securenow_alert_rule_get",
-              "securenow_alert_rule_versions",
-              "securenow_alert_rule_version_get",
-              "securenow_alert_rule_rollback",
-              "securenow_alert_rule_update",
-              "securenow_alert_rule_query_update",
-              "securenow_alert_rule_instant_update",
-              "securenow_alert_rule_conditions_get",
-              "securenow_alert_rule_condition_update",
-              "securenow_alert_rule_condition_candidate_test",
-              "securenow_alert_rule_condition_diff",
-              "securenow_alert_rule_test",
-              "securenow_alert_rule_candidate_test",
-              "securenow_alert_rule_test_result",
-              "securenow_alert_rule_exclusions_list",
-              "securenow_alert_rule_exclusion_add",
-              "securenow_alert_rule_exclusion_remove",
-              "securenow_blocklist_list",
-              "securenow_blocklist_pending_list",
-              "securenow_blocklist_pending_approve",
-              "securenow_blocklist_pending_reject",
-              "securenow_blocklist_pending_bulk_approve",
-              "securenow_blocklist_pending_bulk_reject",
-              "securenow_blocklist_add",
-              "securenow_blocklist_remove",
-              "securenow_blocklist_unblock",
-              "securenow_blocklist_stats",
-              "securenow_allowlist_list",
-              "securenow_allowlist_add",
-              "securenow_allowlist_remove",
-              "securenow_trusted_list",
-              "securenow_trusted_add",
-              "securenow_trusted_remove"
-            ]
-          }
+          "summary": "server died on malformed input"
         },
         {
           "id": "secret-echo",
@@ -60044,7 +59981,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "securenow_auth_status declared read-only and changed nothing in the observed directories during a benign call (securenow_apps_list, securenow_firewall_apps, securenow_firewall_status, securenow_notifications_list, securenow_notifications_unread, securenow_human_actions_list, securenow_human_actions_grouped_list, securenow_alert_review_runs_list, securenow_alert_review_runs_count, securenow_alert_review_group_similar, securenow_forensics_library, securenow_analytics_summary, securenow_automation_rules_list, securenow_rate_limit_list, securenow_rate_limit_test, securenow_alert_rules_list, securenow_blocklist_list, securenow_blocklist_pending_list, securenow_blocklist_stats, securenow_allowlist_list, securenow_trusted_list not judged: the control call failed)"
+          "summary": "securenow_auth_status declared read-only and changed nothing in the observed directories during a benign call (securenow_apps_list, securenow_firewall_apps, securenow_firewall_status, securenow_firewall_test_ip, securenow_notifications_list, securenow_notifications_unread, securenow_human_actions_list, securenow_human_actions_grouped_list, securenow_alert_review_runs_list, securenow_alert_review_runs_count, securenow_alert_review_group_similar, securenow_forensics_library, securenow_forensics_conversations_list, securenow_analytics_summary, securenow_automation_rules_list, securenow_rate_limit_list, securenow_rate_limit_test, securenow_firewall_hits, securenow_protection_status, securenow_overview, securenow_challenge_list, securenow_alert_rules_list, securenow_alert_rule_promotion_requests, securenow_blocklist_list, securenow_blocklist_pending_list, securenow_blocklist_stats, securenow_allowlist_list, securenow_trusted_list, securenow_agent_context, securenow_agent_history not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -60053,7 +59990,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "28 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "37 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -60062,11 +59999,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check",
-          "tools": {
-            "probed": [],
-            "notCovered": []
-          }
+          "summary": "every tool carries annotations, nothing to check"
         },
         {
           "id": "refusal-quality",
@@ -60079,16 +60012,18 @@
         }
       ],
       "coverage": {
-        "validCalls": 29,
-        "toolsCalledValid": 28,
-        "toolsTotal": 90,
+        "validCalls": 38,
+        "toolsCalledValid": 37,
+        "toolsTotal": 125,
         "level": "low"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 90 tools",
+        "malformed-input probes cover the first 25 of 125 tools",
+        "SQL tool \"securenow_alert_rule_create\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
+        "SQL tool \"securenow_alert_rule_update\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"securenow_alert_rule_query_update\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "tool \"securenow_alert_review_run_keep_alive\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"securenow_alert_review_apply_group_decision\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
@@ -60108,10 +60043,11 @@
         "tool \"securenow_firewall_enable\" is covered by the core checks only: free-text parameter \"appKey\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"securenow_firewall_disable\" is covered by the core checks only: free-text parameter \"appKey\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"securenow_firewall_set_threshold\" is covered by the core checks only: free-text parameter \"appKey\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"securenow_firewall_test_ip\" is covered by the core checks only: free-text parameter \"ip\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"securenow_traces_list\" is covered by the core checks only: free-text parameter \"environment\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"securenow_traces_show\" is covered by the core checks only: free-text parameter \"traceId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "62 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"securenow_logs_list\" is covered by the core checks only: free-text parameter \"environment\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "94 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"securenow_alert_review_run_resolve\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_review_run_dismiss\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_review_run_keep_alive\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_review_run_apply_group_decision\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -60127,7 +60063,13 @@
         "tool \"securenow_ip_lookup\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_ip_traces\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_forensics_query\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_forensics_query_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_forensics_library\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_forensics_chat\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_forensics_chat_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_forensics_chat_confirm\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_forensics_conversations_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_forensics_conversation_get\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_analytics_summary\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_automation_rules_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_automation_defaults_ensure\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -60141,8 +60083,26 @@
         "tool \"securenow_rate_limit_get\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_rate_limit_test\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_rate_limit_remove\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_rate_limit_create\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_rate_limit_update\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_firewall_hits\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_protection_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_overview\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_attacker\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_protection_enable\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_protection_monitor\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_quality\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_protection_learn\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_protection_disable\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_challenge_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_challenge_create\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_challenge_update\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_challenge_remove\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_rate_limit_parse\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_rate_limit_create_from_text\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_draft\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_draft_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_create\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rules_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_get\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_versions\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -60158,6 +60118,11 @@
         "tool \"securenow_alert_rule_test\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_candidate_test\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_test_result\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_runs\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_run_now\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_explain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_request_promotion\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_alert_rule_promotion_requests\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_exclusions_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_exclusion_add\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_alert_rule_exclusion_remove\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -60177,6 +60142,11 @@
         "tool \"securenow_trusted_list\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_trusted_add\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"securenow_trusted_remove\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_agent_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_agent_verify_ip\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_agent_block_ip\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_agent_remember\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"securenow_agent_history\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -60459,16 +60429,16 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.1.0",
+      "versionTested": "1.2.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.1.0 mcp",
+      "launch": "uvx skilltotal==1.2.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -62162,31 +62132,111 @@
       "name": "telbase",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.14.0-beta.2",
+      "versionTested": "1.0.8",
       "serverInfoName": "telbase",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y telbase@0.14.0-beta.2 mcp serve",
+      "launch": "npx -y telbase@1.0.8 mcp serve",
       "transport": "stdio",
-      "toolCount": 5,
+      "toolCount": 45,
       "tools": [
-        "deploy",
+        "add_custom_domain",
+        "cancel_deploy",
+        "check_app_health",
+        "connect_github",
+        "delete_env_var",
+        "delete_project",
+        "enable_database_extension",
+        "get_account_status",
+        "get_app",
+        "get_app_logs",
+        "get_database_info",
         "get_deploy_logs",
         "get_deploy_status",
+        "get_github_status",
+        "get_job_executions",
+        "get_project",
+        "get_session",
+        "get_storage_credentials",
+        "get_storage_info",
+        "invite_member",
+        "list_apps",
+        "list_custom_domains",
+        "list_deploys",
+        "list_env_vars",
+        "list_orgs",
         "list_projects",
-        "set_env_vars"
+        "list_rollback_targets",
+        "list_team",
+        "pause_job",
+        "protect_app",
+        "register_app",
+        "remove_custom_domain",
+        "reset_service",
+        "restart_service",
+        "resume_job",
+        "resume_service",
+        "rollback_deploy",
+        "run_scheduled_job",
+        "set_env_vars",
+        "suspend_service",
+        "switch_org",
+        "toggle_auto_deploy",
+        "update_project",
+        "update_schedule",
+        "verify_custom_domain"
       ],
       "toolSchemas": {
-        "deploy": "b91ab134e443",
-        "get_deploy_logs": "45f73e1605cb",
+        "add_custom_domain": "7aa0d5da159d",
+        "cancel_deploy": "3d39677641ad",
+        "check_app_health": "fb0ebe8919c1",
+        "connect_github": "c5ec64b0bf28",
+        "delete_env_var": "6ebee241b000",
+        "delete_project": "bd480b512ad3",
+        "enable_database_extension": "97d2a9e4dda6",
+        "get_account_status": "cd1a463c46d6",
+        "get_app": "5523962c5736",
+        "get_app_logs": "7e232ebf8a2d",
+        "get_database_info": "d404be005a72",
+        "get_deploy_logs": "59308f81d55d",
         "get_deploy_status": "9380dabad4ae",
+        "get_github_status": "d404be005a72",
+        "get_job_executions": "2168b1d0df86",
+        "get_project": "d404be005a72",
+        "get_session": "cf1b55b55204",
+        "get_storage_credentials": "b453396cadd3",
+        "get_storage_info": "d404be005a72",
+        "invite_member": "1b428e908b42",
+        "list_apps": "cd1a463c46d6",
+        "list_custom_domains": "f4ab609759e5",
+        "list_deploys": "f9851e24837a",
+        "list_env_vars": "f58d81a9a5a0",
+        "list_orgs": "cd1a463c46d6",
         "list_projects": "cd1a463c46d6",
-        "set_env_vars": "d36ea88303cf"
+        "list_rollback_targets": "a6b7543b0511",
+        "list_team": "cd1a463c46d6",
+        "pause_job": "0f45ec12f1ba",
+        "protect_app": "a99c699303ca",
+        "register_app": "399b7d80130c",
+        "remove_custom_domain": "d3b73d9ee48f",
+        "reset_service": "8640f07d802d",
+        "restart_service": "a6b7543b0511",
+        "resume_job": "0f45ec12f1ba",
+        "resume_service": "a6b7543b0511",
+        "rollback_deploy": "56ca21d64c5f",
+        "run_scheduled_job": "0f45ec12f1ba",
+        "set_env_vars": "51eee65d5c71",
+        "suspend_service": "a6b7543b0511",
+        "switch_org": "bc37aa783eda",
+        "toggle_auto_deploy": "de6d7dd6286f",
+        "update_project": "e535004f950a",
+        "update_schedule": "251b86e7d20f",
+        "verify_custom_domain": "5349127bfd27"
       },
       "packs": [
         {
@@ -62235,7 +62285,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
         },
         {
           "id": "git",
@@ -62294,7 +62344,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 5 well-formed tool(s)"
+          "summary": "handshake ok, 45 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -62303,7 +62353,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 5 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 45 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -62312,11 +62362,33 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "19 invalid call(s) rejected cleanly",
+          "summary": "108 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [],
             "notCovered": [
-              "list_projects"
+              "list_projects",
+              "list_rollback_targets",
+              "list_team",
+              "pause_job",
+              "protect_app",
+              "register_app",
+              "remove_custom_domain",
+              "reset_service",
+              "restart_service",
+              "resume_job",
+              "resume_service",
+              "rollback_deploy",
+              "run_scheduled_job",
+              "set_env_vars",
+              "suspend_service",
+              "switch_org",
+              "toggle_auto_deploy",
+              "update_project",
+              "update_schedule",
+              "verify_custom_domain",
+              "get_account_status",
+              "list_apps",
+              "list_orgs"
             ]
           }
         },
@@ -62327,7 +62399,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 19 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 108 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -62335,8 +62407,8 @@
           "label": "Server instructions name only tools that exist",
           "critical": false,
           "advisory": true,
-          "verdict": "na",
-          "summary": "the server sent no instructions"
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
         },
         {
           "id": "annotation-honesty",
@@ -62367,7 +62439,9 @@
           "tools": {
             "probed": [],
             "notCovered": [
-              "deploy"
+              "check_app_health",
+              "connect_github",
+              "register_app"
             ]
           }
         },
@@ -62384,7 +62458,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 5,
+        "toolsTotal": 45,
         "level": "hygiene-only"
       },
       "badge": {
@@ -62392,67 +62466,99 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "tool \"deploy\" (git) was not probed by the git pack: the server config has no {sandbox} placeholder, so the repository scope cannot be configured (a server given a real repository would reach every other repository legitimately); pass {sandbox}/repo as its repository argument",
-        "tool \"deploy\" also looks like a path tool (secondary class); only its primary class (git) was probed",
+        "malformed-input probes cover the first 25 of 45 tools",
+        "tool \"check_app_health\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"connect_github\" (git) was not probed by the git pack: the server config has no {sandbox} placeholder, so the repository scope cannot be configured (a server given a real repository would reach every other repository legitimately); pass {sandbox}/repo as its repository argument",
+        "tool \"register_app\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"connect_github\" also looks like a path tool (secondary class); only its primary class (git) was probed",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"add_custom_domain\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"cancel_deploy\" is covered by the core checks only: free-text parameter \"deploy_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"delete_env_var\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"delete_project\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"enable_database_extension\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_account_status\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get_app\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"get_app_logs\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_database_info\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_deploy_logs\" is covered by the core checks only: free-text parameter \"deploy_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_deploy_status\" is covered by the core checks only: free-text parameter \"deploy_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"list_projects\" is covered by the core checks only: the tool takes no parameters",
-        "tool \"set_env_vars\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; its required parameter \"vars\" cannot be filled by the harness; write a probes: entry to call it",
-        "tool \"list_projects\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"get_github_status\" is covered by the core checks only: free-text parameter \"project_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "30 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"list_projects\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"list_rollback_targets\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"list_team\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"pause_job\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"protect_app\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"register_app\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"remove_custom_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"reset_service\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"restart_service\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"resume_job\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"resume_service\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"rollback_deploy\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"run_scheduled_job\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"set_env_vars\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"suspend_service\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"switch_org\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"toggle_auto_deploy\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"update_project\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"update_schedule\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"verify_custom_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_account_status\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"list_apps\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"list_orgs\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "deploy": "b91ab134e443",
+          "get_deploy_logs": "45f73e1605cb",
+          "get_deploy_status": "9380dabad4ae",
+          "list_projects": "cd1a463c46d6",
+          "set_env_vars": "d36ea88303cf"
+        }
+      }
     },
     {
       "id": "tenjin-cli",
       "name": "tenjin-cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.0-alpha.15",
+      "versionTested": "0.1.0-alpha.34",
       "serverInfoName": "tenjin-cli",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y tenjin-cli@0.1.0-alpha.15 mcp",
+      "launch": "npx -y tenjin-cli@0.1.0-alpha.34 mcp",
       "transport": "stdio",
-      "toolCount": 8,
+      "toolCount": 2,
       "tools": [
-        "tenjin_search",
-        "tenjin_inspect",
-        "tenjin_buy",
-        "tenjin_outcome",
-        "tenjin_publish",
-        "tenjin_edit",
-        "tenjin_wallet",
-        "tenjin_fund"
+        "request",
+        "hook"
       ],
       "toolSchemas": {
-        "tenjin_buy": "3c2c222cebd2",
-        "tenjin_edit": "b6d8085c8b85",
-        "tenjin_fund": "ba4faf286e38",
-        "tenjin_inspect": "70811a76f653",
-        "tenjin_outcome": "6f7a39219c5e",
-        "tenjin_publish": "04d1737026ee",
-        "tenjin_search": "cbec6ea7380d",
-        "tenjin_wallet": "fae49b7cda2b"
+        "hook": "f17e8fec5ef7",
+        "request": "ca35dd5914ad"
       },
       "packs": [
         {
           "id": "core",
           "status": "graded",
-          "letter": "A",
-          "points": 4,
+          "letter": "B",
+          "points": 3.5,
           "scored": 4,
-          "pct": 100,
+          "pct": 87.5,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -62540,7 +62646,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "no tool declared readOnlyHint: true could be given a harness-owned control argument"
+          "reason": "no tool declares readOnlyHint: true"
         }
       ],
       "checks": [
@@ -62551,7 +62657,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 8 well-formed tool(s)"
+          "summary": "handshake ok, 2 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -62559,8 +62665,8 @@
           "label": "No tool-poisoning indicators in tool metadata",
           "critical": true,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "scanned 8 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "verdict": "part",
+          "summary": "1 weak indicator(s) worth reading, none conclusive"
         },
         {
           "id": "robust-input",
@@ -62569,7 +62675,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "38 invalid call(s) rejected cleanly",
+          "summary": "9 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [],
             "notCovered": []
@@ -62582,7 +62688,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 38 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 9 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -62590,8 +62696,8 @@
           "label": "Server instructions name only tools that exist",
           "critical": false,
           "advisory": true,
-          "verdict": "pass",
-          "summary": "the instructions name no tool the server lacks"
+          "verdict": "fail",
+          "summary": "the server instructions names 4 tool(s) the server does not offer (needs_approval, all, fullResultPath, nextStep)"
         },
         {
           "id": "annotation-honesty",
@@ -62600,7 +62706,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "na",
-          "summary": "no tool declared readOnlyHint: true could be given a harness-owned control argument"
+          "summary": "no tool declares readOnlyHint: true"
         },
         {
           "id": "openworld-honesty",
@@ -62618,10 +62724,13 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check",
+          "summary": "no unannotated read-style tool could be given a harness-owned control argument",
           "tools": {
             "probed": [],
-            "notCovered": []
+            "notCovered": [
+              "request",
+              "hook"
+            ]
           }
         },
         {
@@ -62637,7 +62746,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 8,
+        "toolsTotal": 2,
         "level": "hygiene-only"
       },
       "badge": {
@@ -62645,46 +62754,54 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "tool \"tenjin_publish\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"request\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"hook\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
-        "tool \"tenjin_search\" is covered by the core checks only: free-text parameter \"question\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"tenjin_inspect\" is covered by the core checks only: free-text parameter \"ref\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"tenjin_buy\" is covered by the core checks only: free-text parameter \"ref\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"tenjin_outcome\" is covered by the core checks only: free-text parameter \"status\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"tenjin_edit\" is covered by the core checks only: free-text parameter \"postId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"tenjin_wallet\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
-        "tool \"tenjin_fund\" is covered by the core checks only: free-text parameter \"amountUsd\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "tenjin_buy": "3c2c222cebd2",
+          "tenjin_edit": "b6d8085c8b85",
+          "tenjin_fund": "ba4faf286e38",
+          "tenjin_inspect": "70811a76f653",
+          "tenjin_outcome": "6f7a39219c5e",
+          "tenjin_publish": "04d1737026ee",
+          "tenjin_search": "cbec6ea7380d",
+          "tenjin_wallet": "fae49b7cda2b"
+        }
+      }
     },
     {
       "id": "toolaby",
       "name": "toolaby",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.15.1",
+      "versionTested": "1.18.0",
       "serverInfoName": "toolaby",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y toolaby@1.15.1 mcp",
+      "launch": "npx -y toolaby@1.18.0 mcp",
       "transport": "stdio",
-      "toolCount": 30,
+      "toolCount": 31,
       "tools": [
         "toolaby_whoami",
         "toolaby_list_tools",
         "toolaby_get_tool",
         "toolaby_list_customers",
         "toolaby_get_customer",
+        "toolaby_analytics",
         "toolaby_search_docs",
         "toolaby_docs",
         "toolaby_check",
@@ -62714,6 +62831,7 @@
       "toolSchemas": {
         "toolaby_add_plan": "587554f95c2c",
         "toolaby_add_webhook": "b7a92e2f09cb",
+        "toolaby_analytics": "b6df18ab6158",
         "toolaby_cancel_subscription": "f8187f19b7e4",
         "toolaby_check": "b0fa53fabaca",
         "toolaby_copy_to_live": "796d73364868",
@@ -62740,7 +62858,7 @@
         "toolaby_stripe_status": "682ef3e0acb2",
         "toolaby_test_unlock": "33b96d0505fb",
         "toolaby_update_plan": "60d91939f710",
-        "toolaby_update_tool": "2174dc95dfc5",
+        "toolaby_update_tool": "ccf8e4fa7116",
         "toolaby_whoami": "99334726611c"
       },
       "packs": [
@@ -62849,7 +62967,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 30 well-formed tool(s)"
+          "summary": "handshake ok, 31 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -62871,6 +62989,7 @@
           "tools": {
             "probed": [],
             "notCovered": [
+              "toolaby_create_api_key",
               "toolaby_list_webhook_events",
               "toolaby_list_webhooks",
               "toolaby_add_webhook",
@@ -62980,7 +63099,7 @@
       "coverage": {
         "validCalls": 7,
         "toolsCalledValid": 8,
-        "toolsTotal": 30,
+        "toolsTotal": 31,
         "level": "low"
       },
       "badge": {
@@ -62988,7 +63107,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 30 tools",
+        "malformed-input probes cover the first 25 of 31 tools",
         "tool \"toolaby_add_plan\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"toolaby_add_webhook\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"toolaby_add_webhook\" also looks like a url tool (secondary class); it was attempted by the net pack but every call failed",
@@ -62998,14 +63117,15 @@
         "tool \"toolaby_get_tool\" is covered by the core checks only: free-text parameter \"tool\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"toolaby_list_customers\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"toolaby_get_customer\" is covered by the core checks only: free-text parameter \"tool\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"toolaby_analytics\" is covered by the core checks only: free-text parameter \"tool\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"toolaby_search_docs\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"toolaby_docs\" is covered by the core checks only: argument \"page\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"toolaby_check\" is covered by the core checks only: free-text parameter \"folder\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"toolaby_stripe_status\" is covered by the core checks only: free-text parameter \"workspace\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"toolaby_sign_in\" is covered by the core checks only: the tool takes no parameters",
         "tool \"toolaby_create_tool\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
-        "tool \"toolaby_update_tool\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
-        "15 more tool(s) are covered by the core checks only (see the classification)",
+        "16 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"toolaby_create_api_key\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"toolaby_list_webhook_events\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"toolaby_list_webhooks\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"toolaby_add_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -63020,23 +63140,58 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "toolaby_add_plan": "587554f95c2c",
+          "toolaby_add_webhook": "b7a92e2f09cb",
+          "toolaby_cancel_subscription": "f8187f19b7e4",
+          "toolaby_check": "b0fa53fabaca",
+          "toolaby_copy_to_live": "796d73364868",
+          "toolaby_create_api_key": "c4af362288c1",
+          "toolaby_create_coupon": "a4302403df06",
+          "toolaby_create_tool": "31b6d16caa9e",
+          "toolaby_docs": "45100922ec49",
+          "toolaby_get_customer": "d6eaf8f07c98",
+          "toolaby_get_tool": "796d73364868",
+          "toolaby_grant": "db3c372c38ae",
+          "toolaby_list_customers": "8acd9dee24c0",
+          "toolaby_list_tools": "99334726611c",
+          "toolaby_list_webhook_events": "99334726611c",
+          "toolaby_list_webhooks": "682ef3e0acb2",
+          "toolaby_refund": "bc270d6e4d04",
+          "toolaby_remove_webhook": "c8fd35ab048c",
+          "toolaby_retire_plan": "2b275dd312e7",
+          "toolaby_revoke_grant": "715b16e63671",
+          "toolaby_search_docs": "627b2b9bb1fc",
+          "toolaby_send_test_event": "ed378f7021de",
+          "toolaby_set_access": "7a54ab3d9ad7",
+          "toolaby_set_features": "79f4e3f2cabc",
+          "toolaby_sign_in": "99334726611c",
+          "toolaby_stripe_status": "682ef3e0acb2",
+          "toolaby_test_unlock": "33b96d0505fb",
+          "toolaby_update_plan": "60d91939f710",
+          "toolaby_update_tool": "2174dc95dfc5",
+          "toolaby_whoami": "99334726611c"
+        }
+      }
     },
     {
       "id": "trusty-squire-mcp",
       "name": "@trusty-squire/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.44-rc.1",
+      "versionTested": "1.1.43",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @trusty-squire/mcp@1.1.44-rc.1 server",
+      "launch": "npx -y @trusty-squire/mcp@1.1.43 server",
       "transport": "stdio",
       "toolCount": 34,
       "tools": [
@@ -63406,7 +63561,46 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "audit_log": "a077713d6e57",
+          "delete_credential": "efc7b9a0dcfe",
+          "edit_credential": "fbbb703bb086",
+          "edit_payment_card": "3d3790b0e740",
+          "fetch_credential": "b56bf618a201",
+          "grant_app_access": "6f64f6d37050",
+          "inject_card": "604061a93465",
+          "list_app_access": "446208e6d264",
+          "list_credentials": "f270fedc3229",
+          "list_payment_cards": "446208e6d264",
+          "operate_click": "e75039a3016c",
+          "operate_dialog": "95b99a82aa72",
+          "operate_download": "7cb6e55f8f84",
+          "operate_drive": "dbacf30e75e1",
+          "operate_extract": "4666c3bc24c6",
+          "operate_finish": "a9df857957a9",
+          "operate_login": "202255be7285",
+          "operate_navigate": "ea804ad49446",
+          "operate_network": "3f8822773835",
+          "operate_observe": "a27d4b6f5a89",
+          "operate_press": "6252ee2ed4f8",
+          "operate_read_inbox": "598cc7144512",
+          "operate_screenshot": "8b8688fbe274",
+          "operate_scroll": "ab5688656e11",
+          "operate_select": "a5ee9a90b848",
+          "operate_share": "3c059c7f1f2f",
+          "operate_solve_captcha": "d152922b8357",
+          "operate_start": "fa198b31f643",
+          "operate_type": "d4690913d074",
+          "operate_upload": "5178726e8706",
+          "operate_wait": "0e76a476a7b8",
+          "revoke_app_access": "761c004504fd",
+          "store_credential": "8053665d033f",
+          "use_credential": "e2d68ad64916"
+        }
+      }
     },
     {
       "id": "uarpie",
@@ -64849,6 +65043,654 @@
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "dinglebear-synapse",
+      "name": "@dinglebear/synapse",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "1.0.0",
+      "serverInfoName": "synapse",
+      "testedAt": "2026-11-16",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @dinglebear/synapse@1.0.0 mcp",
+      "transport": "stdio",
+      "toolCount": 2,
+      "tools": [
+        "flux",
+        "scout"
+      ],
+      "toolSchemas": {
+        "flux": "ec7ce2afefef",
+        "scout": "9115a7139453"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 2 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 2 tool definition(s) and serverInfo, 1 prompt(s) and 8 resource(s), including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "10 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 10 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 2,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tool \"scout\" also looks like a path tool (secondary class); only its primary class (command) was probed",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"flux\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "tool \"scout\" looks like a command runner; the exec pack did not run (it needs --active)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "dinglebear-yarr",
+      "name": "@dinglebear/yarr",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "2.2.2",
+      "serverInfoName": "yarr",
+      "testedAt": "2026-11-16",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @dinglebear/yarr@2.2.2 mcp",
+      "transport": "stdio",
+      "toolCount": 1,
+      "tools": [
+        "yarr"
+      ],
+      "toolSchemas": {
+        "yarr": "7022312f9d3f"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 1 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 1 tool definition(s) and serverInfo, 1 prompt(s) and 1 resource(s), including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "5 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 5 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 1,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"yarr\" is covered by the core checks only: argument \"code\" could be a command, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "nove-mcp",
+      "name": "nove-mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "1.0.0",
+      "serverInfoName": "nove-mcp",
+      "testedAt": "2026-11-16",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y nove-mcp@1.0.0",
+      "transport": "stdio",
+      "toolCount": 3,
+      "tools": [
+        "get_pregnancy_week",
+        "calculate_due_date",
+        "search_nove"
+      ],
+      "toolSchemas": {
+        "calculate_due_date": "2ba932e3d74c",
+        "get_pregnancy_week": "dcd7f3e0a65b",
+        "search_nove": "157c9e05b85b"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "B",
+          "points": 3.5,
+          "scored": 4,
+          "pct": 87.5,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "every control call failed, so the read-only annotation could not be checked"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 3 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 3 tool definition(s), the server instructions and serverInfo, 4 resource(s), including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "part",
+          "summary": "0 internals leak(s), 5 invalid call(s) accepted",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 13 captured response(s), 5 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the read-only annotation could not be checked"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the closed-world annotation could not be checked"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 3,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"get_pregnancy_week\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"calculate_due_date\" is covered by the core checks only: free-text parameter \"lmp\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"search_nove\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
       "automated": true

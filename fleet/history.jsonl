@@ -1418,3 +1418,25 @@
 {"id":"yarr-mcp","version":"1.1.1","args":["mcp"],"testedAt":"2026-11-15","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice | npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-11-15T22_38_48_266Z-debug-0.log)."}
 {"id":"zereight-gitlab-mcp","version":"2.3.28","testedAt":"2026-11-15","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
 {"id":"zils-cli","version":"0.4.22","sealmark":"1.0.1","testedAt":"2026-11-15","status":"ok","worst":"D","packs":{"core":"A","effects":"D"}}
+{"id":"callmcp-server","version":"0.1.5","testedAt":"2026-11-16","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"dinglebear-soma","version":"0.10.0","args":["mcp"],"testedAt":"2026-11-16","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"dinglebear-synapse","version":"1.0.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"dinglebear-yarr","version":"2.2.2","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"flydocs-cli","version":"1.3.47","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"hypaware","version":"1.52.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"jgravelle-jcodemunch-mcp","version":"1.108.453","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"B","packs":{"core":"A","effects":"B"}}
+{"id":"kadal-store","version":"0.1.3","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"kajisho5-ffmpeg-skill","version":"3.10.1","testedAt":"2026-11-16","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2 | npm notice To update run: npm install -g npm@12.2.2 | npm notice)."}
+{"id":"kloudy","version":"1.0.3","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"nove-mcp","version":"1.0.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"oddessentials-agent-guild","version":"1.35.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"poppy-memory","version":"0.4.1","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"satohub-kit","version":"0.1.1","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"securenow","version":"8.26.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"D","packs":{"core":"D","effects":"A"}}
+{"id":"skilltotal","version":"1.2.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"D","packs":{"core":"D","effects":"A"}}
+{"id":"telbase","version":"1.0.8","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"tenjin-cli","version":"0.1.0-alpha.34","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"tensorfeed-mcp-server","version":"2.1.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"toolaby","version":"1.18.0","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"B","packs":{"core":"B","effects":"A"}}
+{"id":"trusty-squire-mcp","version":"1.1.43","sealmark":"1.0.1","testedAt":"2026-11-16","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"vitali87-code-graph-rag","version":"0.6.62","testedAt":"2026-11-16","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr:  | hint: `cgr-graph-rs` was included because `code-graph-rag` (v0.6.62) depends on `cgr-graph-rs` |  | hint: Build failures usually indicate a problem with the package or the build environment)."}

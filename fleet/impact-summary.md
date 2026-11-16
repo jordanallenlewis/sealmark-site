@@ -1,11 +1,11 @@
 # Owner-notice impact
 
-Written 2026-11-15 by `fleet/impact.mjs`. Internal: not published on sealmark.dev. Base-rate window: from the first notice (2026-11-14) to 2026-11-15.
+Written 2026-11-16 by `fleet/impact.mjs`. Internal: not published on sealmark.dev. Base-rate window: from the first notice (2026-11-14) to 2026-11-16.
 
 | | Notified | Base rate (never notified) |
 |---|---|---|
 | Servers | 2 | 213 |
-| Released a new version since | 0 (0%) | 7 (3%) |
+| Released a new version since | 0 (0%) | 8 (4%) |
 | Improved after notice (better letter on a new version) | 0 (0%; n/a of releasers) | 0 (0%; 0% of releasers) |
 | Regressed (worse letter on a new version) | 0 | 1 |
 | Median days to first improvement | n/a | n/a |

@@ -309,6 +309,16 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "dinglebear-synapse": {
+    "repo": "dinglebear-ai/synapse",
+    "source": "npm",
+    "resolvedAt": "2026-11-16"
+  },
+  "dinglebear-yarr": {
+    "repo": "dinglebear-ai/yarr",
+    "source": "npm",
+    "resolvedAt": "2026-11-16"
+  },
   "doc-cheap-mcp": {
     "repo": null,
     "source": "npm",
@@ -749,6 +759,11 @@
     "repo": "aesopfrom0/noglow-releases",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "nove-mcp": {
+    "repo": "wevemedeiros/nove-sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-16"
   },
   "nudg3-mcp": {
     "repo": "NUDG3-AI/nudg3-mcp",
