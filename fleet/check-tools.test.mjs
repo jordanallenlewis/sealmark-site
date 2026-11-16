@@ -113,3 +113,10 @@ test("schemasBefore: no old entry, no hashes on it, or a later date gives no bas
   assert.equal(schemasBefore({ testedAt: "2026-11-14" }, "2026-11-15"), undefined);
   assert.equal(schemasBefore({ testedAt: "2026-11-16", toolSchemas: { a: "1" } }, "2026-11-15"), undefined);
 });
+
+test("a server the site would hold names no tool: an unknown or private id flagged advisory counts as a finding", () => {
+  const pub = { id: publicId, verdict: "pass", coverage: cov };
+  assert.equal(checkTools(pub, { checks: [pub, { id: "some-new-candidate", advisory: true, verdict: "fail" }] }), undefined);
+  assert.equal(serverTools({ tools: ["a"] }, [pub, { id: privateId, advisory: true, verdict: "fail" }]), undefined);
+  assert.deepEqual(serverTools({ tools: ["a"] }, [pub, { id: advisoryId, advisory: true, verdict: "fail" }]), ["a"]);
+});

@@ -8,6 +8,7 @@ import { recordFailedAttempt } from "../web/lib/retest.mjs";
 import { writeNotGraded } from "./not-graded.mjs";
 import { recordArgs } from "./registry-args.mjs";
 import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-tools.mjs";
+import { checkEvidence, mergeEvidence } from "./evidence.mjs";
 
 /** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
 const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
@@ -15,6 +16,8 @@ const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
 const RESULTS = path.join("web", "content", "data", "server-results.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
 const HISTORY = path.join("fleet", "history.jsonl");
+// What each public check observed, per server (the evidence viewer, fleet/evidence.mjs).
+const EVIDENCE = path.join("fleet", "evidence.json");
 
 const reportsDir = process.argv[2];
 if (!reportsDir) {
@@ -37,6 +40,10 @@ const results = readJson(RESULTS) ?? { servers: [] };
 if (!Array.isArray(results.servers)) results.servers = [];
 let discovered = readJson(DISCOVERED);
 if (!Array.isArray(discovered)) discovered = [];
+// An existing file that cannot be read is left alone (and not rewritten), so one bad write never wipes every record.
+const evidenceFile = fs.existsSync(EVIDENCE) ? readJson(EVIDENCE) : { servers: {} };
+/** @type {[string, object | undefined][]} each graded server's new evidence record, or undefined to drop the old one */
+const evidenceUpdates = [];
 
 // History is an append-only JSONL log; create it and its folder if needed.
 fs.mkdirSync(path.dirname(HISTORY), { recursive: true });
@@ -168,6 +175,7 @@ for (const name of subfolders) {
   }
   if (idx >= 0) results.servers[idx] = entry;
   else results.servers.push(entry);
+  evidenceUpdates.push([meta.id, checkEvidence(r)]);
   merged += 1;
   if (meta.isNew && !discovered.some((d) => d.id === meta.id)) {
     discovered.push({ id: meta.id, name: meta.name, ecosystem: meta.ecosystem, launch: meta.launch });
@@ -203,6 +211,14 @@ for (const name of subfolders) {
 
 fs.writeFileSync(RESULTS, JSON.stringify(results, null, 2) + "\n");
 fs.writeFileSync(DISCOVERED, JSON.stringify(discovered, null, 2) + "\n");
+// A failed re-test keeps the server's last record, as server-results.json keeps its last result.
+if (!evidenceFile) console.error(`${EVIDENCE} is unreadable: left as it is, no evidence written this run`);
+else {
+  const evidenceServers = mergeEvidence(evidenceFile.servers, evidenceUpdates, new Set(results.servers.map((x) => x.id)));
+  // One server per line, so a run's diff shows which servers changed.
+  const evidenceLines = Object.entries(evidenceServers).map(([id, rec]) => `${JSON.stringify(id)}:${JSON.stringify(rec)}`);
+  fs.writeFileSync(EVIDENCE, `{"note":"Written by fleet/merge.mjs from the CLI reports; public checks only (fleet/evidence.mjs).","servers":{\n${evidenceLines.join(",\n")}\n}}\n`);
+}
 // The "Not graded yet" list on /results/ (fleet/not-graded.mjs), from the history and results just written.
 const notGraded = writeNotGraded();
 console.log(`merged ${merged} report(s), ${failed} failed, ${added} new, ${notGraded.count} not graded yet`);
