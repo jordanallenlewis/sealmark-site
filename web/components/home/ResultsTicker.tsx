@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, RANK, SERVERS_RESULTS, deepPacks, worst, type Letter, type ServerResult } from "@/lib/results";
+import { twoEvenRows } from "@/lib/ticker-mix.mjs";
 import s from "./ResultsTicker.module.css";
 import { TickerControl } from "./TickerControl";
 
@@ -33,11 +34,8 @@ export function ResultsTicker() {
     const wa = worst(a), wb = worst(b);
     return (wa ? RANK[wa.letter] : 5) - (wb ? RANK[wb.letter] : 5) || a.name.localeCompare(b.name);
   });
-  // Interleave best and worst so every part of each row mixes grades (sorted is worst first).
-  const mixed = sorted.map((_, i) => (i % 2 === 0 ? sorted[i / 2] : sorted[sorted.length - 1 - (i - 1) / 2]));
-  const half = Math.ceil(mixed.length / 2);
-  const row1 = mixed.slice(0, half);
-  const row2 = mixed.slice(half);
+  // Each grade split evenly between the rows, then spaced evenly along each row (lib/ticker-mix.mjs).
+  const [row1, row2] = twoEvenRows(sorted, (x) => worst(x)?.letter ?? "none");
   return (
     <TickerControl>
     <figure className={s.ticker} aria-label={`Worst grade for each of the ${sorted.length} servers tested`}>
