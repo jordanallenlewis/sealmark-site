@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { spreadEvenly, twoEvenRows } from "./ticker-mix.mjs";
+import { balanceGoodBad, goodBadRows, goodOrBad, spreadEvenly, twoEvenRows } from "./ticker-mix.mjs";
 
 // The real mix on 2026-11-16: 159 A, 68 B, 2 C, 19 D, 11 F.
 const mix = { A: 159, B: 68, C: 2, D: 19, F: 11 };
@@ -44,5 +44,27 @@ test("each row spaces its grades evenly too, and rare grades never sit side by s
       const a = out[i].g, b = out[(i + 1) % out.length].g;
       if (a !== "A" && a !== "B") assert.notEqual(a, b, `two ${a} in a row at ${i}`);
     }
+  }
+});
+
+test("good and bad grades come out even, and every bad one is kept", () => {
+  const out = balanceGoodBad(items, (x) => x.g);
+  const good = out.filter((x) => x.g === "A" || x.g === "B").length;
+  const bad = out.filter((x) => "CDF".includes(x.g)).length;
+  assert.equal(bad, mix.C + mix.D + mix.F);
+  assert.equal(good, bad);
+  assert.equal(new Set(out).size, out.length);
+  const a = out.filter((x) => x.g === "A").length, b = out.filter((x) => x.g === "B").length;
+  assert.ok(Math.abs(a - b) <= 1, `A ${a} vs B ${b}`);
+});
+
+test("the balanced list still splits into two evenly spaced rows", () => {
+  const [r1, r2] = goodBadRows(balanceGoodBad(items, (x) => x.g), (x) => x.g);
+  const bad = (r) => r.filter((x) => "CDF".includes(x.g)).length;
+  assert.ok(Math.abs(bad(r1) - bad(r2)) <= 1);
+  // Good and bad alternate, so two bad ones never sit side by side, and the same letter never repeats back to back
+  // among the bad ones (C, D, F vary along the row).
+  for (const r of [r1, r2]) {
+    for (let i = 0; i < r.length; i++) assert.notEqual(goodOrBad(r[i].g), goodOrBad(r[(i + 1) % r.length].g), `two ${goodOrBad(r[i].g)} side by side at ${i}`);
   }
 });
