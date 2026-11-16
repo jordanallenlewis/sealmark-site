@@ -39,6 +39,15 @@ export function shellArg(s) {
 export const reproduceCommand = (version, launch) => `npx -y sealmark@${version} run --start ${shellArg(launch)}`;
 
 /**
+ * The short config hash a STANDARD run carries (fleet/merge.mjs keeps "sha256:" and 12 hex characters), or null for any
+ * other run or a malformed value. Every STANDARD run of one methodology carries the same hash, so a reader's own run
+ * can be compared with it ("Run it yourself" on the results pages).
+ * @param {{ standard?: boolean | null, configHash?: string | null }} server
+ */
+export const standardHash = (server) =>
+  server.standard === true && typeof server.configHash === "string" && /^sha256:[0-9a-f]{12}$/.test(server.configHash) ? server.configHash : null;
+
+/**
  * How much of the server the grade covers, said plainly. `kind` drives the layout:
  *   no-tools  the server declared no tools (it is not presented like a normal grade)
  *   hygiene   tools exist but the grade only covers the handshake and the tool metadata

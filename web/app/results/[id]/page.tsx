@@ -6,7 +6,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Seal } from "@/components/Seal";
 import { PACK_LABEL, SERVERS_RESULTS, VERDICTS_CHECKED, deepPacks, ecosystemLabel, gradedPacks, isSecurityCheck, isWeakSignal, redactionsFor, worst, type CheckResult, type Disclosure, type Letter, type PackResult, type Verdict } from "@/lib/results";
-import { count, coverageNote, placeholdersIn, plainWords, reproduceCommand, sentence } from "@/lib/results-copy.mjs";
+import { count, coverageNote, placeholdersIn, plainWords, reproduceCommand, sentence, standardHash } from "@/lib/results-copy.mjs";
 import registry from "@/content/generated/checks.json";
 import { GradeHistory } from "@/components/GradeHistory";
 import { historyFor, toolCountsFor } from "@/lib/history";
@@ -216,6 +216,7 @@ export default async function ServerPage({ params }: P) {
   const packHasPrivate = (pid: string) => x.checks.some((c) => c.pack === pid && priv.has(c.id));
   const packHasWeak = (pid: string) => x.checks.some((c) => c.pack === pid && isWeakSignal(c));
   const repro = reproduceCommand(x.sealmark.version, x.launch);
+  const hash = standardHash(x);
   const byTool = noTools ? null : toolVerdicts(x, priv);
   const drift = toolDrift(x, since, priv);
   const inst = installConfig(x, { withheld: priv.size > 0 });
@@ -413,6 +414,14 @@ export default async function ServerPage({ params }: P) {
                   </ul>
                   <p className={s.muted}>The full list is under <Link href="/docs/reference/configuration/#placeholders">placeholders</Link>.</p>
                 </>
+              )}
+              {hash && (
+                <p>
+                  To confirm your run used the standard settings, add <code>--format json --out report.json</code> to the command.
+                  In the report, <code>config.standard</code> should be <code>true</code> and <code>config.hash</code> should start
+                  with <code>{hash}</code>, as they did in this run. If either differs, so did the settings, and the verdicts may too
+                  (<Link href="/docs/concepts/standard-vs-custom/">STANDARD and CUSTOM runs</Link>).
+                </p>
               )}
               <p className={s.muted}>To keep the setup, put the start command in <code>sealmark.yaml</code> as the server.</p>
             </>
