@@ -7,13 +7,14 @@
 // fleet/security-checks.mjs does not know name no tool. Only tool names are kept: never the CLI's reasons, the
 // arguments or any server output. No verdict or grade is read or changed here.
 import { CHECK_CLASS, securityFindings } from "./security-checks.mjs";
+import { isSecurityFinding } from "../web/lib/disclosure.mjs";
 
 /** At most this many names per list; a name over 128 characters or with unusual characters is dropped. */
 export const MAX_TOOLS = 200;
 const MAX_NAME = 128;
 
 /** @param {unknown[]} list */
-function names(list) {
+export function plainNames(list) {
   const out = [];
   for (const n of list) {
     // Only plain tool names: printable ASCII and letters, no control, bidi or zero-width characters, and a name that is
@@ -26,14 +27,18 @@ function names(list) {
 }
 
 /** May the public data name the tools this check called? Same rule as web/lib/disclosure.mjs isSecurityCheck, negated. */
-function namesTools(check) {
+export function namesTools(check) {
   if (check.critical === true) return false;
   const cls = CHECK_CLASS[check.id];
   return cls === "public" || (cls === "advisory" && check.advisory === true);
 }
 
-/** A server with any security finding (held or not) names no tool anywhere: a sibling check could point to the tool behind it. */
-const hasFinding = (server) => securityFindings({ checks: server.checks ?? [] }).length > 0;
+/**
+ * A server with any security finding (held or not) names no tool anywhere: a sibling check could point to the tool behind it.
+ * Both rules: the fleet's, and the site's (web/lib/disclosure.mjs), which also holds an unknown or private id flagged advisory.
+ */
+export const hasFinding = (server) =>
+  securityFindings({ checks: server.checks ?? [] }).length > 0 || (server.checks ?? []).some((c) => c && typeof c === "object" && isSecurityFinding(c));
 
 /**
  * The tools one check called with a valid call (`probed`) and the ones it could not (`notCovered`), or undefined.
@@ -44,8 +49,8 @@ export function checkTools(check, server) {
   if (!check || !namesTools(check) || (server && hasFinding(server))) return undefined;
   const c = check.coverage;
   if (!c || !Array.isArray(c.probed)) return undefined;
-  const probed = names(c.probed);
-  const notCovered = names((Array.isArray(c.notCovered) ? c.notCovered : []).map((n) => (n && typeof n === "object" ? n.tool : undefined)));
+  const probed = plainNames(c.probed);
+  const notCovered = plainNames((Array.isArray(c.notCovered) ? c.notCovered : []).map((n) => (n && typeof n === "object" ? n.tool : undefined)));
   const cut = Math.max(0, probed.length - MAX_TOOLS) + Math.max(0, notCovered.length - MAX_TOOLS);
   const out = { probed: probed.slice(0, MAX_TOOLS), notCovered: notCovered.slice(0, MAX_TOOLS) };
   if (cut) out.cut = cut;
@@ -59,7 +64,7 @@ export function checkTools(check, server) {
  */
 export function serverTools(server, checks) {
   if (!server || !Array.isArray(server.tools) || (checks && hasFinding({ checks }))) return undefined;
-  return names(server.tools.map((t) => (t && typeof t === "object" ? t.name : t))).slice(0, MAX_TOOLS);
+  return plainNames(server.tools.map((t) => (t && typeof t === "object" ? t.name : t))).slice(0, MAX_TOOLS);
 }
 
 const HASH = /^[0-9a-f]{12,}$/;
@@ -81,7 +86,7 @@ export function toolSchemas(server, checks) {
   for (const t of server.surface) {
     const name = t && typeof t === "object" ? t.name : undefined;
     const hash = t && typeof t === "object" ? t.inputSchemaHash : undefined;
-    if (name === "__proto__" || names([name]).length !== 1 || typeof hash !== "string" || !HASH.test(hash)) return undefined;
+    if (name === "__proto__" || plainNames([name]).length !== 1 || typeof hash !== "string" || !HASH.test(hash)) return undefined;
     if (Object.prototype.hasOwnProperty.call(out, name)) return undefined;
     out[name] = hash.slice(0, 12);
   }
