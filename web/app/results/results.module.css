@@ -167,6 +167,7 @@
 .private b { color: var(--part); }
 .note h2.noteHead { font-family: var(--font-display), sans-serif; font-weight: 800; font-size: 1.1rem; margin: 0 0 6px; color: var(--ink); }
 .note p { margin: 6px 0 0; }
+.noteState { display: inline-block; margin-left: 8px; padding: 1px 8px; border: 1px solid var(--border-strong); border-radius: 999px; font-family: var(--sans); font-weight: 600; font-size: 0.8rem; color: var(--ink-muted); vertical-align: 2px; }
 @media (max-width: 600px) { .overall { flex-direction: column; align-items: flex-start; } }
 
 /* not graded yet (results index): reasons, then every server behind a native disclosure */

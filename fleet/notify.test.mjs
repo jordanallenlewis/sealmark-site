@@ -442,7 +442,7 @@ test("postIssues: a hand-approved batch posts only what the draft shows, byte fo
 // ---- main(), on fakes ----
 
 const json = (v, status = 200) => new Response(JSON.stringify(v), { status, headers: { "content-type": "application/json" } });
-function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers, ledger = { issues: [], emails: [] }, draft = null, comments = {} } = {}) {
+function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers, ledger = { issues: [], emails: [] }, draft = null, comments = {}, issues = {} } = {}) {
   const files = new Map([
     [FILES.results, JSON.stringify({ servers })],
     [FILES.repos, JSON.stringify(Object.fromEntries(servers.map((x) => [x.id, { repo: x._repo, source: "npm", resolvedAt: TODAY }])))],
@@ -461,6 +461,7 @@ function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers
     if (m && !m[2]) return json({ full_name: m[1], has_issues: true });
     if (m && m[2] === "/contents/package.json") { const x = servers.find((s) => s._repo === m[1]); return new Response(JSON.stringify({ name: x.name, version: x.versionTested }), { status: 200 }); }
     if (m && /\/issues\/\d+\/comments$/.test(m[2])) return json(comments[m[1]] ?? []);
+    if (m && /^\/issues\/\d+$/.test(m[2]) && issues[m[1]]) return json(issues[m[1]]);
     return json({ message: "Not Found" }, 404);
   };
   return { files, io, fetchFn, requests };
@@ -543,6 +544,46 @@ test("main: replies from people are recorded once, opt-outs honoured, and the tr
   assert.ok(logs.some((l) => /tracking issue not updated/.test(l)), "outside the fleet workflow no issue is created");
   assert.ok(!w.requests.some((q) => q.method !== "GET"), "nothing but reads");
   assert.equal(TRACKING_TITLE, "Owner replies to Sealmark issues");
+});
+
+test("main: writes the public owner status: no reply, then a maintainer reply and a close, never a person's name", async () => {
+  const servers = [at("a", "o1/a")];
+  const ledger = { issues: [{ channel: "issue", id: "a", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", at: "2026-11-11", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] };
+  const first = fakeWorld({ servers, ledger, issues: { "o1/a": { state: "open" } } });
+  await main({ env: {}, argv: [], io: first.io, fetchFn: first.fetchFn, sleep: async () => {}, now: clock, log: () => {} });
+  const one = JSON.parse(first.files.get(FILES.status));
+  assert.equal(one.notices.a.state, "none");
+  assert.equal(one.notices.a.issueUrl, "https://github.com/o1/a/issues/5");
+  const comments = { "o1/a": [{ id: 21, user: { login: "amy", type: "User" }, author_association: "OWNER", body: "thanks", created_at: "2026-11-12T08:00:00Z", html_url: "u" }] };
+  const second = fakeWorld({ servers, ledger, comments, issues: { "o1/a": { state: "closed", closed_at: "2026-11-13T00:00:00Z" } } });
+  second.files.set(FILES.status, first.files.get(FILES.status));
+  await main({ env: {}, argv: [], io: second.io, fetchFn: second.fetchFn, sleep: async () => {}, now: clock, log: () => {} });
+  const two = JSON.parse(second.files.get(FILES.status));
+  assert.equal(two.notices.a.state, "closed");
+  assert.equal(two.notices.a.repliedAt, "2026-11-12");
+  assert.ok(!second.files.get(FILES.status).includes("amy"));
+});
+
+test("main: an issue lookup that errors (5xx) never stops opt-out handling", async () => {
+  const servers = [at("a", "o1/a")];
+  const ledger = { issues: [{ channel: "issue", id: "a", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", at: "2026-11-11", author: "sealmark-bot", letter: "B", failing: [], named: [] }], emails: [] };
+  const comments = { "o1/a": [{ id: 31, user: { login: "amy", type: "User" }, author_association: "OWNER", body: "Please opt us out.", created_at: "2026-11-12T08:00:00Z", html_url: "u" }] };
+  const w = fakeWorld({ servers, ledger, comments });
+  const inner = w.fetchFn;
+  const fetchFn = async (url, init) => (/\/issues\/5$/.test(new URL(url).pathname) ? json({ message: "boom" }, 502) : inner(url, init));
+  const logs = [];
+  await main({ env: {}, argv: [], io: w.io, fetchFn, sleep: async () => {}, now: clock, log: (m) => logs.push(m) });
+  assert.deepEqual(JSON.parse(w.files.get(FILES.optout)).repos, ["o1/a"]);
+  assert.ok(logs.some((l) => /issue state check failed/.test(l)));
+});
+
+test("main: a failed issue lookup keeps the last public status instead of guessing", async () => {
+  const servers = [at("a", "o1/a")];
+  const ledger = { issues: [{ channel: "issue", id: "a", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", at: "2026-11-11", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] };
+  const w = fakeWorld({ servers, ledger }); // the fake answers 404 for the issue
+  w.files.set(FILES.status, JSON.stringify({ updated: "2026-11-12", notices: { a: { state: "replied", noticedAt: "2026-11-11", issueUrl: "https://github.com/o1/a/issues/5", repliedAt: "2026-11-12" } } }));
+  await main({ env: {}, argv: [], io: w.io, fetchFn: w.fetchFn, sleep: async () => {}, now: clock, log: () => {} });
+  assert.equal(JSON.parse(w.files.get(FILES.status)).notices.a.state, "replied");
 });
 
 // ---- impact ----

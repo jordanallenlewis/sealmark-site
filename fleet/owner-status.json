@@ -1,0 +1,23 @@
+{
+  "updated": "2026-11-16",
+  "notices": {
+    "hostbeam-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-14",
+      "issueUrl": "https://github.com/PunkABeat/hostbeam-mcp/issues/1",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
+    "mirastack-redfish-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-14",
+      "issueUrl": "https://github.com/mirastacklabs-ai/mirastack-redfish-mcp/issues/3",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    }
+  }
+}
