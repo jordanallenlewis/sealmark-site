@@ -1,0 +1,3555 @@
+{
+  "servers": {
+    "3dstreet-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-or-later",
+      "latest": {
+        "version": "0.2.3",
+        "date": "2026-09-03"
+      },
+      "repo": {
+        "name": "3DStreet/3dstreet-mcp",
+        "pushedAt": "2026-09-03",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "aamio": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.7.3",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "aisenseapi/aamio-js",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "achromat-ai-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.4",
+        "date": "2026-11-04"
+      },
+      "repo": {
+        "name": "achromat-ai/achromat-mcp-server",
+        "pushedAt": "2026-11-04",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "addressintel-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.2",
+        "date": "2026-08-19"
+      },
+      "repo": {
+        "name": "RantumBits/addressintel-mcp",
+        "pushedAt": "2026-08-19",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "adeu-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "4.0.1",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "dealfluence/adeu",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "aetherwealth-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "0.2.17",
+        "date": "2026-09-20"
+      },
+      "repo": null
+    },
+    "affiliate-networks-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.20.0",
+        "date": "2026-07-29"
+      },
+      "repo": {
+        "name": "bobberrisford/affiliatemcp",
+        "pushedAt": "2026-08-11",
+        "archived": false,
+        "openIssues": 125
+      }
+    },
+    "agent-bev-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.6",
+        "date": "2026-11-04"
+      },
+      "repo": {
+        "name": "agent-bev/bev-door",
+        "pushedAt": "2026-11-11",
+        "archived": false,
+        "openIssues": 3
+      }
+    },
+    "agent-infra-fs": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.2.29",
+        "date": "2025-12-15"
+      },
+      "repo": {
+        "name": "bytedance/UI-TARS-desktop",
+        "pushedAt": "2026-10-09",
+        "archived": true,
+        "openIssues": 511
+      }
+    },
+    "agent-tools-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.5.2",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "AgentTools-Cloud/AgentToolsCollection",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 14
+      }
+    },
+    "ai-dossier-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-only",
+      "latest": {
+        "version": "1.6.6",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "imboard-ai/ai-dossier",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 59
+      }
+    },
+    "airbnb": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2026-08-06"
+      },
+      "repo": null
+    },
+    "aminforou-mcp-gsc": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": null,
+      "repo": {
+        "name": "AminForou/mcp-gsc",
+        "pushedAt": "2026-11-06",
+        "archived": false,
+        "openIssues": 8
+      },
+      "licenseFrom": "repo"
+    },
+    "antvis-mcp-server-chart": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": {
+        "version": "0.9.10",
+        "date": "2026-02-25"
+      },
+      "repo": {
+        "name": "antvis/mcp-server-chart",
+        "pushedAt": "2026-08-27",
+        "archived": false,
+        "openIssues": 7
+      },
+      "licenseFrom": "repo"
+    },
+    "anyforge-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "3.18.0",
+        "date": "2026-11-09"
+      },
+      "repo": null
+    },
+    "apick-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "5.10.1",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "lead788/apick-mcp",
+        "pushedAt": "2026-11-11",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "apick-subagent": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.5",
+        "date": "2026-10-23"
+      },
+      "repo": {
+        "name": "lead788/apick-subagent",
+        "pushedAt": "2026-10-23",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "apiguru-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.63",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "apiguru-app/agent-kit",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "apillow-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.8",
+        "date": "2026-11-14"
+      },
+      "repo": null
+    },
+    "appscreen-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.30.3",
+        "date": "2026-10-29"
+      },
+      "repo": {
+        "name": "omelas-tech/appscreen-mcp",
+        "pushedAt": "2026-10-13",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "aquex-reasonbook": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "4.12.0",
+        "date": "2026-11-05"
+      },
+      "repo": {
+        "name": "kneelinghorse/reasonbook",
+        "pushedAt": "2026-11-05",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "arxiv": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.8.2",
+        "date": "2026-10-08"
+      },
+      "repo": {
+        "name": "blazickjp/arxiv-mcp-server",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 8
+      }
+    },
+    "atilaahmettaner-tradingview-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": null,
+      "repo": {
+        "name": "atilaahmettaner/tradingview-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 8
+      },
+      "licenseFrom": "repo"
+    },
+    "atlasyield-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.0",
+        "date": "2026-10-11"
+      },
+      "repo": {
+        "name": "gveshk/atlasyield-mcp",
+        "pushedAt": "2026-10-08",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "atmy-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2026-10-27"
+      },
+      "repo": null
+    },
+    "autenai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.5",
+        "date": "2026-10-14"
+      },
+      "repo": {
+        "name": "auten-ai/auten-mcp",
+        "pushedAt": "2026-10-15",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "autonomad-travel": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.6.6",
+        "date": "2026-11-14"
+      },
+      "repo": null
+    },
+    "autonomad1-computeback-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.4",
+        "date": "2026-09-02"
+      },
+      "repo": {
+        "name": "computeback/computeback-mcp",
+        "pushedAt": "2026-05-12",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "autonomous-ai-harness-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.0",
+        "date": "2026-10-19"
+      },
+      "repo": {
+        "name": "autonomous-ai/openharness",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 89
+      }
+    },
+    "backtest-auditor": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.7.0",
+        "date": "2026-10-18"
+      },
+      "repo": null
+    },
+    "bethington-ghidra-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "7.0.0",
+        "date": "2026-10-21"
+      },
+      "repo": {
+        "name": "bethington/ghidra-mcp",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 30
+      },
+      "licenseFrom": "repo"
+    },
+    "betterjobs-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-11-08"
+      },
+      "repo": null
+    },
+    "blazickjp-arxiv-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.8.2",
+        "date": "2026-10-08"
+      },
+      "repo": {
+        "name": "blazickjp/arxiv-mcp-server",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 8
+      },
+      "licenseFrom": "repo"
+    },
+    "bolthub-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.7.2",
+        "date": "2026-07-25"
+      },
+      "repo": {
+        "name": "signaltech-org/bolthub-sdk",
+        "pushedAt": "2026-07-25",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "brandrail": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.10.4",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "brandrail-app/brandrail",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "brick-blue-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.0",
+        "date": "2026-10-05"
+      },
+      "repo": {
+        "name": "brick-blue/brick-blue-mcp",
+        "pushedAt": "2026-10-05",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "call-grokbot": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-11-02"
+      },
+      "repo": {
+        "name": "ZensHQ/call-grokbot",
+        "pushedAt": "2026-11-07",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "callmcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.5",
+        "date": "2026-07-10"
+      },
+      "repo": null
+    },
+    "celo-buy": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.8.5",
+        "date": "2026-10-28"
+      },
+      "repo": {
+        "name": "celo-org/buy-skill",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 13
+      }
+    },
+    "certscore-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "proprietary",
+      "latest": {
+        "version": "0.2.35",
+        "date": "2026-11-07"
+      },
+      "repo": {
+        "name": "ergoveritas1-alt/certscore.ai",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "chainhilt": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.0.4",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "bancorprotocol/chainhilt-wallet",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "clarxai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.2",
+        "date": "2026-08-19"
+      },
+      "repo": null
+    },
+    "cleanor-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.6.1",
+        "date": "2026-07-14"
+      },
+      "repo": {
+        "name": "cleanor-app/cleanor-mcp",
+        "pushedAt": "2026-10-07",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "clelp-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.9",
+        "date": "2026-10-13"
+      },
+      "repo": {
+        "name": "oscarsterling/clelp-skills",
+        "pushedAt": "2026-10-24",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "context7": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "4.7.1",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "upstash/context7",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 50
+      }
+    },
+    "contextburn": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.1",
+        "date": "2026-09-11"
+      },
+      "repo": {
+        "name": "arsentev-ai/contextburn",
+        "pushedAt": "2026-11-09",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "cookwala-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.3.3",
+        "date": "2026-10-09"
+      },
+      "repo": {
+        "name": "amado2k5/cookwala",
+        "pushedAt": "2026-10-20",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "crawlio-browser": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.11.0",
+        "date": "2026-08-10"
+      },
+      "repo": {
+        "name": "Crawlio-app/crawlio-browser",
+        "pushedAt": "2026-08-10",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "creatica-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.3",
+        "date": "2026-09-06"
+      },
+      "repo": null
+    },
+    "cyanheads-fs": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.4",
+        "date": "2025-05-23"
+      },
+      "repo": {
+        "name": "cyanheads/filesystem-mcp-server",
+        "pushedAt": "2025-07-22",
+        "archived": false,
+        "openIssues": 17
+      }
+    },
+    "cyanheads-git": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "2.15.3",
+        "date": "2026-08-24"
+      },
+      "repo": {
+        "name": "cyanheads/git-mcp-server",
+        "pushedAt": "2026-09-26",
+        "archived": false,
+        "openIssues": 19
+      }
+    },
+    "darkknightcave-motion-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.3",
+        "date": "2026-10-28"
+      },
+      "repo": {
+        "name": "DKC-Engineering/motion-library",
+        "pushedAt": "2026-10-28",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "datavidence-financials": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.5",
+        "date": "2026-09-24"
+      },
+      "repo": {
+        "name": "datavidence/datavidence-financials-mcp",
+        "pushedAt": "2026-10-04",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "dbhub": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.6.1",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "bytebase/dbhub",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "dchub-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.12.59",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "azmartone67/dchub-mcp-server",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 12
+      }
+    },
+    "decimalai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.5",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "decimal-labs/decimalai-mcp",
+        "pushedAt": "2026-11-11",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "deepdna-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.4",
+        "date": "2026-11-08"
+      },
+      "repo": {
+        "name": "alfonsoguv/deepdna-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "demomagic-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-06-17"
+      },
+      "repo": null
+    },
+    "devglow-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.6.0",
+        "date": "2026-10-23"
+      },
+      "repo": {
+        "name": "aesopfrom0/devglow-releases",
+        "pushedAt": "2026-10-23",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "dinglebear-labby": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-only",
+      "latest": {
+        "version": "2.7.0",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "dinglebear-ai/labby",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 24
+      }
+    },
+    "dinglebear-rapprise": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2026-08-04"
+      },
+      "repo": {
+        "name": "dinglebear-ai/rapprise",
+        "pushedAt": "2026-11-02",
+        "archived": false,
+        "openIssues": 6
+      }
+    },
+    "dinglebear-rytdl": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-only",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2026-08-12"
+      },
+      "repo": {
+        "name": "dinglebear-ai/rytdl",
+        "pushedAt": "2026-10-22",
+        "archived": false,
+        "openIssues": 6
+      }
+    },
+    "dinglebear-synapse": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.0",
+        "date": "2026-08-02"
+      },
+      "repo": {
+        "name": "dinglebear-ai/synapse",
+        "pushedAt": "2026-11-02",
+        "archived": false,
+        "openIssues": 8
+      }
+    },
+    "dinglebear-yarr": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.2.2",
+        "date": "2026-08-02"
+      },
+      "repo": {
+        "name": "dinglebear-ai/yarr",
+        "pushedAt": "2026-11-01",
+        "archived": false,
+        "openIssues": 19
+      }
+    },
+    "doc-cheap-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.11",
+        "date": "2026-11-04"
+      },
+      "repo": null
+    },
+    "doobidoo-mcp-memory-service": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "12.11.0",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "doobidoo/mcp-memory-service",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 33
+      },
+      "licenseFrom": "repo"
+    },
+    "dsail": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.6",
+        "date": "2026-10-09"
+      },
+      "repo": null
+    },
+    "duckdb-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT License",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2025-05-05"
+      },
+      "repo": {
+        "name": "ktanaka101/mcp-server-duckdb",
+        "pushedAt": "2025-05-05",
+        "archived": false,
+        "openIssues": 7
+      }
+    },
+    "duckduckgo": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT License",
+      "latest": {
+        "version": "0.7.0",
+        "date": "2026-09-04"
+      },
+      "repo": {
+        "name": "nickclyde/duckduckgo-mcp-server",
+        "pushedAt": "2026-09-04",
+        "archived": false,
+        "openIssues": 8
+      }
+    },
+    "durely-garmin-insights-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.5.2",
+        "date": "2026-10-29"
+      },
+      "repo": {
+        "name": "durely/garmin-insights-mcp",
+        "pushedAt": "2026-10-29",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "dwelldelta-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.17.1",
+        "date": "2026-11-15"
+      },
+      "repo": null
+    },
+    "dxpert-uns-tools": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.4",
+        "date": "2026-11-01"
+      },
+      "repo": {
+        "name": "dxpert-ai/uns-tools",
+        "pushedAt": "2026-11-01",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "ekwo-ai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-only",
+      "latest": {
+        "version": "0.25.2",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "Ekwo-ai/ekwo-os",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "elicitly": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.8.6",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "elicitly/elicitly",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "etincel": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.10.1",
+        "date": "2026-08-15"
+      },
+      "repo": {
+        "name": "AIStoryHub/etincel",
+        "pushedAt": "2026-08-15",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "everything": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "2.3.0",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "exa-labs-exa-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": null,
+      "repo": {
+        "name": "exa-labs/exa-mcp-server",
+        "pushedAt": "2026-11-05",
+        "archived": false,
+        "openIssues": 10
+      },
+      "licenseFrom": "repo"
+    },
+    "executeautomation-db": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2025-05-30"
+      },
+      "repo": {
+        "name": "executeautomation/mcp-database-server",
+        "pushedAt": "2025-08-27",
+        "archived": false,
+        "openIssues": 21
+      }
+    },
+    "extremely-agency-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-only",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-11-05"
+      },
+      "repo": {
+        "name": "maxkxd/extremely-autonomous-agents",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 49
+      }
+    },
+    "feeling-search-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.6",
+        "date": "2026-10-29"
+      },
+      "repo": {
+        "name": "xixi048/feeling-search-mcp",
+        "pushedAt": "2026-10-29",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "fetch": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "2026.11.11",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "fetch-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.0.5",
+        "date": "2025-04-04"
+      },
+      "repo": null
+    },
+    "fictura-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-10-29"
+      },
+      "repo": null
+    },
+    "filesystem": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "2.3.0",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "firecms-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "3.5.3",
+        "date": "2026-11-15"
+      },
+      "repo": {
+        "name": "firecmsco/firecms",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 54
+      }
+    },
+    "firecrawl-firecrawl-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": {
+        "version": "3.36.1",
+        "date": "2026-11-03"
+      },
+      "repo": {
+        "name": "firecrawl/firecrawl-mcp-server",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 194
+      },
+      "licenseFrom": "repo"
+    },
+    "fleet-memory-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-08-28"
+      },
+      "repo": {
+        "name": "Holetron-lab/fleet-memory",
+        "pushedAt": "2026-08-28",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "flydocs-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": null,
+      "latest": {
+        "version": "1.3.47",
+        "date": "2026-11-15"
+      },
+      "repo": null
+    },
+    "formachines-errata-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.3",
+        "date": "2026-11-10"
+      },
+      "repo": {
+        "name": "formachines-ai/errata-mcp",
+        "pushedAt": "2026-11-10",
+        "archived": true,
+        "openIssues": 0
+      }
+    },
+    "formatika-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-08-13"
+      },
+      "repo": {
+        "name": "formatika-app/mcp",
+        "pushedAt": "2026-08-13",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "gage-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.9.0",
+        "date": "2026-11-07"
+      },
+      "repo": {
+        "name": "DebenLabs/gage-sdk",
+        "pushedAt": "2026-11-07",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "galaxymovies-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.1",
+        "date": "2026-11-12"
+      },
+      "repo": {
+        "name": "NickFasulo/galaxymovies-mcp",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "gency-ai-gency-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.7.1",
+        "date": "2026-11-10"
+      },
+      "repo": null
+    },
+    "getvetai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.2",
+        "date": "2026-06-15"
+      },
+      "repo": null
+    },
+    "git": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "2026.11.11",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "git-mcp-py": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": null,
+      "latest": {
+        "version": "0.2.5",
+        "date": "2026-03-27"
+      },
+      "repo": null
+    },
+    "haymon-ai-dbmcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.19.0",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "haymon-ai/dbmcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 9
+      }
+    },
+    "henkey-postgres": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0",
+      "latest": {
+        "version": "1.0.7",
+        "date": "2026-06-23"
+      },
+      "repo": {
+        "name": "HenkDz/postgresql-mcp-server",
+        "pushedAt": "2026-06-23",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "hostbeam-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.4",
+        "date": "2026-10-09"
+      },
+      "repo": {
+        "name": "PunkABeat/hostbeam-mcp",
+        "pushedAt": "2026-10-09",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "hovecapital-read-only-mysql-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.0",
+        "date": "2026-09-07"
+      },
+      "repo": {
+        "name": "hovecapital/read-only-local-mysql-mcp-server",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 8
+      }
+    },
+    "hovecapital-read-only-postgres-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.5.0",
+        "date": "2026-09-07"
+      },
+      "repo": {
+        "name": "hovecapital/read-only-local-postgres-mcp-server",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 8
+      }
+    },
+    "html-cloud-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.6.0",
+        "date": "2026-10-27"
+      },
+      "repo": {
+        "name": "ninjami/html-cloud",
+        "pushedAt": "2026-11-06",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "huddoai": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.10.2",
+        "date": "2026-10-30"
+      },
+      "repo": {
+        "name": "puffo-ai/huddo-mcp",
+        "pushedAt": "2026-11-03",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "hypaware": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.52.0",
+        "date": "2026-11-12"
+      },
+      "repo": {
+        "name": "hyparam/hypaware",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 281
+      }
+    },
+    "inite-club-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.3.0",
+        "date": "2026-09-08"
+      },
+      "repo": {
+        "name": "inite-ai/inite-club-mcp",
+        "pushedAt": "2026-10-18",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "inite-visibility": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.3.0",
+        "date": "2026-10-20"
+      },
+      "repo": {
+        "name": "inite-ai/inite-visibility",
+        "pushedAt": "2026-10-20",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "insightsocial": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.9",
+        "date": "2026-10-23"
+      },
+      "repo": {
+        "name": "insightsocial/cli",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "instantreply-co-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.8.0",
+        "date": "2026-10-31"
+      },
+      "repo": {
+        "name": "suleimandoescsec/instantreply-mcp",
+        "pushedAt": "2026-10-31",
+        "archived": false,
+        "openIssues": 3
+      }
+    },
+    "intodns-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.11.3",
+        "date": "2026-10-27"
+      },
+      "repo": {
+        "name": "RoscoNL/intodns-mcp-server",
+        "pushedAt": "2026-10-27",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "ipforai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-10-14"
+      },
+      "repo": {
+        "name": "xjokerabab/ipforai",
+        "pushedAt": "2026-10-20",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "jgravelle-jcodemunch-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": null,
+      "latest": {
+        "version": "1.108.455",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "jgravelle/jcodemunch-mcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "joooook-12306-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.10",
+        "date": "2026-07-30"
+      },
+      "repo": {
+        "name": "Joooook/12306-mcp",
+        "pushedAt": "2026-07-31",
+        "archived": false,
+        "openIssues": 14
+      },
+      "licenseFrom": "repo"
+    },
+    "justdrop-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.6",
+        "date": "2026-07-20"
+      },
+      "repo": {
+        "name": "Managed-Digital-LLC/justdrop-mcp",
+        "pushedAt": "2026-07-20",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "kadal-store": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-or-later",
+      "latest": {
+        "version": "0.1.3",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "kadalcc/store-cli",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "kadmo-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "0.5.1",
+        "date": "2026-11-12"
+      },
+      "repo": null
+    },
+    "kavel-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-07-15"
+      },
+      "repo": {
+        "name": "hanshs474/kavel-mcp",
+        "pushedAt": "2026-10-12",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "kawacode-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "10.6.0",
+        "date": "2026-11-14"
+      },
+      "repo": null
+    },
+    "kazuph-fetch": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.6.3",
+        "date": "2026-06-12"
+      },
+      "repo": {
+        "name": "kazuph/mcp-fetch",
+        "pushedAt": "2026-06-12",
+        "archived": false,
+        "openIssues": 4
+      }
+    },
+    "keenable-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-06-28"
+      },
+      "repo": {
+        "name": "keenableai/keenable-mcp",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 6
+      }
+    },
+    "keepstateai-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.45",
+        "date": "2026-11-15"
+      },
+      "repo": {
+        "name": "Keepstateai/cli",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "kellian-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.2",
+        "date": "2026-10-31"
+      },
+      "repo": null
+    },
+    "kloudy": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.3",
+        "date": "2026-11-14"
+      },
+      "repo": null
+    },
+    "knowledge-graph": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.7",
+        "date": "2025-03-12"
+      },
+      "repo": {
+        "name": "itseasy21/mcp-knowledge-graph",
+        "pushedAt": "2025-08-08",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "korala-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.9.0",
+        "date": "2026-09-25"
+      },
+      "repo": null
+    },
+    "lawai-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.1",
+        "date": "2026-05-03"
+      },
+      "repo": {
+        "name": "risk-ai/lawai-mcp-server",
+        "pushedAt": "2026-05-29",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "leadgreen-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.3.1",
+        "date": "2026-10-20"
+      },
+      "repo": {
+        "name": "katonic-dev/leadgreen-ai",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "leafwright-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.4",
+        "date": "2026-09-08"
+      },
+      "repo": null
+    },
+    "llmaudit-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-08-28"
+      },
+      "repo": {
+        "name": "nahuelsoria/llmaudit-mcp",
+        "pushedAt": "2026-10-29",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "llmintel-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.1",
+        "date": "2026-10-20"
+      },
+      "repo": {
+        "name": "hivemindunit/llmintel-mcp",
+        "pushedAt": "2026-10-20",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "longbook-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "GPL-3.0-only",
+      "latest": {
+        "version": "1.50.0",
+        "date": "2026-11-03"
+      },
+      "repo": {
+        "name": "MXmaster2s/longbook-code",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "lovie": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.10",
+        "date": "2026-06-16"
+      },
+      "repo": null
+    },
+    "mackorn-cone-crusher": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.2",
+        "date": "2026-10-18"
+      },
+      "repo": {
+        "name": "LeifDai/MACKORN-hydraulic-cone-crusher",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "mafdet-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.7.0",
+        "date": "2026-11-01"
+      },
+      "repo": null
+    },
+    "mainbook-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.5.1",
+        "date": "2026-08-18"
+      },
+      "repo": null
+    },
+    "makerportal-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-09-04"
+      },
+      "repo": {
+        "name": "makerportal/mcp",
+        "pushedAt": "2026-09-19",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "marketmayhem-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2026-10-08"
+      },
+      "repo": {
+        "name": "Comovis/MarketMayhem-MCP",
+        "pushedAt": "2026-09-26",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "markitdown": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.0.1a8",
+        "date": "2026-10-21"
+      },
+      "repo": {
+        "name": "microsoft/markitdown",
+        "pushedAt": "2026-11-07",
+        "archived": false,
+        "openIssues": 815
+      }
+    },
+    "maxwellintl-x402-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "0.2.0",
+        "date": "2026-10-01"
+      },
+      "repo": null
+    },
+    "mcp-sqlite": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "ISC",
+      "latest": {
+        "version": "1.0.9",
+        "date": "2026-04-04"
+      },
+      "repo": {
+        "name": "jparkerweb/mcp-sqlite",
+        "pushedAt": "2026-04-05",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "mcpcap": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT License",
+      "latest": {
+        "version": "0.10.0",
+        "date": "2026-09-30"
+      },
+      "repo": {
+        "name": "mcpcap/mcpcap",
+        "pushedAt": "2026-10-06",
+        "archived": false,
+        "openIssues": 3
+      }
+    },
+    "meetlark-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": null,
+      "latest": {
+        "version": "1.0.3",
+        "date": "2026-02-08"
+      },
+      "repo": null
+    },
+    "memcell": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "2.2.1",
+        "date": "2026-11-04"
+      },
+      "repo": {
+        "name": "memcell-ai/devkit",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "memeboat-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2026-07-06"
+      },
+      "repo": {
+        "name": "memebo-at/memeboat-mcp",
+        "pushedAt": "2026-11-11",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "memegician-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2026-11-09"
+      },
+      "repo": {
+        "name": "Notysoty/memegician-mcp",
+        "pushedAt": "2026-11-10",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "memory": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "2.1.1",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "mirastack-redfish-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-08-12"
+      },
+      "repo": {
+        "name": "mirastacklabs-ai/mirastack-redfish-mcp",
+        "pushedAt": "2026-08-12",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "model-finder-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "1.3.7",
+        "date": "2026-11-03"
+      },
+      "repo": {
+        "name": "Abhiindigloo/EvalHarness",
+        "pushedAt": "2026-11-04",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "motherduck": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": null,
+      "latest": {
+        "version": "1.1.1",
+        "date": "2026-11-11"
+      },
+      "repo": null
+    },
+    "muovi-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.2",
+        "date": "2026-10-06"
+      },
+      "repo": {
+        "name": "muovi-latam/mcp-server",
+        "pushedAt": "2026-10-06",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "naulon-wayfarer-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.8.0",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "naulonapp/naulon",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "nauro": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.23.0",
+        "date": "2026-10-29"
+      },
+      "repo": {
+        "name": "Nauro-AI/nauro",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 14
+      }
+    },
+    "noglow-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.1",
+        "date": "2026-08-11"
+      },
+      "repo": {
+        "name": "aesopfrom0/noglow-releases",
+        "pushedAt": "2026-10-09",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "nove-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.0",
+        "date": "2026-11-15"
+      },
+      "repo": {
+        "name": "wevemedeiros/nove-sdk",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "nudg3-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2026-05-31"
+      },
+      "repo": null
+    },
+    "oddessentials-agent-guild": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "AGPL-3.0-only",
+      "latest": {
+        "version": "1.35.0",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "oddessentials/agent-guild",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 10
+      }
+    },
+    "oddsrail": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT License",
+      "latest": {
+        "version": "0.19.0",
+        "date": "2026-09-24"
+      },
+      "repo": {
+        "name": "hmesutozsoy/oddsrail",
+        "pushedAt": "2026-10-29",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "openags-paper-search-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": null,
+      "repo": {
+        "name": "openags/paper-search-mcp",
+        "pushedAt": "2026-10-02",
+        "archived": false,
+        "openIssues": 20
+      },
+      "licenseFrom": "repo"
+    },
+    "operandi-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Proprietary",
+      "latest": {
+        "version": "1.0.3",
+        "date": "2026-07-22"
+      },
+      "repo": null
+    },
+    "optimalai-optibot-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.7.0",
+        "date": "2026-10-16"
+      },
+      "repo": {
+        "name": "Optimal-AI/optibot-mcp",
+        "pushedAt": "2026-11-06",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "orangepro-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.60",
+        "date": "2026-11-08"
+      },
+      "repo": {
+        "name": "OrangeproAI/orangepro-mcp",
+        "pushedAt": "2026-11-10",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "ordercore-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.18",
+        "date": "2026-08-18"
+      },
+      "repo": {
+        "name": "RulezZzOr/ordercore-examples",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "overwing-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.15.0",
+        "date": "2026-10-13"
+      },
+      "repo": {
+        "name": "frod27/overwing-mcp",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 10
+      }
+    },
+    "paramability-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.0",
+        "date": "2026-10-22"
+      },
+      "repo": {
+        "name": "GoMorko/paramability-mcp",
+        "pushedAt": "2026-10-22",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "paraplex-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2026-10-31"
+      },
+      "repo": {
+        "name": "Paraplex-AI/paraplex-mcp",
+        "pushedAt": "2026-10-31",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "pascal-app-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.4",
+        "date": "2026-11-12"
+      },
+      "repo": {
+        "name": "pascalorg/editor",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 57
+      }
+    },
+    "percher-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "FSL-1.1-MIT",
+      "latest": {
+        "version": "1.4.0",
+        "date": "2026-11-09"
+      },
+      "repo": null
+    },
+    "pidgeon-ai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.6.0",
+        "date": "2026-11-15"
+      },
+      "repo": {
+        "name": "pidgeon-ai/pidgeon-js",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "plugmcp-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.4",
+        "date": "2026-11-05"
+      },
+      "repo": {
+        "name": "plugmcp-ai/plugmcp-mcp",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "popdot-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.0.0",
+        "date": "2026-08-26"
+      },
+      "repo": {
+        "name": "popdot-ai/popdot-mcp",
+        "pushedAt": "2026-09-21",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "poppy-memory": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.4.1",
+        "date": "2026-11-05"
+      },
+      "repo": null
+    },
+    "postgres-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2025-05-16"
+      },
+      "repo": null
+    },
+    "pretrip-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "GPL-2.0-or-later",
+      "latest": {
+        "version": "1.0.1",
+        "date": "2026-07-26"
+      },
+      "repo": null
+    },
+    "promptguard-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.2.5",
+        "date": "2026-11-13"
+      },
+      "repo": null
+    },
+    "provably-fair-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.4",
+        "date": "2026-08-09"
+      },
+      "repo": null
+    },
+    "proxyllm-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.2",
+        "date": "2026-07-15"
+      },
+      "repo": {
+        "name": "proxyllm-ai/proxyllm-mcp",
+        "pushedAt": "2026-07-15",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "quorum-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "4.0.0",
+        "date": "2026-10-25"
+      },
+      "repo": {
+        "name": "piyush-tkd/quorum-mcp",
+        "pushedAt": "2026-10-25",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "radmail-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.5.0",
+        "date": "2026-08-11"
+      },
+      "repo": {
+        "name": "radmail-ai/radmail-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "ranchbot-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.0",
+        "date": "2026-10-20"
+      },
+      "repo": {
+        "name": "RanchBot/mcp-server",
+        "pushedAt": "2026-10-20",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "rapay-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.3.2",
+        "date": "2026-02-24"
+      },
+      "repo": null
+    },
+    "raven-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "3.1.0",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "rhinocap/raven-mcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "rechtssysteem-ai-rechtssysteem-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.3.2",
+        "date": "2026-09-09"
+      },
+      "repo": {
+        "name": "rechtssysteem-ai/rechtssysteem-mcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      },
+      "licenseFrom": "repo"
+    },
+    "recordist-gateway": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.10",
+        "date": "2026-11-02"
+      },
+      "repo": {
+        "name": "recordist-app/gateway",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 5
+      }
+    },
+    "reddit-research-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": null,
+      "repo": {
+        "name": "jordanallenlewis/reddit-research-mcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 5
+      },
+      "licenseFrom": "repo"
+    },
+    "rightcard-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.21",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "rightcard/rightcard-mcp",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "rillsoft-rillsoft-project-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "CC-BY-4.0",
+      "latest": {
+        "version": "10.0.626",
+        "date": "2026-10-17"
+      },
+      "repo": {
+        "name": "rillsoft/rillsoft-project-mcp",
+        "pushedAt": "2026-11-08",
+        "archived": false,
+        "openIssues": 0
+      },
+      "licenseFrom": "repo"
+    },
+    "ripgrep": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.0",
+        "date": "2025-04-29"
+      },
+      "repo": {
+        "name": "mcollina/mcp-ripgrep",
+        "pushedAt": "2025-04-29",
+        "archived": false,
+        "openIssues": 6
+      }
+    },
+    "rlabs-cl-arketum": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "1.1.0",
+        "date": "2026-10-28"
+      },
+      "repo": null
+    },
+    "satohub-kit": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-09-30"
+      },
+      "repo": {
+        "name": "satohubai/sato-hub-integrations",
+        "pushedAt": "2026-10-09",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "satohub-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.3",
+        "date": "2026-10-19"
+      },
+      "repo": {
+        "name": "satohubai/mcp",
+        "pushedAt": "2026-10-07",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "saymaker-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-10-05"
+      },
+      "repo": {
+        "name": "hanshs474/saymaker-mcp",
+        "pushedAt": "2026-10-05",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "scope-bid-scope-aec-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.11",
+        "date": "2026-11-03"
+      },
+      "repo": {
+        "name": "scope-bid/scope-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "scope-bid-scope-claims-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.11",
+        "date": "2026-11-03"
+      },
+      "repo": {
+        "name": "scope-bid/scope-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "scope-bid-scope-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.11",
+        "date": "2026-11-03"
+      },
+      "repo": {
+        "name": "scope-bid/scope-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "securenow": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "ISC",
+      "latest": {
+        "version": "8.26.0",
+        "date": "2026-11-04"
+      },
+      "repo": null
+    },
+    "sequential-thinking": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "2.1.1",
+        "date": "2026-11-04"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "servelink-serve": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "0.8.8",
+        "date": "2026-09-07"
+      },
+      "repo": {
+        "name": "servelink-swyftlabs/serve-mcp",
+        "pushedAt": "2026-09-07",
+        "archived": true,
+        "openIssues": 0
+      }
+    },
+    "server-postgres": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.6.2",
+        "date": "2024-12-04"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "ship-safe-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "0.6.4",
+        "date": "2026-09-28"
+      },
+      "repo": null
+    },
+    "shipeasy-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.16.0",
+        "date": "2026-11-04"
+      },
+      "repo": {
+        "name": "shipeasy-ai/shipeasy",
+        "pushedAt": "2026-11-13",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "shiplightai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.3",
+        "date": "2026-09-28"
+      },
+      "repo": {
+        "name": "ShiplightAI/shiplight-cli",
+        "pushedAt": "2026-09-29",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "shiwake-ai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "1.1.4",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "iszgroup/shiwake-ai-mcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "simulator-use": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.16.0",
+        "date": "2026-11-12"
+      },
+      "repo": {
+        "name": "NoMac-app/simulator-use",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "skilltotal": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.2.0",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "pezhik/skilltotal",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "smartmemory-compose-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "BUSL-1.1",
+      "latest": {
+        "version": "0.7.2",
+        "date": "2026-09-29"
+      },
+      "repo": {
+        "name": "smartmemory/compose",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 4
+      }
+    },
+    "smartmemory-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "2.0.1",
+        "date": "2026-11-12"
+      },
+      "repo": null
+    },
+    "snowsure-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "3.7.0",
+        "date": "2026-07-02"
+      },
+      "repo": null
+    },
+    "spaces-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.10.0",
+        "date": "2026-10-09"
+      },
+      "repo": {
+        "name": "neltomw/spaces-mcp-server",
+        "pushedAt": "2026-10-09",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "spideriq-mcp-gate": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.16.0",
+        "date": "2026-10-25"
+      },
+      "repo": null
+    },
+    "spideriq-mcp-leads": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.19.1",
+        "date": "2026-10-24"
+      },
+      "repo": null
+    },
+    "spideriq-mcp-mail": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.15.1",
+        "date": "2026-10-25"
+      },
+      "repo": null
+    },
+    "spideriq-mcp-media": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.3.1",
+        "date": "2026-10-25"
+      },
+      "repo": null
+    },
+    "spideriq-mcp-publish": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.43.1",
+        "date": "2026-10-25"
+      },
+      "repo": null
+    },
+    "sqlite": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": null,
+      "latest": {
+        "version": "2025.4.25",
+        "date": "2025-04-25"
+      },
+      "repo": null
+    },
+    "srift-transfer": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "4.4.0",
+        "date": "2026-10-17"
+      },
+      "repo": {
+        "name": "srivardhan113/SRIFT-Open_Source",
+        "pushedAt": "2026-10-17",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "ssid-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.1",
+        "date": "2026-10-05"
+      },
+      "repo": {
+        "name": "Drumworks/ssid-mcp",
+        "pushedAt": "2026-11-01",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "statuz-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "2.4.0",
+        "date": "2026-11-10"
+      },
+      "repo": null
+    },
+    "stickerdaniel-linkedin-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "4.30.0",
+        "date": "2026-11-13"
+      },
+      "repo": {
+        "name": "stickerdaniel/linkedin-mcp-server",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 185
+      },
+      "licenseFrom": "repo"
+    },
+    "stratta-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "1.22.0",
+        "date": "2026-11-13"
+      },
+      "repo": null
+    },
+    "swissco-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-09-07"
+      },
+      "repo": {
+        "name": "prospex-ch/swissco-cli",
+        "pushedAt": "2026-11-07",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "synchronex-mcp-proxy": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.2.1",
+        "date": "2026-08-13"
+      },
+      "repo": null
+    },
+    "takehub-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.2",
+        "date": "2026-06-04"
+      },
+      "repo": null
+    },
+    "talix-stubs": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.6.0",
+        "date": "2026-10-10"
+      },
+      "repo": {
+        "name": "dev-talix/stubs",
+        "pushedAt": "2026-10-27",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "tanvo-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.1",
+        "date": "2026-10-09"
+      },
+      "repo": {
+        "name": "tanvoai/tanvo-mcp",
+        "pushedAt": "2026-10-09",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "tares": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT AND LicenseRef-Tares-EE",
+      "latest": {
+        "version": "1.57.0",
+        "date": "2026-11-12"
+      },
+      "repo": {
+        "name": "glassflow/tares",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 10
+      }
+    },
+    "taylorwilsdon-google-workspace-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": {
+        "version": "2.5.0",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "taylorwilsdon/google_workspace_mcp",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 92
+      },
+      "licenseFrom": "repo"
+    },
+    "telbase": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.8",
+        "date": "2026-10-27"
+      },
+      "repo": null
+    },
+    "tenjin-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": null,
+      "latest": {
+        "version": "0.1.0-alpha.34",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "BackTrackCo/tenjin-agent",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 37
+      }
+    },
+    "tensorfeed-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.1.0",
+        "date": "2026-11-15"
+      },
+      "repo": {
+        "name": "RipperMercs/tensorfeed-mcp",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "tensorfeed-x402-base-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.1",
+        "date": "2026-05-28"
+      },
+      "repo": {
+        "name": "RipperMercs/tensorfeed-x402-base-mcp",
+        "pushedAt": "2026-10-14",
+        "archived": false,
+        "openIssues": 10
+      }
+    },
+    "testivai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.9.4",
+        "date": "2026-11-08"
+      },
+      "repo": {
+        "name": "testivai/testivai-oss",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 5
+      }
+    },
+    "text-editor": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "1.2.2",
+        "date": "2026-09-12"
+      },
+      "repo": null
+    },
+    "textile-designer-ai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.3",
+        "date": "2026-10-23"
+      },
+      "repo": {
+        "name": "ScientiaAI/textile-designer-ai-claude",
+        "pushedAt": "2026-10-07",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "thrain-blackout-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.4.0",
+        "date": "2026-08-08"
+      },
+      "repo": {
+        "name": "thrain-ai/blackout-pdf",
+        "pushedAt": "2026-08-08",
+        "archived": false,
+        "openIssues": 1
+      }
+    },
+    "thrain-spotlight-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-08-02"
+      },
+      "repo": null
+    },
+    "time": {
+      "checkedAt": "2026-11-16",
+      "source": "pypi",
+      "license": "MIT",
+      "latest": {
+        "version": "2026.11.11",
+        "date": "2026-11-11"
+      },
+      "repo": {
+        "name": "modelcontextprotocol/servers",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 22
+      }
+    },
+    "timeprooflabs-truthspine-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.2.2",
+        "date": "2026-11-07"
+      },
+      "repo": {
+        "name": "TimeProofLabs/truthspine-app",
+        "pushedAt": "2026-11-14",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "todoglow-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.2",
+        "date": "2026-08-11"
+      },
+      "repo": {
+        "name": "aesopfrom0/todoglow-releases",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "toolaby": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.18.0",
+        "date": "2026-10-27"
+      },
+      "repo": null
+    },
+    "trustrails-mcp-server": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.28",
+        "date": "2026-10-09"
+      },
+      "repo": {
+        "name": "james-webdev/trustrails-mcp-server",
+        "pushedAt": "2026-10-09",
+        "archived": false,
+        "openIssues": 2
+      }
+    },
+    "trusty-squire-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.1.43",
+        "date": "2026-11-15"
+      },
+      "repo": {
+        "name": "Trusty-Squire/trusty-squire",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 8
+      }
+    },
+    "uarpie": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "UNLICENSED",
+      "latest": {
+        "version": "0.3.23",
+        "date": "2026-11-07"
+      },
+      "repo": null
+    },
+    "uplink-code-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "proprietary",
+      "latest": {
+        "version": "0.1.6",
+        "date": "2026-09-18"
+      },
+      "repo": null
+    },
+    "userintuition-ai-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.6.3",
+        "date": "2026-11-10"
+      },
+      "repo": null
+    },
+    "vaaya-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.7.0",
+        "date": "2026-10-14"
+      },
+      "repo": {
+        "name": "vaaya-ai/vaaya-mcp",
+        "pushedAt": "2026-09-13",
+        "archived": false,
+        "openIssues": 9
+      }
+    },
+    "vantic-sdk": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-07-31"
+      },
+      "repo": {
+        "name": "vanticlabs/vantic",
+        "pushedAt": "2026-07-31",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "veida-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-09-06"
+      },
+      "repo": {
+        "name": "hanshs474/veida-mcp",
+        "pushedAt": "2026-10-16",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "vertical-marketplace-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-08-11"
+      },
+      "repo": null
+    },
+    "vibheksoni-stealth-browser-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "github",
+      "license": "MIT",
+      "latest": {
+        "version": "0.2.5",
+        "date": "2026-02-10"
+      },
+      "repo": {
+        "name": "vibheksoni/stealth-browser-mcp",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 0
+      },
+      "licenseFrom": "repo"
+    },
+    "vruum-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.17.0",
+        "date": "2026-11-12"
+      },
+      "repo": {
+        "name": "vruum-gtm/mcp",
+        "pushedAt": "2026-11-12",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "wavespeed-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.2.15",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "WaveSpeedAI/mcp-server",
+        "pushedAt": "2026-11-16",
+        "archived": false,
+        "openIssues": 4
+      }
+    },
+    "wildcard-ai-deepcontext": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.1.15",
+        "date": "2025-09-22"
+      },
+      "repo": null
+    },
+    "wilm-ai-wilma-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.5.0",
+        "date": "2026-11-08"
+      },
+      "repo": {
+        "name": "aikarjal/wilmai",
+        "pushedAt": "2026-11-09",
+        "archived": false,
+        "openIssues": 4
+      }
+    },
+    "workpods-agent-ready": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-11-06"
+      },
+      "repo": {
+        "name": "WorkPodsAgents/agent-ready",
+        "pushedAt": "2026-11-09",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "workpods-local-seo": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.0.1",
+        "date": "2026-11-06"
+      },
+      "repo": {
+        "name": "WorkPodsAgents/local-seo",
+        "pushedAt": "2026-11-06",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "wpconvert-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.0",
+        "date": "2026-10-20"
+      },
+      "repo": {
+        "name": "FTWAgency/wpconvert-devtools",
+        "pushedAt": "2026-10-26",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "yomio-mcp-stdio": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.0",
+        "date": "2026-10-06"
+      },
+      "repo": null
+    },
+    "zendiq-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.6",
+        "date": "2026-11-09"
+      },
+      "repo": {
+        "name": "ZendIQ/ZendIQ-Agent-API",
+        "pushedAt": "2026-11-09",
+        "archived": false,
+        "openIssues": 0
+      }
+    },
+    "zensation-mcp": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "0.3.1",
+        "date": "2026-10-31"
+      },
+      "repo": {
+        "name": "zensation-ai/zenbrain",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 5
+      }
+    },
+    "zils-cli": {
+      "checkedAt": "2026-11-16",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.22",
+        "date": "2026-11-14"
+      },
+      "repo": {
+        "name": "ooo-hq/zils-sdk",
+        "pushedAt": "2026-11-15",
+        "archived": false,
+        "openIssues": 0
+      }
+    }
+  }
+}

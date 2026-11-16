@@ -51,6 +51,7 @@ import { pathToFileURL } from "node:url";
 import { ISSUE_MARKER, ORIGIN, RANK, failingChecks, issueDraft, letterOf, notPassed } from "../web/worker/notify-core.mjs";
 import { failedSince } from "../web/lib/retest.mjs";
 import { ownerStatus, statusFile } from "./owner-status.mjs";
+import { FILE as FACTS_FILE, collect as collectFacts } from "./server-facts.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -713,6 +714,12 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   const saveCache = () => writeJson(FILES.repos, Object.fromEntries(Object.entries(cache).sort(([a], [b]) => a.localeCompare(b))));
   saveCache();
   log(`repos: ${looked} looked up, ${Object.values(cache).filter((c) => c.repo).length} of ${Object.keys(cache).length} on GitHub`);
+
+  // 1b. plain package and repository facts for the results pages (fleet/server-facts.mjs). Its own try: a failure here
+  // never stops the owner handling below, and the last file stays as it was.
+  try {
+    writeJson(FACTS_FILE, await collectFacts({ servers, repos: cache, previous: readJson(FACTS_FILE, { servers: {} }), today, fetchFn, api, sleep: (ms) => sleep(Math.min(ms, 100)), log }));
+  } catch (e) { log(`::warning::server facts not refreshed: ${String(e.message ?? e).slice(0, 120)}`); }
 
   // 2. replies on the issues the bot opened: recorded, opt-outs honoured, listed for Jordan
   ledger.replies ??= [];

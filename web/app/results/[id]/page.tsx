@@ -23,6 +23,7 @@ import s from "../results.module.css";
 import { BadgeSnippets } from "@/components/BadgeSnippets";
 import { FILL, installConfig } from "@/lib/install-config.mjs";
 import { relatedServers } from "@/lib/related.mjs";
+import { serverFactsFor } from "@/lib/server-facts-data";
 
 export const dynamicParams = false;
 // With no published results, export one placeholder route; the page answers it with notFound().
@@ -220,6 +221,7 @@ export default async function ServerPage({ params }: P) {
   const inst = installConfig(x, { withheld: priv.size > 0 });
   const fills = inst ? [...new Map(inst.fill.map((p) => [FILL[p], FILL_WORDS[p]])).entries()] : [];
   const related = relatedServers(x, SERVERS_RESULTS);
+  const facts = serverFactsFor(x, priv.size > 0);
   const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
   return (
@@ -324,6 +326,48 @@ export default async function ServerPage({ params }: P) {
             <h2 id="badge-h">Badge for the README</h2>
             <p>The badge shows this automated result for version {x.versionTested}. It is a link to this page, not a certificate, and it changes when the next re-test does.</p>
             <BadgeSnippets id={x.id} name={x.name} />
+          </section>
+        )}
+
+        {facts && (
+          <section className={s.sec} aria-labelledby="facts-h">
+            <h2 id="facts-h">Package facts</h2>
+            <dl className={s.facts}>
+              {facts.license && (
+                <>
+                  <dt>License</dt>
+                  <dd><span data-third-party="">{facts.license}</span>{facts.licenseFrom === "repo" ? " (from the repository; the package names none)" : ""}</dd>
+                </>
+              )}
+              {facts.latest && (
+                <>
+                  <dt>Latest release</dt>
+                  <dd>
+                    <span data-third-party="">{facts.latest.version}</span>{facts.latest.date ? `, published ${facts.latest.date}` : ""}
+                    {facts.latest.graded ? " (the version graded on this page)" : <>. This page graded <span data-third-party="">{x.versionTested}</span>.</>}
+                  </dd>
+                </>
+              )}
+              {facts.repo && (
+                <>
+                  <dt>Repository</dt>
+                  <dd><a href={facts.repo.url} rel="nofollow noopener" data-third-party="">{facts.repo.name}</a>{facts.repo.archived ? " (archived by its owner: read-only)" : ""}</dd>
+                  {facts.repo.pushed && (
+                    <>
+                      <dt>Last push</dt>
+                      <dd>{facts.repo.pushed}</dd>
+                    </>
+                  )}
+                  {facts.repo.openIssues != null && (
+                    <>
+                      <dt>Open issues and pull requests</dt>
+                      <dd>{facts.repo.openIssues}</dd>
+                    </>
+                  )}
+                </>
+              )}
+            </dl>
+            <p className={s.muted}>From {facts.from}, checked {facts.checked}. Plain facts about the package; they play no part in the grade.</p>
           </section>
         )}
 

@@ -685,3 +685,18 @@ test("main: fleet/owner-pick.json restricts the drafts and an approved run to th
   assert.match(JSON.stringify(gh.created()), /o3\/c/);
   assert.doesNotMatch(JSON.stringify(gh.created()), /o1\/a|o2\/b/);
 });
+
+test("main: writes the server facts file, and a facts failure never stops the owner handling", async () => {
+  const servers = [at("a", "o1/a"), at("b", "o2/b")];
+  const w = fakeWorld({ servers });
+  await main({ env: { GITHUB_TOKEN: "gt" }, argv: [], io: w.io, fetchFn: w.fetchFn, gh: fakeGh(), sleep: async () => {}, now: clock, log: () => {} });
+  const facts = JSON.parse(w.files.get("fleet/server-facts.json"));
+  assert.deepEqual(Object.keys(facts.servers), ["a", "b"]);
+  assert.equal(facts.servers.a.repo.name, "o1/a");
+
+  const broken = fakeWorld({ servers });
+  broken.files.set("fleet/server-facts.json", "{not json");
+  await main({ env: { GITHUB_TOKEN: "gt" }, argv: [], io: broken.io, fetchFn: broken.fetchFn, gh: fakeGh(), sleep: async () => {}, now: clock, log: () => {} });
+  assert.equal(broken.files.get("fleet/server-facts.json"), "{not json", "an unreadable file is left as it was");
+  assert.match(broken.files.get(FILES.draft), /o1\/a/, "drafts are still written");
+});
