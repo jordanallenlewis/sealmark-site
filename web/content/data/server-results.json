@@ -30350,18 +30350,46 @@
       "name": "apiguru-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.1.62",
+      "versionTested": "1.1.63",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-16",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx apiguru-mcp==1.1.62",
+      "launch": "uvx apiguru-mcp==1.1.63",
       "transport": "stdio",
       "toolCount": 12,
+      "tools": [
+        "product_details",
+        "product_reviews",
+        "search",
+        "product_details_batch",
+        "offers_stock",
+        "best_sellers",
+        "deals",
+        "seller_profile_batch",
+        "seller_products",
+        "seller_reviews",
+        "list_capabilities",
+        "send_feedback"
+      ],
+      "toolSchemas": {
+        "best_sellers": "e7d387134af2",
+        "deals": "59202fdab28e",
+        "list_capabilities": "ef8aa5984345",
+        "offers_stock": "9e5eca233395",
+        "product_details": "3d6be816d942",
+        "product_details_batch": "c0b4dbd20b77",
+        "product_reviews": "46cebfb8066b",
+        "search": "9daac63a60bb",
+        "seller_products": "9ec67bc24950",
+        "seller_profile_batch": "d30f18301958",
+        "seller_reviews": "c0cb2e254bb7",
+        "send_feedback": "96e861b8d0d4"
+      },
       "packs": [
         {
           "id": "core",
@@ -30486,7 +30514,13 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "53 invalid call(s) rejected cleanly"
+          "summary": "53 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "list_capabilities"
+            ],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -30567,7 +30601,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
