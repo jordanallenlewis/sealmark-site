@@ -211,3 +211,7 @@
 .toolChecks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .toolChecks li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; overflow-wrap: anywhere; }
 .byTool td.id { white-space: normal; overflow-wrap: anywhere; }
+.selects { margin-left: auto; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.selects .sort { margin-left: 0; }
+.when { display: block; font-size: 0.8rem; }
+@media (max-width: 600px) { .selects { margin-left: 0; width: 100%; } .selects .sort { width: 100%; } .selects .sort select { flex: 1; min-width: 0; } }
