@@ -657,12 +657,13 @@ export function gate(env, argv) {
 
 // Pushes the ledger to main before a private report is sent (only on Actions; elsewhere a no-op). It throws when the push
 // fails, and then nothing is sent. The identity is the one the fleet's commit step uses.
-function persistLedger(env, ghFn) {
+// The collect job has the new grades uncommitted in the tree, so the rebase must stash them (--autostash).
+export function persistLedger(env, ghFn, cwd = process.cwd()) {
   if (env.GITHUB_ACTIONS !== "true") return;
-  const git = (...a) => execFileSync("git", ["-c", "user.name=Jordan Lewis", "-c", "user.email=42820601+jordanallenlewis@users.noreply.github.com", ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 120_000 });
+  const git = (...a) => execFileSync("git", ["-c", "user.name=Jordan Lewis", "-c", "user.email=42820601+jordanallenlewis@users.noreply.github.com", ...a], { encoding: "utf8", cwd, stdio: ["ignore", "pipe", "pipe"], timeout: 120_000 });
   git("add", FILES.ledger);
   try { git("commit", "-m", "fleet: record a private report before it is sent"); } catch { /* nothing to commit */ }
-  git("pull", "--rebase", "origin", "main");
+  git("pull", "--rebase", "--autostash", "origin", "main");
   git("push", "origin", "HEAD:main");
 }
 
