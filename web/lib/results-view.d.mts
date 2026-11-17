@@ -1,0 +1,13 @@
+import type { ListRow } from "./results-shared";
+export type ViewState = { q: string; filter: string; source: string; area: string; sort: string };
+export const FILTERS: [string, string][];
+export const SORT_OPTIONS: [string, string][];
+export const SORTS: string[];
+export const SOURCES: [string, string][];
+export const AREAS: string[];
+export function worstLetter(x: { packs?: { id: string; status: string; letter: string | null }[] }): string | null;
+export function gradeChange(runs: readonly { date: string; status: string; worst?: string }[] | undefined, current: string | null): { date: string; from: string; to: string } | null;
+export function viewRows<T extends ListRow>(rows: readonly T[], s: ViewState): T[];
+export function facetCounts(rows: readonly ListRow[], s: ViewState): { source: Record<string, number>; area: Record<string, number>; all: number };
+export function readState(p: URLSearchParams): ViewState & { page: number };
+export function writeState(params: URLSearchParams, s: ViewState & { page: number }): void;

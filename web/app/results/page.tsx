@@ -6,6 +6,7 @@ import { ResultsTable } from "@/components/ResultsTable";
 import { Seal } from "@/components/Seal";
 import { DATA, RESULTS_PUBLIC, RANK, SERVERS_RESULTS, SERVER_COUNT, VERDICTS_CHECKED, deepPacks, worst, type Letter } from "@/lib/results";
 import { listRow } from "@/lib/results-list.mjs";
+import { loadHistory } from "@/lib/history";
 import { DisputeNote } from "./DisputeNote";
 import { NotGraded } from "./NotGraded";
 import s from "./results.module.css";
@@ -45,6 +46,7 @@ export default function ResultsPage() {
     return (wb ? RANK[wb.letter] : -1) - (wa ? RANK[wa.letter] : -1) || a.name.localeCompare(b.name);
   });
   const dist = Object.fromEntries(LETTERS.map((l) => [l, list.filter((x) => worst(x)?.letter === l).length]));
+  const runs = new Map(loadHistory().map((h) => [h.id, h.runs]));
   const rounds = DATA.verification.rounds;
   const sum = (k: keyof (typeof rounds)[number]) => rounds.reduce((t, r) => t + (r[k] as number), 0);
 
@@ -70,7 +72,7 @@ export default function ResultsPage() {
         </div>
 
         <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link></p>
-        <ResultsTable servers={list.map(listRow)} />
+        <ResultsTable servers={list.map((x) => listRow(x, runs.get(x.id)))} />
         <NotGraded />
 
         <section className={s.sec}>

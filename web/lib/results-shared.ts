@@ -27,6 +27,9 @@ type PackLite = Pick<PackResult, "id" | "status" | "letter" | "provisional">;
 export type ListRow = Pick<ServerResult, "id" | "name" | "ecosystem" | "versionTested" | "toolCount" | "lastAttempt"> & {
   packs: PackLite[];
   coverage?: { level: string; toolsTotal: number } | null;
+  /** Day of the run behind the grade (YYYY-MM-DD), and the last day the server grade moved (lib/results-view.mjs gradeChange). */
+  testedOn?: string;
+  change?: { date: string; from: Letter; to: Letter };
 };
 
 export const RANK: Record<Letter, number> = { F: 0, D: 1, C: 2, B: 3, A: 4 };
