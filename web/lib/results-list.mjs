@@ -12,7 +12,7 @@ const pick = (o, keys) => Object.fromEntries(keys.filter((k) => o[k] !== undefin
 
 /**
  * @param {any} x a server entry from server-results.json
- * @param {Array<{ date: string, status: string, worst?: string }>} [runs] its grade history (lib/history.ts), for the change line
+ * @param {Array<{ date: string, status: string, worst?: string, version?: string, sealmark?: string }>} [runs] its grade history (lib/history.ts), for the change line
  */
 export function listRow(x, runs) {
   const row = pick(x, LIST_FIELDS);

@@ -9,7 +9,7 @@ const has = (o, k) => typeof k === "string" && Object.prototype.hasOwnProperty.c
 /** @type {[string, string][]} filter key, button label */
 export const FILTERS = [["all", "All"], ["failing", "Has a failing suite"], ["clean", "No failing suite"], ["hygiene", "Protocol only"]];
 /** @type {[string, string][]} sort key, option label */
-export const SORT_OPTIONS = [["best", "Best grade first"], ["worst", "Worst grade first"], ["tested", "Recently tested"], ["changed", "Recent grade change"], ["name", "Name"]];
+export const SORT_OPTIONS = [["best", "Best grade first"], ["worst", "Worst grade first"], ["tested", "Last graded"], ["changed", "Recent grade change"], ["name", "Name"]];
 export const SORTS = SORT_OPTIONS.map(([k]) => k);
 /** @type {[string, string][]} ecosystem key, label (the package registry the fleet installs from) */
 export const SOURCES = [["npm", "npm"], ["pypi", "PyPI"], ["github", "GitHub"]];
@@ -26,19 +26,28 @@ export function worstLetter(x) {
 }
 
 /**
- * The last day the server grade moved, from its grade history (fleet/history.jsonl via lib/history.ts): the newest
- * pair of graded runs whose worst grade differs. Failed runs say nothing about a grade and are skipped. Silent when
- * unsure: null when the history's latest grade is not the grade the page shows, or a date or letter is malformed.
- * @param {Array<{ date: string, status: string, worst?: string }> | undefined} runs
+ * The last day the server grade moved with a new server version, from its grade history (fleet/history.jsonl via
+ * lib/history.ts): the newest pair of graded runs whose worst grade differs. Failed runs say nothing about a grade and
+ * are skipped. Silent when unsure (null): the history's latest grade is not the grade the page shows; that newest move
+ * came with a Sealmark upgrade, an unknown Sealmark version, or no new server version (same version, same Sealmark,
+ * different grade is a case for Sealmark's own accuracy checks, not a claim about the server); or a field is malformed.
+ * @param {Array<{ date: string, status: string, worst?: string, version?: string, sealmark?: string }> | undefined} runs
  * @param {string | null} current the grade the results page shows
- * @returns {{ date: string, from: string, to: string } | null}
+ * @returns {{ date: string, from: string, to: string, fromVersion: string } | null}
  */
 export function gradeChange(runs, current) {
   if (!Array.isArray(runs) || !has(RANK, current)) return null;
+  const text = (v) => typeof v === "string" && v.length > 0 && v.length <= 64;
   const ok = runs.filter((r) => r && r.status === "ok" && typeof r.date === "string" && DAY.test(r.date) && has(RANK, r.worst))
     .sort((a, b) => a.date.localeCompare(b.date));
   if (ok.length < 2 || ok.at(-1).worst !== current) return null;
-  for (let i = ok.length - 1; i > 0; i--) if (ok[i].worst !== ok[i - 1].worst) return { date: ok[i].date, from: ok[i - 1].worst, to: ok[i].worst };
+  for (let i = ok.length - 1; i > 0; i--) {
+    const [a, b] = [ok[i - 1], ok[i]];
+    if (a.worst === b.worst) continue;
+    const sameSealmark = text(a.sealmark) && a.sealmark === b.sealmark;
+    const newVersion = text(a.version) && text(b.version) && a.version !== b.version;
+    return sameSealmark && newVersion ? { date: b.date, from: a.worst, to: b.worst, fromVersion: a.version } : null;
+  }
   return null;
 }
 
@@ -72,17 +81,15 @@ export function viewRows(rows, s) {
   return rows.filter((x) => keep(x, s)).sort(COMPARE[s.sort] ?? best);
 }
 
-/** How many rows each source and test-area choice would show, with every other active choice applied; `all` = the current view. */
+/** How many rows each source and test-area choice would show, with every other active choice applied. */
 export function facetCounts(rows, s) {
   const source = Object.fromEntries(SOURCES.map(([k]) => [k, 0]));
   const area = Object.fromEntries(AREAS.map((k) => [k, 0]));
-  let all = 0;
   for (const x of rows) {
     if (keep(x, s, "source") && has(source, x.ecosystem)) source[x.ecosystem]++;
     if (keep(x, s, "area")) for (const p of deep(x)) if (has(area, p.id)) area[p.id]++;
-    if (keep(x, s)) all++;
   }
-  return { source, area, all };
+  return { source, area };
 }
 
 /** View state from the query string; unknown values fall back to the defaults. */

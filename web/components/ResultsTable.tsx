@@ -12,7 +12,7 @@ import s from "@/app/results/results.module.css";
 const PAGE_SIZE = 25;
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 /** "2026-11-16" as "Nov 16" (UTC day, no locale: the static page and the browser render the same text). */
-const short = (day: string) => `${MONTHS[Number(day.slice(5, 7)) - 1] ?? ""} ${Number(day.slice(8, 10))}`;
+const short = (day: string) => `${MONTHS[Number(day.slice(5, 7)) - 1] ?? ""}\u00a0${Number(day.slice(8, 10))}`; // no break inside the date
 
 // The results table with search, a filter, source and test-area facets, and sorts. Rows are plain links, so it works without the interactions too.
 // The view lives in the query string (?q=&filter=&source=&area=&sort=, defaults omitted; lib/results-view.mjs): read once after hydration,
@@ -47,6 +47,8 @@ export function ResultsTable({ servers }: { servers: ListRow[] }) {
   const rows = useMemo(() => viewRows(servers, { q, filter, source, area, sort }), [servers, q, filter, source, area, sort]);
   const counts = useMemo(() => facetCounts(servers, { q, filter, source, area, sort }), [servers, q, filter, source, area, sort]);
   // Areas no server was graded in stay out of the menu; the one in the URL stays so the view can be read.
+  // "Recent grade change" is offered once a row has one (or the URL asks for it), so the menu never holds a sort that does nothing.
+  const sorts = useMemo(() => SORT_OPTIONS.filter(([k]) => k !== "changed" || k === sort || servers.some((x) => x.change)), [servers, sort]);
   const areas = useMemo(() => AREAS.filter((a) => a === area || servers.some((x) => deepPacks(x).some((p) => p.id === a))), [servers, area]);
 
   const pages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
@@ -80,7 +82,7 @@ export function ResultsTable({ servers }: { servers: ListRow[] }) {
           </label>
           <label className={s.sort}>Sort
             <select value={sort} onChange={(e) => change(setSort)(e.target.value)}>
-              {SORT_OPTIONS.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
+              {sorts.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
             </select>
           </label>
         </div>
@@ -98,8 +100,8 @@ export function ResultsTable({ servers }: { servers: ListRow[] }) {
               const w = x.toolCount === 0 && (!x.coverage || x.coverage.toolsTotal === 0) ? null : worst(x);
               return (
                 <tr key={x.id}>
-                  <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small>{retestShort(x) && <small>{retestShort(x)}</small>}{x.change && <small>grade was {x.change.from} until {short(x.change.date)}</small>}</td>
-                  <td className={s.muted} data-label="Version">{x.versionTested}{x.testedOn && <small className={s.when}>tested {short(x.testedOn)}</small>}</td>
+                  <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small>{retestShort(x) && <small>{retestShort(x)}</small>}{w && x.change && <small data-third-party="">grade was {x.change.from} on {x.change.fromVersion}, until {short(x.change.date)}</small>}</td>
+                  <td className={s.muted} data-label="Version">{x.versionTested}{x.testedOn && <small className={s.when}>graded {short(x.testedOn)}</small>}</td>
                   <td className={s.gradeCell} data-label="Grade">{w ? <Seal g={w.letter as Letter} prov={w.provisional} /> : <span className={s.muted}>no grade</span>}</td>
                   <td data-label="Protocol">{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
                   <td data-label="Deeper suites">

@@ -54,11 +54,11 @@ test("the table still gets what it draws: grades, packs, coverage and the failed
 });
 
 test("derived fields: the test day only (no time), and a grade change only from runs that end at the page's grade", () => {
-  const runs = [{ date: "2026-11-01", status: "ok", worst: "A" }, { date: "2026-11-02", status: "ok", worst: "D" }];
+  const runs = [{ date: "2026-11-01", status: "ok", worst: "A", version: "0.9.0", sealmark: "1.0.1" }, { date: "2026-11-02", status: "ok", worst: "D", version: "1.0.0", sealmark: "1.0.1" }];
   const row = listRow(probe, runs);
   assert.equal(row.testedOn, "2026-11-01");
-  assert.deepEqual(row.change, { date: "2026-11-02", from: "A", to: "D" });
-  assert.equal(listRow(probe, [runs[1], { date: "2026-11-03", status: "ok", worst: "B" }]).change, undefined, "history ends at B, the page shows D");
+  assert.deepEqual(row.change, { date: "2026-11-02", from: "A", to: "D", fromVersion: "0.9.0" });
+  assert.equal(listRow(probe, [runs[1], { date: "2026-11-03", status: "ok", worst: "B", version: "1.1.0", sealmark: "1.0.1" }]).change, undefined, "history ends at B, the page shows D");
   assert.equal(listRow(probe).change, undefined);
   assert.equal(listRow(probe, 3).change, undefined, "Array.prototype.map's index is not a history");
   assert.equal(listRow({ ...probe, testedAt: "soon" }).testedOn, undefined);

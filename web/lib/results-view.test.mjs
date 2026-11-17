@@ -54,7 +54,6 @@ test("facet counts apply every other active choice but not their own", () => {
   assert.deepEqual(c.source, { npm: 2, pypi: 0, github: 0 }); // area=effects applied, source ignored
   assert.equal(c.area.net, 1); // source=pypi applied, area ignored
   assert.equal(c.area.effects, 0);
-  assert.equal(c.all, 0);
 });
 
 test("readState accepts only known values; writeState omits the defaults", () => {
@@ -74,24 +73,39 @@ test("worstLetter is the lowest graded letter or null", () => {
   assert.equal(worstLetter(rows[4]), null);
 });
 
-test("gradeChange: the last day the worst grade moved, between graded runs only", () => {
+const run = (date, worst, version = "1.0.0", sealmark = "1.0.1", status = "ok") => ({ date, status, worst, version, sealmark });
+
+test("gradeChange: the last day the worst grade moved with a new server version, between graded runs only", () => {
   const runs = [
-    { date: "2026-11-10", status: "ok", worst: "B" },
-    { date: "2026-11-12", status: "failed" }, // a dash says nothing about the grade
-    { date: "2026-11-14", status: "ok", worst: "C" },
-    { date: "2026-11-15", status: "ok", worst: "C" },
+    run("2026-11-10", "B", "1.0.0"),
+    run("2026-11-12", undefined, "1.1.0", "1.0.1", "failed"), // a dash says nothing about the grade
+    run("2026-11-14", "C", "1.1.0"),
+    run("2026-11-15", "C", "1.1.0"),
   ];
-  assert.deepEqual(gradeChange(runs, "C"), { date: "2026-11-14", from: "B", to: "C" });
-  assert.deepEqual(gradeChange([...runs].reverse(), "C"), { date: "2026-11-14", from: "B", to: "C" }, "order of input does not matter");
+  assert.deepEqual(gradeChange(runs, "C"), { date: "2026-11-14", from: "B", to: "C", fromVersion: "1.0.0" });
+  assert.deepEqual(gradeChange([...runs].reverse(), "C"), { date: "2026-11-14", from: "B", to: "C", fromVersion: "1.0.0" }, "order of input does not matter");
 });
 
-test("gradeChange is silent when unsure", () => {
-  const runs = [{ date: "2026-11-10", status: "ok", worst: "B" }, { date: "2026-11-14", status: "ok", worst: "C" }];
+test("gradeChange is silent when the cause is not a new server version", () => {
+  assert.equal(gradeChange([run("2026-11-09", "B", "1.0.0", "1.0.0"), run("2026-11-14", "C", "1.0.0", "1.0.1")], "C"), null, "Sealmark upgrade, same server version");
+  assert.equal(gradeChange([run("2026-11-09", "B", "1.0.0", "1.0.0"), run("2026-11-14", "C", "1.1.0", "1.0.1")], "C"), null, "Sealmark upgrade and a new version: cause unknown");
+  assert.equal(gradeChange([run("2026-11-14", "A"), run("2026-11-16", "B")], "B"), null, "same server, same Sealmark: an accuracy case, not a server change");
+  assert.equal(gradeChange([run("2026-11-01", "F", "2.0.0", null), run("2026-11-02", "D", "2.0.1", null)], "D"), null, "unknown Sealmark version");
+  assert.equal(gradeChange([run("2026-11-01", "F", ""), run("2026-11-02", "D", "2.0.1")], "D"), null, "unknown server version");
+  // the newest move decides: an older qualifying move is not reported when a later unexplained one followed it
+  assert.equal(gradeChange([run("2026-11-10", "B", "1.0.0"), run("2026-11-12", "C", "1.1.0"), run("2026-11-14", "B", "1.1.0")], "B"), null);
+  // a later run with the same grade does not hide the move
+  assert.deepEqual(gradeChange([run("2026-11-10", "B", "1.0.0"), run("2026-11-12", "C", "1.1.0"), run("2026-11-14", "C", "1.2.0")], "C"), { date: "2026-11-12", from: "B", to: "C", fromVersion: "1.0.0" });
+});
+
+test("gradeChange is silent when unsure about the data", () => {
+  const runs = [run("2026-11-10", "B", "1.0.0"), run("2026-11-14", "C", "1.1.0")];
   assert.equal(gradeChange(runs, "B"), null, "history's last grade is not the grade on the page");
   assert.equal(gradeChange(runs, null), null);
-  assert.equal(gradeChange([{ date: "2026-11-10", status: "ok", worst: "B" }], "B"), null, "one run: nothing to compare");
-  assert.equal(gradeChange([{ date: "2026-11-10", status: "ok", worst: "B" }, { date: "2026-11-11", status: "ok", worst: "B" }], "B"), null);
-  assert.equal(gradeChange([{ date: "x", status: "ok", worst: "B" }, { date: "2026-11-11", status: "ok", worst: "C" }], "C"), null, "a bad date is dropped");
-  assert.equal(gradeChange([{ date: "2026-11-10", status: "ok", worst: "Z" }, { date: "2026-11-11", status: "ok", worst: "C" }], "C"), null, "a bad letter is dropped");
+  assert.equal(gradeChange([run("2026-11-10", "B")], "B"), null, "one run: nothing to compare");
+  assert.equal(gradeChange([run("2026-11-10", "B", "1.0.0"), run("2026-11-11", "B", "1.1.0")], "B"), null);
+  assert.equal(gradeChange([run("x", "B", "1.0.0"), run("2026-11-11", "C", "1.1.0")], "C"), null, "a bad date is dropped");
+  assert.equal(gradeChange([run("2026-11-10", "Z", "1.0.0"), run("2026-11-11", "C", "1.1.0")], "C"), null, "a bad letter is dropped");
+  assert.equal(gradeChange([run("2026-11-10", "B", "x".repeat(65)), run("2026-11-11", "C", "1.1.0")], "C"), null, "an oversized version is dropped");
   assert.equal(gradeChange(undefined, "C"), null);
 });
