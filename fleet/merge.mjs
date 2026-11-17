@@ -7,6 +7,7 @@ import path from "node:path";
 import { recordFailedAttempt } from "../web/lib/retest.mjs";
 import { writeNotGraded } from "./not-graded.mjs";
 import { recordArgs } from "./registry-args.mjs";
+import { cleanError } from "./clean-error.mjs";
 import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-tools.mjs";
 import { checkEvidence, mergeEvidence } from "./evidence.mjs";
 
@@ -73,7 +74,7 @@ function scrub(text) {
 // startFail = the server never started (not Sealmark's fault); crash = Sealmark itself threw; timeout; other.
 function failClass(error) {
   const e = String(error ?? "");
-  if (/Connection closed|connect-timeout|did not answer initialize|Not signed in|ENOTCACHED|ETARGET|E404|fetch failed|ENOENT|No matching/i.test(e)) return "start-fail";
+  if (/Connection closed|connect-timeout|did not answer initialize|Not signed in|ENOTCACHED|ETARGET|E404|fetch failed|ENOENT|No such file|No matching/i.test(e)) return "start-fail";
   if (/TypeError|ReferenceError|RangeError|Unhandled|at .*\.(js|ts):\d+|internal error|assertion/i.test(e)) return "sealmark-crash";
   if (/timed? ?out|timeout/i.test(e)) return "timeout";
   return "other";
@@ -96,7 +97,8 @@ for (const name of subfolders) {
   const report = readJson(path.join(dir, "sealmark.json"));
   const run = readJson(path.join(dir, "run.json"));
   if (!report || report.status === "failed") {
-    const kind = report ? failClass(report.error) : "no-report";
+    const errorText = cleanError(report?.error) || report?.error;
+    const kind = report ? failClass(errorText) : "no-report";
     // Keep the last grade, but say on it that this re-test failed (web/lib/retest.mjs); a new server gets no entry.
     recordFailedAttempt(results.servers, meta.id, today, kind, startKindOf(report));
     appendHistory({
@@ -107,12 +109,12 @@ for (const name of subfolders) {
       ...recordArgs(meta),
       testedAt: today,
       status: "failed",
-      error: report?.error ?? "no report",
+      error: errorText ?? "no report",
     });
     appendTelemetry({
       id: meta.id, ecosystem: meta.ecosystem, serverVersion: meta.version ?? null, testedAt: today,
       sealmark: report?.sealmark?.version ?? "unknown", status: "failed",
-      failClass: kind, errorSig: scrub(report?.error ?? "no report"), startKind: startKindOf(report),
+      failClass: kind, errorSig: scrub(errorText ?? "no report"), startKind: startKindOf(report),
       durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
     });
     failed += 1;
