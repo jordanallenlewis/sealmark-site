@@ -55,7 +55,7 @@ function viewLine(e) {
 
 /**
  * @param {unknown} record this server's entry in fleet/evidence.json
- * @param {{ testedAt: string, sealmark: { version: string }, configHash: string, checks: Array<{ id: string, critical?: boolean, advisory?: boolean, verdict?: string, summary?: string }> }} server
+ * @param {{ testedAt: string, sealmark: { version: string }, configHash: string, checks: Array<{ id: string, critical?: boolean, advisory?: boolean, verdict?: string, summary?: string | null }> }} server
  * @param {{ held: boolean }} o held: a finding on this page is under private disclosure
  * @returns {Map<string, { total: number, lines: Array<{ probe: string, outcome: string, by: string | null, how: string | null, tool: string | null }> }> | null}
  */

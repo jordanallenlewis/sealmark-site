@@ -58,6 +58,7 @@ import { ownerStatus, statusFile } from "./owner-status.mjs";
 import { FILE as FACTS_FILE, collect as collectFacts, githubGetter } from "./server-facts.mjs";
 import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
 import { candidates as privateCandidates, privateLimitsFrom, reportFor, sendReports } from "./private-reports.mjs";
+import { PRIVATE_RESULTS } from "./redact-results.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -418,7 +419,15 @@ const rerun = (x) => `npx -y sealmark@${x.sealmark?.version ?? "latest"} run --s
 
 // One queue entry per held repository (or server, when no repository is known).
 //   pvr: true / false / null (unknown) for GitHub private vulnerability reporting on the repo
-export function privateEntry({ repo, servers }, { today, pvr = null } = {}) {
+// The text of a held finding is not kept in the public results file (fleet/redact-results.mjs). `kept` is this run's
+// private handoff (id -> {testedAt, versionTested, sealmark, summaries}); it counts only for the result it was taken from.
+export function keptSummary(x, check, kept = {}) {
+  if (typeof check.summary === "string" && check.summary) return check.summary;
+  const k = kept[x.id];
+  return k && k.testedAt === x.testedAt && k.versionTested === x.versionTested && k.sealmark === (x.sealmark?.version ?? null) ? k.summaries?.[check.id] ?? "" : "";
+}
+
+export function privateEntry({ repo, servers }, { today, pvr = null, kept = {} } = {}) {
   return {
     repo,
     status: "not sent",
@@ -430,7 +439,7 @@ export function privateEntry({ repo, servers }, { today, pvr = null } = {}) {
       id: x.id, name: x.name, version: x.versionTested, testedAt: x.testedAt, letter: letterOf(x),
       fresh: !staleReason(x, today), stale: staleReason(x, today),
       rerun: rerun(x), results: `${ORIGIN}/results/${encodeURIComponent(x.id)}/`,
-      security: securityFindings(x).map((c) => ({ id: c.id, label: c.label, verdict: c.verdict, summary: c.summary })),
+      security: securityFindings(x).map((c) => ({ id: c.id, label: c.label, verdict: c.verdict, summary: keptSummary(x, c, kept) })),
       otherFailing: failingChecks(x).filter((id) => !isSecurityCheck((x.checks ?? []).find((c) => c.id === id))),
     })),
   };
@@ -936,7 +945,8 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     if (!h.repo) continue;
     try { const r = await api(`/repos/${h.repo}/private-vulnerability-reporting`); pvr[h.repo] = r.missing ? null : r.enabled === true; } catch { pvr[h.repo] = null; }
   }
-  const entries = held.map((h) => privateEntry(h, { today, pvr: h.repo ? pvr[h.repo] ?? null : null }));
+  const kept = readJson(PRIVATE_RESULTS, { servers: {} }).servers ?? {};
+  const entries = held.map((h) => privateEntry(h, { today, pvr: h.repo ? pvr[h.repo] ?? null : null, kept }));
   writeJson(FILES.privateQueue, { generated: today, note: "PRIVATE: security findings held from public owner issues; report by hand under the disclosure policy", entries });
   io.write(FILES.privateDraft, renderPrivate({ entries, today }));
   log(`held for private handling: ${held.length} (not named here; see ${FILES.privateDraft} in a local run)`);
@@ -947,7 +957,11 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   const privHistory = (io.read(FILES.history) ?? "").split("\n").filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
   const pc = privateCandidates(entries, { pvr, byId, ledger, optout, history: privHistory, today, self: SELF, limits: privLimits, key: env.OWNER_PRIVATE_KEY ?? "" });
   const reports = [];
-  for (const e of pc.ready.slice(0, 6)) {
+  // The finding text is not in the public file (fleet/redact-results.mjs): a held repository whose server was not re-tested
+  // in this run has none to send and waits for its next re-test. Dropped before the cut so it cannot crowd out a sendable one.
+  const noText = (e) => e.servers.some((x) => x.security.some((c) => !String(c.summary ?? "").trim()));
+  for (const e of pc.ready.filter(noText)) pc.skipped.push({ repo: e.repo, why: "the finding text is not kept in the public results file; waits for the next re-test" });
+  for (const e of pc.ready.filter((v) => !noText(v)).slice(0, 6)) {
     // the version tested must still be the latest: one network check per candidate, the same rule the public notices use
     let gate = null;
     for (const x of e.servers.filter((v) => v.security.length)) {

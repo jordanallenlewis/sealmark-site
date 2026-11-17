@@ -2,7 +2,9 @@
 export type Verdict = "pass" | "part" | "fail" | "inconclusive" | "na";
 export type Letter = "A" | "B" | "C" | "D" | "F";
 export type PackResult = { id: string; status: string; letter: Letter | null; points: number | null; scored: number | null; pct: number | null; provisional: boolean; capped: boolean; criticalFails: string[]; reason?: string | null };
-export type CheckResult = { id: string; pack: string; label: string; critical: boolean; advisory: boolean; verdict: Verdict; summary: string;
+export type CheckResult = { id: string; pack: string; label: string; critical: boolean; advisory: boolean; verdict: Verdict;
+  /** null for a check held under private disclosure: fleet/redact-results.mjs keeps its text out of the public file. */
+  summary: string | null;
   /** Tools this check called with a valid call, and the ones it could not (fleet/check-tools.mjs; public checks only). */
   tools?: { probed: string[]; notCovered: string[]; cut?: number } };
 export type ServerResult = {
