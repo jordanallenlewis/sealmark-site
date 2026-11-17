@@ -172,7 +172,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "fail",
-          "summary": "writes executed through execute_sql"
+          "summary": null
         },
         {
           "id": "write-gate",
@@ -190,7 +190,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the policy through and added no filtering of its own (support role saw only its own tenant on every tool)"
+          "summary": null
         },
         {
           "id": "mutating-sql",
@@ -199,7 +199,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "EXECUTED: stacked statements (DROP), stacked statements (INSERT), COMMIT then write (read-only transaction escape), ROLLBACK then write (read-only transaction escape), END then write (read-only transaction escape), ABORT then write (read-only transaction escape), case and comment obfuscation (INSERT), data-modifying CTE (DELETE), data-modifying CTE (INSERT), function with side effects (defeats any prefix filter by construction), anonymous DO block, TRUNCATE, DDL (CREATE TABLE), DDL via SELECT INTO, PREPARE then EXECUTE, session state (disable read-only, then write), PREPARE and EXECUTE in one call, function with side effects in FROM, EXPLAIN ANALYZE runs the statement; 0 of 19 blocked"
+          "summary": null
         },
         {
           "id": "pii",
@@ -208,7 +208,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the grants through and added no filtering of its own (analyst role never received raw emails on any tool)"
+          "summary": null
         },
         {
           "id": "pii-masked",
@@ -217,7 +217,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "the masked view was readable and returned only masked emails"
+          "summary": null
         },
         {
           "id": "db-rowcap",
@@ -419,7 +419,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 16 tool definition(s), the server instructions and serverInfo, 4 prompt(s) and 8 resource(s), including parameter text: nothing suspicious"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -437,7 +437,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a canary secret from the server's environment appeared in a response of tool get-env"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -1713,7 +1713,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "fail",
-          "summary": "writes executed through execute_sql"
+          "summary": null
         },
         {
           "id": "write-gate",
@@ -1731,7 +1731,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the policy through and added no filtering of its own (support role saw only its own tenant on every tool)"
+          "summary": null
         },
         {
           "id": "mutating-sql",
@@ -1740,7 +1740,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "EXECUTED: stacked statements (DROP), stacked statements (INSERT), COMMIT then write (read-only transaction escape), ROLLBACK then write (read-only transaction escape), END then write (read-only transaction escape), ABORT then write (read-only transaction escape), case and comment obfuscation (INSERT), data-modifying CTE (DELETE), data-modifying CTE (INSERT), function with side effects (defeats any prefix filter by construction), anonymous DO block, TRUNCATE, DDL (CREATE TABLE), DDL via SELECT INTO, session state (disable read-only, then write), PREPARE and EXECUTE in one call, function with side effects in FROM, EXPLAIN ANALYZE runs the statement; 1 of 19 blocked"
+          "summary": null
         },
         {
           "id": "pii",
@@ -1749,7 +1749,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the grants through and added no filtering of its own (analyst role never received raw emails on any tool)"
+          "summary": null
         },
         {
           "id": "pii-masked",
@@ -1758,7 +1758,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "the masked view was readable and returned only masked emails"
+          "summary": null
         },
         {
           "id": "db-rowcap",
@@ -2196,7 +2196,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "part",
-          "summary": "writes executed through write_query (declared writer tool; exclude it under tools.exclude if writes are intended) and blocked on read_query, create_table (declared writer tool; exclude it under tools.exclude if writes are intended)"
+          "summary": null
         },
         {
           "id": "sqlite-mutating-sql",
@@ -2205,7 +2205,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "all 10 mutation forms blocked on 1 tool(s)"
+          "summary": null
         },
         {
           "id": "sqlite-file-read",
@@ -2214,7 +2214,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "no canary database was readable through 3 tool(s); write_query accepted an ATTACH, but the reader on the same session could not read what it attached (see the evidence)"
+          "summary": null
         },
         {
           "id": "sqlite-file-write",
@@ -2223,7 +2223,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "files were written to the canary directory through write_query; not through read_query, create_table"
+          "summary": null
         },
         {
           "id": "sqlite-extension-load",
@@ -2232,7 +2232,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "extension loading was refused on 2 tool(s)"
+          "summary": null
         },
         {
           "id": "sqlite-rowcap",
@@ -2653,7 +2653,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a file outside the allowed root was readable: read_file via evil-dotdot; read_file via evil-absolute; read_file via rel-evil; read_multiple_files via evil-dotdot; read_multiple_files via evil-absolute (+13 more)"
+          "summary": null
         },
         {
           "id": "fs-write-escape",
@@ -2662,7 +2662,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a write landed outside the allowed root: write_file via evil-dotdot; write_file via evil-absolute; write_file via rel-evil; edit_file via evil-dotdot; edit_file via evil-absolute"
+          "summary": null
         },
         {
           "id": "fs-link-escape",
@@ -2671,7 +2671,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a link inside the root led to a file outside it: read_file via link-file; read_multiple_files via link-file; list_directory via link-dir; directory_tree via link-dir"
+          "summary": null
         },
         {
           "id": "fs-size-cap",
@@ -3542,7 +3542,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "17 path variants aimed outside the root were refused or returned nothing, on read_file, list_files"
+          "summary": null
         },
         {
           "id": "fs-write-escape",
@@ -3551,7 +3551,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "42 write attempts aimed outside the root left the canary directory and the sibling root unchanged"
+          "summary": null
         },
         {
           "id": "fs-link-escape",
@@ -3560,7 +3560,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a link inside the root led to a file outside it: read_file via link-dir; read_file via link-file; list_files via link-dir; write_file via link-dir-write"
+          "summary": null
         },
         {
           "id": "fs-size-cap",
@@ -3805,7 +3805,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "git_clone contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 18 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -3814,7 +3814,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "12 scored probes (javascript: is recorded, not scored) with file:, ftp:, gopher:, dict: and data: URLs had no observable effect (8 explicitly refused for the scheme)"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -3832,7 +3832,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "redirects are followed; re-validation cannot be measured on a server that accepts loopback targets directly (it accepted every spelling the harness tried, so a refused hop has nothing to be compared with)"
+          "summary": null
         },
         {
           "id": "annotation-honesty",
@@ -4533,7 +4533,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "part",
-          "summary": "writes executed through write_query (declared writer tool; exclude it under tools.exclude if writes are intended) and blocked on read_query, create_table (declared writer tool; exclude it under tools.exclude if writes are intended), export_query"
+          "summary": null
         },
         {
           "id": "sqlite-mutating-sql",
@@ -4542,7 +4542,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "all 10 mutation forms blocked on 2 tool(s)"
+          "summary": null
         },
         {
           "id": "sqlite-file-read",
@@ -4551,7 +4551,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a database outside the fixture was attached and read through create_table; not through read_query, write_query, export_query"
+          "summary": null
         },
         {
           "id": "sqlite-file-write",
@@ -4560,7 +4560,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "files were written to the canary directory through create_table; not through read_query, write_query, export_query"
+          "summary": null
         },
         {
           "id": "sqlite-extension-load",
@@ -4569,7 +4569,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "extension loading was refused on 3 tool(s)"
+          "summary": null
         },
         {
           "id": "sqlite-rowcap",
@@ -4798,7 +4798,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "fetch_url contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 18 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -4807,7 +4807,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "12 scored probes (javascript: is recorded, not scored) with file:, ftp:, gopher:, dict: and data: URLs had no observable effect (a scheme the HTTP library does not support passes trivially)"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -4825,7 +4825,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "redirects are followed; re-validation cannot be measured on a server that accepts loopback targets directly (it accepted every spelling the harness tried, so a refused hop has nothing to be compared with)"
+          "summary": null
         },
         {
           "id": "refusal-quality",
@@ -5279,7 +5279,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "part",
-          "summary": "writes executed through pg_execute_sql and blocked on pg_execute_query"
+          "summary": null
         },
         {
           "id": "write-gate",
@@ -5297,7 +5297,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the policy through and added no filtering of its own (support role saw only its own tenant on every tool)"
+          "summary": null
         },
         {
           "id": "mutating-sql",
@@ -5306,7 +5306,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "EXECUTED: stacked statements (DROP), stacked statements (INSERT), data-modifying CTE (DELETE), data-modifying CTE (INSERT), function with side effects (defeats any prefix filter by construction), DDL via SELECT INTO, function with side effects in FROM, COMMIT then write (read-only transaction escape), ROLLBACK then write (read-only transaction escape), END then write (read-only transaction escape), ABORT then write (read-only transaction escape), case and comment obfuscation (INSERT), anonymous DO block, TRUNCATE, DDL (CREATE TABLE), PREPARE then EXECUTE, session state (disable read-only, then write), PREPARE and EXECUTE in one call, EXPLAIN ANALYZE runs the statement; 12 of 38 blocked"
+          "summary": null
         },
         {
           "id": "pii",
@@ -5315,7 +5315,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the grants through and added no filtering of its own (analyst role never received raw emails on any tool)"
+          "summary": null
         },
         {
           "id": "pii-masked",
@@ -5324,7 +5324,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "the masked view was readable and returned only masked emails"
+          "summary": null
         },
         {
           "id": "db-rowcap",
@@ -5603,7 +5603,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "imageFetch contacted a loopback listener the harness owns (ipv6, ipv4-mapped): 2 of 9 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -5612,7 +5612,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "6 scored probes (javascript: is recorded, not scored) with file:, ftp:, gopher:, dict: and data: URLs had no observable effect (6 explicitly refused for the scheme)"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -5630,7 +5630,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "redirects are followed and the redirect to 127.0.0.1, which the server refused when given directly, was not: the target is re-validated"
+          "summary": null
         },
         {
           "id": "refusal-quality",
@@ -6036,7 +6036,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "convert_to_markdown contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 9 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -6045,7 +6045,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "the server accepted non-http schemes with an observable effect (file, file-localhost)"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -6063,7 +6063,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "redirects are followed; re-validation cannot be measured on a server that accepts loopback targets directly (it accepted every spelling the harness tried, so a refused hop has nothing to be compared with)"
+          "summary": null
         },
         {
           "id": "refusal-quality",
@@ -6269,7 +6269,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "fail",
-          "summary": "writes executed on every SQL tool (query)"
+          "summary": null
         },
         {
           "id": "sqlite-mutating-sql",
@@ -6278,7 +6278,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "EXECUTED: comment-obfuscation, cte-insert, replace-into, upsert, create-table, alter-table, drop-table, pragma-user-version, pragma-journal-mode; 0 of 10 blocked, 1 ineffective (accepted, only the first statement ran)"
+          "summary": null
         },
         {
           "id": "sqlite-file-read",
@@ -6287,7 +6287,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "a database outside the fixture was attached and read through every tool"
+          "summary": null
         },
         {
           "id": "sqlite-file-write",
@@ -6296,7 +6296,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "files were written to the canary directory through every tool"
+          "summary": null
         },
         {
           "id": "sqlite-extension-load",
@@ -6305,7 +6305,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "extension loading was refused on 1 tool(s)"
+          "summary": null
         },
         {
           "id": "sqlite-rowcap",
@@ -6977,7 +6977,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "plain writes blocked on the 1 probed SQL tool (query)"
+          "summary": null
         },
         {
           "id": "write-gate",
@@ -6995,7 +6995,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the policy through and added no filtering of its own (support role saw only its own tenant on every tool)"
+          "summary": null
         },
         {
           "id": "mutating-sql",
@@ -7004,7 +7004,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "EXECUTED: COMMIT then write (read-only transaction escape), ROLLBACK then write (read-only transaction escape), END then write (read-only transaction escape), ABORT then write (read-only transaction escape); 15 of 19 blocked"
+          "summary": null
         },
         {
           "id": "pii",
@@ -7013,7 +7013,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "DB-enforced: the server passed the grants through and added no filtering of its own (analyst role never received raw emails on any tool)"
+          "summary": null
         },
         {
           "id": "pii-masked",
@@ -7022,7 +7022,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "the masked view was readable and returned only masked emails"
+          "summary": null
         },
         {
           "id": "db-rowcap",
@@ -17664,7 +17664,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "the listener saw nothing, but 9 of 18 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -17673,7 +17673,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "part",
-          "summary": "the server accepts data: URLs (data); no file read and no raw connection was seen"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -17691,7 +17691,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "na",
-          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
+          "summary": null
         },
         {
           "id": "annotation-honesty",
@@ -32421,7 +32421,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "optimize_image contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 18 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -32430,7 +32430,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "part",
-          "summary": "the server accepts data: URLs (data); no file read and no raw connection was seen"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -32448,7 +32448,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "redirects are followed; re-validation cannot be measured on a server that accepts loopback targets directly (it accepted every spelling the harness tried, so a refused hop has nothing to be compared with)"
+          "summary": null
         },
         {
           "id": "annotation-honesty",
@@ -40857,7 +40857,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "1 strong indicator(s) in tool metadata, 3 weak"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -40875,7 +40875,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 103 captured response(s), 0 of them successful result(s)"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -40893,7 +40893,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "percher_login contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 9 of 27 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -40902,7 +40902,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "part",
-          "summary": "the server accepts data: URLs (data); no file read and no raw connection was seen"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -40920,7 +40920,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "redirects are followed; re-validation cannot be measured on a server that accepts loopback targets directly (it accepted every spelling the harness tried, so a refused hop has nothing to be compared with)"
+          "summary": null
         },
         {
           "id": "annotation-honesty",
@@ -47193,7 +47193,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "1 strong indicator(s) in tool metadata, 1 weak"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -47211,7 +47211,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 39 captured response(s), 1 of them successful result(s)"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -47888,7 +47888,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "declared read-only but changed the sandbox: zenbrain_health"
+          "summary": null
         },
         {
           "id": "openworld-honesty",
@@ -47897,7 +47897,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "2 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": null
         },
         {
           "id": "undeclared-writes",
@@ -53448,7 +53448,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "1 strong indicator(s) in tool metadata"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -53466,7 +53466,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 108 captured response(s), 1 of them successful result(s)"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -57801,7 +57801,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "1 strong indicator(s) in tool metadata, 2 weak"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -57819,7 +57819,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 110 captured response(s), 0 of them successful result(s)"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -60695,7 +60695,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "1 strong indicator(s) in tool metadata, 1 weak"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -60713,7 +60713,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 2 captured response(s), 1 of them successful result(s)"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -61308,7 +61308,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "1 strong indicator(s) in tool metadata"
+          "summary": null
         },
         {
           "id": "robust-input",
@@ -61326,7 +61326,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 14 captured response(s), 1 of them successful result(s)"
+          "summary": null
         },
         {
           "id": "instructions-hygiene",
@@ -65234,7 +65234,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "fail",
-          "summary": "audit_page, crawl_site, site_files contacted a loopback listener the harness owns (loopback, localhost, ipv6, short, hex, decimal, unspecified, ipv4-mapped, redirect): 22 of 54 probes reached it"
+          "summary": null
         },
         {
           "id": "net-scheme-allowlist",
@@ -65243,7 +65243,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "part",
-          "summary": "the server accepts data: URLs (data); no file read and no raw connection was seen"
+          "summary": null
         },
         {
           "id": "net-caps",
@@ -65261,7 +65261,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "fail",
-          "summary": "the server followed a redirect to a target it refused when given directly (localhost); the server followed a redirect to a target it refused when given directly ([::1])"
+          "summary": null
         },
         {
           "id": "annotation-honesty",

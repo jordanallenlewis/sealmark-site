@@ -10,11 +10,13 @@ import { recordArgs } from "./registry-args.mjs";
 import { cleanError } from "./clean-error.mjs";
 import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-tools.mjs";
 import { checkEvidence, mergeEvidence } from "./evidence.mjs";
+import { PRIVATE_RESULTS, redactResults } from "./redact-results.mjs";
 
 /** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
 const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
 
 const RESULTS = path.join("web", "content", "data", "server-results.json");
+const DISCLOSURE = path.join("web", "content", "data", "disclosure.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
 const HISTORY = path.join("fleet", "history.jsonl");
 // What each public check observed, per server (the evidence viewer, fleet/evidence.mjs).
@@ -211,6 +213,11 @@ for (const name of subfolders) {
   });
 }
 
+// server-results.json is public: the text of a held security finding is taken out of it here, where it is written, and
+// handed to this run's private reports through a gitignored file (fleet/redact-results.mjs). An unreadable disclosure
+// file counts as no entries, so every finding is held (fail closed).
+const removed = redactResults(results, readJson(DISCLOSURE)?.findings ?? {}, today);
+fs.writeFileSync(PRIVATE_RESULTS, JSON.stringify({ note: "PRIVATE: gitignored, never committed.", servers: removed }) + "\n");
 fs.writeFileSync(RESULTS, JSON.stringify(results, null, 2) + "\n");
 fs.writeFileSync(DISCOVERED, JSON.stringify(discovered, null, 2) + "\n");
 // A failed re-test keeps the server's last record, as server-results.json keeps its last result.

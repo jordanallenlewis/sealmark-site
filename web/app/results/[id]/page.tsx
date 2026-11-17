@@ -139,7 +139,7 @@ function CheckRow({ c, priv, held, ev }: { c: CheckResult; priv: Disclosure | un
       <td data-label="Verdict"><span className={clsx("chip", `c-${c.verdict}`, c.advisory && "adv")}>{WORD[c.verdict]}</span></td>
       <td className={s.sum} data-label="What happened">
         <div className={s.sumText}>
-          {priv ? <PrivateNote d={priv} /> : held ? <span className={s.muted}>Details held back while a security finding in this test area is reported privately.</span> : c.summary}
+          {priv ? <PrivateNote d={priv} /> : held ? <span className={s.muted}>Details held back while a security finding in this test area is reported privately.</span> : c.summary ?? <span className={s.muted}>The text of this result is added at the next re-test of this server.</span>}
           {weak && !held && <div className={s.muted} style={{ marginTop: 6 }}>Weak signal, not a security finding. {WEAK[c.id] ?? ""} A partial counts as half a point.</div>}
           {ev && !priv && !held && <EvidenceLines ev={ev} id={c.id} />}
         </div>
