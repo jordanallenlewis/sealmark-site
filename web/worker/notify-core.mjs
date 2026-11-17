@@ -165,7 +165,7 @@ export function issueReason({ server, listed = [] }) {
       : `${passed} ${n} of ${m} tools answered a test call with valid arguments.`;
   } else {
     const areas = gradedPacks(server).map((p) => `${areaName(p.id)} ${p.letter}`).join(", ");
-    const bullets = listed.map((c) => `- \`${c.id}\`: ${String(c.summary ?? "").trim()} (${c.verdict === "fail" ? "failed" : "partly passed, half credit"})`).join("\n");
+    const bullets = listed.map((c) => `- \`${c.id}\`: ${String(c.summary ?? "").trim()} (${c.verdict === "fail" ? "failed" : "partly passed, half credit"})${c.fix ? `. How to fix: ${c.fix}` : ""}`).join("\n");
     text = `The grade is the lowest test-area grade (${areas}). It comes from:\n\n${bullets}`;
   }
   const provisional = gradedPacks(server).filter((p) => p.provisional).map((p) => areaName(p.id));
@@ -192,7 +192,7 @@ export function issueDraft({ id, server, repo, listed = [], also = [] }) {
     issueReason({ server, listed }),
     links,
     `This is automated and can be wrong. If a result looks wrong, reply here and we will recheck it and correct the page. If you want the server taken off sealmark.dev, say so and we will remove it.`,
-    `This is the only issue Sealmark will open here. Close it whenever you like.`,
+    `This is the only issue Sealmark will open here. Close it whenever you like. To stop all Sealmark notices to you, reply "opt out" and we will not contact you again.`,
   ].join("\n\n");
   return { repo, title, body };
 }

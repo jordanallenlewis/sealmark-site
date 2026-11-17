@@ -141,7 +141,8 @@ jobs:
       # is "1", or for one run started by hand with file_owner_issues ticked (how the first batches are approved: that
       # run posts only the committed draft's entries, byte for byte). Security findings are never posted: those
       # repositories are held in a gitignored private queue (count only in the log). MAX_OWNER_ISSUES caps issues per
-      # run; 2 until the variable is set. continue-on-error: a failure here never stops the impact, commit and deploy
+      # run (2), MAX_OWNER_ISSUES_PER_DAY / _PER_WEEK the rolling 24 hours and 7 days (6 and 30), OWNER_ISSUE_GAP_MINUTES the
+      # time between two notices (30); fleet/owner-limits.mjs holds every rule, a pause and the negative-reaction stop. continue-on-error: a failure here never stops the impact, commit and deploy
       # steps after it (the ledger the script wrote so far is still committed).
       # A test run (DRY_RUN) cannot post: no bot token, OWNER_ISSUES_LIVE empty, and --dry, each enough on its own.
       - name: tell server owners (one issue per repo; drafts only unless OWNER_ISSUES_TOKEN and OWNER_ISSUES_LIVE == "1")
@@ -152,6 +153,9 @@ jobs:
           OWNER_ISSUES_LIVE: ${{ env.DRY_RUN != '1' && (vars.OWNER_ISSUES_LIVE == '1' || github.event.inputs.file_owner_issues == 'true') && '1' || '' }}
           OWNER_ISSUES_APPROVED: ${{ env.DRY_RUN != '1' && github.event.inputs.file_owner_issues == 'true' && '1' || '' }}
           MAX_OWNER_ISSUES: ${{ vars.MAX_OWNER_ISSUES || '2' }}
+          MAX_OWNER_ISSUES_PER_DAY: ${{ vars.MAX_OWNER_ISSUES_PER_DAY || '6' }}
+          MAX_OWNER_ISSUES_PER_WEEK: ${{ vars.MAX_OWNER_ISSUES_PER_WEEK || '30' }}
+          OWNER_ISSUE_GAP_MINUTES: ${{ vars.OWNER_ISSUE_GAP_MINUTES || '30' }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node fleet/notify-owners.mjs ${DRY_RUN:+--dry}
       - name: impact of owner notices (internal; reads GitHub and the notify D1, writes fleet/impact-summary.md)
