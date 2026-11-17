@@ -14,10 +14,13 @@
 //   6  the /results/ list page, with the data its client components receive (out/results/index.html and the page's
 //      flight payload files), contains no redacted summary or withheld start command of any server
 //   5  changes.json and openapi.json parse, and every path in openapi.json exists in out/
+//   7  out/results-index.json (the site search's server entries) has one entry per listed server, its grade label equals the
+//      page heading, it names no tool for a server with a private finding or any security finding (recomputed from the raw
+//      data), and it contains no withheld text of any server
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { isSecurityCheck, isWeakSignal, redactedChecks } from "../lib/disclosure.mjs";
+import { isSecurityCheck, isSecurityFinding, isWeakSignal, redactedChecks } from "../lib/disclosure.mjs";
 import { weakCore } from "../../fleet/redact-results.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -104,6 +107,31 @@ for (const [id, where, t] of secrets) {
   if (!listFiles.includes("index.html")) fail(6, "out/results/index.html was not built");
   for (const [, where, t] of secrets) {
     if (t && listBody.includes(JSON.stringify(t).slice(1, -1))) fail(6, `${where}: withheld text appears in the /results/ page payload`);
+  }
+}
+
+// Rule 7: the site search's server index.
+{
+  const file = join(out, "results-index.json");
+  if (!existsSync(file)) fail(7, "out/results-index.json was not built");
+  else {
+    const entries = read(file);
+    const byUrl = new Map(entries.map((e) => [e.url, e]));
+    if (entries.length !== list.servers.length) fail(7, `${entries.length} entries for ${list.servers.length} listed servers`);
+    for (const sv of list.servers) {
+      const e = byUrl.get(`/results/${sv.id}/`);
+      if (!e) { fail(7, `${sv.id}: no search entry`); continue; }
+      const html = body(join(resultsDir, sv.id, "index.html"));
+      const h = html.match(/<h2 id="grade-h">(.*?)<\/h2>/s);
+      if (h && text(h[1]).trim() !== e.grade) fail(7, `${sv.id}: search says "${e.grade}", page "${text(h[1]).trim()}"`);
+      const raw = RAW.get(sv.id);
+      const held = raw && (redactedChecks(raw, DISCLOSURE, TODAY).size > 0 || raw.checks.some(isSecurityFinding));
+      if (held && (e.headings.length !== 1 || e.headings[0] !== sv.id || /: /.test(e.text))) fail(7, `${sv.id}: a server with a security finding has tool names in the search index`);
+    }
+    const idx = body(file);
+    for (const [, where, t] of secrets) {
+      if (t && idx.includes(JSON.stringify(t).slice(1, -1))) fail(7, `${where}: withheld text appears in results-index.json`);
+    }
   }
 }
 
