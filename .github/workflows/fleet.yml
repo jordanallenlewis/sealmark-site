@@ -160,6 +160,12 @@ jobs:
           MAX_OWNER_ISSUES_PER_DAY: ${{ vars.MAX_OWNER_ISSUES_PER_DAY || '6' }}
           MAX_OWNER_ISSUES_PER_WEEK: ${{ vars.MAX_OWNER_ISSUES_PER_WEEK || '30' }}
           OWNER_ISSUE_GAP_MINUTES: ${{ vars.OWNER_ISSUE_GAP_MINUTES || '30' }}
+          # private reports (fleet/private-reports.mjs): off until the variable is 1 and the key secret exists
+          OWNER_PRIVATE_LIVE: ${{ env.DRY_RUN != '1' && vars.OWNER_PRIVATE_LIVE == '1' && '1' || '' }}
+          OWNER_PRIVATE_KEY: ${{ env.DRY_RUN != '1' && secrets.OWNER_PRIVATE_KEY || '' }}
+          OWNER_PRIVATE_PER_RUN: ${{ vars.OWNER_PRIVATE_PER_RUN }}
+          OWNER_PRIVATE_PER_DAY: ${{ vars.OWNER_PRIVATE_PER_DAY }}
+          OWNER_PRIVATE_PER_WEEK: ${{ vars.OWNER_PRIVATE_PER_WEEK }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node fleet/notify-owners.mjs ${DRY_RUN:+--dry}
       - name: impact of owner notices (internal; reads GitHub and the notify D1, writes fleet/impact-summary.md)
