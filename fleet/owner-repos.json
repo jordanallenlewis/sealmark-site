@@ -590,6 +590,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "kedimeet-mcp": {
+    "repo": "Kedicode-TR/kedimeet-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-17"
+  },
   "keenable-mcp": {
     "repo": "keenableai/keenable-mcp",
     "source": "npm",
@@ -875,6 +880,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "qiksy-mcp": {
+    "repo": "lesnyak-cyber/qiksy-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-17"
+  },
   "quorum-mcp-server": {
     "repo": "piyush-tkd/quorum-mcp",
     "source": "npm",
@@ -1084,6 +1094,11 @@
     "repo": "stickerdaniel/linkedin-mcp-server",
     "source": "launch",
     "resolvedAt": "2026-11-11"
+  },
+  "storkai": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-17"
   },
   "stratta-mcp": {
     "repo": "hugogebel-boop/stratta-v2",

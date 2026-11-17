@@ -2,13 +2,62 @@
   "count": 144,
   "byReason": {
     "missing-runtime": 4,
-    "initialize-timeout": 11,
     "unknown": 102,
-    "dependency-resolution": 14,
     "bad-launch": 5,
+    "dependency-resolution": 15,
+    "initialize-timeout": 10,
     "needs-credentials": 8
   },
   "servers": [
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.24.82",
+      "lastTried": "2026-11-17",
+      "attempts": 20,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "evalstate-fast-agent",
+      "version": "0.10.55",
+      "lastTried": "2026-11-17",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "haris-musa-excel-mcp-server",
+      "version": "2.3.2",
+      "lastTried": "2026-11-17",
+      "attempts": 4,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "jordan-gibbs-hyperresearch",
+      "version": "0.13.3",
+      "lastTried": "2026-11-17",
+      "attempts": 4,
+      "reason": "unknown"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.4.2",
+      "lastTried": "2026-11-17",
+      "attempts": 11,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.3.0",
+      "lastTried": "2026-11-17",
+      "attempts": 12,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "xbrlkit",
+      "version": "0.21.7",
+      "lastTried": "2026-11-17",
+      "attempts": 4,
+      "reason": "bad-launch"
+    },
     {
       "id": "apify-apify-mcp-server",
       "version": "0.21.11",
@@ -22,13 +71,6 @@
       "lastTried": "2026-11-16",
       "attempts": 2,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "chrisryugj-kordoc",
-      "version": "4.24.81",
-      "lastTried": "2026-11-16",
-      "attempts": 19,
-      "reason": "missing-runtime"
     },
     {
       "id": "dinglebear-soma",
@@ -115,13 +157,6 @@
       "reason": "needs-credentials"
     },
     {
-      "id": "haris-musa-excel-mcp-server",
-      "version": "2.3.1",
-      "lastTried": "2026-11-15",
-      "attempts": 3,
-      "reason": "bad-launch"
-    },
-    {
       "id": "kleos-cli",
       "version": "0.2.0",
       "lastTried": "2026-11-15",
@@ -148,13 +183,6 @@
       "lastTried": "2026-11-15",
       "attempts": 2,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.4.1",
-      "lastTried": "2026-11-15",
-      "attempts": 10,
-      "reason": "missing-runtime"
     },
     {
       "id": "synapse-rmcp",
@@ -213,24 +241,10 @@
       "reason": "initialize-timeout"
     },
     {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.2.11",
-      "lastTried": "2026-11-14",
-      "attempts": 11,
-      "reason": "initialize-timeout"
-    },
-    {
       "id": "annsa",
       "version": "1.0.8",
       "lastTried": "2026-11-13",
       "attempts": 2,
-      "reason": "unknown"
-    },
-    {
-      "id": "jordan-gibbs-hyperresearch",
-      "version": "0.13.2",
-      "lastTried": "2026-11-12",
-      "attempts": 3,
       "reason": "unknown"
     },
     {
@@ -280,13 +294,6 @@
       "version": "1.6.1",
       "lastTried": "2026-11-10",
       "attempts": 2,
-      "reason": "bad-launch"
-    },
-    {
-      "id": "xbrlkit",
-      "version": "0.21.6",
-      "lastTried": "2026-11-10",
-      "attempts": 3,
       "reason": "bad-launch"
     },
     {
@@ -579,13 +586,6 @@
     {
       "id": "easylabs-mcp-server",
       "version": "0.5.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "unknown"
-    },
-    {
-      "id": "evalstate-fast-agent",
-      "version": "0.10.53",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "unknown"

@@ -1372,5 +1372,23 @@
     "name": "rechtssysteem-ai/rechtssysteem-mcp",
     "ecosystem": "github",
     "launch": "uvx --from git+https://github.com/rechtssysteem-ai/rechtssysteem-mcp rechtssysteem-mcp"
+  },
+  {
+    "id": "kedimeet-mcp",
+    "name": "kedimeet-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx kedimeet-mcp==1.0.1"
+  },
+  {
+    "id": "qiksy-mcp",
+    "name": "qiksy-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y qiksy-mcp@1.86.2"
+  },
+  {
+    "id": "storkai",
+    "name": "storkai",
+    "ecosystem": "npm",
+    "launch": "npx -y storkai@2.1.2"
   }
 ]
