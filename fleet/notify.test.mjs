@@ -454,11 +454,14 @@ function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers
   if (draft != null) files.set(FILES.draft, draft);
   const io = { read: (f) => files.get(f) ?? null, write: (f, s) => files.set(f, s), append: (f, s) => files.set(f, (files.get(f) ?? "") + s), remove: (f) => files.delete(f) };
   const requests = [];
+  const advisories = [];
   const fetchFn = async (url, init = {}) => {
     requests.push({ url, auth: init.headers?.authorization ?? null, method: init.method ?? "GET" });
     const u = new URL(url);
     if (u.hostname === "registry.npmjs.org") { const name = decodeURIComponent(u.pathname.split("/")[1]); const x = servers.find((s) => s.name === name); return json({ name, version: x.versionTested, repository: { url: `https://github.com/${x._repo}` } }); }
     if (u.pathname === "/user") return userStatus === 200 ? json(user) : json({ message: "Bad credentials" }, userStatus);
+    if (/\/private-vulnerability-reporting$/.test(u.pathname)) return json({ enabled: true });
+    if (/\/security-advisories\/reports$/.test(u.pathname) && init.method === "POST") { advisories.push({ path: u.pathname, auth: init.headers?.authorization, body: JSON.parse(init.body) }); return json({ ghsa_id: "GHSA-x" }, 201); }
     if (u.pathname === "/search/issues" && search) {
       if (search === "error") return json({ message: "boom" }, 500);
       const since = Date.parse(`${/created:>=([0-9T:-]+)Z/.exec(decodeURIComponent(u.search))[1]}Z`);
@@ -471,7 +474,7 @@ function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers
     if (m && /^\/issues\/\d+$/.test(m[2]) && issues[m[1]]) return json(issues[m[1]]);
     return json({ message: "Not Found" }, 404);
   };
-  return { files, io, fetchFn, requests };
+  return { files, io, fetchFn, requests, advisories };
 }
 
 test("main: a scheduled run with no OWNER_ISSUES_LIVE writes drafts only, even with the token set", async () => {
@@ -852,4 +855,45 @@ test("main: a rate-limit answer to a read pauses posting for 24 hours", async ()
   const { gh } = await runLive(w);
   assert.equal(gh.created().length, 0);
   assert.equal(JSON.parse(w.files.get(FILES.ledger)).pause.code, "http-429");
+});
+
+test("main: a security finding goes only to private vulnerability reporting, only with OWNER_PRIVATE_LIVE, one per run, and no public file names it", async () => {
+  const sec = at("sec", "o/sec", { packs: [pack("core", "B"), pack("fs", "D")], checks: [check("protocol", "pass"), check("fs-read-escape", "fail", { pack: "fs", summary: "read ../outside.txt" })] });
+  const sec2 = at("sec2", "p/sec2", { packs: [pack("core", "B"), pack("fs", "D")], checks: [check("protocol", "pass"), check("fs-write-escape", "fail", { pack: "fs", summary: "wrote ../out.txt" })] });
+  const servers = [sec, sec2, at("plain", "q/plain")];
+  // not live: the text is prepared and nothing is posted
+  const dry = fakeWorld({ servers });
+  const a = await runLive(dry);
+  assert.equal(dry.advisories.length, 0);
+  assert.ok(a.logs.some((l) => /private reports: 0 sent, 2 ready \(not live: OWNER_PRIVATE_LIVE is not 1 or no OWNER_PRIVATE_KEY\)/.test(l)), a.logs.join("\n"));
+  assert.match(dry.files.get(FILES.privateReports), /## o\/sec\n/);
+  assert.equal(a.gh.created().includes("o/sec"), false, "never a public issue");
+  // live: one report, to the repository's private route, with the bot token, and the text it shows
+  const live = fakeWorld({ servers });
+  const b = await runLive(live, { OWNER_PRIVATE_LIVE: "1", OWNER_PRIVATE_KEY: "k-test" });
+  assert.equal(live.advisories.length, 1);
+  assert.match(live.advisories[0].path, /^\/repos\/[op]\/sec2?\/security-advisories\/reports$/);
+  assert.equal(live.advisories[0].auth, "Bearer tok");
+  assert.ok(live.files.get(FILES.privateReports).includes(live.advisories[0].body.description), "the posted text is the text that was prepared");
+  const saved = live.files.get(FILES.ledger);
+  assert.equal(JSON.parse(saved).private.length, 1);
+  for (const f of [FILES.ledger, FILES.weekly, FILES.privateDraft === "x" ? "" : FILES.status]) assert.doesNotMatch(live.files.get(f) ?? "", /o\/sec|p\/sec2|fs-read-escape|fs-write-escape/, f);
+  assert.ok(!b.logs.some((l) => /o\/sec|p\/sec2|fs-read-escape|fs-write-escape/.test(l)), "the log never names them");
+  // live without the key: nothing is sent and the log says why
+  const nokey = fakeWorld({ servers });
+  const nk = await runLive(nokey, { OWNER_PRIVATE_LIVE: "1" });
+  assert.equal(nokey.advisories.length, 0);
+  assert.ok(nk.logs.some((l) => /OWNER_PRIVATE_KEY secret is not set/.test(l)));
+  // the next run, minutes later: the hour gap holds the second one back
+  const second = await runLive(live, { OWNER_PRIVATE_LIVE: "1", OWNER_PRIVATE_KEY: "k-test" });
+  assert.equal(live.advisories.length, 1);
+  assert.ok(second.logs.some((l) => /private reports: 0 sent/.test(l)));
+});
+
+test("postIssues: a pause set earlier in the same run (a private report answered 403) stops the public posts", async () => {
+  const ready = plan(world([at("a", "o1/a"), at("b", "o2/b")])).send;
+  const ledger = { issues: [], pause: { code: "http-403", reason: "x", since: "2026-11-12T09:59:00Z", until: "2026-11-13T09:59:00Z" } };
+  const gh = fakeGh();
+  const out = await postIssues({ ready, ledger, me: "sealmark-bot", gh, sleep: async () => {}, now: () => clock(), today: TODAY, log() {}, save() {} });
+  assert.deepEqual([out.opened, out.stopped, gh.created()], [0, "paused", []]);
 });

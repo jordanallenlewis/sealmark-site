@@ -57,6 +57,7 @@ import { failedSince } from "../web/lib/retest.mjs";
 import { ownerStatus, statusFile } from "./owner-status.mjs";
 import { FILE as FACTS_FILE, collect as collectFacts, githubGetter } from "./server-facts.mjs";
 import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
+import { candidates as privateCandidates, privateLimitsFrom, reportFor, sendReports } from "./private-reports.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -68,6 +69,7 @@ export const FILES = {
   draft: "fleet/owner-issues-draft.md",
   privateQueue: "fleet/owner-private-queue.json",
   privateDraft: "fleet/owner-private-draft.md",
+  privateReports: "fleet/owner-private-reports.md", // gitignored: the exact text of the reports the next live run may send
   weekly: "fleet/owner-weekly.md",
   history: "fleet/history.jsonl",
   status: "fleet/owner-status.json", // public: what each server page shows about its issue (fleet/owner-status.mjs)
@@ -560,13 +562,14 @@ const STANDING_LABEL = { ...SKIP_LABEL, "already-notified": "already got its one
 const label = (c) => STANDING_LABEL[c] ?? c;
 
 // The "where every graded server stands" section of fleet/owner-weekly.md. Counts only, no repository names.
-export function renderStanding({ acct, room, limits, pause, stall, today }) {
+export function renderStanding({ acct, room, limits, pause, stall, today, privateSent = 0, privateHeld = 0 }) {
   const rows = (o) => Object.entries(o).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([c, n]) => `| ${label(c)} | ${n} |`).join("\n") || "| none | 0 |";
   const status = pause.paused ? `**PAUSED**: ${pause.reason}` : room.allow > 0 ? `open: up to ${room.allow} this run` : `closed for now: ${room.reason}`;
   return [
     `## Where every graded server stands (${today})`,
     `${acct.graded} graded servers: ${acct.sent} sent or drafted this run, ${acct.held} held for private handling, ${Object.values(acct.waiting).reduce((a, b) => a + b, 0)} waiting, ${Object.values(acct.skipped).reduce((a, b) => a + b, 0)} skipped${acct.unaccounted.length ? `, **${acct.unaccounted.length} with no outcome (a bug)**` : ""}.`,
     `Sending: ${status}. Caps: ${limits.perRun} per run, ${limits.perDay} per day (${room.day} in the last 24 hours), ${limits.perWeek} per week (${room.week} in the last 7 days), at least ${limits.gapMinutes} minutes between notices, one notice per owner per ${limits.ownerDays} days, one issue per repository ever.`,
+    `Private security reports (GitHub private vulnerability reporting, never public): ${privateSent} sent in all; ${privateHeld} repositories are held for them. Counts only.`,
     stall ? `**Stalled**: eligible repositories existed for 2 live runs in a row and none was sent with nothing explaining it. Look at the fleet log.` : "",
     `### Waiting (a later run may send)\n\n| Reason | Servers |\n|---|---|\n${rows(acct.waiting)}`,
     `### Skipped (until something changes)\n\n| Reason | Servers |\n|---|---|\n${rows(acct.skipped)}`,
@@ -602,6 +605,7 @@ export function recordFailure(ledger, repo, { status, perRepo }, at) {
 export async function postIssues({ ready, ledger, me, gh, sleep, now, today, log, save, approved = null, limits = LIMIT_DEFAULTS }) {
   const out = { opened: 0, recorded: 0, skipped: [], stopped: null, sentRepos: [] };
   for (const e of ready) {
+    if (pauseState(ledger, now().getTime()).paused) { out.stopped = "paused"; log("owner issues: posting is paused; the rest waits"); break; }
     const d = draftFor(e);
     if (approved) {
       const a = approved.get(e.repo.toLowerCase());
@@ -650,6 +654,17 @@ export function gate(env, argv) {
 }
 
 // ---- main ----
+
+// Pushes the ledger to main before a private report is sent (only on Actions; elsewhere a no-op). It throws when the push
+// fails, and then nothing is sent. The identity is the one the fleet's commit step uses.
+function persistLedger(env, ghFn) {
+  if (env.GITHUB_ACTIONS !== "true") return;
+  const git = (...a) => execFileSync("git", ["-c", "user.name=Jordan Lewis", "-c", "user.email=42820601+jordanallenlewis@users.noreply.github.com", ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 120_000 });
+  git("add", FILES.ledger);
+  try { git("commit", "-m", "fleet: record a private report before it is sent"); } catch { /* nothing to commit */ }
+  git("pull", "--rebase", "origin", "main");
+  git("push", "origin", "HEAD:main");
+}
 
 const realIo = {
   read: (f) => (fs.existsSync(f) ? fs.readFileSync(f, "utf8") : null),
@@ -924,6 +939,45 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   writeJson(FILES.privateQueue, { generated: today, note: "PRIVATE: security findings held from public owner issues; report by hand under the disclosure policy", entries });
   io.write(FILES.privateDraft, renderPrivate({ entries, today }));
   log(`held for private handling: ${held.length} (not named here; see ${FILES.privateDraft} in a local run)`);
+
+  // private reports through GitHub private vulnerability reporting, only with OWNER_PRIVATE_LIVE (Jordan's yes to the
+  // disclosure policy): fleet/private-reports.mjs holds the gates and the caps. Counts only in the log, never names.
+  const privLimits = privateLimitsFrom(env);
+  const privHistory = (io.read(FILES.history) ?? "").split("\n").filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
+  const pc = privateCandidates(entries, { pvr, byId, ledger, optout, history: privHistory, today, self: SELF, limits: privLimits, key: env.OWNER_PRIVATE_KEY ?? "" });
+  const reports = [];
+  for (const e of pc.ready.slice(0, 6)) {
+    // the version tested must still be the latest: one network check per candidate, the same rule the public notices use
+    let gate = null;
+    for (const x of e.servers.filter((v) => v.security.length)) {
+      const r = byId.get(x.id);
+      const lp = launchProblem(r.launch); // the reproduce line in the report must run as written
+      if (lp) { gate = { reason: lp }; break; }
+      if (!meta[e.repo]) { try { meta[e.repo] = await api(`/repos/${e.repo}`); } catch (err) { meta[e.repo] = { error: String(err.status ?? err.message) }; } }
+      const m = meta[e.repo];
+      const alive = m.missing ? "repository not found" : m.error ? `repository check failed (${m.error})` : m.archived ? "archived" : m.fork ? "fork" : m.has_issues === undefined ? null : (m.pushed_at && activity(m.pushed_at, today, privLimits.activeDays).ok === false ? activity(m.pushed_at, today, privLimits.activeDays).reason : null);
+      if (alive) { gate = { reason: alive }; break; }
+      const f = await serverFacts(r, e.repo, { fetchFn, api, roots });
+      gate = factsGate(r, f);
+      if (gate) break;
+    }
+    if (gate) pc.skipped.push({ repo: e.repo, why: gate.reason }); else reports.push(reportFor(e, { fixFor }));
+  }
+  io.write(FILES.privateReports, `# Private reports the next live run may send\n\nPRIVATE: gitignored, never committed. ${reports.length} ready, ${pc.skipped.length} not sent (${[...new Set(pc.skipped.map((k) => k.why.replace(/\(.*/, "").trim()))].join("; ") || "none"}).\n\n` + reports.map((r) => `---\n\n## ${r.repo}\n\n**Title:** ${r.title}\n\n${r.body}\n`).join("\n"));
+  const privGate = live && Boolean(me) && env.OWNER_PRIVATE_LIVE === "1" && Boolean(env.OWNER_PRIVATE_KEY);
+  if (live && env.OWNER_PRIVATE_LIVE === "1" && !env.OWNER_PRIVATE_KEY) log("::error::OWNER_PRIVATE_LIVE is 1 but the OWNER_PRIVATE_KEY secret is not set: no private report is sent (the ledger needs a keyed hash)");
+  let privSent = 0;
+  if (privGate && reports.length) {
+    const out = await sendReports({
+      ready: reports, ledger, now: nowMs, limits: privLimits, sleep, log, key: env.OWNER_PRIVATE_KEY,
+      post: (repo, body) => api(`/repos/${repo}/security-advisories/reports`, { method: "POST", body, token: g.token }),
+      save: () => writeJson(FILES.ledger, ledger),
+      persist: () => persistLedger(env, gh),
+    });
+    privSent = out.sent;
+    if (["403", "429"].includes(out.stopped)) { setPause(ledger, { code: `http-${out.stopped}`, reason: `GitHub answered ${out.stopped} to a private report; backing off for 24 hours`, now: nowMs, hours: 24 }); log(`::error::GitHub answered ${out.stopped} to a private report: posting is paused for 24 hours`); }
+  }
+  log(`private reports: ${privSent} sent, ${reports.length} ready${privGate ? "" : " (not live: OWNER_PRIVATE_LIVE is not 1 or no OWNER_PRIVATE_KEY)"}, ${pc.skipped.length} not sent, ${(ledger.private ?? []).filter((r) => !r.failed).length} sent in all`);
   const counts = skipCounts(skipped).map(([c, n]) => `${c} ${n}`).join(", ");
 
   // every graded server ends up sent, waiting, held or skipped, each with its reason: counted here, written to the log
@@ -935,7 +989,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     recordRun(ledger, { date: today, ...run });
     const stall = stalled(ledger);
     writeJson(FILES.ledger, ledger);
-    const week = weeklySummary({ ledger, optout, servers, today }) + "\n" + renderStanding({ acct, room, limits, pause: pauseState(ledger, nowMs), stall, today });
+    const week = weeklySummary({ ledger, optout, servers, today }) + "\n" + renderStanding({ acct, room, limits, pause: pauseState(ledger, nowMs), stall, today, privateSent: (ledger.private ?? []).filter((r) => !r.failed).length, privateHeld: held.length });
     io.write(FILES.weekly, week);
     if (env.GITHUB_STEP_SUMMARY) {
       const news = fresh.length ? `\n## New replies this run\n\n${renderReplies(fresh, { heading: "###" })}\n` : "";
