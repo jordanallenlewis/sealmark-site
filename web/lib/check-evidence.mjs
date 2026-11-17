@@ -7,9 +7,11 @@
 // - nothing at all on a held page, or on a server with any security finding by the site's rule (even after its
 //   disclosure ends: a published finding's evidence is the report's business, not this viewer's);
 // - nothing when the record is from another run than the page shows (date, Sealmark version or config hash differ),
-//   so a line can never sit beside a verdict it did not produce;
+//   and nothing for a check whose recorded verdict differs from the page's (a second run on the same day); a record
+//   written before the fleet kept verdicts carries none and is matched by run only;
 // - only checks on the page that are scored, public, not advisory and not critical (fleet/security-checks.mjs);
-// - every text cleaned again: one line, no control or format characters, cut at MAX_TEXT.
+// - every text cleaned again for display: one line, no control, format or lone surrogate characters, cut at MAX_TEXT
+//   without splitting a character. Path, secret and token scrubbing is the fleet's (fleet/evidence.mjs), not repeated.
 import { isPublicCheck } from "../../fleet/security-checks.mjs";
 import { plainNames } from "../../fleet/check-tools.mjs";
 import { MAX_LINES, MAX_TEXT } from "../../fleet/evidence.mjs";
@@ -34,8 +36,9 @@ const SOURCES = new Set([...Object.keys(SOURCE_WORDS), "upstream", "log", "auths
 /** @param {unknown} v */
 function clean(v) {
   if (typeof v !== "string") return "";
-  const t = v.replace(/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu, (c) => (/\s/.test(c) ? " " : "")).replace(/\s+/g, " ").trim();
-  return t.length > MAX_TEXT ? `${t.slice(0, MAX_TEXT)}…` : t;
+  const t = v.replace(/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}\p{Cs}]/gu, (c) => (/\s/.test(c) ? " " : "")).replace(/\s+/g, " ").trim();
+  const chars = [...t];
+  return chars.length > MAX_TEXT ? `${chars.slice(0, MAX_TEXT).join("")}…` : t;
 }
 
 /** @param {unknown} e */
@@ -60,7 +63,7 @@ export function checkEvidence(record, server, { held }) {
   if (held || !record || typeof record !== "object") return null;
   const r = /** @type {Record<string, any>} */ (record);
   if (!r.checks || typeof r.checks !== "object") return null;
-  if (typeof r.configHash !== "string" || r.testedAt !== server.testedAt || r.sealmark !== server.sealmark?.version || r.configHash !== server.configHash) return null;
+  if (typeof r.configHash !== "string" || typeof r.sealmark !== "string" || typeof r.testedAt !== "string" || r.testedAt !== server.testedAt || r.sealmark !== server.sealmark?.version || r.configHash !== server.configHash) return null;
   const checks = Array.isArray(server.checks) ? server.checks : [];
   if (checks.some((c) => isSecurityFinding(c))) return null;
   const out = new Map();
@@ -68,6 +71,7 @@ export function checkEvidence(record, server, { held }) {
     if (typeof c.id !== "string" || c.id === "__proto__" || !isPublicCheck(c) || !Object.prototype.hasOwnProperty.call(r.checks, c.id)) continue;
     const rec = r.checks[c.id];
     if (!rec || !Array.isArray(rec.lines)) continue;
+    if (Object.prototype.hasOwnProperty.call(rec, "verdict") && rec.verdict !== c.verdict) continue;
     const lines = rec.lines.map(viewLine).filter(Boolean).slice(0, MAX_LINES);
     if (!lines.length) continue;
     const total = Number.isInteger(rec.total) && rec.total >= lines.length ? rec.total : lines.length;

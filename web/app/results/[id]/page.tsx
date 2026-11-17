@@ -100,11 +100,11 @@ function PrivateNote({ d }: { d: Disclosure }) {
 
 // The evidence viewer (site#65): what this check probed and what it observed in the run on this page, from fleet/evidence.json
 // (lib/check-evidence.mjs decides what may be shown). Server text is someone else's, so it is marked data-third-party.
-function EvidenceLines({ ev }: { ev: CheckEvidence }) {
+function EvidenceLines({ ev, id }: { ev: CheckEvidence; id: string }) {
   const n = ev.lines.length;
   return (
     <details className={s.ev}>
-      <summary>Evidence: {ev.total > n ? `first ${n} of ${ev.total} lines` : count(n, "line", "lines")}</summary>
+      <summary>Evidence<span className="sr-only"> for {id}</span>: {ev.total > n ? `first ${n} of ${ev.total} lines` : count(n, "line", "lines")}</summary>
       <ol className={s.evList}>
         {ev.lines.map((l, i) => (
           <li key={i}>
@@ -141,7 +141,7 @@ function CheckRow({ c, priv, held, ev }: { c: CheckResult; priv: Disclosure | un
         <div className={s.sumText}>
           {priv ? <PrivateNote d={priv} /> : held ? <span className={s.muted}>Details held back while a security finding in this test area is reported privately.</span> : c.summary}
           {weak && !held && <div className={s.muted} style={{ marginTop: 6 }}>Weak signal, not a security finding. {WEAK[c.id] ?? ""} A partial counts as half a point.</div>}
-          {ev && !priv && !held && <EvidenceLines ev={ev} />}
+          {ev && !priv && !held && <EvidenceLines ev={ev} id={c.id} />}
         </div>
       </td>
     </tr>
@@ -318,7 +318,7 @@ export default async function ServerPage({ params }: P) {
           </section>
         ))}
         <p className={s.muted} style={{ marginTop: 10 }}>Each check id links to what it tests and how to fix a failure. The same text is in <code>sealmark explain &lt;id&gt;</code>.</p>
-        {evidence && <p className={s.muted}>Under a check, Evidence shows what it probed (sent or inspected) and what it observed in this run: up to {MAX_LINES} lines per check, each cut at {MAX_TEXT} characters, for checks that are not security checks. The JSON report from <code>sealmark run --format json</code> has every line.</p>}
+        {evidence && <p className={s.muted}>Under a check, Evidence shows what it probed (sent or inspected) and what it observed in this run: up to {MAX_LINES} lines per check, each cut at {MAX_TEXT} characters, for checks that are not security checks. The text is shortened, and paths and anything that looks like a secret or token are replaced. Run <code>sealmark run --format json</code> yourself for every line in full.</p>}
 
         {byTool && (
           <section className={s.sec} aria-labelledby="tools-h">

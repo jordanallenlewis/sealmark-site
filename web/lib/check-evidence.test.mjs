@@ -17,8 +17,8 @@ const record = (over = {}) => ({
   sealmark: "1.0.1",
   configHash: "sha256:d13e7893a0ac",
   checks: {
-    protocol: { total: 1, lines: [line()] },
-    "robust-input": { total: 1, lines: [line({ probe: "53 invalid call(s) across 11 tool(s)", outcome: "all rejected cleanly", tool: "search" })] },
+    protocol: { verdict: "pass", total: 1, lines: [line()] },
+    "robust-input": { verdict: "pass", total: 1, lines: [line({ probe: "53 invalid call(s) across 11 tool(s)", outcome: "all rejected cleanly", tool: "search" })] },
   },
   ...over,
 });
@@ -122,4 +122,32 @@ test("at most MAX_LINES lines; total says how many the run had", () => {
   // A total below the lines shown, or not a whole number, is replaced by the count shown.
   assert.equal(view(record({ checks: { protocol: { total: 0, lines: [line(), line()] } } })).get("protocol").total, 2);
   assert.equal(view(record({ checks: { protocol: { total: "9", lines: [line()] } } })).get("protocol").total, 1);
+});
+
+test("a check record whose verdict differs from the page's is not shown (another run on the same day)", () => {
+  const x = server({ checks: [check("protocol", { verdict: "fail" }), check("robust-input")] });
+  assert.deepEqual([...view(record(), x).keys()], ["robust-input"]);
+  // A record written before the fleet kept verdicts has none; it is matched by run only.
+  const legacy = record({ checks: { protocol: { total: 1, lines: [line()] } } });
+  assert.deepEqual([...view(legacy).keys()], ["protocol"]);
+  // A verdict that is present but not a string never matches.
+  assert.equal(view(record({ checks: { protocol: { verdict: null, total: 1, lines: [line()] } } })), null);
+});
+
+test("a finding on an advisory-flagged security check, or a failing critical check, hides the whole page", () => {
+  assert.equal(view(record(), server({ checks: [check("protocol"), check("robust-input"), check("secret-echo", { advisory: true, verdict: "fail" })] })), null);
+  assert.equal(view(record(), server({ checks: [check("protocol", { critical: true, verdict: "fail" }), check("robust-input")] })), null);
+});
+
+test("a record or page with no Sealmark version never matches", () => {
+  assert.equal(view(record({ sealmark: null })), null);
+  assert.equal(view(record({ sealmark: null }), server({ sealmark: { version: null } })), null);
+});
+
+test("lone surrogates are removed and a cut never splits a character", () => {
+  const r = record({ checks: { protocol: { total: 1, lines: [line({ probe: "a\uD800b", outcome: "😀".repeat(MAX_TEXT + 5) })] } } });
+  const l = view(r).get("protocol").lines[0];
+  assert.equal(l.probe, "ab");
+  assert.equal([...l.outcome].length, MAX_TEXT + 1);
+  assert.ok(l.outcome.isWellFormed());
 });
