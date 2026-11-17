@@ -7,9 +7,9 @@
   "byVersion": [
     {
       "version": "pre-1.0 (unrecorded)",
-      "servers": 220,
+      "servers": 221,
       "graded": 214,
-      "failed": 429,
+      "failed": 431,
       "letters": {
         "B": 33,
         "A": 106,

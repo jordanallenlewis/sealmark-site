@@ -2,9 +2,9 @@
   "generatedAt": "2026-11-17",
   "mode": "real",
   "summary": {
-    "notified": 2,
+    "notified": 4,
     "byChannel": {
-      "issue": 2
+      "issue": 4
     },
     "released": 0,
     "improved": 0,
@@ -14,7 +14,7 @@
     "medianDaysToImprovement": null,
     "topFixedChecks": [],
     "base": {
-      "servers": 213,
+      "servers": 211,
       "released": 16,
       "improved": 0,
       "regressed": 1,
@@ -79,6 +79,104 @@
       "failing": [],
       "number": 3,
       "url": "https://github.com/mirastacklabs-ai/mirastack-redfish-mcp/issues/3",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-17",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    },
+    {
+      "channel": "issue",
+      "id": "paraplex-mcp",
+      "repo": "Paraplex-AI/paraplex-mcp",
+      "also": [],
+      "at": "2026-11-17",
+      "postedAt": "2026-11-17T03:35:02.059Z",
+      "version": "0.3.0",
+      "letter": "B",
+      "failing": [
+        "robust-input"
+      ],
+      "named": [
+        "robust-input"
+      ],
+      "number": 1,
+      "url": "https://github.com/Paraplex-AI/paraplex-mcp/issues/1",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-17",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    },
+    {
+      "channel": "issue",
+      "id": "spaces-mcp-server",
+      "repo": "neltomw/spaces-mcp-server",
+      "also": [],
+      "at": "2026-11-17",
+      "postedAt": "2026-11-17T03:37:03.374Z",
+      "version": "1.10.0",
+      "letter": "B",
+      "failing": [],
+      "named": [
+        "robust-input"
+      ],
+      "number": 1,
+      "url": "https://github.com/neltomw/spaces-mcp-server/issues/1",
       "badgeAtNotice": false,
       "author": "sealmark-bot",
       "after": [],

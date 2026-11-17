@@ -52842,7 +52842,12 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "lastAttempt": {
+        "date": "2026-11-17",
+        "status": "failed",
+        "kind": "start-fail"
+      }
     },
     {
       "id": "agent-tools-mcp",
