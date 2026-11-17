@@ -85,6 +85,10 @@ jobs:
         env:
           META: ${{ toJSON(matrix) }}
           LAUNCH: ${{ matrix.launch }}
+          # npm prints its upgrade notice when a process exits; on a short failing start it filled the saved stderr and hid
+          # the real cause (76 of 144 never-graded servers, 2026-11-17)
+          NPM_CONFIG_UPDATE_NOTIFIER: 'false'
+          NPM_CONFIG_FUND: 'false'
         run: |
           mkdir -p out
           printf '%s' "$META" > out/meta.json

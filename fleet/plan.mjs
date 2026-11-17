@@ -14,6 +14,7 @@
 
 import { readFileSync, writeFileSync, appendFileSync } from "node:fs";
 import { canPlan, launchChanged } from "./overrides.mjs";
+import { backedOff } from "./backoff.mjs";
 import { registryLaunch, failedKey, failedKeys, usablePackage, packageId, knownPackage } from "./registry-args.mjs";
 
 const FORCE_ALL = process.env.FORCE_ALL === "1";
@@ -407,6 +408,8 @@ async function main() {
   })();
 
   const tv = Date.now();
+  const backedOffIds = [];
+  const HISTORY_LINES = (() => { try { return readFileSync("fleet/history.jsonl", "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l)); } catch { return []; } })();
   const checked = await mapLimit(plannable, LOOKUPS, async (s) => {
     const launch = s.launch ?? "";
     const v = await latestVersion(s.ecosystem, s.name);
@@ -420,6 +423,8 @@ async function main() {
       const days = (Date.now() - Date.parse(s.testedAt)) / 86400000;
       if (Number.isFinite(days) && days >= STALE_DAYS) due = true;
     }
+    // a server that keeps failing at the same version is tried every BACKOFF_DAYS, not every run (fleet/backoff.mjs)
+    if (due && !FORCE_ALL && s.launchChanged !== true && v === tested && backedOff(HISTORY_LINES, s.id, tested, new Date().toISOString().slice(0, 10))) { backedOffIds.push(s.id); return null; }
     if (!due) return null;
     return {
       id: s.id,
@@ -432,6 +437,7 @@ async function main() {
   });
   const jobs = checked.filter(Boolean);
   console.log("version checks: " + plannable.length + " tracked, " + jobs.length + " due in " + secs(tv));
+  if (backedOffIds.length) console.log(backedOffIds.length + " tracked server(s) wait: failed " + 2 + "+ times at the same version in the last 3 days (" + backedOffIds.join(", ") + ")");
 
   // Oldest results first; keep room for MAX_NEW new servers so a Sealmark release cannot crowd them out.
   const age = new Map(tracked.map((s) => [s.id, Date.parse(s.testedAt ?? "") || 0]));
