@@ -243,6 +243,8 @@ An evidence entry has `probe` (what was sent or inspected), `outcome` (what came
 
 An entry may also have `role` (`analyst`, `support` or `admin`) and `tool`, the tool that was called.
 
+The results pages on sealmark.dev show these entries under each check, as Evidence, for the run the page shows. They show `probe`, `outcome`, `verifiedBy` and `tool` only: at most 6 entries per check, each text cut at 240 characters, and only for scored checks that are not security checks. A server with a security finding shows none, and neither does a page whose run has no evidence record yet; records fill in as the fleet re-tests each server. The JSON report keeps every entry.
+
 ### Other top-level fields
 
 Runs of the suites beyond `core` and `db` add these fields to the record:
