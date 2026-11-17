@@ -4,10 +4,11 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { badgeEligible, changeEmail, confirmEmail, failingChecks, gradeChange, gradeRow, issueDraft, letterOf, ISSUE_MARKER } from "../web/worker/notify-core.mjs";
 import {
-  DEFAULT_MAX_ISSUES, FILES, FRESH_DAYS, MAX_REPO_FAILURES, PACE_MS, TRACKING_TITLE, classifyGhError, dirFromUrl, draftFor, gate, isNewer, isOptOut, main, maxIssues,
+  DEFAULT_MAX_ISSUES, FILES, fixFor, FRESH_DAYS, MAX_REPO_FAILURES, PACE_MS, TRACKING_TITLE, classifyGhError, dirFromUrl, draftFor, gate, isNewer, isOptOut, main, maxIssues,
   parseDrafts, parseRepo, plan, postIssues, privateEntry, recordFailure, renderDrafts, renderPrivate, replyKind, repoFromLaunch, repoFromNpm, repoFromPypi, staleReason,
   trackingBody, weekStart, weeklySummary,
 } from "./notify-owners.mjs";
+import { FILE as FACTS_FILE } from "./server-facts.mjs";
 import { ADVISORY, CHECK_CLASS, PUBLIC, UNCLASSIFIED, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 import registry from "../web/content/generated/checks.json" with { type: "json" };
 import { attribute, baseRate, indexFailing, indexHistory, joinNotice, median, renderSummary, summarize } from "./impact.mjs";
@@ -84,7 +85,7 @@ test("emails carry the links they need and no badge link without a badge", () =>
 
 // ---- the issue template ----
 
-const FOOTER = "This is automated and can be wrong. If a result looks wrong, reply here and we will recheck it and correct the page. If you want the server taken off sealmark.dev, say so and we will remove it.\n\nThis is the only issue Sealmark will open here. Close it whenever you like.";
+const FOOTER = "This is automated and can be wrong. If a result looks wrong, reply here and we will recheck it and correct the page. If you want the server taken off sealmark.dev, say so and we will remove it.\n\nThis is the only issue Sealmark will open here. Close it whenever you like. To stop all Sealmark notices to you, reply \"opt out\" and we will not contact you again.";
 
 test("template: a grade below A names each failing or partial check, exactly in this shape", () => {
   const s = server({ packs: [pack("core", "B"), pack("fs", "D")], checks: [check("protocol", "pass"), check("robust-input", "part", { summary: "3 invalid call(s) accepted" }), check("fs-size-cap", "fail", { pack: "fs", summary: "read_file: no cap" })] });
@@ -93,11 +94,11 @@ test("template: a grade below A names each failing or partial check, exactly in 
   assert.equal(d.body, [
     "<!-- sealmark-owner-notice:demo -->",
     "Hi. [Sealmark](https://sealmark.dev) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](https://github.com/jordanallenlewis). An automated run started `@demo/mcp` 1.2.0 with `npx -y @demo/mcp@1.2.0` on 2026-11-10. It got a **D** (grades run from A to F). Results are public on sealmark.dev, so we tell each server's owner once.",
-    "The grade is the lowest test-area grade (Protocol B, Files D). It comes from:\n\n- `robust-input`: 3 invalid call(s) accepted (partly passed, half credit)\n- `fs-size-cap`: read_file: no cap (failed)",
+    `The grade is the lowest test-area grade (Protocol B, Files D). It comes from:\n\n- \`robust-input\`: 3 invalid call(s) accepted (partly passed, half credit). How to fix: ${fixFor("robust-input")}\n- \`fs-size-cap\`: read_file: no cap (failed). How to fix: ${fixFor("fs-size-cap")}`,
     "- What was tested and what was not: https://sealmark.dev/results/demo/\n- How grades work: https://sealmark.dev/docs/methodology/#grading-formula\n- Reproduce it: `npx -y sealmark@1.0.0 run --start \"npx -y @demo/mcp@1.2.0\"`",
     FOOTER,
   ].join("\n\n"));
-  for (const word of [/\bfleet\b/i, /\bcore\b/i, /\bpacks?\b/i, /badge/i, /opt out/i, /behaviou?r/i, /—/]) assert.doesNotMatch(d.body + d.title, word);
+  for (const word of [/\bfleet\b/i, /\bcore\b/i, /\bpacks?\b/i, /badge/i, /behaviou?r/i, /—/]) assert.doesNotMatch(d.body + d.title, word);
 });
 
 test("template: an A with tools covered, and an A with hygiene-only coverage, say coverage plainly", () => {
@@ -186,11 +187,11 @@ test("plan: one issue per repo, the repo-level skips, opt-out forever, cap per r
   assert.deepEqual(out.send[0].also.map((x) => x.id), ["a2"], "same repo, any case: one issue naming both");
   assert.equal(out.waiting, 1);
   const why = Object.fromEntries(out.skipped.map((x) => [x.id, x.code]));
-  assert.deepEqual(why, { d: "own", e: "archived", f: "fork", g: "issues-off", h: "lookup-failed", i: "opted-out", k: "failures" });
+  assert.deepEqual(why, { c: "cap", d: "own", e: "archived", f: "fork", g: "issues-off", h: "lookup-failed", i: "opted-out", j: "already-notified", k: "failures" });
   const md = renderDrafts({ drafts: out.send.map(draftFor), waiting: 1, skipped: out.skipped, reason: "test", today: TODAY, max: 2 });
   assert.match(md, /Not filed: test/);
   assert.match(md, /## o1\/one\n\n\*\*Title:\*\* Automated Sealmark test of/);
-  assert.match(md, /Skipped 7: /);
+  assert.match(md, /Skipped 9: /);
 });
 
 test("plan: candidates the network has not checked wait as unchecked, never sent", () => {
@@ -203,11 +204,11 @@ test("plan: candidates the network has not checked wait as unchecked, never sent
   assert.deepEqual(out.unchecked.map((u) => u.repo), ["o/a", "p/b"]);
 });
 
-test("plan: one issue per repository owner per 24 hours, in a run and across runs", () => {
+test("plan: one notice per repository owner per 7 days, in a run and across runs", () => {
   const servers = [at("a", "same/one"), at("b", "same/two"), at("c", "busy/three"), at("d", "free/four")];
-  const ledger = { issues: [{ repo: "busy/old", postedAt: "2026-11-12T01:00:00Z" }, { repo: "free/old", postedAt: "2026-11-10T01:00:00Z" }] };
+  const ledger = { issues: [{ repo: "busy/old", postedAt: "2026-11-12T01:00:00Z" }, { repo: "free/old", postedAt: "2026-11-01T01:00:00Z" }] };
   const out = plan({ ...world(servers), ledger, now: Date.parse("2026-11-12T10:00:00Z") });
-  assert.deepEqual(out.send.map((e) => e.repo), ["same/one", "free/four"]);
+  assert.deepEqual(out.send.map((e) => e.repo), ["free/four", "same/one"]);
   const why = Object.fromEntries(out.skipped.map((s) => [s.id, s.code]));
   assert.deepEqual(why, { b: "owner-limit", c: "owner-limit" });
 });
@@ -244,7 +245,7 @@ test("holds: the whole repo, servers with no repository or no letter too, never 
   assert.match(pmd, /## norepo \(no GitHub repository known\)/);
 });
 
-test("eligibility: each skip, and an A with hygiene-only coverage still goes out", () => {
+test("eligibility: each skip; an A with nothing to fix is not told", () => {
   const S = {
     notools: at("notools", "o/notools", { toolCount: 0, coverage: { validCalls: 0, toolsCalledValid: 0, toolsTotal: 0, level: "hygiene-only" } }),
     hygieneB: at("hygieneB", "o/hyg", { coverage: hygiene }),
@@ -273,17 +274,16 @@ test("eligibility: each skip, and an A with hygiene-only coverage still goes out
     netfail: { error: "npm 503" },
   });
   const out = plan(w);
-  assert.deepEqual(out.send.map((e) => e.server.id).sort(), ["good", "hygieneA"]);
+  assert.deepEqual(out.send.map((e) => e.server.id).sort(), ["good"]);
   const why = Object.fromEntries(out.skipped.map((s) => [s.id, s.code]));
   assert.deepEqual(why, {
     notools: "no-tools", hygieneB: "hygiene-only", weak: "weak-signals", weakAh: "weak-signals", weakMixed: "weak-signals", newer: "newer-version", sub: "monorepo", copy: "not-source",
-    release: "not-source", rootmono: "monorepo", placeholder: "launch", quoted: "launch", netfail: "check-failed", stale: "stale",
+    release: "not-source", rootmono: "monorepo", placeholder: "launch", quoted: "launch", netfail: "check-failed", stale: "stale", hygieneA: "nothing-to-fix",
   });
   const r = Object.fromEntries(out.skipped.map((s) => [s.id, s.reason]));
   assert.match(r.newer, /version 1\.3\.0 is out and 1\.2\.0 was tested; waits for the re-test/);
   assert.match(r.sub, /`packages\/mcp`/);
   assert.match(r.placeholder, /\{dsn\}/);
-  assert.match(draftFor(out.send.find((e) => e.server.id === "hygieneA")).body, /Only 0 of 4 tools could be called with default settings/);
   // a GitHub-sourced server compares the release it was tested at
   const gh = { ...at("ghs", "o/ghs", { ecosystem: "github", name: "o/ghs", versionTested: "1.0.0", refTested: "1.0.0", launch: "npx -y github:o/ghs" }) };
   const g = world([gh]);
@@ -316,7 +316,7 @@ test("cap: 2 by default, MAX_OWNER_ISSUES when it is a whole number, the rest wa
 // ---- the hand-approved batch ----
 
 test("parseDrafts gives back each drafted issue byte for byte", () => {
-  const servers = [at("a", "o/a"), at("b", "p/b", { packs: [pack("core", "A")], checks: [check("protocol", "pass")] })];
+  const servers = [at("a", "o/a"), at("b", "p/b")];
   const out = plan(world(servers));
   const drafts = out.send.map(draftFor);
   const md = renderDrafts({ drafts, skipped: [{ id: "z", repo: "q/z", code: "fork", reason: "fork" }], held: 1, reason: "r", today: TODAY, max: 2 });
@@ -442,12 +442,14 @@ test("postIssues: a hand-approved batch posts only what the draft shows, byte fo
 // ---- main(), on fakes ----
 
 const json = (v, status = 200) => new Response(JSON.stringify(v), { status, headers: { "content-type": "application/json" } });
-function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers, ledger = { issues: [], emails: [] }, draft = null, comments = {}, issues = {} } = {}) {
+function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers, ledger = { issues: [], emails: [] }, draft = null, comments = {}, issues = {}, pushed = {}, search = null } = {}) {
   const files = new Map([
     [FILES.results, JSON.stringify({ servers })],
     [FILES.repos, JSON.stringify(Object.fromEntries(servers.map((x) => [x.id, { repo: x._repo, source: "npm", resolvedAt: TODAY }])))],
     [FILES.ledger, JSON.stringify(ledger)],
     [FILES.optout, JSON.stringify({ repos: [] })],
+    // two settled runs of each server's graded version: the grade is stable, so the notice may go out
+    [FILES.history, servers.flatMap((x) => [0, 1].map((d) => JSON.stringify({ id: x.id, version: x.versionTested, testedAt: `2026-11-0${d + 8}`, status: "ok", worst: letterOf(x), packs: {} }))).join("\n") + "\n"],
   ]);
   if (draft != null) files.set(FILES.draft, draft);
   const io = { read: (f) => files.get(f) ?? null, write: (f, s) => files.set(f, s), append: (f, s) => files.set(f, (files.get(f) ?? "") + s), remove: (f) => files.delete(f) };
@@ -457,8 +459,13 @@ function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers
     const u = new URL(url);
     if (u.hostname === "registry.npmjs.org") { const name = decodeURIComponent(u.pathname.split("/")[1]); const x = servers.find((s) => s.name === name); return json({ name, version: x.versionTested, repository: { url: `https://github.com/${x._repo}` } }); }
     if (u.pathname === "/user") return userStatus === 200 ? json(user) : json({ message: "Bad credentials" }, userStatus);
+    if (u.pathname === "/search/issues" && search) {
+      if (search === "error") return json({ message: "boom" }, 500);
+      const since = Date.parse(`${/created:>=([0-9T:-]+)Z/.exec(decodeURIComponent(u.search))[1]}Z`);
+      return json({ total_count: Date.parse("2026-11-12T10:00:00Z") - since < 2 * 864e5 ? search.day : search.week });
+    }
     const m = u.pathname.match(/^\/repos\/([^/]+\/[^/]+)(\/.*)?$/);
-    if (m && !m[2]) return json({ full_name: m[1], has_issues: true });
+    if (m && !m[2]) return json({ full_name: m[1], has_issues: true, ...(pushed[m[1]] ? { pushed_at: pushed[m[1]] } : {}) });
     if (m && m[2] === "/contents/package.json") { const x = servers.find((s) => s._repo === m[1]); return new Response(JSON.stringify({ name: x.name, version: x.versionTested }), { status: 200 }); }
     if (m && /\/issues\/\d+\/comments$/.test(m[2])) return json(comments[m[1]] ?? []);
     if (m && /^\/issues\/\d+$/.test(m[2]) && issues[m[1]]) return json(issues[m[1]]);
@@ -670,20 +677,23 @@ test("summarize and render keep the honest labels", () => {
   assert.equal(median([3, 1, 2, 10]), 2.5);
 });
 
-test("main: fleet/owner-pick.json restricts the drafts and an approved run to the repositories it names", async () => {
+test("main: fleet/owner-pick.json puts its repositories first and never gates the steady drip", async () => {
   const servers = [at("a", "o1/a"), at("b", "o2/b"), at("c", "o3/c")];
-  const pick = JSON.stringify({ repos: ["O3/C"] });
   const first = fakeWorld({ servers });
-  first.files.set(FILES.pick, pick);
+  first.files.set(FILES.pick, JSON.stringify({ repos: ["O3/C"] }));
   await main({ env: {}, argv: [], io: first.io, fetchFn: first.fetchFn, sleep: async () => {}, now: clock, log: () => {} });
-  assert.deepEqual([...parseDrafts(first.files.get(FILES.draft)).keys()], ["o3/c"], "only the picked repository is drafted");
+  assert.deepEqual([...parseDrafts(first.files.get(FILES.draft)).keys()], ["o3/c", "o1/a"], "the picked repository goes first, the cap of 2 still applies");
+  // the 2026-11-17 stall: a pick list naming only repositories that are already done must not silence every other one
+  const stale = fakeWorld({ servers });
+  stale.files.set(FILES.pick, JSON.stringify({ repos: ["done/already", "also/done"] }));
+  await main({ env: {}, argv: [], io: stale.io, fetchFn: stale.fetchFn, sleep: async () => {}, now: clock, log: () => {} });
+  assert.deepEqual([...parseDrafts(stale.files.get(FILES.draft)).keys()], ["o1/a", "o2/b"]);
+  // a hand-approved run still posts only the entries of the committed draft
   const w = fakeWorld({ servers, draft: first.files.get(FILES.draft) });
-  w.files.set(FILES.pick, pick);
   const gh = fakeGh();
   await main({ env: { OWNER_ISSUES_TOKEN: "tok", OWNER_ISSUES_LIVE: "1", OWNER_ISSUES_APPROVED: "1" }, argv: [], io: w.io, fetchFn: w.fetchFn, gh, sleep: async () => {}, now: clock, log: () => {} });
-  assert.equal(gh.created().length, 1);
-  assert.match(JSON.stringify(gh.created()), /o3\/c/);
-  assert.doesNotMatch(JSON.stringify(gh.created()), /o1\/a|o2\/b/);
+  assert.equal(gh.created().length, 2);
+  assert.doesNotMatch(JSON.stringify(gh.created()), /o2\/b/);
 });
 
 test("main: writes the server facts file, and a facts failure never stops the owner handling", async () => {
@@ -699,4 +709,147 @@ test("main: writes the server facts file, and a facts failure never stops the ow
   await main({ env: { GITHUB_TOKEN: "gt" }, argv: [], io: broken.io, fetchFn: broken.fetchFn, gh: fakeGh(), sleep: async () => {}, now: clock, log: () => {} });
   assert.equal(broken.files.get("fleet/server-facts.json"), "{not json", "an unreadable file is left as it was");
   assert.match(broken.files.get(FILES.draft), /o1\/a/, "drafts are still written");
+});
+
+// ---- the drip: caps, pause, negative reactions, no silent drops ----
+
+const LIVE = { OWNER_ISSUES_TOKEN: "tok", OWNER_ISSUES_LIVE: "1" };
+const many = (n) => Array.from({ length: n }, (_, i) => at(`s${i}`, `own${i}/repo${i}`));
+const runLive = (w, env = {}, gh = fakeGh(), logs = []) => main({ env: { ...LIVE, ...env }, argv: [], io: w.io, fetchFn: w.fetchFn, gh, sleep: async () => {}, now: clock, log: (m) => logs.push(m) }).then((r) => ({ r, gh, logs }));
+
+test("main: steady drip, the run cap, and every graded server accounted for in the weekly file", async () => {
+  const w = fakeWorld({ servers: [...many(5), allPass({ id: "fine", name: "@x/fine" })].map((x, i) => ({ ...x, _repo: x._repo ?? "fine/ok" })) });
+  const { r, gh, logs } = await runLive(w);
+  assert.equal(gh.created().length, 2, "2 per run by default");
+  const weekly = w.files.get(FILES.weekly);
+  assert.match(weekly, /6 graded servers: 2 sent or drafted this run, 0 held for private handling, 3 waiting, 1 skipped/);
+  assert.match(weekly, /nothing to fix/);
+  assert.doesNotMatch(weekly, /UNACCOUNTED|no outcome/);
+  assert.ok(logs.some((l) => /standing of 6 graded servers: sent 2, held 0, waiting unchecked 3; skipped nothing-to-fix 1/.test(l)), logs.join("\n"));
+  const ledger = JSON.parse(w.files.get(FILES.ledger));
+  assert.equal(ledger.runs.at(-1).eligible, 2, "the lookups stop once the run's candidates are found; the rest wait unchecked");
+});
+
+test("main: the daily cap stops a second run the same day, with the reason and no unaccounted server", async () => {
+  const w = fakeWorld({ servers: many(6) });
+  const ledger = JSON.parse(w.files.get(FILES.ledger));
+  ledger.issues = Array.from({ length: 6 }, (_, i) => ({ repo: `old${i}/r`, postedAt: new Date(Date.parse("2026-11-12T10:00:00Z") - (3 + i) * 3600_000).toISOString() }));
+  w.files.set(FILES.ledger, JSON.stringify(ledger));
+  const { gh } = await runLive(w);
+  assert.equal(gh.created().length, 0);
+  assert.match(w.files.get(FILES.weekly), /closed for now: the daily cap of 6 is used/);
+  assert.match(w.files.get(FILES.weekly), /waits for a free slot under the caps \| 2/);
+});
+
+test("main: a 429 from GitHub pauses posting for 24 hours; the next run posts nothing and says why", async () => {
+  const w = fakeWorld({ servers: many(3) });
+  const { gh, logs } = await runLive(w, {}, fakeGh({ fail: { "own0/repo0": "HTTP 429 secondary rate limit" } }));
+  assert.equal(gh.created().length, 0);
+  assert.ok(logs.some((l) => /::error::GitHub answered 429/.test(l)));
+  const ledger = JSON.parse(w.files.get(FILES.ledger));
+  assert.equal(ledger.pause.code, "http-429");
+  const again = await runLive(w);
+  assert.equal(again.gh.created().length, 0, "paused");
+  assert.match(w.files.get(FILES.weekly), /\*\*PAUSED\*\*/);
+});
+
+test("main: a negative reaction to any notice pauses everything until a person clears it", async () => {
+  const servers = [...many(2)];
+  const ledger = { issues: [{ channel: "issue", id: "old", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", postedAt: "2026-11-01T00:00:00Z", at: "2026-11-01", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] };
+  const w = fakeWorld({ servers, ledger, issues: { "o1/a": { state: "closed", state_reason: "not_planned" } } });
+  const { gh, logs } = await runLive(w);
+  assert.equal(gh.created().length, 0);
+  assert.ok(logs.some((l) => /::error::negative reaction to a Sealmark notice/.test(l)));
+  const saved = JSON.parse(w.files.get(FILES.ledger));
+  assert.equal(saved.pause.code, "negative-reaction");
+  assert.equal(saved.pause.until, null);
+  // still paused a run later, though the signal is already recorded
+  const next = await runLive(w);
+  assert.equal(next.gh.created().length, 0);
+  // a person clears the pause: it posts again and the old signal does not pause it a second time
+  const cleared = JSON.parse(w.files.get(FILES.ledger));
+  cleared.pause = null;
+  w.files.set(FILES.ledger, JSON.stringify(cleared));
+  const after = await runLive(w);
+  assert.equal(after.gh.created().length, 2);
+});
+
+test("main: a stable grade is required: a version graded once waits, flaky repeat runs do not go out", async () => {
+  const servers = [at("one", "o1/one"), at("flaky", "o2/flaky"), at("good", "o3/good")];
+  const w = fakeWorld({ servers });
+  const lines = (id, v, worsts) => worsts.map((wr, i) => JSON.stringify({ id, version: v, testedAt: `2026-11-0${i + 5}`, status: "ok", worst: wr, packs: {} }));
+  w.files.set(FILES.history, [...lines("one", "1.2.0", ["B"]), ...lines("flaky", "1.2.0", ["B", "C"]), ...lines("good", "1.2.0", ["B", "B"])].join("\n") + "\n");
+  const { gh } = await runLive(w);
+  assert.deepEqual(gh.created(), ["o3/good"]);
+  const weekly = w.files.get(FILES.weekly);
+  assert.match(weekly, /graded once; waits for a repeat run \| 1/);
+  assert.match(weekly, /waits for a repeat run/);
+  assert.match(weekly, /flaky across repeat runs \| 1/);
+});
+
+test("main: a repository with no commit in 180 days gets no notice; an opt-out speaks for the whole owner", async () => {
+  const servers = [at("old", "o1/old"), at("same", "o2/same"), at("sibling", "o2/other"), at("ok", "o3/ok")];
+  const w = fakeWorld({ servers, pushed: { "o1/old": "2025-06-01T00:00:00Z" } });
+  w.files.set(FILES.optout, JSON.stringify({ repos: ["o2/same"] }));
+  const { gh } = await runLive(w);
+  assert.deepEqual(gh.created(), ["o3/ok"]);
+  assert.match(w.files.get(FILES.weekly), /repository not active \| 1/);
+  // the same rule from the server facts file, before any network call
+  const planned = plan({ ...world([at("old", "o1/old"), at("new", "o2/new")]), siteFacts: { old: { repo: { pushedAt: "2025-06-01" } }, new: { repo: { pushedAt: "2026-11-01" } } } });
+  assert.deepEqual(planned.send.map((e) => e.repo), ["o2/new"]);
+  assert.equal(planned.skipped.find((x) => x.id === "old").code, "inactive");
+  assert.match(w.files.get(FILES.weekly), /opted out \| 2/);
+});
+
+test("main: a repository that already got an issue never gets a second", async () => {
+  const w = fakeWorld({ servers: [at("a", "o1/a")], ledger: { issues: [{ channel: "issue", id: "a", repo: "O1/A", number: 1, postedAt: "2026-01-01T00:00:00Z", at: "2026-01-01", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] } });
+  const { gh } = await runLive(w);
+  assert.equal(gh.created().length, 0);
+  assert.match(w.files.get(FILES.weekly), /already got its one issue \| 1/);
+});
+
+test("main: two live runs in a row with eligible repositories and nothing sent, unexplained, raise the stall alarm", async () => {
+  const w = fakeWorld({ servers: many(2) });
+  const failing = fakeGh({ fail: { "own0/repo0": "HTTP 422", "own1/repo1": "HTTP 422" } });
+  const first = await runLive(w, {}, failing);
+  assert.equal(first.r.stalled, undefined);
+  // each failed post is a per-repository error; the run is `explained` only by a cap, a pause, a stop or a skipped batch
+  const second = await runLive(w, {}, failing);
+  assert.equal(second.r.stalled, true);
+  assert.ok(second.logs.some((l) => /::error::owner notices stalled/.test(l)));
+  assert.match(w.files.get(FILES.weekly), /\*\*Stalled\*\*/);
+});
+
+test("main: the bot's real post count on GitHub caps the run even when the ledger lost its commit; an unreadable count posts nothing", async () => {
+  const capped = fakeWorld({ servers: many(3), search: { day: 6, week: 6 } });
+  const a = await runLive(capped);
+  assert.equal(a.gh.created().length, 0);
+  assert.match(capped.files.get(FILES.weekly), /closed for now: the daily cap of 6 is used/);
+  const blind = fakeWorld({ servers: many(3), search: "error" });
+  const b = await runLive(blind);
+  assert.equal(b.gh.created().length, 0);
+  assert.ok(b.logs.some((l) => /could not read the bot's real post count/.test(l)));
+  const open = fakeWorld({ servers: many(3), search: { day: 0, week: 0 } });
+  assert.equal((await runLive(open)).gh.created().length, 2);
+});
+
+test("main: failed and stopped posts are accounted for (waiting), never reported as a bug", async () => {
+  const w = fakeWorld({ servers: many(3) });
+  const { logs } = await runLive(w, {}, fakeGh({ fail: { "own0/repo0": "HTTP 429 secondary rate limit" } }));
+  assert.doesNotMatch(w.files.get(FILES.weekly), /no outcome/);
+  assert.ok(!logs.some((l) => /UNACCOUNTED/.test(l)), logs.join("\n"));
+  assert.match(w.files.get(FILES.weekly), /posting stopped|stopped \|/);
+  const w2 = fakeWorld({ servers: many(3) });
+  const r2 = await runLive(w2, {}, fakeGh({ fail: { "own0/repo0": "HTTP 422", "own1/repo1": "HTTP 422" } }));
+  assert.ok(!r2.logs.some((l) => /UNACCOUNTED/.test(l)));
+  assert.match(w2.files.get(FILES.weekly), /the post failed; tried again next run \| 2 \|/);
+});
+
+test("main: a rate-limit answer to a read pauses posting for 24 hours", async () => {
+  const w = fakeWorld({ servers: many(2), ledger: { issues: [{ channel: "issue", id: "o", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", postedAt: "2026-11-01T00:00:00Z", at: "2026-11-01", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] } });
+  const inner = w.fetchFn;
+  w.fetchFn = async (url, init) => (new URL(url).pathname === "/repos/o1/a/issues/5/comments" ? new Response("{}", { status: 429 }) : inner(url, init));
+  const { gh } = await runLive(w);
+  assert.equal(gh.created().length, 0);
+  assert.equal(JSON.parse(w.files.get(FILES.ledger)).pause.code, "http-429");
 });
