@@ -59,8 +59,14 @@ export default async function TopicPage({ params }: P) {
   const newest = t.rows.map((r) => r.testedAt).sort().at(-1);
   const others = allTopicPages().filter((o) => o.id !== t.id);
   const areaWords = t.areas.map((a) => `the ${label(a)}`);
-  const deep = t.rows.filter((r) => r.areas.length > 0);
-  const hygiene = t.rows.filter((r) => r.areas.length === 0);
+  const tiers = [0, 1, 2].map((n) => t.rows.filter((r) => r.tier === n));
+  const areaNames = list(t.areas.map(label));
+  const TIER = [
+    { h: `Graded in the ${areaNames} test area${t.areas.length > 1 ? "s" : ""}`, p: "Sealmark gave these servers a target of this kind that it owns, called their tools and checked what changed on it. Each server’s page says how many of its tools were reached." },
+    { h: "Graded beyond the protocol", p: "At least one test area beyond the protocol was graded, often only Effects (which runs on most servers), and often for only some of the tools. Each server’s page says what was covered." },
+    { h: "Protocol only", p: "Only the protocol test area was graded: the tools were called with invalid input, so the grade is hygiene and says little about what the tools do. Listed after every server graded more deeply, whatever its grade." },
+  ];
+  const firstTier = tiers.findIndex((rows) => rows.length > 0);
   return (
     <>
       <Nav />
@@ -70,24 +76,20 @@ export default async function TopicPage({ params }: P) {
         <h1 className={s.h1}>{topicTitle(t)}</h1>
         <p className={s.meta}><span>{t.rows.length} graded servers</span>{newest && <span>latest test {newest}</span>}</p>
         <p className={s.lede}>
-          Every graded server Sealmark matched to {t.title}: first the ones graded beyond the protocol, then the protocol-only ones, each best grade first (on a tie, more test areas graded, then more valid tool calls).
-          A server is listed when {areaWords.length ? `it was graded in ${list(areaWords)} test area, or ` : ""}its package keywords, name or description use one of these words: {list(t.terms.map((w) => `“${w}”`))}.
+          Every graded server Sealmark matched to {t.title}, grouped by how much was tested, deepest first, and ranked within each group by grade (on a tie: a firm grade before a provisional one, then more test areas graded, then more valid tool calls).
+          A server is listed when {areaWords.length ? `it was graded in ${list(areaWords)} test area, or when ` : ""}its declared package keywords or GitHub topics, or its name, use one of these words: {list(t.terms.map((w) => `“${w}”`))}.
           A grade covers one version under the standard settings; it is not an endorsement.
         </p>
-        {deep.length > 0 && (
-          <section className={s.sec} aria-labelledby="deep-h" style={{ marginTop: 40 }}>
-            <h2 id="deep-h">Graded beyond the protocol</h2>
-            <p>Sealmark gave these servers a target it owns and checked what their tools really did.</p>
-            <Rows rows={deep} caption={`${topicTitle(t)}: graded beyond the protocol, best grade first`} />
-          </section>
-        )}
-        {hygiene.length > 0 && (
-          <section className={s.sec} aria-labelledby="protocol-h" style={deep.length ? undefined : { marginTop: 40 }}>
-            <h2 id="protocol-h">Protocol only</h2>
-            <p>Only the protocol test area was graded: the tools were called with invalid input, so the grade is hygiene and says little about what the tools do. Listed after every server graded more deeply, whatever its grade.</p>
-            <Rows rows={hygiene} caption={`${topicTitle(t)}: protocol only, best grade first`} />
-          </section>
-        )}
+        {tiers.map((rows, n) => {
+          if (!rows.length) return null;
+          return (
+            <section key={n} className={s.sec} aria-labelledby={`tier-${n}`} style={n === firstTier ? { marginTop: 40 } : undefined}>
+              <h2 id={`tier-${n}`}>{TIER[n].h}</h2>
+              <p>{TIER[n].p}</p>
+              <Rows rows={rows} caption={`${topicTitle(t)}: ${TIER[n].h.toLowerCase()}, best grade first`} />
+            </section>
+          );
+        })}
         {others.length > 0 && (
           <section className={s.sec} aria-labelledby="other-topics">
             <h2 id="other-topics">Other topics</h2>

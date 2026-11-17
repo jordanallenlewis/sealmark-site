@@ -90,14 +90,13 @@ export function repoFacts(r) {
 
 const KEYWORD = /^[a-z0-9][a-z0-9 ._+-]{0,39}$/;
 export const MAX_KEYWORDS = 20;
-export const MAX_DESCRIPTION = 300;
 
 /**
- * What a package says it is about, for the site's topic pages (web/lib/topics.mjs): its own keywords (npm keywords,
- * PyPI keywords, GitHub topics), lower-cased, plain and short, and its one-line description cut to MAX_DESCRIPTION.
- * Someone else's words, used only to match against the site's fixed topic terms; never a score. Null when it says nothing.
+ * What a package declares it is about, for the site's topic pages (web/lib/topics.mjs): its own keywords (npm keywords,
+ * PyPI keywords) and its repository's GitHub topics, lower-cased, plain and short, at most MAX_KEYWORDS. Someone else's
+ * words, used only to match the site's fixed topic terms; never shown, never a score. Null when it declares none.
  */
-export function about(description, ...keywordLists) {
+export function about(...keywordLists) {
   const kw = [];
   for (const list of keywordLists) {
     const items = Array.isArray(list) ? list : typeof list === "string" ? list.split(list.includes(",") ? "," : /\s+/) : [];
@@ -106,8 +105,7 @@ export function about(description, ...keywordLists) {
       if (v && KEYWORD.test(v) && !kw.includes(v) && kw.length < MAX_KEYWORDS) kw.push(v);
     }
   }
-  const d = typeof description === "string" ? clean(Array.from(description.replace(/\s+/g, " ").trim()).slice(0, MAX_DESCRIPTION).join(""), MAX_DESCRIPTION) : null;
-  return d || kw.length ? { description: d, keywords: kw } : null;
+  return kw.length ? { keywords: kw } : null;
 }
 
 const npmDocUrl = (name) => `https://registry.npmjs.org/${String(name).replace("/", "%2F")}`;
@@ -140,21 +138,19 @@ export function githubGetter(fetchFn, token) {
 export async function lookup(server, repo, { fetchFn, api, today }) {
   const out = { checkedAt: today, source: server.ecosystem, license: null, latest: null, repo: null };
   let named = false; // the package states a license (even one we cannot show): the repository's is then no stand-in
-  let desc = null, kw = null;
+  let kw = null;
   if (server.ecosystem === "npm") {
     const doc = await getJson(fetchFn, npmDocUrl(server.name));
     const meta = doc?.versions?.[doc?.["dist-tags"]?.latest] ?? doc;
     out.latest = npmLatest(doc);
     out.license = npmLicense(meta);
     named = npmNamesLicense(meta);
-    desc = meta?.description ?? doc?.description;
     kw = meta?.keywords ?? doc?.keywords;
   } else if (server.ecosystem === "pypi") {
     const meta = await getJson(fetchFn, pypiUrl(server.name));
     out.latest = pypiLatest(meta);
     out.license = pypiLicense(meta?.info);
     named = pypiNamesLicense(meta?.info);
-    desc = meta?.info?.summary;
     kw = meta?.info?.keywords;
   } else if (server.ecosystem !== "github") {
     throw new Error(`unknown ecosystem ${server.ecosystem}`);
@@ -163,12 +159,12 @@ export async function lookup(server, repo, { fetchFn, api, today }) {
   if (repo) {
     const r = await api(`/repos/${repo}`);
     out.repo = repoFacts(r);
-    if (out.repo) { topics = r.topics; if (typeof desc !== "string" || !desc.trim()) desc = r.description; }
+    if (out.repo && Array.isArray(r.topics)) topics = r.topics; // GitHub topics are always a list; anything else is ignored
     if (server.ecosystem === "github" && out.repo) out.latest = githubLatest(await api(`/repos/${repo}/releases/latest`));
   }
   if (!out.license && !named && out.repo?.license) { out.license = out.repo.license; out.licenseFrom = "repo"; }
   if (out.repo) delete out.repo.license;
-  const a = about(desc, kw, topics);
+  const a = about(kw, topics);
   if (a) out.about = a;
   return out;
 }

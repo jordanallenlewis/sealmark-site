@@ -1,9 +1,9 @@
 // "Best graded MCP servers for <topic>" pages (site#56). Which topic a server belongs to is decided by fixed rules on
-// facts, never by a model and never by hand: a test area Sealmark graded on it, a keyword its package declares (npm or
-// PyPI keywords, GitHub topics), or a whole word or phrase in its package name or one-line description
-// (fleet/server-facts.mjs keeps them in fleet/server-facts.json). Every listed row says which rule put it there.
-// Only servers with a grade are listed; ranked by grade, then by how much evidence is behind it. Pure functions, no I/O:
-// covered by lib/topics.test.mjs.
+// facts, never by a model and never by hand: a test area Sealmark graded on it, a keyword or topic its maintainers
+// declared (npm or PyPI keywords, GitHub topics; fleet/server-facts.mjs keeps them in fleet/server-facts.json), or a
+// whole word or phrase in its name. Descriptions are not used: a word in free text ("row level security", a badge URL
+// with "github") put servers in topics they are not about (review on site#56). Every row says which rule put it there.
+// Only servers with a grade are listed. Pure functions, no I/O: covered by lib/topics.test.mjs.
 
 const RANK = { F: 0, D: 1, C: 2, B: 3, A: 4 };
 const has = (o, k) => typeof k === "string" && Object.prototype.hasOwnProperty.call(o, k);
@@ -12,8 +12,8 @@ const has = (o, k) => typeof k === "string" && Object.prototype.hasOwnProperty.c
 export const MIN_SERVERS = 5;
 
 /**
- * slug, page title words, test areas that count as the topic, and terms. A term matches a declared keyword exactly,
- * or a whole word or phrase in the name or description (hyphens and spaces are the same there).
+ * slug, page title words, test areas that count as the topic, and terms. A term matches a declared keyword exactly or a
+ * whole word or phrase in the name (hyphens, slashes and spaces are the same).
  * @type {{ id: string, title: string, areas: string[], terms: string[] }[]}
  */
 export const TOPICS = [
@@ -39,11 +39,11 @@ export const TOPICS = [
 const norm = (s) => ` ${String(s).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()} `;
 
 /**
- * Why a server belongs to a topic, or null: the first rule that holds, in the order area, keyword, name, description.
+ * Why a server belongs to a topic, or null: the first rule that holds, in the order area, keyword, name.
  * @param {{ name: string, packs: { id: string, status: string, letter: string | null }[] }} server
- * @param {{ description?: string | null, keywords?: string[] } | null | undefined} about
+ * @param {{ keywords?: string[] } | null | undefined} about
  * @param {{ areas: string[], terms: string[] }} topic
- * @returns {{ from: "area" | "keyword" | "name" | "description", term: string } | null}
+ * @returns {{ from: "area" | "keyword" | "name", term: string } | null}
  */
 export function topicMatch(server, about, topic) {
   const area = topic.areas.find((a) => (server.packs ?? []).some((p) => p.id === a && p.status === "graded" && has(RANK, p.letter)));
@@ -53,30 +53,28 @@ export function topicMatch(server, about, topic) {
   if (kw) return { from: "keyword", term: kw };
   const name = norm(server.name);
   const inName = topic.terms.find((t) => name.includes(norm(t)));
-  if (inName) return { from: "name", term: inName };
-  const desc = typeof about?.description === "string" ? norm(about.description) : null;
-  const inDesc = desc && topic.terms.find((t) => desc.includes(norm(t)));
-  return inDesc ? { from: "description", term: inDesc } : null;
+  return inName ? { from: "name", term: inName } : null;
 }
 
 const gradedPacks = (x) => (x.packs ?? []).filter((p) => p.status === "graded" && has(RANK, p.letter));
 
-/** The server grade: its lowest graded test-area letter, provisional if that pack is; null when nothing was graded. */
-function grade(x) {
+/** The server grade exactly as the rest of the site shows it (lib/results-shared.ts worst): the first of its lowest
+ * graded test-area letters, provisional if that pack is; null when nothing was graded. */
+export function grade(x) {
   const g = gradedPacks(x);
   if (!g.length) return null;
   const w = g.reduce((a, b) => (RANK[b.letter] < RANK[a.letter] ? b : a));
-  return { letter: w.letter, provisional: g.some((p) => p.letter === w.letter && p.provisional === true) };
+  return { letter: w.letter, provisional: w.provisional === true };
 }
 
 /**
- * One topic page's rows, best first. Servers graded beyond the protocol come first, whatever their grade: a
- * protocol-only grade is hygiene (tools called only with invalid input) and is no evidence about what the tools do.
- * Within each group: grade, then a firm grade before a provisional one, then more deeper test areas graded, then more
- * valid tool calls, then name. Servers with no grade are never listed.
+ * One topic page's rows, best first, in three tiers whatever the grade: 0 graded in the topic's own test area, 1 graded
+ * in another test area beyond the protocol, 2 protocol only (hygiene: tools called only with invalid input, no
+ * evidence about what they do). Within a tier: grade, then a firm grade before a provisional one, then more test areas
+ * graded, then more valid tool calls, then name. Servers with no grade are never listed.
  * @template {{ id: string, name: string, testedAt: string, packs: { id: string, status: string, letter: string | null, provisional?: boolean }[], coverage?: { validCalls?: number } }} S
  * @param {S[]} servers
- * @param {Record<string, { about?: { description?: string | null, keywords?: string[] } } | undefined>} facts by server id
+ * @param {Record<string, { about?: { keywords?: string[] } } | undefined>} facts by server id
  * @param {{ areas: string[], terms: string[] }} topic
  * @param {(x: S) => boolean} held the server has a finding under private disclosure
  */
@@ -89,10 +87,11 @@ export function topicRows(servers, facts, topic, held) {
     if (!why) continue;
     const areas = gradedPacks(x).filter((p) => p.id !== "core").map((p) => p.id);
     const calls = Number.isInteger(x.coverage?.validCalls) && x.coverage.validCalls >= 0 ? x.coverage.validCalls : 0;
-    rows.push({ id: x.id, name: x.name, testedAt: x.testedAt, letter: g.letter, provisional: g.provisional, held: held(x), areas, calls, why });
+    const tier = why.from === "area" ? 0 : areas.length ? 1 : 2;
+    rows.push({ id: x.id, name: x.name, testedAt: x.testedAt, letter: g.letter, provisional: g.provisional, held: held(x), areas, calls, why, tier });
   }
   return rows.sort((a, b) =>
-    Number(b.areas.length > 0) - Number(a.areas.length > 0) || RANK[b.letter] - RANK[a.letter] || Number(a.provisional) - Number(b.provisional) || b.areas.length - a.areas.length || b.calls - a.calls || a.name.localeCompare(b.name, "en"));
+    a.tier - b.tier || RANK[b.letter] - RANK[a.letter] || Number(a.provisional) - Number(b.provisional) || b.areas.length - a.areas.length || b.calls - a.calls || a.name.localeCompare(b.name, "en"));
 }
 
 /** Every topic with at least MIN_SERVERS graded servers, in TOPICS order, each with its rows. */
@@ -103,6 +102,6 @@ export function topicPages(servers, facts, held, topics = TOPICS) {
 /** The words a row shows for why it is listed. */
 export function whyText(why, areaLabel) {
   if (why.from === "area") return `graded in the ${areaLabel(why.term)} test area`;
-  if (why.from === "keyword") return `package keyword “${why.term}”`;
-  return `${why.from === "name" ? "package name" : "package description"} says “${why.term}”`;
+  if (why.from === "keyword") return `declared keyword or topic “${why.term}”`;
+  return `its name says “${why.term}”`;
 }

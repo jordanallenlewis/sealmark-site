@@ -15,7 +15,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Fallback MCP relay for 3DStreet: drive an open 3DStreet tab from clients without WebMCP (Claude Desktop, Claude Code). Browser-embedded agents should use WebMCP directly at https://3dstreet.app — nothing to install.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -42,7 +41,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Client for aamio, ephemeral rendezvous for agents: keys, addresses, signed and encrypted messages, presence, the open board of needs and offers, receipts and anchoring. Node, Deno, Bun and browsers, and for Node a local runtime with a command line and an",
         "keywords": [
           "aamio",
           "agents",
@@ -76,7 +74,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server that lets an agent recall and calibrate tool calls against Achromat Machine Operational Memory (achromat.ai), from any MCP host.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -106,7 +103,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for SF Peninsula building-permit and parcel-buildability data: search permits, SB 9 inventory, ADU and redevelopment leads.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -134,7 +130,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "[![GitHub Repo stars](https://img.shields.io/github/stars/dealfluence/adeu?style=social)](https://github.com/dealfluence/adeu) [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/) [![License: MIT](ht",
         "keywords": [
           "ai-agents",
           "document-automation",
@@ -158,7 +153,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Official Aether Wealth MCP server for journals, alerts, forex and crypto market context, and approval-governed broker actions.",
         "keywords": [
           "aether wealth",
           "mcp",
@@ -188,10 +182,6 @@
         "pushedAt": "2026-08-11",
         "archived": false,
         "openIssues": 125
-      },
-      "about": {
-        "description": "Bring affiliate-network data to Claude or Codex through a local stdio MCP server. 80+ publisher and advertiser-side adapters, most experimental. Local-only, bring your own keys.",
-        "keywords": []
       }
     },
     "agent-bev-mcp-server": {
@@ -209,7 +199,6 @@
         "openIssues": 4
       },
       "about": {
-        "description": "The world's largest agentic B2B hub for beer, wine and spirits. Powered by CUVEE. Trade only.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -249,7 +238,6 @@
         "openIssues": 511
       },
       "about": {
-        "description": "MCP server for filesystem access",
         "keywords": [
           "agent",
           "agent-tars",
@@ -283,7 +271,6 @@
         "openIssues": 14
       },
       "about": {
-        "description": "Discover x402 paid services, MCP servers and A2A agents from any MCP-compatible agent (Claude, Cursor, Cline).",
         "keywords": [
           "agent",
           "agent-tools",
@@ -311,7 +298,6 @@
         "openIssues": 59
       },
       "about": {
-        "description": "MCP server for signed, versioned agent skills: discover, verify, and run skills for model-driven orchestration through the Model Context Protocol.",
         "keywords": [
           "mcp-server",
           "model-context-protocol",
@@ -346,7 +332,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for Airbnb search and listing details",
         "keywords": [
           "airbnb",
           "vacation rental",
@@ -367,7 +352,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Google Search Console Insights with Claude AI for SEOs",
         "keywords": [
           "claude",
           "google-search-console",
@@ -392,7 +376,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "🤖 A visualization mcp & skills contains 25+ visual charts using @antvis. Using for chart generation and data analysis.",
         "keywords": [
           "antv",
           "llm",
@@ -413,7 +396,6 @@
       },
       "repo": null,
       "about": {
-        "description": "AnyForge MCP Server — drive AnyForge (HIL approvals, initiatives, work items, crews) from Claude CLI, Cursor, and other MCP clients",
         "keywords": [
           "anyforge",
           "mcp",
@@ -438,7 +420,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "APICK MCP — 225 Korean data, AI, image & video tools for AI agents. 사업자조회·신분증·OCR·배송조회·차량제원·이미지 생성·편집·영상 생성·파일변환·검색·LLM.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -478,7 +459,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "에이픽 서브에이전트: Codex·Claude Code의 조사·추출·요약·비교 위임과 근거 검수",
         "keywords": [
           "apick",
           "subagent",
@@ -507,7 +487,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for the Apiguru Amazon Data API - product details, reviews, search, offers and seller data across 23 marketplaces.",
         "keywords": [
           "agent",
           "amazon",
@@ -536,7 +515,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for Apillow — Zillow property data API. Search properties, get Zestimates, price history, and more directly from AI agents. Not affiliated with Zillow Group. mcprush.com-c05ca10a8e2927f3bc2c63dd",
         "keywords": [
           "mcp",
           "zillow",
@@ -561,7 +539,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for AppScreen — generate App Store / Play Store screenshots from agents.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -592,7 +569,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Reasonbook: decisions that survive the session, in a local record AI agents keep.",
         "keywords": [
           "mcp",
           "reasonbook",
@@ -629,7 +605,6 @@
         "openIssues": 8
       },
       "about": {
-        "description": "A flexible arXiv search and analysis service with MCP protocol support",
         "keywords": [
           "academic",
           "ai",
@@ -660,7 +635,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "MCP server for market analysis in AI assistants: screeners, multi-timeframe technical analysis, backtests and sentiment for crypto, stocks, forex and futures. 39 tools. Self-host free, or use the hosted version, TradingMCP.",
         "keywords": [
           "claude-desktop",
           "cryptocurrency",
@@ -693,7 +667,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Read-only MCP server for the AtlasYield judgment layer: vault scores, coverage, route survival, open alerts. No custody, no execution.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -716,7 +689,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Atmy air quality for AI assistants over MCP stdio: PM2.5 now, daily history, forecast and country rankings for 300+ cities, and 12 000 single sensors with a quality rating.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -745,7 +717,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Computer-use MCP server: give Claude Code, Codex, Cursor or any MCP client hands on a real screen: your computer (Mac/Windows/Linux) and your Android phone (beta). Clicks, types and reads the screen, even in apps with no API.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -780,7 +751,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Search flights, hotels and experiences with Autonomad from your assistant or agent. Autonomad is a social travel platform; people book on autonomad.ai through a checkout link their assistant hands back, and autonomous agents can register, train, get certi",
         "keywords": [
           "travel",
           "group-trips",
@@ -818,7 +788,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for the Computeback Agent Rewards Marketplace and CB Hire B2B labor marketplace. Agents earn $NOMD on completed B2B work (email/voice/SMS/landing-page campaigns) and spend it on compute, voice, memory, storage, and 25+ other capability categori",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -848,7 +817,6 @@
         "openIssues": 103
       },
       "about": {
-        "description": "Harness as an MCP server: start, wait for, read and close Claude Code and Codex agents the person can watch.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -883,7 +851,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Backtest Auditor: a red-team lint for trading strategies (static lookahead/bias lint, Deflated Sharpe, cost and stability audit), as a Python library and an MCP server.",
         "keywords": [
           "backtesting",
           "lookahead-bias",
@@ -910,7 +877,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Ghidra MCP Server — 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch operations, Ghidra Server integration, and Docker deployment.",
         "keywords": [
           "ai",
           "binary-analysis",
@@ -934,11 +900,7 @@
         "version": "0.1.1",
         "date": "2026-11-08"
       },
-      "repo": null,
-      "about": {
-        "description": "MCP server for BetterJobs: search deduped job reqs (including the hidden-ATS index), check if a company is hiring, estimate cost for free.",
-        "keywords": []
-      }
+      "repo": null
     },
     "blazickjp-arxiv-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -956,7 +918,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "A local MCP server for agent literature work. Original-LaTeX section reads, BibTeX from arXiv metadata, and topic watches. Papers stay on disk. Search is optional.",
         "keywords": [
           "ai",
           "arxiv",
@@ -986,7 +947,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "The bolthub MCP server — the whole marketplace, specific L402 gateways, and your other MCP servers behind one config entry with one shared Lightning budget",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1015,7 +975,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Keep AI-generated UI on-brand: an MCP server and CLI that give Claude Code, Cursor, Copilot and Codex your design system, and check code and live pages against it.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -1055,7 +1014,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "brick.blue as a local MCP server: find measured MCP/A2A agents and tools, call them with the price known first, and take or post escrowed paid work",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1084,7 +1042,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Consult your existing Grok Bots from Codex and Claude Code via a local MCP server.",
         "keywords": [
           "mcp",
           "grokbot",
@@ -1101,11 +1058,7 @@
         "version": "0.1.5",
         "date": "2026-07-10"
       },
-      "repo": null,
-      "about": {
-        "description": "CallMCP server core — MCP server implementing the 14-tool CallMCP telephony contract (SPEC.md) against any registered driver.",
-        "keywords": []
-      }
+      "repo": null
     },
     "celo-buy": {
       "checkedAt": "2026-11-17",
@@ -1122,7 +1075,6 @@
         "openIssues": 13
       },
       "about": {
-        "description": "buy — HTTP 402 stablecoin payments on Celo",
         "keywords": [
           "x402",
           "http-402",
@@ -1154,7 +1106,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP server for CertScore.ai public website risk-signal workflows.",
         "keywords": [
           "certscore",
           "pulse",
@@ -1179,7 +1130,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP wallet that executes ChainHilt actions (signatures and transactions).",
         "keywords": [
           "mcp",
           "wallet",
@@ -1211,7 +1161,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Clarx MCP server — score agent manifests, validate clarx-manifest.json, generate CI workflows, and (with a Clarx token) pull scan findings and remediation prompts into your IDE.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -1237,7 +1186,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Cleanor MCP server for AI builders: optimize/convert images, cited storage & image-format data, QR codes, and deterministic dev utilities (hash, uuid, base64, jwt decode, json, color, slugify, count) LLMs get wrong. Run locally over stdio, or use the host",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1277,7 +1225,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Find the best AI tools and MCP servers, safety-checked and rated by AI agents. Search thousands of skills, MCP servers, and tools. The Yelp for AI tools.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -1317,7 +1264,6 @@
         "openIssues": 49
       },
       "about": {
-        "description": "MCP server for Context7",
         "keywords": [
           "modelcontextprotocol",
           "mcp",
@@ -1346,7 +1292,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "How much of what your coding agent spends is actually work: the share of paid tokens that became output, not context re-reading.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1375,7 +1320,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Cookwala MCP server: search and read recipes, dry-run them against a device, check safe bands, mandates and humanitarian SMS. Read-only; reads the static catalog on cookwala.ai; never starts cooking.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1408,7 +1352,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server with 150 browser tools for live Chrome automation — screenshots, DOM, network capture, framework detection, storage, resident recording and monitoring, structured extraction, tracking, SEO, technographics, and performance",
         "keywords": [
           "mcp",
           "crawlio",
@@ -1441,7 +1384,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for Creatica: let AI agents browse, describe and generate procedural SVG/PNG backgrounds on demand.",
         "keywords": [
           "svg",
           "background",
@@ -1469,7 +1411,6 @@
         "openIssues": 17
       },
       "about": {
-        "description": "A Model Context Protocol (MCP) server for platform-agnostic file capabilities, including advanced search and replace, and directory tree traversal",
         "keywords": [
           "ai-integration",
           "mcp",
@@ -1509,7 +1450,6 @@
         "openIssues": 19
       },
       "about": {
-        "description": "A secure and scalable Git MCP server enabling AI agents to perform comprehensive Git version control operations via STDIO and Streamable HTTP.",
         "keywords": [
           "ai-agent",
           "ai-integration",
@@ -1549,7 +1489,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Search and prepare attributed motion recipes for coding agents.",
         "keywords": [
           "mcp",
           "claude",
@@ -1573,7 +1512,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for the Datavidence Financials API: normalized US-GAAP financial statements from SEC EDGAR, as tools for LLM agents.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1608,7 +1546,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Token-efficient database MCP server for PostgreSQL, MySQL, MariaDB, SQL Server, Oracle, SQLite",
         "keywords": [
           "agents",
           "ai",
@@ -1648,7 +1585,6 @@
         "openIssues": 14
       },
       "about": {
-        "description": "DC Hub is the orchestration layer for data center and energy intelligence. Start with execute_plan. It also publishes the Data Center Power Index (DCPI). This package is a stdio launcher that connects MCP clients to https://dchub.cloud/mcp.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1688,7 +1624,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for the DecimalAI skills registry — search skills, inspect trust/benchmark evidence, and read the leaderboard from any MCP client.",
         "keywords": [
           "agents",
           "decimalai",
@@ -1719,7 +1654,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "Local MCP server that reads a raw DNA file on your computer and reports what it shows at the variants DeepDNA curates, with cited records. Nothing from the file is sent to deepdna.ai.",
         "keywords": [
           "23andme",
           "ai-agents",
@@ -1753,7 +1687,6 @@
       },
       "repo": null,
       "about": {
-        "description": "DemoMagic MCP server — answers how-to questions about making interactive videos / AI product demos and points users to the right place to build one.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -1780,7 +1713,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for devglow — let Claude Code, Codex, and Cursor start, stop, and inspect your local dev processes",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -1814,7 +1746,6 @@
         "openIssues": 25
       },
       "about": {
-        "description": "Rust MCP gateway with Code Mode, authentication, setup, logs, CLI, HTTP API, and operator web UI.",
         "keywords": [
           "labby",
           "lab",
@@ -1854,7 +1785,6 @@
         "openIssues": 6
       },
       "about": {
-        "description": "Apprise notifications over MCP and CLI with authenticated stdio and HTTP transports.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -1893,7 +1823,6 @@
         "openIssues": 6
       },
       "about": {
-        "description": "yt-dlp search, download, metadata, delivery, and Plex workflows over MCP and CLI.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -1932,7 +1861,6 @@
         "openIssues": 8
       },
       "about": {
-        "description": "MCP server and CLI for host and container operations: Docker and Compose control, SSH, host inspection, logs, ZFS, and safe file transfer.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -1970,7 +1898,6 @@
         "openIssues": 19
       },
       "about": {
-        "description": "MCP server and CLI for self-hosted media fleets: Sonarr, Radarr, Prowlarr, Bazarr, Tautulli, Overseerr, SABnzbd, qBittorrent, Plex, Jellyfin, and Tracearr.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -2005,7 +1932,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for passport, ID and MRZ recognition via the doc.cheap API – Free: 100 documents every month, then $0.01 each",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -2036,7 +1962,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Open-source persistent memory for AI agent pipelines (LangGraph, CrewAI, AutoGen) and Claude. REST API + knowledge graph + autonomous consolidation.",
         "keywords": [
           "agent-memory",
           "agentic-ai",
@@ -2071,7 +1996,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Export control classification, FAR clause review, rubric scoring: criteria are written, readers differ. Turn a written policy into rules a program can check, and get the same answer every time.",
         "keywords": [
           "dsail",
           "jaxon",
@@ -2111,7 +2035,6 @@
         "openIssues": 7
       },
       "about": {
-        "description": "A DuckDB MCP server",
         "keywords": [
           "duckdb",
           "mcp",
@@ -2132,10 +2055,6 @@
         "pushedAt": "2026-09-04",
         "archived": false,
         "openIssues": 8
-      },
-      "about": {
-        "description": "MCP Server for searching via DuckDuckGo",
-        "keywords": []
       }
     },
     "durely-garmin-insights-mcp": {
@@ -2153,7 +2072,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "durely insights: an MCP server for your own Garmin data, via Garmin's official Personal API. Full history kept locally, analysed down to the second. Unofficial.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2175,11 +2093,7 @@
         "version": "0.17.1",
         "date": "2026-11-15"
       },
-      "repo": null,
-      "about": {
-        "description": "Australian rents by area for six states, New Zealand rents by council and region and interim ABS cover for the ACT and NT, asked by place with no state, a rent placed against its local median, NSW median sale prices, an ABS rents index check, and sourced",
-        "keywords": []
-      }
+      "repo": null
     },
     "dxpert-uns-tools": {
       "checkedAt": "2026-11-17",
@@ -2196,7 +2110,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "No-key stdio MCP server: Sparkplug B topic linting, UNS naming checks, and the free industrial AI-readiness diagnostic from dxpert.ai.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2236,7 +2149,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP server for Ekwo OS: let an AI agent work on the books, under the user's own row level security.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2271,7 +2183,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Local (stdio) MCP server that gives your prompts and Agent Skills MCP elicitation — human-in-the-loop dialogs (elicit_confirm, elicit_form) the elicit_doctor capability report, and elicit_display for rendered HTML as an MCP App, with no server of your own",
         "keywords": [
           "mcp",
           "elicitation",
@@ -2297,7 +2208,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "Étincel: a non-fiction writing connector for Claude Code, Claude Desktop, and MCP-enabled tools. Trainable voice, premade emotional tones, and a transparent anti-AI-tells audit. Not an email client or editor replacement, a layer that keeps the writer in t",
         "keywords": [
           "writing",
           "non-fiction",
@@ -2335,10 +2245,6 @@
         "pushedAt": "2026-11-12",
         "archived": false,
         "openIssues": 23
-      },
-      "about": {
-        "description": "MCP server that exercises all the features of the MCP protocol",
-        "keywords": []
       }
     },
     "exa-labs-exa-mcp-server": {
@@ -2354,7 +2260,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Exa MCP for web search and web crawling!",
         "keywords": [
           "code-search",
           "codesearch",
@@ -2382,7 +2287,6 @@
         "openIssues": 21
       },
       "about": {
-        "description": "MCP server for interacting with SQLite and SQL Server databases by ExecuteAutomation",
         "keywords": [
           "mcp-server",
           "posgresql",
@@ -2406,7 +2310,6 @@
         "openIssues": 49
       },
       "about": {
-        "description": "Your EXTREMELY agency of AI agents in any AI app (Claude Desktop, Cursor, VS Code, Claude Code): what agents did, approvals, requests, jobs, reports. Needs the Extremely Autonomous Agents app.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -2446,7 +2349,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for feeling-search: one colloquial sentence in, the best-matching visual style out. Runs fully local (762-word lexicon + Chinese/English semantic engines), no network, no API key.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2481,7 +2383,6 @@
         "openIssues": 23
       },
       "about": {
-        "description": "A Model Context Protocol server providing tools to fetch and convert web content for usage by LLMs",
         "keywords": [
           "automation",
           "http",
@@ -2510,7 +2411,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Fictura MCP server for AI agents — read your app's paywalls, funnel, experiments, attribution, errors and docs from Claude, ChatGPT, Codex, Cursor or any MCP client.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2539,10 +2439,6 @@
         "pushedAt": "2026-11-12",
         "archived": false,
         "openIssues": 23
-      },
-      "about": {
-        "description": "MCP server for filesystem access",
-        "keywords": []
       }
     },
     "firecms-mcp-server": {
@@ -2560,7 +2456,6 @@
         "openIssues": 55
       },
       "about": {
-        "description": "MCP server for FireCMS Cloud — manage projects, collections, users, and AI features via the Model Context Protocol",
         "keywords": [
           "firecms",
           "mcp",
@@ -2592,7 +2487,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Official Firecrawl MCP server, the context API for AI agents: search, scrape, and interact with the web, plus parse, crawl, map, Agent and Monitor, from any MCP client.",
         "keywords": [
           "batch-processing",
           "claude",
@@ -2627,7 +2521,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "RCLL — self-hosted, hierarchical shared memory for a team of AI agents over MCP (rooms, L0-L3 depth, pgvector). Fork of vectorize-io/hindsight.",
         "keywords": [
           "mcp",
           "memory",
@@ -2660,11 +2553,7 @@
         "version": "1.3.47",
         "date": "2026-11-15"
       },
-      "repo": null,
-      "about": {
-        "description": "Spec-driven development workflow: your agent works issues, sessions and the status lifecycle.",
-        "keywords": []
-      }
+      "repo": null
     },
     "formachines-errata-mcp": {
       "checkedAt": "2026-11-17",
@@ -2681,7 +2570,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Errata: sandbox-verified corrections where AI models write outdated code for PyPI and npm libraries",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2710,7 +2598,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for formatika.app — convert, resize and compress files from your agent",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2736,7 +2623,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "gage's MCP server for agents with their own wallet: `npx -y gage-mcp@0.9.0 init`, then borrow and earn on gage. Robinhood Chain under spend limits, and its testnet.",
         "keywords": [
           "gage",
           "mcp",
@@ -2766,7 +2652,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Galaxy Movies — streaming arrivals, departures, and where-to-watch lookup across US services",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2789,7 +2674,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Gency AI product image generation - MCP server for Claude, Codex, Cursor, VS Code",
         "keywords": [
           "mcp",
           "gency",
@@ -2810,7 +2694,6 @@
       },
       "repo": null,
       "about": {
-        "description": "An MCP server that discovers MCP servers — search 200K+ AI tools with verification, security data, RAG chat, and tool generation",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2840,7 +2723,6 @@
         "openIssues": 23
       },
       "about": {
-        "description": "A Model Context Protocol server providing tools to read, search, and manipulate Git repositories programmatically via LLMs",
         "keywords": [
           "automation",
           "git",
@@ -2857,11 +2739,7 @@
         "version": "0.2.5",
         "date": "2026-03-27"
       },
-      "repo": null,
-      "about": {
-        "description": "Git MCP Server - Unified command-line tool for managing Git repositories across GitHub and GitLab",
-        "keywords": []
-      }
+      "repo": null
     },
     "haymon-ai-dbmcp": {
       "checkedAt": "2026-11-17",
@@ -2878,7 +2756,6 @@
         "openIssues": 9
       },
       "about": {
-        "description": "Database MCP server for MySQL, MariaDB, PostgreSQL & SQLite with PII redaction and write-prevention",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -2908,7 +2785,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "A Model Context Protocol (MCP) server that provides comprehensive PostgreSQL database management capabilities for AI assistants",
         "keywords": [
           "postgresql",
           "postgres",
@@ -2938,7 +2814,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server that lets a coding agent read the screenshots you beam to its server with Hostbeam.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -2969,7 +2844,6 @@
         "openIssues": 8
       },
       "about": {
-        "description": "A Model Context Protocol (MCP) server that enables Claude Desktop to interact with MySQL databases through read-only queries",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -2997,7 +2871,6 @@
         "openIssues": 8
       },
       "about": {
-        "description": "A Model Context Protocol (MCP) server that enables Claude Desktop to interact with PostgreSQL databases through read-only queries",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3026,7 +2899,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for html.cloud — let Claude and other AI assistants share generated HTML as a private, end-to-end encrypted link, and update it later at the same link. No account, server stores only ciphertext.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -3058,7 +2930,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server and CLI for Huddo, a group chat where people and AI agents talk in the same room",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -3086,7 +2957,6 @@
         "openIssues": 274
       },
       "about": {
-        "description": "The improvement loop for all your agents.",
         "keywords": [
           "agent",
           "ai",
@@ -3114,7 +2984,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "The INITE Club from a terminal: ask a member agent a question with no account, join as a member, or run as the MCP server your editor connects through.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -3143,7 +3012,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for INITE - the portal, the AI visibility analyzer and the Atlas of AI tools, from inside your agent. Works without an account; signing in adds the full audit.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -3169,7 +3037,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Official CLI and MCP server for the InsightSocial API: 230+ social data endpoints across 22 platforms (TikTok, LinkedIn, YouTube, X, Reddit, Bluesky, Telegram, Douyin, Weibo and more) behind one key.",
         "keywords": [
           "insightsocial",
           "mcp",
@@ -3203,7 +3070,6 @@
         "openIssues": 3
       },
       "about": {
-        "description": "AI agent toolkit for WhatsApp, Instagram, and Messenger automation with zero-key MCP pairing, Barq AI, inbox tools, campaigns, templates, and developer diagnostics.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -3243,7 +3109,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for IntoDNS.ai — complete DNS, email security, scan, BIMI, API, and citation tools for AI assistants",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3283,7 +3148,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server: check whether your exit IP works for ChatGPT, Claude, Gemini and other AI services.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3323,7 +3187,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Symbol-level code retrieval for AI agents: fetch the function you need, not the whole file. Runs locally. 96.2% fewer tokens per lookup on average than grep-and-read on our 15-lookup benchmark. Works with Claude Code, Cursor, Codex and any MCP client. Free for non-commercial use; commercial use need",
         "keywords": [
           "ai-coding",
           "ast",
@@ -3364,7 +3227,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "This is a 12306 ticket search server based on the Model Context Protocol (MCP).",
         "keywords": [
           "12306",
           "mcp",
@@ -3388,7 +3250,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for JustDrop — live, end-to-end encrypted, ephemeral file transfer between your AI agent and any device. No accounts, nothing stored.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -3426,7 +3287,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "The Kadal Store from your terminal and your AI agent: search the shop, get recommendations for the project you are in, download and sync what you own, and get a buy link to review. A CLI and a local MCP server.",
         "keywords": [
           "kadal",
           "store",
@@ -3457,7 +3317,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Kadmo runtime for AI agents — the kadmo CLI, the MCP server, the agent service and its dashboard",
         "keywords": [
           "kadmo",
           "mcp",
@@ -3484,7 +3343,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for Kavel (www.kavel.ai) — discover Kavel's AI photo/video generators, get model-tuned prompts, and open the right tool to generate. Tools: AI Hairstyle Changer, Figurine, Pet Portrait, Wedding Photo, 90s Yearbook, Dance Video, HD Photo Convert",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3512,11 +3370,7 @@
         "version": "10.6.0",
         "date": "2026-11-14"
       },
-      "repo": null,
-      "about": {
-        "description": "Team-aware memory for Claude Code, Cursor, and other AI coding assistants — intent tracking, decision history, real-time team conflict detection.",
-        "keywords": []
-      }
+      "repo": null
     },
     "kazuph-fetch": {
       "checkedAt": "2026-11-17",
@@ -3533,7 +3387,6 @@
         "openIssues": 4
       },
       "about": {
-        "description": "A Model Context Protocol server that provides web content fetching capabilities with automatic image saving and optional AI display",
         "keywords": [
           "mcp",
           "fetch",
@@ -3561,7 +3414,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Read-only MCP server for KediMeet: Claude, Cursor, Codex and other AI assistants search and read your recorded calls on your Mac",
         "keywords": [
           "claude",
           "codex",
@@ -3592,7 +3444,6 @@
         "openIssues": 8
       },
       "about": {
-        "description": "MCP server for live web search and clean-markdown page fetch over the Keenable web index. Bridges to the hosted Keenable MCP server.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -3621,7 +3472,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "KeepState CLI (ks) — durable agent sessions. Thin shim that downloads the checksum-verified release binary.",
         "keywords": [
           "herdr-plugin"
         ]
@@ -3637,7 +3487,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Install the Kellian MCP server: market research, AI analysts' odds and play-money markets where agents trade before they go live.",
         "keywords": [
           "kellian",
           "mcp",
@@ -3664,11 +3513,7 @@
         "version": "1.0.3",
         "date": "2026-11-14"
       },
-      "repo": null,
-      "about": {
-        "description": "Ask for Kloudy: CLI, MCP and SDK clients for the same scoped engine session.",
-        "keywords": []
-      }
+      "repo": null
     },
     "knowledge-graph": {
       "checkedAt": "2026-11-17",
@@ -3683,10 +3528,6 @@
         "pushedAt": "2025-08-08",
         "archived": false,
         "openIssues": 1
-      },
-      "about": {
-        "description": "MCP server enabling persistent memory for Claude through a local knowledge graph",
-        "keywords": []
       }
     },
     "korala-mcp": {
@@ -3699,7 +3540,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Model Context Protocol server for Korala: lets AI assistants prepare, send and track signing requests",
         "keywords": [
           "korala",
           "mcp",
@@ -3724,7 +3564,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Verified lawyer and attorney search, discovery, and matching for AI — 991K+ bar-verified US profiles.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3752,7 +3591,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for the Lead Green index: GPU energy per million output tokens, by model, GPU and configuration, with grid carbon.",
         "keywords": [
           "b200",
           "carbon",
@@ -3787,7 +3625,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Model Context Protocol server for Leafwright — let your AI coding agent generate, template, and debug PDFs.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3816,7 +3653,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for llmaudit.app: measure whether AI assistants actually recommend a brand. stdio bridge to the hosted server, for clients that launch local commands.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3846,7 +3682,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for AI model lifecycle data — check whether a model id is deprecated or retiring, and what to migrate to, across OpenAI, Anthropic, Azure, AWS Bedrock, Google, and Cohere.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3874,7 +3709,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "The longbook MCP server: your longbook folder, readable by the AI you already use. Real arithmetic on what is due and what renews; changes go through the app's Proposals screen. mcprush.com-claim-longbook-mcp-5dd29bf58ce121bd23d37ac6",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3894,7 +3728,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP stdio-to-HTTP proxy for Lovie company formation tools",
         "keywords": [
           "mcp",
           "company-formation",
@@ -3919,7 +3752,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MACKORN 美矿液压圆锥破（NH/NS）与破碎筛分生产线选型：22 个工具覆盖客户需求表录入、机型/腔型/CSS 选型、整线配置、粒度曲线仿真（Whiten 1972）、实测数据标定、能耗成本估算、衬板磨损设计、经销商评估与 14 章方案书生成。DeepSeek Harness 插件 + MCP 服务器（stdio 与远程 HTTP 双通道），零依赖。",
         "keywords": [
           "dsh-plugin",
           "deepseek-harness",
@@ -3954,7 +3786,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Mafdet AI MCP server — read-only account tools (models, balance, usage, subscription, docs) for Claude Code, Cursor, Codex, OpenCode, and Claude Desktop.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -3978,7 +3809,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for the MainBook bank-statement conversion API",
         "keywords": [
           "accounting",
           "bank-statement",
@@ -4006,7 +3836,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for the MakerPortal compute API — biquad filter design, rectangular-room eigenmodes, and LLM VRAM fit, computed by the same functions that render makerportal.ai.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -4040,7 +3869,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Market Mayhem for AI agents: launch and trade BSC tokens through an MCP server, signed by your own wallet, dry run by default.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4073,7 +3901,6 @@
         "openIssues": 816
       },
       "about": {
-        "description": "An MCP server for the \"markitdown\" library.",
         "keywords": [
           "autogen",
           "autogen-extension",
@@ -4095,7 +3922,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Maxwell Directory (x402 + MCP): local providers worldwide, plus travel and public data. Free search; paid answers via x402, from your own wallet within budgets you set.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4127,7 +3953,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Model Context Protocol (MCP) server that provides comprehensive SQLite database interaction capabilities",
         "keywords": [
           "mcp",
           "sqlite",
@@ -4158,7 +3983,6 @@
         "openIssues": 3
       },
       "about": {
-        "description": "A modular Python MCP Server for analyzing PCAP files",
         "keywords": [
           "pcap",
           "network",
@@ -4178,11 +4002,7 @@
         "version": "1.0.3",
         "date": "2026-02-08"
       },
-      "repo": null,
-      "about": {
-        "description": "MCP server for MeetLark - agent-first meeting schedule poll - for humans and agents.",
-        "keywords": []
-      }
+      "repo": null
     },
     "memcell": {
       "checkedAt": "2026-11-17",
@@ -4199,7 +4019,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "Shared, persistent memory for any AI agent. Agents recall what your workspace established — instructions, decisions, facts, preferences, active working threads, and grounded PDF/DOCX/CSV/web documents — before they act, then report outcomes so confidence",
         "keywords": [
           "memcell",
           "agent-memory",
@@ -4238,7 +4057,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP server for Memeboat (memebo.at) — search 25,000+ meme templates and create memes from any AI assistant. Free, anonymous, no API key.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4269,7 +4087,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Memegician MCP server for Claude, ChatGPT, Cursor and any MCP client: search 400+ meme templates, see what's trending and render memes. Sign in for AI-written memes (generate_memes). Stdio bridge to https://memegician.ai/mcp.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4296,10 +4113,6 @@
         "pushedAt": "2026-11-12",
         "archived": false,
         "openIssues": 23
-      },
-      "about": {
-        "description": "MCP server for enabling memory for Claude through a knowledge graph",
-        "keywords": []
       }
     },
     "mirastack-redfish-mcp": {
@@ -4317,7 +4130,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "Schema-aware MCP server for Redfish-enabled infrastructure.",
         "keywords": [
           "bmc",
           "idrac",
@@ -4351,7 +4163,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Local MCP server: find the cheapest AI model that passes your own tests",
         "keywords": [
           "claude",
           "evaluation",
@@ -4384,11 +4195,7 @@
         "version": "1.1.1",
         "date": "2026-11-11"
       },
-      "repo": null,
-      "about": {
-        "description": "A MCP server for MotherDuck and local DuckDB",
-        "keywords": []
-      }
+      "repo": null
     },
     "muovi-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -4405,7 +4212,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Model Context Protocol (MCP) server that exposes Muovi's public /v1 API to LLM agents (Claude Desktop, Cursor, Claude Code). Stdio mode.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4435,7 +4241,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Model Context Protocol server that lets any LLM discover, quote, pay, and cite naulon-tolled sources — BYO wallet, local stdio, the wayfarer brain in-process.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4473,7 +4278,6 @@
         "openIssues": 14
       },
       "about": {
-        "description": "Decision system for software built with AI. Keep your project's direction in human hands as agents do more of the work.",
         "keywords": [
           "agentic-ai",
           "ai-agents",
@@ -4502,7 +4306,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for noglow — drop short plaintext fragments straight into a slot (ADR-0022)",
         "keywords": [
           "mcp",
           "noglow",
@@ -4529,7 +4332,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Nove (nove.care): pregnancy week by week, due date calculator and search, over stdio. Proxies the official remote MCP server at https://nove.care/mcp.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -4553,7 +4355,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for Nudg3 brand visibility intelligence — query your AI search visibility from Claude, Cursor, or any MCP client",
         "keywords": [
           "ai-search",
           "brand-visibility",
@@ -4579,7 +4380,6 @@
         "openIssues": 10
       },
       "about": {
-        "description": "Run Claude Code, Codex CLI, Antigravity CLI, Grok Build, Docker Agent and your shells side by side in real terminals, watch each session as a character in a living 3D world, and pick them up from your phone, VS Code or any browser.",
         "keywords": [
           "agent-office",
           "agent-visualization",
@@ -4619,7 +4419,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server giving AI trading agents access to prediction markets (Polymarket, Kalshi) with on-chain builder-code attribution and trading signals.",
         "keywords": [
           "ai-agents",
           "kalshi",
@@ -4645,7 +4444,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "MCP, CLI, Skills for searching and downloading academic papers from multiple sources like arXiv, PubMed, bioRxiv, etc.",
         "keywords": [
           "ai-scientist",
           "arxiv-papers",
@@ -4664,7 +4462,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server — let any LLM agent identify an appliance and pull its grounded, safety-checked, robot-executable operation package from OPERANDI.",
         "keywords": [
           "agents",
           "appliances",
@@ -4691,7 +4488,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP server for AI code reviews powered by Optibot",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4725,7 +4521,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "OrangePro finds test gaps, generates grounded tests, and proves them with targeted mutation proof. Local-first; no OrangePro-hosted service or repo upload. Optional BYOK generation sends redacted grounded context directly to the user's own model provider.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4765,7 +4560,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Zero-config MCP server for OrderCore — give an AI agent a commerce catalog + idempotent checkout. No signup: runs a read-only sandbox with no key.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4801,7 +4595,6 @@
         "openIssues": 10
       },
       "about": {
-        "description": "Overwing MCP server: guardrails for LLM output. Score any text for safety, quality and compliance and get pass / fail / review verdicts with calibrated confidence, from any MCP-capable agent. Plus Overwing Atlas: identify any User-Agent string against a r",
         "keywords": [
           "overwing",
           "mcp",
@@ -4835,7 +4628,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Links an AI assistant app to the open Paramability tab in Chrome. A small local MCP server; it runs on your computer only.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4861,7 +4653,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Connect Claude Code (or any MCP client) to the Paraplex tab you have open: build and edit 3D motion design scenes with the assistant's tools, look at frames, export.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4889,7 +4680,6 @@
         "openIssues": 60
       },
       "about": {
-        "description": "Model Context Protocol server for Pascal 3D editor",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4924,7 +4714,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for the Percher hosting platform — deploy apps from AI assistants",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -4949,7 +4738,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Pidgeon's MCP server: a coding agent sets an agent up end to end (registered, keyed on your machine, published, its reputation read) and works its inboxes.",
         "keywords": [
           "pidgeon",
           "mcp",
@@ -4975,7 +4763,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Search MCP servers and agent skills, compare them, and get install configs from any MCP client.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -5012,7 +4799,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Stdio bridge to the Popdot AI MCP server. Rent verified subdomains by the hour, day, or month. Built for AI agents: free 24h trials, x402 USDC payments on Base.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5031,11 +4817,7 @@
         "version": "0.4.1",
         "date": "2026-11-05"
       },
-      "repo": null,
-      "about": {
-        "description": "Developer memory CLI. Remember what matters.",
-        "keywords": []
-      }
+      "repo": null
     },
     "postgres-mcp": {
       "checkedAt": "2026-11-17",
@@ -5045,11 +4827,7 @@
         "version": "0.3.0",
         "date": "2025-05-16"
       },
-      "repo": null,
-      "about": {
-        "description": "PostgreSQL Tuning and Analysis Tool",
-        "keywords": []
-      }
+      "repo": null
     },
     "pretrip-mcp": {
       "checkedAt": "2026-11-17",
@@ -5061,7 +4839,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Model Context Protocol server for Pre-Trip: screen regulated-health marketing copy against source-cited compliance rulesets from inside your AI assistant.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -5095,7 +4872,6 @@
       },
       "repo": null,
       "about": {
-        "description": "PromptGuard MCP server, scan prompts, redact PII, and audit LLM SDK usage from any MCP client. mcprush.com-8ddf1cbeed7dbe8b910cba97",
         "keywords": [
           "mcp",
           "llm",
@@ -5117,7 +4893,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for provably-fair random selection: pick winners nobody can rig, verifiable by anyone. Randomness is committed via the public drand beacon before the draw. Built and run by an autonomous AI.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -5147,7 +4922,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP server for ProxyLLM, the OpenAI-compatible LLM gateway. Model catalog, plan-savings calculator, routing-key introspection and provisioning, and autonomous email-OTP account signup.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -5175,7 +4949,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Browser MCP server for the Chrome tab you already have open — your session, your logins. Gives Claude Code, Cursor, Codex and VS Code the live page: findings, forms, failed requests with server bodies.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -5214,7 +4987,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Quorum: gives AI clients your Quorum connections, with read-only sessions, masking and approved writes. Requires the Quorum app.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -5246,7 +5018,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "RadMail MCP server — email operating system for agents: two-axis triage (importance x urgency), a 'Right Now' lane, commitment follow-through, reviewable drafts, and a machine-verifiable BEC hard-stop (money / changed-banking / first-contact / decision /",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5286,7 +5057,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Local MCP server for Ranch.Bot livestock recordkeeping.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5310,7 +5080,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Ra Pay MCP Server for Claude Desktop and Claude Code - AI Agent Payment Infrastructure",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5338,7 +5107,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "An MCP server for coding agents — click any element in your locally running app, say what should change, and get back the selector, computed styles, and design tokens, plus an audit of the result.",
         "keywords": [
           "mcp",
           "design",
@@ -5379,7 +5147,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Eerlijke Nederlandse rechtspraak-laag voor AI-agents (MCP). Open-core client; model en lekkage-knip draaien op de servers van Rechtssysteem.ai.",
         "keywords": [
           "benchmark",
           "legal-tech",
@@ -5404,7 +5171,6 @@
         "openIssues": 5
       },
       "about": {
-        "description": "MCP server + A2A agent for the Recordist app (https://recordist.app): lets AI assistants read, search and act on meetings recorded on your own laptop.",
         "keywords": [
           "recordist",
           "mcp",
@@ -5433,7 +5199,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Read-only MCP server for searching and reading Reddit: search, subreddit discovery, full comment threads, wikis and user activity. No API key required.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -5455,10 +5220,6 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 1
-      },
-      "about": {
-        "description": "RightCard MCP — the card-selection oracle for agents. Which of your credit cards to use at any store, from verified data. No bank login.",
-        "keywords": []
       }
     },
     "rillsoft-rillsoft-project-mcp": {
@@ -5477,7 +5238,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "MCP server built into Rillsoft Project 10 (Windows) - launcher, tool catalogue and plugins for Claude, Kiro and Antigravity",
         "keywords": [
           "capacity-planning",
           "claude-code-plugin",
@@ -5507,7 +5267,6 @@
         "openIssues": 6
       },
       "about": {
-        "description": "An MCP server to wrap ripgrep",
         "keywords": [
           "mcp",
           "model",
@@ -5528,7 +5287,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Verified lifecycle for building software with AI agents: work units, human gates, requirements and evidence.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -5557,7 +5315,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Sato Kit: prepare -> execute for onchain agent actions, with a policy pre-flight, pluggable signers and a hash-chained receipt log. Preview, unpublished.",
         "keywords": [
           "agent-security",
           "agent-tools",
@@ -5597,7 +5354,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Build any crypto agent: the Sato Hub MCP server (stdio shim over https://satohub.ai/api/mcp). Stack picks with install steps, x402 and ERC-8004 lookups, wallet-key checks, unsigned swaps.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -5637,7 +5393,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for SayMaker (saymaker.ai) — generate and edit images and video from any MCP client on Veo 3.1, Kling 3.0, Seedance 2.0, Nano Banana 2, GPT Image 2.5, Seedream 5.0 and more, on one credit balance.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5673,7 +5428,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for Scope.bid AEC professional dispatch. Subcontractor prequal, bonding, safety, dispatch through your AI assistant.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5710,7 +5464,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for Scope.bid insurance claims professional dispatch. IMEs, surveillance, peer review, life-care plans, voc rehab through your AI assistant.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5748,7 +5501,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for Scope.bid legal professional dispatch. Engage court reporters, IMEs, records, experts, e-discovery, and more through your AI assistant.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5778,7 +5530,6 @@
       },
       "repo": null,
       "about": {
-        "description": "OpenTelemetry instrumentation for Node.js, Next.js, and Nuxt - Send traces and logs to any OTLP-compatible backend",
         "keywords": [
           "opentelemetry",
           "otel",
@@ -5816,10 +5567,6 @@
         "pushedAt": "2026-11-12",
         "archived": false,
         "openIssues": 23
-      },
-      "about": {
-        "description": "MCP server for sequential thinking and problem solving",
-        "keywords": []
       }
     },
     "servelink-serve": {
@@ -5837,7 +5584,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "You already ask your AI to make things. Now ask it to share them. serve gives anything on your machine a public HTTPS link — live from your computer, or hosted so it outlives the session.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5875,10 +5621,6 @@
         "pushedAt": "2026-11-12",
         "archived": false,
         "openIssues": 23
-      },
-      "about": {
-        "description": "MCP server for interacting with PostgreSQL databases",
-        "keywords": []
       }
     },
     "ship-safe-mcp": {
@@ -5891,7 +5633,6 @@
       },
       "repo": null,
       "about": {
-        "description": "ShipSafe MCP server — the independent verifier for AI-built apps: your AI coding agent checks the code it writes, in-loop",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5920,7 +5661,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Feature flags, A/B experiments, kill switches, dynamic config & i18n — Shipeasy MCP server.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -5958,10 +5698,6 @@
         "pushedAt": "2026-09-29",
         "archived": false,
         "openIssues": 0
-      },
-      "about": {
-        "description": "Shiplight MCP server for AI-powered test automation",
-        "keywords": []
       }
     },
     "shiwake-ai-mcp": {
@@ -5979,7 +5715,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "AI アシスタントから日本の税務・会計の計算を使える MCP サーバー（年末調整の還付試算・勘定科目・インボイス登録番号の照合・消費税の方式比較）。MCP server for Japanese tax & accounting: year-end adjustment, account titles, invoice registration numbers, consumption tax.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -6015,7 +5750,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Simulator use for agents: read and drive the iOS Simulator from any MCP client or the command line.",
         "keywords": [
           "mcp",
           "ios",
@@ -6049,7 +5783,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "Static security scanner for npm and PyPI packages, MCP servers and agent skills. Runs locally, never runs the code, no LLM.",
         "keywords": [
           "security",
           "ai",
@@ -6089,7 +5822,6 @@
         "openIssues": 4
       },
       "about": {
-        "description": "MCP stdio server for @smartmemory/compose: typed feature management tools (roadmap, changelog, artifact linking, and more). Requires a compose-initialized project.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -6114,11 +5846,7 @@
         "version": "2.0.2",
         "date": "2026-11-17"
       },
-      "repo": null,
-      "about": {
-        "description": "Unified SmartMemory MCP server — tiered tools, local + remote backends",
-        "keywords": []
-      }
+      "repo": null
     },
     "snowsure-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -6130,7 +5858,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP stdio bridge to SnowSure hosted server — full tool surface (ask_snowdata, get_destination, insights). SnowSure.ai",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6162,7 +5889,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for myspAIce: your AI joins as itself, names itself, and hangs out, plays and makes things in themed rooms with other AIs and people.",
         "keywords": [
           "mcp",
           "myspaice",
@@ -6184,7 +5910,6 @@
       },
       "repo": null,
       "about": {
-        "description": "SpiderIQ Gate MCP Server — SpiderGate LLM gateway (completions, models, usage, traces) for AI assistants",
         "keywords": [
           "spideriq",
           "spidergate",
@@ -6208,7 +5933,6 @@
       },
       "repo": null,
       "about": {
-        "description": "SpiderIQ Leads MCP Server — lead gen, scraping, enrichment (jobs, campaigns, IDAP, Maps, People, Verify) for AI assistants",
         "keywords": [
           "spideriq",
           "mcp",
@@ -6234,7 +5958,6 @@
       },
       "repo": null,
       "about": {
-        "description": "SpiderIQ Mail MCP Server — SpiderMail mailboxes, messages, threads, send, compose for AI assistants",
         "keywords": [
           "spideriq",
           "spidermail",
@@ -6258,7 +5981,6 @@
       },
       "repo": null,
       "about": {
-        "description": "SpiderIQ Media MCP Server — SpiderMedia files, videos, and the per-tenant media catalog (read) for AI assistants",
         "keywords": [
           "spideriq",
           "spidermedia",
@@ -6283,7 +6005,6 @@
       },
       "repo": null,
       "about": {
-        "description": "SpiderIQ Publish MCP Server — content platform tools (pages, posts, templates, components, domains, media) for AI assistants",
         "keywords": [
           "spideriq",
           "spiderpublish",
@@ -6306,11 +6027,7 @@
         "version": "2025.4.25",
         "date": "2025-04-25"
       },
-      "repo": null,
-      "about": {
-        "description": "A simple SQLite MCP server",
-        "keywords": []
-      }
+      "repo": null
     },
     "srift-transfer": {
       "checkedAt": "2026-11-17",
@@ -6327,7 +6044,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Decentralized, end-to-end encrypted P2P file transfer, chat and calls: human to human, human to AI agent, and AI agent to AI agent. Send any file as a download link from the CLI or an MCP server; Peerknock for agent-to-agent. No account, no database.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -6367,7 +6083,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "ssid.ai MCP server: manufacturer-cited router default logins and the Router Compliance Index (409 models), plus MAC/OUI vendor lookup with randomized-address detection. Read tools free, no API key; submit_correction on ssid Pro.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -6400,11 +6115,7 @@
         "version": "2.4.0",
         "date": "2026-11-10"
       },
-      "repo": null,
-      "about": {
-        "description": "Schedule and publish to X, Bluesky, Mastodon, LinkedIn and Reddit from your terminal or your agent.",
-        "keywords": []
-      }
+      "repo": null
     },
     "stickerdaniel-linkedin-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -6422,7 +6133,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Open-source MCP server for LinkedIn. Give Claude and any MCP-compatible AI agent access to profiles, companies, jobs, and messages.",
         "keywords": [
           "ai-agents",
           "anthropic",
@@ -6456,7 +6166,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Stork MCP server: web search, page reading and library docs for your agent with no keys, plus MCP server and AI tool discovery. Also the Stork API client (talking photo video, text to speech, singing video).",
         "keywords": [
           "ai-tools",
           "ai-video",
@@ -6491,7 +6200,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server exposing your organization’s norms and reference documents (standards, laws, regulations) to any MCP client, with exact citations, via Stratta TreeRAG.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6519,7 +6227,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Swiss company data: Zefix, SHAB, simap, FINMA, GLEIF and ARAMIS",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6554,7 +6261,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Credential-aware MCP proxy - schema caching plus per-project credential routing",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6580,7 +6286,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for AI agent access to the takehub API",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6605,7 +6310,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Pull one-time .env stubs from stubs.talix.app into a project without ever printing the values.",
         "keywords": [
           "env",
           "dotenv",
@@ -6634,7 +6338,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Tanvo (tanvo.ai): run 80 ready-made AI photo, video and song apps on your own photos, or generate images, video and music on Nano Banana, Seedream, GPT Image, Veo, Kling, Seedance and Suno from Claude, Cursor, Codex or any MCP client. The h",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -6672,7 +6375,6 @@
         "openIssues": 16
       },
       "about": {
-        "description": "Open-source platform for always-on AI agents: a software factory for Claude Code that takes your projects from tickets to merged pull requests, or an AI SRE that watches your systems.",
         "keywords": [
           "agent-orchestration",
           "ai-monitoring",
@@ -6711,7 +6413,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Control Gmail, Google Calendar, Docs, Sheets, Slides, Chat, Forms, Tasks, Search & Drive with AI - Comprehensive Google Workspace MCP Server & CLI Tool",
         "keywords": [
           "ai",
           "chatgpt",
@@ -6746,7 +6447,6 @@
       },
       "repo": null,
       "about": {
-        "description": "The Telbase CLI and MCP server: hosting for the apps your coding agent builds.",
         "keywords": [
           "deploy",
           "hosting",
@@ -6780,7 +6480,6 @@
         "openIssues": 40
       },
       "about": {
-        "description": "The tool router for coding agents. Tenjin picks the right tool when your agent needs one, and one wallet pays for every call.",
         "keywords": [
           "claude-code",
           "coding-agents",
@@ -6815,7 +6514,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for TensorFeed.ai - AI news, service status, model pricing, signed decision verdicts, time series, model comparison, webhook watches, and a discovery tool for the full TensorFeed data catalog, for AI agents",
         "keywords": [
           "mcp",
           "ai",
@@ -6847,7 +6545,6 @@
         "openIssues": 10
       },
       "about": {
-        "description": "Read-only MCP server for verifying x402 USDC settlements on Base mainnet. The verify-side companion to Coinbase Base MCP, with AFTA federation helpers.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6877,7 +6574,6 @@
         "openIssues": 5
       },
       "about": {
-        "description": "MCP server exposing TestivAI visual regression results to AI coding agents",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -6910,11 +6606,7 @@
         "version": "1.2.2",
         "date": "2026-09-12"
       },
-      "repo": null,
-      "about": {
-        "description": "MCP Text Editor Server - Edit text files via MCP protocol",
-        "keywords": []
-      }
+      "repo": null
     },
     "textile-designer-ai-mcp": {
       "checkedAt": "2026-11-17",
@@ -6931,7 +6623,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Textile Designer AI: run the design tools from Claude Code, Claude Desktop, Codex or any MCP client.",
         "keywords": [
           "mcp",
           "textile",
@@ -6956,7 +6647,6 @@
         "openIssues": 1
       },
       "about": {
-        "description": "MCP server for permanent PDF redaction. Exposes redact_pdf and check_pdf; rasterises and rebuilds each page so redacted text is gone, not covered. Never uploads the document.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -6979,7 +6669,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server that audits PDFs for accessibility (PDF/UA basics: tags, structure, language, title, alt text, reading order) entirely on the local machine. The free checker behind spotlight.thrain.ai.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -7008,7 +6697,6 @@
         "openIssues": 23
       },
       "about": {
-        "description": "A Model Context Protocol server providing tools for time queries and timezone conversions for LLMs",
         "keywords": [
           "llm",
           "mcp",
@@ -7032,7 +6720,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Stop re-explaining your project to every new AI chat. MCP connector for TruthSpine: gives AI agents a checked, local record of your project (decisions, work done, failures, next steps). Works on your computer. No cloud account. Needs the TruthSpine app.",
         "keywords": [
           "truthspine",
           "mcp",
@@ -7072,7 +6759,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for todoglow — let Claude Code, Codex, and Cursor read your todos and report what they're working on",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -7100,7 +6786,6 @@
       },
       "repo": null,
       "about": {
-        "description": "The Toolaby command line: wire any Chrome extension to your Toolaby tool (sign-in, licences, subscriptions, the paywall), move one from ExtensionPay or start a new one; check it, pack it for the Chrome Web Store, and give coding agents Toolaby as an MCP s",
         "keywords": [
           "chrome-extension",
           "toolaby",
@@ -7124,7 +6809,6 @@
         "openIssues": 2
       },
       "about": {
-        "description": "MCP server for searching UK electronics products across multiple retailers",
         "keywords": [
           "mcp",
           "claude",
@@ -7153,7 +6837,6 @@
         "openIssues": 8
       },
       "about": {
-        "description": "Trusty Squire gives coding agents the ability to provision, ship, and pay — without your keys or card ever leaving the vault.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -7181,11 +6864,7 @@
         "version": "0.3.23",
         "date": "2026-11-07"
       },
-      "repo": null,
-      "about": {
-        "description": "One command to live. Deploys the app in the current directory to a private URL, with its database, file storage and scheduled jobs set up.",
-        "keywords": []
-      }
+      "repo": null
     },
     "uplink-code-mcp": {
       "checkedAt": "2026-11-17",
@@ -7197,7 +6876,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Automate a real, logged-in browser session on your own device, straight from Claude Code — no stored credentials, no bot detection.",
         "keywords": [
           "uplink",
           "mcp",
@@ -7218,7 +6896,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server and CLI for User Intuition: run AI-moderated qualitative interviews with real people from Claude, ChatGPT, Codex or Cursor, and get findings with cited quotes.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -7258,7 +6935,6 @@
         "openIssues": 9
       },
       "about": {
-        "description": "The best wallet for your agents. Give your agents money, not your card: one prepaid balance for 4,400+ paid endpoints across models, media, data, storage and compute, with a key and spending limit for each agent, the price shown before every call, and a p",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -7298,7 +6974,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Vantic — a spending firewall and permission layer for AI agents: signed mandates, allowlists, and tamper-proof receipts for every money-moving action.",
         "keywords": [
           "ai-agents",
           "agentic-commerce",
@@ -7329,7 +7004,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for Veida (veida.ai) — generate AI images from a prompt with no API key, browse the model shelf, and get model-tuned prompt guidance. Runs on Veida's anonymous free tier: no account, no card.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -7357,7 +7031,6 @@
       },
       "repo": null,
       "about": {
-        "description": "MCP server for Vertical Marketplace by Vermarco - the marketplace where AI agents buy and sell. Sellers keep 95% (before payment processing). Connects any stdio MCP client to the hosted server.",
         "keywords": [
           "mcp",
           "modelcontextprotocol",
@@ -7385,7 +7058,6 @@
       },
       "licenseFrom": "repo",
       "about": {
-        "description": "Stealth browser automation for AI agents over MCP and the Chrome DevTools Protocol: navigation, network hooks, DOM extraction, and pixel-accurate UI cloning.",
         "keywords": [
           "ai-agent-tools",
           "ai-tools",
@@ -7425,7 +7097,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Stdio MCP bridge for the hosted Vruum revenue-platform MCP (https://api.vruum.ai/mcp): serves the advertised tool surface for credential-free introspection and proxies tool calls with your Vruum token.",
         "keywords": [
           "vruum",
           "mcp",
@@ -7454,7 +7125,6 @@
         "openIssues": 4
       },
       "about": {
-        "description": "WaveSpeed MCP server — run any model on the live WaveSpeed catalog (image, video, audio, 3D) with schema introspection, local-file upload, and price quotes.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -7475,7 +7145,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Advanced codebase indexing and semantic search MCP server",
         "keywords": [
           "mcp",
           "claude-code",
@@ -7503,7 +7172,6 @@
         "openIssues": 4
       },
       "about": {
-        "description": "Read your children's Wilma (Finnish school system) from the terminal or an AI assistant: schedule, homework, exams, messages and news. Students can use their own login too.",
         "keywords": [
           "ai-agents",
           "chatgpt",
@@ -7536,7 +7204,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Local MCP server and CLI for the Agent Ready extension: SEO, GEO and AI agent checks.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -7569,7 +7236,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Local MCP server and CLI for the Local SEO extension: Google Business Profile and Maps audits.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -7599,7 +7265,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Model Context Protocol server for WPConvert.ai — lets an AI agent convert the current workspace folder into a WordPress theme.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -7634,7 +7299,6 @@
       },
       "repo": null,
       "about": {
-        "description": "Connect an MCP-compatible AI client to Yomio with browser sign-in",
         "keywords": [
           "mcp",
           "yomio",
@@ -7658,7 +7322,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "MCP server for ZendIQ: screen Solana tokens for free, triage a swap ($0.01) or build it ($0.02), paid per call over x402. Zero custody.",
         "keywords": [
           "mcp",
           "model-context-protocol",
@@ -7686,7 +7349,6 @@
         "openIssues": 3
       },
       "about": {
-        "description": "MCP memory server for ZenBrain: agent memory for any Model Context Protocol client — store, recall, forget, consolidate, health. Local SQLite file, no account.",
         "keywords": [
           "mcp",
           "mcp-server",
@@ -7726,7 +7388,6 @@
         "openIssues": 0
       },
       "about": {
-        "description": "Sign in, train, and call Zils decision models from your terminal",
         "keywords": [
           "zils",
           "cli",

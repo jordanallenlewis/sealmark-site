@@ -25,11 +25,11 @@ export default function TopicsPage() {
         <p className={s.crumb}><Link href="/results/">Results</Link> / Topics</p>
         <h1 className={s.h1}>Best graded MCP servers by topic</h1>
         <p className={s.lede}>
-          The graded servers, grouped by what they are for and ranked by grade, with the servers graded beyond the protocol first. A server joins a topic by a fixed rule: it was graded in the matching test area, or its package keywords, name or description use one of the topic&rsquo;s words. Each row says which. A topic is listed once it has {MIN_SERVERS} graded servers.
+          The graded servers, grouped by what they are for and ranked by grade, the servers tested most deeply first. A server joins a topic by a fixed rule: it was graded in the matching test area, or its declared package keywords or GitHub topics, or its name, use one of the topic&rsquo;s words. Each row says which. A topic is listed once it has {MIN_SERVERS} graded servers.
         </p>
         <ul className={s.topicList}>
           {pages.map((t) => {
-            const deep = t.rows.filter((r) => r.areas.length > 0).length;
+            const deep = t.rows.filter((r) => r.tier < 2).length;
             return (
               <li key={t.id}>
                 <Link href={`/results/topics/${t.id}/`}>{topicTitle(t)}</Link>
