@@ -1,8 +1,22 @@
 {
-  "generatedAt": "2026-11-16T15:34:52.845Z",
+  "generatedAt": "2026-11-17T01:51:14.954Z",
   "window": 600,
-  "graded": 520,
-  "failed": 80,
-  "clusters": [],
+  "graded": 522,
+  "failed": 78,
+  "clusters": [
+    {
+      "servers": [
+        "vaaya-mcp"
+      ],
+      "key": "slow:run",
+      "kind": "slow-path",
+      "labels": [
+        "performance"
+      ],
+      "title": "Slow runs: 3 servers took over 5 min or timed out",
+      "count": 3,
+      "detail": "Longest: 329 s. Find which probe or pack dominates and add a per-probe budget."
+    }
+  ],
   "surfaceChanged": []
 }
