@@ -11,8 +11,9 @@
 //     renders now is byte for byte the one in the draft; anything else is skipped and the log says why.
 //   - The token is checked with GET /user in every mode. A 401 prints a warning and the read-only lookups fall back to
 //     GITHUB_TOKEN; nothing is posted. An account in SELF (Jordan's own) is refused: issues come from the bot only.
-//   - Pacing for a new account: at most MAX_OWNER_ISSUES issues per run (default 2), at least 60 s between two posts,
-//     at most one issue per repository owner (user or organisation) in 24 hours.
+//   - Pacing (fleet/owner-limits.mjs): MAX_OWNER_ISSUES per run (2), MAX_OWNER_ISSUES_PER_DAY (6) and _PER_WEEK (30) over
+//     rolling windows, 30 minutes since the last notice, 2 minutes between posts in a run, one notice per repository
+//     owner (user or organisation) per 7 days. The caps are also checked against the bot's real issue count on GitHub.
 //   - One failed `gh` call never fails the run: a per-repository error (404, 410, 422, issues off) is recorded in the
 //     ledger and the loop moves on; a repository that failed 3 times is skipped. A 401, 403, 429, a rate limit or any
 //     other error stops the posting loop (not the run).
@@ -41,7 +42,9 @@
 //   fleet/owner-notified.json   the ledger: issues opened (with the baseline fleet/impact.mjs measures from), failed
 //                               posts per repository, replies, and the tracking issue's number
 //   fleet/owner-optout.json     repositories that asked not to hear from Sealmark; honoured forever, never pruned
-//   fleet/owner-pick.json       optional {"repos": ["owner/repo"]}: when not empty, only those repositories are drafted or posted
+//   fleet/owner-pick.json       optional {"repos": ["owner/repo"]}: a hand-picked extra batch goes first; it never restricts the drip
+//                               (it did until 2026-11-17, and a list of two finished repositories silenced every run)
+// The rate limits, the pause and the stability rules live in fleet/owner-limits.mjs.
 //   fleet/owner-issues-draft.md the issues the next live run would open (rewritten each run while the gate is shut)
 //   fleet/owner-weekly.md       the weekly counts and the replies of the last 7 days
 // Not tracked (.gitignore): fleet/owner-private-queue.json and fleet/owner-private-draft.md, rewritten every run.
@@ -49,9 +52,11 @@ import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { ISSUE_MARKER, ORIGIN, RANK, failingChecks, issueDraft, letterOf, notPassed } from "../web/worker/notify-core.mjs";
+import registry from "../web/content/generated/checks.json" with { type: "json" };
 import { failedSince } from "../web/lib/retest.mjs";
 import { ownerStatus, statusFile } from "./owner-status.mjs";
 import { FILE as FACTS_FILE, collect as collectFacts, githubGetter } from "./server-facts.mjs";
+import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -64,6 +69,7 @@ export const FILES = {
   privateQueue: "fleet/owner-private-queue.json",
   privateDraft: "fleet/owner-private-draft.md",
   weekly: "fleet/owner-weekly.md",
+  history: "fleet/history.jsonl",
   status: "fleet/owner-status.json", // public: what each server page shows about its issue (fleet/owner-status.mjs)
 };
 // Issues per run: MAX_OWNER_ISSUES when it is a whole number of at least 1, else 2.
@@ -75,7 +81,7 @@ export function maxIssues(value) {
 export const MAX_ISSUES = maxIssues(process.env.MAX_OWNER_ISSUES);
 export const FRESH_DAYS = 14; // a grade older than this waits for a re-test before its owner is told
 export const SELF = ["jordanallenlewis"]; // never notify our own repositories, never post as this account
-export const PACE_MS = 60_000; // at least this long between two posts
+export const PACE_MS = 120_000; // between two posts inside one run; the gap between runs is limits.gapMinutes
 export const OWNER_WINDOW_MS = 24 * 3600_000; // one issue per repository owner in this window
 export const MAX_REPO_FAILURES = 3; // a repository whose post failed this often is skipped
 export const TRACKING_REPO = "jordanallenlewis/sealmark-site";
@@ -166,7 +172,16 @@ export function launchProblem(launch) {
 }
 
 // The failing or partly passing checks an issue may name: scored, in a graded test area, on the public allowlist.
-export const listedChecks = (server) => notPassed(server).filter(isPublicCheck);
+const REMEDY = new Map(registry.map((c) => [c.id, c.remediation]));
+// The registry's remediation for a check, cut at a sentence end within 320 characters ("" when it has none).
+export function fixFor(id) {
+  const t = String(REMEDY.get(id) ?? "").replace(/\s+/g, " ").trim();
+  if (t.length <= 320) return t;
+  const cut = t.slice(0, 320);
+  const end = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("; "));
+  return end > 80 ? cut.slice(0, end + 1).replace(/;$/, ".") : cut.replace(/\s\S*$/, "") + "…";
+}
+export const listedChecks = (server) => notPassed(server).filter(isPublicCheck).map((c) => ({ ...c, fix: fixFor(c.id) }));
 
 // Why the grade cannot be explained in public, or null. Every test area below an A must have at least one check the
 // issue can name; an A must have every scored check passed or a nameable one that did not.
@@ -242,13 +257,16 @@ export function factsGate(server, facts) {
 //   only: Set of lowercased repos (a hand-approved batch) or null
 // Returns send (at most max), eligible (all), waiting, skipped [{id, repo, code, reason}], held [{repo, servers}] and
 // unchecked [{repo, servers}] (candidates that need network checks before they can be judged).
-export function plan({ servers, cache, ledger, optout, meta = {}, facts = {}, max = MAX_ISSUES, today = new Date().toISOString().slice(0, 10), now = Date.parse(`${today}T12:00:00Z`), only = null }) {
+export function plan({ servers, cache, ledger, optout, meta = {}, facts = {}, max = MAX_ISSUES, today = new Date().toISOString().slice(0, 10), now = Date.parse(`${today}T12:00:00Z`), only = null, history = null, siteFacts = {}, limits = LIMIT_DEFAULTS, prefer = null }) {
   const notified = new Set((ledger.issues ?? []).map((i) => i.repo.toLowerCase()));
+  // a repository renamed since the notice: the ledger holds the old name, the cache the new one
+  for (const c of Object.values(cache)) if (c.movedFrom && notified.has(c.movedFrom.toLowerCase()) && c.repo) notified.add(c.repo.toLowerCase());
   const opted = new Set((optout.repos ?? []).map((r) => r.toLowerCase()));
+  const optedOwners = new Set([...opted].map((r) => r.split("/")[0])); // an opt-out speaks for every repository of that owner
   const failures = new Map((ledger.failures ?? []).map((f) => [f.repo.toLowerCase(), f]));
   const sorted = [...servers].sort((a, b) => String(a.testedAt).localeCompare(String(b.testedAt)) || a.id.localeCompare(b.id));
   const skipped = [];
-  const skip = (x, repo, g) => skipped.push({ id: x.id, repo, code: g.code, reason: g.reason });
+  const skip = (x, repo, g) => skipped.push({ id: x.id, repo, code: g.code, reason: g.reason, ...(g.eta ? { eta: g.eta } : {}) });
   const keyOf = (x) => (cache[x.id]?.repo ? cache[x.id].repo.toLowerCase() : `id:${x.id}`);
 
   // 1. holds: every server, graded or not, with a repository or not
@@ -266,26 +284,37 @@ export function plan({ servers, cache, ledger, optout, meta = {}, facts = {}, ma
     byRepo.get(k).servers.push(x);
   }
 
-  // 2. per repository
-  const busy = new Set((ledger.issues ?? []).filter((i) => {
-    const t = Date.parse(i.postedAt ?? `${i.at}T00:00:00Z`);
-    return Number.isFinite(t) && now - t < OWNER_WINDOW_MS && now >= t;
-  }).map((i) => i.repo.split("/")[0].toLowerCase()));
-  const eligible = [];
-  const unchecked = [];
+  // 2. per repository, local rules first (no network); candidates then go most helpful first
+  const busy = ownersBusy(ledger, now, limits.ownerDays);
+  const candidates = [];
   for (const [key, { repo, servers: graded }] of byRepo) {
-    if (notified.has(key)) continue;
-    if (only && !only.has(key)) continue;
     const owner = key.split("/")[0];
+    if (notified.has(key)) { for (const x of graded) skip(x, repo, { code: "already-notified", reason: "this repository already got its one Sealmark issue" }); continue; }
+    if (only && !only.has(key)) { for (const x of graded) skip(x, repo, { code: "not-in-batch", reason: "a hand-approved batch is running and this repository is not in it" }); continue; }
     const f = failures.get(key);
-    const repoWhy = opted.has(key) ? { code: "opted-out", reason: "opted out" }
+    const repoWhy = opted.has(key) || optedOwners.has(owner) ? { code: "opted-out", reason: "opted out" }
       : SELF.includes(owner) ? { code: "own", reason: "our own repository" }
       : (f?.failed ?? 0) >= MAX_REPO_FAILURES ? { code: "failures", reason: `posting failed ${f.failed} times (last: ${f.status} at ${f.at}); skipped` }
       : null;
-    if (repoWhy) { skip(graded[0], repo, repoWhy); continue; }
+    if (repoWhy) { for (const x of graded) skip(x, repo, repoWhy); continue; }
     const pass = [];
-    for (const x of graded) { const g = serverGate(x, today); if (g) skip(x, repo, g); else pass.push(x); }
+    for (const x of graded) {
+      const g = serverGate(x, today) ?? helpfulGate(x, history);
+      if (g) skip(x, repo, g); else pass.push(x);
+    }
     if (!pass.length) continue;
+    const pf = siteFacts[pass[0].id]?.repo?.pushedAt;
+    const act = activity(pf, today, limits.activeDays);
+    if (act.ok === false) { for (const x of pass) skip(x, repo, act); continue; }
+    const prios = pass.map((x) => priority(x, letterOf(x), listedChecks(x)));
+    const best = prios.reduce((a, b) => (byPriority({ ...a, id: "" }, { ...b, id: "" }) <= 0 ? a : b));
+    candidates.push({ key, repo, owner, pass, ...best, picked: prefer?.has(key) ? 1 : 0 });
+  }
+  candidates.sort((a, b) => b.picked - a.picked || byPriority({ ...a, id: a.repo }, { ...b, id: b.repo }));
+
+  const eligible = [];
+  const unchecked = [];
+  for (const { repo, owner, pass } of candidates) {
     const m = meta[repo];
     if (!m || pass.some((x) => !facts[x.id])) { unchecked.push({ repo, servers: pass }); continue; }
     const metaWhy = m.missing ? { code: "missing", reason: "repository not found" }
@@ -293,16 +322,29 @@ export function plan({ servers, cache, ledger, optout, meta = {}, facts = {}, ma
       : m.archived ? { code: "archived", reason: "archived" }
       : m.fork ? { code: "fork", reason: "fork" }
       : m.has_issues === false ? { code: "issues-off", reason: "issues disabled" }
+      : (m.pushed_at && activity(m.pushed_at, today, limits.activeDays).ok === false) ? activity(m.pushed_at, today, limits.activeDays)
       : null;
-    if (metaWhy) { skip(pass[0], repo, metaWhy); continue; }
+    if (metaWhy) { for (const x of pass) skip(x, repo, metaWhy); continue; }
     const ok = [];
     for (const x of pass) { const g = factsGate(x, facts[x.id]); if (g) skip(x, repo, g); else ok.push(x); }
     if (!ok.length) continue;
-    if (busy.has(owner)) { skip(ok[0], repo, { code: "owner-limit", reason: `waits: ${owner} already gets a Sealmark issue within 24 hours (one per owner per day)` }); continue; }
-    busy.add(owner);
+    if (busy.has(owner)) { for (const x of ok) skip(x, repo, { code: "owner-limit", reason: `waits: ${owner} already got a Sealmark notice within ${limits.ownerDays} days (one per owner per ${limits.ownerDays} days)`, eta: new Date(busy.get(owner)).toISOString().slice(0, 10) }); continue; }
+    busy.set(owner, now + limits.ownerDays * 864e5); // this run: one per owner
     eligible.push({ repo, server: ok[0], also: ok.slice(1) });
   }
-  return { send: eligible.slice(0, max), eligible: eligible.length, waiting: Math.max(0, eligible.length - max), skipped, held: [...held.values()], unchecked };
+  const send = eligible.slice(0, max);
+  const capped = eligible.slice(max);
+  for (const e of capped) for (const x of [e.server, ...e.also]) skip(x, e.repo, { code: "cap", reason: "eligible; waits for the next free slot under the run, daily and weekly caps" });
+  return { send, eligible: eligible.length, waiting: capped.length, skipped, held: [...held.values()], unchecked };
+}
+
+// Whether a notice would help the owner: a grade that is stable across repeat runs, and something concrete to fix.
+// An A with nothing to fix is never told (Jordan 2026-11-17). {code, reason} or null.
+export function helpfulGate(server, history) {
+  const listed = listedChecks(server);
+  if (!listed.length) return { code: "nothing-to-fix", reason: letterOf(server) === "A" ? "an A with nothing to fix: a notice would not help" : "no check the notice could name with a fix" };
+  if (history) { const s = stability(server, history); if (!s.ok) return { code: s.code, reason: s.reason }; }
+  return null;
 }
 
 // The issue for one repository. Refuses a repository with a security finding: plan() holds those, and this is the
@@ -333,7 +375,7 @@ const SKIP_LABEL = {
   stale: "stale grade or failed re-test", "no-coverage": "no coverage data", "no-tools": "no tools declared",
   "hygiene-only": "no tool reached (hygiene-only)", launch: "launch line not reproducible as written", "weak-signals": "weak signals only",
   "check-failed": "network check failed", "newer-version": "newer version than tested", monorepo: "package in a subfolder of a larger repository",
-  "not-source": "root package is not the one tested", "owner-limit": "one issue per owner per day",
+  "not-source": "root package is not the one tested", "owner-limit": "owner already told within 7 days",
 };
 
 export function skipCounts(skipped) {
@@ -512,6 +554,25 @@ export function weeklySummary({ ledger, optout, servers, today }) {
   ].join("\n\n") + "\n";
 }
 
+// ---- the standing: where every graded server is ----
+
+const STANDING_LABEL = { ...SKIP_LABEL, "already-notified": "already got its one issue", "not-in-batch": "outside the hand-approved batch", "nothing-to-fix": "nothing to fix (an A, or no check to name)", inactive: "repository not active", "single-run": "graded once; waits for a repeat run", unstable: "flaky across repeat runs", cap: "eligible; waits for a free slot under the caps", paused: "paused", spacing: "waits for the gap between notices", unchecked: "queued: repository checked as slots free up", "post-failed": "the post failed; tried again next run", stopped: "posting stopped; tried again after the pause", "draft-changed": "re-tested since the hand-approved draft", "owner-limit": "owner already told within 7 days", "unknown-activity": "activity unknown" };
+const label = (c) => STANDING_LABEL[c] ?? c;
+
+// The "where every graded server stands" section of fleet/owner-weekly.md. Counts only, no repository names.
+export function renderStanding({ acct, room, limits, pause, stall, today }) {
+  const rows = (o) => Object.entries(o).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([c, n]) => `| ${label(c)} | ${n} |`).join("\n") || "| none | 0 |";
+  const status = pause.paused ? `**PAUSED**: ${pause.reason}` : room.allow > 0 ? `open: up to ${room.allow} this run` : `closed for now: ${room.reason}`;
+  return [
+    `## Where every graded server stands (${today})`,
+    `${acct.graded} graded servers: ${acct.sent} sent or drafted this run, ${acct.held} held for private handling, ${Object.values(acct.waiting).reduce((a, b) => a + b, 0)} waiting, ${Object.values(acct.skipped).reduce((a, b) => a + b, 0)} skipped${acct.unaccounted.length ? `, **${acct.unaccounted.length} with no outcome (a bug)**` : ""}.`,
+    `Sending: ${status}. Caps: ${limits.perRun} per run, ${limits.perDay} per day (${room.day} in the last 24 hours), ${limits.perWeek} per week (${room.week} in the last 7 days), at least ${limits.gapMinutes} minutes between notices, one notice per owner per ${limits.ownerDays} days, one issue per repository ever.`,
+    stall ? `**Stalled**: eligible repositories existed for 2 live runs in a row and none was sent with nothing explaining it. Look at the fleet log.` : "",
+    `### Waiting (a later run may send)\n\n| Reason | Servers |\n|---|---|\n${rows(acct.waiting)}`,
+    `### Skipped (until something changes)\n\n| Reason | Servers |\n|---|---|\n${rows(acct.skipped)}`,
+  ].filter(Boolean).join("\n\n") + "\n";
+}
+
 // ---- posting ----
 
 // What a failed `gh` call means: {status, perRepo}. Per repository: 404, 410, 422, issues off, archived. Everything
@@ -538,8 +599,8 @@ export function recordFailure(ledger, repo, { status, perRepo }, at) {
 
 // Posts the ready entries. Never throws for a `gh` error: per-repository errors are recorded and skipped, any other
 // stops the loop. approved: Map from parseDrafts (a hand-approved batch) or null.
-export async function postIssues({ ready, ledger, me, gh, sleep, now, today, log, save, approved = null }) {
-  const out = { opened: 0, recorded: 0, skipped: [], stopped: null };
+export async function postIssues({ ready, ledger, me, gh, sleep, now, today, log, save, approved = null, limits = LIMIT_DEFAULTS }) {
+  const out = { opened: 0, recorded: 0, skipped: [], stopped: null, sentRepos: [] };
   for (const e of ready) {
     const d = draftFor(e);
     if (approved) {
@@ -552,7 +613,7 @@ export async function postIssues({ ready, ledger, me, gh, sleep, now, today, log
       const dupe = mine.find((i) => i.body?.includes(ISSUE_MARKER("").slice(0, -4)));
       let issue = dupe ? { number: dupe.number, url: dupe.url } : null;
       if (!issue) {
-        if (out.opened > 0) await sleep(PACE_MS);
+        if (out.opened > 0) await sleep(PACE_MS); // spacing inside a run; across runs the gap is budget()'s
         let readme = "";
         try { readme = gh(["api", `repos/${e.repo}/readme`, "-H", "Accept: application/vnd.github.raw"]); } catch {}
         const url = gh(["issue", "create", "-R", e.repo, "--title", d.title.slice(0, 120), "--body-file", "-"], d.body).trim();
@@ -562,13 +623,17 @@ export async function postIssues({ ready, ledger, me, gh, sleep, now, today, log
       ledger.issues.push({ ...baseline(e, issue, today, now().toISOString()), author: me });
       ledger.failures = (ledger.failures ?? []).filter((f) => f.repo.toLowerCase() !== e.repo.toLowerCase());
       out.recorded += 1;
+      out.sentRepos.push(e.repo);
       save();
     } catch (err) {
       const c = classifyGhError(err);
       const rec = recordFailure(ledger, e.repo, c, now().toISOString());
       save();
       log(`::warning::owner issue for ${e.repo} failed (${c.status}${c.perRepo ? `, failure ${rec.failed} of ${MAX_REPO_FAILURES}` : ""})`);
-      if (!c.perRepo) { out.stopped = c.status; log(`::warning::stopped posting owner issues: ${c.status} is not specific to one repository`); break; }
+      if (!c.perRepo) {
+        const back = backoffFor(c.status);
+        if (back) { setPause(ledger, { code: back.code, reason: back.reason, now: now().getTime(), hours: back.hours }); save(); log(`::error::${back.reason}`); }
+        out.stopped = c.status; log(`::warning::stopped posting owner issues: ${c.status} is not specific to one repository`); break; }
     }
   }
   return out;
@@ -659,7 +724,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   const today = now().toISOString().slice(0, 10);
   const g = gate(env, argv);
   let { live, reason } = g;
-  const max = maxIssues(env.MAX_OWNER_ISSUES);
+  const limits = limitsFrom(env);
   const result = { live: false, opened: 0, error: null };
   const committedDraft = io.read(FILES.draft); // read before anything rewrites it: a hand-approved run posts exactly this
 
@@ -682,6 +747,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       }
     } catch (e) { log(`::warning::could not check OWNER_ISSUES_TOKEN (${e.message}); nothing is posted`); if (live) reason = "the OWNER_ISSUES_TOKEN check failed"; live = false; }
   }
+  let limitHit = null; // set once the ledger is read: a rate-limit answer to any call pauses posting
   const api = async (path, { raw = false, method = "GET", body, token = readToken } = {}) => {
     const res = await fetchFn(`https://api.github.com${path}`, {
       method,
@@ -689,7 +755,10 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       ...(body ? { body: JSON.stringify(body) } : {}),
     });
     if (res.status === 404 && method === "GET") return { missing: true };
-    if (!res.ok) { const e = new Error(`GitHub ${method} ${path}: ${res.status}`); e.status = res.status; throw e; }
+    if (!res.ok) {
+      if (res.status === 429 || (res.status === 403 && res.headers?.get?.("x-ratelimit-remaining") === "0")) limitHit?.(res.status);
+      const e = new Error(`GitHub ${method} ${path}: ${res.status}`); e.status = res.status; throw e;
+    }
     return raw ? res.text() : res.json();
   };
 
@@ -697,6 +766,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   const cache = readJson(FILES.repos, {});
   const ledger = readJson(FILES.ledger, { issues: [], emails: [] });
   ledger.issues ??= [];
+  limitHit = (status) => { setPause(ledger, { code: `http-${status}`, reason: `GitHub answered ${status} (rate limit); backing off for 24 hours`, now: now().getTime(), hours: 24 }); log(`::error::GitHub answered ${status} (rate limit): posting is paused for 24 hours`); };
   const optout = readJson(FILES.optout, { repos: [] });
   optout.repos ??= [];
 
@@ -727,6 +797,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   ledger.replies ??= [];
   const seen = new Set(ledger.replies.map((r) => String(r.id)));
   const fresh = [];
+  const negatives = []; // negative reactions found this run (fleet/owner-limits.mjs negativeSignal)
   const computed = new Map(); // issue url -> public status (null when the lookup failed: the page keeps its last one)
   const byId = new Map(servers.map((x) => [x.id, x]));
   for (const i of ledger.issues) {
@@ -734,11 +805,18 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     try {
       const comments = await api(`/repos/${i.repo}/issues/${i.number}/comments?per_page=100`);
       // its own try: a failed issue lookup must never stop the reply and opt-out handling below
+      const people = Array.isArray(comments) ? comments.filter((c) => !isBot(c.user, i.author)) : [];
+      const ours = Array.isArray(comments) ? comments.filter((c) => c.user && String(c.user.login).toLowerCase() === String(i.author).toLowerCase()) : [];
       try {
         const issue = await api(`/repos/${i.repo}/issues/${i.number}`);
         if (i.url && Array.isArray(comments) && issue && !issue.missing) computed.set(i.url, ownerStatus({ notice: i, issue, comments, server: byId.get(i.id) }));
-      } catch (e) { log(`issue state check failed for ${i.repo}: ${e.message}`); }
-      const people = Array.isArray(comments) ? comments.filter((c) => !isBot(c.user, i.author)) : [];
+        // an issue that is gone counts only while its repository still exists (a deleted repository is not a complaint)
+        const repoGone = issue?.missing ? Boolean((await api(`/repos/${i.repo}`))?.missing) : false;
+        if (!repoGone) negatives.push({ repo: i.repo, number: i.number, signals: negativeSignals({ issue, people, ours }) });
+      } catch (e) {
+        if (e.status === 410) negatives.push({ repo: i.repo, number: i.number, signals: negativeSignals({ issue: { gone: true } }) });
+        log(`issue state check failed for ${i.repo}: ${e.message}`);
+      }
       if (people.length && !i.repliedAt) i.repliedAt = people[0].created_at?.slice(0, 10) ?? today;
       for (const c of people) {
         if (seen.has(String(c.id))) continue;
@@ -746,7 +824,10 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
         ledger.replies.push(r); seen.add(String(c.id)); fresh.push(r);
         if (isOptOut(c.body) && !optout.repos.some((x) => x.toLowerCase() === i.repo.toLowerCase())) { optout.repos.push(i.repo); (optout.at ??= {})[i.repo] = today; log(`opt-out recorded: ${i.repo} (${c.html_url})`); }
       }
-    } catch (e) { log(`reply check failed for ${i.repo}: ${e.message}`); }
+    } catch (e) {
+      if (e.status === 410) negatives.push({ repo: i.repo, number: i.number, signals: negativeSignals({ issue: { gone: true } }) });
+      log(`reply check failed for ${i.repo}: ${e.message}`);
+    }
   }
   writeJson(FILES.optout, optout);
   writeJson(FILES.ledger, ledger);
@@ -771,34 +852,43 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     } else log(`tracking issue not updated (only from the fleet workflow on ${TRACKING_REPO})`);
   }
 
-  // the weekly summary: rewritten when a new week starts or a reply came in; the step summary gets it every run
-  const week = weeklySummary({ ledger, optout, servers, today });
-  const prev = io.read(FILES.weekly) ?? "";
-  if (!prev.includes(`week of ${weekStart(today)}`) || fresh.length) io.write(FILES.weekly, week);
-  if (env.GITHUB_STEP_SUMMARY) {
-    const news = fresh.length ? `\n## New replies this run\n\n${renderReplies(fresh, { heading: "###" })}\n` : "";
-    io.append(env.GITHUB_STEP_SUMMARY, `${news}\n${week}\n`);
+  // negative reactions: any one pauses all posting until a person clears ledger.pause (fleet/owner-limits.mjs)
+  const nowMs = now().getTime();
+  for (const n of negatives) {
+    for (const rec of applyNegative(ledger, { ...n, now: nowMs })) { log(`::error::negative reaction to a Sealmark notice (${rec.detail}) on ${rec.repo}#${rec.number}: posting is paused until a person reviews it`); result.paused = true; }
   }
-  if (fresh.length) log(`new replies: ${fresh.length} (${fresh.filter((r) => r.kind !== "reply").length} removal or recheck requests)`);
+  writeJson(FILES.ledger, ledger);
 
-  // 3. plan, checking candidates over the network until `max` are eligible (or the lookup budget is spent)
+  // 3. plan, checking candidates over the network until enough are eligible (or the lookup budget is spent)
   const approved = g.approved && live ? parseDrafts(committedDraft) : null;
   if (approved && !approved.size) log(`hand-approved run, but the committed ${FILES.draft} lists no issue: nothing to post`);
-  // fleet/owner-pick.json {"repos": [...]}: when it lists repositories, only those are drafted and (in an approved run) posted.
-  // Empty or missing: no restriction. Lets a first batch be chosen by hand instead of taking the top of the alphabet.
-  const pickList = (readJson(FILES.pick, { repos: [] }).repos ?? []).map((r) => String(r).toLowerCase());
-  const picked = pickList.length ? new Set(pickList) : null;
-  const only = approved ? new Set([...approved.keys()].filter((r) => !picked || picked.has(r.toLowerCase()))) : picked;
+  // fleet/owner-pick.json {"repos": [...]} is only for extra hand-picked batches: those repositories go first. It never
+  // restricts the steady drip; only a hand-approved run (file_owner_issues) is limited to its draft's entries.
+  const prefer = new Set((readJson(FILES.pick, { repos: [] }).repos ?? []).map((r) => String(r).toLowerCase()));
+  const only = approved ? new Set([...approved.keys()].map((r) => r.toLowerCase())) : null;
+  const history = (io.read(FILES.history) ?? "").split("\n").filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
+  let siteFacts = {};
+  try { siteFacts = readJson(FACTS_FILE, { servers: {} }).servers ?? {}; } catch { /* no facts yet: activity is then judged from the repository object */ }
+  // the real count of the bot's issues, read from GitHub: a ledger commit that never lands cannot raise the caps
+  let floor = null;
+  let floorFailed = false;
+  if (live && me) {
+    try {
+      const count = async (ms) => (await api(`/search/issues?q=${encodeURIComponent(`author:${me} type:issue created:>=${new Date(nowMs - ms).toISOString().slice(0, 19)}Z`)}&per_page=1`)).total_count ?? 0;
+      floor = { day: await count(864e5), week: await count(7 * 864e5) };
+    } catch (e) { floorFailed = true; log(`::warning::could not read the bot's real post count from GitHub (${e.message}); nothing is posted this run`); }
+  }
+  const room = floorFailed ? { allow: 0, code: "cap", reason: "could not read the bot's real post count from GitHub; waiting rather than risking the caps", nextAt: null, day: 0, week: 0 } : budget({ ledger, now: nowMs, limits, floor });
+  const max = Math.max(1, limits.perRun); // how many candidates to check over the network; sending is cut to room.allow below
   const meta = {};
   const facts = {};
   const roots = new Map();
-  const nowMs = now().getTime();
-  const args = () => ({ servers, cache, ledger, optout, meta, facts, max, today, now: nowMs, only });
+  const args = () => ({ servers, cache, ledger, optout, meta, facts, max, today, now: nowMs, only, history, siteFacts, limits, prefer });
   let p = plan(args());
-  let budget = lookupBudget(max);
-  while (p.eligible < max && p.unchecked.length && budget > 0) {
-    for (const u of p.unchecked.slice(0, Math.max(1, Math.min(budget, max - p.eligible)))) {
-      budget -= 1;
+  let lookups = lookupBudget(max);
+  while (p.eligible < max && p.unchecked.length && lookups > 0) {
+    for (const u of p.unchecked.slice(0, Math.max(1, Math.min(lookups, max - p.eligible)))) {
+      lookups -= 1;
       let m;
       try { m = await api(`/repos/${u.repo}`); } catch (e) { m = { error: String(e.status ?? e.message) }; }
       let repo = u.repo;
@@ -813,7 +903,15 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     p = plan(args());
   }
   saveCache(); // canonical names of moved repositories
-  const { send, waiting, skipped, held, unchecked } = p;
+  const { held, unchecked } = p;
+  const send = p.send.slice(0, room.allow);
+  const skipped = [...p.skipped];
+  // eligible but held back by a cap, the gap or a pause: waiting, with the reason and when it may go out
+  const eta = room.nextAt ? new Date(room.nextAt).toISOString().slice(0, 16).replace("T", " ") + " UTC" : "a later run";
+  const heldBack = p.send.slice(room.allow);
+  for (const e of heldBack) for (const x of [e.server, ...e.also]) skipped.push({ id: x.id, repo: e.repo, code: room.code === "paused" ? "paused" : room.code === "spacing" ? "spacing" : "cap", reason: room.reason || "waits for the next free slot", eta });
+  for (const u of unchecked) for (const x of u.servers) skipped.push({ id: x.id, repo: u.repo, code: "unchecked", reason: "eligible by the local rules; queued behind more helpful candidates; its repository is checked as slots free up", eta: "a later run" });
+  const waiting = p.waiting + heldBack.length;
 
   // held repositories: archived / fork, and whether private vulnerability reporting is on. Never logged by name (the
   // Actions log of this public repository would say where a security finding is).
@@ -828,27 +926,60 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   log(`held for private handling: ${held.length} (not named here; see ${FILES.privateDraft} in a local run)`);
   const counts = skipCounts(skipped).map(([c, n]) => `${c} ${n}`).join(", ");
 
+  // every graded server ends up sent, waiting, held or skipped, each with its reason: counted here, written to the log
+  // and to fleet/owner-weekly.md. The final `sent` is filled in after posting.
+  const gradedIds = servers.filter((x) => letterOf(x)).map((x) => x.id);
+  const standing = (sentIds) => account({ gradedIds, sent: sentIds, skipped, held: held.flatMap((h) => h.servers.map((x) => x.id)) });
+  const finish = (sentIds, run) => {
+    const acct = standing(sentIds);
+    recordRun(ledger, { date: today, ...run });
+    const stall = stalled(ledger);
+    writeJson(FILES.ledger, ledger);
+    const week = weeklySummary({ ledger, optout, servers, today }) + "\n" + renderStanding({ acct, room, limits, pause: pauseState(ledger, nowMs), stall, today });
+    io.write(FILES.weekly, week);
+    if (env.GITHUB_STEP_SUMMARY) {
+      const news = fresh.length ? `\n## New replies this run\n\n${renderReplies(fresh, { heading: "###" })}\n` : "";
+      io.append(env.GITHUB_STEP_SUMMARY, `${news}\n${week}\n`);
+    }
+    if (fresh.length) log(`new replies: ${fresh.length} (${fresh.filter((r) => r.kind !== "reply").length} removal or recheck requests)`);
+    const wait = Object.entries(acct.waiting).map(([c, n]) => `${c} ${n}`).join(", ") || "none";
+    const skip = Object.entries(acct.skipped).sort((a, b) => b[1] - a[1]).map(([c, n]) => `${c} ${n}`).join(", ") || "none";
+    log(`standing of ${acct.graded} graded servers: sent ${acct.sent}, held ${acct.held}, waiting ${wait}; skipped ${skip}${acct.unaccounted.length ? `; UNACCOUNTED ${acct.unaccounted.length}` : ""}`);
+    if (acct.unaccounted.length) log(`::error::${acct.unaccounted.length} graded servers have no outcome (sent, waiting, held or skipped): a bug in the owner rules`);
+    if (stall) { log(`::error::owner notices stalled: eligible repositories existed for 2 live runs in a row and none was sent, with nothing explaining it`); result.stalled = true; }
+    return acct;
+  };
+
   if (!live) {
-    io.write(FILES.draft, renderDrafts({ drafts: send.map(draftFor), waiting, unchecked: unchecked.length, skipped, held: held.length, reason, today, max }));
-    log(`not live (${reason}): ${send.length} drafts in ${FILES.draft}; ${waiting} more eligible wait; ${unchecked.length} not checked; skipped ${skipped.length} (${counts}); cap ${max} per run`);
+    io.write(FILES.draft, renderDrafts({ drafts: send.map(draftFor), waiting, unchecked: unchecked.length, skipped, held: held.length, reason, today, max: room.allow }));
+    log(`not live (${reason}): ${send.length} drafts in ${FILES.draft}; ${waiting} more eligible wait; ${unchecked.length} not checked; skipped ${skipped.length} (${counts}); cap ${limits.perRun} per run`);
+    finish(send.flatMap((e) => [e.server.id, ...e.also.map((x) => x.id)]), { live: false, eligible: p.eligible, sent: 0, explained: true }); // drafted counts as accounted for
     return { ...result, drafts: send.length, waiting, unchecked: unchecked.length, skipped, held: held.length };
   }
 
   // 4. live: one issue per repository, deduped by the hidden marker in case a ledger commit was lost
   result.live = true;
   const post = await postIssues({
-    ready: send, ledger, me, gh: gh ?? realGh({ GH_TOKEN: g.token }), sleep, now, today, log, approved,
+    ready: send, ledger, me, gh: gh ?? realGh({ GH_TOKEN: g.token }), sleep, now, today, log, approved, limits,
     save: () => writeJson(FILES.ledger, ledger),
   });
   io.remove(FILES.draft);
-  log(`owner issues opened: ${post.opened} (cap ${max})${post.stopped ? `; stopped on ${post.stopped}` : ""}; ${post.skipped.length} not posted; ${waiting} wait for later runs; skipped ${skipped.length} (${counts}); ${held.length} held for private handling`);
+  for (const e of send.filter((x) => !post.sentRepos.includes(x.repo))) {
+    const changed = post.skipped.some((k) => k.repo === e.repo);
+    const code = changed ? "draft-changed" : post.stopped ? "stopped" : "post-failed";
+    const reason = changed ? post.skipped.find((k) => k.repo === e.repo).reason : post.stopped ? `posting stopped on ${post.stopped}; tried again after the pause` : "the post failed for this repository; recorded in the ledger and tried again next run";
+    for (const x of [e.server, ...e.also]) skipped.push({ id: x.id, repo: e.repo, code, reason });
+  }
+  const sentIds = send.filter((e) => post.sentRepos.includes(e.repo)).flatMap((e) => [e.server.id, ...e.also.map((x) => x.id)]);
+  log(`owner issues opened: ${post.opened} (cap ${limits.perRun} per run, ${limits.perDay} per day, ${limits.perWeek} per week)${post.stopped ? `; stopped on ${post.stopped}` : ""}; ${post.skipped.length} not posted; ${waiting} wait for later runs; skipped ${skipped.length} (${counts}); ${held.length} held for private handling`);
+  finish(sentIds, { live: true, eligible: p.eligible, sent: post.recorded, explained: room.allow === 0 || Boolean(post.stopped) || post.skipped.length > 0 });
   return { ...result, ...post, waiting, held: held.length };
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   try {
     const r = await main();
-    if (r.error) process.exitCode = 1;
+    if (r.error || r.stalled || r.paused) process.exitCode = 1; // a red step is how a pause or a stall reaches a person
   } catch (e) {
     // the notify step may fail without stopping the fleet run (continue-on-error in fleet.yml); say why plainly
     console.log(`::warning::notify-owners stopped: ${e.message}`);
