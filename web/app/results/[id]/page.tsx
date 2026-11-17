@@ -19,6 +19,7 @@ import { OwnerNotice } from "../OwnerNotice";
 import { NotifyForm } from "../NotifyForm";
 import { CopyButton } from "@/components/CopyButton";
 import { retestNote } from "@/lib/retest.mjs";
+import { staleNote } from "@/lib/grade-age.mjs";
 import s from "../results.module.css";
 import { BadgeSnippets } from "@/components/BadgeSnippets";
 import { FILL, installConfig } from "@/lib/install-config.mjs";
@@ -238,7 +239,7 @@ export default async function ServerPage({ params }: P) {
         <div className={s.meta}>
           <span>version tested {x.versionTested}</span>
           <span>{ecosystemLabel(x)}</span>
-          <span>tested {x.testedAt}</span>
+          <span>tested {x.testedAt}{staleNote(x.testedAt, new Date().toISOString().slice(0, 10)) ? <> ({staleNote(x.testedAt, new Date().toISOString().slice(0, 10))})</> : null}</span>
           <span>Sealmark {x.sealmark.version}</span>
           <span>methodology {x.sealmark.methodology}</span>
           <span>{x.standard ? "STANDARD run" : "CUSTOM run"}</span>

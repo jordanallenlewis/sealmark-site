@@ -16,7 +16,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { findStatusWord } from "../lib/status-words.mjs";
+import { findStatusWord, thirdPartyStrings } from "../lib/status-words.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = resolve(web, "out");
@@ -105,6 +105,9 @@ if (home !== null) {
 
 // ---- 2 and 3: old domain and status words on every page --------------------------------------------------------------
 const files = htmlFiles(out);
+// On results pages the strings other parties own (ids, names, versions, tool names) are data (lib/status-words.mjs).
+let THIRD_PARTY = [];
+try { THIRD_PARTY = thirdPartyStrings(JSON.parse(readFileSync(new URL("../content/data/server-results.json", import.meta.url), "utf8")).servers); } catch {}
 for (const f of files) {
   const name = relative(out, f).split("\\").join("/");
   // Cells marked data-third-party hold other people's package names and versions (the "Not graded yet" list on
@@ -113,7 +116,7 @@ for (const f of files) {
   const text = decode(html);
   if (/sealmark\.ai/i.test(readFileSync(f, "utf8"))) fail(2, `out/${name} mentions sealmark.ai (the domain is sealmark.dev).`);
   // "early preview" is a subset of "preview", so one pass covers both (lib/status-words.mjs; semver pre-release tags are exempt).
-  const found = findStatusWord(text);
+  const found = findStatusWord(text, { exempt: name.startsWith("results/") ? THIRD_PARTY : [] });
   if (found) {
     const { word, index, rest } = found;
     fail(3, `out/${name} contains "${word}" near "${rest.slice(Math.max(0, index - 30), index + 40).replace(/\s+/g, " ")}" (status wording is not allowed; say "unreleased" or "not on npm yet").`);
