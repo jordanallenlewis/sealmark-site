@@ -2,7 +2,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { redactResults, withheldCheckIds } from "./redact-results.mjs";
+import { redactResults, weakCore, withheldCheckIds } from "./redact-results.mjs";
+import { isWeakSignal as isWeak } from "../web/lib/disclosure.mjs";
 import { keptSummary, privateEntry } from "./notify-owners.mjs";
 
 const TODAY = "2026-11-17";
@@ -11,7 +12,7 @@ const server = (id, checks, over = {}) => ({ id, name: id, testedAt: "2026-11-16
 const held = () => server("held", [
   chk("fs-read-escape", "fs", "fail", "SECRET read_file via evil-dotdot", { critical: true }),
   chk("fs-write-escape", "fs", "pass", "SIBLING write ok", { critical: true }),
-  chk("annotation-honesty", "fs", "part", "declared read-only; only caches changed", { critical: true }),
+  chk("annotation-honesty", "fs", "part", "declared read-only; only caches changed (sandbox home or temp): ra_balance, ra_history", { critical: true }),
   chk("protocol", "core", "pass", "handshake ok"),
   chk("tool-poisoning", "core", "pass", "scanned, nothing", { critical: true }),
 ]);
@@ -25,11 +26,15 @@ test("a finding and its security siblings are blanked; a weak signal, another ar
   const by = (x, id) => x.checks.find((c) => c.id === id).summary;
   assert.equal(by(h, "fs-read-escape"), null);
   assert.equal(by(h, "fs-write-escape"), null);
-  assert.equal(by(h, "annotation-honesty"), "declared read-only; only caches changed"); // weak: classification needs the text
+  // weak: the classification needs its text, but not the tool names after it
+  assert.equal(by(h, "annotation-honesty"), "declared read-only; only caches changed");
+  assert.equal(removed.held.summaries["annotation-honesty"], "declared read-only; only caches changed (sandbox home or temp): ra_balance, ra_history");
+  assert.ok(isWeak(h.checks[2]), "still a weak signal after the cut");
   assert.equal(by(h, "protocol"), "handshake ok");
   assert.equal(by(h, "tool-poisoning"), "scanned, nothing");
   assert.equal(by(f, "fs-read-escape"), "all reads stayed inside");
-  assert.deepEqual(removed.held.summaries, { "fs-read-escape": "SECRET read_file via evil-dotdot", "fs-write-escape": "SIBLING write ok" });
+  assert.equal(removed.held.summaries["fs-read-escape"], "SECRET read_file via evil-dotdot");
+  assert.equal(removed.held.summaries["fs-write-escape"], "SIBLING write ok");
   assert.equal(removed.held.versionTested, "1.0.0");
   assert.equal(removed.fine, undefined);
   assert.equal(h.launch, "npx -y x"); // the planner re-tests from it
@@ -37,6 +42,8 @@ test("a finding and its security siblings are blanked; a weak signal, another ar
 
 test("the redacted file still classifies the same: the finding stays a finding", () => {
   const r = { servers: [held()] };
+  assert.equal(weakCore({ id: "tool-poisoning", summary: "2 weak indicator(s) worth reading, none conclusive." }), "2 weak indicator(s) worth reading, none conclusive.");
+  assert.equal(weakCore({ id: "protocol", summary: "x" }), null);
   const before = [...withheldCheckIds(r.servers[0], E, TODAY)].sort();
   redactResults(r, E, TODAY);
   assert.deepEqual([...withheldCheckIds(r.servers[0], E, TODAY)].sort(), before);
@@ -84,4 +91,9 @@ test("the committed file holds no summary the rule withholds", () => {
   for (const s of results.servers) for (const id of withheldCheckIds(s, entries, today)) {
     assert.equal(s.checks.find((c) => c.id === id).summary, null, `${s.id}/${id}`);
   }
+});
+
+test("an entry with no checks (a server that never graded) is left alone", () => {
+  const r = { servers: [{ id: "x", name: "x" }, { id: "y", checks: [] }] };
+  assert.deepEqual(redactResults(r, E, TODAY), {});
 });

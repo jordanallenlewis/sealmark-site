@@ -455,7 +455,7 @@ export function renderPrivate({ entries, today }) {
   for (const e of entries) {
     const lines = [`---\n\n## ${e.repo ?? `${e.servers[0]?.id} (no GitHub repository known)`}`, `**Channel:** ${e.channel}`];
     for (const x of e.servers) {
-      const sec = x.security.map((c) => `- \`${c.id}\` ${c.label} (${c.verdict}): ${c.summary}`).join("\n") || "- none on this server";
+      const sec = x.security.map((c) => `- \`${c.id}\` ${c.label} (${c.verdict}): ${c.summary || "(text not kept: it is only in the run that re-tested this server; wait for the next re-test)"}`).join("\n") || "- none on this server";
       lines.push(`### ${x.name} ${x.version}: ${x.letter ?? "not graded"}, tested ${x.testedAt}${x.fresh ? "" : ` (NOT FRESH: ${x.stale})`}`,
         `**Draft advisory title:** ${x.security.length ? `${x.security.map((c) => c.label).join("; ")} in ${x.name} ${x.version}` : "(covered by the advisory above)"}`,
         `Security findings:\n\n${sec}`,

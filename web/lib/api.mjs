@@ -195,7 +195,7 @@ export function openapiDoc(site, cliVersion) {
                 properties: {
                   id: str, pack: str, label: str, critical: { type: "boolean" }, advisory: { type: "boolean" },
                   verdict: { type: "string", enum: ["pass", "part", "fail", "inconclusive", "na"] }, weakSignal: { type: "boolean" },
-                  summary: { ...strOrNull, description: "null while a security finding in this test area is reported privately" },
+                  summary: { ...strOrNull, description: "null while a security finding in this test area is reported privately, or until the next re-test of the server restores the text of a check that has since become public" },
                   disclosure: { type: ["object", "null"], properties: { status: { type: "string", enum: ["private", "held-with-sibling"] }, reportedAt: strOrNull, publishAfter: strOrNull } },
                   docs: { type: "string", format: "uri" },
                 },

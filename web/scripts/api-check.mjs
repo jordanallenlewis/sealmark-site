@@ -9,7 +9,8 @@
 //      summary or a withheld start command of a server (its own file, the list and the changes; another server can share a
 //      generic summary such as a pass sentence); and no file shows a check summary its page does not
 //   4b the committed file itself (content/data/server-results.json is public) holds no summary for a redacted finding or for
-//      a security sibling that is not a weak signal: fleet/redact-results.mjs blanks them where the file is written
+//      a security sibling that is not a weak signal, and a weak signal beside one keeps only the text that classifies it:
+//      fleet/redact-results.mjs cuts them where the file is written
 //   6  the /results/ list page, with the data its client components receive (out/results/index.html and the page's
 //      flight payload files), contains no redacted summary or withheld start command of any server
 //   5  changes.json and openapi.json parse, and every path in openapi.json exists in out/
@@ -17,6 +18,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isSecurityCheck, isWeakSignal, redactedChecks } from "../lib/disclosure.mjs";
+import { weakCore } from "../../fleet/redact-results.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -75,7 +77,8 @@ for (const s of list.servers) {
     const privPacks = new Set(raw.checks.filter((c) => red.has(c.id)).map((c) => c.pack));
     for (const c of raw.checks) {
       if (!red.has(c.id) && !(privPacks.has(c.pack) && isSecurityCheck(c))) continue;
-      if (c.summary && (red.has(c.id) || !isWeakSignal(c))) fail("4b", `${s.id}/${c.id}: server-results.json still holds the withheld summary (run node fleet/redact-results.mjs)`);
+      if (c.summary && !red.has(c.id) && isWeakSignal(c) && c.summary !== weakCore(c)) fail("4b", `${s.id}/${c.id}: a weak signal beside a held finding keeps more than its classifying text`);
+      if (c.summary && (red.has(c.id) || !isWeakSignal(c))) fail("4b", `${s.id}/${c.id}: server-results.json still holds the withheld summary (run node fleet/redact-results.mjs from any folder)`);
       if (c.summary) secrets.push([s.id, `${s.id}/${c.id}`, c.summary]);
       const f = doc.checks.find((y) => y.id === c.id);
       if (!f || f.summary !== null) fail(4, `${s.id}/${c.id}: summary must be null while the finding is private`);
