@@ -159,6 +159,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node fleet/notify-owners.mjs ${DRY_RUN:+--dry}
       - name: impact of owner notices (internal; reads GitHub and the notify D1, writes fleet/impact-summary.md)
+        continue-on-error: true # a failure here must never stop the commit below: the ledger is what keeps the owner caps honest
         env:
           GITHUB_TOKEN: ${{ github.token }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

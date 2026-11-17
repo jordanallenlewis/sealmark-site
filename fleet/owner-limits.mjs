@@ -38,11 +38,12 @@ export const postedMs = (issue) => Date.parse(issue?.postedAt ?? (issue?.at ? `$
 
 // How many notices may go out now: min(per run, what is left of the day and the week), and 0 while the gap since the
 // last post has not passed. {allow, reason, nextAt} (nextAt: ms when more may go out, or null when unknown).
-export function budget({ ledger, now, limits }) {
-  const times = (ledger.issues ?? []).map(postedMs).filter((t) => Number.isFinite(t) && t <= now);
+export function budget({ ledger, now, limits, floor = null }) {
+  const times = (ledger.issues ?? []).map(postedMs).filter(Number.isFinite).map((t) => Math.min(t, now)); // a stamp in the future (clock skew, a hand edit) counts as now
   const inLast = (ms) => times.filter((t) => now - t < ms).length;
-  const day = inLast(DAY);
-  const week = inLast(7 * DAY);
+  // floor: counts read from GitHub itself (the bot's real issues), so a lost ledger commit can never raise the caps
+  const day = Math.max(inLast(DAY), floor?.day ?? 0);
+  const week = Math.max(inLast(7 * DAY), floor?.week ?? 0);
   const last = times.length ? Math.max(...times) : null;
   const pause = pauseState(ledger, now);
   if (pause.paused) return { allow: 0, code: "paused", reason: pause.reason, nextAt: pause.until, day, week };
@@ -63,9 +64,9 @@ export function ownersBusy(ledger, now, ownerDays = LIMIT_DEFAULTS.ownerDays) {
   const busy = new Map();
   for (const i of ledger.issues ?? []) {
     const t = postedMs(i);
-    if (!Number.isFinite(t) || t > now || now - t >= ownerDays * DAY) continue;
+    if (!Number.isFinite(t) || now - Math.min(t, now) >= ownerDays * DAY) continue;
     const owner = i.repo.split("/")[0].toLowerCase();
-    busy.set(owner, Math.max(busy.get(owner) ?? 0, t + ownerDays * DAY));
+    busy.set(owner, Math.max(busy.get(owner) ?? 0, Math.min(t, now) + ownerDays * DAY));
   }
   return busy; // owner -> ms when the window ends
 }
@@ -109,29 +110,36 @@ function ownWords(text) {
     .replace(/"[^"\n]*"|“[^”\n]*”/g, " ");
 }
 
-// A negative reaction to one notice, or null: the issue was removed or hidden as spam (404/410 on a notice we posted),
-// closed as "not planned", got a thumbs-down, or a person's comment says stop / spam / unsolicited.
-//   issue: the GitHub issue object, or {missing: true} / {gone: true}; comments: the people's comments (bots removed)
-export function negativeSignal({ issue, comments = [] }) {
-  if (issue?.missing || issue?.gone) return { kind: "removed", detail: "the issue was removed or hidden by the repository (spam removal looks like this)" };
-  if (issue?.state === "closed" && issue?.state_reason === "not_planned") return { kind: "not-planned", detail: "closed as not planned" };
-  if ((issue?.reactions?.["-1"] ?? 0) > 0) return { kind: "thumbs-down", detail: "a thumbs-down on the issue" };
-  for (const c of comments) {
-    if ((c.reactions?.["-1"] ?? 0) > 0) return { kind: "thumbs-down", detail: "a thumbs-down on our comment" };
-    if (NEGATIVE_WORDS.test(ownWords(c.body))) return { kind: "complaint", detail: "a reply asks us to stop or calls the notice spam", url: c.html_url };
-  }
-  return null;
+const COMPLAINT = /\b(spam|spamming|spammy|unsolicited|please stop|stop (?:sending|spamming|opening|contacting|bothering|emailing|filing)|go away|do not (?:contact|open|send|file)|don'?t (?:contact|open|send|file)|not interested|unsubscribe|harass(?:ing|ment)?|unwanted|not welcome)\b/i;
+
+// Every negative reaction to one notice (a list, each with a `key` so one is recorded once): the issue was removed or
+// hidden (404/410 on a notice we posted), locked as spam, closed as "not planned", a thumbs-down on the issue or on a
+// comment of ours, or a person's comment that says stop / spam / unsolicited / not interested.
+//   issue: the GitHub issue, or {missing: true} / {gone: true}; people: comments by people (bots and the bot account
+//   removed); ours: comments by the bot account
+export function negativeSignals({ issue, people = [], ours = [] }) {
+  const out = [];
+  if (issue?.missing || issue?.gone) out.push({ kind: "removed", key: "removed", detail: "the issue was removed or hidden by the repository (spam removal looks like this)" });
+  if (issue?.locked && /spam/i.test(issue?.active_lock_reason ?? "")) out.push({ kind: "locked-spam", key: "locked-spam", detail: "the issue was locked as spam" });
+  if (issue?.state === "closed" && issue?.state_reason === "not_planned") out.push({ kind: "not-planned", key: "not-planned", detail: "closed as not planned" });
+  if ((issue?.reactions?.["-1"] ?? 0) > 0) out.push({ kind: "thumbs-down", key: `thumbs-down:${issue.reactions["-1"]}`, detail: "a thumbs-down on the issue" });
+  for (const c of ours) if ((c.reactions?.["-1"] ?? 0) > 0) out.push({ kind: "thumbs-down", key: `thumbs-down-comment:${c.id}:${c.reactions["-1"]}`, detail: "a thumbs-down on our comment" });
+  for (const c of people) if (COMPLAINT.test(ownWords(c.body))) out.push({ kind: "complaint", key: `complaint:${c.id ?? c.html_url ?? c.body?.length}`, detail: "a reply asks us to stop or calls the notice spam", url: c.html_url });
+  return out;
 }
 
-// Records a signal once per notice and pauses on a new one. Returns the new signal or null.
-export function applyNegative(ledger, { repo, number, signal, now }) {
-  if (!signal) return null;
+// Records each signal once per notice and pauses on a new one. Returns the new signals.
+export function applyNegative(ledger, { repo, number, signals, now }) {
   ledger.negative ??= [];
-  if (ledger.negative.some((n) => n.repo.toLowerCase() === repo.toLowerCase() && n.number === number && n.kind === signal.kind)) return null;
-  const rec = { repo, number, kind: signal.kind, at: new Date(now).toISOString().slice(0, 10) };
-  ledger.negative.push(rec);
-  setPause(ledger, { code: "negative-reaction", reason: `${signal.detail} (${repo}#${number}); stopped until a person reviews it and clears the pause`, now, hours: null });
-  return rec;
+  const fresh = [];
+  for (const sig of signals ?? []) {
+    if (ledger.negative.some((n) => n.repo.toLowerCase() === repo.toLowerCase() && n.number === number && n.key === sig.key)) continue;
+    const rec = { repo, number, kind: sig.kind, key: sig.key, at: new Date(now).toISOString().slice(0, 10) };
+    ledger.negative.push(rec);
+    fresh.push({ ...rec, detail: sig.detail });
+  }
+  if (fresh.length) setPause(ledger, { code: "negative-reaction", reason: `${fresh[0].detail} (${repo}#${number}); stopped until a person reviews it and clears the pause`, now, hours: null });
+  return fresh;
 }
 
 // ---- stability ----
@@ -175,7 +183,7 @@ export const byPriority = (a, b) => b.gap - a.gap || b.tools - a.tools || String
 // ---- accounting ----
 
 // Codes that mean "not now" (a later run may send); everything else is a skip for good (until something changes).
-export const WAITING = new Set(["stale", "newer-version", "check-failed", "lookup-failed", "single-run", "unstable", "owner-limit", "owner-window", "cap", "paused", "spacing", "unchecked", "unknown-activity", "weak-signals"]);
+export const WAITING = new Set(["post-failed", "stopped", "draft-changed", "stale", "newer-version", "check-failed", "lookup-failed", "single-run", "unstable", "owner-limit", "owner-window", "cap", "paused", "spacing", "unchecked", "unknown-activity", "weak-signals"]);
 
 // Where every graded server stands: {sent, waiting: {code: n}, skipped: {code: n}, held, eligibleNotSent}.
 export function account({ gradedIds, sent = [], skipped = [], held = [], waitingExtra = [] }) {

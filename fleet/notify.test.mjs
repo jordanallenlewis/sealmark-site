@@ -442,7 +442,7 @@ test("postIssues: a hand-approved batch posts only what the draft shows, byte fo
 // ---- main(), on fakes ----
 
 const json = (v, status = 200) => new Response(JSON.stringify(v), { status, headers: { "content-type": "application/json" } });
-function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers, ledger = { issues: [], emails: [] }, draft = null, comments = {}, issues = {}, pushed = {} } = {}) {
+function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers, ledger = { issues: [], emails: [] }, draft = null, comments = {}, issues = {}, pushed = {}, search = null } = {}) {
   const files = new Map([
     [FILES.results, JSON.stringify({ servers })],
     [FILES.repos, JSON.stringify(Object.fromEntries(servers.map((x) => [x.id, { repo: x._repo, source: "npm", resolvedAt: TODAY }])))],
@@ -459,6 +459,11 @@ function fakeWorld({ user = { login: "sealmark-bot" }, userStatus = 200, servers
     const u = new URL(url);
     if (u.hostname === "registry.npmjs.org") { const name = decodeURIComponent(u.pathname.split("/")[1]); const x = servers.find((s) => s.name === name); return json({ name, version: x.versionTested, repository: { url: `https://github.com/${x._repo}` } }); }
     if (u.pathname === "/user") return userStatus === 200 ? json(user) : json({ message: "Bad credentials" }, userStatus);
+    if (u.pathname === "/search/issues" && search) {
+      if (search === "error") return json({ message: "boom" }, 500);
+      const since = Date.parse(`${/created:>=([0-9T:-]+)Z/.exec(decodeURIComponent(u.search))[1]}Z`);
+      return json({ total_count: Date.parse("2026-11-12T10:00:00Z") - since < 2 * 864e5 ? search.day : search.week });
+    }
     const m = u.pathname.match(/^\/repos\/([^/]+\/[^/]+)(\/.*)?$/);
     if (m && !m[2]) return json({ full_name: m[1], has_issues: true, ...(pushed[m[1]] ? { pushed_at: pushed[m[1]] } : {}) });
     if (m && m[2] === "/contents/package.json") { const x = servers.find((s) => s._repo === m[1]); return new Response(JSON.stringify({ name: x.name, version: x.versionTested }), { status: 200 }); }
@@ -813,4 +818,38 @@ test("main: two live runs in a row with eligible repositories and nothing sent, 
   assert.equal(second.r.stalled, true);
   assert.ok(second.logs.some((l) => /::error::owner notices stalled/.test(l)));
   assert.match(w.files.get(FILES.weekly), /\*\*Stalled\*\*/);
+});
+
+test("main: the bot's real post count on GitHub caps the run even when the ledger lost its commit; an unreadable count posts nothing", async () => {
+  const capped = fakeWorld({ servers: many(3), search: { day: 6, week: 6 } });
+  const a = await runLive(capped);
+  assert.equal(a.gh.created().length, 0);
+  assert.match(capped.files.get(FILES.weekly), /closed for now: the daily cap of 6 is used/);
+  const blind = fakeWorld({ servers: many(3), search: "error" });
+  const b = await runLive(blind);
+  assert.equal(b.gh.created().length, 0);
+  assert.ok(b.logs.some((l) => /could not read the bot's real post count/.test(l)));
+  const open = fakeWorld({ servers: many(3), search: { day: 0, week: 0 } });
+  assert.equal((await runLive(open)).gh.created().length, 2);
+});
+
+test("main: failed and stopped posts are accounted for (waiting), never reported as a bug", async () => {
+  const w = fakeWorld({ servers: many(3) });
+  const { logs } = await runLive(w, {}, fakeGh({ fail: { "own0/repo0": "HTTP 429 secondary rate limit" } }));
+  assert.doesNotMatch(w.files.get(FILES.weekly), /no outcome/);
+  assert.ok(!logs.some((l) => /UNACCOUNTED/.test(l)), logs.join("\n"));
+  assert.match(w.files.get(FILES.weekly), /posting stopped|stopped \|/);
+  const w2 = fakeWorld({ servers: many(3) });
+  const r2 = await runLive(w2, {}, fakeGh({ fail: { "own0/repo0": "HTTP 422", "own1/repo1": "HTTP 422" } }));
+  assert.ok(!r2.logs.some((l) => /UNACCOUNTED/.test(l)));
+  assert.match(w2.files.get(FILES.weekly), /post-failed \| 2 \|/);
+});
+
+test("main: a rate-limit answer to a read pauses posting for 24 hours", async () => {
+  const w = fakeWorld({ servers: many(2), ledger: { issues: [{ channel: "issue", id: "o", repo: "o1/a", number: 5, url: "https://github.com/o1/a/issues/5", postedAt: "2026-11-01T00:00:00Z", at: "2026-11-01", author: "sealmark-bot", letter: "B", failing: [] }], emails: [] } });
+  const inner = w.fetchFn;
+  w.fetchFn = async (url, init) => (new URL(url).pathname === "/repos/o1/a/issues/5/comments" ? new Response("{}", { status: 429 }) : inner(url, init));
+  const { gh } = await runLive(w);
+  assert.equal(gh.created().length, 0);
+  assert.equal(JSON.parse(w.files.get(FILES.ledger)).pause.code, "http-429");
 });

@@ -11,8 +11,9 @@
 //     renders now is byte for byte the one in the draft; anything else is skipped and the log says why.
 //   - The token is checked with GET /user in every mode. A 401 prints a warning and the read-only lookups fall back to
 //     GITHUB_TOKEN; nothing is posted. An account in SELF (Jordan's own) is refused: issues come from the bot only.
-//   - Pacing for a new account: at most MAX_OWNER_ISSUES issues per run (default 2), at least 60 s between two posts,
-//     at most one issue per repository owner (user or organisation) in 24 hours.
+//   - Pacing (fleet/owner-limits.mjs): MAX_OWNER_ISSUES per run (2), MAX_OWNER_ISSUES_PER_DAY (6) and _PER_WEEK (30) over
+//     rolling windows, 30 minutes since the last notice, 2 minutes between posts in a run, one notice per repository
+//     owner (user or organisation) per 7 days. The caps are also checked against the bot's real issue count on GitHub.
 //   - One failed `gh` call never fails the run: a per-repository error (404, 410, 422, issues off) is recorded in the
 //     ledger and the loop moves on; a repository that failed 3 times is skipped. A 401, 403, 429, a rate limit or any
 //     other error stops the posting loop (not the run).
@@ -55,7 +56,7 @@ import registry from "../web/content/generated/checks.json" with { type: "json" 
 import { failedSince } from "../web/lib/retest.mjs";
 import { ownerStatus, statusFile } from "./owner-status.mjs";
 import { FILE as FACTS_FILE, collect as collectFacts, githubGetter } from "./server-facts.mjs";
-import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignal, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
+import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -80,7 +81,7 @@ export function maxIssues(value) {
 export const MAX_ISSUES = maxIssues(process.env.MAX_OWNER_ISSUES);
 export const FRESH_DAYS = 14; // a grade older than this waits for a re-test before its owner is told
 export const SELF = ["jordanallenlewis"]; // never notify our own repositories, never post as this account
-export const PACE_MS = 60_000; // at least this long between two posts
+export const PACE_MS = 120_000; // between two posts inside one run; the gap between runs is limits.gapMinutes
 export const OWNER_WINDOW_MS = 24 * 3600_000; // one issue per repository owner in this window
 export const MAX_REPO_FAILURES = 3; // a repository whose post failed this often is skipped
 export const TRACKING_REPO = "jordanallenlewis/sealmark-site";
@@ -258,6 +259,8 @@ export function factsGate(server, facts) {
 // unchecked [{repo, servers}] (candidates that need network checks before they can be judged).
 export function plan({ servers, cache, ledger, optout, meta = {}, facts = {}, max = MAX_ISSUES, today = new Date().toISOString().slice(0, 10), now = Date.parse(`${today}T12:00:00Z`), only = null, history = null, siteFacts = {}, limits = LIMIT_DEFAULTS, prefer = null }) {
   const notified = new Set((ledger.issues ?? []).map((i) => i.repo.toLowerCase()));
+  // a repository renamed since the notice: the ledger holds the old name, the cache the new one
+  for (const c of Object.values(cache)) if (c.movedFrom && notified.has(c.movedFrom.toLowerCase()) && c.repo) notified.add(c.repo.toLowerCase());
   const opted = new Set((optout.repos ?? []).map((r) => r.toLowerCase()));
   const optedOwners = new Set([...opted].map((r) => r.split("/")[0])); // an opt-out speaks for every repository of that owner
   const failures = new Map((ledger.failures ?? []).map((f) => [f.repo.toLowerCase(), f]));
@@ -372,7 +375,7 @@ const SKIP_LABEL = {
   stale: "stale grade or failed re-test", "no-coverage": "no coverage data", "no-tools": "no tools declared",
   "hygiene-only": "no tool reached (hygiene-only)", launch: "launch line not reproducible as written", "weak-signals": "weak signals only",
   "check-failed": "network check failed", "newer-version": "newer version than tested", monorepo: "package in a subfolder of a larger repository",
-  "not-source": "root package is not the one tested", "owner-limit": "one issue per owner per day",
+  "not-source": "root package is not the one tested", "owner-limit": "owner already told within 7 days",
 };
 
 export function skipCounts(skipped) {
@@ -553,7 +556,7 @@ export function weeklySummary({ ledger, optout, servers, today }) {
 
 // ---- the standing: where every graded server is ----
 
-const STANDING_LABEL = { ...SKIP_LABEL, "already-notified": "already got its one issue", "not-in-batch": "outside the hand-approved batch", "nothing-to-fix": "nothing to fix (an A, or no check to name)", inactive: "repository not active", "single-run": "graded once; waits for a repeat run", unstable: "flaky across repeat runs", cap: "eligible; waits for a free slot under the caps", paused: "paused", spacing: "waits for the gap between notices", unchecked: "queued: repository checked as slots free up", "owner-limit": "owner already told within 7 days", "unknown-activity": "activity unknown" };
+const STANDING_LABEL = { ...SKIP_LABEL, "already-notified": "already got its one issue", "not-in-batch": "outside the hand-approved batch", "nothing-to-fix": "nothing to fix (an A, or no check to name)", inactive: "repository not active", "single-run": "graded once; waits for a repeat run", unstable: "flaky across repeat runs", cap: "eligible; waits for a free slot under the caps", paused: "paused", spacing: "waits for the gap between notices", unchecked: "queued: repository checked as slots free up", "post-failed": "the post failed; tried again next run", stopped: "posting stopped; tried again after the pause", "draft-changed": "re-tested since the hand-approved draft", "owner-limit": "owner already told within 7 days", "unknown-activity": "activity unknown" };
 const label = (c) => STANDING_LABEL[c] ?? c;
 
 // The "where every graded server stands" section of fleet/owner-weekly.md. Counts only, no repository names.
@@ -744,6 +747,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       }
     } catch (e) { log(`::warning::could not check OWNER_ISSUES_TOKEN (${e.message}); nothing is posted`); if (live) reason = "the OWNER_ISSUES_TOKEN check failed"; live = false; }
   }
+  let limitHit = null; // set once the ledger is read: a rate-limit answer to any call pauses posting
   const api = async (path, { raw = false, method = "GET", body, token = readToken } = {}) => {
     const res = await fetchFn(`https://api.github.com${path}`, {
       method,
@@ -751,7 +755,10 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       ...(body ? { body: JSON.stringify(body) } : {}),
     });
     if (res.status === 404 && method === "GET") return { missing: true };
-    if (!res.ok) { const e = new Error(`GitHub ${method} ${path}: ${res.status}`); e.status = res.status; throw e; }
+    if (!res.ok) {
+      if (res.status === 429 || (res.status === 403 && res.headers?.get?.("x-ratelimit-remaining") === "0")) limitHit?.(res.status);
+      const e = new Error(`GitHub ${method} ${path}: ${res.status}`); e.status = res.status; throw e;
+    }
     return raw ? res.text() : res.json();
   };
 
@@ -759,6 +766,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   const cache = readJson(FILES.repos, {});
   const ledger = readJson(FILES.ledger, { issues: [], emails: [] });
   ledger.issues ??= [];
+  limitHit = (status) => { setPause(ledger, { code: `http-${status}`, reason: `GitHub answered ${status} (rate limit); backing off for 24 hours`, now: now().getTime(), hours: 24 }); log(`::error::GitHub answered ${status} (rate limit): posting is paused for 24 hours`); };
   const optout = readJson(FILES.optout, { repos: [] });
   optout.repos ??= [];
 
@@ -798,14 +806,15 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       const comments = await api(`/repos/${i.repo}/issues/${i.number}/comments?per_page=100`);
       // its own try: a failed issue lookup must never stop the reply and opt-out handling below
       const people = Array.isArray(comments) ? comments.filter((c) => !isBot(c.user, i.author)) : [];
+      const ours = Array.isArray(comments) ? comments.filter((c) => c.user && String(c.user.login).toLowerCase() === String(i.author).toLowerCase()) : [];
       try {
         const issue = await api(`/repos/${i.repo}/issues/${i.number}`);
         if (i.url && Array.isArray(comments) && issue && !issue.missing) computed.set(i.url, ownerStatus({ notice: i, issue, comments, server: byId.get(i.id) }));
         // an issue that is gone counts only while its repository still exists (a deleted repository is not a complaint)
         const repoGone = issue?.missing ? Boolean((await api(`/repos/${i.repo}`))?.missing) : false;
-        if (!repoGone) negatives.push({ repo: i.repo, number: i.number, signal: negativeSignal({ issue, comments: people }) });
+        if (!repoGone) negatives.push({ repo: i.repo, number: i.number, signals: negativeSignals({ issue, people, ours }) });
       } catch (e) {
-        if (e.status === 410) negatives.push({ repo: i.repo, number: i.number, signal: negativeSignal({ issue: { gone: true } }) });
+        if (e.status === 410) negatives.push({ repo: i.repo, number: i.number, signals: negativeSignals({ issue: { gone: true } }) });
         log(`issue state check failed for ${i.repo}: ${e.message}`);
       }
       if (people.length && !i.repliedAt) i.repliedAt = people[0].created_at?.slice(0, 10) ?? today;
@@ -815,7 +824,10 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
         ledger.replies.push(r); seen.add(String(c.id)); fresh.push(r);
         if (isOptOut(c.body) && !optout.repos.some((x) => x.toLowerCase() === i.repo.toLowerCase())) { optout.repos.push(i.repo); (optout.at ??= {})[i.repo] = today; log(`opt-out recorded: ${i.repo} (${c.html_url})`); }
       }
-    } catch (e) { log(`reply check failed for ${i.repo}: ${e.message}`); }
+    } catch (e) {
+      if (e.status === 410) negatives.push({ repo: i.repo, number: i.number, signals: negativeSignals({ issue: { gone: true } }) });
+      log(`reply check failed for ${i.repo}: ${e.message}`);
+    }
   }
   writeJson(FILES.optout, optout);
   writeJson(FILES.ledger, ledger);
@@ -843,8 +855,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   // negative reactions: any one pauses all posting until a person clears ledger.pause (fleet/owner-limits.mjs)
   const nowMs = now().getTime();
   for (const n of negatives) {
-    const rec = applyNegative(ledger, { ...n, now: nowMs });
-    if (rec) { log(`::error::negative reaction to a Sealmark notice (${n.signal.detail}) on ${rec.repo}#${rec.number}: posting is paused until a person reviews it`); result.paused = true; }
+    for (const rec of applyNegative(ledger, { ...n, now: nowMs })) { log(`::error::negative reaction to a Sealmark notice (${rec.detail}) on ${rec.repo}#${rec.number}: posting is paused until a person reviews it`); result.paused = true; }
   }
   writeJson(FILES.ledger, ledger);
 
@@ -858,7 +869,16 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   const history = (io.read(FILES.history) ?? "").split("\n").filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
   let siteFacts = {};
   try { siteFacts = readJson(FACTS_FILE, { servers: {} }).servers ?? {}; } catch { /* no facts yet: activity is then judged from the repository object */ }
-  const room = budget({ ledger, now: nowMs, limits });
+  // the real count of the bot's issues, read from GitHub: a ledger commit that never lands cannot raise the caps
+  let floor = null;
+  let floorFailed = false;
+  if (live && me) {
+    try {
+      const count = async (ms) => (await api(`/search/issues?q=${encodeURIComponent(`author:${me} type:issue created:>=${new Date(nowMs - ms).toISOString().slice(0, 19)}Z`)}&per_page=1`)).total_count ?? 0;
+      floor = { day: await count(864e5), week: await count(7 * 864e5) };
+    } catch (e) { floorFailed = true; log(`::warning::could not read the bot's real post count from GitHub (${e.message}); nothing is posted this run`); }
+  }
+  const room = floorFailed ? { allow: 0, code: "cap", reason: "could not read the bot's real post count from GitHub; waiting rather than risking the caps", nextAt: null, day: 0, week: 0 } : budget({ ledger, now: nowMs, limits, floor });
   const max = Math.max(1, limits.perRun); // how many candidates to check over the network; sending is cut to room.allow below
   const meta = {};
   const facts = {};
@@ -944,6 +964,12 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     save: () => writeJson(FILES.ledger, ledger),
   });
   io.remove(FILES.draft);
+  for (const e of send.filter((x) => !post.sentRepos.includes(x.repo))) {
+    const changed = post.skipped.some((k) => k.repo === e.repo);
+    const code = changed ? "draft-changed" : post.stopped ? "stopped" : "post-failed";
+    const reason = changed ? post.skipped.find((k) => k.repo === e.repo).reason : post.stopped ? `posting stopped on ${post.stopped}; tried again after the pause` : "the post failed for this repository; recorded in the ledger and tried again next run";
+    for (const x of [e.server, ...e.also]) skipped.push({ id: x.id, repo: e.repo, code, reason });
+  }
   const sentIds = send.filter((e) => post.sentRepos.includes(e.repo)).flatMap((e) => [e.server.id, ...e.also.map((x) => x.id)]);
   log(`owner issues opened: ${post.opened} (cap ${limits.perRun} per run, ${limits.perDay} per day, ${limits.perWeek} per week)${post.stopped ? `; stopped on ${post.stopped}` : ""}; ${post.skipped.length} not posted; ${waiting} wait for later runs; skipped ${skipped.length} (${counts}); ${held.length} held for private handling`);
   finish(sentIds, { live: true, eligible: p.eligible, sent: post.recorded, explained: room.allow === 0 || Boolean(post.stopped) || post.skipped.length > 0 });

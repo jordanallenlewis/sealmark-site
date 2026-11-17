@@ -1,7 +1,7 @@
 // node --test fleet/   The rules that keep owner notices from being spam (fleet/owner-limits.mjs). Pure, no network.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { DAY, HOUR, LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignal, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
+import { DAY, HOUR, LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
 
 const NOW = Date.parse("2026-11-17T12:00:00Z");
 const ago = (ms) => new Date(NOW - ms).toISOString();
@@ -61,32 +61,48 @@ test("backoff: 403, 429, a rate limit and a rejected token pause; a per-reposito
   for (const s of ["404", "422", "error", "repo"]) assert.equal(backoffFor(s), null, s);
 });
 
-test("negative reactions: removed, closed as not planned, thumbs-down, or a stop / spam reply; ordinary replies are not", () => {
-  assert.equal(negativeSignal({ issue: { missing: true } }).kind, "removed");
-  assert.equal(negativeSignal({ issue: { gone: true } }).kind, "removed");
-  assert.equal(negativeSignal({ issue: { state: "closed", state_reason: "not_planned" } }).kind, "not-planned");
-  assert.equal(negativeSignal({ issue: { state: "closed", state_reason: "completed" } }), null, "closed as completed is fine");
-  assert.equal(negativeSignal({ issue: { state: "open", reactions: { "-1": 1 } } }).kind, "thumbs-down");
-  assert.equal(negativeSignal({ issue: { state: "open", reactions: { "+1": 3, heart: 1 } } }), null);
-  assert.equal(negativeSignal({ issue: {}, comments: [{ body: "please stop opening these", html_url: "u" }] }).kind, "complaint");
-  assert.equal(negativeSignal({ issue: {}, comments: [{ body: "this is spam" }] }).kind, "complaint");
-  assert.equal(negativeSignal({ issue: {}, comments: [{ body: "Unsolicited. Reported you to GitHub." }] }).kind, "complaint");
-  assert.equal(negativeSignal({ issue: {}, comments: [{ body: "thanks, fixed in 1.2.1" }, { body: "can you recheck? the result looks wrong" }] }), null);
-  assert.equal(negativeSignal({ issue: {}, comments: [{ body: "> this is spam\nthanks, will look" }] }), null, "a quote of the issue is not a complaint");
-  assert.equal(negativeSignal({ issue: {}, comments: [{ body: "nice", reactions: { "-1": 1 } }] }).kind, "thumbs-down");
+test("negative reactions: removed, locked, closed as not planned, thumbs-down, or a stop / spam reply; ordinary replies are not", () => {
+  const kinds = (x) => negativeSignals(x).map((n) => n.kind);
+  assert.deepEqual(kinds({ issue: { missing: true } }), ["removed"]);
+  assert.deepEqual(kinds({ issue: { gone: true } }), ["removed"]);
+  assert.deepEqual(kinds({ issue: { locked: true, active_lock_reason: "spam" } }), ["locked-spam"]);
+  assert.deepEqual(kinds({ issue: { locked: true, active_lock_reason: "resolved" } }), []);
+  assert.deepEqual(kinds({ issue: { state: "closed", state_reason: "not_planned" } }), ["not-planned"]);
+  assert.deepEqual(kinds({ issue: { state: "closed", state_reason: "completed" } }), [], "closed as completed is fine");
+  assert.deepEqual(kinds({ issue: { state: "open", reactions: { "-1": 1 } } }), ["thumbs-down"]);
+  assert.deepEqual(kinds({ issue: { state: "open", reactions: { "+1": 3, heart: 1 } } }), []);
+  for (const body of ["please stop opening these", "this is spam", "Unsolicited.", "Not interested, please don't open issues here", "unsubscribe", "stop spamming us"]) assert.deepEqual(kinds({ issue: {}, people: [{ id: 1, body }] }), ["complaint"], body);
+  for (const body of ["Fixed in 1.2, and I reported this upstream", "How do I stop this check from failing?", "the rate limiter prevents abuse of the API", "thanks, fixed in 1.2.1", "can you recheck? the result looks wrong", "> this is spam\nthanks, will look"]) assert.deepEqual(kinds({ issue: {}, people: [{ id: 1, body }] }), [], body);
+  assert.deepEqual(kinds({ issue: {}, ours: [{ id: 5, reactions: { "-1": 1 } }] }), ["thumbs-down"], "a thumbs-down on a comment of ours");
+  assert.deepEqual(kinds({ issue: {}, people: [{ id: 6, body: "nice", reactions: { "-1": 1 } }] }), [], "a thumbs-down on a person's own comment is not about us");
 });
 
-test("applyNegative: the first signal pauses, the same signal after a person clears the pause does not pause again", () => {
+test("applyNegative: each signal is recorded once, a later different one pauses again after a person cleared the first", () => {
   const ledger = { issues: [] };
-  const sig = { kind: "complaint", detail: "a reply asks us to stop" };
-  assert.ok(applyNegative(ledger, { repo: "a/b", number: 4, signal: sig, now: NOW }));
+  const first = negativeSignals({ issue: { state: "open", reactions: { "-1": 1 } } });
+  assert.equal(applyNegative(ledger, { repo: "a/b", number: 4, signals: first, now: NOW }).length, 1);
   assert.equal(pauseState(ledger, NOW).paused, true);
   assert.match(pauseState(ledger, NOW).reason, /a\/b#4/);
   ledger.pause = null; // a person reviewed it
-  assert.equal(applyNegative(ledger, { repo: "A/B", number: 4, signal: sig, now: NOW + DAY }), null);
+  assert.equal(applyNegative(ledger, { repo: "A/B", number: 4, signals: first, now: NOW + DAY }).length, 0, "the same signal does not pause again");
   assert.equal(pauseState(ledger, NOW + DAY).paused, false);
-  assert.ok(applyNegative(ledger, { repo: "c/d", number: 1, signal: sig, now: NOW + DAY }), "a new notice's signal pauses again");
-  assert.equal(applyNegative(ledger, { repo: "x/y", number: 1, signal: null, now: NOW }), null);
+  // the 2026-11-17 review: a recorded thumbs-down must not hide a later complaint on the same issue
+  const complaint = negativeSignals({ issue: { state: "open", reactions: { "-1": 1 } }, people: [{ id: 99, body: "please stop spamming" }] });
+  assert.equal(applyNegative(ledger, { repo: "a/b", number: 4, signals: complaint, now: NOW + DAY }).length, 1);
+  assert.equal(pauseState(ledger, NOW + DAY).paused, true);
+  ledger.pause = null;
+  const second = negativeSignals({ issue: {}, people: [{ id: 100, body: "this is spam" }] });
+  assert.equal(applyNegative(ledger, { repo: "a/b", number: 4, signals: second, now: NOW + DAY }).length, 1, "a second person's complaint is a new signal");
+  assert.ok(applyNegative(ledger, { repo: "c/d", number: 1, signals: first, now: NOW + DAY }).length);
+  assert.deepEqual(applyNegative(ledger, { repo: "x/y", number: 1, signals: [], now: NOW }), []);
+});
+
+test("budget: the real count read from GitHub is a floor; a stamp in the future counts as now", () => {
+  assert.equal(budget({ ledger: { issues: [] }, now: NOW, limits: L, floor: { day: 6, week: 6 } }).code, "cap-day", "the ledger lost its commit; GitHub knows better");
+  assert.equal(budget({ ledger: { issues: [] }, now: NOW, limits: L, floor: { day: 1, week: 30 } }).code, "cap-week");
+  const skew = budget({ ledger: { issues: [{ repo: "a/b", postedAt: new Date(NOW + 5 * 60_000).toISOString() }] }, now: NOW, limits: L });
+  assert.deepEqual([skew.code, skew.day], ["spacing", 1]);
+  assert.ok(ownersBusy({ issues: [{ repo: "a/b", postedAt: new Date(NOW + 5 * 60_000).toISOString() }] }, NOW).has("a"));
 });
 
 test("stability: a grade is told only after the same version was graded twice with the same letters", () => {
