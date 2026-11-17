@@ -76,25 +76,32 @@ export function candidates(entries, { pvr, byId, ledger, optout, history, today,
 
 // Posts reports. `post(repo, {summary, description})` throws an Error with `.status`. Never throws itself. Returns
 // {sent: n, stopped: status|null}; each sent report is recorded as a hash, before the next one is tried.
-export async function sendReports({ ready, ledger, now, limits, post, save, sleep, log, key = "" }) {
+export async function sendReports({ ready, ledger, now, limits, post, save, sleep, log, key = "", persist = async () => {} }) {
   const room = budget({ ledger: { issues: ledger.private ?? [], pause: ledger.pause }, now, limits });
   const out = { sent: 0, stopped: null, room };
   for (const r of ready.slice(0, room.allow)) {
     if (out.sent > 0) await sleep(60_000);
+    // Intent first: the hash is written AND pushed to main before the request, so a ledger commit that never lands later
+    // can never send a repository a second report. If the push fails nothing is sent.
+    const rec = { h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), postedAt: new Date(now).toISOString(), intent: true };
+    (ledger.private ??= []).push(rec);
+    save();
+    try { await persist(); } catch (e) { ledger.private.pop(); save(); out.stopped = "persist"; log(`::error::the ledger could not be pushed before a private report (${String(e.message ?? e).slice(0, 80)}); nothing is sent`); break; }
     try {
       await post(r.repo, { summary: r.title, description: r.body });
-      (ledger.private ??= []).push({ h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), postedAt: new Date(now).toISOString() });
+      delete rec.intent;
       out.sent += 1;
       save();
     } catch (e) {
       const status = Number(e.status ?? NaN);
       log(`::warning::a private report failed (${Number.isFinite(status) ? status : "error"}); not named here`);
-      if (!Number.isFinite(status) || status === 401 || status === 403 || status === 429 || status >= 500) { out.stopped = String(Number.isFinite(status) ? status : "error"); break; }
-      // 404: remembered for 14 days (a race with the private-reporting switch). 422 may be our own payload: stop the batch,
-      // record nothing, so a bug here costs one request, never a repository.
-      if (status === 422) { out.stopped = "422"; break; }
-      (ledger.private ??= []).push({ h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), failed: status, retryAfter: new Date(now + 14 * 864e5).toISOString() });
+      // a definite refusal created nothing: take the intent back. A timeout or a 5xx may have created it: the record stays.
+      const definite = [401, 403, 404, 422, 429].includes(status);
+      if (definite) ledger.private.splice(ledger.private.indexOf(rec), 1);
+      if (status === 404) ledger.private.push({ h: rec.h, at: rec.at, failed: 404, retryAfter: new Date(now + 14 * 864e5).toISOString() });
       save();
+      if (status === 422) { out.stopped = "422"; break; } // may be our own payload: stop the batch, record nothing
+      if (status !== 404) { out.stopped = String(Number.isFinite(status) ? status : "error"); break; }
     }
   }
   return out;

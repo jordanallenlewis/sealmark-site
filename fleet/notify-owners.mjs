@@ -655,6 +655,17 @@ export function gate(env, argv) {
 
 // ---- main ----
 
+// Pushes the ledger to main before a private report is sent (only on Actions; elsewhere a no-op). It throws when the push
+// fails, and then nothing is sent. The identity is the one the fleet's commit step uses.
+function persistLedger(env, ghFn) {
+  if (env.GITHUB_ACTIONS !== "true") return;
+  const git = (...a) => execFileSync("git", ["-c", "user.name=Jordan Lewis", "-c", "user.email=42820601+jordanallenlewis@users.noreply.github.com", ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 120_000 });
+  git("add", FILES.ledger);
+  try { git("commit", "-m", "fleet: record a private report before it is sent"); } catch { /* nothing to commit */ }
+  git("pull", "--rebase", "origin", "main");
+  git("push", "origin", "HEAD:main");
+}
+
 const realIo = {
   read: (f) => (fs.existsSync(f) ? fs.readFileSync(f, "utf8") : null),
   write: (f, s) => fs.writeFileSync(f, s),
@@ -961,6 +972,7 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       ready: reports, ledger, now: nowMs, limits: privLimits, sleep, log, key: env.OWNER_PRIVATE_KEY,
       post: (repo, body) => api(`/repos/${repo}/security-advisories/reports`, { method: "POST", body, token: g.token }),
       save: () => writeJson(FILES.ledger, ledger),
+      persist: () => persistLedger(env, gh),
     });
     privSent = out.sent;
     if (["403", "429"].includes(out.stopped)) { setPause(ledger, { code: `http-${out.stopped}`, reason: `GitHub answered ${out.stopped} to a private report; backing off for 24 hours`, now: nowMs, hours: 24 }); log(`::error::GitHub answered ${out.stopped} to a private report: posting is paused for 24 hours`); }

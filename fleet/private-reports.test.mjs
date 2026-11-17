@@ -73,7 +73,7 @@ test("sendReports: the per-run cap, a recorded hash only, a 403 stops and nothin
   const out = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger, now: NOW, limits: privateLimitsFrom({}), key: "k", post: async (repo, b) => posted.push([repo, b.summary]), save() {}, sleep: async () => {}, log() {} });
   assert.equal(out.sent, 1, "1 per run");
   assert.deepEqual(posted.map((p) => p[0]), ["a/one"]);
-  assert.deepEqual(Object.keys(ledger.private[0]).sort(), ["at", "h", "postedAt"], "a hash, never the repository name");
+  assert.deepEqual(Object.keys(ledger.private[0]).sort(), ["at", "h", "postedAt"], "a hash, never the repository name; the intent flag is gone once sent");
   assert.doesNotMatch(JSON.stringify(ledger), /a\/one/i);
   // the same ledger a minute later: the gap holds the next one back
   const again = await sendReports({ ready: [mk("b/two")], ledger, now: NOW + 60_000, limits: privateLimitsFrom({}), post: async () => { throw new Error("must not post"); }, save() {}, sleep: async () => {}, log() {} });
@@ -81,13 +81,13 @@ test("sendReports: the per-run cap, a recorded hash only, a 403 stops and nothin
   // a 403 stops the loop
   const l2 = {};
   const stop = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger: l2, now: NOW, limits: privateLimitsFrom({ OWNER_PRIVATE_PER_RUN: "5", OWNER_PRIVATE_GAP_MINUTES: "1" }), post: async () => { throw Object.assign(new Error("no"), { status: 403 }); }, save() {}, sleep: async () => {}, log() {} });
-  assert.deepEqual([stop.sent, stop.stopped, l2.private], [0, "403", undefined]);
+  assert.deepEqual([stop.sent, stop.stopped, l2.private], [0, "403", []]);
   // a 422 (this repository cannot take a report) is recorded so it is not tried every run, and the next one goes on
   const l3 = {};
   const posts = [];
   const rest = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger: l3, now: NOW, limits: privateLimitsFrom({ OWNER_PRIVATE_PER_RUN: "5", OWNER_PRIVATE_GAP_MINUTES: "1" }), post: async (repo) => { posts.push(repo); if (repo === "a/one") throw Object.assign(new Error("bad"), { status: 422 }); }, save() {}, sleep: async () => {}, log() {} });
   // 422 may be our own payload: the batch stops and nothing is recorded; 404 is remembered for 14 days, then retried
-  assert.deepEqual([rest.sent, rest.stopped, posts, l3.private], [0, "422", ["a/one"], undefined]);
+  assert.deepEqual([rest.sent, rest.stopped, posts, l3.private], [0, "422", ["a/one"], []]);
   const l4 = {};
   const r404 = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger: l4, now: NOW, limits: privateLimitsFrom({ OWNER_PRIVATE_PER_RUN: "5", OWNER_PRIVATE_GAP_MINUTES: "1" }), key: "k", post: async (repo) => { if (repo === "a/one") throw Object.assign(new Error("gone"), { status: 404 }); }, save() {}, sleep: async () => {}, log() {} });
   assert.deepEqual([r404.sent, l4.private.map((p) => p.failed ?? "ok")], [1, [404, "ok"]]);
@@ -102,4 +102,22 @@ test("sendReports: a pause stops everything, caps count what was already sent", 
   const day = { private: [0, 1].map((i) => ({ h: `h${i}`, postedAt: new Date(NOW - (3 + i) * 3600_000).toISOString() })) };
   const capped = await sendReports({ ready: [mk("a/one")], ledger: day, now: NOW, limits: privateLimitsFrom({}), post: async () => { throw new Error("must not post"); }, save() {}, sleep: async () => {}, log() {} });
   assert.deepEqual([capped.sent, capped.room.code], [0, "cap-day"]);
+});
+
+test("sendReports: the hash is pushed before the request; a failed push sends nothing; a definite refusal takes the intent back, a timeout keeps it", async () => {
+  const mk = (r) => reportFor(entry(r));
+  const order = [];
+  const ledger = {};
+  await sendReports({ ready: [mk("a/one")], ledger, now: NOW, limits: privateLimitsFrom({}), key: "k", persist: async () => order.push(`persist:${ledger.private.length}:${ledger.private[0].intent}`), post: async () => order.push("post"), save() {}, sleep: async () => {}, log() {} });
+  assert.deepEqual(order, ["persist:1:true", "post"], "the intent is on the ledger and pushed before the POST");
+  const l2 = {};
+  const none = await sendReports({ ready: [mk("a/one")], ledger: l2, now: NOW, limits: privateLimitsFrom({}), persist: async () => { throw new Error("push rejected"); }, post: async () => { throw new Error("must not post"); }, save() {}, sleep: async () => {}, log() {} });
+  assert.deepEqual([none.sent, none.stopped, l2.private], [0, "persist", []]);
+  const l3 = {};
+  await sendReports({ ready: [mk("a/one")], ledger: l3, now: NOW, limits: privateLimitsFrom({}), post: async () => { throw Object.assign(new Error("denied"), { status: 403 }); }, save() {}, sleep: async () => {}, log() {} });
+  assert.deepEqual(l3.private, [], "a 403 created nothing");
+  const l4 = {};
+  await sendReports({ ready: [mk("a/one")], ledger: l4, now: NOW, limits: privateLimitsFrom({}), post: async () => { throw new Error("socket hang up"); }, save() {}, sleep: async () => {}, log() {} });
+  assert.equal(l4.private.length, 1, "a timeout may have created it: the record stays");
+  assert.equal(l4.private[0].intent, true);
 });
