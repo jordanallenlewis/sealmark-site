@@ -26,7 +26,7 @@ test("report text: private, names the finding and its fix, states the disclosure
   assert.match(r.title, /a file outside the allowed folder was read in mcp 1\.2\.0 \(automated Sealmark test\)/);
   assert.match(r.body, /sending it privately/);
   assert.match(r.body, /- `fs-read-escape` \(failed\): read \.\.\/outside\.txt\. How to fix: Resolve the path/);
-  assert.match(r.body, /14 days for a reply and send one reminder, and publish the finding once it is fixed or on day 90/);
+  assert.match(r.body, /14 days for a reply, and publish the finding once it is fixed or on day 90/);
   assert.match(r.body, /reply "opt out"/);
   assert.match(r.body, /sealmark\.dev\/disclosure\//);
   assert.doesNotMatch(r.body, /Claude|Anthropic|Co-authored|Agent:/i);
@@ -86,8 +86,13 @@ test("sendReports: the per-run cap, a recorded hash only, a 403 stops and nothin
   const l3 = {};
   const posts = [];
   const rest = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger: l3, now: NOW, limits: privateLimitsFrom({ OWNER_PRIVATE_PER_RUN: "5", OWNER_PRIVATE_GAP_MINUTES: "1" }), post: async (repo) => { posts.push(repo); if (repo === "a/one") throw Object.assign(new Error("bad"), { status: 422 }); }, save() {}, sleep: async () => {}, log() {} });
-  assert.deepEqual([rest.sent, posts, l3.private.map((p) => p.failed ?? "ok")], [1, ["a/one", "b/two"], [422, "ok"]]);
-  assert.equal(alreadyReported(l3, "a/one"), true);
+  // 422 may be our own payload: the batch stops and nothing is recorded; 404 is remembered for 14 days, then retried
+  assert.deepEqual([rest.sent, rest.stopped, posts, l3.private], [0, "422", ["a/one"], undefined]);
+  const l4 = {};
+  const r404 = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger: l4, now: NOW, limits: privateLimitsFrom({ OWNER_PRIVATE_PER_RUN: "5", OWNER_PRIVATE_GAP_MINUTES: "1" }), key: "k", post: async (repo) => { if (repo === "a/one") throw Object.assign(new Error("gone"), { status: 404 }); }, save() {}, sleep: async () => {}, log() {} });
+  assert.deepEqual([r404.sent, l4.private.map((p) => p.failed ?? "ok")], [1, [404, "ok"]]);
+  assert.equal(alreadyReported(l4, "a/one", "k", NOW + 864e5), true);
+  assert.equal(alreadyReported(l4, "a/one", "k", NOW + 15 * 864e5), false, "retried after 14 days");
 });
 
 test("sendReports: a pause stops everything, caps count what was already sent", async () => {

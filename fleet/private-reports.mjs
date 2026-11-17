@@ -23,7 +23,8 @@ export const privateLimitsFrom = (env = {}) => ({
 // A keyed hash (HMAC-SHA256 with the OWNER_PRIVATE_KEY secret): the ledger is public and repository names are guessable,
 // so a plain hash would let anyone test which repositories were reported. Without the key a live run sends nothing.
 export const repoHash = (repo, key = "") => crypto.createHmac("sha256", String(key)).update(String(repo).toLowerCase()).digest("hex").slice(0, 16);
-export const alreadyReported = (ledger, repo, key = "") => (ledger.private ?? []).some((r) => r.h === repoHash(repo, key));
+// A 404 is remembered for 14 days (a race with the private-reporting switch, or the owner turning it on later), anything else for good.
+export const alreadyReported = (ledger, repo, key = "", now = Date.now()) => (ledger.private ?? []).some((r) => r.h === repoHash(repo, key) && !(r.retryAfter && Date.parse(r.retryAfter) <= now));
 
 // The report for one held repository (privateEntry's shape, with `fix` text per finding). The text is exactly what is posted.
 export function reportFor(entry, { fixFor = () => "" } = {}) {
@@ -39,8 +40,8 @@ export function reportFor(entry, { fixFor = () => "" } = {}) {
   const body = [
     `Hi. [Sealmark](${ORIGIN}) is an open-source test suite for MCP servers, run by [Jordan Allen Lewis](https://github.com/jordanallenlewis). An automated run started your server and called its tools with fixed inputs (no model involved). It produced a result you should see before anyone else does, so we are sending it privately.`,
     blocks.join("\n\n"),
-    `The page for ${first.name} on sealmark.dev already hides this finding while it is private (${first.results}). We follow [this disclosure policy](${ORIGIN}/disclosure/): we wait 14 days for a reply and send one reminder, and publish the finding once it is fixed or on day 90, whichever comes first. If you need more time or the result is wrong, reply here and we will recheck it and say so.`,
-    `This is automated and can be wrong. This is the only report Sealmark will send for this repository. To stop all Sealmark messages to you, reply "opt out".`,
+    `sealmark.dev withholds the details of this finding while it is private (${first.results}). We follow [this disclosure policy](${ORIGIN}/disclosure/): we wait 14 days for a reply, and publish the finding once it is fixed or on day 90, whichever comes first. If you need more time or the result is wrong, reply on this report and we will recheck it and say so.`,
+    `This is automated and can be wrong. This is the only automated report Sealmark will send for this repository. To stop all Sealmark messages to you, reply "opt out".`,
   ].join("\n\n");
   return { repo: entry.repo, title, body, hash: crypto.createHash("sha256").update(`${entry.repo}\n${title}\n${body}`).digest("hex").slice(0, 16), servers: servers.map((x) => x.id) };
 }
@@ -61,7 +62,8 @@ export function candidates(entries, { pvr, byId, ledger, optout, history, today,
     const bad = live.map((x) => {
       const r = byId.get(x.id);
       if (!x.fresh) return `not fresh (${x.stale})`;
-      if (r && !stability(r, history).ok) return stability(r, history).reason;
+      if (!r) return "the result is not in the data";
+      if (!stability(r, history).ok) return stability(r, history).reason;
       if (facts[x.id]) return facts[x.id].reason;
       return null;
     }).find(Boolean);
@@ -88,8 +90,10 @@ export async function sendReports({ ready, ledger, now, limits, post, save, slee
       const status = Number(e.status ?? NaN);
       log(`::warning::a private report failed (${Number.isFinite(status) ? status : "error"}); not named here`);
       if (!Number.isFinite(status) || status === 401 || status === 403 || status === 429 || status >= 500) { out.stopped = String(Number.isFinite(status) ? status : "error"); break; }
-      // 404 / 422: this repository cannot take a report; record it so it is not tried every run
-      (ledger.private ??= []).push({ h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), failed: status });
+      // 404: remembered for 14 days (a race with the private-reporting switch). 422 may be our own payload: stop the batch,
+      // record nothing, so a bug here costs one request, never a repository.
+      if (status === 422) { out.stopped = "422"; break; }
+      (ledger.private ??= []).push({ h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), failed: status, retryAfter: new Date(now + 14 * 864e5).toISOString() });
       save();
     }
   }

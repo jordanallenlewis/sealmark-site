@@ -889,3 +889,11 @@ test("main: a security finding goes only to private vulnerability reporting, onl
   assert.equal(live.advisories.length, 1);
   assert.ok(second.logs.some((l) => /private reports: 0 sent/.test(l)));
 });
+
+test("postIssues: a pause set earlier in the same run (a private report answered 403) stops the public posts", async () => {
+  const ready = plan(world([at("a", "o1/a"), at("b", "o2/b")])).send;
+  const ledger = { issues: [], pause: { code: "http-403", reason: "x", since: "2026-11-12T09:59:00Z", until: "2026-11-13T09:59:00Z" } };
+  const gh = fakeGh();
+  const out = await postIssues({ ready, ledger, me: "sealmark-bot", gh, sleep: async () => {}, now: () => clock(), today: TODAY, log() {}, save() {} });
+  assert.deepEqual([out.opened, out.stopped, gh.created()], [0, "paused", []]);
+});

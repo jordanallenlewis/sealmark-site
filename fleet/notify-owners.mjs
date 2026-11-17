@@ -605,6 +605,7 @@ export function recordFailure(ledger, repo, { status, perRepo }, at) {
 export async function postIssues({ ready, ledger, me, gh, sleep, now, today, log, save, approved = null, limits = LIMIT_DEFAULTS }) {
   const out = { opened: 0, recorded: 0, skipped: [], stopped: null, sentRepos: [] };
   for (const e of ready) {
+    if (pauseState(ledger, now().getTime()).paused) { out.stopped = "paused"; log("owner issues: posting is paused; the rest waits"); break; }
     const d = draftFor(e);
     if (approved) {
       const a = approved.get(e.repo.toLowerCase());
@@ -941,6 +942,10 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       const r = byId.get(x.id);
       const lp = launchProblem(r.launch); // the reproduce line in the report must run as written
       if (lp) { gate = { reason: lp }; break; }
+      if (!meta[e.repo]) { try { meta[e.repo] = await api(`/repos/${e.repo}`); } catch (err) { meta[e.repo] = { error: String(err.status ?? err.message) }; } }
+      const m = meta[e.repo];
+      const alive = m.missing ? "repository not found" : m.error ? `repository check failed (${m.error})` : m.archived ? "archived" : m.fork ? "fork" : m.has_issues === undefined ? null : (m.pushed_at && activity(m.pushed_at, today, privLimits.activeDays).ok === false ? activity(m.pushed_at, today, privLimits.activeDays).reason : null);
+      if (alive) { gate = { reason: alive }; break; }
       const f = await serverFacts(r, e.repo, { fetchFn, api, roots });
       gate = factsGate(r, f);
       if (gate) break;
