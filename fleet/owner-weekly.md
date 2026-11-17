@@ -27,17 +27,20 @@ None.
 
 ## Where every graded server stands (2026-11-17)
 
-262 graded servers: 2 sent or drafted this run, 30 held for private handling, 30 waiting, 200 skipped.
+262 graded servers: 0 sent or drafted this run, 30 held for private handling, 27 waiting, 205 skipped.
 
-Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (2 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
+Sending: closed for now: the last notice went out 10 minutes ago; at least 30 minutes between notices. Caps: 2 per run, 6 per day (2 in the last 24 hours), 30 per week (4 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
+
+Private security reports (GitHub private vulnerability reporting, never public): 0 sent in all; 23 repositories are held for them. Counts only.
 
 ### Waiting (a later run may send)
 
 | Reason | Servers |
 |---|---|
 | weak signals only | 18 |
-| queued: repository checked as slots free up | 8 |
+| queued: repository checked as slots free up | 3 |
 | graded once; waits for a repeat run | 2 |
+| waits for the gap between notices | 2 |
 | stale grade or failed re-test | 1 |
 | flaky across repeat runs | 1 |
 
@@ -48,8 +51,10 @@ Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 ho
 | nothing to fix (an A, or no check to name) | 125 |
 | no GitHub repository | 35 |
 | no tool reached (hygiene-only) | 29 |
-| repository not found | 5 |
-| already got its one issue | 2 |
+| repository not found | 6 |
+| already got its one issue | 4 |
 | launch line not reproducible as written | 2 |
+| archived | 1 |
+| package in a subfolder of a larger repository | 1 |
 | no tools declared | 1 |
 | our own repository | 1 |

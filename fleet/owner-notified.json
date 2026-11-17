@@ -80,6 +80,13 @@
       "eligible": 2,
       "sent": 2,
       "explained": false
+    },
+    {
+      "date": "2026-11-17",
+      "live": true,
+      "eligible": 2,
+      "sent": 0,
+      "explained": true
     }
   ]
 }
