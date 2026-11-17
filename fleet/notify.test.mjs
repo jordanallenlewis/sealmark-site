@@ -842,7 +842,7 @@ test("main: failed and stopped posts are accounted for (waiting), never reported
   const w2 = fakeWorld({ servers: many(3) });
   const r2 = await runLive(w2, {}, fakeGh({ fail: { "own0/repo0": "HTTP 422", "own1/repo1": "HTTP 422" } }));
   assert.ok(!r2.logs.some((l) => /UNACCOUNTED/.test(l)));
-  assert.match(w2.files.get(FILES.weekly), /post-failed \| 2 \|/);
+  assert.match(w2.files.get(FILES.weekly), /the post failed; tried again next run \| 2 \|/);
 });
 
 test("main: a rate-limit answer to a read pauses posting for 24 hours", async () => {
