@@ -24,6 +24,8 @@ export const MAX_TEXT = 240;
 /** How a line was verified (the CLI's `VerifiedBy`); any other value is dropped. */
 const SOURCES = new Set(["db-state", "response", "protocol", "static", "fs-observer", "listener", "process", "http", "upstream", "log", "authserver"]);
 
+const VERDICTS = new Set(["pass", "part", "fail", "inconclusive", "na"]);
+
 const VERSION = /^\d{1,4}\.\d{1,4}\.\d{1,4}(-[0-9A-Za-z.-]{1,40})?$/;
 
 /** @param {unknown} v */
@@ -55,7 +57,7 @@ function evidenceLine(e) {
 /**
  * The evidence record for one graded report, or undefined when nothing may be kept.
  * @param {{ startedAt?: string, sealmark?: { version?: string }, config?: { hash?: string }, checks?: unknown } | null | undefined} report
- * @returns {{ testedAt: string, sealmark: string | null, configHash: string, checks: Record<string, { total: number, lines: object[] }> } | undefined}
+ * @returns {{ testedAt: string, sealmark: string | null, configHash: string, checks: Record<string, { verdict: string, total: number, lines: object[] }> } | undefined}
  */
 export function checkEvidence(report) {
   if (!report || typeof report !== "object" || !Array.isArray(report.checks)) return undefined;
@@ -66,7 +68,9 @@ export function checkEvidence(report) {
     if (typeof c.id !== "string" || c.id === "__proto__" || !isPublicCheck(c) || !Array.isArray(c.evidence)) continue;
     const lines = c.evidence.map(evidenceLine).filter(Boolean);
     if (!lines.length) continue;
-    checks[c.id] = { total: lines.length, lines: lines.slice(0, MAX_LINES) };
+    // The verdict this run gave the check, so the page shows the lines only beside the verdict they came from.
+    if (!VERDICTS.has(c.verdict)) continue;
+    checks[c.id] = { verdict: c.verdict, total: lines.length, lines: lines.slice(0, MAX_LINES) };
   }
   if (!Object.keys(checks).length) return undefined;
   return {

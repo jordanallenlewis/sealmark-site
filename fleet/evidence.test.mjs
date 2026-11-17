@@ -16,8 +16,13 @@ test("a public check keeps probe, outcome, how it was verified and the tool; nev
   const out = checkEvidence(report([{ id: publicId, verdict: "pass", evidence: [line()] }]));
   assert.deepEqual(out, {
     testedAt: "2026-11-16", sealmark: "1.0.1", configHash: "sha256:d13e7893a0ac",
-    checks: { [publicId]: { total: 1, lines: [{ probe: "probe 1", outcome: "outcome 1", by: "protocol", tool: "read_file" }] } },
+    checks: { [publicId]: { verdict: "pass", total: 1, lines: [{ probe: "probe 1", outcome: "outcome 1", by: "protocol", tool: "read_file" }] } },
   });
+});
+
+test("each check record keeps its verdict, so the page can match lines to the verdict they came from; an unknown verdict keeps none", () => {
+  assert.equal(checkEvidence(report([{ id: publicId, verdict: "part", evidence: [line()] }])).checks[publicId].verdict, "part");
+  assert.equal(checkEvidence(report([{ id: publicId, verdict: "maybe", evidence: [line()] }])), undefined);
 });
 
 test("security checks, advisory checks, critical results and unknown ids keep no evidence (fail closed)", () => {

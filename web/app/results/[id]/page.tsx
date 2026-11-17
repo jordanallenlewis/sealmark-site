@@ -25,6 +25,8 @@ import { BadgeSnippets } from "@/components/BadgeSnippets";
 import { FILL, installConfig } from "@/lib/install-config.mjs";
 import { relatedServers } from "@/lib/related.mjs";
 import { serverFactsFor } from "@/lib/server-facts-data";
+import { checkEvidenceFor } from "@/lib/check-evidence-data";
+import { MAX_LINES, MAX_TEXT, type CheckEvidence } from "@/lib/check-evidence.mjs";
 
 export const dynamicParams = false;
 // With no published results, export one placeholder route; the page answers it with notFound().
@@ -96,9 +98,35 @@ function PrivateNote({ d }: { d: Disclosure }) {
   );
 }
 
+// The evidence viewer (site#65): what this check probed and what it observed in the run on this page, from fleet/evidence.json
+// (lib/check-evidence.mjs decides what may be shown). Server text is someone else's, so it is marked data-third-party.
+function EvidenceLines({ ev, id }: { ev: CheckEvidence; id: string }) {
+  const n = ev.lines.length;
+  return (
+    <details className={s.ev}>
+      <summary>Evidence<span className="sr-only"> for {id}</span>: {ev.total > n ? `first ${n} of ${ev.total} lines` : count(n, "line", "lines")}</summary>
+      <ol className={s.evList}>
+        {ev.lines.map((l, i) => (
+          <li key={i}>
+            {l.probe && <div><span className={s.evLabel}>Probe</span> <span data-third-party="">{l.probe}</span></div>}
+            {l.outcome && <div><span className={s.evLabel}>Outcome</span> <span data-third-party="">{l.outcome}</span></div>}
+            {(l.by || l.tool) && (
+              <div className={s.evMeta}>
+                {l.by && (l.how ? <>Decided {l.how} (<code>{l.by}</code>)</> : <>Decided by <code>{l.by}</code></>)}
+                {l.by && l.tool && " · "}
+                {l.tool && <>tool <code data-third-party="">{l.tool}</code></>}
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </details>
+  );
+}
+
 // priv: this check is a finding under private disclosure. held: another security check in the same test area is, so
 // this one's evidence is held back too (a sibling's summary can give the finding away, e.g. "accepts loopback targets").
-function CheckRow({ c, priv, held }: { c: CheckResult; priv: Disclosure | undefined; held: boolean }) {
+function CheckRow({ c, priv, held, ev }: { c: CheckResult; priv: Disclosure | undefined; held: boolean; ev: CheckEvidence | undefined }) {
   const weak = isWeakSignal(c);
   return (
     <tr>
@@ -113,6 +141,7 @@ function CheckRow({ c, priv, held }: { c: CheckResult; priv: Disclosure | undefi
         <div className={s.sumText}>
           {priv ? <PrivateNote d={priv} /> : held ? <span className={s.muted}>Details held back while a security finding in this test area is reported privately.</span> : c.summary}
           {weak && !held && <div className={s.muted} style={{ marginTop: 6 }}>Weak signal, not a security finding. {WEAK[c.id] ?? ""} A partial counts as half a point.</div>}
+          {ev && !priv && !held && <EvidenceLines ev={ev} id={c.id} />}
         </div>
       </td>
     </tr>
@@ -224,6 +253,7 @@ export default async function ServerPage({ params }: P) {
   const fills = inst ? [...new Map(inst.fill.map((p) => [FILL[p], FILL_WORDS[p]])).entries()] : [];
   const related = relatedServers(x, SERVERS_RESULTS);
   const facts = serverFactsFor(x, priv.size > 0);
+  const evidence = checkEvidenceFor(x, priv.size > 0);
   const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
   return (
@@ -281,13 +311,14 @@ export default async function ServerPage({ params }: P) {
                 <colgroup><col className={s.colCheck} /><col className={s.colVerdict} /><col /></colgroup>
                 <thead><tr><th scope="col">Check</th><th scope="col">Verdict</th><th scope="col">What happened</th></tr></thead>
                 <tbody>
-                  {x.checks.filter((c) => c.pack === pid).map((c) => <CheckRow key={c.id} c={c} priv={priv.get(c.id)} held={!priv.has(c.id) && packHasPrivate(pid) && isSecurityCheck(c)} />)}
+                  {x.checks.filter((c) => c.pack === pid).map((c) => <CheckRow key={c.id} c={c} priv={priv.get(c.id)} held={!priv.has(c.id) && packHasPrivate(pid) && isSecurityCheck(c)} ev={evidence?.get(c.id)} />)}
                 </tbody>
               </table>
             </div>
           </section>
         ))}
         <p className={s.muted} style={{ marginTop: 10 }}>Each check id links to what it tests and how to fix a failure. The same text is in <code>sealmark explain &lt;id&gt;</code>.</p>
+        {evidence && <p className={s.muted}>Under a check, Evidence shows what it probed (sent or inspected) and what it observed in this run: up to {MAX_LINES} lines per check, each cut at {MAX_TEXT} characters, for checks that are not security checks. The text is shortened, and paths and anything that looks like a secret or token are replaced. Run <code>sealmark run --format json</code> yourself for every line in full.</p>}
 
         {byTool && (
           <section className={s.sec} aria-labelledby="tools-h">
