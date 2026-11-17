@@ -94,14 +94,20 @@
       "eligible": 2,
       "sent": 0,
       "explained": true
+    },
+    {
+      "date": "2026-11-17",
+      "live": true,
+      "eligible": 2,
+      "sent": 0,
+      "explained": true
     }
   ],
   "private": [
     {
       "h": "1c2b5e563a636a6b",
       "at": "2026-11-17",
-      "postedAt": "2026-11-17T04:01:48.487Z",
-      "intent": true
+      "postedAt": "2026-11-17T04:01:48.487Z"
     }
   ]
 }

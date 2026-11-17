@@ -29,9 +29,9 @@ None.
 
 262 graded servers: 0 sent or drafted this run, 30 held for private handling, 27 waiting, 205 skipped.
 
-Sending: closed for now: the last notice went out 19 minutes ago; at least 30 minutes between notices. Caps: 2 per run, 6 per day (2 in the last 24 hours), 30 per week (4 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
+Sending: closed for now: the last notice went out 25 minutes ago; at least 30 minutes between notices. Caps: 2 per run, 6 per day (2 in the last 24 hours), 30 per week (4 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
-Private security reports (GitHub private vulnerability reporting, never public): 0 sent in all; 23 repositories are held for them. Counts only.
+Private security reports (GitHub private vulnerability reporting, never public): 1 sent in all; 23 repositories are held for them. Counts only.
 
 ### Waiting (a later run may send)
 
