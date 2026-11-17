@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { clean, collect, githubGetter, githubLatest, lookup, npmLatest, npmLicense, pypiLatest, pypiLicense, repoFacts } from "./server-facts.mjs";
+import { about, clean, collect, githubGetter, githubLatest, lookup, npmLatest, npmLicense, pypiLatest, pypiLicense, repoFacts } from "./server-facts.mjs";
 
 const json = (body, status = 200) => ({ ok: status < 400, status, json: async () => body });
 const ghRepo = (over = {}) => ({ full_name: "o/r", license: { spdx_id: "Apache-2.0" }, pushed_at: "2026-11-10T08:00:00Z", archived: false, open_issues_count: 4, ...over });
@@ -120,4 +120,25 @@ test("githubGetter: its own token and timeout; 404 is missing", async () => {
   assert.deepEqual(await get("/repos/o/r"), { missing: true });
   assert.equal(init.headers.authorization, "Bearer gt");
   assert.ok(init.signal, "every request has a timeout");
+});
+
+test("about: keywords lower-cased, plain, de-duplicated and capped; a string splits on commas, else spaces", () => {
+  const a = about(["MCP", "mcp", "Postgres", "bad\u0000key", "x".repeat(41), "a\u202Eb", 7], "SQL, Database");
+  assert.deepEqual(a, { keywords: ["mcp", "postgres", "bad key", "a b", "sql", "database"] }); // control/format characters become a space, like every cleaned string
+  assert.deepEqual(about("db cli").keywords, ["db", "cli"]);
+  assert.equal(about([], null, undefined, ""), null);
+  assert.equal(about(Array.from({ length: 30 }, (_, i) => `k${i}`)).keywords.length, 20);
+});
+
+test("lookup: about = the package's keywords plus GitHub topics; descriptions are not kept", async () => {
+  const npm = async () => json({ "dist-tags": { latest: "1.0.0" }, versions: { "1.0.0": { description: "Postgres tools", keywords: ["postgres"] } } });
+  const api = async () => ({ ...ghRepo(), description: "repo words", topics: ["database"] });
+  const e = await lookup({ id: "a", ecosystem: "npm", name: "a" }, "o/r", { fetchFn: npm, api, today: "2026-11-17" });
+  assert.deepEqual(e.about, { keywords: ["postgres", "database"] });
+  const py = async () => json({ info: { version: "1.0", summary: "x", keywords: "memory, notes" }, urls: [] });
+  const p = await lookup({ id: "p", ecosystem: "pypi", name: "p" }, "o/r", { fetchFn: py, api: async () => ({ ...ghRepo(), topics: "not-a-list" }), today: "2026-11-17" });
+  assert.deepEqual(p.about, { keywords: ["memory", "notes"] });
+  const bare = async () => json({ "dist-tags": { latest: "1.0.0" }, versions: { "1.0.0": { description: "words" } } });
+  const n = await lookup({ id: "n", ecosystem: "npm", name: "n" }, null, { fetchFn: bare, api, today: "2026-11-17" });
+  assert.equal(n.about, undefined);
 });
