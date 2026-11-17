@@ -897,3 +897,25 @@ test("postIssues: a pause set earlier in the same run (a private report answered
   const out = await postIssues({ ready, ledger, me: "sealmark-bot", gh, sleep: async () => {}, now: () => clock(), today: TODAY, log() {}, save() {} });
   assert.deepEqual([out.opened, out.stopped, gh.created()], [0, "paused", []]);
 });
+
+test("persistLedger pushes the ledger even with uncommitted fleet results in the tree", async () => {
+  const { execFileSync } = await import("node:child_process");
+  const fs = await import("node:fs"); const os = await import("node:os"); const path = await import("node:path");
+  const { persistLedger } = await import("./notify-owners.mjs");
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "persist-"));
+  const who = { GIT_AUTHOR_NAME: "Jordan Lewis", GIT_AUTHOR_EMAIL: "42820601+jordanallenlewis@users.noreply.github.com", GIT_COMMITTER_NAME: "Jordan Lewis", GIT_COMMITTER_EMAIL: "42820601+jordanallenlewis@users.noreply.github.com" };
+  const run = (cwd, ...a) => execFileSync("git", a, { cwd, encoding: "utf8", env: { ...process.env, ...who } });
+  run(root, "init", "-q", "--bare", "-b", "main", "origin.git");
+  run(root, "clone", "-q", "origin.git", "w");
+  const w = path.join(root, "w");
+  fs.mkdirSync(path.join(w, "fleet")); fs.mkdirSync(path.join(w, "web"));
+  fs.writeFileSync(path.join(w, "fleet/owner-notified.json"), "{}\n"); fs.writeFileSync(path.join(w, "web/results.json"), "[]\n");
+  run(w, "add", "-A"); run(w, "commit", "-qm", "init"); run(w, "push", "-q", "origin", "HEAD:main");
+  fs.writeFileSync(path.join(w, "fleet/owner-notified.json"), '{"private":[1]}\n');
+  fs.writeFileSync(path.join(w, "web/results.json"), '["new grades, not committed yet"]\n');
+  Object.assign(process.env, who);
+  persistLedger({ GITHUB_ACTIONS: "true" }, null, w);
+  assert.equal(run(root, "--git-dir=origin.git", "show", "main:fleet/owner-notified.json"), '{"private":[1]}\n');
+  assert.equal(fs.readFileSync(path.join(w, "web/results.json"), "utf8"), '["new grades, not committed yet"]\n');
+  fs.rmSync(root, { recursive: true, force: true });
+});
