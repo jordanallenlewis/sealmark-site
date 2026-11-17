@@ -88,6 +88,26 @@ export function repoFacts(r) {
   };
 }
 
+const KEYWORD = /^[a-z0-9][a-z0-9 ._+-]{0,39}$/;
+export const MAX_KEYWORDS = 20;
+
+/**
+ * What a package declares it is about, for the site's topic pages (web/lib/topics.mjs): its own keywords (npm keywords,
+ * PyPI keywords) and its repository's GitHub topics, lower-cased, plain and short, at most MAX_KEYWORDS. Someone else's
+ * words, used only to match the site's fixed topic terms; never shown, never a score. Null when it declares none.
+ */
+export function about(...keywordLists) {
+  const kw = [];
+  for (const list of keywordLists) {
+    const items = Array.isArray(list) ? list : typeof list === "string" ? list.split(list.includes(",") ? "," : /\s+/) : [];
+    for (const k of items) {
+      const v = clean(typeof k === "string" ? k.toLowerCase() : null, 40);
+      if (v && KEYWORD.test(v) && !kw.includes(v) && kw.length < MAX_KEYWORDS) kw.push(v);
+    }
+  }
+  return kw.length ? { keywords: kw } : null;
+}
+
 const npmDocUrl = (name) => `https://registry.npmjs.org/${String(name).replace("/", "%2F")}`;
 const pypiUrl = (name) => `https://pypi.org/pypi/${encodeURIComponent(name)}/json`;
 
@@ -118,26 +138,34 @@ export function githubGetter(fetchFn, token) {
 export async function lookup(server, repo, { fetchFn, api, today }) {
   const out = { checkedAt: today, source: server.ecosystem, license: null, latest: null, repo: null };
   let named = false; // the package states a license (even one we cannot show): the repository's is then no stand-in
+  let kw = null;
   if (server.ecosystem === "npm") {
     const doc = await getJson(fetchFn, npmDocUrl(server.name));
     const meta = doc?.versions?.[doc?.["dist-tags"]?.latest] ?? doc;
     out.latest = npmLatest(doc);
     out.license = npmLicense(meta);
     named = npmNamesLicense(meta);
+    kw = meta?.keywords ?? doc?.keywords;
   } else if (server.ecosystem === "pypi") {
     const meta = await getJson(fetchFn, pypiUrl(server.name));
     out.latest = pypiLatest(meta);
     out.license = pypiLicense(meta?.info);
     named = pypiNamesLicense(meta?.info);
+    kw = meta?.info?.keywords;
   } else if (server.ecosystem !== "github") {
     throw new Error(`unknown ecosystem ${server.ecosystem}`);
   }
+  let topics = null;
   if (repo) {
-    out.repo = repoFacts(await api(`/repos/${repo}`));
+    const r = await api(`/repos/${repo}`);
+    out.repo = repoFacts(r);
+    if (out.repo && Array.isArray(r.topics)) topics = r.topics; // GitHub topics are always a list; anything else is ignored
     if (server.ecosystem === "github" && out.repo) out.latest = githubLatest(await api(`/repos/${repo}/releases/latest`));
   }
   if (!out.license && !named && out.repo?.license) { out.license = out.repo.license; out.licenseFrom = "repo"; }
   if (out.repo) delete out.repo.license;
+  const a = about(kw, topics);
+  if (a) out.about = a;
   return out;
 }
 

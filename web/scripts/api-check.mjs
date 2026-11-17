@@ -43,8 +43,11 @@ const DISCLOSURE = read(join(web, "content", "data", "disclosure.json")).finding
 const TODAY = new Date().toISOString().slice(0, 10);
 const secrets = []; // [server id, where, text that must not appear in that server's file, the list or the changes]
 const resultsDir = join(out, "results");
+// Site routes under /results/ that are not server pages; a server with one of these ids would lose its page to it.
+const ROUTES = new Set(["history", "topics"]);
+for (const id of RAW.keys()) if (ROUTES.has(id)) fail(1, `server id "${id}" is taken by the /results/${id}/ route`);
 const pages = readdirSync(resultsDir, { withFileTypes: true })
-  .filter((e) => e.isDirectory() && existsSync(join(resultsDir, e.name, "index.html")) && e.name !== "history")
+  .filter((e) => e.isDirectory() && existsSync(join(resultsDir, e.name, "index.html")) && !ROUTES.has(e.name))
   .map((e) => e.name)
   .sort();
 const listed = list.servers.map((s) => s.id).sort();

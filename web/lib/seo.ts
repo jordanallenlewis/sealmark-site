@@ -5,6 +5,7 @@ import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, redactionsFor, PACK_
 import { DATA } from "./results";
 import { badgeEligible } from "@/worker/notify-core.mjs";
 import pkg from "../package.json";
+import { allTopicPages } from "./topics-data";
 
 export const ORIGIN = `https://${SITE.host}`;
 export const canonical = (path: string) => `${ORIGIN}${path.endsWith("/") ? path : `${path}/`}`;
@@ -65,7 +66,7 @@ ${DOCS.map((p) => `- ${canonical(p)}`).join("\n")}
 ## Results
 - [Graded MCP servers (${SERVER_COUNT} so far)](${canonical("/results/")}): one page per server with every check and its evidence. Grades are automated re-tests of one version with the default settings, not endorsements.
 - [Grade history](${canonical("/results/history/")})
-- [Results as JSON](${ORIGIN}/data/v1/servers.json): every graded server; one server at ${ORIGIN}/data/v1/servers/<id>.json, grade changes at ${ORIGIN}/data/v1/changes.json, OpenAPI 3.1 at ${ORIGIN}/data/v1/openapi.json. No key. Fields: ${canonical("/docs/guides/results-data")}
+${allTopicPages().length ? `- [Best graded servers by topic](${canonical("/results/topics/")}): ${allTopicPages().map((t) => t.title).join(", ")}; each server is placed by a stated rule and ranked by grade.\n` : ""}- [Results as JSON](${ORIGIN}/data/v1/servers.json): every graded server; one server at ${ORIGIN}/data/v1/servers/<id>.json, grade changes at ${ORIGIN}/data/v1/changes.json, OpenAPI 3.1 at ${ORIGIN}/data/v1/openapi.json. No key. Fields: ${canonical("/docs/guides/results-data")}
 
 ## Guides
 - [What is MCP conformance testing?](${canonical("/mcp-conformance-testing/")})

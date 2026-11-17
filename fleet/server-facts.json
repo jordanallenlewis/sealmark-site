@@ -13,6 +13,17 @@
         "pushedAt": "2026-09-03",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "3dstreet",
+          "claude",
+          "anthropic",
+          "aframe",
+          "urban-planning"
+        ]
       }
     },
     "aamio": {
@@ -20,14 +31,32 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.7.3",
-        "date": "2026-11-14"
+        "version": "0.8.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "aisenseapi/aamio-js",
-        "pushedAt": "2026-11-14",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "aamio",
+          "agents",
+          "rendezvous",
+          "ed25519",
+          "nacl",
+          "board",
+          "mcp",
+          "a2a",
+          "receipts",
+          "agent-communication",
+          "ai-agents",
+          "end-to-end-encryption",
+          "javascript",
+          "typescript"
+        ]
       }
     },
     "achromat-ai-mcp-server": {
@@ -43,6 +72,20 @@
         "pushedAt": "2026-11-04",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "agents",
+          "achromat",
+          "policy",
+          "compliance",
+          "agent-memory",
+          "devsecops",
+          "fintech",
+          "robotics"
+        ]
       }
     },
     "addressintel-mcp": {
@@ -58,6 +101,18 @@
         "pushedAt": "2026-08-19",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "real-estate",
+          "building-permits",
+          "sb9",
+          "adu",
+          "sf-peninsula"
+        ]
       }
     },
     "adeu-mcp-server": {
@@ -65,14 +120,27 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "4.0.1",
-        "date": "2026-11-13"
+        "version": "4.1.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "dealfluence/adeu",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 1
+        "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "ai-agents",
+          "document-automation",
+          "docx-converter",
+          "gemini-cli-extension",
+          "legaltech",
+          "llm-tools",
+          "mcp-server",
+          "python-library",
+          "redline"
+        ]
       }
     },
     "aetherwealth-mcp": {
@@ -83,7 +151,23 @@
         "version": "0.2.17",
         "date": "2026-09-20"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "aether wealth",
+          "mcp",
+          "model context protocol",
+          "trading mcp",
+          "ai trading assistant",
+          "trading journal",
+          "forex",
+          "crypto",
+          "broker",
+          "market data",
+          "technical indicators",
+          "oauth"
+        ]
+      }
     },
     "affiliate-networks-mcp": {
       "checkedAt": "2026-11-17",
@@ -112,7 +196,31 @@
         "name": "agent-bev/bev-door",
         "pushedAt": "2026-11-11",
         "archived": false,
-        "openIssues": 3
+        "openIssues": 4
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "agentic-commerce",
+          "b2b",
+          "wine",
+          "beer",
+          "spirits",
+          "beverage-alcohol",
+          "wholesale",
+          "drinks-trade",
+          "procurement",
+          "europe",
+          "spain",
+          "france",
+          "italy",
+          "cuvee",
+          "a2a",
+          "agent2agent"
+        ]
       }
     },
     "agent-infra-fs": {
@@ -128,6 +236,24 @@
         "pushedAt": "2026-10-09",
         "archived": true,
         "openIssues": 511
+      },
+      "about": {
+        "keywords": [
+          "agent",
+          "agent-tars",
+          "browser-use",
+          "computer-use",
+          "cowork",
+          "gui-agent",
+          "gui-operator",
+          "mcp",
+          "mcp-server",
+          "multimodal",
+          "tars",
+          "ui-tars",
+          "vision",
+          "vlm"
+        ]
       }
     },
     "agent-tools-mcp": {
@@ -143,6 +269,18 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 14
+      },
+      "about": {
+        "keywords": [
+          "agent",
+          "agent-tools",
+          "crypto",
+          "directory",
+          "mcp",
+          "model-context-protocol",
+          "web3",
+          "x402"
+        ]
       }
     },
     "ai-dossier-mcp-server": {
@@ -155,9 +293,33 @@
       },
       "repo": {
         "name": "imboard-ai/ai-dossier",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 59
+      },
+      "about": {
+        "keywords": [
+          "mcp-server",
+          "model-context-protocol",
+          "secure-mcp",
+          "claude-code-mcp",
+          "agent-skills",
+          "llm-workflows",
+          "skill-verification",
+          "model-driven-orchestration",
+          "agent-orchestration",
+          "ai-agents",
+          "llm",
+          "skill-md",
+          "claude-code",
+          "claude-skills",
+          "supply-chain-security",
+          "signed",
+          "versioning",
+          "agentic-workflow",
+          "claude-code-skills",
+          "cli"
+        ]
       }
     },
     "airbnb": {
@@ -168,7 +330,14 @@
         "version": "0.3.0",
         "date": "2026-08-06"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "airbnb",
+          "vacation rental",
+          "travel"
+        ]
+      }
     },
     "aminforou-mcp-gsc": {
       "checkedAt": "2026-11-17",
@@ -181,7 +350,15 @@
         "archived": false,
         "openIssues": 8
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "claude",
+          "google-search-console",
+          "mcp-server",
+          "seo"
+        ]
+      }
     },
     "antvis-mcp-server-chart": {
       "checkedAt": "2026-11-17",
@@ -197,31 +374,74 @@
         "archived": false,
         "openIssues": 7
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "antv",
+          "llm",
+          "mcp",
+          "mcp-server",
+          "skills",
+          "visualization"
+        ]
+      }
     },
     "anyforge-mcp-server": {
       "checkedAt": "2026-11-17",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
-        "version": "3.18.0",
-        "date": "2026-11-09"
+        "version": "3.20.0",
+        "date": "2026-11-17"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "anyforge",
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "claude-code"
+        ]
+      }
     },
     "apick-mcp": {
       "checkedAt": "2026-11-17",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "5.10.1",
-        "date": "2026-11-11"
+        "version": "5.12.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "lead788/apick-mcp",
-        "pushedAt": "2026-11-11",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "model-context-protocol",
+          "mcp-server",
+          "mcp-tools",
+          "claude",
+          "claude-code",
+          "claude-desktop",
+          "cursor",
+          "cline",
+          "windsurf",
+          "ai-agent",
+          "llm",
+          "apick",
+          "korea",
+          "korean",
+          "korea-api",
+          "business-registry",
+          "business-registration-number",
+          "identity-verification"
+        ]
       }
     },
     "apick-subagent": {
@@ -237,6 +457,19 @@
         "pushedAt": "2026-10-23",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "apick",
+          "subagent",
+          "mcp",
+          "codex",
+          "claude-code",
+          "skills",
+          "ai-agents",
+          "model-context-protocol",
+          "nodejs"
+        ]
       }
     },
     "apiguru-mcp": {
@@ -252,6 +485,24 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "agent",
+          "amazon",
+          "ecommerce",
+          "mcp",
+          "model-context-protocol",
+          "scraping",
+          "x402",
+          "ai-agents",
+          "amazon-api",
+          "claude",
+          "llm-tools",
+          "mcp-server",
+          "product-data",
+          "web-scraping"
+        ]
       }
     },
     "apillow-mcp": {
@@ -262,7 +513,16 @@
         "version": "0.1.8",
         "date": "2026-11-14"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "zillow",
+          "real-estate",
+          "property-data",
+          "api"
+        ]
+      }
     },
     "appscreen-mcp": {
       "checkedAt": "2026-11-17",
@@ -277,6 +537,21 @@
         "pushedAt": "2026-10-13",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "appscreen",
+          "screenshots",
+          "app-store",
+          "play-store",
+          "aso",
+          "fastlane",
+          "google-play",
+          "mcp-server",
+          "model-context-protocol"
+        ]
       }
     },
     "aquex-reasonbook": {
@@ -292,6 +567,27 @@
         "pushedAt": "2026-11-05",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "reasonbook",
+          "rbook",
+          "claude",
+          "codex",
+          "decisions",
+          "agent-hooks",
+          "project-records",
+          "sqlite",
+          "project-management",
+          "ai-agents",
+          "claude-code",
+          "claude-code-plugin",
+          "decision-log",
+          "developer-tools",
+          "mcp-server",
+          "model-context-protocol"
+        ]
       }
     },
     "arxiv": {
@@ -307,6 +603,23 @@
         "pushedAt": "2026-11-14",
         "archived": false,
         "openIssues": 8
+      },
+      "about": {
+        "keywords": [
+          "academic",
+          "ai",
+          "arxiv",
+          "llm",
+          "mcp",
+          "model-context-protocol",
+          "papers",
+          "research",
+          "semantic-search",
+          "claude-ai",
+          "gpt",
+          "mcp-server",
+          "python"
+        ]
       }
     },
     "atilaahmettaner-tradingview-mcp": {
@@ -320,7 +633,24 @@
         "archived": false,
         "openIssues": 8
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "claude-desktop",
+          "cryptocurrency",
+          "futures",
+          "market-data",
+          "mcp-server",
+          "mcp-tools",
+          "model-context-protocol",
+          "openclaw",
+          "stock-market",
+          "technical-analysis",
+          "trading-mcp",
+          "trading-strategies",
+          "tradingview"
+        ]
+      }
     },
     "atlasyield-mcp": {
       "checkedAt": "2026-11-17",
@@ -335,6 +665,18 @@
         "pushedAt": "2026-10-08",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "defi",
+          "yield",
+          "vault",
+          "risk",
+          "atlasyield",
+          "ai-agents"
+        ]
       }
     },
     "atmy-mcp": {
@@ -345,7 +687,20 @@
         "version": "1.1.0",
         "date": "2026-10-27"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "air-quality",
+          "pm2.5",
+          "aqi",
+          "sensors",
+          "sensor-community",
+          "airgradient",
+          "atmy"
+        ]
+      }
     },
     "autenai-mcp": {
       "checkedAt": "2026-11-17",
@@ -360,6 +715,30 @@
         "pushedAt": "2026-10-15",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "computer-use",
+          "claude-code",
+          "codex",
+          "cursor",
+          "desktop-automation",
+          "ai-agent",
+          "macos",
+          "windows",
+          "linux",
+          "android",
+          "accessibility",
+          "android-automation",
+          "claude",
+          "claude-code-plugin",
+          "computer-use-agent",
+          "rpa",
+          "ui-automation"
+        ]
       }
     },
     "autonomad-travel": {
@@ -370,7 +749,29 @@
         "version": "1.6.6",
         "date": "2026-11-14"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "travel",
+          "group-trips",
+          "travel-dna",
+          "social-travel",
+          "trip-planner",
+          "travel-concierge",
+          "hotels",
+          "flights",
+          "booking",
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "gpt",
+          "ai-agent",
+          "autonomad",
+          "nomd",
+          "rewards",
+          "agent-economy"
+        ]
+      }
     },
     "autonomad1-computeback-mcp": {
       "checkedAt": "2026-11-17",
@@ -385,6 +786,20 @@
         "pushedAt": "2026-05-12",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "agent-marketplace",
+          "b2b",
+          "nomd",
+          "base-l2",
+          "agent-economy",
+          "openclaw",
+          "claude",
+          "ai-tools"
+        ]
       }
     },
     "autonomous-ai-harness-mcp": {
@@ -399,7 +814,31 @@
         "name": "autonomous-ai/openharness",
         "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 87
+        "openIssues": 103
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "agents",
+          "claude-code",
+          "codex",
+          "parallel",
+          "harness",
+          "3d-modeling",
+          "agent-framework",
+          "agent-harness",
+          "ai-agents",
+          "cad",
+          "coding-agents",
+          "developer-tools",
+          "esp32",
+          "game-development",
+          "multi-agent",
+          "open-hardware",
+          "opencode",
+          "openharness"
+        ]
       }
     },
     "backtest-auditor": {
@@ -410,7 +849,17 @@
         "version": "0.7.0",
         "date": "2026-10-18"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "backtesting",
+          "lookahead-bias",
+          "mcp",
+          "quant",
+          "static-analysis",
+          "deflated-sharpe-ratio"
+        ]
+      }
     },
     "bethington-ghidra-mcp": {
       "checkedAt": "2026-11-17",
@@ -422,11 +871,26 @@
       },
       "repo": {
         "name": "bethington/ghidra-mcp",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 30
+        "openIssues": 27
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "ai",
+          "binary-analysis",
+          "ghidra",
+          "ghidra-extension",
+          "java",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "python",
+          "reverse-engineering",
+          "static-analysis"
+        ]
+      }
     },
     "betterjobs-mcp": {
       "checkedAt": "2026-11-17",
@@ -452,7 +916,21 @@
         "archived": false,
         "openIssues": 8
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "ai",
+          "arxiv",
+          "claude-ai",
+          "gpt",
+          "llm",
+          "mcp-server",
+          "model-context-protocol",
+          "papers",
+          "python",
+          "research"
+        ]
+      }
     },
     "bolthub-mcp": {
       "checkedAt": "2026-11-17",
@@ -467,6 +945,19 @@
         "pushedAt": "2026-07-25",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "l402",
+          "lightning",
+          "bitcoin",
+          "micropayments",
+          "ai-agent",
+          "proxy",
+          "marketplace"
+        ]
       }
     },
     "brandrail": {
@@ -474,14 +965,38 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.10.4",
-        "date": "2026-11-13"
+        "version": "0.10.5",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "brandrail-app/brandrail",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "design-system",
+          "design-tokens",
+          "dtcg",
+          "ui-components",
+          "lint",
+          "linter",
+          "ai",
+          "claude",
+          "claude-code",
+          "cursor",
+          "copilot",
+          "codex",
+          "windsurf",
+          "figma",
+          "tailwind",
+          "react",
+          "angular"
+        ]
       }
     },
     "brick-blue-mcp": {
@@ -494,9 +1009,22 @@
       },
       "repo": {
         "name": "brick-blue/brick-blue-mcp",
-        "pushedAt": "2026-10-05",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "a2a",
+          "x402",
+          "ai-agents",
+          "agent-registry",
+          "brick.blue",
+          "agent-marketplace"
+        ]
       }
     },
     "call-grokbot": {
@@ -512,6 +1040,14 @@
         "pushedAt": "2026-11-07",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "grokbot",
+          "codex",
+          "claude-code"
+        ]
       }
     },
     "callmcp-server": {
@@ -537,6 +1073,22 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 13
+      },
+      "about": {
+        "keywords": [
+          "x402",
+          "http-402",
+          "ai-agent",
+          "agents",
+          "mcp",
+          "celo",
+          "micropayments",
+          "pay-per-call",
+          "stablecoin",
+          "usdc",
+          "agent-skills",
+          "ai-agents"
+        ]
       }
     },
     "certscore-mcp": {
@@ -552,6 +1104,15 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "certscore",
+          "pulse",
+          "mcp",
+          "modelcontextprotocol",
+          "model-context-protocol"
+        ]
       }
     },
     "chainhilt": {
@@ -567,6 +1128,27 @@
         "pushedAt": "2026-11-13",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "wallet",
+          "chainhilt",
+          "cli",
+          "x402",
+          "blockchain",
+          "crypto",
+          "agents",
+          "perp",
+          "defi",
+          "predict",
+          "prediction",
+          "trade",
+          "trading",
+          "bridge",
+          "ai-agents",
+          "mcp-server"
+        ]
       }
     },
     "clarxai-mcp": {
@@ -577,7 +1159,17 @@
         "version": "0.2.2",
         "date": "2026-08-19"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "clarx",
+          "ai-readiness",
+          "claude-md",
+          "agents-md"
+        ]
+      }
     },
     "cleanor-mcp": {
       "checkedAt": "2026-11-17",
@@ -592,6 +1184,30 @@
         "pushedAt": "2026-10-07",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "modelcontextprotocol",
+          "ai",
+          "image-optimization",
+          "image-conversion",
+          "webp",
+          "avif",
+          "qr-code",
+          "claude",
+          "cursor",
+          "developer-tools",
+          "hash",
+          "uuid",
+          "base64",
+          "jwt",
+          "json",
+          "utilities",
+          "ai-agents",
+          "ai-tools"
+        ]
       }
     },
     "clelp-mcp-server": {
@@ -607,6 +1223,30 @@
         "pushedAt": "2026-10-24",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "clelp",
+          "ai-tools",
+          "ai-agents",
+          "ai-skills",
+          "agent-skills",
+          "claude",
+          "claude-code",
+          "openclaw",
+          "tool-discovery",
+          "find-skills",
+          "skill-search",
+          "ai-reviews",
+          "ai-ratings",
+          "tool-ratings",
+          "cursor",
+          "windsurf",
+          "copilot"
+        ]
       }
     },
     "context7": {
@@ -614,14 +1254,27 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "4.7.1",
-        "date": "2026-11-16"
+        "version": "4.7.3",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "upstash/context7",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 54
+        "openIssues": 49
+      },
+      "about": {
+        "keywords": [
+          "modelcontextprotocol",
+          "mcp",
+          "context7",
+          "vibe-coding",
+          "developer tools",
+          "documentation",
+          "context",
+          "llm",
+          "mcp-server"
+        ]
       }
     },
     "contextburn": {
@@ -634,9 +1287,22 @@
       },
       "repo": {
         "name": "arsentev-ai/contextburn",
-        "pushedAt": "2026-11-09",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "claude-code",
+          "llm",
+          "coding-agents",
+          "token-usage",
+          "context-window",
+          "observability",
+          "cost-efficiency"
+        ]
       }
     },
     "cookwala-mcp": {
@@ -652,6 +1318,23 @@
         "pushedAt": "2026-10-20",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "cooking",
+          "recipes",
+          "robots",
+          "food-safety",
+          "cookwala",
+          "ai-agents",
+          "humanitarian",
+          "json-schema",
+          "open-standard",
+          "robotics",
+          "ros2"
+        ]
       }
     },
     "crawlio-browser": {
@@ -667,6 +1350,28 @@
         "pushedAt": "2026-08-10",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "crawlio",
+          "browser-automation",
+          "chrome",
+          "model-context-protocol",
+          "ai",
+          "screenshots",
+          "dom",
+          "web-scraping",
+          "cdp",
+          "session-recording",
+          "network-capture",
+          "ai-agents",
+          "chrome-devtools-protocol",
+          "chrome-extension",
+          "llm-tools",
+          "manifest-v3",
+          "typescript"
+        ]
       }
     },
     "creatica-mcp": {
@@ -677,7 +1382,19 @@
         "version": "0.1.3",
         "date": "2026-09-06"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "svg",
+          "background",
+          "generator",
+          "mcp",
+          "model-context-protocol",
+          "ai",
+          "design",
+          "procedural"
+        ]
+      }
     },
     "cyanheads-fs": {
       "checkedAt": "2026-11-17",
@@ -692,6 +1409,30 @@
         "pushedAt": "2025-07-22",
         "archived": false,
         "openIssues": 17
+      },
+      "about": {
+        "keywords": [
+          "ai-integration",
+          "mcp",
+          "authentication",
+          "client",
+          "file-operations",
+          "file-system",
+          "filesystem",
+          "http",
+          "jwt",
+          "llm",
+          "model-context-protocol",
+          "sdk",
+          "search-replace",
+          "server",
+          "sse",
+          "template",
+          "typescript",
+          "ai",
+          "cyanheads",
+          "llm-agents"
+        ]
       }
     },
     "cyanheads-git": {
@@ -707,6 +1448,30 @@
         "pushedAt": "2026-09-26",
         "archived": false,
         "openIssues": 19
+      },
+      "about": {
+        "keywords": [
+          "ai-agent",
+          "ai-integration",
+          "automation",
+          "branch",
+          "cherry-pick",
+          "clone",
+          "commit",
+          "devops",
+          "diff",
+          "fetch",
+          "git",
+          "git-tools",
+          "llm-tools",
+          "log",
+          "mcp",
+          "mcp-server",
+          "merge",
+          "model-context-protocol",
+          "pull",
+          "push"
+        ]
       }
     },
     "darkknightcave-motion-mcp": {
@@ -722,6 +1487,14 @@
         "pushedAt": "2026-10-28",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "claude",
+          "ai",
+          "agents"
+        ]
       }
     },
     "datavidence-financials": {
@@ -737,6 +1510,25 @@
         "pushedAt": "2026-10-04",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "sec",
+          "edgar",
+          "financial-statements",
+          "xbrl",
+          "fundamentals",
+          "finance",
+          "llm",
+          "agents",
+          "ai",
+          "ai-agents",
+          "financial-data",
+          "llm-tools",
+          "us-gaap"
+        ]
       }
     },
     "dbhub": {
@@ -744,14 +1536,38 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "1.7.0",
-        "date": "2026-11-16"
+        "version": "1.7.1",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "bytebase/dbhub",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 3
+        "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "agents",
+          "ai",
+          "anthropic",
+          "claude",
+          "claude-ai",
+          "codex",
+          "cursor",
+          "database",
+          "llm",
+          "mariadb",
+          "mcp",
+          "mcp-server",
+          "mssql",
+          "mysql",
+          "oracle",
+          "postgres",
+          "postgresql",
+          "sql",
+          "sqlite",
+          "sqlserver"
+        ]
       }
     },
     "dchub-mcp-server": {
@@ -766,7 +1582,31 @@
         "name": "azmartone67/dchub-mcp-server",
         "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 10
+        "openIssues": 14
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "data-center",
+          "datacenter",
+          "energy",
+          "electricity",
+          "electricity-prices",
+          "power-grid",
+          "grid-power",
+          "orchestration",
+          "interconnection",
+          "interconnection-queue",
+          "fiber",
+          "site-selection",
+          "colocation",
+          "data-center-power-index",
+          "ai-agents",
+          "dchub",
+          "ercot"
+        ]
       }
     },
     "decimalai-mcp": {
@@ -782,6 +1622,21 @@
         "pushedAt": "2026-11-11",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "agents",
+          "decimalai",
+          "mcp",
+          "model-context-protocol",
+          "skills",
+          "agent-skills",
+          "ai-agents",
+          "claude",
+          "cursor",
+          "llm-evaluation",
+          "mcp-server"
+        ]
       }
     },
     "deepdna-mcp": {
@@ -797,6 +1652,29 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "23andme",
+          "ai-agents",
+          "dna",
+          "mcp",
+          "pharmacogenomics",
+          "ancestrydna",
+          "bioinformatics",
+          "cpic",
+          "dpwg",
+          "gemini-cli-extension",
+          "genetics",
+          "genomics",
+          "local-first",
+          "mcp-server",
+          "model-context-protocol",
+          "myheritage",
+          "python",
+          "raw-dna",
+          "rsid"
+        ]
       }
     },
     "demomagic-mcp": {
@@ -807,7 +1685,18 @@
         "version": "0.1.0",
         "date": "2026-06-17"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "demomagic",
+          "interactive-video",
+          "interactive-demo",
+          "ai-product-demo",
+          "loom-alternative"
+        ]
+      }
     },
     "devglow-mcp": {
       "checkedAt": "2026-11-17",
@@ -822,6 +1711,24 @@
         "pushedAt": "2026-10-23",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "modelcontextprotocol",
+          "devglow",
+          "claude",
+          "claude-code",
+          "codex",
+          "cursor",
+          "ai",
+          "process-manager",
+          "dev-server",
+          "developer-tools",
+          "port",
+          "localhost"
+        ]
       }
     },
     "dinglebear-labby": {
@@ -836,7 +1743,31 @@
         "name": "dinglebear-ai/labby",
         "pushedAt": "2026-11-15",
         "archived": false,
-        "openIssues": 24
+        "openIssues": 25
+      },
+      "about": {
+        "keywords": [
+          "labby",
+          "lab",
+          "mcp",
+          "mcp-gateway",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "homelab",
+          "rust",
+          "cli",
+          "http-api",
+          "web-ui",
+          "code-mode",
+          "oauth",
+          "log-search",
+          "local-first",
+          "automation",
+          "agent-client-protocol",
+          "fleet-management",
+          "mcp-registry"
+        ]
       }
     },
     "dinglebear-rapprise": {
@@ -852,6 +1783,29 @@
         "pushedAt": "2026-11-02",
         "archived": false,
         "openIssues": 6
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "rmcp",
+          "rust",
+          "apprise",
+          "notifications",
+          "push-notifications",
+          "webhooks",
+          "homelab",
+          "cli",
+          "claude-code",
+          "codex",
+          "gemini",
+          "automation",
+          "oauth",
+          "http-server",
+          "stdio",
+          "claude-code-plugins"
+        ]
       }
     },
     "dinglebear-rytdl": {
@@ -867,6 +1821,29 @@
         "pushedAt": "2026-10-22",
         "archived": false,
         "openIssues": 6
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "rmcp",
+          "rust",
+          "cli",
+          "yt-dlp",
+          "youtube",
+          "media-downloader",
+          "ffmpeg",
+          "plex",
+          "metadata",
+          "ssh",
+          "rclone",
+          "homelab",
+          "claude-code",
+          "codex",
+          "gemini",
+          "mcp-apps"
+        ]
       }
     },
     "dinglebear-synapse": {
@@ -882,6 +1859,28 @@
         "pushedAt": "2026-11-02",
         "archived": false,
         "openIssues": 8
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "rmcp",
+          "rust",
+          "cli",
+          "homelab",
+          "docker",
+          "docker-compose",
+          "ssh",
+          "zfs",
+          "logs",
+          "file-operations",
+          "host-inspection",
+          "automation",
+          "claude-code",
+          "codex",
+          "gemini"
+        ]
       }
     },
     "dinglebear-yarr": {
@@ -897,6 +1896,30 @@
         "pushedAt": "2026-11-01",
         "archived": false,
         "openIssues": 19
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "rmcp",
+          "rust",
+          "cli",
+          "homelab",
+          "self-hosted",
+          "media-server",
+          "sonarr",
+          "radarr",
+          "prowlarr",
+          "plex",
+          "jellyfin",
+          "tautulli",
+          "sabnzbd",
+          "qbittorrent",
+          "overseerr",
+          "bazarr",
+          "automation"
+        ]
       }
     },
     "doc-cheap-mcp": {
@@ -907,7 +1930,21 @@
         "version": "0.3.11",
         "date": "2026-11-04"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "mcp-server",
+          "ocr",
+          "passport",
+          "id-document",
+          "mrz",
+          "identity-verification",
+          "kyc",
+          "document-recognition"
+        ]
+      }
     },
     "doobidoo-mcp-memory-service": {
       "checkedAt": "2026-11-17",
@@ -919,11 +1956,35 @@
       },
       "repo": {
         "name": "doobidoo/mcp-memory-service",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 33
+        "openIssues": 41
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "agent-memory",
+          "agentic-ai",
+          "ai-agents",
+          "autogen",
+          "claude",
+          "crewai",
+          "knowledge-graph",
+          "langgraph",
+          "long-term-memory",
+          "mcp",
+          "mcp-server",
+          "memory",
+          "model-context-protocol",
+          "multi-agent",
+          "open-source",
+          "rag",
+          "semantic-search",
+          "sqlite-vec",
+          "vector-database",
+          "vector-storage"
+        ]
+      }
     },
     "dsail": {
       "checkedAt": "2026-11-17",
@@ -933,7 +1994,31 @@
         "version": "1.0.6",
         "date": "2026-10-09"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "dsail",
+          "jaxon",
+          "jaxon.ai",
+          "desale",
+          "de-sail",
+          "de-sale",
+          "mcp",
+          "claude-code",
+          "defensible-decisions",
+          "audit-evidence",
+          "decision-rationale",
+          "regulatory-examination",
+          "approval-record",
+          "policy-signoff",
+          "immutable-revisions",
+          "ruleset-versioning",
+          "rules-in-force",
+          "case-review-criteria",
+          "scoring-rubric",
+          "compliance-review"
+        ]
+      }
     },
     "duckdb-mcp": {
       "checkedAt": "2026-11-17",
@@ -948,6 +2033,13 @@
         "pushedAt": "2025-05-05",
         "archived": false,
         "openIssues": 7
+      },
+      "about": {
+        "keywords": [
+          "duckdb",
+          "mcp",
+          "mcp-server"
+        ]
       }
     },
     "duckduckgo": {
@@ -978,6 +2070,19 @@
         "pushedAt": "2026-10-29",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "garmin",
+          "garmin-connect",
+          "fitness",
+          "claude",
+          "mcp-server",
+          "triathlon",
+          "typescript"
+        ]
       }
     },
     "dwelldelta-mcp": {
@@ -1003,6 +2108,30 @@
         "pushedAt": "2026-11-01",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "dxpert",
+          "uns",
+          "unified-namespace",
+          "sparkplug",
+          "sparkplug-b",
+          "mqtt",
+          "isa-95",
+          "industrial-iot",
+          "iiot",
+          "linter",
+          "claude-code",
+          "codex",
+          "ai-readiness",
+          "digital-transformation",
+          "industry-4-0",
+          "manufacturing",
+          "mcp-server",
+          "ot-it"
+        ]
       }
     },
     "ekwo-ai-mcp": {
@@ -1015,9 +2144,28 @@
       },
       "repo": {
         "name": "Ekwo-ai/ekwo-os",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 1
+        "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "accounting",
+          "supabase",
+          "postgres",
+          "bookkeeping",
+          "ekwo",
+          "agpl",
+          "double-entry",
+          "factur-x",
+          "fec",
+          "mcp-server",
+          "open-source",
+          "vat",
+          "xbrl"
+        ]
       }
     },
     "elicitly": {
@@ -1033,6 +2181,16 @@
         "pushedAt": "2026-11-13",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "elicitation",
+          "human-in-the-loop",
+          "mcp-server",
+          "model-context-protocol",
+          "agent-skills"
+        ]
       }
     },
     "etincel": {
@@ -1048,6 +2206,30 @@
         "pushedAt": "2026-08-15",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "writing",
+          "non-fiction",
+          "prose",
+          "voice",
+          "style",
+          "editing",
+          "mcp",
+          "anti-ai-slop",
+          "ai",
+          "ai-tells",
+          "ai-tools",
+          "ai-writing",
+          "ai-writing-detection",
+          "ai-writing-tool",
+          "claude",
+          "claude-code",
+          "cli",
+          "github-actions",
+          "linter",
+          "mcp-server"
+        ]
       }
     },
     "everything": {
@@ -1062,7 +2244,7 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
       }
     },
     "exa-labs-exa-mcp-server": {
@@ -1072,11 +2254,23 @@
       "latest": null,
       "repo": {
         "name": "exa-labs/exa-mcp-server",
-        "pushedAt": "2026-11-05",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 10
+        "openIssues": 7
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "code-search",
+          "codesearch",
+          "crawling",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "web-search",
+          "websearch"
+        ]
+      }
     },
     "executeautomation-db": {
       "checkedAt": "2026-11-17",
@@ -1091,6 +2285,14 @@
         "pushedAt": "2025-08-27",
         "archived": false,
         "openIssues": 21
+      },
+      "about": {
+        "keywords": [
+          "mcp-server",
+          "posgresql",
+          "sqlite",
+          "sqlserver"
+        ]
       }
     },
     "extremely-agency-mcp": {
@@ -1106,6 +2308,30 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 49
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "agency",
+          "extremely",
+          "agentic-ai",
+          "ai-agency",
+          "ai-assistant",
+          "automation",
+          "autonomous-agents",
+          "claude",
+          "desktop-app",
+          "electron",
+          "llm",
+          "local-first",
+          "multi-agent",
+          "open-source",
+          "openai",
+          "self-hosted"
+        ]
       }
     },
     "feeling-search-mcp": {
@@ -1121,6 +2347,25 @@
         "pushedAt": "2026-10-29",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "art-direction",
+          "visual-style",
+          "art-style-reference",
+          "art-style-encyclopedia",
+          "prompt-encyclopedia",
+          "image-generation",
+          "prompt-engineering",
+          "concept-art",
+          "design",
+          "art-reference",
+          "art-style",
+          "chinese"
+        ]
       }
     },
     "fetch": {
@@ -1135,7 +2380,15 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
+      },
+      "about": {
+        "keywords": [
+          "automation",
+          "http",
+          "llm",
+          "mcp"
+        ]
       }
     },
     "fetch-mcp": {
@@ -1156,7 +2409,22 @@
         "version": "0.1.2",
         "date": "2026-10-29"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "cursor",
+          "ai",
+          "fictura",
+          "chatgpt",
+          "codex",
+          "paywall",
+          "react-native",
+          "expo"
+        ]
+      }
     },
     "filesystem": {
       "checkedAt": "2026-11-17",
@@ -1170,7 +2438,7 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
       }
     },
     "firecms-mcp-server": {
@@ -1183,9 +2451,24 @@
       },
       "repo": {
         "name": "firecmsco/firecms",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 55
+      },
+      "about": {
+        "keywords": [
+          "firecms",
+          "mcp",
+          "model-context-protocol",
+          "firebase",
+          "firestore",
+          "cms",
+          "ai",
+          "admin-dashboard",
+          "headless-cms",
+          "mongodb",
+          "react"
+        ]
       }
     },
     "firecrawl-firecrawl-mcp-server": {
@@ -1198,11 +2481,30 @@
       },
       "repo": {
         "name": "firecrawl/firecrawl-mcp-server",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 194
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "batch-processing",
+          "claude",
+          "content-extraction",
+          "data-collection",
+          "firecrawl",
+          "firecrawl-ai",
+          "gemini-cli-extension",
+          "javascript-rendering",
+          "llm-tools",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "search-api",
+          "web-crawler",
+          "web-scraping"
+        ]
+      }
     },
     "fleet-memory-mcp": {
       "checkedAt": "2026-11-17",
@@ -1217,6 +2519,30 @@
         "pushedAt": "2026-08-28",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "memory",
+          "rcll",
+          "fleet-memory",
+          "hindsight",
+          "ai-agents",
+          "multi-agent",
+          "pgvector",
+          "long-term-memory",
+          "self-hosted",
+          "model-context-protocol",
+          "agent-fleet",
+          "agent-memory",
+          "claude-code",
+          "coding-agents",
+          "context-sharing",
+          "cross-agent",
+          "cross-agent-memory",
+          "llm",
+          "local-first"
+        ]
       }
     },
     "flydocs-cli": {
@@ -1242,6 +2568,19 @@
         "pushedAt": "2026-11-10",
         "archived": true,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "errata",
+          "outdated-code",
+          "llm",
+          "pypi",
+          "npm",
+          "ai-agents",
+          "mcp-server"
+        ]
       }
     },
     "formatika-mcp": {
@@ -1257,6 +2596,16 @@
         "pushedAt": "2026-08-13",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "image",
+          "convert",
+          "resize",
+          "compress"
+        ]
       }
     },
     "gage-mcp": {
@@ -1272,6 +2621,20 @@
         "pushedAt": "2026-11-07",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "gage",
+          "mcp",
+          "model-context-protocol",
+          "agents",
+          "robinhood-chain",
+          "wallet",
+          "lending",
+          "sdk",
+          "typescript",
+          "viem"
+        ]
       }
     },
     "galaxymovies-mcp": {
@@ -1287,6 +2650,18 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "streaming",
+          "movies",
+          "tv",
+          "netflix",
+          "where-to-watch",
+          "mcp-server"
+        ]
       }
     },
     "gency-ai-gency-mcp": {
@@ -1297,7 +2672,17 @@
         "version": "0.7.1",
         "date": "2026-11-10"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "gency",
+          "ai",
+          "product-images",
+          "fashion",
+          "claude"
+        ]
+      }
     },
     "getvetai-mcp": {
       "checkedAt": "2026-11-17",
@@ -1307,7 +2692,21 @@
         "version": "0.4.2",
         "date": "2026-06-15"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "discovery",
+          "tools",
+          "security",
+          "verification",
+          "ai-tools",
+          "claude",
+          "cursor",
+          "windsurf"
+        ]
+      }
     },
     "git": {
       "checkedAt": "2026-11-17",
@@ -1321,7 +2720,15 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
+      },
+      "about": {
+        "keywords": [
+          "automation",
+          "git",
+          "llm",
+          "mcp"
+        ]
       }
     },
     "git-mcp-py": {
@@ -1347,6 +2754,20 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 9
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "mysql",
+          "mariadb",
+          "postgres",
+          "sqlite",
+          "ai",
+          "ai-agents",
+          "database",
+          "sql"
+        ]
       }
     },
     "henkey-postgres": {
@@ -1362,6 +2783,20 @@
         "pushedAt": "2026-06-23",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "postgresql",
+          "postgres",
+          "mcp",
+          "database",
+          "model-context-protocol",
+          "ai",
+          "claude",
+          "database-management",
+          "sql",
+          "ai-assistant"
+        ]
       }
     },
     "hostbeam-mcp": {
@@ -1377,6 +2812,21 @@
         "pushedAt": "2026-10-09",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "screenshot",
+          "ssh",
+          "claude-code",
+          "hostbeam",
+          "ai-agents",
+          "codex",
+          "coding-agent",
+          "macos"
+        ]
       }
     },
     "hovecapital-read-only-mysql-mcp-server": {
@@ -1392,6 +2842,18 @@
         "pushedAt": "2026-11-13",
         "archived": false,
         "openIssues": 8
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mysql",
+          "database",
+          "claude",
+          "claude-desktop",
+          "ai",
+          "read-only"
+        ]
       }
     },
     "hovecapital-read-only-postgres-mcp-server": {
@@ -1407,6 +2869,19 @@
         "pushedAt": "2026-11-13",
         "archived": false,
         "openIssues": 8
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "postgresql",
+          "postgres",
+          "database",
+          "claude",
+          "claude-desktop",
+          "ai",
+          "read-only"
+        ]
       }
     },
     "html-cloud-mcp": {
@@ -1422,6 +2897,22 @@
         "pushedAt": "2026-11-06",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "claude",
+          "claude-artifacts",
+          "html",
+          "share",
+          "file-sharing",
+          "encrypted",
+          "zero-knowledge",
+          "ai-generated",
+          "artifact"
+        ]
       }
     },
     "huddoai": {
@@ -1437,6 +2928,18 @@
         "pushedAt": "2026-11-03",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "group-chat",
+          "chat",
+          "huddo",
+          "dsh-plugin"
+        ]
       }
     },
     "hypaware": {
@@ -1444,14 +2947,26 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "1.52.0",
-        "date": "2026-11-12"
+        "version": "1.53.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "hyparam/hypaware",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 272
+        "openIssues": 274
+      },
+      "about": {
+        "keywords": [
+          "agent",
+          "ai",
+          "claude",
+          "claude-code",
+          "codex",
+          "llm",
+          "observability",
+          "traces"
+        ]
       }
     },
     "inite-club-mcp": {
@@ -1467,6 +2982,19 @@
         "pushedAt": "2026-10-18",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "model-context-protocol",
+          "ai-agent",
+          "agent-to-agent",
+          "expert",
+          "consultation",
+          "cli",
+          "inite"
+        ]
       }
     },
     "inite-visibility": {
@@ -1482,6 +3010,16 @@
         "pushedAt": "2026-10-20",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "aeo",
+          "ai-visibility",
+          "llms-txt",
+          "seo"
+        ]
       }
     },
     "insightsocial": {
@@ -1497,6 +3035,24 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "insightsocial",
+          "mcp",
+          "modelcontextprotocol",
+          "cli",
+          "social-media-api",
+          "tiktok-api",
+          "linkedin-api",
+          "scraping",
+          "agents",
+          "ai-agents",
+          "instagram-api",
+          "mcp-server",
+          "model-context-protocol",
+          "typescript"
+        ]
       }
     },
     "instantreply-co-mcp": {
@@ -1512,6 +3068,30 @@
         "pushedAt": "2026-10-31",
         "archived": false,
         "openIssues": 3
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agent",
+          "ai-agents",
+          "instantreply",
+          "whatsapp",
+          "whatsapp-api",
+          "instagram",
+          "instagram-api",
+          "messenger",
+          "meta-api",
+          "customer-support",
+          "marketing-automation",
+          "lead-generation",
+          "conversational-ai",
+          "claude",
+          "chatgpt",
+          "cursor",
+          "typescript"
+        ]
       }
     },
     "intodns-mcp": {
@@ -1527,6 +3107,30 @@
         "pushedAt": "2026-10-27",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "dns",
+          "email-security",
+          "spf",
+          "dkim",
+          "dmarc",
+          "dnssec",
+          "bimi",
+          "mta-sts",
+          "blacklist",
+          "sender-requirements",
+          "llms-txt",
+          "openapi",
+          "claude",
+          "intodns",
+          "ai-agents",
+          "anthropic",
+          "cli",
+          "mcp-server"
+        ]
       }
     },
     "ipforai-mcp": {
@@ -1542,6 +3146,30 @@
         "pushedAt": "2026-10-20",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ip",
+          "ip-lookup",
+          "proxy",
+          "chatgpt",
+          "claude",
+          "ai",
+          "cli",
+          "curl",
+          "developer-tools",
+          "gemini",
+          "ip-quality",
+          "ipv4",
+          "ipv6",
+          "json-api",
+          "network-diagnostics",
+          "networking",
+          "shell",
+          "vps"
+        ]
       }
     },
     "jgravelle-jcodemunch-mcp": {
@@ -1549,14 +3177,38 @@
       "source": "github",
       "license": null,
       "latest": {
-        "version": "1.108.456",
+        "version": "1.108.459",
         "date": "2026-11-17"
       },
       "repo": {
         "name": "jgravelle/jcodemunch-mcp",
         "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 3
+        "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "ai-coding",
+          "ast",
+          "claude",
+          "claude-code",
+          "cline",
+          "code-intelligence",
+          "codex",
+          "context-window",
+          "copilot",
+          "cursor",
+          "developer-tools",
+          "gemini-cli",
+          "llm",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "opencode",
+          "token-optimization",
+          "tree-sitter",
+          "windsurf"
+        ]
       }
     },
     "joooook-12306-mcp": {
@@ -1573,7 +3225,15 @@
         "archived": false,
         "openIssues": 14
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "12306",
+          "mcp",
+          "mcp-server",
+          "train-tickets"
+        ]
+      }
     },
     "justdrop-mcp": {
       "checkedAt": "2026-11-17",
@@ -1588,6 +3248,28 @@
         "pushedAt": "2026-07-20",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "modelcontextprotocol",
+          "file-transfer",
+          "file-sharing",
+          "send-files",
+          "e2e-encryption",
+          "end-to-end-encryption",
+          "encrypted",
+          "ephemeral",
+          "no-account",
+          "qr-code",
+          "airdrop",
+          "wormhole",
+          "justdrop",
+          "claude",
+          "ai-agent"
+        ]
       }
     },
     "kadal-store": {
@@ -1603,6 +3285,26 @@
         "pushedAt": "2026-11-14",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "kadal",
+          "store",
+          "digital-downloads",
+          "assets",
+          "planners",
+          "printables",
+          "cli",
+          "mcp",
+          "model-context-protocol",
+          "ai-agent",
+          "claude",
+          "ai-agents",
+          "game-assets",
+          "mcp-server",
+          "oauth",
+          "sound-effects"
+        ]
       }
     },
     "kadmo-cli": {
@@ -1613,7 +3315,18 @@
         "version": "0.5.1",
         "date": "2026-11-12"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "kadmo",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "browser-automation",
+          "claude-code"
+        ]
+      }
     },
     "kavel-mcp": {
       "checkedAt": "2026-11-17",
@@ -1628,6 +3341,25 @@
         "pushedAt": "2026-10-12",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-image-generator",
+          "ai-video-generator",
+          "nano-banana",
+          "veo",
+          "image-to-image",
+          "prompt",
+          "kavel",
+          "claude",
+          "cursor",
+          "gemini-cli",
+          "gemini-cli-extension",
+          "mcp-server",
+          "no-api-key"
+        ]
       }
     },
     "kawacode-mcp": {
@@ -1653,6 +3385,18 @@
         "pushedAt": "2026-06-12",
         "archived": false,
         "openIssues": 4
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "fetch",
+          "web",
+          "content",
+          "image",
+          "processing",
+          "claude",
+          "ai"
+        ]
       }
     },
     "kedimeet-mcp": {
@@ -1668,6 +3412,21 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "claude",
+          "codex",
+          "cursor",
+          "kedimeet",
+          "mcp",
+          "meetings",
+          "model-context-protocol",
+          "transcripts",
+          "macos",
+          "mcp-server",
+          "transcription"
+        ]
       }
     },
     "keenable-mcp": {
@@ -1680,9 +3439,22 @@
       },
       "repo": {
         "name": "keenableai/keenable-mcp",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 8
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "web-search",
+          "search",
+          "web",
+          "fetch",
+          "markdown",
+          "keenable",
+          "model-context-protocol"
+        ]
       }
     },
     "keepstateai-cli": {
@@ -1698,6 +3470,11 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "herdr-plugin"
+        ]
       }
     },
     "kellian-mcp": {
@@ -1708,7 +3485,25 @@
         "version": "1.0.2",
         "date": "2026-10-31"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "kellian",
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "cursor",
+          "codex",
+          "prediction-markets",
+          "agents",
+          "ai-tools",
+          "base",
+          "play-money",
+          "forecasting",
+          "market-research",
+          "agent-testing"
+        ]
+      }
     },
     "kloudy": {
       "checkedAt": "2026-11-17",
@@ -1743,7 +3538,16 @@
         "version": "0.9.0",
         "date": "2026-09-25"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "korala",
+          "mcp",
+          "model-context-protocol",
+          "document-signing",
+          "e-signature"
+        ]
+      }
     },
     "lawai-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -1758,6 +3562,18 @@
         "pushedAt": "2026-05-29",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "legal",
+          "lawyer",
+          "directory",
+          "law.ai",
+          "attorney",
+          "legal-tech"
+        ]
       }
     },
     "leadgreen-mcp": {
@@ -1770,9 +3586,33 @@
       },
       "repo": {
         "name": "katonic-dev/leadgreen-ai",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "b200",
+          "carbon",
+          "energy",
+          "gpu",
+          "h100",
+          "inference",
+          "leadgreen",
+          "llm",
+          "mcp",
+          "ml-energy",
+          "model-context-protocol",
+          "sustainability",
+          "tokens",
+          "watt-hours",
+          "ai",
+          "benchmark",
+          "green-ai",
+          "json-api",
+          "mcp-server",
+          "open-data"
+        ]
       }
     },
     "leafwright-mcp": {
@@ -1783,7 +3623,20 @@
         "version": "0.2.4",
         "date": "2026-09-08"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "pdf",
+          "html-to-pdf",
+          "leafwright",
+          "claude",
+          "cursor",
+          "ai-agent",
+          "puppeteer-alternative"
+        ]
+      }
     },
     "llmaudit-mcp": {
       "checkedAt": "2026-11-17",
@@ -1798,6 +3651,20 @@
         "pushedAt": "2026-10-29",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "ai-visibility",
+          "geo",
+          "generative-engine-optimization",
+          "brand-monitoring",
+          "llm",
+          "chatgpt",
+          "claude"
+        ]
       }
     },
     "llmintel-mcp": {
@@ -1813,6 +3680,18 @@
         "pushedAt": "2026-10-20",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "llm",
+          "deprecation",
+          "model-lifecycle",
+          "openai",
+          "anthropic",
+          "bedrock"
+        ]
       }
     },
     "longbook-mcp": {
@@ -1828,6 +3707,15 @@
         "pushedAt": "2026-11-14",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "finance",
+          "subscriptions",
+          "longbook"
+        ]
       }
     },
     "lovie": {
@@ -1838,7 +3726,16 @@
         "version": "1.0.10",
         "date": "2026-06-16"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "company-formation",
+          "lovie",
+          "ai-tools",
+          "stdio-proxy"
+        ]
+      }
     },
     "mackorn-cone-crusher": {
       "checkedAt": "2026-11-17",
@@ -1853,6 +3750,30 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "dsh-plugin",
+          "deepseek-harness",
+          "mcp",
+          "mackorn",
+          "cone-crusher",
+          "crushing-plant",
+          "mineral-processing",
+          "aggregate",
+          "model-context-protocol",
+          "mcp-server",
+          "claude-mcp",
+          "cursor-mcp",
+          "ai-tools",
+          "llm-tools",
+          "hydraulic-cone-crusher",
+          "crusher",
+          "crusher-selection",
+          "crushing-circuit",
+          "crushing-and-screening",
+          "screening"
+        ]
       }
     },
     "mafdet-mcp": {
@@ -1863,7 +3784,20 @@
         "version": "1.7.0",
         "date": "2026-11-01"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mafdet",
+          "ai",
+          "llm",
+          "claude",
+          "cursor",
+          "codex",
+          "opencode"
+        ]
+      }
     },
     "mainbook-mcp": {
       "checkedAt": "2026-11-17",
@@ -1873,7 +3807,19 @@
         "version": "0.5.1",
         "date": "2026-08-18"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "accounting",
+          "bank-statement",
+          "bookkeeping",
+          "converter",
+          "mcp",
+          "model-context-protocol",
+          "ocr",
+          "pdf"
+        ]
+      }
     },
     "makerportal-mcp": {
       "checkedAt": "2026-11-17",
@@ -1888,6 +3834,24 @@
         "pushedAt": "2026-09-19",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "dsp",
+          "biquad",
+          "acoustics",
+          "room-modes",
+          "llm",
+          "vram",
+          "api",
+          "calculators",
+          "engineering-tools",
+          "makerportal",
+          "mcp-server",
+          "model-context-protocol"
+        ]
       }
     },
     "marketmayhem-mcp": {
@@ -1903,6 +3867,23 @@
         "pushedAt": "2026-09-26",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-agent",
+          "bsc",
+          "bnb",
+          "bnb-chain",
+          "pancakeswap",
+          "token-launch",
+          "launchpad",
+          "meme-coin",
+          "trading",
+          "crypto",
+          "market-mayhem"
+        ]
       }
     },
     "markitdown": {
@@ -1917,7 +3898,18 @@
         "name": "microsoft/markitdown",
         "pushedAt": "2026-11-07",
         "archived": false,
-        "openIssues": 815
+        "openIssues": 816
+      },
+      "about": {
+        "keywords": [
+          "autogen",
+          "autogen-extension",
+          "langchain",
+          "markdown",
+          "microsoft-office",
+          "openai",
+          "pdf"
+        ]
       }
     },
     "maxwellintl-x402-mcp": {
@@ -1928,7 +3920,23 @@
         "version": "0.2.0",
         "date": "2026-10-01"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "x402",
+          "ski",
+          "travel",
+          "public-records",
+          "usdc",
+          "base",
+          "solana",
+          "directory",
+          "local-business",
+          "first-party"
+        ]
+      }
     },
     "mcp-sqlite": {
       "checkedAt": "2026-11-17",
@@ -1943,6 +3951,21 @@
         "pushedAt": "2026-04-05",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "sqlite",
+          "database",
+          "llm",
+          "cursor",
+          "windsurf",
+          "ide",
+          "development",
+          "aitooling",
+          "equill-service",
+          "nodejs"
+        ]
       }
     },
     "mcpcap": {
@@ -1958,6 +3981,17 @@
         "pushedAt": "2026-10-06",
         "archived": false,
         "openIssues": 3
+      },
+      "about": {
+        "keywords": [
+          "pcap",
+          "network",
+          "analysis",
+          "mcp",
+          "dns",
+          "mcp-server",
+          "pcap-analyzer"
+        ]
       }
     },
     "meetlark-mcp-server": {
@@ -1983,6 +4017,29 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "memcell",
+          "agent-memory",
+          "ai-memory",
+          "persistent-memory",
+          "memory",
+          "mcp",
+          "mcp-server",
+          "openai-agents",
+          "vercel-ai-sdk",
+          "langgraph",
+          "crewai",
+          "claude",
+          "cursor",
+          "gemini-cli",
+          "codex",
+          "hooks",
+          "ai-agents",
+          "llm",
+          "context"
+        ]
       }
     },
     "memeboat-mcp": {
@@ -1998,6 +4055,21 @@
         "pushedAt": "2026-11-11",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "meme",
+          "memes",
+          "meme-generator",
+          "meme-templates",
+          "memeboat",
+          "ai",
+          "claude",
+          "images"
+        ]
       }
     },
     "memegician-mcp": {
@@ -2013,6 +4085,19 @@
         "pushedAt": "2026-11-10",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "memes",
+          "meme-generator",
+          "meme-templates",
+          "claude",
+          "cursor",
+          "ai"
+        ]
       }
     },
     "memory": {
@@ -2027,7 +4112,7 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
       }
     },
     "mirastack-redfish-mcp": {
@@ -2043,6 +4128,24 @@
         "pushedAt": "2026-08-12",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "bmc",
+          "idrac",
+          "ilo",
+          "mcp",
+          "openbmc",
+          "redfish",
+          "xcc",
+          "ai-agents",
+          "bare-metal",
+          "data-center",
+          "infrastructure",
+          "model-context-protocol",
+          "programmable-data-centers",
+          "sddc"
+        ]
       }
     },
     "model-finder-mcp": {
@@ -2057,7 +4160,31 @@
         "name": "Abhiindigloo/EvalHarness",
         "pushedAt": "2026-11-04",
         "archived": false,
-        "openIssues": 0
+        "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "claude",
+          "evaluation",
+          "gemini",
+          "llm",
+          "mcp",
+          "model-selection",
+          "openai",
+          "routing",
+          "agent-skills",
+          "ai-evaluation",
+          "anthropic",
+          "claude-code-plugin",
+          "cost-optimization",
+          "developer-tools",
+          "gemini-cli-extension",
+          "litellm",
+          "llm-cost",
+          "llm-evaluation",
+          "llm-model-selection",
+          "llm-routing"
+        ]
       }
     },
     "motherduck": {
@@ -2083,6 +4210,20 @@
         "pushedAt": "2026-10-06",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "muovi",
+          "argentina",
+          "latam",
+          "local-services",
+          "service-marketplace",
+          "home-services",
+          "claude",
+          "llm-tools"
+        ]
       }
     },
     "naulon-wayfarer-mcp": {
@@ -2095,9 +4236,31 @@
       },
       "repo": {
         "name": "naulonapp/naulon",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "x402",
+          "usdc",
+          "ai-agent",
+          "llm",
+          "micropayments",
+          "naulon",
+          "agentic-web",
+          "ai-agents",
+          "content-monetization",
+          "hono",
+          "http-402",
+          "nanopayments",
+          "paywall",
+          "reverse-proxy",
+          "typescript",
+          "web-monetization"
+        ]
       }
     },
     "nauro": {
@@ -2113,6 +4276,19 @@
         "pushedAt": "2026-11-13",
         "archived": false,
         "openIssues": 14
+      },
+      "about": {
+        "keywords": [
+          "agentic-ai",
+          "ai-agents",
+          "claude-code",
+          "codex",
+          "cursor",
+          "developer-tools",
+          "llm",
+          "mcp",
+          "model-context-protocol"
+        ]
       }
     },
     "noglow-mcp": {
@@ -2128,6 +4304,17 @@
         "pushedAt": "2026-10-09",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "noglow",
+          "notes",
+          "scratchpad",
+          "ai",
+          "claude",
+          "cursor"
+        ]
       }
     },
     "nove-mcp": {
@@ -2143,6 +4330,19 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "nove",
+          "nove.care",
+          "pregnancy",
+          "gestacao",
+          "cli",
+          "sdk"
+        ]
       }
     },
     "nudg3-mcp": {
@@ -2153,7 +4353,17 @@
         "version": "1.1.0",
         "date": "2026-05-31"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "ai-search",
+          "brand-visibility",
+          "geo",
+          "llm-analytics",
+          "mcp",
+          "nudg3"
+        ]
+      }
     },
     "oddessentials-agent-guild": {
       "checkedAt": "2026-11-17",
@@ -2168,6 +4378,30 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 10
+      },
+      "about": {
+        "keywords": [
+          "agent-office",
+          "agent-visualization",
+          "ai-agents",
+          "antigravity-cli",
+          "claude-code",
+          "cli",
+          "codex-cli",
+          "coding-agents",
+          "developer-tools",
+          "docker-agent",
+          "grok-build",
+          "nodejs",
+          "openclaw",
+          "pty",
+          "session-manager",
+          "tailscale",
+          "terminal",
+          "tmux",
+          "virtual-office",
+          "web-terminal"
+        ]
       }
     },
     "oddsrail": {
@@ -2183,6 +4417,18 @@
         "pushedAt": "2026-10-29",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "ai-agents",
+          "kalshi",
+          "llm",
+          "mcp",
+          "model-context-protocol",
+          "polymarket",
+          "prediction-markets",
+          "trading"
+        ]
       }
     },
     "openags-paper-search-mcp": {
@@ -2196,7 +4442,15 @@
         "archived": false,
         "openIssues": 20
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "ai-scientist",
+          "arxiv-papers",
+          "mcp-server",
+          "paper-search"
+        ]
+      }
     },
     "operandi-mcp": {
       "checkedAt": "2026-11-17",
@@ -2206,7 +4460,18 @@
         "version": "1.0.3",
         "date": "2026-07-22"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "agents",
+          "appliances",
+          "embodied-ai",
+          "home-robot",
+          "mcp",
+          "model-context-protocol",
+          "robotics"
+        ]
+      }
     },
     "optimalai-optibot-mcp": {
       "checkedAt": "2026-11-17",
@@ -2221,6 +4486,24 @@
         "pushedAt": "2026-11-06",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai",
+          "code-review",
+          "optibot",
+          "pull-request",
+          "pr-review",
+          "automated-review",
+          "code-quality",
+          "claude",
+          "cursor",
+          "developer-tools",
+          "javascript",
+          "typescript"
+        ]
       }
     },
     "orangepro-mcp-server": {
@@ -2236,6 +4519,30 @@
         "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "orangepro",
+          "opro",
+          "test-generation",
+          "test-gaps",
+          "behavior-coverage",
+          "integration-tests",
+          "dynamic-proof",
+          "code-analysis",
+          "byok",
+          "ai-testing",
+          "ai-test-generator",
+          "behavioral-coverage",
+          "claude-code",
+          "code-coverage",
+          "developer-experience",
+          "developer-tool",
+          "end-to-end-testing",
+          "graph-based-testing"
+        ]
       }
     },
     "ordercore-mcp": {
@@ -2251,6 +4558,26 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ordercore",
+          "commerce",
+          "checkout",
+          "orders",
+          "ai-agents",
+          "agentic-commerce",
+          "claude",
+          "openai",
+          "ai",
+          "api",
+          "ecommerce",
+          "idempotency",
+          "llm-tools",
+          "ucp"
+        ]
       }
     },
     "overwing-mcp": {
@@ -2266,6 +4593,24 @@
         "pushedAt": "2026-11-13",
         "archived": false,
         "openIssues": 10
+      },
+      "about": {
+        "keywords": [
+          "overwing",
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "llm",
+          "guardrails",
+          "ai-safety",
+          "content-moderation",
+          "pii-detection",
+          "toxicity",
+          "agents",
+          "claude",
+          "cursor",
+          "openai"
+        ]
       }
     },
     "paramability-mcp": {
@@ -2281,6 +4626,16 @@
         "pushedAt": "2026-10-22",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "paramability",
+          "3d-printing",
+          "claude"
+        ]
       }
     },
     "paraplex-mcp": {
@@ -2295,7 +4650,19 @@
         "name": "Paraplex-AI/paraplex-mcp",
         "pushedAt": "2026-10-31",
         "archived": false,
-        "openIssues": 0
+        "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "claude-code",
+          "paraplex",
+          "motion design",
+          "3d",
+          "animation"
+        ]
       }
     },
     "pascal-app-mcp": {
@@ -2303,14 +4670,38 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "1.1.4",
-        "date": "2026-11-12"
+        "version": "1.1.6",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "pascalorg/editor",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 57
+        "openIssues": 60
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "pascal",
+          "3d",
+          "building",
+          "editor",
+          "ai",
+          "3d-scanning",
+          "aec",
+          "agent-skills",
+          "ai-agents",
+          "bim",
+          "building-design",
+          "cad",
+          "cli",
+          "floor-plan",
+          "ifc",
+          "interior-design",
+          "local-first",
+          "mcp-server"
+        ]
       }
     },
     "percher-mcp": {
@@ -2321,21 +4712,40 @@
         "version": "1.4.0",
         "date": "2026-11-09"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "hosting",
+          "deploy",
+          "ai"
+        ]
+      }
     },
     "pidgeon-ai-mcp": {
       "checkedAt": "2026-11-17",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
-        "version": "1.6.0",
-        "date": "2026-11-15"
+        "version": "1.8.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "pidgeon-ai/pidgeon-js",
-        "pushedAt": "2026-11-15",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "pidgeon",
+          "mcp",
+          "model-context-protocol",
+          "ai-agents",
+          "agent-identity",
+          "email"
+        ]
       }
     },
     "plugmcp-mcp": {
@@ -2351,6 +4761,27 @@
         "pushedAt": "2026-11-14",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "mcp-directory",
+          "awesome-mcp",
+          "claude",
+          "claude-code",
+          "cursor",
+          "vscode",
+          "windsurf",
+          "codex",
+          "grok",
+          "agent-skills",
+          "agents",
+          "ai-agents",
+          "developer-tools",
+          "mcp-registry"
+        ]
       }
     },
     "popdot-mcp": {
@@ -2366,6 +4797,16 @@
         "pushedAt": "2026-09-21",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "domains",
+          "subdomain",
+          "x402",
+          "ai-agents"
+        ]
       }
     },
     "poppy-memory": {
@@ -2396,7 +4837,30 @@
         "version": "1.0.1",
         "date": "2026-07-26"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "mcp-server",
+          "model-context-protocol",
+          "compliance",
+          "regulatory-compliance",
+          "marketing-compliance",
+          "healthcare-marketing",
+          "advertising-compliance",
+          "ftc",
+          "can-spam",
+          "hipaa",
+          "legitscript",
+          "addiction-treatment",
+          "med-spa",
+          "cannabis",
+          "supplements",
+          "claude",
+          "ai-tools"
+        ]
+      }
     },
     "promptguard-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -2406,7 +4870,18 @@
         "version": "1.2.5",
         "date": "2026-11-13"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "llm",
+          "security",
+          "prompt-injection",
+          "pii",
+          "promptguard",
+          "model-context-protocol"
+        ]
+      }
     },
     "provably-fair-mcp": {
       "checkedAt": "2026-11-17",
@@ -2416,7 +4891,21 @@
         "version": "1.0.4",
         "date": "2026-08-09"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "provably-fair",
+          "randomness",
+          "drand",
+          "giveaway",
+          "raffle",
+          "verifiable",
+          "fairness",
+          "ai-agent"
+        ]
+      }
     },
     "proxyllm-mcp": {
       "checkedAt": "2026-11-17",
@@ -2431,6 +4920,18 @@
         "pushedAt": "2026-07-15",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "llm-gateway",
+          "openai-compatible",
+          "proxyllm",
+          "codex",
+          "http-402",
+          "agent"
+        ]
       }
     },
     "qiksy-mcp": {
@@ -2438,14 +4939,37 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "1.86.2",
-        "date": "2026-11-16"
+        "version": "1.87.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "lesnyak-cyber/qiksy-mcp",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "mcp-server",
+          "browser",
+          "browser-automation",
+          "qa",
+          "testing",
+          "accessibility",
+          "a11y",
+          "chrome-extension",
+          "claude",
+          "cursor",
+          "agent",
+          "browser-mcp",
+          "chrome-mcp",
+          "mcp-chrome-extension",
+          "claude-code",
+          "codex",
+          "model-context-protocol"
+        ]
       }
     },
     "quorum-mcp-server": {
@@ -2461,6 +4985,22 @@
         "pushedAt": "2026-10-25",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "quorum",
+          "database",
+          "sql",
+          "postgresql",
+          "sql-server",
+          "mysql",
+          "mongodb",
+          "snowflake",
+          "sqlite"
+        ]
       }
     },
     "radmail-mcp": {
@@ -2476,6 +5016,30 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "email",
+          "triage",
+          "inbox",
+          "agents",
+          "bec",
+          "security",
+          "productivity",
+          "agent-inbox",
+          "agent-tools",
+          "agentic-ai",
+          "ai-agents",
+          "business-email-compromise",
+          "email-mcp-server",
+          "email-operating-system",
+          "email-security",
+          "email-triage",
+          "llm-tools",
+          "mcp-server"
+        ]
       }
     },
     "ranchbot-mcp-server": {
@@ -2491,6 +5055,19 @@
         "pushedAt": "2026-10-20",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "livestock",
+          "ranching",
+          "cattle",
+          "sheep",
+          "farm-records",
+          "herd-management",
+          "recordkeeping"
+        ]
       }
     },
     "rapay-mcp-server": {
@@ -2501,7 +5078,19 @@
         "version": "1.3.2",
         "date": "2026-02-24"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "rapay",
+          "payments",
+          "stripe",
+          "ai-agents",
+          "claude",
+          "automation"
+        ]
+      }
     },
     "raven-mcp": {
       "checkedAt": "2026-11-17",
@@ -2516,6 +5105,30 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "design",
+          "design-system",
+          "tokens",
+          "ux",
+          "ui-patterns",
+          "principles",
+          "accessibility",
+          "claude",
+          "ai",
+          "model-context-protocol",
+          "content-design",
+          "ux-writing",
+          "voice-and-tone",
+          "ux-research",
+          "service-design",
+          "service-blueprint",
+          "brand",
+          "visual-design",
+          "branding"
+        ]
       }
     },
     "rechtssysteem-ai-rechtssysteem-mcp": {
@@ -2532,7 +5145,16 @@
         "archived": false,
         "openIssues": 0
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "benchmark",
+          "legal-tech",
+          "mcp",
+          "model-context-protocol",
+          "rechtspraak"
+        ]
+      }
     },
     "recordist-gateway": {
       "checkedAt": "2026-11-17",
@@ -2544,9 +5166,24 @@
       },
       "repo": {
         "name": "recordist-app/gateway",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 5
+      },
+      "about": {
+        "keywords": [
+          "recordist",
+          "mcp",
+          "model-context-protocol",
+          "a2a",
+          "meetings",
+          "transcripts",
+          "gemini-cli-extension",
+          "local-first",
+          "mcp-server",
+          "privacy",
+          "transcription"
+        ]
       }
     },
     "reddit-research-mcp": {
@@ -2556,11 +5193,19 @@
       "latest": null,
       "repo": {
         "name": "jordanallenlewis/reddit-research-mcp",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 4
+        "openIssues": 3
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "reddit"
+        ]
+      }
     },
     "rightcard-mcp": {
       "checkedAt": "2026-11-17",
@@ -2591,7 +5236,21 @@
         "archived": false,
         "openIssues": 0
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "capacity-planning",
+          "claude-code-plugin",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "project-management",
+          "project-management-system",
+          "project-management-tool",
+          "resource-planning",
+          "windows"
+        ]
+      }
     },
     "ripgrep": {
       "checkedAt": "2026-11-17",
@@ -2606,6 +5265,16 @@
         "pushedAt": "2025-04-29",
         "archived": false,
         "openIssues": 6
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model",
+          "context",
+          "protocol",
+          "ripgrep",
+          "rg"
+        ]
       }
     },
     "rlabs-cl-arketum": {
@@ -2616,7 +5285,20 @@
         "version": "1.1.0",
         "date": "2026-10-28"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "coding-agents",
+          "claude-code",
+          "requirements",
+          "software-lifecycle",
+          "verification"
+        ]
+      }
     },
     "satohub-kit": {
       "checkedAt": "2026-11-17",
@@ -2631,6 +5313,30 @@
         "pushedAt": "2026-10-09",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "agent-security",
+          "agent-tools",
+          "agentkit",
+          "ai-agents",
+          "ai-sdk",
+          "base",
+          "crypto",
+          "developer-tools",
+          "elizaos",
+          "elizaos-plugin",
+          "langchain",
+          "langchainjs",
+          "mcp",
+          "model-context-protocol",
+          "onchain-agents",
+          "openai-agents-sdk",
+          "typescript",
+          "vercel-ai-sdk",
+          "web3",
+          "x402"
+        ]
       }
     },
     "satohub-mcp": {
@@ -2646,6 +5352,30 @@
         "pushedAt": "2026-10-07",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "onchain agents",
+          "crypto agents",
+          "build crypto agent",
+          "x402",
+          "erc-8004",
+          "wallets",
+          "agent wallet",
+          "defi",
+          "base",
+          "solana",
+          "sato hub",
+          "sato score",
+          "web3",
+          "agent-security",
+          "ai-agent-tools",
+          "ai-agents",
+          "claude"
+        ]
       }
     },
     "saymaker-mcp": {
@@ -2661,6 +5391,26 @@
         "pushedAt": "2026-10-05",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-video-generator",
+          "ai-image-generator",
+          "veo",
+          "kling",
+          "seedance",
+          "nano-banana",
+          "image-to-video",
+          "saymaker",
+          "ai",
+          "claude-code-plugin",
+          "gemini-cli-extension",
+          "image-generation",
+          "mcp-server",
+          "video-generation"
+        ]
       }
     },
     "scope-bid-scope-aec-mcp": {
@@ -2676,6 +5426,27 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-agents",
+          "ai-tools",
+          "construction",
+          "aec",
+          "subcontractor",
+          "claude",
+          "anthropic",
+          "vendor-dispatch",
+          "vendor-procurement",
+          "scope",
+          "legal-procurement",
+          "legal-services",
+          "legal-tech",
+          "litigation",
+          "plaintiff"
+        ]
       }
     },
     "scope-bid-scope-claims-mcp": {
@@ -2691,6 +5462,28 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-agents",
+          "ai-tools",
+          "insurance",
+          "claims",
+          "ime",
+          "tpa",
+          "claude",
+          "anthropic",
+          "vendor-dispatch",
+          "vendor-procurement",
+          "scope",
+          "legal-procurement",
+          "legal-services",
+          "legal-tech",
+          "litigation",
+          "plaintiff"
+        ]
       }
     },
     "scope-bid-scope-mcp": {
@@ -2706,6 +5499,25 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-agents",
+          "ai-tools",
+          "legal",
+          "legal-tech",
+          "litigation",
+          "claude",
+          "anthropic",
+          "vendor-dispatch",
+          "vendor-procurement",
+          "scope",
+          "legal-procurement",
+          "legal-services",
+          "plaintiff"
+        ]
       }
     },
     "securenow": {
@@ -2713,10 +5525,34 @@
       "source": "npm",
       "license": "ISC",
       "latest": {
-        "version": "8.26.0",
-        "date": "2026-11-04"
+        "version": "8.27.0",
+        "date": "2026-11-17"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "opentelemetry",
+          "otel",
+          "tracing",
+          "logging",
+          "logs",
+          "observability",
+          "apm",
+          "monitoring",
+          "cli",
+          "nextjs",
+          "next.js",
+          "instrumentation",
+          "telemetry",
+          "distributed-tracing",
+          "node",
+          "express",
+          "fastify",
+          "nestjs",
+          "nuxt",
+          "nuxt3"
+        ]
+      }
     },
     "sequential-thinking": {
       "checkedAt": "2026-11-17",
@@ -2730,7 +5566,7 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
       }
     },
     "servelink-serve": {
@@ -2746,6 +5582,30 @@
         "pushedAt": "2026-09-07",
         "archived": true,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-agent",
+          "claude",
+          "public-link",
+          "public-url",
+          "localhost",
+          "expose-localhost",
+          "webhook-testing",
+          "oauth-callback",
+          "websocket",
+          "static-site-hosting",
+          "static-hosting",
+          "artifact-publishing",
+          "share-link",
+          "tunnel",
+          "ngrok",
+          "cli",
+          "ai-agents",
+          "claude-code"
+        ]
       }
     },
     "server-postgres": {
@@ -2760,7 +5620,7 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
       }
     },
     "ship-safe-mcp": {
@@ -2771,7 +5631,20 @@
         "version": "0.6.4",
         "date": "2026-09-28"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "security",
+          "scanner",
+          "vulnerability",
+          "ai",
+          "cursor",
+          "claude",
+          "vibe-coding"
+        ]
+      }
     },
     "shipeasy-mcp": {
       "checkedAt": "2026-11-17",
@@ -2786,6 +5659,30 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "feature-flags",
+          "feature-gates",
+          "feature-management",
+          "feature-toggles",
+          "ab-testing",
+          "split-testing",
+          "experimentation",
+          "experiments",
+          "kill-switch",
+          "dynamic-config",
+          "remote-config",
+          "progressive-delivery",
+          "feature-rollout",
+          "canary-release",
+          "i18n",
+          "internationalization",
+          "localization"
+        ]
       }
     },
     "shiplightai-mcp": {
@@ -2816,6 +5713,26 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "claude",
+          "chatgpt",
+          "cursor",
+          "ai",
+          "japan",
+          "japanese",
+          "tax",
+          "accounting",
+          "bookkeeping",
+          "invoice",
+          "year-end-adjustment",
+          "consumption-tax",
+          "shiwake"
+        ]
       }
     },
     "simulator-use": {
@@ -2823,14 +5740,32 @@
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.16.0",
-        "date": "2026-11-12"
+        "version": "0.17.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "NoMac-app/simulator-use",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "ios",
+          "simulator",
+          "agent",
+          "testing",
+          "accessibility",
+          "simulator-use",
+          "ios-simulator",
+          "agents",
+          "simtap",
+          "ai-agents",
+          "cursor-plugin",
+          "gemini-cli-extension",
+          "xcode"
+        ]
       }
     },
     "skilltotal": {
@@ -2838,14 +5773,38 @@
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
-        "version": "1.3.0",
-        "date": "2026-11-16"
+        "version": "1.4.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "pezhik/skilltotal",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "security",
+          "ai",
+          "mcp",
+          "supply-chain",
+          "static-analysis",
+          "prompt-injection",
+          "agentic-ai",
+          "agent-security",
+          "ai-security",
+          "cloud-security-alliance",
+          "csa",
+          "maestro",
+          "mitre-atlas",
+          "llm-security",
+          "agent-skills",
+          "ai-agents",
+          "claude-code",
+          "claude-code-hooks",
+          "claude-code-plugin",
+          "devsecops"
+        ]
       }
     },
     "smartmemory-compose-mcp": {
@@ -2861,6 +5820,22 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 4
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "compose",
+          "smartmemory",
+          "claude",
+          "claude-code",
+          "feature-management",
+          "agent-orchestration",
+          "ai-agents",
+          "codex",
+          "developer-tools",
+          "llm"
+        ]
       }
     },
     "smartmemory-mcp": {
@@ -2868,8 +5843,8 @@
       "source": "pypi",
       "license": "MIT",
       "latest": {
-        "version": "2.0.1",
-        "date": "2026-11-12"
+        "version": "2.0.2",
+        "date": "2026-11-17"
       },
       "repo": null
     },
@@ -2881,7 +5856,23 @@
         "version": "3.7.0",
         "date": "2026-07-02"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "cursor",
+          "claude",
+          "openai",
+          "ski",
+          "ski-resort",
+          "snow",
+          "powder",
+          "weather",
+          "forecast",
+          "snowsure"
+        ]
+      }
     },
     "spaces-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -2895,7 +5886,18 @@
         "name": "neltomw/spaces-mcp-server",
         "pushedAt": "2026-10-09",
         "archived": false,
-        "openIssues": 0
+        "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "myspaice",
+          "model-context-protocol",
+          "spaces",
+          "ai-agents",
+          "claude",
+          "cursor"
+        ]
       }
     },
     "spideriq-mcp-gate": {
@@ -2906,7 +5908,20 @@
         "version": "1.16.0",
         "date": "2026-10-25"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "spideriq",
+          "spidergate",
+          "mcp",
+          "model-context-protocol",
+          "llm",
+          "gateway",
+          "litellm",
+          "claude",
+          "ai-assistant"
+        ]
+      }
     },
     "spideriq-mcp-leads": {
       "checkedAt": "2026-11-17",
@@ -2916,7 +5931,22 @@
         "version": "1.19.1",
         "date": "2026-10-24"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "spideriq",
+          "mcp",
+          "model-context-protocol",
+          "leads",
+          "scraping",
+          "enrichment",
+          "google-maps",
+          "email-verification",
+          "idap",
+          "claude",
+          "ai-assistant"
+        ]
+      }
     },
     "spideriq-mcp-mail": {
       "checkedAt": "2026-11-17",
@@ -2926,7 +5956,20 @@
         "version": "1.15.1",
         "date": "2026-10-25"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "spideriq",
+          "spidermail",
+          "mcp",
+          "model-context-protocol",
+          "email",
+          "imap",
+          "smtp",
+          "claude",
+          "ai-assistant"
+        ]
+      }
     },
     "spideriq-mcp-media": {
       "checkedAt": "2026-11-17",
@@ -2936,7 +5979,21 @@
         "version": "1.3.1",
         "date": "2026-10-25"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "spideriq",
+          "spidermedia",
+          "mcp",
+          "model-context-protocol",
+          "media",
+          "dam",
+          "video",
+          "catalog",
+          "claude",
+          "ai-assistant"
+        ]
+      }
     },
     "spideriq-mcp-publish": {
       "checkedAt": "2026-11-17",
@@ -2946,7 +6003,21 @@
         "version": "1.43.1",
         "date": "2026-10-25"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "spideriq",
+          "spiderpublish",
+          "mcp",
+          "model-context-protocol",
+          "cms",
+          "content",
+          "liquid",
+          "templates",
+          "claude",
+          "ai-assistant"
+        ]
+      }
     },
     "sqlite": {
       "checkedAt": "2026-11-17",
@@ -2971,6 +6042,30 @@
         "pushedAt": "2026-10-17",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "file-transfer",
+          "file-sharing",
+          "send-files",
+          "p2p",
+          "e2ee",
+          "encryption",
+          "cli",
+          "ai-agents",
+          "agent-to-agent",
+          "claude",
+          "cursor",
+          "webrtc",
+          "claude-code",
+          "cursor-ai",
+          "e2ee-chat",
+          "mcp-tools",
+          "npm"
+        ]
       }
     },
     "ssid-mcp": {
@@ -2986,6 +6081,30 @@
         "pushedAt": "2026-11-01",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "mac-address",
+          "oui",
+          "network",
+          "device-identity",
+          "ssid",
+          "router-default-password",
+          "default-credentials",
+          "compliance",
+          "psti",
+          "cyber-resilience-act",
+          "ai-agents",
+          "claude",
+          "device-identification",
+          "ieee-oui",
+          "mac-address-lookup",
+          "mcp-server",
+          "model-context-protocol",
+          "network-security"
+        ]
       }
     },
     "statuz-cli": {
@@ -3008,21 +6127,68 @@
       },
       "repo": {
         "name": "stickerdaniel/linkedin-mcp-server",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 185
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "ai-agents",
+          "anthropic",
+          "chatgpt",
+          "chatgpt-desktop",
+          "claude",
+          "claude-ai",
+          "claude-code",
+          "claude-desktop",
+          "desktop-extension",
+          "dxt",
+          "linkedin",
+          "linkedin-api",
+          "linkedin-mcp",
+          "linkedin-profile-scraper",
+          "linkedin-scraper",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "python"
+        ]
+      }
     },
     "storkai": {
       "checkedAt": "2026-11-17",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "2.1.2",
-        "date": "2026-11-16"
+        "version": "2.2.3",
+        "date": "2026-11-17"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "ai-tools",
+          "ai-video",
+          "api",
+          "avatar",
+          "claude",
+          "cursor",
+          "discovery",
+          "image-to-video",
+          "lip-sync",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "registry",
+          "sdk",
+          "singing-video",
+          "stork",
+          "storkai",
+          "talking-head",
+          "talking-photo",
+          "text-to-speech"
+        ]
+      }
     },
     "stratta-mcp": {
       "checkedAt": "2026-11-17",
@@ -3032,7 +6198,19 @@
         "version": "1.22.0",
         "date": "2026-11-13"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "rag",
+          "sia",
+          "eurocodes",
+          "civil-engineering",
+          "stratta"
+        ]
+      }
     },
     "swissco-mcp": {
       "checkedAt": "2026-11-17",
@@ -3047,6 +6225,30 @@
         "pushedAt": "2026-11-07",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "swiss",
+          "zefix",
+          "shab",
+          "sogc",
+          "commercial-register",
+          "handelsregister",
+          "lindas",
+          "simap",
+          "finma",
+          "procurement",
+          "public-tenders",
+          "lei",
+          "gleif",
+          "aramis",
+          "business-registry",
+          "claude-code-skill",
+          "cli",
+          "company-data"
+        ]
       }
     },
     "synchronex-mcp-proxy": {
@@ -3057,7 +6259,22 @@
         "version": "1.2.1",
         "date": "2026-08-13"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "mcp-server",
+          "synchronex",
+          "ai-agent",
+          "claude",
+          "codex",
+          "cursor",
+          "gemini",
+          "memory",
+          "credential-routing"
+        ]
+      }
     },
     "takehub-mcp": {
       "checkedAt": "2026-11-17",
@@ -3067,7 +6284,16 @@
         "version": "1.1.2",
         "date": "2026-06-04"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "takehub",
+          "ai-agents",
+          "claude"
+        ]
+      }
     },
     "talix-stubs": {
       "checkedAt": "2026-11-17",
@@ -3082,6 +6308,19 @@
         "pushedAt": "2026-10-27",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "env",
+          "dotenv",
+          "secrets",
+          "one-time",
+          "burn-after-reading",
+          "mcp",
+          "cli",
+          "agents",
+          "stubs"
+        ]
       }
     },
     "tanvo-mcp": {
@@ -3097,6 +6336,28 @@
         "pushedAt": "2026-10-09",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-image-generator",
+          "ai-video-generator",
+          "ai-music-generator",
+          "image-to-video",
+          "photo-editing",
+          "nano-banana",
+          "seedream",
+          "veo",
+          "kling",
+          "seedance",
+          "suno",
+          "claude",
+          "cursor",
+          "tanvo",
+          "gemini-cli-extension"
+        ]
       }
     },
     "tares": {
@@ -3104,14 +6365,36 @@
       "source": "pypi",
       "license": "MIT AND LicenseRef-Tares-EE",
       "latest": {
-        "version": "1.58.0",
-        "date": "2026-11-16"
+        "version": "1.59.0",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "glassflow/tares",
         "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 12
+        "openIssues": 16
+      },
+      "about": {
+        "keywords": [
+          "agent-orchestration",
+          "ai-monitoring",
+          "ai-sre",
+          "autonomous-agents",
+          "claude-code",
+          "coding-agents",
+          "incident-response",
+          "mcp",
+          "multi-agent",
+          "observability",
+          "software-factory",
+          "tares",
+          "ai-agents",
+          "duckdb",
+          "opentelemetry",
+          "prometheus",
+          "software-factory-e2e",
+          "sre"
+        ]
       }
     },
     "taylorwilsdon-google-workspace-mcp": {
@@ -3126,9 +6409,33 @@
         "name": "taylorwilsdon/google_workspace_mcp",
         "pushedAt": "2026-11-14",
         "archived": false,
-        "openIssues": 98
+        "openIssues": 99
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "ai",
+          "chatgpt",
+          "claude",
+          "claude-code",
+          "claude-desktop",
+          "gmail",
+          "google-calendar",
+          "google-chat",
+          "google-docs",
+          "google-drive",
+          "google-forms",
+          "google-sheets",
+          "google-tasks",
+          "google-workspace",
+          "gsuite",
+          "llm",
+          "llm-tools",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol-server"
+        ]
+      }
     },
     "telbase": {
       "checkedAt": "2026-11-17",
@@ -3138,7 +6445,25 @@
         "version": "1.0.8",
         "date": "2026-10-27"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "deploy",
+          "hosting",
+          "vercel",
+          "gcp",
+          "ai",
+          "vibe-coding",
+          "deployment",
+          "mcp",
+          "mcp-server",
+          "claude-code",
+          "claude",
+          "ai-native",
+          "infrastructure",
+          "internal-tools"
+        ]
+      }
     },
     "tenjin-cli": {
       "checkedAt": "2026-11-17",
@@ -3152,7 +6477,26 @@
         "name": "BackTrackCo/tenjin-agent",
         "pushedAt": "2026-11-17",
         "archived": false,
-        "openIssues": 38
+        "openIssues": 40
+      },
+      "about": {
+        "keywords": [
+          "claude-code",
+          "coding-agents",
+          "tool-router",
+          "ai-agents",
+          "agent-tools",
+          "mcp",
+          "x402",
+          "usdc",
+          "base",
+          "micropayments",
+          "agent-payments",
+          "claude",
+          "codex",
+          "cli",
+          "dev-tools"
+        ]
       }
     },
     "tensorfeed-mcp-server": {
@@ -3168,6 +6512,22 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "ai",
+          "news",
+          "tensorfeed",
+          "model-context-protocol",
+          "claude",
+          "agents",
+          "x402",
+          "usdc",
+          "base",
+          "model-routing",
+          "agent-payments"
+        ]
       }
     },
     "tensorfeed-x402-base-mcp": {
@@ -3183,6 +6543,20 @@
         "pushedAt": "2026-10-14",
         "archived": false,
         "openIssues": 10
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "x402",
+          "base",
+          "ethereum",
+          "evm",
+          "usdc",
+          "afta",
+          "agent-payments",
+          "tensorfeed"
+        ]
       }
     },
     "testivai-mcp": {
@@ -3198,6 +6572,30 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 5
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "visual-regression",
+          "testing",
+          "testivai",
+          "ai-agents",
+          "capybara",
+          "ci",
+          "github-actions",
+          "java",
+          "playwright",
+          "python",
+          "qa",
+          "regression-testing",
+          "rspec",
+          "ruby",
+          "screenshot-testing",
+          "selenium",
+          "snapshot-testing",
+          "test-automation"
+        ]
       }
     },
     "text-editor": {
@@ -3223,6 +6621,15 @@
         "pushedAt": "2026-10-07",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "textile",
+          "design",
+          "claude",
+          "codex"
+        ]
       }
     },
     "thrain-blackout-mcp": {
@@ -3238,6 +6645,18 @@
         "pushedAt": "2026-08-08",
         "archived": false,
         "openIssues": 1
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "redact",
+          "redaction",
+          "pdf",
+          "pii",
+          "foia",
+          "privacy"
+        ]
       }
     },
     "thrain-spotlight-mcp": {
@@ -3248,7 +6667,20 @@
         "version": "0.1.2",
         "date": "2026-08-02"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "pdf",
+          "accessibility",
+          "pdf-ua",
+          "wcag",
+          "ada",
+          "eaa",
+          "section-508"
+        ]
+      }
     },
     "time": {
       "checkedAt": "2026-11-17",
@@ -3262,7 +6694,15 @@
         "name": "modelcontextprotocol/servers",
         "pushedAt": "2026-11-12",
         "archived": false,
-        "openIssues": 22
+        "openIssues": 23
+      },
+      "about": {
+        "keywords": [
+          "llm",
+          "mcp",
+          "time",
+          "timezone"
+        ]
       }
     },
     "timeprooflabs-truthspine-mcp": {
@@ -3278,6 +6718,30 @@
         "pushedAt": "2026-11-14",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "truthspine",
+          "mcp",
+          "model-context-protocol",
+          "model context protocol",
+          "project memory",
+          "ai memory",
+          "agent memory",
+          "persistent memory",
+          "persistent context",
+          "cross-session context",
+          "context management",
+          "project context",
+          "project truth",
+          "decision log",
+          "decisions",
+          "ai agents",
+          "coding agents",
+          "claude code",
+          "claude desktop",
+          "cursor"
+        ]
       }
     },
     "todoglow-mcp": {
@@ -3293,6 +6757,23 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "modelcontextprotocol",
+          "todoglow",
+          "todo",
+          "ai",
+          "claude",
+          "claude-code",
+          "codex",
+          "cursor",
+          "agent-tracking",
+          "productivity",
+          "developer-tools"
+        ]
       }
     },
     "toolaby": {
@@ -3303,7 +6784,15 @@
         "version": "1.18.0",
         "date": "2026-10-27"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "chrome-extension",
+          "toolaby",
+          "licensing",
+          "cli"
+        ]
+      }
     },
     "trustrails-mcp-server": {
       "checkedAt": "2026-11-17",
@@ -3318,6 +6807,19 @@
         "pushedAt": "2026-10-09",
         "archived": false,
         "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "claude",
+          "model-context-protocol",
+          "electronics",
+          "uk",
+          "shopping",
+          "products",
+          "price-comparison",
+          "trustrails"
+        ]
       }
     },
     "trusty-squire-mcp": {
@@ -3330,9 +6832,28 @@
       },
       "repo": {
         "name": "Trusty-Squire/trusty-squire",
-        "pushedAt": "2026-11-15",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 8
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-agent",
+          "coding-agent",
+          "browser-automation",
+          "website-signup",
+          "website-login",
+          "saas",
+          "api-keys",
+          "secrets-management",
+          "claude-code",
+          "cursor",
+          "codex",
+          "opencode",
+          "coding-agents"
+        ]
       }
     },
     "uarpie": {
@@ -3353,7 +6874,17 @@
         "version": "0.1.6",
         "date": "2026-09-18"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "uplink",
+          "mcp",
+          "model-context-protocol",
+          "claude",
+          "ai",
+          "browser-automation"
+        ]
+      }
     },
     "userintuition-ai-mcp": {
       "checkedAt": "2026-11-17",
@@ -3363,21 +6894,69 @@
         "version": "1.6.3",
         "date": "2026-11-10"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "userintuition",
+          "qualitative-research",
+          "research",
+          "claude",
+          "ai",
+          "user-research",
+          "user-interviews",
+          "market-research",
+          "consumer-research",
+          "concept-testing",
+          "prototype-testing",
+          "customer-interviews",
+          "participant-recruitment",
+          "focus-group-alternative",
+          "consumer-insights",
+          "ai-moderated-interviews",
+          "ai-agents",
+          "chatgpt"
+        ]
+      }
     },
     "vaaya-mcp": {
       "checkedAt": "2026-11-17",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.7.1",
-        "date": "2026-11-16"
+        "version": "0.8.1",
+        "date": "2026-11-17"
       },
       "repo": {
         "name": "vaaya-ai/vaaya-mcp",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-17",
         "archived": false,
         "openIssues": 9
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "modelcontextprotocol",
+          "ai-agents",
+          "image-generation",
+          "video-generation",
+          "product-demo",
+          "web-scraping",
+          "web-search",
+          "deep-research",
+          "market-research",
+          "lead-enrichment",
+          "gtm",
+          "sales",
+          "browser-automation",
+          "code-sandbox",
+          "agent-payments",
+          "x402",
+          "micropayments"
+        ]
       }
     },
     "vantic-sdk": {
@@ -3393,6 +6972,21 @@
         "pushedAt": "2026-07-31",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "ai-agents",
+          "agentic-commerce",
+          "delegation",
+          "ed25519",
+          "receipts",
+          "mcp",
+          "mcp-server",
+          "did",
+          "verifiable-credentials",
+          "agent-payments",
+          "prompt-injection"
+        ]
       }
     },
     "veida-mcp": {
@@ -3408,6 +7002,23 @@
         "pushedAt": "2026-10-16",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "ai-image-generator",
+          "text-to-image",
+          "no-api-key",
+          "chatgpt-image",
+          "nano-banana",
+          "seedream",
+          "gpt-image",
+          "veida",
+          "claude-code-plugin",
+          "gemini-cli-extension",
+          "mcp-server"
+        ]
       }
     },
     "vertical-marketplace-mcp": {
@@ -3418,7 +7029,18 @@
         "version": "0.1.0",
         "date": "2026-08-11"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "modelcontextprotocol",
+          "ai-agents",
+          "marketplace",
+          "llm",
+          "agent-commerce",
+          "vermarco"
+        ]
+      }
     },
     "vibheksoni-stealth-browser-mcp": {
       "checkedAt": "2026-11-17",
@@ -3434,7 +7056,31 @@
         "archived": false,
         "openIssues": 0
       },
-      "licenseFrom": "repo"
+      "licenseFrom": "repo",
+      "about": {
+        "keywords": [
+          "ai-agent-tools",
+          "ai-tools",
+          "anthropic",
+          "anti-bot-bypass",
+          "automation-tools",
+          "browser-automation",
+          "chrome-devtools",
+          "claude-mcp",
+          "cloudflare-bypass",
+          "developer-tools",
+          "fastmcp",
+          "mcp-server",
+          "model-context-protocol",
+          "network-interception",
+          "nodriver",
+          "python",
+          "stealth-browser",
+          "undetectable-browser",
+          "web-automation",
+          "web-scraping"
+        ]
+      }
     },
     "vruum-mcp": {
       "checkedAt": "2026-11-17",
@@ -3449,6 +7095,19 @@
         "pushedAt": "2026-11-12",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "vruum",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "sales",
+          "crm",
+          "revenue",
+          "outreach",
+          "gtm"
+        ]
       }
     },
     "wavespeed-mcp": {
@@ -3464,6 +7123,16 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 4
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "wavespeed",
+          "ai-image-generation",
+          "ai-video-generation",
+          "mcp-server"
+        ]
       }
     },
     "wildcard-ai-deepcontext": {
@@ -3474,7 +7143,19 @@
         "version": "0.1.15",
         "date": "2025-09-22"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "claude-code",
+          "semantic-search",
+          "codebase-indexing",
+          "ast-parsing",
+          "vector-search",
+          "jina-ai",
+          "turbopuffer"
+        ]
+      }
     },
     "wilm-ai-wilma-cli": {
       "checkedAt": "2026-11-17",
@@ -3489,6 +7170,23 @@
         "pushedAt": "2026-11-09",
         "archived": false,
         "openIssues": 4
+      },
+      "about": {
+        "keywords": [
+          "ai-agents",
+          "chatgpt",
+          "claude",
+          "cli",
+          "codex",
+          "finland",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "openclaw",
+          "parents",
+          "school",
+          "wilma"
+        ]
       }
     },
     "workpods-agent-ready": {
@@ -3504,6 +7202,23 @@
         "pushedAt": "2026-11-09",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "seo",
+          "geo",
+          "axo",
+          "ai-agents",
+          "llms-txt",
+          "structured-data",
+          "chrome-extension",
+          "cli",
+          "agent-readiness",
+          "ai-search",
+          "claude-code"
+        ]
       }
     },
     "workpods-local-seo": {
@@ -3519,6 +7234,20 @@
         "pushedAt": "2026-11-06",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "local-seo",
+          "google-business-profile",
+          "google-maps",
+          "reviews",
+          "seo",
+          "chrome-extension",
+          "cli",
+          "claude-code"
+        ]
       }
     },
     "wpconvert-mcp": {
@@ -3534,6 +7263,30 @@
         "pushedAt": "2026-10-26",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "wordpress",
+          "wpconvert",
+          "ai",
+          "lovable",
+          "cursor",
+          "v0",
+          "vite",
+          "react",
+          "frontend",
+          "static-site",
+          "ai-agent",
+          "agent",
+          "llm",
+          "ai-agents",
+          "ai-website-builder",
+          "api",
+          "claude",
+          "cli"
+        ]
       }
     },
     "yomio-mcp-stdio": {
@@ -3544,7 +7297,15 @@
         "version": "1.0.0",
         "date": "2026-10-06"
       },
-      "repo": null
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "yomio",
+          "oauth",
+          "expenses"
+        ]
+      }
     },
     "zendiq-mcp": {
       "checkedAt": "2026-11-17",
@@ -3559,6 +7320,18 @@
         "pushedAt": "2026-11-09",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "solana",
+          "x402",
+          "mev",
+          "jupiter",
+          "token-risk",
+          "ai-agents"
+        ]
       }
     },
     "zensation-mcp": {
@@ -3574,6 +7347,30 @@
         "pushedAt": "2026-11-16",
         "archived": false,
         "openIssues": 3
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "zenbrain",
+          "agent-memory",
+          "ai-memory",
+          "memory-layer",
+          "long-term-memory",
+          "episodic-memory",
+          "stateful-agents",
+          "llm-memory",
+          "cognitive-architecture",
+          "ebbinghaus",
+          "forgetting-curve",
+          "fsrs",
+          "hebbian-learning",
+          "longmemeval",
+          "memory-consolidation",
+          "neuroscience",
+          "procedural-memory"
+        ]
       }
     },
     "zils-cli": {
@@ -3589,6 +7386,29 @@
         "pushedAt": "2026-11-15",
         "archived": false,
         "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "zils",
+          "cli",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "llm",
+          "classification",
+          "text-classification",
+          "decision-models",
+          "fine-tuning",
+          "calibration",
+          "model-merging",
+          "ai-agents",
+          "claude-code",
+          "cursor",
+          "python",
+          "sdk",
+          "small-language-models",
+          "typescript"
+        ]
       }
     }
   }

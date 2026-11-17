@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { listDocs } from "@/app/docs/content";
 import { SERVERS_RESULTS } from "@/lib/results";
 import { canonical } from "@/lib/seo";
+import { allTopicPages } from "@/lib/topics-data";
 
 export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -11,5 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...fixed.map((p) => ({ url: canonical(p), ...(p.startsWith("/results") && latest ? { lastModified: latest } : {}) })),
     ...listDocs().filter((d) => d.slug.length).map((d) => ({ url: canonical(`/docs/${d.slug.join("/")}/`) })),
     ...SERVERS_RESULTS.map((x) => ({ url: canonical(`/results/${x.id}/`), lastModified: x.testedAt })),
+    ...(SERVERS_RESULTS.length ? [{ url: canonical("/results/topics/"), ...(latest ? { lastModified: latest } : {}) }] : []),
+    ...allTopicPages().map((t) => ({ url: canonical(`/results/topics/${t.id}/`), lastModified: t.rows.map((r) => r.testedAt).sort().at(-1) })),
   ];
 }
