@@ -20,8 +20,10 @@ export const privateLimitsFrom = (env = {}) => ({
   ownerDays: 7, activeDays: 180,
 });
 
-export const repoHash = (repo) => crypto.createHash("sha256").update(String(repo).toLowerCase()).digest("hex").slice(0, 16);
-export const alreadyReported = (ledger, repo) => (ledger.private ?? []).some((r) => r.h === repoHash(repo));
+// A keyed hash (HMAC-SHA256 with the OWNER_PRIVATE_KEY secret): the ledger is public and repository names are guessable,
+// so a plain hash would let anyone test which repositories were reported. Without the key a live run sends nothing.
+export const repoHash = (repo, key = "") => crypto.createHmac("sha256", String(key)).update(String(repo).toLowerCase()).digest("hex").slice(0, 16);
+export const alreadyReported = (ledger, repo, key = "") => (ledger.private ?? []).some((r) => r.h === repoHash(repo, key));
 
 // The report for one held repository (privateEntry's shape, with `fix` text per finding). The text is exactly what is posted.
 export function reportFor(entry, { fixFor = () => "" } = {}) {
@@ -31,7 +33,7 @@ export function reportFor(entry, { fixFor = () => "" } = {}) {
   const title = `${names.slice(0, 2).join("; ")}${names.length > 2 ? ` and ${names.length - 2} more` : ""} in ${first.name} ${first.version} (automated Sealmark test)`.slice(0, 200);
   const blocks = servers.map((x) => [
     `${x.name} ${x.version}, tested ${x.testedAt}:`,
-    ...x.security.map((c) => `- \`${c.id}\` (${c.verdict === "fail" ? "failed" : "partly passed"}): ${String(c.summary ?? "").trim()}${fixFor(c.id) ? ` How to fix: ${fixFor(c.id)}` : ""}`),
+    ...x.security.map((c) => `- \`${c.id}\` (${c.verdict === "fail" ? "failed" : "partly passed"}): ${String(c.summary ?? "").trim().replace(/[.\s]+$/, "")}${fixFor(c.id) ? `. How to fix: ${fixFor(c.id)}` : "."}`),
     `Reproduce: \`${x.rerun}\``,
   ].join("\n"));
   const body = [
@@ -47,13 +49,13 @@ export function reportFor(entry, { fixFor = () => "" } = {}) {
 // repo -> true/false/null; byId maps server id -> the result (for freshness and stability); rules are applied here so the
 // card Jordan approves and the live run see the same list. Pure.
 //   ctx: {ledger, optout, history, today, limits, self, facts (id -> factsGate result or null)}
-export function candidates(entries, { pvr, byId, ledger, optout, history, today, self = [], limits, facts = {} }) {
+export function candidates(entries, { pvr, byId, ledger, optout, history, today, self = [], limits, facts = {}, key = "" }) {
   const opted = new Set((optout.repos ?? []).map((r) => r.toLowerCase()));
   const optedOwners = new Set([...opted].map((r) => r.split("/")[0]));
   const out = [];
   const skipped = [];
   for (const e of entries) {
-    const why = !e.repo ? "no repository" : pvr[e.repo] !== true ? "private vulnerability reporting is not on" : alreadyReported(ledger, e.repo) ? "already reported" : opted.has(e.repo.toLowerCase()) || optedOwners.has(e.repo.split("/")[0].toLowerCase()) ? "opted out" : self.includes(e.repo.split("/")[0].toLowerCase()) ? "our own repository" : null;
+    const why = !e.repo ? "no repository" : pvr[e.repo] !== true ? "private vulnerability reporting is not on" : alreadyReported(ledger, e.repo, key) ? "already reported" : opted.has(e.repo.toLowerCase()) || optedOwners.has(e.repo.split("/")[0].toLowerCase()) ? "opted out" : self.includes(e.repo.split("/")[0].toLowerCase()) ? "our own repository" : null;
     if (why) { skipped.push({ repo: e.repo, why }); continue; }
     const live = e.servers.filter((x) => x.security.length);
     const bad = live.map((x) => {
@@ -72,14 +74,14 @@ export function candidates(entries, { pvr, byId, ledger, optout, history, today,
 
 // Posts reports. `post(repo, {summary, description})` throws an Error with `.status`. Never throws itself. Returns
 // {sent: n, stopped: status|null}; each sent report is recorded as a hash, before the next one is tried.
-export async function sendReports({ ready, ledger, now, limits, post, save, sleep, log }) {
+export async function sendReports({ ready, ledger, now, limits, post, save, sleep, log, key = "" }) {
   const room = budget({ ledger: { issues: ledger.private ?? [], pause: ledger.pause }, now, limits });
   const out = { sent: 0, stopped: null, room };
   for (const r of ready.slice(0, room.allow)) {
     if (out.sent > 0) await sleep(60_000);
     try {
       await post(r.repo, { summary: r.title, description: r.body });
-      (ledger.private ??= []).push({ h: repoHash(r.repo), at: new Date(now).toISOString().slice(0, 10), postedAt: new Date(now).toISOString() });
+      (ledger.private ??= []).push({ h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), postedAt: new Date(now).toISOString() });
       out.sent += 1;
       save();
     } catch (e) {
@@ -87,7 +89,7 @@ export async function sendReports({ ready, ledger, now, limits, post, save, slee
       log(`::warning::a private report failed (${Number.isFinite(status) ? status : "error"}); not named here`);
       if (!Number.isFinite(status) || status === 401 || status === 403 || status === 429 || status >= 500) { out.stopped = String(Number.isFinite(status) ? status : "error"); break; }
       // 404 / 422: this repository cannot take a report; record it so it is not tried every run
-      (ledger.private ??= []).push({ h: repoHash(r.repo), at: new Date(now).toISOString().slice(0, 10), failed: status });
+      (ledger.private ??= []).push({ h: repoHash(r.repo, key), at: new Date(now).toISOString().slice(0, 10), failed: status });
       save();
     }
   }

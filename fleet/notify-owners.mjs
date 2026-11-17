@@ -932,13 +932,15 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   // disclosure policy): fleet/private-reports.mjs holds the gates and the caps. Counts only in the log, never names.
   const privLimits = privateLimitsFrom(env);
   const privHistory = (io.read(FILES.history) ?? "").split("\n").filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
-  const pc = privateCandidates(entries, { pvr, byId, ledger, optout, history: privHistory, today, self: SELF, limits: privLimits });
+  const pc = privateCandidates(entries, { pvr, byId, ledger, optout, history: privHistory, today, self: SELF, limits: privLimits, key: env.OWNER_PRIVATE_KEY ?? "" });
   const reports = [];
   for (const e of pc.ready.slice(0, 6)) {
     // the version tested must still be the latest: one network check per candidate, the same rule the public notices use
     let gate = null;
     for (const x of e.servers.filter((v) => v.security.length)) {
       const r = byId.get(x.id);
+      const lp = launchProblem(r.launch); // the reproduce line in the report must run as written
+      if (lp) { gate = { reason: lp }; break; }
       const f = await serverFacts(r, e.repo, { fetchFn, api, roots });
       gate = factsGate(r, f);
       if (gate) break;
@@ -946,18 +948,19 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     if (gate) pc.skipped.push({ repo: e.repo, why: gate.reason }); else reports.push(reportFor(e, { fixFor }));
   }
   io.write(FILES.privateReports, `# Private reports the next live run may send\n\nPRIVATE: gitignored, never committed. ${reports.length} ready, ${pc.skipped.length} not sent (${[...new Set(pc.skipped.map((k) => k.why.replace(/\(.*/, "").trim()))].join("; ") || "none"}).\n\n` + reports.map((r) => `---\n\n## ${r.repo}\n\n**Title:** ${r.title}\n\n${r.body}\n`).join("\n"));
-  const privGate = live && Boolean(me) && env.OWNER_PRIVATE_LIVE === "1";
+  const privGate = live && Boolean(me) && env.OWNER_PRIVATE_LIVE === "1" && Boolean(env.OWNER_PRIVATE_KEY);
+  if (live && env.OWNER_PRIVATE_LIVE === "1" && !env.OWNER_PRIVATE_KEY) log("::error::OWNER_PRIVATE_LIVE is 1 but the OWNER_PRIVATE_KEY secret is not set: no private report is sent (the ledger needs a keyed hash)");
   let privSent = 0;
   if (privGate && reports.length) {
     const out = await sendReports({
-      ready: reports, ledger, now: nowMs, limits: privLimits, sleep, log,
+      ready: reports, ledger, now: nowMs, limits: privLimits, sleep, log, key: env.OWNER_PRIVATE_KEY,
       post: (repo, body) => api(`/repos/${repo}/security-advisories/reports`, { method: "POST", body, token: g.token }),
       save: () => writeJson(FILES.ledger, ledger),
     });
     privSent = out.sent;
     if (["403", "429"].includes(out.stopped)) { setPause(ledger, { code: `http-${out.stopped}`, reason: `GitHub answered ${out.stopped} to a private report; backing off for 24 hours`, now: nowMs, hours: 24 }); log(`::error::GitHub answered ${out.stopped} to a private report: posting is paused for 24 hours`); }
   }
-  log(`private reports: ${privSent} sent, ${reports.length} ready${privGate ? "" : " (not live: OWNER_PRIVATE_LIVE is not 1)"}, ${pc.skipped.length} not sent, ${(ledger.private ?? []).filter((r) => !r.failed).length} sent in all`);
+  log(`private reports: ${privSent} sent, ${reports.length} ready${privGate ? "" : " (not live: OWNER_PRIVATE_LIVE is not 1 or no OWNER_PRIVATE_KEY)"}, ${pc.skipped.length} not sent, ${(ledger.private ?? []).filter((r) => !r.failed).length} sent in all`);
   const counts = skipCounts(skipped).map(([c, n]) => `${c} ${n}`).join(", ");
 
   // every graded server ends up sent, waiting, held or skipped, each with its reason: counted here, written to the log

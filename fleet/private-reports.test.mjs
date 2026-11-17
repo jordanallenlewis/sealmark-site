@@ -25,7 +25,7 @@ test("report text: private, names the finding and its fix, states the disclosure
   const r = reportFor(entry("acme/mcp"), { fixFor: (id) => (id === "fs-read-escape" ? "Resolve the path and refuse anything outside the root." : "") });
   assert.match(r.title, /a file outside the allowed folder was read in mcp 1\.2\.0 \(automated Sealmark test\)/);
   assert.match(r.body, /sending it privately/);
-  assert.match(r.body, /- `fs-read-escape` \(failed\): read \.\.\/outside\.txt How to fix: Resolve the path/);
+  assert.match(r.body, /- `fs-read-escape` \(failed\): read \.\.\/outside\.txt\. How to fix: Resolve the path/);
   assert.match(r.body, /14 days for a reply and send one reminder, and publish the finding once it is fixed or on day 90/);
   assert.match(r.body, /reply "opt out"/);
   assert.match(r.body, /sealmark\.dev\/disclosure\//);
@@ -42,7 +42,8 @@ test("candidates: only a repository with private reporting on, fresh and stable,
   c.history = c.history.filter((h) => h.id !== "d/single-s").concat(history("d/single-s", 1));
   c.history = c.history.map((h) => (h.id === "h/flaky-s" && h.testedAt === "2026-11-09" ? { ...h, worst: "B" } : h));
   c.optout = { repos: ["E/OPTOUT"] };
-  c.ledger = { private: [{ h: repoHash("G/Done") }] };
+  c.ledger = { private: [{ h: repoHash("G/Done", "k") }] };
+  c.key = "k";
   const out = candidates(es, c);
   assert.deepEqual(out.ready.map((e) => e.repo), ["a/ok"]);
   const why = Object.fromEntries(out.skipped.map((s) => [s.repo, s.why]));
@@ -54,7 +55,8 @@ test("candidates: only a repository with private reporting on, fresh and stable,
   assert.equal(why["g/done"], "already reported");
   assert.match(why["h/flaky"], /flaky/);
   assert.equal(candidates([entry("no/pvr-known")], ctx([entry("no/pvr-known")], { pvr: {} })).ready.length, 0, "unknown private reporting state is not a yes");
-  assert.equal(alreadyReported({ private: [{ h: repoHash("x/y") }] }, "X/Y"), true);
+  assert.equal(alreadyReported({ private: [{ h: repoHash("x/y", "k") }] }, "X/Y", "k"), true);
+  assert.equal(alreadyReported({ private: [{ h: repoHash("x/y", "k") }] }, "X/Y", "other"), false, "without the key the hash tells nothing");
 });
 
 test("candidates: the repository with the most findings goes first", () => {
@@ -68,7 +70,7 @@ test("sendReports: the per-run cap, a recorded hash only, a 403 stops and nothin
   const mk = (r) => reportFor(entry(r));
   const posted = [];
   const ledger = {};
-  const out = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger, now: NOW, limits: privateLimitsFrom({}), post: async (repo, b) => posted.push([repo, b.summary]), save() {}, sleep: async () => {}, log() {} });
+  const out = await sendReports({ ready: [mk("a/one"), mk("b/two")], ledger, now: NOW, limits: privateLimitsFrom({}), key: "k", post: async (repo, b) => posted.push([repo, b.summary]), save() {}, sleep: async () => {}, log() {} });
   assert.equal(out.sent, 1, "1 per run");
   assert.deepEqual(posted.map((p) => p[0]), ["a/one"]);
   assert.deepEqual(Object.keys(ledger.private[0]).sort(), ["at", "h", "postedAt"], "a hash, never the repository name");

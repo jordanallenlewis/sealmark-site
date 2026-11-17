@@ -865,12 +865,12 @@ test("main: a security finding goes only to private vulnerability reporting, onl
   const dry = fakeWorld({ servers });
   const a = await runLive(dry);
   assert.equal(dry.advisories.length, 0);
-  assert.ok(a.logs.some((l) => /private reports: 0 sent, 2 ready \(not live: OWNER_PRIVATE_LIVE is not 1\)/.test(l)), a.logs.join("\n"));
+  assert.ok(a.logs.some((l) => /private reports: 0 sent, 2 ready \(not live: OWNER_PRIVATE_LIVE is not 1 or no OWNER_PRIVATE_KEY\)/.test(l)), a.logs.join("\n"));
   assert.match(dry.files.get(FILES.privateReports), /## o\/sec\n/);
   assert.equal(a.gh.created().includes("o/sec"), false, "never a public issue");
   // live: one report, to the repository's private route, with the bot token, and the text it shows
   const live = fakeWorld({ servers });
-  const b = await runLive(live, { OWNER_PRIVATE_LIVE: "1" });
+  const b = await runLive(live, { OWNER_PRIVATE_LIVE: "1", OWNER_PRIVATE_KEY: "k-test" });
   assert.equal(live.advisories.length, 1);
   assert.match(live.advisories[0].path, /^\/repos\/[op]\/sec2?\/security-advisories\/reports$/);
   assert.equal(live.advisories[0].auth, "Bearer tok");
@@ -879,8 +879,13 @@ test("main: a security finding goes only to private vulnerability reporting, onl
   assert.equal(JSON.parse(saved).private.length, 1);
   for (const f of [FILES.ledger, FILES.weekly, FILES.privateDraft === "x" ? "" : FILES.status]) assert.doesNotMatch(live.files.get(f) ?? "", /o\/sec|p\/sec2|fs-read-escape|fs-write-escape/, f);
   assert.ok(!b.logs.some((l) => /o\/sec|p\/sec2|fs-read-escape|fs-write-escape/.test(l)), "the log never names them");
+  // live without the key: nothing is sent and the log says why
+  const nokey = fakeWorld({ servers });
+  const nk = await runLive(nokey, { OWNER_PRIVATE_LIVE: "1" });
+  assert.equal(nokey.advisories.length, 0);
+  assert.ok(nk.logs.some((l) => /OWNER_PRIVATE_KEY secret is not set/.test(l)));
   // the next run, minutes later: the hour gap holds the second one back
-  const second = await runLive(live, { OWNER_PRIVATE_LIVE: "1" });
+  const second = await runLive(live, { OWNER_PRIVATE_LIVE: "1", OWNER_PRIVATE_KEY: "k-test" });
   assert.equal(live.advisories.length, 1);
   assert.ok(second.logs.some((l) => /private reports: 0 sent/.test(l)));
 });
