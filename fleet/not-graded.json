@@ -1,7 +1,7 @@
 {
-  "count": 144,
+  "count": 145,
   "byReason": {
-    "missing-runtime": 4,
+    "missing-runtime": 5,
     "unknown": 102,
     "bad-launch": 5,
     "dependency-resolution": 15,
@@ -10,10 +10,24 @@
   },
   "servers": [
     {
-      "id": "chrisryugj-kordoc",
-      "version": "4.24.82",
+      "id": "apify-apify-mcp-server",
+      "version": "0.21.12",
       "lastTried": "2026-11-17",
-      "attempts": 20,
+      "attempts": 8,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.24.83",
+      "lastTried": "2026-11-17",
+      "attempts": 21,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "chrisryugj-korean-law-mcp",
+      "version": "4.15.24",
+      "lastTried": "2026-11-17",
+      "attempts": 2,
       "reason": "missing-runtime"
     },
     {
@@ -38,10 +52,24 @@
       "reason": "unknown"
     },
     {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.4.2",
+      "id": "marker-inc-korea-autorag",
+      "version": "2.13.13",
       "lastTried": "2026-11-17",
-      "attempts": 11,
+      "attempts": 4,
+      "reason": "unknown"
+    },
+    {
+      "id": "paymid-mcp",
+      "version": "0.1.0",
+      "lastTried": "2026-11-17",
+      "attempts": 1,
+      "reason": "unknown"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.4.3",
+      "lastTried": "2026-11-17",
+      "attempts": 12,
       "reason": "missing-runtime"
     },
     {
@@ -52,18 +80,18 @@
       "reason": "dependency-resolution"
     },
     {
+      "id": "vitali87-code-graph-rag",
+      "version": "0.7.1",
+      "lastTried": "2026-11-17",
+      "attempts": 3,
+      "reason": "unknown"
+    },
+    {
       "id": "xbrlkit",
       "version": "0.21.7",
       "lastTried": "2026-11-17",
       "attempts": 4,
       "reason": "bad-launch"
-    },
-    {
-      "id": "apify-apify-mcp-server",
-      "version": "0.21.11",
-      "lastTried": "2026-11-16",
-      "attempts": 7,
-      "reason": "missing-runtime"
     },
     {
       "id": "ato-mcp",
@@ -92,13 +120,6 @@
       "lastTried": "2026-11-16",
       "attempts": 4,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "vitali87-code-graph-rag",
-      "version": "0.6.62",
-      "lastTried": "2026-11-16",
-      "attempts": 2,
-      "reason": "unknown"
     },
     {
       "id": "vmoranv-jshookmcp",
@@ -260,13 +281,6 @@
       "lastTried": "2026-11-11",
       "attempts": 2,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "marker-inc-korea-autorag",
-      "version": "2.13.12",
-      "lastTried": "2026-11-11",
-      "attempts": 3,
-      "reason": "unknown"
     },
     {
       "id": "mobile-next-mobile-mcp",
@@ -460,13 +474,6 @@
     {
       "id": "buywhere-buywhere-mcp",
       "version": "0.4.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "unknown"
-    },
-    {
-      "id": "chrisryugj-korean-law-mcp",
-      "version": "4.15.23",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "unknown"

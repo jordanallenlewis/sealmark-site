@@ -2,9 +2,9 @@
   "generatedAt": "2026-11-17",
   "mode": "real",
   "summary": {
-    "notified": 4,
+    "notified": 6,
     "byChannel": {
-      "issue": 4
+      "issue": 6
     },
     "released": 0,
     "improved": 0,
@@ -14,8 +14,8 @@
     "medianDaysToImprovement": null,
     "topFixedChecks": [],
     "base": {
-      "servers": 211,
-      "released": 16,
+      "servers": 209,
+      "released": 20,
       "improved": 0,
       "regressed": 1,
       "medianDaysToImprovement": null
@@ -177,6 +177,102 @@
       ],
       "number": 1,
       "url": "https://github.com/neltomw/spaces-mcp-server/issues/1",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-17",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    },
+    {
+      "channel": "issue",
+      "id": "model-finder-mcp",
+      "repo": "Abhiindigloo/EvalHarness",
+      "also": [],
+      "at": "2026-11-17",
+      "postedAt": "2026-11-17T15:50:30.368Z",
+      "version": "1.3.7",
+      "letter": "B",
+      "failing": [],
+      "named": [
+        "robust-input"
+      ],
+      "number": 15,
+      "url": "https://github.com/Abhiindigloo/EvalHarness/issues/15",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-17",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    },
+    {
+      "channel": "issue",
+      "id": "agent-bev-mcp-server",
+      "repo": "agent-bev/bev-door",
+      "also": [],
+      "at": "2026-11-17",
+      "postedAt": "2026-11-17T15:52:32.262Z",
+      "version": "0.2.6",
+      "letter": "B",
+      "failing": [],
+      "named": [
+        "robust-input"
+      ],
+      "number": 4,
+      "url": "https://github.com/agent-bev/bev-door/issues/4",
       "badgeAtNotice": false,
       "author": "sealmark-bot",
       "after": [],

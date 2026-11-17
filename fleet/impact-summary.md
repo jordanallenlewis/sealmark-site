@@ -4,8 +4,8 @@ Written 2026-11-17 by `fleet/impact.mjs`. Internal: not published on sealmark.de
 
 | | Notified | Base rate (never notified) |
 |---|---|---|
-| Servers | 4 | 211 |
-| Released a new version since | 0 (0%) | 16 (8%) |
+| Servers | 6 | 209 |
+| Released a new version since | 0 (0%) | 20 (10%) |
 | Improved after notice (better letter on a new version) | 0 (0%; n/a of releasers) | 0 (0%; 0% of releasers) |
 | Regressed (worse letter on a new version) | 0 | 1 |
 | Median days to first improvement | n/a | n/a |
@@ -14,7 +14,7 @@ Written 2026-11-17 by `fleet/impact.mjs`. Internal: not published on sealmark.de
 
 "Improved after notice" is correlation: read it against the base rate. "Acted on Sealmark" needs direct evidence (our issue referenced by a commit or PR, a commit message naming Sealmark, a maintainer closing our issue with a fix, or the badge added after the notice). The grader changes too, so a letter can move without the server changing.
 
-Notices by channel: issue 4.
+Notices by channel: issue 6.
 
 ## Checks fixed most often (failing at notice, passing on the latest new version)
 

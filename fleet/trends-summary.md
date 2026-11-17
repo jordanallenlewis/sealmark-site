@@ -1,13 +1,13 @@
 ## Grade trends by Sealmark version
 
-Graded now: 262 servers; never graded: 144.
+Graded now: 262 servers; never graded: 145.
 
 | Sealmark | servers | graded | failed to start | A | B | C | D | F |
 |---|---|---|---|---|---|---|---|---|
-| pre-1.0 (unrecorded) | 221 | 214 | 438 | 106 | 33 | 0 | 26 | 49 |
+| pre-1.0 (unrecorded) | 222 | 214 | 447 | 106 | 33 | 0 | 26 | 49 |
 | 0.3.0 | 10 | 10 | 0 | 5 | 5 | 0 | 0 | 0 |
 | 1.0.0 | 212 | 303 | 0 | 175 | 93 | 2 | 21 | 12 |
-| 1.0.1 | 261 | 523 | 0 | 317 | 142 | 5 | 37 | 22 |
+| 1.0.1 | 261 | 538 | 0 | 325 | 146 | 6 | 38 | 23 |
 
 | from | to | improved | regressed | unchanged |
 |---|---|---|---|---|
