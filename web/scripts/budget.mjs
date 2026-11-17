@@ -28,6 +28,7 @@ const BUDGET = {
 const DOCS_ONLY_MARKERS = [
   ["Search the docs", "the docs Search component"],
   ["docs-index.json", "the docs search index loader"],
+  ["results-index.json", "the site search server index loader"],
   ["tocCol", "the docs shell stylesheet"],
   ["drawerHead", "the docs shell stylesheet"],
 ];

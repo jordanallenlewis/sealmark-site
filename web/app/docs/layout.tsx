@@ -33,7 +33,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           </Link>
           <span className={s.crumb}>docs</span>
           <Link className={s.headLink} href="/results/">Results</Link>
-          <Search hotkey />
+          <Search hotkey scope="site" />
           <MethodologyBadge className={s.headBadge} />
           <Drawer badge={<MethodologyBadge />}>
             <Sidebar nav={NAV} />
