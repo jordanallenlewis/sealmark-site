@@ -123,10 +123,17 @@ for (const [id, where, t] of secrets) {
       if (!e) { fail(7, `${sv.id}: no search entry`); continue; }
       const html = body(join(resultsDir, sv.id, "index.html"));
       const h = html.match(/<h2 id="grade-h">(.*?)<\/h2>/s);
-      if (h && text(h[1]).trim() !== e.grade) fail(7, `${sv.id}: search says "${e.grade}", page "${text(h[1]).trim()}"`);
+      if (!h) fail(7, `${sv.id}: no grade heading on the page to compare the search entry with`);
+      else if (text(h[1]).trim() !== e.grade) fail(7, `${sv.id}: search says "${e.grade}", page "${text(h[1]).trim()}"`);
       const raw = RAW.get(sv.id);
       const held = raw && (redactedChecks(raw, DISCLOSURE, TODAY).size > 0 || raw.checks.some(isSecurityFinding));
-      if (held && (e.headings.length !== 1 || e.headings[0] !== sv.id || /: /.test(e.text))) fail(7, `${sv.id}: a server with a security finding has tool names in the search index`);
+      if (held) {
+        if (e.headings.length !== 1 || e.headings[0] !== sv.id || /: /.test(e.text)) fail(7, `${sv.id}: a server with a security finding has tool names in the search index`);
+        // Whatever a later edit adds, a held server's entry has exactly these fields and a text with no room for a name.
+        const keys = Object.keys(e).sort().join(",");
+        if (keys !== "grade,group,headings,section,text,title,url") fail(7, `${sv.id}: unexpected fields in a held server's search entry (${keys})`);
+        if (!/^(Grade [ABCDF]( \(provisional\))?|No grade|No tools to test) · (npm|PyPI|GitHub) · \d+ tools?$/.test(e.text)) fail(7, `${sv.id}: a held server's search text has more than grade, source and tool count`);
+      }
     }
     const idx = body(file);
     for (const [, where, t] of secrets) {

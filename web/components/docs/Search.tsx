@@ -146,7 +146,9 @@ export function Search({ variant = "bar", hotkey = false, scope = "docs" }: { va
     setLoad("loading");
     const ctl = new AbortController();
     abort.current = ctl;
-    const servers = scope === "site" ? getJson("/results-index.json", ctl.signal).catch(() => [] as Entry[]) : Promise.resolve([] as Entry[]);
+    const servers = scope === "site" ? getJson("/results-index.json", ctl.signal)
+            .then((x) => (Array.isArray(x) ? x.filter((e) => e && typeof e.url === "string" && typeof e.title === "string" && typeof e.text === "string" && Array.isArray(e.headings)) : []))
+            .catch(() => [] as Entry[]) : Promise.resolve([] as Entry[]);
     Promise.all([getJson("/docs-index.json", ctl.signal), servers])
       .then(([d, x]) => {
         setIndex(prepare([...d, ...x]));

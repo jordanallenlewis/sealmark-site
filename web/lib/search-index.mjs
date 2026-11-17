@@ -22,15 +22,17 @@ export function serverEntry(x, label, redactions) {
   let text = `${label.grade} · ${label.source} · ${count} ${count === 1 ? "tool" : "tools"}`;
   if (tools.length) {
     let list = "";
+    let cut = false;
     for (const t of tools) {
       const next = list ? `${list}, ${t}` : t;
-      if (`${text}: ${next}`.length > MAX_TEXT - 1) {
-        list += "…";
+      if (`${text}: ${next}`.length > MAX_TEXT - 3) {
+        cut = true;
         break;
       }
       list = next;
     }
-    text += `: ${list}`;
+    // Cut here for length, or names the page cannot show either (capped or not plain): the list must not read as complete.
+    text += `: ${list}${cut || tv.missing ? ", …" : ""}`;
   }
   return {
     url: `/results/${x.id}/`,

@@ -79,3 +79,8 @@ test("serverEntries keeps one entry per server in order", () => {
   const out = serverEntries(xs, () => ({ grade: "Grade A", source: "npm" }), () => none);
   assert.deepEqual(out.map((e) => e.url), ["/results/acme-files/", "/results/b/"]);
 });
+
+test("a partial tool list never reads as complete: names the page could not show end the list with an ellipsis", () => {
+  const x = srv({ tools: ["read_file"], toolCount: 3, checks: [pass("protocol", "core", ["read_file"])] });
+  assert.equal(serverEntry(x, { grade: "Grade A", source: "npm" }, none).text, "Grade A · npm · 3 tools: read_file, …");
+});
