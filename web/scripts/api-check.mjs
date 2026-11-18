@@ -17,6 +17,9 @@
 //   7  out/results-index.json (the site search's server entries) has one entry per listed server, its grade label equals the
 //      page heading, it names no tool for a server with a private finding or any security finding (recomputed from the raw
 //      data), and it contains no withheld text of any server
+//   8  out/results/tools/ (the tools directory): its table links only to listed servers, never to a server with a private
+//      finding or any security finding (recomputed from the raw data), each server once; and neither the page nor its
+//      flight payload contains withheld text of any server
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,7 +47,7 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const secrets = []; // [server id, where, text that must not appear in that server's file, the list or the changes]
 const resultsDir = join(out, "results");
 // Site routes under /results/ that are not server pages; a server with one of these ids would lose its page to it.
-const ROUTES = new Set(["history", "topics"]);
+const ROUTES = new Set(["history", "topics", "tools"]);
 for (const id of RAW.keys()) if (ROUTES.has(id)) fail(1, `server id "${id}" is taken by the /results/${id}/ route`);
 const pages = readdirSync(resultsDir, { withFileTypes: true })
   .filter((e) => e.isDirectory() && existsSync(join(resultsDir, e.name, "index.html")) && !ROUTES.has(e.name))
@@ -141,6 +144,31 @@ for (const [id, where, t] of secrets) {
     const idx = body(file);
     for (const [, where, t] of secrets) {
       if (t && idx.includes(JSON.stringify(t).slice(1, -1))) fail(7, `${where}: withheld text appears in results-index.json`);
+    }
+  }
+}
+
+// Rule 8: the tools directory. A held server's allowed shape there is absence: no row, no link.
+{
+  const dir = join(resultsDir, "tools");
+  if (list.servers.length && !existsSync(join(dir, "index.html"))) fail(8, "out/results/tools/index.html was not built");
+  else if (existsSync(join(dir, "index.html"))) {
+    const html = body(join(dir, "index.html"));
+    const table = html.match(/<table[\s\S]*?<\/table>/)?.[0] ?? "";
+    const linked = [...table.matchAll(/href="\/results\/([^"/]+)\/"/g)].map((m) => decodeURIComponent(m[1]));
+    const listedIds = new Set(list.servers.map((sv) => sv.id));
+    if (new Set(linked).size !== linked.length) fail(8, "a server is listed twice in the tools directory");
+    const rowsCount = (table.match(/<tr[ >]/g) ?? []).length - 1;
+    if (table && rowsCount !== linked.length) fail(8, `${rowsCount} rows but ${linked.length} server links in the tools directory`);
+    for (const id of linked) {
+      if (!listedIds.has(id)) fail(8, `the tools directory links to ${id}, which has no listed page`);
+      const raw = RAW.get(id);
+      if (!raw || redactedChecks(raw, DISCLOSURE, TODAY).size > 0 || raw.checks.some(isSecurityFinding)) fail(8, `${id}: a server with a security finding is in the tools directory`);
+    }
+    const files = readdirSync(dir).filter((f) => /^index\.(html|txt)$/.test(f) || /^__next\..*\.txt$/.test(f));
+    const all = files.map((f) => body(join(dir, f))).join("\n");
+    for (const [, where, t] of secrets) {
+      if (t && all.includes(JSON.stringify(t).slice(1, -1))) fail(8, `${where}: withheld text appears in the tools directory`);
     }
   }
 }
