@@ -34,6 +34,8 @@ test("drill: older version refused end to end, rollback only when logged, drift 
   const d = mkdtempSync(join(tmpdir(), "dg-"));
   const g = (...a) => execFileSync("git", ["-C", d, ...a], { encoding: "utf8" }).trim();
   g("init", "-q");
+  g("config", "user.name", "t");
+  g("config", "user.email", "t@example.com");
   writeFileSync(join(d, "f"), "1");
   g("add", ".");
   g("commit", "-qm", "one");
