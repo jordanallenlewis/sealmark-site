@@ -5,6 +5,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import notGraded from "../../../fleet/not-graded.json";
 import { fleetStatus } from "@/lib/fleet-status.mjs";
+import { gradeOf } from "@/lib/api-data";
 import { loadHistory } from "@/lib/history";
 import { RESULTS_PUBLIC, SERVERS_RESULTS } from "@/lib/results";
 import s from "../results/results.module.css";
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 // Fleet status (site#59 slice 2): counts from the committed data only (lib/fleet-status.mjs), dated by the data.
 export default function StatusPage() {
   if (!RESULTS_PUBLIC) notFound();
-  const st = fleetStatus(SERVERS_RESULTS, loadHistory(), notGraded as { count: number; byReason: Record<string, number> });
+  const st = fleetStatus((x) => gradeOf(x) !== null, SERVERS_RESULTS, loadHistory(), notGraded as { count: number; byReason: Record<string, number> });
   return (
     <>
       <Nav />
@@ -32,17 +33,17 @@ export default function StatusPage() {
         <div className={s.stats}>
           <div className={s.stat}><b>{st.graded}</b><span>servers with a grade, of {st.listed} with a results page</span></div>
           <div className={s.stat}><b>{st.freshPct == null ? "None" : `${st.freshPct}%`}</b><span>tested at most {st.staleAfter} days before the latest run</span></div>
-          <div className={s.stat}><b>{st.retests}</b><span>server runs recorded in the {st.days.length} days to {st.latest ?? "now"}</span></div>
+          <div className={s.stat}><b>{st.retests}</b><span>servers run, counted once a day, in the {st.days.length} days to {st.latest ?? "now"}</span></div>
           <div className={s.stat}><b>{st.notGraded}</b><span>servers tried and not graded yet</span></div>
         </div>
 
         {st.days.length > 0 && (
           <section className={s.sec} aria-labelledby="days-h">
             <h2 id="days-h">Runs by day</h2>
-            <p>One count per server per day (its last run that day), for servers already graded and servers tried for the first time. A run that did not finish says nothing about a grade: a graded server keeps the grade from its last finished run, and a server never graded stays on the not-graded list.</p>
+            <p>One count per server per day (its last run that day), for graded servers and servers not graded yet. A run that did not finish says nothing about a grade: a graded server keeps the grade from its last finished run, and a server with no finished run stays on the not-graded list.</p>
             <div className={`${s.tw} ${s.statusWrap}`} tabIndex={0} role="region" aria-label="Runs by day">
               <table className={`${s.vt} ${s.statusDays}`}>
-                <caption className="sr-only">Server runs recorded per day, newest first</caption>
+                <caption className="sr-only">Servers run per day (their last run that day), newest first</caption>
                 <thead><tr><th scope="col">Day</th><th scope="col">Finished</th><th scope="col">Did not finish</th></tr></thead>
                 <tbody>
                   {st.days.map((d) => <tr key={d.date}><th scope="row">{d.date}</th><td>{d.graded}</td><td>{d.failed}</td></tr>)}
@@ -56,7 +57,7 @@ export default function StatusPage() {
           <section className={s.sec} aria-labelledby="ng-h">
             <h2 id="ng-h">Not graded yet, by reason</h2>
             <p>
-              Servers the fleet tried and could not grade under its default run (no secrets, no extra settings). A reason says how that run went, not what the server is worth. <Link href="/results/#not-graded">The full list</Link> names every server.
+              Servers the fleet tried and could not grade under its default run (the registry&rsquo;s arguments where it lists plain fixed values, the standard settings, no secrets). A reason says how that run went, not what the server is worth. <Link href="/results/#not-graded">The full list</Link> names every server.
             </p>
             <div className={`${s.tw} ${s.statusWrap}`} tabIndex={0} role="region" aria-label="Not graded yet, by reason">
               <table className={`${s.vt} ${s.statusDays}`}>
