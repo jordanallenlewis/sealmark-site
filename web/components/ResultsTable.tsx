@@ -7,6 +7,8 @@ import { Seal } from "@/components/Seal";
 import { PACK_LABEL, coverageWord, deepPacks, ecosystemLabel, gradedPacks, worst, type Letter, type ListRow } from "@/lib/results-shared";
 import { AREAS, FILTERS, SORT_OPTIONS, SOURCES, facetCounts, readState, viewRows, writeState } from "@/lib/results-view.mjs";
 import { retestShort } from "@/lib/retest.mjs";
+import { ageShort, isStale } from "@/lib/grade-age.mjs";
+import { useToday } from "@/components/GradeAge";
 import s from "@/app/results/results.module.css";
 
 const PAGE_SIZE = 25;
@@ -17,7 +19,9 @@ const short = (day: string) => `${MONTHS[Number(day.slice(5, 7)) - 1] ?? ""}\u00
 // The results table with search, a filter, source and test-area facets, and sorts. Rows are plain links, so it works without the interactions too.
 // The view lives in the query string (?q=&filter=&source=&area=&sort=, defaults omitted; lib/results-view.mjs): read once after hydration,
 // written with replaceState (the page too, as ?page=, 25 servers a page, omitted on page 1), so a filtered view can be shared and survives a reload without a history entry per key.
-export function ResultsTable({ servers }: { servers: ListRow[] }) {
+// builtOn: the build day; each row's age switches to the reader's clock after hydration (components/GradeAge.tsx).
+export function ResultsTable({ servers, builtOn }: { servers: ListRow[]; builtOn: string }) {
+  const today = useToday(builtOn);
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState("all");
   const [source, setSource] = useState("");
@@ -101,7 +105,7 @@ export function ResultsTable({ servers }: { servers: ListRow[] }) {
               return (
                 <tr key={x.id}>
                   <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small>{retestShort(x) && <small>{retestShort(x)}</small>}{w && x.change && <small data-third-party="">grade was {x.change.from} on {x.change.fromVersion}, until {short(x.change.date)}</small>}</td>
-                  <td className={s.muted} data-label="Version">{x.versionTested}{x.testedOn && <small className={s.when}>graded {short(x.testedOn)}</small>}</td>
+                  <td className={s.muted} data-label="Version">{x.versionTested}{x.testedOn && <small className={s.when} data-state={isStale(x.testedOn, today) ? "stale" : "current"}>graded {short(x.testedOn)}{ageShort(x.testedOn, today) && <>, {ageShort(x.testedOn, today)}</>}</small>}</td>
                   <td className={s.gradeCell} data-label="Grade">{w ? <Seal g={w.letter as Letter} prov={w.provisional} /> : <span className={s.muted}>no grade</span>}</td>
                   <td data-label="Protocol">{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
                   <td data-label="Deeper suites">
