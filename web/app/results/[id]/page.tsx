@@ -13,7 +13,10 @@ import { historyFor, toolCountsFor } from "@/lib/history";
 import { changeSinceLast, type Change, type ChangeItem } from "@/lib/changes.mjs";
 import { toolVerdicts, type ToolRow } from "@/lib/tool-verdicts.mjs";
 import { toolDrift, type ToolDrift } from "@/lib/tool-drift.mjs";
-import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
+import { ORIGIN, PRIVATE_FINDING, canonical, jsonLd, serverBadge, serverDescription } from "@/lib/seo";
+import { answerSummary, serverJsonLd } from "@/lib/answer.mjs";
+import { gradeOf } from "@/lib/api-data";
+import { serverPath } from "@/lib/api.mjs";
 import { DisputeNote } from "../DisputeNote";
 import { OwnerNotice } from "../OwnerNotice";
 import { NotifyForm } from "../NotifyForm";
@@ -255,6 +258,11 @@ export default async function ServerPage({ params }: P) {
   const related = relatedServers(x, SERVERS_RESULTS);
   const facts = serverFactsFor(x, priv.size > 0);
   const evidence = checkEvidenceFor(x, priv.size > 0);
+  // Answer-style summary and JSON-LD (site#64): only facts this page shows, the overall grade by the heading's rule.
+  const answerGrade = gradeOf(x);
+  const areas = graded.map((p) => ({ label: label(p.id), letter: p.letter as string }));
+  const summary = answerSummary({ name: x.name, version: x.versionTested, testedAt: x.testedAt, sealmark: x.sealmark.version, standard: x.standard, grade: answerGrade, areas, coverage: cov, checks: x.checks, held: priv.size > 0 });
+  const ld = serverJsonLd({ site: ORIGIN, page: canonical(`/results/${x.id}/`), json: `${ORIGIN}${serverPath(x.id)}`, list: canonical("/results/"), name: x.name, version: x.versionTested, testedAt: x.testedAt, grade: answerGrade, areas, checks: x.checks, summary });
   const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
   return (
@@ -276,6 +284,10 @@ export default async function ServerPage({ params }: P) {
           <span>{x.standard ? "STANDARD run" : "CUSTOM run"}</span>
           <span>{count(x.toolCount, "tool", "tools")}</span>
         </div>
+
+        {/* data-third-party: the summary names the server and its version, someone else's text (scripts/home-check.mjs) */}
+        <p className={s.answer} data-answer="" data-third-party="">{summary}</p>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(ld) }} />
 
         <section className={s.overall} aria-labelledby="grade-h">
           {!noTools && w ? <Seal g={w.letter as Letter} prov={w.provisional} lg /> : <span className={s.noGrade} aria-hidden="true">–</span>}

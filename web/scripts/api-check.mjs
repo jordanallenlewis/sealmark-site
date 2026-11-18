@@ -25,6 +25,9 @@
 //      server's feed only to itself, and no feed contains withheld text of any server
 //  10  out/status/ (fleet status) links to no server page and names no server, and its graded count equals the servers with
 //      a grade in servers.json (the page heading's rule)
+//  11  every server page carries one schema.org Dataset in its JSON-LD (lib/answer.mjs answerPageProblems): for that page,
+//      with the overall grade of its heading (none when the heading shows none), the summary paragraph word for word as
+//      its description, and none of the server's withheld text
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -32,6 +35,7 @@ import { isSecurityCheck, isSecurityFinding, isWeakSignal, redactedChecks } from
 import { weakCore } from "../../fleet/redact-results.mjs";
 import { toolsPageProblems } from "../lib/tool-directory.mjs";
 import { feedProblems, xmlText } from "../lib/feed.mjs";
+import { answerPageProblems } from "../lib/answer.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -111,6 +115,14 @@ for (const [id, where, t] of secrets) {
   if (!t) continue;
   const enc = JSON.stringify(t).slice(1, -1);
   if ((body(join(api, "servers", `${id}.json`)) + shared).includes(enc)) fail(4, `${where}: withheld text appears in the API files`);
+}
+
+// Rule 11: the answer-style summary and the JSON-LD on every server page.
+for (const sv of list.servers) {
+  const file = join(resultsDir, sv.id, "index.html");
+  if (!existsSync(file)) continue; // rule 1 reports it
+  const withheld = secrets.filter(([id]) => id === sv.id).map(([, , t]) => t);
+  for (const p of answerPageProblems(body(file), { page: sv.page, grade: sv.grade === null ? null : { letter: sv.grade, provisional: sv.provisional }, withheld })) fail(11, `${sv.id}: ${p}`);
 }
 
 // Rule 6: the list page embeds its client components' props in the page itself; none of any server's private text may be there.
