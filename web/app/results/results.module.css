@@ -269,3 +269,5 @@
 /* Fleet status (site#59) */
 .statusDays { min-width: 0; }
 .statusWrap { max-width: 560px; }
+/* A grade past its re-test date (site#63): marked in words, and in the amber used for partial results. */
+.when[data-state="stale"], .meta [data-state="stale"] { color: var(--part); }
