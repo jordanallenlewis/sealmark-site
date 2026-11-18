@@ -28,6 +28,9 @@
 //  11  every server page carries one schema.org Dataset in its JSON-LD (lib/answer.mjs answerPageProblems): for that page,
 //      with the overall grade of its heading (none when the heading shows none), the summary paragraph word for word as
 //      its description, and none of the server's withheld text
+//  12  the tool pages (out/results/tools/<id>/<slug>/) are exactly the tools a public check called with a valid call,
+//      recomputed from the raw data with the "By tool" hold rule (lib/tool-pages.mjs), never for a server with a private
+//      finding or any security finding, and no tool page contains withheld text of any server
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -36,6 +39,7 @@ import { weakCore } from "../../fleet/redact-results.mjs";
 import { toolsPageProblems } from "../lib/tool-directory.mjs";
 import { feedProblems, xmlText } from "../lib/feed.mjs";
 import { answerPageProblems } from "../lib/answer.mjs";
+import { toolPages, toolPagesProblems } from "../lib/tool-pages.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -123,6 +127,36 @@ for (const sv of list.servers) {
   if (!existsSync(file)) continue; // rule 1 reports it
   const withheld = secrets.filter(([id]) => id === sv.id).map(([, , t]) => t);
   for (const p of answerPageProblems(body(file), { page: sv.page, grade: sv.grade === null ? null : { letter: sv.grade, provisional: sv.provisional }, withheld })) fail(11, `${sv.id}: ${p}`);
+}
+
+// Rule 12: the tool pages.
+{
+  const expected = toolPages([...RAW.values()], (x) => redactedChecks(x, DISCLOSURE, TODAY));
+  const built = [];
+  const files = [];
+  const root = join(resultsDir, "tools");
+  const ids = existsSync(root) ? readdirSync(root, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name) : [];
+  for (const id of ids) {
+    const dir = join(root, id);
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (!e.isDirectory() || !existsSync(join(dir, e.name, "index.html"))) continue;
+      if (expected.length === 0 && id === "pending" && e.name === "pending") continue; // the placeholder when nothing has a tool page
+      built.push(`${id}/${e.name}`);
+      // the page and its flight payload files (the props React hydrates with)
+      for (const f of readdirSync(join(dir, e.name))) if (/\.(html|txt)$/.test(f)) files.push(join(dir, e.name, f));
+    }
+  }
+  const status = (id) => {
+    const raw = RAW.get(id);
+    if (!raw) return "unknown";
+    return redactedChecks(raw, DISCLOSURE, TODAY).size > 0 || raw.checks.some(isSecurityFinding) ? "held" : null;
+  };
+  for (const p of toolPagesProblems(built, expected, status)) fail(12, p);
+  const all = files.map(body).join("\n");
+  const html = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#x27;");
+  for (const [, where, t] of secrets) {
+    if (t && [t, html(t), JSON.stringify(t).slice(1, -1)].some((f) => all.includes(f))) fail(12, `${where}: withheld text appears on a tool page`);
+  }
 }
 
 // Rule 6: the list page embeds its client components' props in the page itself; none of any server's private text may be there.

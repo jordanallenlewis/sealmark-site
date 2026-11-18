@@ -8,7 +8,7 @@ const COVERED = { kind: "covered", text: "Tools reached with a valid call: 3 of 
 const base = (over = {}) => ({
   name: "acme-mcp", version: "1.2.0", testedAt: "2026-11-15", sealmark: "1.0.1", standard: true,
   grade: { letter: "C", provisional: false },
-  areas: [{ label: "Protocol", letter: "A" }, { label: "Network", letter: "C" }],
+  areas: [{ label: "Protocol", letter: "A", provisional: false }, { label: "Network", letter: "C", provisional: false }],
   coverage: COVERED,
   checks: [{ verdict: "pass" }, { verdict: "pass" }, { verdict: "fail" }, { verdict: "na" }],
   held: false,
@@ -24,10 +24,10 @@ test("a graded server: grade as the page heads it, every graded area, coverage, 
 });
 
 test("provisional, one area, three or more areas, custom settings", () => {
-  const one = answerSummary(base({ grade: { letter: "B", provisional: true }, areas: [{ label: "Protocol", letter: "B" }], standard: false }));
+  const one = answerSummary(base({ grade: { letter: "B", provisional: true }, areas: [{ label: "Protocol", letter: "B", provisional: false }], standard: false }));
   assert.match(one, /gave it grade B \(provisional\), its lowest test-area grade \(protocol B\)\./);
   assert.match(one, /with custom settings\.$/);
-  const three = answerSummary(base({ areas: [{ label: "Protocol", letter: "A" }, { label: "Network", letter: "C" }, { label: "Effects", letter: "B" }] }));
+  const three = answerSummary(base({ areas: [{ label: "Protocol", letter: "A", provisional: false }, { label: "Network", letter: "C", provisional: false }, { label: "Effects", letter: "B", provisional: false }] }));
   assert.match(three, /\(protocol A, network C and effects B\)/);
 });
 
@@ -36,12 +36,12 @@ test("the coverage caveat travels with a shallow grade, so a quote can't drop it
   assert.ok(answerSummary(base({ coverage: hy })).includes(hy.text));
 });
 
-test("no tools: no grade, and no coverage sentence that would contradict it", () => {
-  const t = answerSummary(base({ grade: null, areas: [], coverage: { kind: "no-tools", text: "The server declared no tools ..." } }));
-  assert.match(t, /^In Sealmark's automated test on 2026-11-15, acme-mcp 1\.2\.0 declared no tools under default settings, so it has no grade\./);
-  assert.doesNotMatch(t, /grade [A-F]/);
-  assert.doesNotMatch(t, /declared no tools \.\.\./);
-  // even when the data holds a letter for the protocol area, the page heads "No tools to test": the caller passes null
+test("no tools: no overall grade, the page's own coverage words, and the area grades the page still shows", () => {
+  const NT = { kind: "no-tools", text: "The server declared no tools under default settings. It probably needs configuration first." };
+  const t = answerSummary(base({ grade: null, areas: [{ label: "Protocol", letter: "B", provisional: false }], coverage: NT }));
+  assert.match(t, /^Sealmark's automated test of acme-mcp 1\.2\.0 on 2026-11-15 gave it no overall grade\. The server declared no tools under default settings\. It probably needs configuration first\. Test-area grade: protocol B\./);
+  assert.doesNotMatch(t, /has no grade/);
+  assert.doesNotMatch(answerSummary(base({ grade: null, areas: [], coverage: NT })), /Test-area/);
 });
 
 test("tools but no graded area: no grade", () => {
@@ -51,7 +51,25 @@ test("tools but no graded area: no grade", () => {
 test("a held finding: the page's note, and nothing from any check text", () => {
   const t = answerSummary(base({ held: true }));
   assert.match(t, /The grade includes a finding under private disclosure; it still counts in full\.$/);
-  assert.match(answerSummary(base({ held: true, grade: null, areas: [] })), /A security finding is being reported to the maintainer privately\.$/);
+  // never "being reported": a held finding can still be waiting for its first report
+  const none = answerSummary(base({ held: true, grade: null, areas: [] }));
+  assert.match(none, /The results include a finding under private disclosure\.$/);
+  assert.doesNotMatch(none, /reported/);
+});
+
+test("advisory checks are counted apart, because they never change a grade", () => {
+  const t = answerSummary(base({ checks: [{ verdict: "pass" }, { verdict: "fail", advisory: true }, { verdict: "pass", advisory: true }] }));
+  assert.match(t, /Of its 1 check, 1 passed\. 2 more checks are advisory, and advisory checks never change a grade: 1 passed and 1 failed\./);
+  assert.match(answerSummary(base({ checks: [{ verdict: "fail", advisory: true }] })), /1 check is advisory, and advisory checks never change a grade: 1 failed\./);
+  const ld1 = ld({ checks: [{ verdict: "pass" }, { verdict: "fail", advisory: true }] })["@graph"][0].variableMeasured.map((p) => [p.name, p.value]);
+  assert.deepEqual(ld1.slice(-2), [["Checks passed", 1], ["Advisory checks failed (never change a grade)", 1]]);
+});
+
+test("area names keep their case unless they are plain words; a provisional area says so", () => {
+  const t = answerSummary(base({ areas: [{ label: "Protocol", letter: "A", provisional: false }, { label: "SQLite", letter: "D", provisional: false }, { label: "HTTP", letter: "B", provisional: true }] }));
+  assert.match(t, /\(protocol A, SQLite D and HTTP B \(provisional\)\)/);
+  const v = ld({ areas: [{ label: "Network", letter: "A", provisional: true }] })["@graph"][0].variableMeasured;
+  assert.deepEqual(v.find((p) => p.name === "Network grade").value, "A (provisional)");
 });
 
 test("verdict counts: page order, singular, unknown verdicts kept so the total is true, empty list", () => {
@@ -68,7 +86,8 @@ const PAGE = `${SITE}/results/acme/`;
 const ld = (over = {}) => serverJsonLd({
   site: SITE, page: PAGE, json: `${SITE}/data/v1/servers/acme.json`, list: `${SITE}/results/`,
   name: "acme-mcp", version: "1.2.0", testedAt: "2026-11-15", grade: { letter: "C", provisional: false },
-  areas: [{ label: "Protocol", letter: "A" }], checks: [{ verdict: "pass" }, { verdict: "fail" }], summary: "Summary text.", ...over,
+  areas: [{ label: "Protocol", letter: "A", provisional: false }], checks: [{ verdict: "pass" }, { verdict: "fail" }], summary: "Summary text.",
+  author: { "@type": "Person", name: "Jordan Allen Lewis" }, ...over,
 });
 
 test("JSON-LD: a Dataset about the server with its download, letter grades as text, never a numeric rating", () => {
@@ -114,5 +133,10 @@ test("rule 11 fails each way a page can disagree", () => {
   assert.deepEqual(answerPageProblems(html(ld(), "Other text."), want()), ["Dataset description differs from the summary paragraph"]);
   assert.deepEqual(answerPageProblems(html(ld()).replace(/data-answer=""/, ""), want()), ["no summary paragraph (data-answer)"]);
   assert.deepEqual(answerPageProblems(html(ld({ summary: "leaks npx secret-start" }), "leaks npx secret-start"), want({ withheld: ["npx secret-start"] })), ["withheld text in the JSON-LD"]);
+  // the block on a real page is written by jsonLd(), which turns "<" into \u003c: the scan must still find the text
+  const secret = `uvx "mcp<2" --db "x"`;
+  const escaped = html(ld({ summary: `leaks ${secret}` }), `leaks ${secret}`).replace(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema.org","@graph"[\s\S]*?)<\/script>/, (_, j) => `<script type="application/ld+json">${j.replace(/</g, "\\u003c")}</script>`);
+  assert.ok(escaped.includes("\\u003c"));
+  assert.deepEqual(answerPageProblems(escaped, want({ withheld: [secret] })).filter((p) => p.startsWith("withheld")), ["withheld text in the JSON-LD"]);
   assert.deepEqual(answerPageProblems(`<script type="application/ld+json">{nope</script>`, want()), ["a JSON-LD block does not parse", "0 Dataset nodes, want 1"]);
 });

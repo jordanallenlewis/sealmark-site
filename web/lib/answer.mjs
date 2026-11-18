@@ -13,6 +13,9 @@ const ORDER = ["pass", "fail", "part", "inconclusive", "na"];
 const PRIVATE = "includes a finding under private disclosure";
 
 const plural = (n, one, other) => `${n} ${n === 1 ? one : other}`;
+// Area names as words in a sentence: "Protocol" reads "protocol", a name such as "SQLite" or "HTTP" keeps its case.
+const areaWord = (label) => (/^[A-Z][a-z]+$/.test(label) ? label.toLowerCase() : label);
+const areaGrade = (p) => `${p.letter}${p.provisional ? " (provisional)" : ""}`;
 const list = (items) => (items.length <= 2 ? items.join(" and ") : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`);
 
 /** Verdict counts in page order; unknown verdicts are counted under their own name so the total stays true. */
@@ -31,7 +34,7 @@ export function verdictCounts(checks) {
  * @param {{
  *   name: string, version: string, testedAt: string, sealmark: string, standard: boolean,
  *   grade: { letter: string, provisional: boolean } | null,   // gradeOf(x): the page heading's grade
- *   areas: { label: string, letter: string }[],              // graded test areas, page order
+ *   areas: { label: string, letter: string, provisional: boolean }[], // graded test areas, page order
  *   coverage: { kind: string, text: string },                 // coverageNote(x, ...)
  *   checks: { verdict: string }[],
  *   held: boolean,                                           // any finding under private disclosure
@@ -41,21 +44,26 @@ export function verdictCounts(checks) {
 export function answerSummary(a) {
   const who = `${a.name} ${a.version}`;
   const out = [];
+  const areas = a.areas.map((p) => `${areaWord(p.label)} ${areaGrade(p)}`);
   if (a.coverage.kind === "no-tools") {
-    out.push(`In Sealmark's automated test on ${a.testedAt}, ${who} declared no tools under default settings, so it has no grade.`);
+    // The page heads "No tools to test" and still shows the areas that were graded (the protocol area, usually).
+    out.push(`Sealmark's automated test of ${who} on ${a.testedAt} gave it no overall grade. ${a.coverage.text}`);
+    if (areas.length) out.push(`Test-area ${areas.length === 1 ? "grade" : "grades"}: ${list(areas)}.`);
   } else if (!a.grade) {
     out.push(`Sealmark's automated test of ${who} on ${a.testedAt} graded no test area, so it has no grade.`);
   } else {
-    const areas = a.areas.map((p) => `${p.label.toLowerCase()} ${p.letter}`);
-    const g = `${a.grade.letter}${a.grade.provisional ? " (provisional)" : ""}`;
-    out.push(`Sealmark's automated test of ${who} on ${a.testedAt} gave it grade ${g}, its lowest test-area grade (${list(areas)}).`);
+    out.push(`Sealmark's automated test of ${who} on ${a.testedAt} gave it grade ${areaGrade(a.grade)}, its lowest test-area grade (${list(areas)}).`);
     out.push(a.coverage.text);
   }
-  const counts = verdictCounts(a.checks);
-  const total = counts.reduce((s, c) => s + c.count, 0);
-  if (total > 0) out.push(`Of its ${plural(total, "check", "checks")}, ${list(counts.map((c) => `${c.count} ${WORDS[c.verdict] ?? c.verdict}`))}.`);
+  // Advisory checks never change a letter (docs: concepts/grades), so they are counted apart from the rest.
+  const main = verdictCounts(a.checks.filter((c) => c.advisory !== true));
+  const adv = verdictCounts(a.checks.filter((c) => c.advisory === true));
+  const words = (counts) => list(counts.map((c) => `${c.count} ${WORDS[c.verdict] ?? c.verdict}`));
+  const sum = (counts) => counts.reduce((n, c) => n + c.count, 0);
+  if (sum(main) > 0) out.push(`Of its ${plural(sum(main), "check", "checks")}, ${words(main)}.`);
+  if (sum(adv) > 0) out.push(`${sum(main) > 0 ? `${plural(sum(adv), "more check is", "more checks are")}` : `${plural(sum(adv), "check is", "checks are")}`} advisory, and advisory checks never change a grade: ${words(adv)}.`);
   out.push(`The run used Sealmark ${a.sealmark} with ${a.standard ? "the standard settings" : "custom settings"}.`);
-  if (a.held) out.push(a.grade ? `The grade ${PRIVATE}; it still counts in full.` : "A security finding is being reported to the maintainer privately.");
+  if (a.held) out.push(a.grade ? `The grade ${PRIVATE}; it still counts in full.` : `The results ${PRIVATE.replace(/^includes/, "include")}.`);
   return out.join(" ");
 }
 
@@ -67,17 +75,19 @@ export function answerSummary(a) {
  *   site: string, page: string, json: string, list: string,
  *   name: string, version: string, testedAt: string,
  *   grade: { letter: string, provisional: boolean } | null,
- *   areas: { label: string, letter: string }[],
- *   checks: { verdict: string }[],
+ *   areas: { label: string, letter: string, provisional: boolean }[],
+ *   checks: { verdict: string, advisory?: boolean }[],
  *   summary: string,
+ *   author: object,                                          // the site's author (lib/seo.ts), the same as in its other JSON-LD
  * }} a
  */
 export function serverJsonLd(a) {
   const prop = (name, value) => ({ "@type": "PropertyValue", name, value });
   const measured = [
     ...(a.grade ? [prop("Overall grade", a.grade.provisional ? `${a.grade.letter} (provisional)` : a.grade.letter)] : []),
-    ...a.areas.map((p) => prop(`${p.label} grade`, p.letter)),
-    ...verdictCounts(a.checks).map((c) => prop(`Checks ${WORDS[c.verdict] ?? c.verdict}`, c.count)),
+    ...a.areas.map((p) => prop(`${p.label} grade`, areaGrade(p))),
+    ...verdictCounts(a.checks.filter((c) => c.advisory !== true)).map((c) => prop(`Checks ${WORDS[c.verdict] ?? c.verdict}`, c.count)),
+    ...verdictCounts(a.checks.filter((c) => c.advisory === true)).map((c) => prop(`Advisory checks ${WORDS[c.verdict] ?? c.verdict} (never change a grade)`, c.count)),
   ];
   return {
     "@context": "https://schema.org",
@@ -90,7 +100,7 @@ export function serverJsonLd(a) {
         url: a.page,
         dateModified: a.testedAt,
         isAccessibleForFree: true,
-        creator: { "@type": "Organization", name: "Sealmark", url: a.site },
+        creator: a.author,
         measurementTechnique: "Automated behavioral conformance test with the Sealmark CLI: fixed inputs, no language model",
         variableMeasured: measured,
         about: { "@type": "SoftwareApplication", name: a.name, softwareVersion: a.version, applicationCategory: "DeveloperApplication" },
@@ -139,6 +149,8 @@ export function answerPageProblems(html, want) {
   const p = String(html).match(/<p[^>]*data-answer=""[^>]*>([\s\S]*?)<\/p>/);
   if (!p) out.push("no summary paragraph (data-answer)");
   else if (text(p[1]).trim() !== d.description) out.push("Dataset description differs from the summary paragraph");
-  for (const t of want.withheld) if (t && (raw.includes(t) || raw.includes(JSON.stringify(t).slice(1, -1)))) out.push("withheld text in the JSON-LD");
+  // The block is written by jsonLd() (lib/seo.ts): JSON with "<" as \u003c. Look for the text in every form it can take.
+  const forms = (t) => { const j = JSON.stringify(t).slice(1, -1); return [t, j, j.replace(/</g, "\\u003c")]; };
+  for (const t of want.withheld) if (t && forms(t).some((f) => raw.includes(f))) out.push("withheld text in the JSON-LD");
   return out;
 }
