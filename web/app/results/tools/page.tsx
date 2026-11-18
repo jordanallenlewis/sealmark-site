@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Seal } from "@/components/Seal";
 import { RESULTS_PUBLIC, SERVERS_RESULTS, worst } from "@/lib/results";
 import { toolDirectoryData } from "@/lib/tool-directory-data";
+import { toolPagePath } from "@/lib/tool-pages-data";
 import { DisputeNote } from "../DisputeNote";
 import s from "../results.module.css";
 
@@ -53,7 +54,7 @@ export default function ToolsPage() {
                       <td>{g ? <Seal g={g.letter} prov={g.provisional} /> : <span className={s.muted}>No grade</span>}</td>
                       <td data-label="Tools called">
                         <ul className={s.toolNames} data-third-party="">
-                          {r.tools.map((t) => <li key={t}><code>{t}</code></li>)}
+                          {r.tools.map((t) => { const href = toolPagePath(r.id, t); return <li key={t}>{href ? <Link href={href}><code>{t}</code></Link> : <code>{t}</code>}</li>; })}
                         </ul>
                         {r.missing && <small className={s.muted}>Some called tools are not named here: a check&rsquo;s list was capped or a name had characters this page does not print.</small>}
                       </td>

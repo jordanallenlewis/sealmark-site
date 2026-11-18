@@ -13,7 +13,11 @@ import { historyFor, toolCountsFor } from "@/lib/history";
 import { changeSinceLast, type Change, type ChangeItem } from "@/lib/changes.mjs";
 import { toolVerdicts, type ToolRow } from "@/lib/tool-verdicts.mjs";
 import { toolDrift, type ToolDrift } from "@/lib/tool-drift.mjs";
-import { PRIVATE_FINDING, serverBadge, serverDescription } from "@/lib/seo";
+import { toolPagePath } from "@/lib/tool-pages-data";
+import { ORIGIN, PRIVATE_FINDING, canonical, jsonLd, serverBadge, serverDescription, softwareJsonLd } from "@/lib/seo";
+import { answerSummary, serverJsonLd } from "@/lib/answer.mjs";
+import { gradeOf } from "@/lib/api-data";
+import { serverPath } from "@/lib/api.mjs";
 import { DisputeNote } from "../DisputeNote";
 import { OwnerNotice } from "../OwnerNotice";
 import { NotifyForm } from "../NotifyForm";
@@ -206,11 +210,12 @@ function checkLink(id: string) {
   return DOCUMENTED.has(id) ? <Link href={`/docs/reference/checks/${id}/`}>{id}</Link> : <>{id}</>;
 }
 
-function ToolRowView({ r }: { r: ToolRow }) {
+function ToolRowView({ r, id }: { r: ToolRow; id: string }) {
+  const href = toolPagePath(id, r.tool);
   return (
     <tr>
       {/* data-third-party: the server's own tool name, which scripts/home-check.mjs must not read as our status wording */}
-      <td className={s.id} data-third-party="">{r.tool}</td>
+      <td className={s.id} data-third-party="">{href ? <Link href={href}>{r.tool}</Link> : r.tool}</td>
       <td data-label="Called by">
         {r.called.length === 0 ? <span className={s.muted}>No check listed here called it with a valid call.</span> : (
           <ul className={s.toolChecks}>
@@ -255,6 +260,11 @@ export default async function ServerPage({ params }: P) {
   const related = relatedServers(x, SERVERS_RESULTS);
   const facts = serverFactsFor(x, priv.size > 0);
   const evidence = checkEvidenceFor(x, priv.size > 0);
+  // Answer-style summary and JSON-LD (site#64): only facts this page shows, the overall grade by the heading's rule.
+  const answerGrade = gradeOf(x);
+  const areas = graded.map((p) => ({ label: label(p.id), letter: p.letter as string, provisional: p.provisional }));
+  const summary = answerSummary({ name: x.name, version: x.versionTested, testedAt: x.testedAt, sealmark: x.sealmark.version, standard: x.standard === true, grade: answerGrade, areas, coverage: cov, checks: x.checks, held: priv.size > 0 });
+  const ld = serverJsonLd({ site: ORIGIN, page: canonical(`/results/${x.id}/`), json: `${ORIGIN}${serverPath(x.id)}`, list: canonical("/results/"), name: x.name, version: x.versionTested, testedAt: x.testedAt, grade: answerGrade, areas, checks: x.checks, summary, author: softwareJsonLd.author });
   const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
   return (
@@ -276,6 +286,10 @@ export default async function ServerPage({ params }: P) {
           <span>{x.standard ? "STANDARD run" : "CUSTOM run"}</span>
           <span>{count(x.toolCount, "tool", "tools")}</span>
         </div>
+
+        {/* data-third-party: the summary names the server and its version, someone else's text (scripts/home-check.mjs) */}
+        <p className={s.answer} data-answer="" data-third-party="">{summary}</p>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(ld) }} />
 
         <section className={s.overall} aria-labelledby="grade-h">
           {!noTools && w ? <Seal g={w.letter as Letter} prov={w.provisional} lg /> : <span className={s.noGrade} aria-hidden="true">–</span>}
@@ -330,7 +344,7 @@ export default async function ServerPage({ params }: P) {
               <table className={clsx(s.checks, s.evidence, s.byTool)}>
                 <colgroup><col className={s.colCheck} /><col /><col /></colgroup>
                 <thead><tr><th scope="col">Tool</th><th scope="col">Called by</th><th scope="col">Not exercised by</th></tr></thead>
-                <tbody>{byTool.rows.map((r) => <ToolRowView key={r.tool} r={r} />)}</tbody>
+                <tbody>{byTool.rows.map((r) => <ToolRowView key={r.tool} r={r} id={x.id} />)}</tbody>
               </table>
             </div>
           </section>

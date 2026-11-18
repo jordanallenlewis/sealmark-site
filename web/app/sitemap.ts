@@ -4,6 +4,7 @@ import { SERVERS_RESULTS } from "@/lib/results";
 import { canonical } from "@/lib/seo";
 import { allTopicPages } from "@/lib/topics-data";
 import { toolDirectoryData } from "@/lib/tool-directory-data";
+import { allToolPages } from "@/lib/tool-pages-data";
 
 export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...SERVERS_RESULTS.map((x) => ({ url: canonical(`/results/${x.id}/`), lastModified: x.testedAt })),
     ...(SERVERS_RESULTS.length ? [{ url: canonical("/results/topics/"), ...(latest ? { lastModified: latest } : {}) }] : []),
     ...(toolDirectoryData().rows.length ? [{ url: canonical("/results/tools/"), lastModified: toolDirectoryData().rows.map((r) => r.testedAt).sort().at(-1) }] : []),
+    ...allToolPages().map((t) => ({ url: canonical(`/results/tools/${t.id}/${t.slug}/`), lastModified: SERVERS_RESULTS.find((x) => x.id === t.id)?.testedAt })),
     ...allTopicPages().map((t) => ({ url: canonical(`/results/topics/${t.id}/`), lastModified: t.rows.map((r) => r.testedAt).sort().at(-1) })),
   ];
 }

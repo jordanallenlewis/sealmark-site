@@ -6,6 +6,7 @@
 .wrap > ul li + li, .wrap > ol li + li { margin-top: 8px; }
 .preview { background: var(--accent-wash, #2a220f); border: 1px solid var(--border-strong, #4d4024); color: var(--accent-link, #f3d27e); border-radius: 8px; padding: 10px 14px; font: 500 0.9rem var(--font-mono), ui-monospace, monospace; margin-bottom: 32px; }
 .h1 { font-family: var(--font-display), sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.03em; line-height: 1.06; margin: 0; max-width: 20ch; text-wrap: balance; overflow-wrap: anywhere; }
+.answer { color: var(--ink-muted); font-size: 1rem; line-height: 1.55; max-width: 68ch; margin: 18px 0 0; text-wrap: pretty; }
 .lede { color: var(--ink-muted); font-size: 1.1rem; max-width: 60ch; margin-top: 18px; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 36px 0 12px; }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
