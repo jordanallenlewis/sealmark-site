@@ -38,6 +38,12 @@ curl -s https://sealmark.dev/data/v1/changes.json | jq '.changes[] | select(.dat
 - `changes[]` names the Sealmark version of both runs (`previousSealmark`, `sealmark`): a change across a Sealmark upgrade can come from Sealmark, not the server.
 - `reproduce` is the command that repeats the run with the same Sealmark version and the standard settings.
 
+## On each results page
+
+Each results page opens with a short summary in plain sentences: the overall grade as the page heads it, the grade of each graded test area, how many tools could be called, how many checks passed or failed, the date, the Sealmark version and whether the run used the standard settings. The same facts are in the page as [schema.org](https://schema.org/Dataset) JSON-LD: a `Dataset` about the server (a `SoftwareApplication`), its grades and verdict counts as `variableMeasured`, with that server's JSON file above as its download. Grades stay letters there; nothing turns them into a numeric rating.
+
+Each tool that a public check reached with a valid call has its own page (a name with unusual characters, or one past a check's list limit, is left out) under its server, at `/results/tools/<id>/<tool>/`: the checks that called it with their verdicts, the checks that did not exercise it, and the evidence lines the run recorded against that tool. A check's verdict is for the whole check, so no tool gets a grade of its own. Servers with a security finding have no tool pages, the same rule as the [tools directory](/results/tools/). The sitemap and `llms-full.txt` list every tool page.
+
 ## What the files leave out
 
 The files follow the [disclosure policy](/docs/disclosure) exactly as the pages do. While a security finding on a server is being reported to its maintainer privately, that check's `summary` is `null` and its `disclosure` is `"private"` (with the report and publish dates once it is reported), the summaries of the other security checks in the same test area are held back too (`"held-with-sibling"`), and `launch`, `reproduce` and `configHash` are `null`. The verdicts and grades stay.
