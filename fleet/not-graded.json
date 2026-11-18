@@ -1,14 +1,42 @@
 {
   "count": 145,
   "byReason": {
+    "initialize-timeout": 11,
     "missing-runtime": 5,
     "unknown": 102,
     "bad-launch": 5,
-    "dependency-resolution": 15,
-    "initialize-timeout": 10,
+    "dependency-resolution": 14,
     "needs-credentials": 8
   },
   "servers": [
+    {
+      "id": "czlonkowski-n8n-mcp",
+      "version": "2.103.0",
+      "lastTried": "2026-11-18",
+      "attempts": 2,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.4.4",
+      "lastTried": "2026-11-18",
+      "attempts": 13,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.77.2",
+      "lastTried": "2026-11-18",
+      "attempts": 7,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.3.3",
+      "lastTried": "2026-11-18",
+      "attempts": 14,
+      "reason": "initialize-timeout"
+    },
     {
       "id": "apify-apify-mcp-server",
       "version": "0.21.12",
@@ -64,20 +92,6 @@
       "lastTried": "2026-11-17",
       "attempts": 1,
       "reason": "unknown"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.4.3",
-      "lastTried": "2026-11-17",
-      "attempts": 12,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.3.1",
-      "lastTried": "2026-11-17",
-      "attempts": 13,
-      "reason": "dependency-resolution"
     },
     {
       "id": "vitali87-code-graph-rag",
@@ -253,13 +267,6 @@
       "lastTried": "2026-11-14",
       "attempts": 2,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "ruvnet-ruflo",
-      "version": "3.77.1",
-      "lastTried": "2026-11-14",
-      "attempts": 6,
-      "reason": "initialize-timeout"
     },
     {
       "id": "annsa",
@@ -561,13 +568,6 @@
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "unknown"
-    },
-    {
-      "id": "czlonkowski-n8n-mcp",
-      "version": "2.102.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "initialize-timeout"
     },
     {
       "id": "d4vinci-scrapling",
