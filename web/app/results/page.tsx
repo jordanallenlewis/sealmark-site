@@ -71,7 +71,7 @@ export default function ResultsPage() {
           {LETTERS.map((l) => <span key={l} className={s.distItem}><Seal g={l} /> {dist[l]}</span>)}
         </div>
 
-        <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/topics/">Best graded servers by topic</Link> · <Link href="/results/tools/">Tools Sealmark called</Link> · <Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link></p>
+        <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/topics/">Best graded servers by topic</Link> · <Link href="/results/tools/">Tools called with valid input</Link> · <Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link></p>
         <ResultsTable servers={list.map((x) => listRow(x, runs.get(x.id)))} />
         <NotGraded />
 

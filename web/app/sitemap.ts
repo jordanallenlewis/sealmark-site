@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...listDocs().filter((d) => d.slug.length).map((d) => ({ url: canonical(`/docs/${d.slug.join("/")}/`) })),
     ...SERVERS_RESULTS.map((x) => ({ url: canonical(`/results/${x.id}/`), lastModified: x.testedAt })),
     ...(SERVERS_RESULTS.length ? [{ url: canonical("/results/topics/"), ...(latest ? { lastModified: latest } : {}) }] : []),
-    ...(toolDirectoryData().rows.length ? [{ url: canonical("/results/tools/"), ...(latest ? { lastModified: latest } : {}) }] : []),
+    ...(toolDirectoryData().rows.length ? [{ url: canonical("/results/tools/"), lastModified: toolDirectoryData().rows.map((r) => r.testedAt).sort().at(-1) }] : []),
     ...allTopicPages().map((t) => ({ url: canonical(`/results/topics/${t.id}/`), lastModified: t.rows.map((r) => r.testedAt).sort().at(-1) })),
   ];
 }
