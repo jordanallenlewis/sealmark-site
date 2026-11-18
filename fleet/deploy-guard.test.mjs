@@ -60,3 +60,25 @@ test("drill: older version refused end to end, rollback only when logged, drift 
     assert.deepEqual(rows.map((r) => r.generation), rows.map((_, i) => i + 1), "generation is monotonic");
   } finally { rmSync(d, { recursive: true, force: true }); }
 });
+
+test("the sha= parse is anchored: a longer hex run or a prefixed word is not a live sha", () => {
+  assert.equal(shaFromAnnotations({ "workers/message": `sha=${A}${"c".repeat(8)}` }), null);
+  assert.equal(shaFromAnnotations({ "workers/message": `notsha=${A}` }), null);
+  assert.equal(shaFromAnnotations({ "workers/message": `deploy sha=${A}` }), A);
+});
+test("an unreadable live Worker is DENY even when the ledger has a deploy (the ledger is a log, not a source)", () => {
+  const d = mkdtempSync(join(tmpdir(), "dg-nolive-"));
+  const run = (...a) => execFileSync("git", ["-C", d, ...a], { encoding: "utf8" }).trim();
+  const quiet = { log() {}, error() {} };
+  try {
+    run("init", "-q"); run("config", "user.email", "t@t"); run("config", "user.name", "t");
+    writeFileSync(join(d, "f"), "1"); run("add", "."); run("commit", "-qm", "one"); const one = run("rev-parse", "HEAD");
+    writeFileSync(join(d, "f"), "2"); run("commit", "-qam", "two"); const two = run("rev-parse", "HEAD");
+    const ledger = join(d, "ledger.jsonl");
+    assert.equal(main(["record", "--repo", d, "--ledger", ledger, "--target", one], quiet), 0);
+    const bin = join(d, "bin"); execFileSync("mkdir", [bin]);
+    writeFileSync(join(bin, "npx"), "#!/bin/sh\nexit 1\n", { mode: 0o755 });
+    const saved = process.env.PATH; process.env.PATH = `${bin}:${saved}`;
+    try { assert.equal(main(["check", "--repo", d, "--ledger", ledger, "--worker", "sealmark", "--target", two], quiet), 4); } finally { process.env.PATH = saved; }
+  } finally { rmSync(d, { recursive: true, force: true }); }
+});

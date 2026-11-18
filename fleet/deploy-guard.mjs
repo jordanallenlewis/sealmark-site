@@ -10,8 +10,8 @@
 //   deploy-guard tag    --repo <dir> --target <ref>   prints the wrangler flags that stamp a Worker version with its SHA
 //
 // Exit codes: 0 allowed/ok, 4 DENIED (not forward-only), 5 live != intended or live unknown (alert fired), 2 usage.
-// Live SHA sources, in order: --live-cmd output, a Worker version message "sha=<40 hex>" (set by `tag`), the last
-// ledger entry. No source means DENY (fail closed): bootstrap with `record` once after a verified deploy.
+// Live SHA sources, in order: --live-cmd output, then a Worker version message "sha=<40 hex>" (set by `tag`). The ledger is
+// a log, never a source. No source means DENY (fail closed): bootstrap with one stamped deploy (README, Re-stamp).
 import { execFileSync, execSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
@@ -23,7 +23,7 @@ const SHA = /^[0-9a-f]{40}$/;
 // PURE. The whole policy. isAncestor(live, target) is injected so tests need no git.
 export function decide({ live, target, isAncestor, rollback = false, approval = "", reason = "" }) {
   if (!SHA.test(target || "")) return { allow: false, code: "bad-target", why: `target is not a full sha: ${target}` };
-  if (!live) return { allow: false, code: "live-unknown", why: "live prod SHA is unknown; refusing (fail closed). Bootstrap: deploy-guard record after a verified deploy" };
+  if (!live) return { allow: false, code: "live-unknown", why: "live prod SHA is unknown; refusing (fail closed). Bootstrap: one stamped deploy of main (README, Re-stamp)" };
   if (!SHA.test(live)) return { allow: false, code: "bad-live", why: `live is not a full sha: ${live}` };
   if (live === target) return { allow: true, code: "same", why: "target equals live (redeploy)" };
   if (isAncestor(live, target)) return { allow: true, code: "forward", why: "target descends from live" };
@@ -36,7 +36,7 @@ export function decide({ live, target, isAncestor, rollback = false, approval = 
 
 // PURE. Pull the live sha out of a Worker version annotations object.
 export function shaFromAnnotations(a = {}) {
-  const m = /sha=([0-9a-f]{40})/.exec(`${a["workers/message"] || ""} ${a["workers/tag"] || ""}`);
+  const m = /(?:^|[\s,;])sha=([0-9a-f]{40})(?![0-9a-f])/.exec(`${a["workers/message"] || ""} ${a["workers/tag"] || ""}`);
   return m ? m[1] : null;
 }
 
@@ -74,10 +74,11 @@ function workerLive(name) {
   return shaFromAnnotations(run(`npx -y wrangler@4 versions view ${top.version_id} --name ${JSON.stringify(name)} --json`).annotations);
 }
 
-function liveSha(o, ledger) {
+function liveSha(o) {
   if (o["live-cmd"]) return execSync(o["live-cmd"], { encoding: "utf8" }).trim();
-  if (o.worker) { try { const s = workerLive(o.worker); if (s) return s; } catch (e) { console.error(`deploy-guard: could not read the live Worker version (${String(e.message).split("\n")[0]}); falling back to the ledger`); } }
-  return ledger ? ledgerLive(ledger) : null;
+  // No ledger fallback: a local record is not what is live. An unreadable or unstamped live Worker means DENY (fail closed).
+  if (o.worker) { try { return workerLive(o.worker); } catch (e) { console.error(`deploy-guard: could not read the live Worker version (${String(e.message).split("\n")[0]}); treating live as unknown`); } }
+  return null;
 }
 
 function args(argv) {
@@ -98,7 +99,7 @@ export function main(argv, out = console) {
   const need = (k) => { if (!o[k] || o[k] === true) { out.error(`missing --${k}`); process.exit(2); } return o[k]; };
   if (cmd === "check") {
     const target = resolveSha(repo, need("target"));
-    const live = liveSha(o, ledger);
+    const live = liveSha(o);
     const d = decide({ live, target, isAncestor: isAncestorGit(repo), rollback: !!o.rollback, approval: o.approval || "", reason: o.reason || "" });
     appendLedger(ledger, { event: d.allow ? "check-allow" : "check-deny", code: d.code, sha: target, live, task: o.task || null, why: d.why, rollback: !!d.rollback });
     (d.allow ? out.log : out.error)(`deploy-guard: ${d.allow ? "ALLOW" : "DENY"} (${d.code}): ${d.why}`);
@@ -112,7 +113,7 @@ export function main(argv, out = console) {
   }
   if (cmd === "probe") {
     const expect = resolveSha(repo, need("expect"));
-    const live = liveSha(o, null);
+    const live = liveSha(o);
     if (live === expect) { appendLedger(ledger, { event: "probe-ok", sha: expect }); out.log(`deploy-guard: live == intended (${expect.slice(0, 12)})`); return 0; }
     const msg = `deploy-guard DRIFT: intended ${expect.slice(0, 12)} but live is ${live ? live.slice(0, 12) : "unknown"}`;
     appendLedger(ledger, { event: "probe-fail", sha: expect, live, why: msg });
