@@ -67,6 +67,7 @@ ${DOCS.map((p) => `- ${canonical(p)}`).join("\n")}
 ## Results
 - [Graded MCP servers (${SERVER_COUNT} so far)](${canonical("/results/")}): one page per server with every check and its evidence. Grades are automated re-tests of one version with the default settings, not endorsements.
 - [Grade history](${canonical("/results/history/")})
+- [Grade changes feed (Atom)](${canonical("/results/feed.xml")}): the newest moves of a server's overall grade that came with a different server version under the same Sealmark version; servers with a security finding are left out; one feed per server at /results/<id>/feed.xml.
 ${allTopicPages().length ? `- [Best graded servers by topic](${canonical("/results/topics/")}): ${allTopicPages().map((t) => t.title).join(", ")}; each server is placed by a stated rule and ranked by grade.\n` : ""}${toolDirectoryData().rows.length ? `- [Tools Sealmark called with valid input](${canonical("/results/tools/")}): the tools of graded servers that a public check called with valid input, by server; servers with a security finding are left out.\n` : ""}- [Results as JSON](${ORIGIN}/data/v1/servers.json): every graded server; one server at ${ORIGIN}/data/v1/servers/<id>.json, grade changes at ${ORIGIN}/data/v1/changes.json, OpenAPI 3.1 at ${ORIGIN}/data/v1/openapi.json. No key. Fields: ${canonical("/docs/guides/results-data")}
 
 ## Guides
