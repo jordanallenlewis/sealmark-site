@@ -44,10 +44,11 @@ export default function StatusPage() {
           <section className={s.sec} aria-labelledby="cadence-h">
             <h2 id="cadence-h">How often the fleet runs</h2>
             <p>
-              {everyH ? <>The fleet is scheduled to run every {hours(everyH)}. GitHub starts scheduled runs late, or skips them when it is busy, so these are the gaps that really happened. </> : null}
-              From {cadence.from} to {cadence.to}, {cadence.runs} runs recorded results: {cadence.scheduled} started by the schedule and {cadence.byHand} started by hand.
-              Between scheduled runs the usual gap was {hours(cadence.medianGapH)} (the median) and the longest was {hours(cadence.longestGapH)}.
-              The last run recorded its results at {cadence.lastAt.slice(0, 16).replace("T", " ")} UTC.
+              {everyH ? <>The fleet is scheduled to run every {hours(everyH)}. </> : null}
+              From {cadence.from} to {cadence.to}, {cadence.runs} fleet runs recorded results: {cadence.scheduled} started by the schedule and {cadence.onRequest} started on request.
+              Between scheduled fleet runs that recorded results, the usual gap was {hours(cadence.medianGapH)} (the median) and the longest was {hours(cadence.longestGapH)}.
+              A gap can be longer than the schedule because GitHub starts scheduled runs late or skips them, and because a run that fails, or finds nothing to test, records nothing.
+              The last fleet run recorded its results at {cadence.lastAt.slice(0, 16).replace("T", " ")} UTC.
             </p>
           </section>
         )}

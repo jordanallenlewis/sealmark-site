@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { STALE_AFTER_DAYS, ageNote, ageShort, gradeAgeDays, isStale, staleNote } from "./grade-age.mjs";
+import { STALE_AFTER_DAYS, ageNote, ageShort, gradeAgeDays, isStale, staleNote, staleSince } from "./grade-age.mjs";
 
 test("grade age: whole days, stale only past the limit, silent when the date is unknown", () => {
   assert.equal(STALE_AFTER_DAYS, 10);
@@ -33,4 +33,11 @@ test("age short: for table rows, the re-test-due words past the limit", () => {
   assert.equal(ageShort("2026-11-18", "2026-11-18"), "today");
   assert.equal(ageShort("2026-11-06", "2026-11-18"), "12 days old, re-test due");
   assert.equal(ageShort("", "2026-11-18"), null);
+});
+
+test("stale since: only the stale mark, no day count, for a page built without the reader's clock", () => {
+  assert.equal(staleSince("2026-11-08", "2026-11-18", "page"), null, "current on the build day: say nothing");
+  assert.equal(staleSince("2026-11-07", "2026-11-18", "page"), "more than 10 days old: waiting for its next automated re-test");
+  assert.equal(staleSince("2026-11-07", "2026-11-18", "row"), "re-test due");
+  assert.equal(staleSince(undefined, "2026-11-18", "row"), null);
 });

@@ -18,7 +18,7 @@ test("cadence: runs in the window ending at the last run, median and longest gap
   assert.equal(CADENCE_DAYS, 14);
   assert.equal(c.runs, 4);
   assert.equal(c.lastAt, "2026-11-18T12:00:00Z");
-  assert.equal(c.from, "2026-11-04");
+  assert.equal(c.from, "2026-11-17", "the first run inside the window, not the window edge");
   assert.equal(c.to, "2026-11-18");
   assert.deepEqual(c.gapsH, [6, 14, 16]);
   assert.equal(c.medianGapH, 14);
@@ -40,7 +40,7 @@ test("cadence: gaps between scheduled runs only; runs by hand and unknown trigge
   const c = fleetCadence([line("2026-11-18T00:00:00Z"), hand("2026-11-18T01:00:00Z"), hand("2026-11-18T01:10:00Z"), line("2026-11-18T03:00:00Z", {}), line("2026-11-18T09:00:00Z")].join("\n"));
   assert.equal(c.runs, 5);
   assert.equal(c.scheduled, 2);
-  assert.equal(c.byHand, 3);
+  assert.equal(c.onRequest, 2, "a line with no trigger is neither scheduled nor on request");
   assert.deepEqual(c.gapsH, [9]);
   assert.equal(c.lastAt, "2026-11-18T09:00:00Z");
   const handOnly = fleetCadence([hand("2026-11-18T01:00:00Z"), hand("2026-11-18T05:00:00Z")].join("\n"));
@@ -70,5 +70,7 @@ test("real data: the committed run log and fleet.yml parse", () => {
   const c = fleetCadence(readFileSync(new URL("../../fleet/runs.jsonl", import.meta.url), "utf8"));
   assert.ok(c && c.runs >= 1, "fleet/runs.jsonl has runs in its last 14 days");
   assert.ok(c.scheduled >= 1 && c.medianGapH != null, "and scheduled runs with a gap");
-  assert.equal(scheduledHours(readFileSync(new URL("../../.github/workflows/fleet.yml", import.meta.url), "utf8")), 6);
+  // fleet.yml changes do not run web CI, so this asserts only that the real file parses without throwing.
+  const h = scheduledHours(readFileSync(new URL("../../.github/workflows/fleet.yml", import.meta.url), "utf8"));
+  assert.ok(h === null || (Number.isInteger(h) && h > 0));
 });

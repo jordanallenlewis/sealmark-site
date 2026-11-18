@@ -36,3 +36,13 @@ export function ageShort(testedAt, today) {
   if (days == null) return null;
   return days > STALE_AFTER_DAYS ? `${days} days old, re-test due` : ageNote(testedAt, today);
 }
+
+/**
+ * The words a static page can carry without a clock (the server render and readers without JavaScript): only the stale
+ * mark, without a day count, because a grade past the limit on the build day stays past it until the next build.
+ * @param {"page" | "row"} form
+ */
+export function staleSince(testedAt, builtOn, form) {
+  if (!isStale(testedAt, builtOn)) return null;
+  return form === "row" ? "re-test due" : `more than ${STALE_AFTER_DAYS} days old: waiting for its next automated re-test`;
+}
