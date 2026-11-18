@@ -7,18 +7,21 @@ import notGraded from "../../../fleet/not-graded.json";
 import { fleetStatus } from "@/lib/fleet-status.mjs";
 import { gradeOf } from "@/lib/api-data";
 import { loadHistory } from "@/lib/history";
+import { loadCadence } from "@/lib/fleet-runs";
 import { RESULTS_PUBLIC, SERVERS_RESULTS } from "@/lib/results";
 import s from "../results/results.module.css";
 
 export const metadata: Metadata = {
   title: "Fleet status: Sealmark's automated test runs | Sealmark",
-  description: "How many public MCP servers Sealmark has graded, how current the grades are, the test runs of the last two weeks and why some servers are not graded yet.",
+  description: "How many public MCP servers Sealmark has graded, how current the grades are, how often the fleet really runs, the test runs of the last two weeks and why some servers are not graded yet.",
   alternates: { canonical: "/status/", types: { "application/atom+xml": [{ url: "/results/feed.xml", title: "Sealmark: MCP server grade changes" }] } },
 };
 
 // Fleet status (site#59 slice 2): counts from the committed data only (lib/fleet-status.mjs), dated by the data.
 export default function StatusPage() {
   if (!RESULTS_PUBLIC) notFound();
+  const { cadence, everyH } = loadCadence();
+  const hours = (n: number) => (n === 1 ? "1 hour" : `${n} hours`);
   const st = fleetStatus((x) => gradeOf(x) !== null, SERVERS_RESULTS, loadHistory(), notGraded as { count: number; byReason: Record<string, number> });
   return (
     <>
@@ -36,6 +39,19 @@ export default function StatusPage() {
           <div className={s.stat}><b>{st.retests}</b><span>servers run, counted once a day, in the {st.days.length} days to {st.latest ?? "now"}</span></div>
           <div className={s.stat}><b>{st.notGraded}</b><span>servers tried and not graded yet</span></div>
         </div>
+
+        {cadence && cadence.medianGapH != null && cadence.longestGapH != null && (
+          <section className={s.sec} aria-labelledby="cadence-h">
+            <h2 id="cadence-h">How often the fleet runs</h2>
+            <p>
+              {everyH ? <>The fleet is scheduled to run every {hours(everyH)}. </> : null}
+              From {cadence.from} to {cadence.to}, {cadence.runs} fleet runs recorded results: {cadence.scheduled} started by the schedule and {cadence.onRequest} started on request.
+              Between scheduled fleet runs that recorded results, the usual gap was {hours(cadence.medianGapH)} (the median) and the longest was {hours(cadence.longestGapH)}.
+              A gap can be longer than the schedule because GitHub starts scheduled runs late or skips them, and because a run that fails, or finds nothing to test, records nothing.
+              The last fleet run recorded its results at {cadence.lastAt.slice(0, 16).replace("T", " ")} UTC.
+            </p>
+          </section>
+        )}
 
         {st.days.length > 0 && (
           <section className={s.sec} aria-labelledby="days-h">

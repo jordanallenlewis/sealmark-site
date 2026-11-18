@@ -15,3 +15,34 @@ export function staleNote(testedAt, today) {
   const days = gradeAgeDays(testedAt, today);
   return days != null && days > STALE_AFTER_DAYS ? `${days} days old: waiting for its next automated re-test` : null;
 }
+
+/** Past the limit: the grade has missed its re-test. False when the age is unknown. */
+export function isStale(testedAt, today) {
+  const days = gradeAgeDays(testedAt, today);
+  return days != null && days > STALE_AFTER_DAYS;
+}
+
+/** The age in words for any grade ("today", "3 days ago"), the stale words past the limit, null when unknown. */
+export function ageNote(testedAt, today) {
+  const days = gradeAgeDays(testedAt, today);
+  if (days == null) return null;
+  if (days > STALE_AFTER_DAYS) return staleNote(testedAt, today);
+  return days === 0 ? "today" : days === 1 ? "1 day ago" : `${days} days ago`;
+}
+
+/** The age for a table row: "today", "3 days ago", "12 days old, re-test due"; null when unknown. */
+export function ageShort(testedAt, today) {
+  const days = gradeAgeDays(testedAt, today);
+  if (days == null) return null;
+  return days > STALE_AFTER_DAYS ? `${days} days old, re-test due` : ageNote(testedAt, today);
+}
+
+/**
+ * The words a static page can carry without a clock (the server render and readers without JavaScript): only the stale
+ * mark, without a day count, because a grade past the limit on the build day stays past it until the next build.
+ * @param {"page" | "row"} form
+ */
+export function staleSince(testedAt, builtOn, form) {
+  if (!isStale(testedAt, builtOn)) return null;
+  return form === "row" ? "re-test due" : `more than ${STALE_AFTER_DAYS} days old: waiting for its next automated re-test`;
+}
