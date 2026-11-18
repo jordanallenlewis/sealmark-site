@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -71,7 +72,8 @@ export default async function ToolPage({ params }: P) {
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
         <p className={s.crumb}><Link href="/results/">Results</Link> / <Link href={`/results/${x.id}/`} data-third-party="">{x.name}</Link> / tool</p>
-        <h1 className={s.h1} data-third-party="">{page.tool}</h1>
+        {/* A tool name is one long word: let it use the full width, and break only after a separator (<wbr>, no text). */}
+        <h1 className={s.h1} style={{ maxWidth: "none" }} data-third-party="">{page.tool.split(/(?<=[_.:/-])/).map((part, i) => <Fragment key={i}>{i > 0 && <wbr />}{part}</Fragment>)}</h1>
         <div className={s.meta}>
           <span data-third-party="">tool of {x.name} {x.versionTested}</span>
           <span>tested {x.testedAt}</span>
