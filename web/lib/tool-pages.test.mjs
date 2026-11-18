@@ -80,4 +80,5 @@ test("rule 12: built pages must be exactly the expected ones, never for a held s
   assert.deepEqual(toolPagesProblems(["h/t"], [{ id: "h", slug: "t" }], st), ["h/t: a tool page for a server with a security finding"]);
   assert.deepEqual(toolPagesProblems(["u/t"], [{ id: "u", slug: "t" }], st), ["u/t: server not in the raw results data"]);
   assert.deepEqual(toolPagesProblems([], [{ id: "a", slug: "t" }, { id: "a", slug: "t" }], st), ["two tools of one server share a page path", "a/t: no page built"]);
+  assert.deepEqual(toolPagesProblems(["a/Read", "a/read"], [{ id: "a", slug: "Read" }, { id: "a", slug: "read" }], st), ["two tools of one server share a page path"]);
 });

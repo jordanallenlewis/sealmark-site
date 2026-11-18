@@ -131,7 +131,9 @@ for (const sv of list.servers) {
 
 // Rule 12: the tool pages.
 {
-  const expected = toolPages([...RAW.values()], (x) => redactedChecks(x, DISCLOSURE, TODAY));
+  // Only published servers: with SEALMARK_PUBLISH_RESULTS=0 the list is empty and no tool page may exist.
+  const published = new Set(list.servers.map((sv) => sv.id));
+  const expected = toolPages([...RAW.values()].filter((x) => published.has(x.id)), (x) => redactedChecks(x, DISCLOSURE, TODAY));
   const built = [];
   const files = [];
   const root = join(resultsDir, "tools");

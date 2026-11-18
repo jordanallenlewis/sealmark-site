@@ -84,7 +84,8 @@ export function toolEvidence(evidence, called, tool) {
 export function toolPagesProblems(built, expected, status) {
   const out = [];
   const want = new Set(expected.map((p) => `${p.id}/${p.slug}`));
-  if (want.size !== expected.length) out.push("two tools of one server share a page path");
+  // Case-insensitive: on a case-insensitive file system two slugs that differ only by case would overwrite each other.
+  if (new Set(expected.map((p) => `${p.id}/${p.slug}`.toLowerCase())).size !== expected.length) out.push("two tools of one server share a page path");
   const have = new Set(built);
   for (const k of built) {
     const id = k.split("/")[0];

@@ -86,8 +86,9 @@ export default async function ToolPage({ params }: P) {
         <section className={s.sec} aria-labelledby="called-h">
           <h2 id="called-h">Checks that called it</h2>
           <p>Each of these public checks reached this tool with a valid call in the run on {x.testedAt}. The verdict is the check&apos;s, for everything it tested, not for this tool alone.</p>
-          <div className={clsx(s.tw, s.twChecks)} tabIndex={0} role="region" aria-labelledby="called-h">
+          <div className={clsx(s.tw, s.twChecks)} tabIndex={0} role="region" aria-label="Table of the checks that called this tool">
             <table className={clsx(s.checks, s.evidence)}>
+              <caption className="sr-only">Checks that called this tool with a valid call, with each check&apos;s verdict</caption>
               <colgroup><col className={s.colCheck} /><col className={s.colVerdict} /><col /></colgroup>
               <thead><tr><th scope="col">Check</th><th scope="col">Verdict</th><th scope="col">What it tests</th></tr></thead>
               <tbody>
@@ -111,10 +112,10 @@ export default async function ToolPage({ params }: P) {
         <section className={s.sec} aria-labelledby="ev-h">
           <h2 id="ev-h">What was sent and observed</h2>
           {evidence.length === 0 ? (
-            <p>The run kept no evidence line that names this tool. The <Link href={`/results/${x.id}/`}>server&apos;s page</Link> shows each check&apos;s evidence, and <code>sealmark run --format json</code> gives every line in full.</p>
+            <p>No evidence line shown on this site names this tool. Run <code>sealmark run --format json</code> yourself for every line in full; the <Link href={`/results/${x.id}/`}>server&apos;s page</Link> has the run command.</p>
           ) : (
             <>
-              <p>The evidence lines the run recorded against this tool, by check. The text is shortened, and paths and anything that looks like a secret or token are replaced. <code>sealmark run --format json</code> gives every line in full.</p>
+              <p>The evidence lines kept from the run that name this tool, by check (a limited number per check). The text is shortened, and paths and anything that looks like a secret or token are replaced. <code>sealmark run --format json</code> gives every line in full.</p>
               {evidence.map((e) => (
                 <div key={e.check}>
                   <h3 className={s.packhead}>{checkLink(e.check)}</h3>
