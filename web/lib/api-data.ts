@@ -6,7 +6,7 @@ import { coverageNote } from "@/lib/results-copy.mjs";
 import { CLI_VERSION, ORIGIN } from "@/lib/seo";
 
 // The overall grade exactly as the results page heads it: none for a server with no tools, else the lowest graded area.
-const gradeOf = (x: ServerResult) => (coverageNote(x, deepPacks(x).length > 0).kind === "no-tools" ? null : worst(x));
+export const gradeOf = (x: ServerResult) => (coverageNote(x, deepPacks(x).length > 0).kind === "no-tools" ? null : worst(x));
 
 export const apiServers = () => serversDoc(SERVERS_RESULTS.map((x) => serverSummary(x, gradeOf(x), ORIGIN)), DATA.methodology);
 export const apiServer = (x: ServerResult) => serverDoc(x, gradeOf(x), redactionsFor(x), historyFor(x.id)?.runs ?? [], ORIGIN);
