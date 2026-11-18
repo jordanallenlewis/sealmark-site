@@ -261,7 +261,7 @@ export default async function ServerPage({ params }: P) {
   // Answer-style summary and JSON-LD (site#64): only facts this page shows, the overall grade by the heading's rule.
   const answerGrade = gradeOf(x);
   const areas = graded.map((p) => ({ label: label(p.id), letter: p.letter as string }));
-  const summary = answerSummary({ name: x.name, version: x.versionTested, testedAt: x.testedAt, sealmark: x.sealmark.version, standard: x.standard, grade: answerGrade, areas, coverage: cov, checks: x.checks, held: priv.size > 0 });
+  const summary = answerSummary({ name: x.name, version: x.versionTested, testedAt: x.testedAt, sealmark: x.sealmark.version, standard: x.standard === true, grade: answerGrade, areas, coverage: cov, checks: x.checks, held: priv.size > 0 });
   const ld = serverJsonLd({ site: ORIGIN, page: canonical(`/results/${x.id}/`), json: `${ORIGIN}${serverPath(x.id)}`, list: canonical("/results/"), name: x.name, version: x.versionTested, testedAt: x.testedAt, grade: answerGrade, areas, checks: x.checks, summary });
   const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
