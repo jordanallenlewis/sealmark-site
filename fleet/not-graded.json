@@ -1,26 +1,54 @@
 {
   "count": 145,
   "byReason": {
-    "initialize-timeout": 11,
-    "missing-runtime": 5,
-    "unknown": 102,
+    "missing-runtime": 6,
+    "initialize-timeout": 10,
+    "unknown": 101,
+    "dependency-resolution": 15,
     "bad-launch": 5,
-    "dependency-resolution": 14,
     "needs-credentials": 8
   },
   "servers": [
     {
-      "id": "czlonkowski-n8n-mcp",
-      "version": "2.103.0",
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.0",
       "lastTried": "2026-11-18",
-      "attempts": 2,
+      "attempts": 22,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "czlonkowski-n8n-mcp",
+      "version": "2.103.1",
+      "lastTried": "2026-11-18",
+      "attempts": 3,
       "reason": "initialize-timeout"
     },
     {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.4.4",
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "3.12.1",
       "lastTried": "2026-11-18",
-      "attempts": 13,
+      "attempts": 18,
+      "reason": "unknown"
+    },
+    {
+      "id": "marker-inc-korea-autorag",
+      "version": "2.13.14",
+      "lastTried": "2026-11-18",
+      "attempts": 5,
+      "reason": "unknown"
+    },
+    {
+      "id": "mobile-next-mobile-mcp",
+      "version": "1.0.18",
+      "lastTried": "2026-11-18",
+      "attempts": 3,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.5.0",
+      "lastTried": "2026-11-18",
+      "attempts": 14,
       "reason": "missing-runtime"
     },
     {
@@ -31,24 +59,31 @@
       "reason": "initialize-timeout"
     },
     {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.3.3",
+      "id": "samanhappy-mcphub",
+      "version": "1.2.6",
       "lastTried": "2026-11-18",
-      "attempts": 14,
+      "attempts": 5,
       "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.3.4",
+      "lastTried": "2026-11-18",
+      "attempts": 15,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "zereight-gitlab-mcp",
+      "version": "2.3.29",
+      "lastTried": "2026-11-18",
+      "attempts": 7,
+      "reason": "bad-launch"
     },
     {
       "id": "apify-apify-mcp-server",
       "version": "0.21.12",
       "lastTried": "2026-11-17",
       "attempts": 8,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "chrisryugj-kordoc",
-      "version": "4.24.83",
-      "lastTried": "2026-11-17",
-      "attempts": 21,
       "reason": "missing-runtime"
     },
     {
@@ -75,13 +110,6 @@
     {
       "id": "jordan-gibbs-hyperresearch",
       "version": "0.13.3",
-      "lastTried": "2026-11-17",
-      "attempts": 4,
-      "reason": "unknown"
-    },
-    {
-      "id": "marker-inc-korea-autorag",
-      "version": "2.13.13",
       "lastTried": "2026-11-17",
       "attempts": 4,
       "reason": "unknown"
@@ -120,20 +148,6 @@
       "lastTried": "2026-11-16",
       "attempts": 2,
       "reason": "unknown"
-    },
-    {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "3.10.1",
-      "lastTried": "2026-11-16",
-      "attempts": 17,
-      "reason": "unknown"
-    },
-    {
-      "id": "samanhappy-mcphub",
-      "version": "1.2.5",
-      "lastTried": "2026-11-16",
-      "attempts": 4,
-      "reason": "initialize-timeout"
     },
     {
       "id": "vmoranv-jshookmcp",
@@ -255,13 +269,6 @@
       "reason": "dependency-resolution"
     },
     {
-      "id": "zereight-gitlab-mcp",
-      "version": "2.3.28",
-      "lastTried": "2026-11-15",
-      "attempts": 6,
-      "reason": "bad-launch"
-    },
-    {
       "id": "jerbouma-financetoolkit",
       "version": "2.3.4",
       "lastTried": "2026-11-14",
@@ -288,13 +295,6 @@
       "lastTried": "2026-11-11",
       "attempts": 2,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "mobile-next-mobile-mcp",
-      "version": "1.0.17",
-      "lastTried": "2026-11-11",
-      "attempts": 2,
-      "reason": "unknown"
     },
     {
       "id": "brightdata-brightdata-mcp",

@@ -290,16 +290,16 @@
       "name": "@modelcontextprotocol/server-everything",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.3.0",
+      "versionTested": "2.3.1",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-everything@2.3.0",
+      "launch": "npx -y @modelcontextprotocol/server-everything@2.3.1",
       "transport": "stdio",
       "toolCount": 16,
       "packs": [
@@ -564,18 +564,24 @@
       "name": "mcp-server-fetch",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.11.11",
+      "versionTested": "2026.11.18",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-fetch==2026.11.11",
+      "launch": "uvx mcp-server-fetch==2026.11.18",
       "transport": "stdio",
       "toolCount": 1,
+      "tools": [
+        "fetch"
+      ],
+      "toolSchemas": {
+        "fetch": "16fdd8e4c71d"
+      },
       "packs": [
         {
           "id": "core",
@@ -700,7 +706,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "5 invalid call(s) rejected cleanly"
+          "summary": "5 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -781,7 +791,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -820,18 +834,54 @@
       "name": "@modelcontextprotocol/server-filesystem",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.3.0",
+      "versionTested": "2.4.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.3.0 {sandbox}",
+      "launch": "npx -y @modelcontextprotocol/server-filesystem@2.4.0 {sandbox}",
       "transport": "stdio",
       "toolCount": 16,
+      "tools": [
+        "read_file",
+        "read_text_file",
+        "read_media_file",
+        "read_multiple_files",
+        "write_file",
+        "append_file",
+        "edit_file",
+        "create_directory",
+        "list_directory",
+        "list_directory_with_sizes",
+        "directory_tree",
+        "move_file",
+        "copy_file",
+        "search_files",
+        "get_file_info",
+        "list_allowed_directories"
+      ],
+      "toolSchemas": {
+        "append_file": "e901fc2eaba1",
+        "copy_file": "c6bcce52bd0a",
+        "create_directory": "28a4867e1d2d",
+        "directory_tree": "69bdec6a46d6",
+        "edit_file": "55ea5b30fc85",
+        "get_file_info": "341692883b01",
+        "list_allowed_directories": "93ab7499dc3c",
+        "list_directory": "b82677a25149",
+        "list_directory_with_sizes": "c4e7d1e4396f",
+        "move_file": "a925f61c00d5",
+        "read_file": "3c51bad3f48b",
+        "read_media_file": "0bf785608c87",
+        "read_multiple_files": "e33001b8d3c5",
+        "read_text_file": "3c51bad3f48b",
+        "search_files": "ad17e7856070",
+        "write_file": "f20db13e48ec"
+      },
       "packs": [
         {
           "id": "core",
@@ -956,7 +1006,13 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "76 invalid call(s) rejected cleanly"
+          "summary": "76 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "list_allowed_directories"
+            ],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -1010,7 +1066,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "fail",
-          "summary": "read_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap); read_text_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap); read_media_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap); read_multiple_files: the reply exceeded the harness's 64 MiB message limit (the server sent no cap)"
+          "summary": "read_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap); read_text_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap); read_media_file: the reply exceeded the harness's 64 MiB message limit (the server sent no cap); read_multiple_files: the reply exceeded the harness's 64 MiB message limit (the server sent no cap)",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "annotation-honesty",
@@ -1037,7 +1097,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -1077,18 +1141,50 @@
       "name": "mcp-server-git",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.11.11",
+      "versionTested": "2026.11.18",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-git==2026.11.11 --repository {sandbox}/repo",
+      "launch": "uvx mcp-server-git==2026.11.18 --repository {sandbox}/repo",
       "transport": "stdio",
       "toolCount": 14,
+      "tools": [
+        "git_status",
+        "git_diff_unstaged",
+        "git_diff_staged",
+        "git_diff",
+        "git_commit",
+        "git_add",
+        "git_reset",
+        "git_log",
+        "git_create_branch",
+        "git_checkout",
+        "git_merge",
+        "git_show",
+        "git_branch",
+        "git_remote"
+      ],
+      "toolSchemas": {
+        "git_add": "fe607783e691",
+        "git_branch": "268f353022c7",
+        "git_checkout": "b655a056a01c",
+        "git_commit": "c5cd9087b800",
+        "git_create_branch": "9118849f7827",
+        "git_diff": "32ee0e282fb1",
+        "git_diff_staged": "a34503e2686d",
+        "git_diff_unstaged": "b5f28e179d77",
+        "git_log": "c4e5907dca6f",
+        "git_merge": "c26790c6086e",
+        "git_remote": "53800ff477e1",
+        "git_reset": "eea611c41ac2",
+        "git_show": "fa979031e75d",
+        "git_status": "7bd4de803693"
+      },
       "packs": [
         {
           "id": "core",
@@ -1213,7 +1309,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "70 invalid call(s) rejected cleanly"
+          "summary": "70 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -1276,7 +1376,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -1322,18 +1426,40 @@
       "name": "@modelcontextprotocol/server-memory",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.1.1",
+      "versionTested": "2.2.1",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-memory@2.1.1",
+      "launch": "npx -y @modelcontextprotocol/server-memory@2.2.1",
       "transport": "stdio",
       "toolCount": 9,
+      "tools": [
+        "create_entities",
+        "create_relations",
+        "add_observations",
+        "delete_entities",
+        "delete_observations",
+        "delete_relations",
+        "read_graph",
+        "search_nodes",
+        "open_nodes"
+      ],
+      "toolSchemas": {
+        "add_observations": "a4a78b39d69b",
+        "create_entities": "c743218afa71",
+        "create_relations": "24b4ed4441da",
+        "delete_entities": "26d6e33884a0",
+        "delete_observations": "0e8705c7e750",
+        "delete_relations": "b0f3c44897d0",
+        "open_nodes": "0cf67459d3fe",
+        "read_graph": "248711b40bcb",
+        "search_nodes": "18e7040c1439"
+      },
       "packs": [
         {
           "id": "core",
@@ -1458,7 +1584,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "46 invalid call(s) rejected cleanly"
+          "summary": "46 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -1503,7 +1633,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -1839,18 +1973,24 @@
       "name": "@modelcontextprotocol/server-sequential-thinking",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.1.1",
+      "versionTested": "2.2.0",
       "serverInfoName": "server-sequential-thinking",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @modelcontextprotocol/server-sequential-thinking@2.1.1",
+      "launch": "npx -y @modelcontextprotocol/server-sequential-thinking@2.2.0",
       "transport": "stdio",
       "toolCount": 1,
+      "tools": [
+        "sequentialthinking"
+      ],
+      "toolSchemas": {
+        "sequentialthinking": "838ba62e6f7c"
+      },
       "packs": [
         {
           "id": "core",
@@ -1975,7 +2115,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "5 invalid call(s) rejected cleanly"
+          "summary": "5 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -2292,18 +2436,28 @@
       "name": "mcp-server-time",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2026.11.11",
+      "versionTested": "2026.11.18",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx mcp-server-time==2026.11.11",
+      "launch": "uvx mcp-server-time==2026.11.18",
       "transport": "stdio",
       "toolCount": 3,
+      "tools": [
+        "get_current_time",
+        "convert_time",
+        "get_time_ago"
+      ],
+      "toolSchemas": {
+        "convert_time": "4cf2e3da2692",
+        "get_current_time": "b3535a1cfca1",
+        "get_time_ago": "fdb4a5b2e19b"
+      },
       "packs": [
         {
           "id": "core",
@@ -2428,7 +2582,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "13 invalid call(s) rejected cleanly"
+          "summary": "13 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -9354,18 +9512,26 @@
       "name": "@achromat-ai/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.4",
+      "versionTested": "0.1.5",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @achromat-ai/mcp-server@0.1.4",
+      "launch": "npx -y @achromat-ai/mcp-server@0.1.5",
       "transport": "stdio",
-      "toolCount": 1,
+      "toolCount": 2,
+      "tools": [
+        "achromat_recall",
+        "achromat_register_identity"
+      ],
+      "toolSchemas": {
+        "achromat_recall": "a841737ff034",
+        "achromat_register_identity": "5cf2cef70486"
+      },
       "packs": [
         {
           "id": "core",
@@ -9472,7 +9638,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 1 well-formed tool(s)"
+          "summary": "handshake ok, 2 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -9481,7 +9647,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 1 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 2 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -9490,7 +9656,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "4 invalid call(s) rejected cleanly"
+          "summary": "9 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -9499,7 +9669,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 4 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 9 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -9523,7 +9693,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 1,
+        "toolsTotal": 2,
         "level": "hygiene-only"
       },
       "badge": {
@@ -9532,6 +9702,7 @@
       },
       "notCovered": [
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"achromat_recall\" is covered by the core checks only: free-text parameter \"tool_name\": no path, URL, command, SQL or repository signal; its required parameter \"arguments\" cannot be filled by the harness; write a probes: entry to call it",
         "tool \"achromat_register_identity\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
@@ -51318,8 +51489,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.460",
-      "versionTested": "1.108.460",
+      "refTested": "1.108.463",
+      "versionTested": "1.108.463",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-18",
       "sealmark": {
@@ -54469,16 +54640,16 @@
       "name": "shiwake-ai-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.4",
+      "versionTested": "1.1.6",
       "serverInfoName": "shiwake-ai-mcp",
-      "testedAt": "2026-11-16",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y shiwake-ai-mcp@1.1.4",
+      "launch": "npx -y shiwake-ai-mcp@1.1.6",
       "transport": "stdio",
       "toolCount": 9,
       "tools": [
@@ -54720,14 +54891,28 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-16",
+        "schemas": {
+          "entaizei_keisan": "cd5e31bdaeca",
+          "furusato_nozei_jogen": "07e1d083108e",
+          "genka_shokyaku_keisan": "686a08f24c24",
+          "gensen_kyuyo_zeigaku": "d1d99c6cd4a3",
+          "invoice_toroku_bango_check": "1e78036783af",
+          "kanjo_kamoku_kensaku": "2529792883fb",
+          "kyuyo_tedori_keisan": "e3fab1151853",
+          "nencho_kanpu_shisan": "5e2b35cb5cbd",
+          "shohizei_hoshiki_hikaku": "3dafcaa0d8e3"
+        }
+      }
     },
     {
       "id": "pidgeon-ai-mcp",
       "name": "@pidgeon-ai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.8.0",
+      "versionTested": "1.9.1",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-18",
       "sealmark": {
@@ -54736,9 +54921,9 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pidgeon-ai/mcp@1.8.0",
+      "launch": "npx -y @pidgeon-ai/mcp@1.9.1",
       "transport": "stdio",
-      "toolCount": 76,
+      "toolCount": 80,
       "packs": [
         {
           "id": "core",
@@ -54847,7 +55032,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 76 well-formed tool(s)"
+          "summary": "handshake ok, 80 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -54928,7 +55113,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "status declared read-only and changed nothing in the observed directories during a benign call (list_agents, get_reputation, list_inboxes, list_rules, list_suppressions, get_storage, list_domains, list_events, list_webhooks, list_pods, list_threads, find_contact, list_sites, list_mandates not judged: the control call failed)"
+          "summary": "status declared read-only and changed nothing in the observed directories during a benign call (list_agents, get_reputation, list_inboxes, list_rules, list_suppressions, get_storage, list_domains, list_events, list_api_keys, list_webhooks, list_pods, list_threads, find_contact, list_sites, list_mandates not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -54959,9 +55144,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 16,
-        "toolsCalledValid": 15,
-        "toolsTotal": 76,
+        "validCalls": 17,
+        "toolsCalledValid": 16,
+        "toolsTotal": 80,
         "level": "low"
       },
       "badge": {
@@ -54969,7 +55154,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 76 tools",
+        "malformed-input probes cover the first 25 of 80 tools",
         "tool \"add_webhook\" (url) was not probed by the net pack: the listener saw nothing, but 9 of 9 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"sign_in\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
@@ -54984,7 +55169,8 @@
         "tool \"revoke_agent_key\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"revoke_agent\" is covered by the core checks only: free-text parameter \"agent_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"list_inboxes\" is covered by the core checks only: free-text parameter \"cursor\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "63 more tool(s) are covered by the core checks only (see the classification)",
+        "67 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"add_rule\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"remove_rule\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_suppressions\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"add_suppression\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -54995,6 +55181,9 @@
         "tool \"enable_domain_mail\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"check_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_events\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"list_api_keys\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"create_api_key\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"revoke_api_key\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_webhooks\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"add_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"remove_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -55603,16 +55792,16 @@
       "name": "brandrail",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.10.5",
+      "versionTested": "0.10.6",
       "serverInfoName": "brandrail",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y brandrail@0.10.5 mcp",
+      "launch": "npx -y brandrail@0.10.6 mcp",
       "transport": "stdio",
       "toolCount": 7,
       "tools": [
@@ -55846,7 +56035,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-17",
         "schemas": {
           "find_component": "a2dd3619d6a9",
           "get_component_docs": "c8a644672365",
@@ -62361,16 +62550,16 @@
       "name": "simulator-use",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.17.0",
+      "versionTested": "0.17.1",
       "serverInfoName": "simulator-use",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y simulator-use@0.17.0 mcp",
+      "launch": "npx -y simulator-use@0.17.1 mcp",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -62625,7 +62814,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-17",
         "schemas": {
           "app_control": "fb769f187148",
           "app_logs": "9f62fcbce3c6",
@@ -62647,7 +62836,7 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.4.0",
+      "versionTested": "1.5.0",
       "serverInfoName": "uvx",
       "testedAt": "2026-11-18",
       "sealmark": {
@@ -62656,7 +62845,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.4.0 mcp",
+      "launch": "uvx skilltotal==1.5.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -69035,7 +69224,7 @@
       "name": "storkai",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.2.3",
+      "versionTested": "2.3.0",
       "serverInfoName": "storkai",
       "testedAt": "2026-11-18",
       "sealmark": {
@@ -69044,7 +69233,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y storkai@2.2.3",
+      "launch": "npx -y storkai@2.3.0",
       "transport": "stdio",
       "toolCount": 30,
       "tools": [
