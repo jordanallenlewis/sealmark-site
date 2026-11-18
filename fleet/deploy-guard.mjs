@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// deploy-guard: forward-only production deploys (wave 1 item A, Jordan Co., 2026-11-18). Zero dependencies.
-// Rule (agent-fleet-steward self-healing 4): a prod deploy's target must be a git descendant of the live prod SHA,
+// deploy-guard: forward-only production deploys. Zero dependencies.
+// Rule: a prod deploy's target must be a git descendant of the live prod SHA,
 // unless it is an explicit, logged rollback that carries an approval id. After the deploy, live must equal intended.
 //
 //   deploy-guard check  --repo <dir> --target <ref> --worker <name> | --live-cmd "<prints a sha>"
@@ -66,17 +66,17 @@ export const ledgerLive = (file) => readLedger(file).filter((e) => e.event === "
 
 function workerLive(name) {
   const env = { ...process.env, WRANGLER_SEND_METRICS: "false" };
-  const run = (c) => JSON.parse(execSync(c, { encoding: "utf8", env, stdio: ["ignore", "pipe", "ignore"] }));
-  const dep = run(`npx wrangler deployments list --name ${JSON.stringify(name)} --json`);
+  const run = (c) => JSON.parse(execSync(c, { encoding: "utf8", env, stdio: ["ignore", "pipe", "pipe"] }));
+  const dep = run(`npx -y wrangler@4 deployments list --name ${JSON.stringify(name)} --json`);
   const cur = dep[dep.length - 1];
   const top = (cur?.versions || []).find((v) => v.percentage === 100) || (cur?.versions || [])[0];
   if (!top) return null;
-  return shaFromAnnotations(run(`npx wrangler versions view ${top.version_id} --name ${JSON.stringify(name)} --json`).annotations);
+  return shaFromAnnotations(run(`npx -y wrangler@4 versions view ${top.version_id} --name ${JSON.stringify(name)} --json`).annotations);
 }
 
 function liveSha(o, ledger) {
   if (o["live-cmd"]) return execSync(o["live-cmd"], { encoding: "utf8" }).trim();
-  if (o.worker) { try { const s = workerLive(o.worker); if (s) return s; } catch { /* fall through to the ledger */ } }
+  if (o.worker) { try { const s = workerLive(o.worker); if (s) return s; } catch (e) { console.error(`deploy-guard: could not read the live Worker version (${String(e.message).split("\n")[0]}); falling back to the ledger`); } }
   return ledger ? ledgerLive(ledger) : null;
 }
 

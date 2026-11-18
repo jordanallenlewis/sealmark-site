@@ -32,6 +32,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    concurrency:
+      group: sealmark-deploy # one deploy at a time across fleet.yml and release-sync.yml
+      cancel-in-progress: false
     permissions:
       contents: write   # only to commit the version bump to main, like fleet.yml's collect job
     env:

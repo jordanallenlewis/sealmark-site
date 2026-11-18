@@ -188,6 +188,9 @@ jobs:
   deploy:
     needs: collect
     runs-on: ubuntu-26.04
+    concurrency:
+      group: sealmark-deploy # one deploy at a time across fleet.yml and release-sync.yml
+      cancel-in-progress: false
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: f37b212eac72fedf8ef688eb7856ea4d
