@@ -36,7 +36,7 @@ type P = { params: Promise<{ id: string }> };
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { id } = await params;
   const x = SERVERS_RESULTS.find((v) => v.id === id);
-  return x ? { title: `${x.name} ${x.versionTested}: MCP server grade | Sealmark`, description: serverDescription(x), alternates: { canonical: `/results/${x.id}/` } } : { title: "Results" };
+  return x ? { title: `${x.name} ${x.versionTested}: MCP server grade | Sealmark`, description: serverDescription(x), alternates: { canonical: `/results/${x.id}/`, types: { "application/atom+xml": [{ url: `/results/${x.id}/feed.xml`, title: `Sealmark: grade changes for ${x.name}` }] } } } : { title: "Results" };
 }
 
 const WORD: Record<Verdict, string> = { pass: "pass", part: "partial", fail: "fail", inconclusive: "inconclusive", na: "n/a" };
@@ -476,6 +476,7 @@ export default async function ServerPage({ params }: P) {
         )}
 
         <NotifyForm server={x.id} name={x.name} />
+        <p className={s.muted}>Or follow it in a feed reader: the <a href={`/results/${x.id}/feed.xml`} type="application/atom+xml">Atom feed</a> lists each move of the overall grade that came with a new version of this server, tested with the same Sealmark version as the run before.</p>
 
         <p className={s.muted} style={{ marginTop: 28 }}>
           Each of {VERDICTS_CHECKED} verdicts was checked independently, and Sealmark was wrong on some: <Link href="/results/#reliability">how reliable Sealmark is</Link>.
