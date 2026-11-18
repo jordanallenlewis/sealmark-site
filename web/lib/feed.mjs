@@ -4,13 +4,36 @@
 // A feed entry is a public claim that someone else's server changed grade, so it follows the results list's change rule
 // (lib/results-view.mjs gradeChange, review on site#93): only a move in the overall grade that came with a new server
 // version under the same, known Sealmark version. A move that came with a Sealmark upgrade, an unknown Sealmark version
-// or no new server version says nothing certain about the server, and a server with a held finding is left out (its
-// entry could not carry the page's private-finding note). Dates come from the data, never the build clock, so an
+// or no new server version says nothing certain about the server. A server with a redacted check or any security
+// finding is left out (the same rule as api-check rules 7 and 9; its entry could not carry the page's disclosure note),
+// and so is a server whose history disagrees with its page (silent when unsure, like gradeChange). Dates come from the data, never the build clock, so an
 // unchanged feed stays byte-identical between builds.
+
+import { isSecurityFinding } from "./disclosure.mjs";
 
 const RANK = { A: 1, B: 1, C: 1, D: 1, F: 1 };
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const text = (v) => typeof v === "string" && v.length > 0 && v.length <= 64;
+
+/**
+ * Fail closed: a server is held when any check is redacted or any check is a security finding (public or not).
+ * @param {{ checks?: any[] } | undefined} x a ServerResult
+ * @param {Map<string, unknown>} redactions redactionsFor(x)
+ */
+export function isFeedHeld(x, redactions) {
+  if (!x || !Array.isArray(x.checks)) return true;
+  return redactions.size > 0 || x.checks.some(isSecurityFinding);
+}
+
+/**
+ * True when the latest graded run in the history has the grade the results page shows.
+ * @param {{ status: string, worst?: string }[] | undefined} runs a server's history, oldest first
+ * @param {string | null | undefined} current the page's overall grade letter
+ */
+export function historyInSync(runs, current) {
+  const ok = (Array.isArray(runs) ? runs : []).filter((r) => r && r.status === "ok" && Object.hasOwn(RANK, r.worst));
+  return ok.length > 0 && ok.at(-1).worst === current;
+}
 
 /**
  * @param {any[] | undefined} changes changesDoc(...).changes
@@ -35,9 +58,9 @@ export function changeEntry(c, label) {
     .filter(([, v]) => v && typeof v === "object")
     .map(([k, v]) => (v.from == null ? `${label(k)} newly graded ${v.to}` : v.to == null ? `${label(k)} not graded this time (was ${v.from})` : `${label(k)} ${v.from} to ${v.to}`));
   const summary = [
-    `${c.name || c.id} moved from grade ${c.from} to ${c.to} on ${c.date}, with a new server version ${c.version} (was ${c.previousVersion}), tested with Sealmark ${c.sealmark}, the same version as the run before.`,
+    `${c.name || c.id} was graded ${c.to} in the re-test on ${c.date} (${c.from} in the graded run before), with server version ${c.version} (the graded run before tested ${c.previousVersion}) and Sealmark ${c.sealmark} in both runs.`,
     areas.length ? `Test areas: ${areas.join("; ")}.` : "",
-    "A grade covers one version under the standard settings; it is not an endorsement. The page has the evidence.",
+    "A grade covers one version under the standard settings; it is not an endorsement. The page has the evidence for the latest run.",
   ].filter(Boolean).join(" ");
   return {
     id: `${c.page}#change-${c.date}-${encodeURIComponent(c.previousVersion)}-${encodeURIComponent(c.version)}`,
@@ -115,6 +138,7 @@ export function feedProblems(xml, origin, listed, status, only) {
     if (st === "held") out.push(`${sid}: entry for a server with a security finding`);
     else if (st === "unknown") out.push(`${sid}: not in the raw results data`);
     if (only && sid !== only) out.push(`${sid}: entry in the feed of ${only}`);
+    if (!/ and Sealmark [^ <]+ in both runs\./.test(e.match(/<summary>([^<]*)<\/summary>/)?.[1] ?? "")) out.push(`${sid}: entry does not name one Sealmark version for both runs`);
   }
   return out;
 }

@@ -29,7 +29,7 @@ import { fileURLToPath } from "node:url";
 import { isSecurityCheck, isSecurityFinding, isWeakSignal, redactedChecks } from "../lib/disclosure.mjs";
 import { weakCore } from "../../fleet/redact-results.mjs";
 import { toolsPageProblems } from "../lib/tool-directory.mjs";
-import { feedProblems } from "../lib/feed.mjs";
+import { feedProblems, xmlText } from "../lib/feed.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -183,7 +183,7 @@ for (const [id, where, t] of secrets) {
     const xml = body(file);
     for (const p of feedProblems(xml, origin, listedIds, status, only)) fail(9, `${file.slice(out.length)}: ${p}`);
     for (const [, where, t] of secrets) {
-      if (t && xml.includes(JSON.stringify(t).slice(1, -1))) fail(9, `${where}: withheld text appears in ${file.slice(out.length)}`);
+      if (t && (xml.includes(JSON.stringify(t).slice(1, -1)) || xml.includes(xmlText(t)))) fail(9, `${where}: withheld text appears in ${file.slice(out.length)}`);
     }
   }
 }

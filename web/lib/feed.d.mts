@@ -5,3 +5,5 @@ export function changeEntry(c: FeedChange, label: (pack: string) => string): Fee
 export function xmlText(v: unknown): string;
 export function atomFeed(f: { id: string; title: string; subtitle?: string; self: string; page: string; updated: string; entries: FeedEntry[] }): string;
 export function feedProblems(xml: string, origin: string, listed: Set<string>, status: (id: string) => "held" | "unknown" | null, only?: string): string[];
+export function isFeedHeld(x: { checks?: unknown[] } | undefined, redactions: Map<string, unknown>): boolean;
+export function historyInSync(runs: { status: string; worst?: string }[] | undefined, current: string | null | undefined): boolean;

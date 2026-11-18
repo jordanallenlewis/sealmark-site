@@ -4,7 +4,8 @@
 // with a new server version under the same, known Sealmark version. Everything else stays out of the feed.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { atomFeed, changeEntry, feedChanges, xmlText } from "./feed.mjs";
+import { atomFeed, changeEntry, feedChanges, historyInSync, isFeedHeld, xmlText } from "./feed.mjs";
+import { changesDoc } from "./api.mjs";
 
 const SITE = "https://sealmark.dev";
 const ch = (extra = {}) => ({
@@ -43,24 +44,64 @@ test("newest first, then by id; bad input gives an empty list", () => {
   assert.deepEqual(feedChanges([null, 3, "x"], notHeld), []);
 });
 
-test("an entry names what changed: both versions, the shared Sealmark version and the test areas that moved", () => {
+test("an entry names what changed: the re-test date, both grades, both server versions and the shared Sealmark version", () => {
   const e = changeEntry(ch({ packs: { core: { from: "B", to: "A" }, effects: { from: null, to: "A" } } }), (p) => ({ core: "Protocol", effects: "Effects" })[p] ?? p);
   assert.equal(e.title, "Postgres MCP: grade B to A");
   assert.equal(e.url, `${SITE}/results/pg/`);
   assert.equal(e.updated, "2026-11-17T00:00:00Z");
-  assert.match(e.summary, /version 1\.1\.0 \(was 1\.0\.0\)/);
-  assert.match(e.summary, /Sealmark 1\.0\.1, the same version as the run before/);
+  assert.match(e.summary, /graded A in the re-test on 2026-11-17 \(B in the graded run before\)/);
+  assert.match(e.summary, /server version 1\.1\.0 \(the graded run before tested 1\.0\.0\)/);
+  assert.match(e.summary, /Sealmark 1\.0\.1 in both runs/);
   assert.match(e.summary, /Protocol B to A/);
   assert.match(e.summary, /Effects newly graded A/);
   assert.match(e.summary, /not an endorsement/);
+  assert.match(e.summary, /evidence for the latest run/);
+  assert.doesNotMatch(e.summary, /new server version|run before\.|moved from/);
   // Stable across builds: the id depends only on the change.
   assert.equal(e.id, changeEntry(ch(), (p) => p).id);
   assert.notEqual(e.id, changeEntry(ch({ version: "1.2.0" }), (p) => p).id);
 });
 
+test("held means the same as api-check rules 7 and 9: a redacted check or any security finding", () => {
+  const pass = { id: "protocol", pack: "core", verdict: "pass", critical: false, advisory: false };
+  assert.equal(isFeedHeld({ checks: [pass] }, new Map()), false);
+  assert.equal(isFeedHeld({ checks: [pass] }, new Map([["protocol", {}]])), true);
+  // A public (published or fixed) finding that still fails is not redacted, and still keeps the server out.
+  assert.equal(isFeedHeld({ checks: [pass, { id: "secret-echo", pack: "core", verdict: "fail", critical: false, advisory: false }] }, new Map()), true);
+  assert.equal(isFeedHeld(undefined, new Map()), true);
+});
+
+test("history in sync: the latest graded run's grade must be the page's grade, else the server's entries are dropped", () => {
+  const runs = [{ date: "2026-11-10", status: "ok", worst: "A" }, { date: "2026-11-12", status: "ok", worst: "B" }, { date: "2026-11-13", status: "failed" }];
+  assert.equal(historyInSync(runs, "B"), true);
+  assert.equal(historyInSync(runs, "A"), false);
+  assert.equal(historyInSync([], "A"), false);
+  assert.equal(historyInSync(undefined, "A"), false);
+});
+
+// From fleet history through lib/api.mjs changesDoc, the way lib/feed-data.ts builds the feed.
+const run = (date, version, sealmark, worst, status = "ok") => ({ date, version, sealmark, status, worst, packs: worst ? { core: worst } : {} });
+const viaHistory = (runs) => feedChanges(changesDoc([{ id: "pg", name: "pg", linked: true, runs }], SITE, 1000).changes, () => false);
+
+test("from history: a failed run between two runs of the same version does not make a change", () => {
+  assert.deepEqual(viaHistory([run("2026-11-10", "1.0.0", "1.0.1", "A"), run("2026-11-11", "1.0.0", undefined, undefined, "failed"), run("2026-11-12", "1.0.0", "1.0.1", "B")]), []);
+});
+
+test("from history: a version change across a failed run is a change, dated by the re-test that saw it", () => {
+  const out = viaHistory([run("2026-11-10", "1.0.0", "1.0.1", "A"), run("2026-11-11", "1.1.0", undefined, undefined, "failed"), run("2026-11-12", "1.1.0", "1.0.1", "B")]);
+  assert.deepEqual(out.map((c) => [c.date, c.previousVersion, c.version]), [["2026-11-12", "1.0.0", "1.1.0"]]);
+});
+
+test("from history: a Sealmark version known on one side only is left out; A to B to A across versions gives two entries", () => {
+  assert.deepEqual(viaHistory([run("2026-11-10", "1.0.0", undefined, "A"), run("2026-11-12", "1.1.0", "1.0.1", "B")]), []);
+  const out = viaHistory([run("2026-11-10", "1.0.0", "1.0.1", "A"), run("2026-11-12", "1.1.0", "1.0.1", "B"), run("2026-11-14", "1.2.0", "1.0.1", "A")]);
+  assert.deepEqual(out.map((c) => `${c.from}${c.to}`), ["BA", "AB"]);
+});
+
 test("xmlText escapes markup and strips characters XML 1.0 cannot carry", () => {
   assert.equal(xmlText(`a<b>&"c'`), "a&lt;b&gt;&amp;&quot;c&apos;");
-  assert.equal(xmlText("x\u0000y\u001bz￾"), "xyz");
+  assert.equal(xmlText("x\u0000y\u001bz\uFFFE"), "xyz");
+  assert.equal(xmlText("a\uD800b"), "ab"); // lone surrogate
   assert.equal(xmlText(undefined), "");
 });
 

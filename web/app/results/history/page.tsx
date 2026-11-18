@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { loadHistory } from "@/lib/history";
 import { RESULTS_PUBLIC } from "@/lib/results";
 import { DisputeNote } from "../DisputeNote";
+import { FEED_LIMIT } from "@/lib/feed-data";
 import s from "../results.module.css";
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function HistoryPage() {
           {last ? ` Latest run: ${last}.` : ""}
         </p>
         <p className={s.muted}>
-          Follow grade changes in a feed reader: <a href="/results/feed.xml" type="application/atom+xml">Atom feed</a>. It lists a change when a server&rsquo;s overall grade moved with a new server version, tested with the same Sealmark version as the run before; a move that came with a Sealmark upgrade is left out. Each server&rsquo;s page has a feed for that server alone.
+          Follow grade changes in a feed reader: <a href="/results/feed.xml" type="application/atom+xml">Atom feed</a>. It lists the newest {FEED_LIMIT} moves of a server&rsquo;s overall grade that came with a different server version, tested with the same Sealmark version as the graded run before. Moves that came with a Sealmark upgrade, and servers with a security finding, are left out. Each server&rsquo;s page links a feed for that server alone.
         </p>
         {all.map((h) => (
           <section key={h.id} className={s.sec} id={h.id} style={{ marginTop: 40 }}>
