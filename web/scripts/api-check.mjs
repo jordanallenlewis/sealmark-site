@@ -20,12 +20,16 @@
 //   8  out/results/tools/ (the tools directory): its table links only to listed servers, never to a server with a private
 //      finding or any security finding (recomputed from the raw data), each server once; and neither the page nor its
 //      flight payload contains withheld text of any server
+//   9  the Atom feeds (out/results/feed.xml and out/results/<id>/feed.xml for every listed server): each entry links to a
+//      listed server's page and never to one with a private or any security finding (lib/feed.mjs feedProblems), a
+//      server's feed only to itself, and no feed contains withheld text of any server
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isSecurityCheck, isSecurityFinding, isWeakSignal, redactedChecks } from "../lib/disclosure.mjs";
 import { weakCore } from "../../fleet/redact-results.mjs";
 import { toolsPageProblems } from "../lib/tool-directory.mjs";
+import { feedProblems, xmlText } from "../lib/feed.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -164,6 +168,26 @@ for (const [id, where, t] of secrets) {
     const all = files.map((f) => body(join(dir, f))).join("\n");
     for (const [, where, t] of secrets) {
       if (t && all.includes(JSON.stringify(t).slice(1, -1))) fail(8, `${where}: withheld text appears in the tools directory`);
+    }
+  }
+}
+
+// Rule 9: the Atom feeds of grade changes.
+{
+  const origin = (() => { try { return new URL(read(join(api, "servers.json")).servers[0]?.page ?? "https://sealmark.dev/").origin; } catch { return "https://sealmark.dev"; } })();
+  const listedIds = new Set(list.servers.map((sv) => sv.id));
+  const status = (id) => {
+    const raw = RAW.get(id);
+    if (!raw) return "unknown";
+    return redactedChecks(raw, DISCLOSURE, TODAY).size > 0 || raw.checks.some(isSecurityFinding) ? "held" : null;
+  };
+  const feeds = [[join(resultsDir, "feed.xml"), undefined], ...list.servers.map((sv) => [join(resultsDir, sv.id, "feed.xml"), sv.id])];
+  for (const [file, only] of feeds) {
+    if (!existsSync(file)) { fail(9, `${file.slice(out.length)} was not built`); continue; }
+    const xml = body(file);
+    for (const p of feedProblems(xml, origin, listedIds, status, only)) fail(9, `${file.slice(out.length)}: ${p}`);
+    for (const [, where, t] of secrets) {
+      if (t && (xml.includes(JSON.stringify(t).slice(1, -1)) || xml.includes(xmlText(t)))) fail(9, `${where}: withheld text appears in ${file.slice(out.length)}`);
     }
   }
 }
