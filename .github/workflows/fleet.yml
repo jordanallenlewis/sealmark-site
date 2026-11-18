@@ -148,7 +148,7 @@ jobs:
         with:
           pattern: report-*
           path: reports
-      - name: open the sealed reports (private key: this step only)
+      - name: "open the sealed reports (private key, this step only)"
         env:
           FLEET_REPORT_PRIVATE_KEY: ${{ secrets.FLEET_REPORT_PRIVATE_KEY }}
         run: node fleet/open-reports.mjs reports
