@@ -266,3 +266,6 @@
   .toolDir td:nth-child(3) { grid-column: 1 / -1; grid-row: 3; }
   .toolDir td:nth-child(4) { grid-column: 1; grid-row: 2; }
 }
+/* Fleet status (site#59) */
+.statusDays { min-width: 0; }
+.statusWrap { max-width: 560px; }

@@ -23,6 +23,8 @@
 //   9  the Atom feeds (out/results/feed.xml and out/results/<id>/feed.xml for every listed server): each entry links to a
 //      listed server's page and never to one with a private or any security finding (lib/feed.mjs feedProblems), a
 //      server's feed only to itself, and no feed contains withheld text of any server
+//  10  out/status/ (fleet status) links to no server page and names no server, and its graded count equals the servers with
+//      a grade in servers.json (the page heading's rule)
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -189,6 +191,24 @@ for (const [id, where, t] of secrets) {
     for (const [, where, t] of secrets) {
       if (t && (xml.includes(JSON.stringify(t).slice(1, -1)) || xml.includes(xmlText(t)))) fail(9, `${where}: withheld text appears in ${file.slice(out.length)}`);
     }
+  }
+}
+
+// Rule 10: the fleet status page shows aggregates only.
+{
+  const file = join(out, "status", "index.html");
+  if (list.servers.length && !existsSync(file)) fail(10, "out/status/index.html was not built");
+  else if (existsSync(file)) {
+    const html = body(file);
+    const pages = [...html.matchAll(/href="\/results\/([^"/#]+)\//g)].map((m) => m[1]).filter((id) => id !== "history");
+    if (pages.length) fail(10, `the status page links server pages: ${pages.join(", ")}`);
+    const tile = html.match(/<b>(\d+)<\/b><span>servers with a grade/);
+    const want = list.servers.filter((sv) => sv.grade !== null).length;
+    if (!tile) fail(10, "no graded count on the status page; update this check");
+    else if (Number(tile[1]) !== want) fail(10, `status page says ${tile[1]} servers with a grade, servers.json has ${want}`);
+    const files = readdirSync(join(out, "status")).filter((f) => /\.(html|txt)$/.test(f));
+    const all = files.map((f) => body(join(out, "status", f))).join("\n");
+    for (const id of RAW.keys()) if (id.length > 5 && all.includes(`"${id}"`)) fail(10, `the status page payload names server ${id}`);
   }
 }
 
