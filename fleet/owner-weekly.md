@@ -1,6 +1,6 @@
 # Owner notices: week of 2026-11-16
 
-Written by `fleet/notify-owners.mjs` on 2026-11-17. "Last 7 days" is 2026-11-11 to 2026-11-17.
+Written by `fleet/notify-owners.mjs` on 2026-11-18. "Last 7 days" is 2026-11-12 to 2026-11-18.
 
 | | Last 7 days | All time |
 |---|---|---|
@@ -25,11 +25,11 @@ None.
 
 None.
 
-## Where every graded server stands (2026-11-17)
+## Where every graded server stands (2026-11-18)
 
-262 graded servers: 2 sent or drafted this run, 30 held for private handling, 25 waiting, 205 skipped.
+262 graded servers: 0 sent or drafted this run, 30 held for private handling, 23 waiting, 209 skipped.
 
-Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (2 in the last 24 hours), 30 per week (4 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
+Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (4 in the last 24 hours), 30 per week (6 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
 Private security reports (GitHub private vulnerability reporting, never public): 1 sent in all; 23 repositories are held for them. Counts only.
 
@@ -38,8 +38,7 @@ Private security reports (GitHub private vulnerability reporting, never public):
 | Reason | Servers |
 |---|---|
 | weak signals only | 18 |
-| queued: repository checked as slots free up | 3 |
-| graded once; waits for a repeat run | 2 |
+| graded once; waits for a repeat run | 3 |
 | stale grade or failed re-test | 1 |
 | flaky across repeat runs | 1 |
 
@@ -50,10 +49,11 @@ Private security reports (GitHub private vulnerability reporting, never public):
 | nothing to fix (an A, or no check to name) | 125 |
 | no GitHub repository | 35 |
 | no tool reached (hygiene-only) | 29 |
+| already got its one issue | 6 |
 | repository not found | 6 |
-| already got its one issue | 4 |
 | launch line not reproducible as written | 2 |
+| package in a subfolder of a larger repository | 2 |
 | archived | 1 |
-| package in a subfolder of a larger repository | 1 |
 | no tools declared | 1 |
+| root package is not the one tested | 1 |
 | our own repository | 1 |

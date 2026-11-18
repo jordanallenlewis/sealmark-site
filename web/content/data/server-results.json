@@ -9786,18 +9786,18 @@
       "name": "@anyforge/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.19.0",
+      "versionTested": "3.20.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @anyforge/mcp-server@3.19.0",
+      "launch": "npx -y @anyforge/mcp-server@3.20.0",
       "transport": "stdio",
-      "toolCount": 268,
+      "toolCount": 270,
       "tools": [
         "anyforge_branch_studio_session",
         "anyforge_rewind_studio_session",
@@ -9859,6 +9859,7 @@
         "anyforge_list_work_items",
         "anyforge_get_work_item",
         "anyforge_list_label_groups",
+        "anyforge_get_work_summary",
         "anyforge_list_work_boards",
         "anyforge_create_work_item",
         "anyforge_update_work_item",
@@ -9997,8 +9998,7 @@
         "anyforge_get_workflow",
         "anyforge_run_workflow",
         "anyforge_get_workflow_run",
-        "anyforge_resolve_workflow_gate",
-        "anyforge_retry_workflow_run"
+        "anyforge_resolve_workflow_gate"
       ],
       "packs": [
         {
@@ -10106,7 +10106,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 268 well-formed tool(s)"
+          "summary": "handshake ok, 270 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -10163,6 +10163,7 @@
               "anyforge_list_work_items",
               "anyforge_get_work_item",
               "anyforge_list_label_groups",
+              "anyforge_get_work_summary",
               "anyforge_list_work_boards",
               "anyforge_create_work_item",
               "anyforge_update_work_item",
@@ -10326,10 +10327,9 @@
               "anyforge_update_status_page_maintenance",
               "anyforge_cancel_status_page_maintenance",
               "anyforge_list_audit_events",
-              "anyforge_whoami",
-              "anyforge_list_my_tool_calls"
+              "anyforge_whoami"
             ],
-            "cut": 43
+            "cut": 45
           }
         },
         {
@@ -10394,7 +10394,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 268,
+        "toolsTotal": 270,
         "level": "hygiene-only"
       },
       "badge": {
@@ -10402,7 +10402,7 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 268 tools",
+        "malformed-input probes cover the first 25 of 270 tools",
         "SQL tool \"anyforge_update_objective\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"anyforge_list_connected_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"anyforge_list_report_filter_values\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -10430,7 +10430,7 @@
         "tool \"anyforge_preview_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"anyforge_cancel_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"anyforge_retry_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "232 more tool(s) are covered by the core checks only (see the classification)",
+        "234 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"anyforge_list_studio_artifacts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_studio_review\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_studio_checkpoint\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -10466,6 +10466,7 @@
         "tool \"anyforge_list_work_items\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_work_item\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_label_groups\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_work_summary\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_work_boards\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_work_item\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_update_work_item\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -10668,6 +10669,7 @@
         "tool \"anyforge_upload_library_documents\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_initiative_files\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_program_files\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_file\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_start_file_upload\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_complete_file_upload\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_upload_local_file\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -11343,18 +11345,46 @@
       "name": "autonomad-travel",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.6.6",
+      "versionTested": "1.6.7",
       "serverInfoName": "autonomad-travel",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y autonomad-travel@1.6.6",
+      "launch": "npx -y autonomad-travel@1.6.7",
       "transport": "stdio",
       "toolCount": 12,
+      "tools": [
+        "search_hotels",
+        "search_flights",
+        "search_dining",
+        "search_activities",
+        "search_events",
+        "create_booking_intent",
+        "get_capabilities",
+        "get_updates",
+        "message_autonomad",
+        "preview_booking_change",
+        "cancel_booking",
+        "request_booking_change"
+      ],
+      "toolSchemas": {
+        "cancel_booking": "fede488866ff",
+        "create_booking_intent": "45b219a80967",
+        "get_capabilities": "efddc7bd8bbc",
+        "get_updates": "8842675bd3c2",
+        "message_autonomad": "65c05327945a",
+        "preview_booking_change": "3412bd3691b3",
+        "request_booking_change": "dfeda542519f",
+        "search_activities": "a7409bb0ab8d",
+        "search_dining": "d9a0267bc233",
+        "search_events": "bd8b5f5cfc73",
+        "search_flights": "be5bb97035f7",
+        "search_hotels": "866e05d7d2b6"
+      },
       "packs": [
         {
           "id": "core",
@@ -11479,7 +11509,13 @@
           "critical": false,
           "advisory": false,
           "verdict": "part",
-          "summary": "0 internals leak(s), 24 invalid call(s) accepted"
+          "summary": "0 internals leak(s), 24 invalid call(s) accepted",
+          "tools": {
+            "probed": [
+              "get_capabilities"
+            ],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -11524,7 +11560,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -12729,7 +12769,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-17",
+        "date": "2026-11-18",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -26179,18 +26219,108 @@
       "name": "smartmemory-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2.0.1",
+      "versionTested": "2.0.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx smartmemory-mcp==2.0.1",
+      "launch": "uvx smartmemory-mcp==2.0.2",
       "transport": "stdio",
-      "toolCount": 42,
+      "toolCount": 43,
+      "tools": [
+        "login",
+        "whoami",
+        "switch_workspace",
+        "list_workspaces",
+        "create_workspace",
+        "switch_team",
+        "memory_search",
+        "memory_recall",
+        "get_working_context",
+        "read_around",
+        "memory_get",
+        "memory_explain",
+        "memory_ask",
+        "memory_recall_pack",
+        "memory_policy_bundle",
+        "memory_save",
+        "memory_feedback",
+        "memory_export",
+        "memory_import",
+        "memory_migrate",
+        "memory_auto",
+        "decision_create",
+        "decision_get",
+        "decision_list",
+        "decision_search",
+        "decision_supersede",
+        "decision_retract",
+        "decision_restore",
+        "decision_reinforce",
+        "decision_link_evidence",
+        "evidence_record",
+        "decision_contradict",
+        "decision_provenance",
+        "decision_find_conflicts",
+        "decision_create_pending",
+        "decision_resolve_requirement",
+        "decision_try_activate",
+        "procedure_create",
+        "procedure_get",
+        "procedure_list",
+        "procedure_promote",
+        "procedure_dismiss",
+        "procedure_record_outcome"
+      ],
+      "toolSchemas": {
+        "create_workspace": "881ff64934d5",
+        "decision_contradict": "3c9dd5907315",
+        "decision_create": "149ce7a7fed2",
+        "decision_create_pending": "8cdbcb1b29b6",
+        "decision_find_conflicts": "3ba7b254a10c",
+        "decision_get": "a8d0626548ee",
+        "decision_link_evidence": "3c9dd5907315",
+        "decision_list": "ef95ea4275b7",
+        "decision_provenance": "a8d0626548ee",
+        "decision_reinforce": "3c9dd5907315",
+        "decision_resolve_requirement": "e0ef207b144f",
+        "decision_restore": "32a62fdaf797",
+        "decision_retract": "32a62fdaf797",
+        "decision_search": "e4392cfc1985",
+        "decision_supersede": "0e4b20b22b39",
+        "decision_try_activate": "3ba7b254a10c",
+        "evidence_record": "531bcb154312",
+        "get_working_context": "6ed25b047111",
+        "list_workspaces": "99334726611c",
+        "login": "6425beea7476",
+        "memory_ask": "0c42c85ce0f5",
+        "memory_auto": "be6bfbf4e8bc",
+        "memory_explain": "697a5139f50e",
+        "memory_export": "39b714704935",
+        "memory_feedback": "e53a1a03e04b",
+        "memory_get": "5d52155ff2a0",
+        "memory_import": "39b714704935",
+        "memory_migrate": "47a06d2288d4",
+        "memory_policy_bundle": "08d521ed3ccc",
+        "memory_recall": "3b8d80071ebb",
+        "memory_recall_pack": "cf79243377d3",
+        "memory_save": "538157668b01",
+        "memory_search": "5a3885bd7144",
+        "procedure_create": "26ec90165fbe",
+        "procedure_dismiss": "3d7d84bdb6e9",
+        "procedure_get": "38341dd6d265",
+        "procedure_list": "032ab7bc42dc",
+        "procedure_promote": "38341dd6d265",
+        "procedure_record_outcome": "b302199594f8",
+        "read_around": "2276e9aca668",
+        "switch_team": "4ec4c08157c1",
+        "switch_workspace": "a4417bad6f74",
+        "whoami": "99334726611c"
+      },
       "packs": [
         {
           "id": "core",
@@ -26297,7 +26427,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 42 well-formed tool(s)"
+          "summary": "handshake ok, 43 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -26306,7 +26436,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 42 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 43 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -26315,7 +26445,35 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "101 invalid call(s) rejected cleanly"
+          "summary": "101 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "whoami"
+            ],
+            "notCovered": [
+              "decision_supersede",
+              "decision_retract",
+              "decision_restore",
+              "decision_reinforce",
+              "decision_link_evidence",
+              "evidence_record",
+              "decision_contradict",
+              "decision_provenance",
+              "decision_find_conflicts",
+              "decision_create_pending",
+              "decision_resolve_requirement",
+              "decision_try_activate",
+              "procedure_create",
+              "procedure_get",
+              "procedure_list",
+              "procedure_promote",
+              "procedure_dismiss",
+              "procedure_record_outcome",
+              "list_workspaces",
+              "memory_policy_bundle",
+              "memory_save"
+            ]
+          }
         },
         {
           "id": "secret-echo",
@@ -26360,7 +26518,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -26375,14 +26537,14 @@
       "coverage": {
         "validCalls": 8,
         "toolsCalledValid": 7,
-        "toolsTotal": 42,
+        "toolsTotal": 43,
         "level": "low"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 42 tools",
+        "malformed-input probes cover the first 25 of 43 tools",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"login\" is covered by the core checks only: free-text parameter \"api_key\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"whoami\" is covered by the core checks only: the tool takes no parameters",
@@ -26396,9 +26558,10 @@
         "tool \"read_around\" is covered by the core checks only: free-text parameter \"item_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_get\" is covered by the core checks only: free-text parameter \"item_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_explain\" is covered by the core checks only: free-text parameter \"memory_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "28 more tool(s) are covered by the core checks only (see the classification)",
+        "29 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"decision_supersede\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_retract\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_restore\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_reinforce\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_link_evidence\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"evidence_record\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -41283,16 +41446,16 @@
       "name": "@pascal-app/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.5",
+      "versionTested": "1.1.6",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pascal-app/mcp@1.1.5",
+      "launch": "npx -y @pascal-app/mcp@1.1.6",
       "transport": "stdio",
       "toolCount": 89,
       "tools": [
@@ -41870,7 +42033,101 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-17",
+        "schemas": {
+          "add_column": "d8a9d3772a52",
+          "add_corner_window": "aaa93325ee5a",
+          "add_door": "9f62636f8820",
+          "add_fence": "fae98c812c5d",
+          "add_level": "19e9a25a286a",
+          "add_object": "2e40af048ba4",
+          "add_wall": "f3db4b28b400",
+          "add_window": "ff30de9e9377",
+          "analyze_floorplan_image": "16da1eacc8d1",
+          "analyze_room_photo": "277bea264d78",
+          "apply_patch": "71bd491c0033",
+          "author_scene": "4995667ce7de",
+          "check_collisions": "e227eedb2d36",
+          "clear_scene": "d9bdf5dba6e8",
+          "create_from_template": "d9ef41c0b6a4",
+          "create_house_from_brief": "c0cade8633cd",
+          "create_mezzanine": "06b7019141e5",
+          "create_project": "4575377fcb3f",
+          "create_roof": "8b089940d9ce",
+          "create_room": "e07053f8d999",
+          "create_stair": "84ef80820b60",
+          "create_story_shell": "b172b5e70847",
+          "create_unit": "2574eddad4e1",
+          "cut_floor_opening": "293f792c7df9",
+          "delete_node": "52786d3a48a7",
+          "delete_scene": "2b3203930e18",
+          "delete_zone": "5d9e2eb316fe",
+          "design_brief": "a1464e9de52d",
+          "divide_zone": "dbabebaef618",
+          "duplicate_level": "5abac284a286",
+          "duplicate_node": "dc66df47f92d",
+          "duplicate_zone": "5e59b7fd95f0",
+          "edit_collection": "08c8dc368591",
+          "export_glb": "93ab7499dc3c",
+          "export_json": "7d63bd57975c",
+          "find_by_type": "538928cc7f44",
+          "fit_stair": "358a6f22b0b9",
+          "furnish_room": "29797b0fcd91",
+          "generate_variants": "939d6a7572a0",
+          "get_level_summary": "2c829610dfb1",
+          "get_node": "52786d3a48a7",
+          "get_project_status": "2111fd562514",
+          "get_scene": "93ab7499dc3c",
+          "get_site": "506ab02ae117",
+          "get_source": "e724da907dae",
+          "get_walls": "2c829610dfb1",
+          "get_zones": "2c829610dfb1",
+          "list_collections": "3a0690fc7a71",
+          "list_levels": "93ab7499dc3c",
+          "list_scenes": "7316816db481",
+          "list_templates": "93ab7499dc3c",
+          "list_units": "71f7fa98aaf3",
+          "load_scene": "2111fd562514",
+          "lock_outside_faces": "658234d403a6",
+          "measure": "7816541c135f",
+          "measure_stair": "4d9084c6c558",
+          "merge_windows": "d761610bee15",
+          "merge_zones": "e97cdf974c8a",
+          "move_node": "fc381a60afe6",
+          "move_roofs_to_roof_level": "9ffd5ae563e2",
+          "move_zone": "14cee19d809b",
+          "paint": "99de7f612ee6",
+          "photo_to_scene": "72ae4577d2cf",
+          "place_building": "cc03a3befcfd",
+          "place_design": "161b40be6c37",
+          "place_in_room": "d64f062fc608",
+          "place_items": "6f5a99773c63",
+          "rebase_floor_reference": "990d33335c6b",
+          "redo": "54c11f899d45",
+          "remove_floor_opening": "04646e4333b3",
+          "rename_scene": "373dbe067e93",
+          "rotate_zone": "781e13fcc5d5",
+          "run_batch": "f34a9265858c",
+          "save_scene": "6642d6971b6d",
+          "search_assets": "9d2088d58286",
+          "search_materials": "4599d0c3b7b9",
+          "set_checkpoint": "cf2088f36ce9",
+          "set_floor_foundation": "61998ec63cc2",
+          "set_ground_level": "745391dcb977",
+          "set_room_floor_construction": "4c2bef61f920",
+          "set_unit_members": "b08fc730e0f5",
+          "set_wall_type": "fe37f5104ebd",
+          "set_zone": "dae17b5a22a3",
+          "set_zone_intent": "af2c29eb1c9c",
+          "undo": "54c11f899d45",
+          "validate_design": "cae3c96e244d",
+          "verify_scene": "c71f30897a26",
+          "view_assets": "4653699a6af0",
+          "view_scene": "d03286e28393"
+        }
+      }
     },
     {
       "id": "percher-mcp",
@@ -51061,10 +51318,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.459",
-      "versionTested": "1.108.459",
+      "refTested": "1.108.460",
+      "versionTested": "1.108.460",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -51306,7 +51563,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-17",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -53995,7 +54252,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-17",
+        "date": "2026-11-18",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -54470,16 +54727,16 @@
       "name": "@pidgeon-ai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.7.0",
+      "versionTested": "1.8.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pidgeon-ai/mcp@1.7.0",
+      "launch": "npx -y @pidgeon-ai/mcp@1.8.0",
       "transport": "stdio",
       "toolCount": 76,
       "packs": [
@@ -54795,16 +55052,16 @@
       "name": "aamio",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.7.3",
+      "versionTested": "0.8.0",
       "serverInfoName": "aamio",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y aamio@0.7.3 serve",
+      "launch": "npx -y aamio@0.8.0 serve",
       "transport": "stdio",
       "toolCount": 24,
       "tools": [
@@ -55085,7 +55342,36 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "aamio_board_answer": "fb505a837f9d",
+          "aamio_board_find": "1124811d8a09",
+          "aamio_board_post": "0270854a8f23",
+          "aamio_board_tags": "99334726611c",
+          "aamio_board_withdraw": "96cb60c659d1",
+          "aamio_channels": "99334726611c",
+          "aamio_close_channel": "0bf927acbce6",
+          "aamio_open_channel": "afaab81e0c84",
+          "aamio_outbox_forget": "86c921538103",
+          "aamio_outbox_retry": "86c921538103",
+          "aamio_partner_add": "076140084c81",
+          "aamio_partners": "99334726611c",
+          "aamio_pending": "99334726611c",
+          "aamio_presence_lookup": "df282ab38577",
+          "aamio_read": "afd5850d5ecb",
+          "aamio_receipt": "2d3f886ee57e",
+          "aamio_scope_add": "9df1bb8dde94",
+          "aamio_scope_new": "5a9da1d3c5e7",
+          "aamio_scope_remove": "c70d2daf7166",
+          "aamio_scope_share": "e0d4a3735355",
+          "aamio_scopes": "99334726611c",
+          "aamio_send": "f01f69cf40ab",
+          "aamio_trace": "830654739735",
+          "aamio_whoami": "99334726611c"
+        }
+      }
     },
     {
       "id": "apick-subagent",
@@ -61731,16 +62017,16 @@
       "name": "securenow",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "8.26.0",
+      "versionTested": "8.28.0",
       "serverInfoName": "securenow",
-      "testedAt": "2026-11-16",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y securenow@8.26.0 mcp",
+      "launch": "npx -y securenow@8.28.0 mcp",
       "transport": "stdio",
       "toolCount": 125,
       "packs": [
@@ -62361,16 +62647,16 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.3.0",
+      "versionTested": "1.4.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.3.0 mcp",
+      "launch": "uvx skilltotal==1.4.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -68749,16 +69035,16 @@
       "name": "storkai",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.2.0",
+      "versionTested": "2.2.3",
       "serverInfoName": "storkai",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-18",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y storkai@2.2.0",
+      "launch": "npx -y storkai@2.2.3",
       "transport": "stdio",
       "toolCount": 30,
       "tools": [
@@ -68795,7 +69081,7 @@
       ],
       "toolSchemas": {
         "stork_call": "92bbc048522a",
-        "stork_compare": "98f298dbdd2c",
+        "stork_compare": "c896932aece3",
         "stork_discover_payable_services": "9e268c0a3b3c",
         "stork_docs": "33a393d91f1f",
         "stork_get_install_config": "e94281b0b078",
@@ -69096,7 +69382,42 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-17",
+        "schemas": {
+          "stork_call": "92bbc048522a",
+          "stork_compare": "98f298dbdd2c",
+          "stork_discover_payable_services": "9e268c0a3b3c",
+          "stork_docs": "33a393d91f1f",
+          "stork_get_install_config": "e94281b0b078",
+          "stork_install": "7000fb9a3983",
+          "stork_list_filters": "efddc7bd8bbc",
+          "stork_llm_prices": "02e7348b43fa",
+          "stork_repo": "c8efbf262d94",
+          "stork_run_tool": "ba0094ea4eb8",
+          "stork_scrape": "04b74ce92db3",
+          "stork_search": "8d21fd547f49",
+          "stork_server_details": "ec8f82e5f90d",
+          "stork_server_docs": "b7c4fa2a4434",
+          "stork_singing_video_create": "fdc31072238b",
+          "stork_singing_video_estimate": "c951e359f95b",
+          "stork_singing_video_status": "3797626bd17e",
+          "stork_smithery_replacement": "c51885a7c14e",
+          "stork_talking_photo_create": "e5318aecb0ca",
+          "stork_talking_photo_estimate": "eb53cf4fba01",
+          "stork_talking_photo_status": "3797626bd17e",
+          "stork_talking_photo_voices": "1dc90e52d2d3",
+          "stork_tool_schema": "b100b9e0fd6d",
+          "stork_tools_alternatives": "ec8f82e5f90d",
+          "stork_tools_categories": "f422ce81ade1",
+          "stork_tools_compare": "98f298dbdd2c",
+          "stork_tools_details": "6fcf16eb707e",
+          "stork_tools_recommend": "23609c6cd9f7",
+          "stork_tools_search": "e5b95e966f35",
+          "stork_web_search": "99b6735f4149"
+        }
+      }
     }
   ],
   "verification": {
