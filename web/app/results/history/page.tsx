@@ -31,8 +31,8 @@ export default function HistoryPage() {
           A dash means the server could not be started that day, which says nothing about its grade. Automated re-tests are not checked by hand.
           {last ? ` Latest run: ${last}.` : ""}
         </p>
-        <p className={s.muted}>
-          Follow grade changes in a feed reader: <a href="/results/feed.xml" type="application/atom+xml">Atom feed</a>. It lists the newest {FEED_LIMIT} moves of a server&rsquo;s overall grade that came with a different server version, tested with the same Sealmark version as the graded run before. Moves that came with a Sealmark upgrade, and servers with a security finding, are left out. Each server&rsquo;s page links a feed for that server alone.
+        <p className={`${s.muted} ${s.dirNote}`}>
+          Follow grade changes in a feed reader: <a href="/results/feed.xml" type="application/atom+xml">Atom feed</a>. It lists the newest {FEED_LIMIT} moves of a server&rsquo;s overall grade that came with a different server version, tested with the same Sealmark version as the graded run before. Moves that came with a Sealmark upgrade, and servers with a security finding, are left out. The page of each server without a security finding links a feed for that server alone.
         </p>
         {all.map((h) => (
           <section key={h.id} className={s.sec} id={h.id} style={{ marginTop: 40 }}>

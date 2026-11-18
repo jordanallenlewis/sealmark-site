@@ -168,6 +168,10 @@ for (const [id, where, t] of secrets) {
     const all = files.map((f) => body(join(dir, f))).join("\n");
     for (const [, where, t] of secrets) {
       if (t && all.includes(JSON.stringify(t).slice(1, -1))) fail(8, `${where}: withheld text appears in the tools directory`);
+    }
+  }
+}
+
 // Rule 9: the Atom feeds of grade changes.
 {
   const origin = (() => { try { return new URL(read(join(api, "servers.json")).servers[0]?.page ?? "https://sealmark.dev/").origin; } catch { return "https://sealmark.dev"; } })();
