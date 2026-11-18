@@ -18,7 +18,7 @@ The website at [sealmark.dev](https://sealmark.dev) and the fleet that keeps its
 
 The docs pages are generated from the published CLI: `web/package.json` pins `sealmark`, and `npm run docs:gen` reads `node_modules/sealmark`. Bump that version when a new CLI is released, then run `npm run docs:gen` and `npm run schema:sync`.
 
-Deploys: `fleet.yml` and `release-sync.yml` deploy `main` automatically. By hand: `cd web && npm run build && npx wrangler deploy`.
+Deploys: `fleet.yml` and `release-sync.yml` deploy `main` automatically, both through `fleet/guarded-deploy.sh` (`fleet/deploy-guard.mjs`): a deploy is forward-only. The commit being shipped must descend from the commit live now, which the script reads from the live Worker version's message (`sha=<40 hex>`, set by every guarded deploy). An older commit, or a live Worker with no stamped commit, stops the deploy (exit 4). After the deploy the script checks that live equals what it shipped; if not, the step fails (exit 5) with a `DRIFT` error. A rollback is never done by the workflows: it is a logged, approved action (`node fleet/deploy-guard.mjs check --rollback --approval <id> --reason "<why>"`). By hand: `cd web && npm run build && npx wrangler deploy $(node ../fleet/deploy-guard.mjs tag --repo .. --target HEAD)`.
 
 Secrets: `FLEET_EXCLUDE` (a regular expression of package names the fleet must not grade), `CLOUDFLARE_API_TOKEN` (deploy: Workers Scripts edit is enough for the Worker with its D1, email and cron bindings; D1 read lets `impact.mjs` count sent emails, and without it that step only logs that it could not), the optional `SEALMARK_ISSUES_TOKEN` (files grading issues in the sealmark repository) and `OWNER_ISSUES_TOKEN` (owner issues, below).
 
