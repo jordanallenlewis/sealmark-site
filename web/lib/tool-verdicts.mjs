@@ -12,7 +12,7 @@ import { isSecurityCheck, isSecurityFinding } from "./disclosure.mjs";
 // Same plain-name rule as fleet/check-tools.mjs: letters, digits and a few separators; no control, bidi or
 // zero-width characters; a name over 128 characters is dropped, never cut (a cut name could merge two tools).
 const PLAIN = /^[\p{L}\p{N} _.:\/@+#-]+$/u;
-const plain = (n) => typeof n === "string" && n !== "" && n.length <= 128 && PLAIN.test(n);
+export const plain = (n) => typeof n === "string" && n !== "" && n.length <= 128 && PLAIN.test(n);
 
 /**
  * @param {{ tools?: unknown, checks?: any[] }} x a ServerResult

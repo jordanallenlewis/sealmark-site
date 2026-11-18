@@ -243,3 +243,26 @@
   .topicTable td:nth-child(6) { grid-column: 1 / -1; grid-row: 4; }
   .topicTable .heldNote { margin-left: auto; }
 }
+/* Tools directory (site#97) */
+.toolDir { border-collapse: collapse; width: 100%; min-width: 680px; font-size: 0.92rem; }
+.toolDir th, .toolDir td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.toolDir thead th { font: 500 0.72rem var(--font-mono), ui-monospace, monospace; color: var(--ink-faint); letter-spacing: 0.04em; text-transform: uppercase; }
+.toolDir tbody tr:last-child td { border-bottom: 0; }
+.toolDir :global(.seal) { width: 30px; height: 30px; font-size: 0.92rem; }
+.toolDir td small { display: block; margin-top: 6px; }
+.toolNames { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.toolNames code { display: inline-block; font-size: 0.82rem; overflow-wrap: anywhere; padding: 2px 7px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; }
+.dirNote { margin-top: 14px; max-width: 72ch; }
+.toolDir td:nth-child(4) { white-space: nowrap; }
+@media (max-width: 600px) {
+  .toolDir { min-width: 0; display: block; }
+  .toolDir thead { display: none; }
+  .toolDir tbody { display: grid; gap: 10px; }
+  .toolDir tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .toolDir td { display: block; padding: 0; border: 0; }
+  .toolDir td[data-label]::before { content: attr(data-label); display: block; font: 500 0.7rem var(--font-mono), ui-monospace, monospace; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .toolDir td:nth-child(1) { grid-column: 1; grid-row: 1; overflow-wrap: anywhere; }
+  .toolDir td:nth-child(2) { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
+  .toolDir td:nth-child(3) { grid-column: 1 / -1; grid-row: 3; }
+  .toolDir td:nth-child(4) { grid-column: 1; grid-row: 2; }
+}
