@@ -100,6 +100,26 @@ jobs:
           # timing and exit code feed fleet/telemetry.jsonl (no server output is kept here)
           printf '{"durationS":%s,"exitCode":%s}' "$(( $(date +%s) - T0 ))" "$RC" > out/run.json
           exit 0
+      # Reports are sealed with a PUBLIC key (a variable: this job has no secrets) before they are uploaded; only the collect
+      # job has the private key. Variable unset: uploaded as before. Sealing fails: the plain report is removed, never uploaded.
+      - name: seal the report
+        if: always()
+        env:
+          PUBKEY: ${{ vars.FLEET_REPORT_PUBKEY }}
+        run: |
+          if [ -z "$PUBKEY" ] || [ ! -f out/sealmark.json ]; then echo "report not sealed"; exit 0; fi
+          if ! (
+            set -e
+            printf '%s\n' "$PUBKEY" > "$RUNNER_TEMP/pub.pem"
+            openssl rand -hex 32 > "$RUNNER_TEMP/k"
+            openssl enc -aes-256-cbc -pbkdf2 -pass "file:$RUNNER_TEMP/k" -in "out/sealmark.json" -out "out/sealmark.json.enc"
+            openssl pkeyutl -encrypt -pubin -inkey "$RUNNER_TEMP/pub.pem" -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 -in "$RUNNER_TEMP/k" -out "out/sealmark.key.enc"
+          ); then
+            rm -f out/sealmark.json out/sealmark.json.enc out/sealmark.key.enc "$RUNNER_TEMP/k"
+            echo "::error::could not seal the report with FLEET_REPORT_PUBKEY: the report was removed, not uploaded"
+            exit 1
+          fi
+          rm -f out/sealmark.json "$RUNNER_TEMP/k"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
@@ -128,7 +148,15 @@ jobs:
         with:
           pattern: report-*
           path: reports
-      - run: node fleet/merge.mjs reports
+      - name: open the sealed reports (private key: this step only)
+        env:
+          FLEET_REPORT_PRIVATE_KEY: ${{ secrets.FLEET_REPORT_PRIVATE_KEY }}
+        run: node fleet/open-reports.mjs reports
+      # FLEET_STORE_KEY keeps the text of held findings between runs, encrypted (fleet/private-store.mjs); unset, it is kept for this run only.
+      - name: merge the reports
+        env:
+          FLEET_STORE_KEY: ${{ secrets.FLEET_STORE_KEY }}
+        run: node fleet/merge.mjs reports
       - name: triage and trends (feedback loop into Sealmark)
         run: |
           node fleet/triage.mjs
