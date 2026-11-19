@@ -5,10 +5,23 @@
 import fs from "node:fs";
 import path from "node:path";
 import { recordFailedAttempt } from "../web/lib/retest.mjs";
+import { writeNotGraded } from "./not-graded.mjs";
+import { recordArgs } from "./registry-args.mjs";
+import { cleanError } from "./clean-error.mjs";
+import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-tools.mjs";
+import { checkEvidence, mergeEvidence } from "./evidence.mjs";
+import { PRIVATE_RESULTS, redactResults } from "./redact-results.mjs";
+import { RUNS, appendRun, runRecord } from "./runs.mjs";
+
+/** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
+const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
 
 const RESULTS = path.join("web", "content", "data", "server-results.json");
+const DISCLOSURE = path.join("web", "content", "data", "disclosure.json");
 const DISCOVERED = path.join("fleet", "discovered.json");
 const HISTORY = path.join("fleet", "history.jsonl");
+// What each public check observed, per server (the evidence viewer, fleet/evidence.mjs).
+const EVIDENCE = path.join("fleet", "evidence.json");
 
 const reportsDir = process.argv[2];
 if (!reportsDir) {
@@ -31,6 +44,10 @@ const results = readJson(RESULTS) ?? { servers: [] };
 if (!Array.isArray(results.servers)) results.servers = [];
 let discovered = readJson(DISCOVERED);
 if (!Array.isArray(discovered)) discovered = [];
+// An existing file that cannot be read is left alone (and not rewritten), so one bad write never wipes every record.
+const evidenceFile = fs.existsSync(EVIDENCE) ? readJson(EVIDENCE) : { servers: {} };
+/** @type {[string, object | undefined][]} each graded server's new evidence record, or undefined to drop the old one */
+const evidenceUpdates = [];
 
 // History is an append-only JSONL log; create it and its folder if needed.
 fs.mkdirSync(path.dirname(HISTORY), { recursive: true });
@@ -60,11 +77,14 @@ function scrub(text) {
 // startFail = the server never started (not Sealmark's fault); crash = Sealmark itself threw; timeout; other.
 function failClass(error) {
   const e = String(error ?? "");
-  if (/Connection closed|connect-timeout|did not answer initialize|Not signed in|ENOTCACHED|ETARGET|E404|fetch failed|ENOENT|No matching/i.test(e)) return "start-fail";
+  if (/Connection closed|connect-timeout|did not answer initialize|Not signed in|ENOTCACHED|ETARGET|E404|fetch failed|ENOENT|No such file|No matching/i.test(e)) return "start-fail";
   if (/TypeError|ReferenceError|RangeError|Unhandled|at .*\.(js|ts):\d+|internal error|assertion/i.test(e)) return "sealmark-crash";
   if (/timed? ?out|timeout/i.test(e)) return "timeout";
   return "other";
 }
+// The CLI's typed start failure (cli/src/start-failure.ts). Only the fixed kind is kept: the advice and any server text stay out.
+const START_KINDS = new Set(["dependency-resolution", "needs-credentials", "missing-runtime", "bad-launch", "initialize-timeout", "unknown"]);
+const startKindOf = (report) => (typeof report?.startFailure?.kind === "string" && START_KINDS.has(report.startFailure.kind) ? report.startFailure.kind : undefined);
 function appendTelemetry(rec) {
   fs.appendFileSync(TELEMETRY, JSON.stringify(rec) + "\n");
 }
@@ -80,20 +100,24 @@ for (const name of subfolders) {
   const report = readJson(path.join(dir, "sealmark.json"));
   const run = readJson(path.join(dir, "run.json"));
   if (!report || report.status === "failed") {
-    const kind = report ? failClass(report.error) : "no-report";
+    const errorText = cleanError(report?.error) || report?.error;
+    const kind = report ? failClass(errorText) : "no-report";
     // Keep the last grade, but say on it that this re-test failed (web/lib/retest.mjs); a new server gets no entry.
-    recordFailedAttempt(results.servers, meta.id, today, kind);
+    recordFailedAttempt(results.servers, meta.id, today, kind, startKindOf(report));
     appendHistory({
       id: meta.id,
       version: meta.version,
+      // The registry arguments this try was started with: plan.mjs tries a server again at the same version only with
+      // different arguments (fleet/registry-args.mjs failedKey).
+      ...recordArgs(meta),
       testedAt: today,
       status: "failed",
-      error: report?.error ?? "no report",
+      error: errorText ?? "no report",
     });
     appendTelemetry({
       id: meta.id, ecosystem: meta.ecosystem, serverVersion: meta.version ?? null, testedAt: today,
       sealmark: report?.sealmark?.version ?? "unknown", status: "failed",
-      failClass: kind, errorSig: scrub(report?.error ?? "no report"),
+      failClass: kind, errorSig: scrub(errorText ?? "no report"), startKind: startKindOf(report),
       durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
     });
     failed += 1;
@@ -115,6 +139,11 @@ for (const name of subfolders) {
     launch: meta.launch,
     transport: r.server?.transport ?? null,
     toolCount: (r.server?.tools ?? []).length,
+    // The tool names the server declared in this run (the per-tool table's rows).
+    ...withKey("tools", serverTools(r.server, r.checks ?? [])),
+    // Each tool's input schema as a short hash, and the hashes of the last graded run on an earlier day (tool drift on
+    // the results page, site#54). Hashes only; nothing for a server with a security finding (fleet/check-tools.mjs).
+    ...withKey("toolSchemas", toolSchemas(r.server, r.checks ?? [])),
     packs: Object.entries(r.packs ?? {}).map(([id, p]) => ({
       id: id,
       status: p.status,
@@ -135,6 +164,8 @@ for (const name of subfolders) {
       advisory: !!c.advisory,
       verdict: c.verdict,
       summary: c.summary,
+      // The tools this check called, for per-tool verdicts; public checks only (fleet/check-tools.mjs).
+      ...withKey("tools", checkTools(c, { checks: r.checks })),
     })),
     coverage: r.coverage ?? null,
     badge: r.badge ?? null,
@@ -143,8 +174,13 @@ for (const name of subfolders) {
     automated: true,
   };
   const idx = results.servers.findIndex((s) => s.id === meta.id);
+  if (entry.toolSchemas) {
+    const before = schemasBefore(idx >= 0 ? results.servers[idx] : undefined, entry.testedAt);
+    if (before) entry.toolSchemasBefore = before;
+  }
   if (idx >= 0) results.servers[idx] = entry;
   else results.servers.push(entry);
+  evidenceUpdates.push([meta.id, checkEvidence(r)]);
   merged += 1;
   if (meta.isNew && !discovered.some((d) => d.id === meta.id)) {
     discovered.push({ id: meta.id, name: meta.name, ecosystem: meta.ecosystem, launch: meta.launch });
@@ -178,6 +214,23 @@ for (const name of subfolders) {
   });
 }
 
+// server-results.json is public: the text of a held security finding is taken out of it here, where it is written, and
+// handed to this run's private reports through a gitignored file (fleet/redact-results.mjs). An unreadable disclosure
+// file counts as no entries, so every finding is held (fail closed).
+const removed = redactResults(results, readJson(DISCLOSURE)?.findings ?? {}, today);
+fs.writeFileSync(PRIVATE_RESULTS, JSON.stringify({ note: "PRIVATE: gitignored, never committed.", servers: removed }) + "\n");
 fs.writeFileSync(RESULTS, JSON.stringify(results, null, 2) + "\n");
 fs.writeFileSync(DISCOVERED, JSON.stringify(discovered, null, 2) + "\n");
-console.log(`merged ${merged} report(s), ${failed} failed, ${added} new`);
+// A failed re-test keeps the server's last record, as server-results.json keeps its last result.
+if (!evidenceFile) console.error(`${EVIDENCE} is unreadable: left as it is, no evidence written this run`);
+else {
+  const evidenceServers = mergeEvidence(evidenceFile.servers, evidenceUpdates, new Set(results.servers.map((x) => x.id)));
+  // One server per line, so a run's diff shows which servers changed.
+  const evidenceLines = Object.entries(evidenceServers).map(([id, rec]) => `${JSON.stringify(id)}:${JSON.stringify(rec)}`);
+  fs.writeFileSync(EVIDENCE, `{"note":"Written by fleet/merge.mjs from the CLI reports; public checks only (fleet/evidence.mjs).","servers":{\n${evidenceLines.join(",\n")}\n}}\n`);
+}
+// The "Not graded yet" list on /results/ (fleet/not-graded.mjs), from the history and results just written.
+const notGraded = writeNotGraded();
+// The run log behind the real cadence on /status/ (fleet/runs.mjs); a run that merged no reports adds nothing.
+appendRun(RUNS, runRecord(new Date().toISOString(), { graded: merged, failed, added }, process.env.GITHUB_EVENT_NAME));
+console.log(`merged ${merged} report(s), ${failed} failed, ${added} new, ${notGraded.count} not graded yet`);

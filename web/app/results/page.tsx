@@ -5,7 +5,10 @@ import { Footer } from "@/components/Footer";
 import { ResultsTable } from "@/components/ResultsTable";
 import { Seal } from "@/components/Seal";
 import { DATA, RESULTS_PUBLIC, RANK, SERVERS_RESULTS, SERVER_COUNT, VERDICTS_CHECKED, deepPacks, worst, type Letter } from "@/lib/results";
+import { listRow } from "@/lib/results-list.mjs";
+import { loadHistory } from "@/lib/history";
 import { DisputeNote } from "./DisputeNote";
+import { NotGraded } from "./NotGraded";
 import s from "./results.module.css";
 
 export const metadata: Metadata = RESULTS_PUBLIC
@@ -43,6 +46,7 @@ export default function ResultsPage() {
     return (wb ? RANK[wb.letter] : -1) - (wa ? RANK[wa.letter] : -1) || a.name.localeCompare(b.name);
   });
   const dist = Object.fromEntries(LETTERS.map((l) => [l, list.filter((x) => worst(x)?.letter === l).length]));
+  const runs = new Map(loadHistory().map((h) => [h.id, h.runs]));
   const rounds = DATA.verification.rounds;
   const sum = (k: keyof (typeof rounds)[number]) => rounds.reduce((t, r) => t + (r[k] as number), 0);
 
@@ -51,8 +55,8 @@ export default function ResultsPage() {
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
         <div className={s.preview}>Maintainers have not reviewed these results yet. Methodology {DATA.methodology} is a draft.</div>
-        <p className={s.eyebrow}>Results · updated {lastTested(list)} · Sealmark {list[0]?.sealmark.version}</p>
         <h1 className={s.h1}>What Sealmark found on {SERVER_COUNT} public MCP servers</h1>
+        <p className={s.meta}>Updated {lastTested(list)} · Sealmark {list[0]?.sealmark.version}</p>
         <p className={s.lede}>
           Each server was installed the way its README says, run through Sealmark with
           the standard settings. The October 2026 verdicts were checked independently by reading the source and making direct calls; later automated re-tests are marked on each server&rsquo;s page. Open a server to see each check, what it measured and what was not covered.
@@ -67,8 +71,9 @@ export default function ResultsPage() {
           {LETTERS.map((l) => <span key={l} className={s.distItem}><Seal g={l} /> {dist[l]}</span>)}
         </div>
 
-        <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link></p>
-        <ResultsTable servers={list} />
+        <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/topics/">Best graded servers by topic</Link> · <Link href="/results/tools/">Tools called with valid input</Link> · <Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link> · <Link href="/status/">Fleet status</Link></p>
+        <ResultsTable servers={list.map((x) => listRow(x, runs.get(x.id)))} builtOn={new Date().toISOString().slice(0, 10)} />
+        <NotGraded />
 
         <section className={s.sec}>
           <h2>How to read a grade</h2>

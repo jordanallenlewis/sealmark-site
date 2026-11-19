@@ -39,7 +39,8 @@
       { "title": "Plugins", "url": "/docs/guides/plugins", "status": "shipped" },
       { "title": "Import servers", "url": "/docs/guides/import-servers", "status": "shipped" },
       { "title": "Tool-surface drift", "url": "/docs/guides/drift", "status": "shipped" },
-      { "title": "README badge", "url": "/docs/guides/badge", "status": "shipped" }
+      { "title": "README badge", "url": "/docs/guides/badge", "status": "shipped" },
+      { "title": "Results data (JSON)", "url": "/docs/guides/results-data", "status": "shipped" }
     ]
   },
   {

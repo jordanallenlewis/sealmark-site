@@ -1,0 +1,13 @@
+type Pack = { id: string; status: string; letter: string | null; provisional?: boolean };
+type Server = { id: string; name: string; testedAt: string; packs: Pack[]; coverage?: { validCalls?: number } | null };
+export type About = { keywords?: string[] } | null | undefined;
+export type Topic = { id: string; title: string; areas: string[]; terms: string[] };
+export type Why = { from: "area" | "keyword" | "name"; term: string };
+export type TopicRow = { id: string; name: string; testedAt: string; letter: "A" | "B" | "C" | "D" | "F"; provisional: boolean; held: boolean; areas: string[]; calls: number; why: Why; tier: 0 | 1 | 2 };
+export const MIN_SERVERS: number;
+export const TOPICS: Topic[];
+export function topicMatch(server: { name: string; packs: Pack[] }, about: About, topic: Topic): Why | null;
+export function topicRows<S extends Server>(servers: S[], facts: Record<string, { about?: About } | undefined>, topic: Topic, held: (x: S) => boolean): TopicRow[];
+export function topicPages<S extends Server>(servers: S[], facts: Record<string, { about?: About } | undefined>, held: (x: S) => boolean, topics?: Topic[]): (Topic & { rows: TopicRow[] })[];
+export function whyText(why: Why, areaLabel: (id: string) => string): string;
+export function grade(x: { packs: Pack[] }): { letter: "A" | "B" | "C" | "D" | "F"; provisional: boolean } | null;

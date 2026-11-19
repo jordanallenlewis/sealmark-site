@@ -2,10 +2,9 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Reveal } from "../Reveal";
 
-// One home-page band: optional 3-word kicker, H2, one caption line, the figure, at most one quiet docs link.
-export function Section({ id, kicker, title, caption, more, children }: {
+// One home-page band: H2, one caption line, the figure, at most one quiet docs link.
+export function Section({ id, title, caption, more, children }: {
   id: string;
-  kicker?: string;
   title: ReactNode;
   caption?: ReactNode;
   more?: { href: string; label: string };
@@ -15,7 +14,6 @@ export function Section({ id, kicker, title, caption, more, children }: {
     <section className="band gutter" id={id}>
       <div className="frame">
         <Reveal className="sechead">
-          {kicker && <p className="kick">{kicker}</p>}
           <h2>{title}</h2>
           {caption && <p>{caption}</p>}
         </Reveal>

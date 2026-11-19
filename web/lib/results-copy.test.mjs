@@ -1,7 +1,7 @@
 // node --test lib/   (npm test in web/)
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { count, coverageNote, placeholdersIn, plainWords, reproduceCommand, sentence, shellArg } from "./results-copy.mjs";
+import { count, coverageNote, placeholdersIn, plainWords, reproduceCommand, sentence, shellArg, standardHash } from "./results-copy.mjs";
 
 test("count pluralizes", () => {
   assert.equal(count(1, "tool", "tools"), "1 tool");
@@ -42,4 +42,13 @@ test("coverage note", () => {
   );
   assert.equal(coverageNote({ toolCount: 9, coverage: { level: "low", toolsCalledValid: 1, toolsTotal: 9 } }, true).kind, "low");
   assert.equal(coverageNote({ toolCount: 1, coverage: { level: "covered", toolsCalledValid: 1, toolsTotal: 1 } }, true).text, "Tools reached with a valid call: 1 of 1.");
+});
+
+test("standardHash gives the short config hash of a STANDARD run only, and only a well-formed one", () => {
+  assert.equal(standardHash({ standard: true, configHash: "sha256:d13e7893a0ac" }), "sha256:d13e7893a0ac");
+  assert.equal(standardHash({ standard: false, configHash: "sha256:d13e7893a0ac" }), null);
+  assert.equal(standardHash({ standard: null, configHash: "sha256:d13e7893a0ac" }), null);
+  assert.equal(standardHash({ standard: true, configHash: "" }), null);
+  assert.equal(standardHash({ standard: true, configHash: "sha256:<b>x</b>" }), null);
+  assert.equal(standardHash({ standard: true, configHash: null }), null);
 });
