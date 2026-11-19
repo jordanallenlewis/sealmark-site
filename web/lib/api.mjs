@@ -136,7 +136,7 @@ const strOrNull = { type: ["string", "null"] };
 const letter = { type: ["string", "null"], enum: ["A", "B", "C", "D", "F", null] };
 
 /**
- * OpenAPI 3.1 description of the four files.
+ * OpenAPI 3.1 description of the five files.
  * @param {string} site
  * @param {string} cliVersion
  */
@@ -173,6 +173,14 @@ export function openapiDoc(site, cliVersion) {
         },
       },
       "/changes.json": { get: { operationId: "listChanges", summary: `Grade changes between re-tests, newest first (last ${CHANGES_LIMIT})`, responses: { 200: json("ChangeList", "The changes") } } },
+      "/lookup.json": {
+        get: {
+          operationId: "lookupIndex",
+          summary: "Find a graded server by npm name, PyPI name, GitHub repository or id before installing it",
+          description: "Keys are npm:<name> (lowercase, no version), pypi:<name> (PEP 503 normalised), github:<owner>/<repo> (lowercase) and id:<id>; each maps to the ids of the graded servers it names (a repository can hold several). Read the server at /servers/{id}.json. A name that is not a key has no graded server under it.",
+          responses: { 200: json("Lookup", "The lookup index") },
+        },
+      },
       "/openapi.json": { get: { operationId: "openapi", summary: "This document", responses: { 200: { description: "OpenAPI 3.1" } } } },
     },
     components: {
@@ -205,6 +213,15 @@ export function openapiDoc(site, cliVersion) {
             launch: { ...strOrNull, description: "null while a security finding is reported privately" },
             reproduce: { ...strOrNull, description: "command that repeats the run; null while a security finding is reported privately" },
             history: { type: "array", description: "one run per day (the last that day), oldest first", items: { type: "object", properties: { date: str, version: str, sealmark: strOrNull, status: { type: "string", enum: ["ok", "failed"] }, grade: letter, packs: { type: "object", additionalProperties: str } } } },
+          },
+        },
+        Lookup: {
+          type: "object",
+          required: ["version", "updated", "count", "server", "keys"],
+          properties: {
+            version: str, updated: { type: ["string", "null"], format: "date", description: "newest test date in the list" }, count: { type: "integer", description: "graded servers indexed" },
+            server: { type: "string", description: "URL template of a server's file; replace {id}" },
+            keys: { type: "object", additionalProperties: { type: "array", items: str }, description: "npm:<name>, pypi:<name>, github:<owner>/<repo> or id:<id> to the ids it names" },
           },
         },
         ChangeList: {

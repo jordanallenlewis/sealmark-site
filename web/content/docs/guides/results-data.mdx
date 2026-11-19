@@ -2,7 +2,7 @@ export const meta = {
   title: "Results data (JSON)",
   since: "1.0.1",
   status: "shipped",
-  description: "Read the grades on sealmark.dev as JSON: every graded server, one server in full, grade changes, and an OpenAPI 3.1 description. No key.",
+  description: "Read the grades on sealmark.dev as JSON: every graded server, one server in full, grade changes, a lookup by package or repository, and an OpenAPI 3.1 description. No key.",
 };
 
 The grades on the [results pages](/results/) are also plain JSON files on sealmark.dev. There is no key and no sign-up, any origin may read them (CORS is open), and they are rebuilt from the same data as the pages each time the site deploys, so a file and its page always say the same thing. The build checks that before every deploy.
@@ -12,7 +12,8 @@ The grades on the [results pages](/results/) are also plain JSON files on sealma
 | `https://sealmark.dev/data/v1/servers.json` | every graded server: overall grade, the letter for each graded test area, version tested, test date, links to its page and file |
 | `https://sealmark.dev/data/v1/servers/<id>.json` | one server in full: every test area (graded or with the reason it was not), every check with its verdict and summary, what was not covered, grade history and the command that repeats the run |
 | `https://sealmark.dev/data/v1/changes.json` | grade changes between two successful re-tests of the same server, newest first (the last 500) |
-| `https://sealmark.dev/data/v1/openapi.json` | an OpenAPI 3.1 description of the four files |
+| `https://sealmark.dev/data/v1/lookup.json` | a lookup index: npm name, PyPI name, GitHub repository or id to the graded servers it names ([below](#look-up-a-server-before-installing-it)) |
+| `https://sealmark.dev/data/v1/openapi.json` | an OpenAPI 3.1 description of the five files |
 
 `<id>` is the last part of the server's results page address: `/results/<id>/`.
 
@@ -25,6 +26,31 @@ curl -s https://sealmark.dev/data/v1/servers/<id>.json | jq -r '.checks[] | "\(.
 
 # grade changes this month
 curl -s https://sealmark.dev/data/v1/changes.json | jq '.changes[] | select(.date >= "2026-11-01")'
+```
+
+## Look up a server before installing it
+
+`lookup.json` answers "is this server graded, and how?" from what you have before you install it: its npm or PyPI package name, its GitHub repository, or its results id. Build the key, read the ids it names, then read each server's file:
+
+```bash
+export key="npm:@modelcontextprotocol/server-memory"   # or pypi:mcp-server-fetch, github:modelcontextprotocol/servers, id:memory
+id=$(curl -s https://sealmark.dev/data/v1/lookup.json | jq -r '.keys[env.key][0] // empty')
+[ -n "$id" ] && curl -s "https://sealmark.dev/data/v1/servers/$id.json" | jq '{name, versionTested, testedAt, grade, provisional, packs, notPassed: [.checks[] | select(.verdict != "pass" and .verdict != "na") | .id]}'
+```
+
+How a key is written, so a script or an agent can build one without help:
+
+- `npm:<name>`: the package name with its scope, lowercased, without a version or tag (`@ModelContextProtocol/Server-Memory@latest` is `npm:@modelcontextprotocol/server-memory`).
+- `pypi:<name>`: the project name normalised as pip does: lowercased, and every run of `-`, `_` and `.` written as one `-` (`MCP_Server.Fetch` is `pypi:mcp-server-fetch`), without extras or a version.
+- `github:<owner>/<repo>`: lowercased, from any GitHub address of the repository (`https://github.com/Owner/Repo.git`, `git@github.com:owner/repo`, a link into a folder of it).
+- `id:<id>`: the last part of the results page address, `/results/<id>/`.
+
+Each key maps to a list of ids, because one repository can hold several graded servers (a repository of reference servers has one entry per package): check `name` in each file to pick the one you mean. A server graded from a GitHub repository is found by that repository. A server graded from an npm or PyPI package is found by its repository only when its results page links that repository: while a security finding on it is reported privately, or when the fleet found no repository for the package, it is found by its package name and id only. A name that is not a key has no graded server under it: the server may be graded under another name, not graded yet, or listed under "Not graded yet" on the [results page](/results/) with the reason.
+
+A coding agent can do the same. Give it this before it adds an MCP server:
+
+```text
+Before installing an MCP server, look it up in https://sealmark.dev/data/v1/lookup.json by npm:<package>, pypi:<package> or github:<owner>/<repo> (how to write the key: https://sealmark.dev/docs/guides/results-data). If it is graded, read https://sealmark.dev/data/v1/servers/<id>.json and tell me the grade, the version and date tested, and every check that did not pass with its summary. A grade is an automated re-test of one version with the default settings, not an endorsement.
 ```
 
 ## Fields
