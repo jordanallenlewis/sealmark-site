@@ -33,8 +33,8 @@
 //      finding or any security finding, and no tool page contains withheld text of any server
 //  13  out/data/v1/lookup.json (lib/lookup.mjs lookupProblems): exactly its five fields, its count is the listed servers,
 //      every id it names is listed, every listed server is found by its id and its package (or repository) key, a server
-//      with a private finding (recomputed from the raw data) by nothing else, any other repository key is a GitHub link on
-//      that server's page, and the file contains no withheld text of any server
+//      with a private finding (recomputed from the raw data) by nothing else, any other repository key is the one its
+//      page shows in Package facts, and a page that shows one is found by it, and the file contains no withheld text of any server
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -277,8 +277,9 @@ for (const sv of list.servers) {
         const raw = RAW.get(sv.id);
         return { id: sv.id, ecosystem: sv.ecosystem, name: sv.name, held: Boolean(raw && redactedChecks(raw, DISCLOSURE, TODAY).size > 0) };
       });
-      const links = (id, url) => body(join(resultsDir, id, "index.html")).toLowerCase().includes(`href="${url}"`);
-      for (const p of lookupProblems(ix, servers, links)) fail(13, p);
+      // The repository the page itself shows in its Package facts block (not any GitHub link in the footer or the text).
+      const shown = (id) => body(join(resultsDir, id, "index.html")).match(/<dt>Repository<\/dt><dd><a href="https:\/\/github\.com\/([^"]+)"/)?.[1].toLowerCase() ?? null;
+      for (const p of lookupProblems(ix, servers, shown)) fail(13, p);
     }
     const lk = body(file);
     for (const [, where, t] of secrets) {

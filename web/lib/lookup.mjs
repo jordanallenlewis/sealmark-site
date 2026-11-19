@@ -77,7 +77,11 @@ export function lookupKeys(input) {
     return k ? [k] : [];
   }
   const npmUrl = s.match(/^(?:https?:\/\/)?(?:www\.)?npmjs\.(?:com|org)\/package\/(@[^/?#\s]+\/[^/?#\s]+|[^/?#@\s]+)/i);
-  if (npmUrl) return [npmKey(decodeURIComponent(npmUrl[1]))].filter(Boolean);
+  if (npmUrl) {
+    let name = npmUrl[1];
+    try { name = decodeURIComponent(name); } catch { return []; }
+    return [npmKey(name)].filter(Boolean);
+  }
   const pypiUrl = s.match(/^(?:https?:\/\/)?(?:www\.)?pypi\.org\/project\/([^/?#\s]+)/i);
   if (pypiUrl) return [pypiKey(pypiUrl[1])].filter(Boolean);
   if (/github\.com/i.test(s) || /^[^@][^/\s]*\/[^/\s]+$/.test(s)) return [githubKey(s)].filter(Boolean);
@@ -129,10 +133,11 @@ export function lookupIndex(servers, site) {
  * @param {any} index the parsed file
  * @param {{ id: string, ecosystem: string, name: string, held: boolean }[]} listed servers.json, with `held` recomputed
  *   from the raw data (a finding reported privately: the page shows no repository)
- * @param {(id: string, url: string) => boolean} pageLinks whether the server's page links that GitHub URL (lowercased)
+ * @param {(id: string) => string | null} pageRepo the `owner/repo` of the repository in the page's "Package facts" block (read
+ *   from the built page, not from the data), or null when the page shows none
  * @returns {string[]}
  */
-export function lookupProblems(index, listed, pageLinks) {
+export function lookupProblems(index, listed, pageRepo) {
   if (!index || typeof index !== "object" || Array.isArray(index)) return ["lookup.json is not an object"];
   const out = [];
   const fields = Object.keys(index).sort().join(",");
@@ -162,8 +167,10 @@ export function lookupProblems(index, listed, pageLinks) {
       if (k === own || k === idk) continue;
       if (s.held) out.push(`${s.id}: a server with a private finding is found by ${k}`);
       else if (!k.startsWith("github:")) out.push(`${s.id}: found by ${k}, which is not its id or its package`);
-      else if (!pageLinks(s.id, `https://github.com/${k.slice("github:".length)}`)) out.push(`${s.id}: ${k} is not a repository its page links`);
+      else if (k !== githubKey(pageRepo(s.id) ?? "")) out.push(`${s.id}: ${k} is not the repository its page shows`);
     }
+    const shown = s.held ? null : githubKey(pageRepo(s.id) ?? "");
+    if (shown && !has(shown, s.id)) out.push(`${s.id}: its page shows ${shown} but it is not found by it`);
   }
   return out;
 }

@@ -177,7 +177,7 @@ export function openapiDoc(site, cliVersion) {
         get: {
           operationId: "lookupIndex",
           summary: "Find a graded server by npm name, PyPI name, GitHub repository or id before installing it",
-          description: "Keys are npm:<name> (lowercase, no version), pypi:<name> (PEP 503 normalised), github:<owner>/<repo> (lowercase) and id:<id>; each maps to the ids of the graded servers it names (a repository can hold several). Read the server at /servers/{id}.json. A name that is not a key has no graded server under it.",
+          description: "Keys are npm:<name> (lowercase, no version), pypi:<name> (PEP 503 normalised), github:<owner>/<repo> (lowercase) and id:<id>; each maps to the ids of the graded servers it names (a repository can hold several). Read the server at /servers/{id}.json. Not finding a key is not proof a server is ungraded: a repository key exists only where the server's page shows that repository, so also try the package name.",
           responses: { 200: json("Lookup", "The lookup index") },
         },
       },

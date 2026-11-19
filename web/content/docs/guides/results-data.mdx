@@ -30,12 +30,13 @@ curl -s https://sealmark.dev/data/v1/changes.json | jq '.changes[] | select(.dat
 
 ## Look up a server before installing it
 
-`lookup.json` answers "is this server graded, and how?" from what you have before you install it: its npm or PyPI package name, its GitHub repository, or its results id. Build the key, read the ids it names, then read each server's file:
+`lookup.json` answers "is this server graded, and how?" from what you have before you install it: its npm or PyPI package name, its GitHub repository, or its results id. Build the key, read the ids it names, then read each server's file (no output: no graded server under that key):
 
 ```bash
 export key="npm:@modelcontextprotocol/server-memory"   # or pypi:mcp-server-fetch, github:modelcontextprotocol/servers, id:memory
-id=$(curl -s https://sealmark.dev/data/v1/lookup.json | jq -r '.keys[env.key][0] // empty')
-[ -n "$id" ] && curl -s "https://sealmark.dev/data/v1/servers/$id.json" | jq '{name, versionTested, testedAt, grade, provisional, packs, notPassed: [.checks[] | select(.verdict != "pass" and .verdict != "na") | .id]}'
+for id in $(curl -s https://sealmark.dev/data/v1/lookup.json | jq -r '.keys[env.key][]?'); do
+  curl -s "https://sealmark.dev/data/v1/servers/$id.json" | jq '{name, versionTested, testedAt, grade, provisional, packs, notPassed: [.checks[] | select(.verdict != "pass" and .verdict != "na") | .id]}'
+done
 ```
 
 How a key is written, so a script or an agent can build one without help:
@@ -45,12 +46,12 @@ How a key is written, so a script or an agent can build one without help:
 - `github:<owner>/<repo>`: lowercased, from any GitHub address of the repository (`https://github.com/Owner/Repo.git`, `git@github.com:owner/repo`, a link into a folder of it).
 - `id:<id>`: the last part of the results page address, `/results/<id>/`.
 
-Each key maps to a list of ids, because one repository can hold several graded servers (a repository of reference servers has one entry per package): check `name` in each file to pick the one you mean. A server graded from a GitHub repository is found by that repository. A server graded from an npm or PyPI package is found by its repository only when its results page links that repository: while a security finding on it is reported privately, or when the fleet found no repository for the package, it is found by its package name and id only. A name that is not a key has no graded server under it: the server may be graded under another name, not graded yet, or listed under "Not graded yet" on the [results page](/results/) with the reason.
+Each key maps to a list of ids, because one repository can hold several graded servers (a repository of reference servers has one entry per package): check `name` in each file to pick the one you mean. A server graded from a GitHub repository is found by that repository. A server graded from an npm or PyPI package is found by its repository only when its results page links that repository: while a security finding on it is reported privately, or when the fleet found no repository for the package, it is found by its package name and id only. A key that is not in the file means only that no graded server is found by that key. Try the package name as well as the repository: a repository is a key only where the results page shows it, so a server whose repository Sealmark could not confirm, or whose finding is reported privately, is not found by its repository. A server may also be graded under another package name, not graded yet, or listed under "Not graded yet" on the [results page](/results/) with the reason.
 
 A coding agent can do the same. Give it this before it adds an MCP server:
 
 ```text
-Before installing an MCP server, look it up in https://sealmark.dev/data/v1/lookup.json by npm:<package>, pypi:<package> or github:<owner>/<repo> (how to write the key: https://sealmark.dev/docs/guides/results-data). If it is graded, read https://sealmark.dev/data/v1/servers/<id>.json and tell me the grade, the version and date tested, and every check that did not pass with its summary. A grade is an automated re-test of one version with the default settings, not an endorsement.
+Before installing an MCP server, look it up in https://sealmark.dev/data/v1/lookup.json by npm:<package> or pypi:<package> first, then by github:<owner>/<repo> (how to write the key: https://sealmark.dev/docs/guides/results-data). If no key is found, say it is not found, not that it is not graded. If it is graded, read https://sealmark.dev/data/v1/servers/<id>.json and tell me the grade, the version and date tested, and every check that did not pass with its summary. A grade is an automated re-test of one version with the default settings, not an endorsement.
 ```
 
 ## Fields

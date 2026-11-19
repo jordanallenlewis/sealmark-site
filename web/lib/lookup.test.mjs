@@ -109,10 +109,7 @@ test("a name that is not a valid package name gets no package key but keeps its 
 
 // lookupProblems: scripts/api-check.mjs rule 13 compares the built index with the list and the pages.
 const listed = (over = {}) => fixture().map((x) => ({ id: x.id, ecosystem: x.ecosystem, name: x.name, held: x.id === "held-one", ...over }));
-const pageLinks = (id, url) => {
-  const f = fixture().find((x) => x.id === id);
-  return Boolean(f && f.repo && url === `https://github.com/${f.repo}`);
-};
+const pageLinks = (id) => fixture().find((x) => x.id === id)?.repo ?? null;
 
 test("lookupProblems: the index built from the same servers is clean", () => {
   assert.deepEqual(lookupProblems(lookupIndex(fixture(), SITE), listed(), pageLinks), []);
@@ -137,7 +134,20 @@ test("lookupProblems: a held server with any key past its id and package, a repo
   ix.keys["github:other/place"] = ["dbhub"];
   const p = lookupProblems(ix, listed(), pageLinks).join("\n");
   assert.match(p, /held-one: a server with a private finding is found by github:someone\/held-one/);
-  assert.match(p, /dbhub: github:other\/place is not a repository its page links/);
+  assert.match(p, /dbhub: github:other\/place is not the repository its page shows/);
+});
+
+test("lookupProblems: a repository the page shows but the index lacks, and one that is only elsewhere on the page", () => {
+  const ix = lookupIndex(fixture(), SITE);
+  delete ix.keys["github:bytebase/dbhub"];
+  ix.keys["github:jordanallenlewis/sealmark"] = ["fetch"]; // a link every page carries, not fetch's repository
+  const p = lookupProblems(ix, listed(), pageLinks).join("\n");
+  assert.match(p, /dbhub: its page shows github:bytebase\/dbhub but it is not found by it/);
+  assert.match(p, /fetch: github:jordanallenlewis\/sealmark is not the repository its page shows/);
+});
+
+test("a malformed npm URL finds nothing instead of throwing", () => {
+  assert.deepEqual(lookupKeys("https://www.npmjs.com/package/%E0%A4%A"), []);
 });
 
 test("lookupProblems: the shape is fixed", () => {

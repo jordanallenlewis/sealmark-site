@@ -8,4 +8,4 @@ export function ecosystemKey(x: { ecosystem: string; name: string }): string | n
 export function lookupKeys(input: unknown): string[];
 export function resolveLookup(index: { keys?: Record<string, string[]> } | null | undefined, input: unknown): string[];
 export function lookupIndex(servers: { id: string; ecosystem: string; name: string; repo: string | null; testedAt: string }[], site: string): LookupDoc;
-export function lookupProblems(index: unknown, listed: { id: string; ecosystem: string; name: string; held: boolean }[], pageLinks: (id: string, url: string) => boolean): string[];
+export function lookupProblems(index: unknown, listed: { id: string; ecosystem: string; name: string; held: boolean }[], pageRepo: (id: string) => string | null): string[];
