@@ -1,7 +1,7 @@
 // Layout-shift guard. Serves the built static export (web/out) and loads pages at 390, 768, 1440, 1920 and 2560 px, with the /api/* calls
 // answering, answering slowly, and failing. Each page is watched for 10 s after load; ANY layout-shift entry without recent input fails
 // (budget 0.000; a total under 0.001 is sub-pixel noise). It also compares the geometry of the page's blocks at 0.5 s and 5 s: they must be identical.
-// Usage: node scripts/cls-check.mjs [--base https://sealmark.dev] [--pages /,/results/] [--widths 390,1440] [--modes ok,slow,fail] [--watch 10000] [--jobs 8]
+// Usage: node scripts/cls-check.mjs [--base https://sealmark.dev] [--pages /,/results/] [--widths 390,1440] [--modes ok,slow,fail] [--watch 10000] [--jobs 4]
 // Without --base it serves web/out itself. Browser: Google Chrome (installed on GitHub runners) or CHROME_PATH or a Playwright Chromium.
 import { chromium } from "playwright-core";
 import http from "node:http";
@@ -15,7 +15,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((a, x, i, all) => (
 const WIDTHS = (args.widths ?? "390,768,1440,1920,2560").split(",").map(Number);
 const MODES = (args.modes ?? "ok,slow,fail").split(",");
 const WATCH = Number(args.watch ?? 10000);
-const JOBS = Number(args.jobs ?? 8);
+const JOBS = Number(args.jobs ?? 4);
 const NOISE = 0.001;
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "out");
 
@@ -58,30 +58,33 @@ const SIGNATURE = () => {
 function differs(a, b) { const x = a.split(":"), y = b.split(":"); return x[0] !== y[0] || x.slice(1).some((v, i) => Math.abs(Number(v) - Number(y[i + 1])) >= 1); }
 
 async function one(browser, base, pagePath, width, mode) {
-  const ctx = await browser.newContext({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
-  const page = await ctx.newPage();
-  await page.route("**/api/**", async (route) => {
-    if (mode === "fail") return route.abort("failed");
-    if (mode === "slow") await new Promise((r) => setTimeout(r, 4000));
-    return route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
-  });
-  await page.addInitScript(() => {
-    window.__cls = [];
-    new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls.push({ v: e.value, t: Math.round(e.startTime), src: e.sources.map((s) => `${s.node?.nodeName ?? "?"}.${String(s.node?.className ?? "").slice(0, 40)} ${Math.round(s.previousRect.y)}>${Math.round(s.currentRect.y)} h${Math.round(s.previousRect.height)}>${Math.round(s.currentRect.height)} w${Math.round(s.previousRect.width)}>${Math.round(s.currentRect.width)}`) }); }).observe({ type: "layout-shift", buffered: true });
-  });
-  const resp = await page.goto(base + pagePath, { waitUntil: "load" });
-  if (!resp || resp.status() !== 200) { await ctx.close(); return { pagePath, width, mode, missing: resp?.status() ?? "no response" }; }
-  await page.waitForTimeout(500);
-  // Decorative motion (the hero's autoplay) moves things by design and is not layout; read geometry with motion reduced, which the site honours.
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.waitForTimeout(150);
-  const early = await page.evaluate(SIGNATURE);
-  await page.waitForTimeout(Math.max(WATCH - 500, 4500));
-  const late = await page.evaluate(SIGNATURE);
-  const shifts = await page.evaluate(() => window.__cls);
-  await ctx.close();
+  const open = async (reducedMotion) => {
+    const ctx = await browser.newContext({ viewport: { width, height: 900 }, deviceScaleFactor: 1, reducedMotion });
+    const page = await ctx.newPage();
+    await page.route("**/api/**", async (route) => {
+      if (mode === "fail") return route.abort("failed");
+      if (mode === "slow") await new Promise((r) => setTimeout(r, 4000));
+      return route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
+    });
+    await page.addInitScript(() => {
+      window.__cls = [];
+      new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls.push({ v: e.value, t: Math.round(e.startTime), src: e.sources.map((s) => `${s.node?.nodeName ?? "?"}.${String(s.node?.className ?? "").slice(0, 40)} ${Math.round(s.previousRect.y)}>${Math.round(s.currentRect.y)} h${Math.round(s.previousRect.height)}>${Math.round(s.currentRect.height)} w${Math.round(s.previousRect.width)}>${Math.round(s.currentRect.width)}`) }); }).observe({ type: "layout-shift", buffered: true });
+    });
+    const resp = await page.goto(base + pagePath, { waitUntil: "load" });
+    return { ctx, page, status: resp?.status() ?? "no response" };
+  };
+  // Two loads at once. A: the page as a visitor sees it (motion on); every layout-shift entry counts. B: motion reduced from the first paint
+  // (decorative autoplay moves things by design); the geometry of every block is read at 0.5 s and at the end and must not differ.
+  const [A, B] = await Promise.all([open("no-preference"), open("reduce")]);
+  if (A.status !== 200) { await A.ctx.close(); await B.ctx.close(); return { pagePath, width, mode, missing: A.status }; }
+  await B.page.waitForTimeout(500);
+  const early = await B.page.evaluate(SIGNATURE);
+  await A.page.waitForTimeout(WATCH);
+  const shifts = await A.page.evaluate(() => window.__cls);
+  const late = await B.page.evaluate(SIGNATURE);
+  await A.ctx.close(); await B.ctx.close();
   const total = shifts.reduce((a, e) => a + e.v, 0);
-  const moved = Math.abs(early.height - late.height) >= 1 ? [`document height ${early.height} > ${late.height}`] : early.blocks.flatMap((b, i) => (differs(b, late.blocks[i]) ? [`${b} > ${late.blocks[i]}`] : []));
+  const moved = Math.abs(early.height - late.height) >= 1 ? [`document height ${early.height} > ${late.height}`] : early.blocks.flatMap((b, i) => (late.blocks[i] === undefined || differs(b, late.blocks[i]) ? [`${b} > ${late.blocks[i]}`] : []));
   return { pagePath, width, mode, total, shifts, moved: moved.slice(0, 3) };
 }
 
