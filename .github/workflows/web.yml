@@ -86,3 +86,9 @@ jobs:
       - name: Build the static export
         working-directory: web
         run: npm run build
+
+      # Layout-shift guard: the built site at 390 to 2560 px, /api answering, slow and failing, watched 10 s per page.
+      # Any shift without input fails (budget 0). Uses the Google Chrome on the runner (no browser download).
+      - name: No layout shift after load
+        working-directory: web
+        run: npm run cls:check
