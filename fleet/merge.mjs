@@ -11,6 +11,7 @@ import { cleanError } from "./clean-error.mjs";
 import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-tools.mjs";
 import { checkEvidence, mergeEvidence } from "./evidence.mjs";
 import { PRIVATE_RESULTS, redactResults } from "./redact-results.mjs";
+import { updateStore } from "./private-store.mjs";
 import { RUNS, appendRun, runRecord } from "./runs.mjs";
 
 /** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
@@ -217,8 +218,11 @@ for (const name of subfolders) {
 // server-results.json is public: the text of a held security finding is taken out of it here, where it is written, and
 // handed to this run's private reports through a gitignored file (fleet/redact-results.mjs). An unreadable disclosure
 // file counts as no entries, so every finding is held (fail closed).
-const removed = redactResults(results, readJson(DISCLOSURE)?.findings ?? {}, today);
-fs.writeFileSync(PRIVATE_RESULTS, JSON.stringify({ note: "PRIVATE: gitignored, never committed.", servers: removed }) + "\n");
+const disclosureEntries = readJson(DISCLOSURE)?.findings ?? {};
+const removed = redactResults(results, disclosureEntries, today);
+// With FLEET_STORE_KEY the text of every still-held server is kept between runs, encrypted (fleet/private-store.mjs).
+const handoff = updateStore({ secret: process.env.FLEET_STORE_KEY, removed, results, entries: disclosureEntries, today, log: console.error });
+fs.writeFileSync(PRIVATE_RESULTS, JSON.stringify({ note: "PRIVATE: gitignored, never committed.", servers: handoff }) + "\n");
 fs.writeFileSync(RESULTS, JSON.stringify(results, null, 2) + "\n");
 fs.writeFileSync(DISCOVERED, JSON.stringify(discovered, null, 2) + "\n");
 // A failed re-test keeps the server's last record, as server-results.json keeps its last result.
