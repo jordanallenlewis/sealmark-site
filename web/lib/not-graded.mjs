@@ -9,6 +9,8 @@ export const REASON_TEXT = {
   "missing-runtime": { label: "Runtime missing", meaning: "The command it starts with is not on the test machine." },
   "bad-launch": { label: "Refused the launch", meaning: "It rejected the fleet's default launch command: its arguments, its entry point or a setting." },
   "initialize-timeout": { label: "No answer in time", meaning: "It did not answer the MCP handshake within the time limit (60 seconds by default)." },
+  "exited-no-error": { label: "Closed without an error", meaning: "It closed the connection while starting and printed no error of its own, so the cause is not known. Re-running it by hand shows more." },
+  "needs-service": { label: "Needs another program", meaning: "It looked for a local service or application (a port, a desktop program) that the default run does not provide." },
   "harness-error": { label: "Our run failed", meaning: "Sealmark's own test job broke on it. That one is ours to fix." },
   unknown: { label: "Not classified", meaning: "It did not finish starting under the default run, and its error is not one we classify yet." },
 };
