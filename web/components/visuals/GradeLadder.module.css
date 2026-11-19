@@ -26,7 +26,7 @@
 .slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin-top: -6px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 1.5px var(--accent); }
 .slider input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 1.5px var(--accent); }
 .ticks { position: relative; display: block; height: 18px; margin-top: -4px; }
-.ticks i { position: absolute; transform: translateX(-50%); font: normal 0.72rem var(--mono); color: var(--ink-faint); }
+.ticks i { position: absolute; transform: translateX(-50%); font: normal var(--fs-mono-sm) var(--mono); color: var(--ink-faint); }
 .ticks i::before { content: ""; position: absolute; left: 50%; top: -6px; width: 1px; height: 4px; background: var(--border-strong); }
 
 /* toggles */
@@ -57,7 +57,7 @@
 .row[data-raw="true"] { border: 1px dashed var(--ink-faint); }
 .row[data-raw="true"] :global(.seal) { opacity: 0.9; }
 .band { font-size: 0.85rem; }
-.mark { font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-faint); text-align: right; }
+.mark { font-size: var(--fs-mono-sm); letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-faint); text-align: right; }
 .row[data-final="true"] .mark { color: var(--accent); }
 
 /* the cap arrow: red, drawn when the cap applies */
