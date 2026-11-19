@@ -1,6 +1,6 @@
 // Layout-shift guard. Serves the built static export (web/out) and loads pages at 390, 768, 1440, 1920 and 2560 px, with the /api/* calls
 // answering, answering slowly, and failing. Each page is watched for 10 s after load; ANY layout-shift entry without recent input fails
-// (budget 0.000; a total under 0.001 is sub-pixel noise). It also compares the geometry of the page's blocks at 0.5 s and 5 s: they must be identical.
+// (budget 0: any shift fails). It also compares the geometry of the page's blocks at 0.5 s and at the end of the watch (10 s by default): they must be identical.
 // Usage: node scripts/cls-check.mjs [--base https://sealmark.dev] [--pages /,/results/] [--widths 390,1440] [--modes ok,slow,fail] [--watch 10000] [--jobs 4]
 // Without --base it serves web/out itself. Browser: Google Chrome (installed on GitHub runners) or CHROME_PATH or a Playwright Chromium.
 import { chromium } from "playwright-core";
@@ -16,7 +16,6 @@ const WIDTHS = (args.widths ?? "390,768,1440,1920,2560").split(",").map(Number);
 const MODES = (args.modes ?? "ok,slow,fail").split(",");
 const WATCH = Number(args.watch ?? 10000);
 const JOBS = Number(args.jobs ?? 4);
-const NOISE = 0.001;
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "out");
 
 // One page of each kind: home, list, a result page, docs, a compare page, status. A missing optional page is reported, not skipped silently.
@@ -103,9 +102,8 @@ let bad = 0, checked = 0;
 for (const r of results.sort((a, b) => (a.pagePath + a.width + a.mode).localeCompare(b.pagePath + b.width + b.mode))) {
   if (r.missing) { bad++; console.log(`FAIL ${r.pagePath} @${r.width} ${r.mode}: HTTP ${r.missing}`); continue; }
   checked++;
-  const shifted = r.total >= NOISE;
+  const shifted = r.total > 0;
   if (shifted || r.moved.length) { bad++; console.log(`FAIL ${r.pagePath} @${r.width} ${r.mode}: CLS ${r.total.toFixed(4)}${r.moved.length ? `; blocks moved between 0.5 s and ${WATCH / 1000} s: ${r.moved.join(" | ")}` : ""}`); for (const s of r.shifts.slice(0, 3)) console.log(`     t=${s.t}ms value=${s.v.toFixed(5)} ${s.src.slice(0, 3).join(" ; ")}`); }
-  else if (r.total > 0) console.log(`note ${r.pagePath} @${r.width} ${r.mode}: sub-pixel CLS ${r.total.toFixed(5)} (under ${NOISE})`);
 }
 console.log(`cls-check: ${checked} page loads watched for ${WATCH / 1000} s (${PAGES.length} pages x ${WIDTHS.length} widths x ${MODES.length} api modes), ${bad} failing`);
 if (checked === 0) { console.log("cls-check: nothing was checked"); process.exit(1); }
