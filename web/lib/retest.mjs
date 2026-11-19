@@ -75,5 +75,28 @@ export function retestNote(server) {
  */
 export function retestShort(server) {
   const a = failedSince(server);
-  return a ? `re-test ${a.date}: ${what(a).short}` : null;
+  return a ? `grade not confirmed, re-test ${a.date}: ${what(a).short}` : null;
+}
+
+/**
+ * Whether the published grade has a failed re-test after it (the grade is kept, but it is no longer confirmed).
+ * @param {{ testedAt?: string, lastAttempt?: LastAttempt | null }} server
+ */
+export function gradeUnconfirmed(server) {
+  return failedSince(server) !== null;
+}
+
+/**
+ * The words the server page puts beside a grade whose latest re-test failed, or null. They say what is known (the grade
+ * is from an earlier run, the later run failed) and never that the grade is wrong.
+ * @param {{ testedAt?: string, lastAttempt?: LastAttempt | null }} server
+ * @returns {{ heading: string, text: string } | null}
+ */
+export function unconfirmedWords(server) {
+  const a = failedSince(server);
+  if (!a) return null;
+  return {
+    heading: `Grade not confirmed since the re-test on ${a.date}`,
+    text: `The re-test on ${a.date} ${what(a).note}. This grade still shows what the test on ${server.testedAt} found; it is not confirmed for the version the fleet tries now.`,
+  };
 }

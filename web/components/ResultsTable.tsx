@@ -107,7 +107,7 @@ export function ResultsTable({ servers, builtOn }: { servers: ListRow[]; builtOn
                 <tr key={x.id}>
                   <td className={s.srv}><Link href={`/results/${x.id}/`}>{x.name}</Link><small>{ecosystemLabel(x)}</small>{retestShort(x) && <small>{retestShort(x)}</small>}{w && x.change && <small data-third-party="">grade was {x.change.from} on {x.change.fromVersion}, until {short(x.change.date)}</small>}</td>
                   <td className={s.muted} data-label="Version">{x.versionTested}{x.testedOn && <small className={s.when} data-state={isStale(x.testedOn, today ?? builtOn) ? "stale" : "current"}>graded {short(x.testedOn)}{age(x.testedOn) && <>, {age(x.testedOn)}</>}</small>}</td>
-                  <td className={s.gradeCell} data-label="Grade">{w ? <Seal g={w.letter as Letter} prov={w.provisional} /> : <span className={s.muted}>no grade</span>}</td>
+                  <td className={s.gradeCell} data-label="Grade">{w ? <Seal g={w.letter as Letter} prov={w.provisional} /> : <span className={s.muted}>no grade<small>declared no tools, nothing to call</small></span>}</td>
                   <td data-label="Protocol">{core?.letter ? <Seal g={core.letter} prov={core.provisional} /> : <span className={s.muted}>n/a</span>}</td>
                   <td data-label="Deeper suites">
                     {deep.length ? (
