@@ -23,7 +23,7 @@ import { OwnerNotice } from "../OwnerNotice";
 import { NotifyForm } from "../NotifyForm";
 import { feedHeld } from "@/lib/feed-data";
 import { CopyButton } from "@/components/CopyButton";
-import { retestNote } from "@/lib/retest.mjs";
+import { unconfirmedWords, retestNote } from "@/lib/retest.mjs";
 import { GradeAge } from "@/components/GradeAge";
 import s from "../results.module.css";
 import { BadgeSnippets } from "@/components/BadgeSnippets";
@@ -240,6 +240,7 @@ export default async function ServerPage({ params }: P) {
   const w = worst(x);
   const cov = coverageNote(x, deepPacks(x).length > 0);
   const noTools = cov.kind === "no-tools";
+  const unconfirmed = noTools ? null : unconfirmedWords(x);
   const priv = redactionsFor(x);
   const packIds = [...new Set(x.checks.map((c) => c.pack))];
   const notGraded = x.packs.filter((p) => p.status !== "graded");
@@ -296,6 +297,7 @@ export default async function ServerPage({ params }: P) {
           <div>
             <h2 id="grade-h">{noTools ? "No tools to test" : w ? `Grade ${w.letter}${w.provisional ? " (provisional)" : ""}` : "No grade"}</h2>
             {!noTools && <p>The server&apos;s grade is its lowest test-area grade. <Link href="/docs/methodology/#grading-formula">How grading works</Link></p>}
+            {unconfirmed && <p className={s.flag} data-unconfirmed="">{unconfirmed.heading}. {unconfirmed.text}</p>}
             {priv.size > 0 && <p className={s.flag}>The grade {PRIVATE_FINDING}. It still counts in full.</p>}
             <p>{cov.text}</p>
             <p className={s.disputeLink}><a href="#dispute-h">Think this is wrong?</a></p>

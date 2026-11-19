@@ -31,6 +31,16 @@ test("summary carries the page's grade, graded areas only, and absolute links", 
   assert.equal(s.json, `https://sealmark.dev${API_BASE}/servers/srv.json`);
   assert.equal(s.lastAttemptFailed, null);
   assert.equal(serverSummary(server(), null, SITE).grade, null);
+  // noGradeReason: a server with no overall grade says why (the page's own words); a graded one has none
+  const none = serverSummary(server({ toolCount: 0, coverage: { level: "hygiene-only", validCalls: 0, toolsCalledValid: 0, toolsTotal: 0 } }), null, SITE);
+  assert.equal(none.noGradeReason.kind, "no-tools");
+  assert.match(none.noGradeReason.text, /declared no tools under default settings/);
+  assert.equal(serverSummary(server(), { letter: "A", provisional: false }, SITE).noGradeReason, null);
+  assert.ok(serverSummary(server(), null, SITE).noGradeReason.text.length > 0, "a null grade never goes out without a word");
+  // gradeConfirmed: false when a re-test after the grade failed (the grade stays, marked)
+  assert.equal(serverSummary(server(), { letter: "A", provisional: false }, SITE).gradeConfirmed, true);
+  assert.equal(serverSummary(server({ lastAttempt: { date: "2026-11-15", status: "failed", kind: "timeout" } }), { letter: "A", provisional: false }, SITE).gradeConfirmed, false);
+  assert.equal(serverSummary(server({ lastAttempt: { date: "2026-10-01", status: "failed", kind: "timeout" } }), { letter: "A", provisional: false }, SITE).gradeConfirmed, true, "a failed try before the grade does not unconfirm it");
   assert.equal(serverSummary(server({ lastAttempt: { date: "2026-11-15", status: "failed", kind: "timeout" } }), null, SITE).lastAttemptFailed, "2026-11-15");
 });
 
@@ -74,7 +84,7 @@ test("a reported finding still private shows its report and publish dates, as th
 
 test("the v1 field lists are fixed: adding is fine, renaming or removing needs a new path", () => {
   const d = serverDoc(server(), null, new Map(), [], SITE);
-  const v1 = ["id", "name", "ecosystem", "versionTested", "testedAt", "grade", "provisional", "packs", "toolCount", "transport", "lastAttemptFailed", "page", "json",
+  const v1 = ["id", "name", "ecosystem", "versionTested", "testedAt", "grade", "provisional", "packs", "toolCount", "transport", "lastAttemptFailed", "gradeConfirmed", "noGradeReason", "page", "json",
     "sealmark", "standard", "configHash", "automated", "coverage", "packDetails", "checks", "notCovered", "lastAttempt", "launch", "reproduce", "history"];
   for (const k of v1) assert.ok(k in d, `server file lost ${k}`);
   for (const k of ["id", "pack", "label", "critical", "advisory", "verdict", "weakSignal", "summary", "disclosure", "docs"]) assert.ok(k in d.checks[0], `check lost ${k}`);

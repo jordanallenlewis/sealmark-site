@@ -60,7 +60,8 @@ Before installing an MCP server, look it up in https://sealmark.dev/data/v1/look
 - `packs` in the list maps each graded test area to its letter. In a server's file, `packDetails` lists every test area with its points, whether a critical fail capped it, and why an area that did not run was not graded.
 - `checks[].verdict` is `pass`, `part`, `fail`, `inconclusive` or `na` ([verdicts](/docs/concepts/verdicts)); `checks[].docs` links to what the check tests.
 - `testedAt` is the UTC day of the run that produced the grade. A grade more than 10 days old has missed its re-test: its results page and the results table say so. [Fleet status](/status/) shows how often the fleet really runs.
-- `lastAttemptFailed` is the date of a later re-test that could not finish; the grade shown is from the run before it. `lastAttempt` says why.
+- `lastAttemptFailed` is the date of a later re-test that could not finish; the grade shown is from the run before it. `lastAttempt` says why. `gradeConfirmed` is `false` while such a re-test is newer than the grade: the grade is the earlier run's and is not confirmed for the version tested now. Treat it as unconfirmed, not as withdrawn.
+- `noGradeReason` is `null` when the server has an overall grade. Without one it carries `kind` and `text`, the words the results page shows (a server that declared no tools gets `no-tools`).
 - `history` lists the automated runs of that server, one per day (the last that day), oldest first; a failed run has no grade and says nothing about the server.
 - `changes[]` names the Sealmark version of both runs (`previousSealmark`, `sealmark`): a change across a Sealmark upgrade can come from Sealmark, not the server.
 - `reproduce` is the command that repeats the run with the same Sealmark version and the standard settings.

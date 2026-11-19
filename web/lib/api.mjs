@@ -7,7 +7,8 @@
 // its disclosure state, a sibling security check in the same test area has its summary held back, and the start command
 // and the command to repeat the run are null while any finding on the server is private.
 import { isSecurityCheck, isWeakSignal } from "./disclosure.mjs";
-import { reproduceCommand } from "./results-copy.mjs";
+import { coverageNote, reproduceCommand } from "./results-copy.mjs";
+import { gradeUnconfirmed } from "./retest.mjs";
 
 export const API_VERSION = "v1";
 export const API_BASE = `/data/${API_VERSION}`;
@@ -38,6 +39,9 @@ export function serverSummary(x, grade, site) {
     toolCount: x.toolCount,
     transport: x.transport,
     lastAttemptFailed: x.lastAttempt ? x.lastAttempt.date : null,
+    gradeConfirmed: !gradeUnconfirmed(x),
+    // Why there is no overall grade, in the page's own words (lib/results-copy.mjs); null when there is a grade.
+    noGradeReason: grade ? null : coverageNote(x, (x.packs ?? []).some((p) => p.status === "graded" && p.id !== "core" && p.letter)),
     page: site + pagePath(x.id),
     json: site + serverPath(x.id),
   };
@@ -151,6 +155,8 @@ export function openapiDoc(site, cliVersion) {
       packs: { type: "object", additionalProperties: str, description: "graded test areas only: id to letter" },
       toolCount: { type: "integer" }, transport: str,
       lastAttemptFailed: { ...strOrNull, description: "date of a later re-test that failed; the grade is from the earlier run" },
+      gradeConfirmed: { type: "boolean", description: "false when a re-test after the grade's run failed: the grade is the earlier run's and is not confirmed for the version tested now" },
+      noGradeReason: { type: ["object", "null"], description: "why there is no overall grade (null when there is one): kind is no-tools, hygiene, low, covered or unknown, text is the words the results page shows", properties: { kind: str, text: str } },
       page: { type: "string", format: "uri" }, json: { type: "string", format: "uri" },
     },
   };
