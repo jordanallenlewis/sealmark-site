@@ -11,7 +11,7 @@
 .item:hover, .item:focus-visible { border-color: var(--accent); }
 .item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .name { font-weight: 700; font-size: 0.95rem; }
-.sub { font: 0.72rem var(--font-mono), ui-monospace, monospace; color: var(--ink-faint); }
+.sub { font: var(--fs-mono-sm) var(--font-mono), ui-monospace, monospace; color: var(--ink-faint); }
 @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
   .ticker { -webkit-mask-image: none; mask-image: none; }
