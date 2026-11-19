@@ -12,7 +12,7 @@ const TELEMETRY = path.join("fleet", "telemetry.jsonl");
 const RESULTS = path.join("web", "content", "data", "server-results.json");
 
 // The CLI's typed start kinds (cli/src/start-failure.ts), plus harness-error: our own job failed, not the server.
-export const REASONS = ["dependency-resolution", "needs-credentials", "missing-runtime", "bad-launch", "initialize-timeout", "harness-error", "unknown"];
+export const REASONS = ["dependency-resolution", "needs-credentials", "missing-runtime", "bad-launch", "initialize-timeout", "exited-no-error", "needs-service", "harness-error", "unknown"];
 const CLI_KINDS = new Set(REASONS.filter((r) => r !== "harness-error"));
 
 // Read only for records the CLI did not type (older runs). The first rule that matches wins; anything else is unknown.
@@ -26,12 +26,30 @@ const RULES = [
   ["dependency-resolution", /\bE404\b|\bETARGET\b|No matching (?:version|distribution)|ModuleNotFoundError|No module named|Cannot find package/],
   ["missing-runtime", /\bspawn \S{1,200} ENOENT\b|: (?:command )?not found\b|command not found/],
   ["bad-launch", /(?:^|[|(:]\s?)usage: |unrecognized arguments?\b|\bunknown (?:option|argument)\b/i],
+  // uvx lists the executables a package has when the one it was asked for is not among them
+  ["bad-launch", /The following executables are available:/],
+  ["missing-runtime", /\bis not on PATH\b/],
+  // npm prints this pointer only when npm itself failed (an install or resolution error), so its own error was the cause
+  ["dependency-resolution", /npm error A complete log of this run can be found/],
+  // it looks for another program on the machine (a local port, a desktop application) that the default run does not have
+  ["needs-service", /cannot reach https?:\/\/(?:localhost|127\.0\.0\.1)[:/\d]|(?:is )?not reachable on port \d+|Did you run [^.]{0,80}to start/i],
 ];
+
+// The connection closed and the server's saved stderr holds nothing it wrote itself: it is empty, or only npm's update
+// notice (printed at exit by npm) and the package manager's install progress (npm, uv: Downloaded, Built, Installed...).
+// Any other stderr line, an error or a hint keeps it out of this reason.
+const NOISE = /^(?:npm notice\b|(?:Downloaded|Downloading|Built|Installed|Prepared|Resolved|Audited|Using|Updated)\b|[+~-] \S+==)/;
+export function exitedWithoutError(error) {
+  const m = /^[^]*?Connection closed \(server stderr: ([^]*)\)\.?\s*$/.exec(String(error ?? ""));
+  if (!m) return false;
+  return m[1].split("|").map((l) => l.trim()).filter(Boolean).every((l) => NOISE.test(l));
+}
 
 /** One typed reason for a failed attempt's error text. */
 export function reasonOf(error) {
   const e = String(error ?? "");
   for (const [reason, re] of RULES) if (re.test(e)) return reason;
+  if (exitedWithoutError(e)) return "exited-no-error";
   return "unknown";
 }
 
