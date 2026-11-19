@@ -57,7 +57,7 @@ export default function StatusPage() {
           <section className={s.sec} aria-labelledby="days-h">
             <h2 id="days-h">Runs by day</h2>
             <p>One count per server per day (its last run that day), for graded servers and servers not graded yet. A run that did not finish says nothing about a grade: a graded server keeps the grade from its last finished run, and a server with no finished run stays on the not-graded list.</p>
-            <div className={`${s.tw} ${s.statusWrap}`} tabIndex={0} role="region" aria-label="Runs by day">
+            <div className={`${s.tw} ${s.statusWrap}`} tabIndex={0} role="region" aria-label="Table of runs by day">
               <table className={`${s.vt} ${s.statusDays}`}>
                 <caption className="sr-only">Servers run per day (their last run that day), newest first</caption>
                 <thead><tr><th scope="col">Day</th><th scope="col">Finished</th><th scope="col">Did not finish</th></tr></thead>
@@ -75,7 +75,7 @@ export default function StatusPage() {
             <p>
               Servers the fleet tried and could not grade under its default run (the registry&rsquo;s arguments where it lists plain fixed values, the standard settings, no secrets). A reason says how that run went, not what the server is worth. <Link href="/results/#not-graded">The full list</Link> names every server.
             </p>
-            <div className={`${s.tw} ${s.statusWrap}`} tabIndex={0} role="region" aria-label="Not graded yet, by reason">
+            <div className={`${s.tw} ${s.statusWrap}`} tabIndex={0} role="region" aria-label="Table of not-graded servers by reason">
               <table className={`${s.vt} ${s.statusDays}`}>
                 <caption className="sr-only">Servers not graded yet, by reason</caption>
                 <thead><tr><th scope="col">Reason</th><th scope="col">Servers</th></tr></thead>
