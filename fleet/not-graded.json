@@ -13,35 +13,35 @@
       "id": "chrisryugj-kordoc",
       "version": "4.25.1",
       "lastTried": "2026-11-19",
-      "attempts": 23,
+      "attempts": 24,
       "reason": "missing-runtime"
     },
     {
       "id": "kajisho5-ffmpeg-skill",
       "version": "3.13.2",
       "lastTried": "2026-11-19",
-      "attempts": 19,
+      "attempts": 20,
       "reason": "unknown"
     },
     {
       "id": "marker-inc-korea-autorag",
       "version": "2.13.15",
       "lastTried": "2026-11-19",
-      "attempts": 6,
+      "attempts": 7,
       "reason": "unknown"
     },
     {
       "id": "qybaihe-bla",
       "version": "bla-agents-3.5.1",
       "lastTried": "2026-11-19",
-      "attempts": 15,
+      "attempts": 16,
       "reason": "missing-runtime"
     },
     {
       "id": "thenextrace-tnr",
       "version": "0.27.1",
       "lastTried": "2026-11-19",
-      "attempts": 1,
+      "attempts": 2,
       "reason": "unknown"
     },
     {
