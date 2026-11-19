@@ -41,6 +41,10 @@ Both rows are toy-server test fixtures, not real servers.
 - Non-advisory checks that are `inconclusive` or `n/a` leave the denominator and are listed in the result.
 - Advisory checks never change the letter.
 
+## Not graded yet
+
+The results page also lists servers the fleet tried and could not grade, under "Not graded yet". That list is not a grade and is never shown as a letter: it says how our default run went, with one reason per server (it needed a credential, did not install, a runtime was missing, it refused the launch command, it did not answer in time, our own job failed, or an error we do not classify yet). The fleet starts each server with a default launch command (the package run with npx or uvx, or the start command its repository gives), the standard settings and no secrets. When a package's MCP Registry entry lists arguments, such as an `mcp` subcommand, the launch passes them only if each one has a plain fixed value; an optional option without one is left out. Arguments the entry leaves for you to fill in are never guessed: such a package is started without its arguments, or not tried at all if one of them is required. The same goes for a package whose entry sets options for npx or uvx themselves. So a server that needs a key, an argument without a fixed value or a local service usually lands here: that is a limit of the default run, not a problem with the server. A server leaves the list the first time a run grades it. After a failed attempt it can be tried again when it publishes a new version, or once with registry arguments it was not tried with before. A reason on the list can come from an earlier attempt that did not pass any arguments.
+
 ## Read it with care
 
 With 4 or 5 scored checks, one check moves the percentage by 20 to 25 points. A letter on this few checks is coarse. The band edges are conventional school-style bands chosen for legibility, not derived from a risk model, and they can change before methodology 1.0. Read the per-check lines, not just the letter.

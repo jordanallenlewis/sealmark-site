@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import s from "../results/results.module.css";
+import { CLI_VERSION } from "@/lib/seo";
 
 const DESC = "An honest comparison of Sealmark with the MCP Inspector, the official MCP conformance framework, MCP security scanners (Snyk Agent Scan, Cisco mcp-scanner) and MCPJam: what each one checks, and when to use which.";
 export const metadata: Metadata = { title: "Sealmark compared with other MCP testing tools", description: DESC, alternates: { canonical: "/compare/" } };
@@ -23,13 +24,14 @@ export default function Page() {
       <Nav />
       <main id="main" className={`gutter ${s.wrap}`}>
         <h1 className={s.h1}>Sealmark compared with other MCP testing tools</h1>
-        <p className={s.lede}>Short version: they answer different questions. The official conformance framework asks &quot;does this server follow the protocol?&quot; The Inspector asks &quot;what is this server doing right now?&quot; Sealmark asks &quot;does this server&apos;s tools behave safely and correctly, and what grade does that earn?&quot; Use them together.</p>
+        <p className={s.lede}>Short version: they answer different questions. The official conformance framework asks &quot;does this server follow the protocol?&quot; The Inspector asks &quot;what is this server doing right now?&quot; Sealmark asks &quot;do this server&apos;s tools behave safely and correctly, and what grade does that earn?&quot; Use them together.</p>
         <div className={s.tw} tabIndex={0} role="region" aria-label="Comparison table">
           <table className={s.checks}>
-            <thead><tr><th scope="col"></th><th scope="col">Sealmark</th><th scope="col">MCP Inspector</th><th scope="col">MCP conformance framework</th></tr></thead>
+            <thead><tr><th scope="col"><span className="sr-only">Aspect</span></th><th scope="col">Sealmark</th><th scope="col">MCP Inspector</th><th scope="col">MCP conformance framework</th></tr></thead>
             <tbody>{ROWS.map((r) => (<tr key={r[0]}><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>))}</tbody>
           </table>
         </div>
+        <p className={`${s.muted} ${s.scrollHint}`}>The table scrolls sideways to show all three tools.</p>
         <h2 className={s.packhead}>Security scanners and eval platforms</h2>
         <p>These overlap with Sealmark on safety, but most decide from what a server says (its tool descriptions, its source, a model&apos;s reading of either). Sealmark decides from what a call did.</p>
         <ul>
@@ -47,11 +49,11 @@ export default function Page() {
         <ul>
           <li>It does not replace the official protocol suite, and it is not run by the MCP project.</li>
           <li>Its grades are for one version and one configuration; a server it could not start has no grade.</li>
-          <li>It is young: version 1.0.0, one maintainer.</li>
+          <li>It is young (version {CLI_VERSION}), and its public results cover far fewer servers than the large registries list.</li>
           <li>It does not look at source code, dependencies or known vulnerabilities, and it cannot see prompt injection carried in tool output (that needs a model to read the output).</li>
           <li>It has no interactive UI and no machine-wide scan of every installed server.</li>
         </ul>
-        <p className={s.muted}>Sources, checked {CHECKED} from each project&apos;s public repository: <a href="https://github.com/modelcontextprotocol/inspector" rel="noopener">modelcontextprotocol/inspector</a>, <a href="https://github.com/modelcontextprotocol/conformance" rel="noopener">modelcontextprotocol/conformance</a>, <a href="https://github.com/snyk/agent-scan" rel="noopener">snyk/agent-scan</a>, <a href="https://github.com/cisco-ai-defense/mcp-scanner" rel="noopener">cisco-ai-defense/mcp-scanner</a>, <a href="https://github.com/MCPJam/inspector" rel="noopener">MCPJam/inspector</a>. Other tools exist; this page lists the most relevant. Something wrong? Email the maintainer from the footer and it gets fixed.</p>
+        <p className={s.muted}>Sources, checked {CHECKED} from each project&apos;s public repository: <a href="https://github.com/modelcontextprotocol/inspector" rel="noopener">modelcontextprotocol/inspector</a>, <a href="https://github.com/modelcontextprotocol/conformance" rel="noopener">modelcontextprotocol/conformance</a>, <a href="https://github.com/snyk/agent-scan" rel="noopener">snyk/agent-scan</a>, <a href="https://github.com/cisco-ai-defense/mcp-scanner" rel="noopener">cisco-ai-defense/mcp-scanner</a>, <a href="https://github.com/MCPJam/inspector" rel="noopener">MCPJam/inspector</a>. Other tools exist; this page lists the most relevant. Something wrong? Email us from the footer and we will fix it.</p>
         <p><Link href="/mcp-conformance-testing/">What is MCP conformance testing?</Link> · <Link href="/results/">Graded servers</Link></p>
       </main>
       <Footer />

@@ -24,7 +24,7 @@ export function Footer({ docs }: { docs?: { root: string; inner: string } }) {
       <div className="frame">
         <div className="frow">
           <div className="fbrand">
-            <a className="brand" href="#top" style={{ fontSize: "1.15rem" }}><Logo size={24} />Sealmark</a>
+            <Link className="brand" href="/" aria-label="Sealmark home" style={{ fontSize: "1.15rem" }}><Logo size={24} />Sealmark</Link>
             <p>Behavioral conformance tests for MCP servers.</p>
             <p className="byline"><Byline /></p>
           </div>

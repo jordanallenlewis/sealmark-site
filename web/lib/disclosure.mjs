@@ -17,7 +17,7 @@ export const PUBLIC_CHECKS = new Set(Object.keys(CHECK_CLASS).filter((id) => CHE
 // whose summary does not match is a finding (fail closed). Weak signals are shown in full, styled as a weak signal.
 export const WEAK_PART = new Set(Object.keys(FLEET_WEAK_PART));
 
-/** @typedef {{ id: string, critical?: boolean, advisory?: boolean, verdict?: string, summary?: string }} CheckLike */
+/** @typedef {{ id: string, critical?: boolean, advisory?: boolean, verdict?: string, summary?: string | null }} CheckLike */
 
 /** @param {CheckLike} check */
 export function isSecurityCheck(check) {

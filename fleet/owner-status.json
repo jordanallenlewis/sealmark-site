@@ -1,0 +1,59 @@
+{
+  "updated": "2026-11-19",
+  "notices": {
+    "agent-bev-mcp-server": {
+      "state": "none",
+      "noticedAt": "2026-11-17",
+      "issueUrl": "https://github.com/agent-bev/bev-door/issues/4",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
+    "hostbeam-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-14",
+      "issueUrl": "https://github.com/PunkABeat/hostbeam-mcp/issues/1",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
+    "mirastack-redfish-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-14",
+      "issueUrl": "https://github.com/mirastacklabs-ai/mirastack-redfish-mcp/issues/3",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
+    "model-finder-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-17",
+      "issueUrl": "https://github.com/Abhiindigloo/EvalHarness/issues/15",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
+    "paraplex-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-17",
+      "issueUrl": "https://github.com/Paraplex-AI/paraplex-mcp/issues/1",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
+    "spaces-mcp-server": {
+      "state": "none",
+      "noticedAt": "2026-11-17",
+      "issueUrl": "https://github.com/neltomw/spaces-mcp-server/issues/1",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    }
+  }
+}

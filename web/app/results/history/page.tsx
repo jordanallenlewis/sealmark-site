@@ -3,14 +3,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { GradeHistory } from "@/components/GradeHistory";
 import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { loadHistory } from "@/lib/history";
 import { RESULTS_PUBLIC } from "@/lib/results";
 import { DisputeNote } from "../DisputeNote";
+import { FEED_LIMIT } from "@/lib/feed-data";
 import s from "../results.module.css";
 
 export const metadata: Metadata = {
   title: "Results over time: Sealmark grade history",
   description: "The worst grade each tracked MCP server got in every automated re-test, with the version tested and the Sealmark version.",
+  alternates: { types: { "application/atom+xml": [{ url: "/results/feed.xml", title: "Sealmark: MCP server grade changes" }] } },
 };
 
 export default function HistoryPage() {
@@ -28,6 +31,9 @@ export default function HistoryPage() {
           A dash means the server could not be started that day, which says nothing about its grade. Automated re-tests are not checked by hand.
           {last ? ` Latest run: ${last}.` : ""}
         </p>
+        <p className={`${s.muted} ${s.dirNote}`}>
+          Follow grade changes in a feed reader: <a href="/results/feed.xml" type="application/atom+xml">Atom feed</a>. It lists the newest {FEED_LIMIT} moves of a server&rsquo;s overall grade that came with a different server version, tested with the same Sealmark version as the graded run before. Moves that came with a Sealmark upgrade, and servers with a security finding, are left out. The page of each server without a security finding links a feed for that server alone.
+        </p>
         {all.map((h) => (
           <section key={h.id} className={s.sec} id={h.id} style={{ marginTop: 40 }}>
             <h2 style={{ fontSize: "1.2rem" }}>{h.linked ? <Link href={`/results/${h.id}/`}>{h.name}</Link> : h.name}</h2>
@@ -36,6 +42,7 @@ export default function HistoryPage() {
         ))}
         <DisputeNote />
       </main>
+      <Footer />
     </>
   );
 }

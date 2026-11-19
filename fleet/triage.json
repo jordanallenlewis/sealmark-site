@@ -1,59 +1,22 @@
 {
-  "generatedAt": "2026-11-14T05:45:55.480Z",
-  "window": 500,
-  "graded": 296,
-  "failed": 204,
+  "generatedAt": "2026-11-19T00:08:33.353Z",
+  "window": 600,
+  "graded": 487,
+  "failed": 113,
   "clusters": [
     {
       "servers": [
-        "54yyyu-zotero-mcp",
-        "apify-apify-mcp-server",
-        "atomicstrata-llm-wiki-compiler",
-        "brightdata-brightdata-mcp",
-        "callmcp-server",
-        "chrisryugj-kordoc",
-        "chrisryugj-korean-law-mcp",
-        "chromedevtools-chrome-devtools-mcp",
-        "cjo4m06-mcp-shrimp-task-manager",
-        "czlonkowski-n8n-mcp",
-        "d4vinci-scrapling",
-        "deedy5-ddgs",
-        "evalstate-fast-agent",
-        "evil0ctal-douyin-tiktok-download-api",
-        "geekjourneyx-md2wechat-skill",
-        "getsentry-mobilebuildmcp",
-        "google-gemini-gemini-cli",
-        "haris-musa-excel-mcp-server",
-        "huangjunsen0406-py-xiaozhi",
-        "jerbouma-financetoolkit",
-        "jnmetacode-agency-orchestrator",
-        "jordan-gibbs-hyperresearch",
-        "kajisho5-ffmpeg-skill",
-        "knockoutez-wigolo",
-        "llmsresearch-paperbanana"
+        "vaaya-mcp"
       ],
-      "key": "hardening:start-fail",
-      "kind": "hardening",
+      "key": "slow:run",
+      "kind": "slow-path",
       "labels": [
-        "hardening"
+        "performance"
       ],
-      "title": "38% of servers never start under the fleet harness",
-      "count": 189,
-      "detail": "Most are servers that need credentials or a runtime Sealmark's launch inference does not provide. Sealmark should report the reason as a typed result (needs-credentials, missing-runtime, bad-launch) instead of one opaque start error. Top signatures:\n- 165x `could not start or talk to the server: MCP error -#: Connection closed (server s`\n- 22x `the server did not answer initialize within # s (--connect-timeout). The first s`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cso-cli`\n- 1x `could not start or talk to the server: MCP error -#: Not signed in. Run `cto-cli`"
-    },
-    {
-      "servers": [
-        "atmy-mcp"
-      ],
-      "key": "regression:grade-drop",
-      "kind": "regression",
-      "labels": [
-        "bug",
-        "regression"
-      ],
-      "title": "Grade drops with no server change: 1 server(s) on 1.0.0 to 1.0.1",
-      "count": 1,
-      "detail": "Same server version, newer Sealmark, lower grade. Either a new rule is catching a real problem (add the server to the corpus as a true positive) or a rule regressed (false positive). Decide per server:\n- atmy-mcp: B to C"
+      "title": "Slow runs: 4 servers took over 5 min or timed out",
+      "count": 4,
+      "detail": "Longest: 329 s. Find which probe or pack dominates and add a per-probe budget."
     }
-  ]
+  ],
+  "surfaceChanged": []
 }

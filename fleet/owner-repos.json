@@ -4,6 +4,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "aamio": {
+    "repo": "aisenseapi/aamio-js",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "achromat-ai-mcp-server": {
     "repo": "achromat-ai/achromat-mcp-server",
     "source": "npm",
@@ -73,6 +78,11 @@
     "repo": "lead788/apick-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "apick-subagent": {
+    "repo": "lead788/apick-subagent",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "apiguru-mcp": {
     "repo": "apiguru-app/agent-kit",
@@ -159,6 +169,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "brandrail": {
+    "repo": "brandrail-app/brandrail",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "brick-blue-mcp": {
     "repo": "brick-blue/brick-blue-mcp",
     "source": "npm",
@@ -173,6 +188,11 @@
     "repo": null,
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "celo-buy": {
+    "repo": "celo-org/buy-skill",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "certscore-mcp": {
     "repo": "ergoveritas1-alt/certscore.ai",
@@ -203,6 +223,11 @@
     "repo": "upstash/context7",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "contextburn": {
+    "repo": "arsentev-ai/contextburn",
+    "source": "pypi",
+    "resolvedAt": "2026-11-15"
   },
   "cookwala-mcp": {
     "repo": "amado2k5/cookwala",
@@ -269,10 +294,30 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "dinglebear-labby": {
+    "repo": "dinglebear-ai/labby",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "dinglebear-rapprise": {
+    "repo": "dinglebear-ai/rapprise",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "dinglebear-rytdl": {
     "repo": "dinglebear-ai/rytdl",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "dinglebear-synapse": {
+    "repo": "dinglebear-ai/synapse",
+    "source": "npm",
+    "resolvedAt": "2026-11-16"
+  },
+  "dinglebear-yarr": {
+    "repo": "dinglebear-ai/yarr",
+    "source": "npm",
+    "resolvedAt": "2026-11-16"
   },
   "doc-cheap-mcp": {
     "repo": null,
@@ -283,6 +328,11 @@
     "repo": "doobidoo/mcp-memory-service",
     "source": "launch",
     "resolvedAt": "2026-11-11"
+  },
+  "dsail": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-15"
   },
   "duckdb-mcp": {
     "repo": "ktanaka101/mcp-server-duckdb",
@@ -318,6 +368,11 @@
     "repo": "elicitly/elicitly",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "etincel": {
+    "repo": "AIStoryHub/etincel",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "everything": {
     "repo": "modelcontextprotocol/servers",
@@ -378,6 +433,16 @@
     "repo": "Holetron-lab/fleet-memory",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "fluxygram-mcp": {
+    "repo": "Fluxygram/fluxygram",
+    "source": "npm",
+    "resolvedAt": "2026-11-19"
+  },
+  "flydocs-cli": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "formachines-errata-mcp": {
     "repo": "formachines-ai/errata-mcp",
@@ -450,6 +515,16 @@
     "resolvedAt": "2026-11-11",
     "movedFrom": "viljamilaurila/html-cloud"
   },
+  "huddoai": {
+    "repo": "puffo-ai/huddo-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "hypaware": {
+    "repo": "hyparam/hypaware",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "inite-club-mcp": {
     "repo": "inite-ai/inite-club-mcp",
     "source": "npm",
@@ -459,6 +534,11 @@
     "repo": "inite-ai/inite-visibility",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "insightsocial": {
+    "repo": "insightsocial/cli",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "instantreply-co-mcp": {
     "repo": "suleimandoescsec/instantreply-mcp",
@@ -490,6 +570,16 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "kadal-store": {
+    "repo": "kadalcc/store-cli",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "kadmo-cli": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "kavel-mcp": {
     "repo": "hanshs474/kavel-mcp",
     "source": "npm",
@@ -505,10 +595,30 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "kedimeet-mcp": {
+    "repo": "Kedicode-TR/kedimeet-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-17"
+  },
   "keenable-mcp": {
     "repo": "keenableai/keenable-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "keepstateai-cli": {
+    "repo": "Keepstateai/cli",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "kellian-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "kloudy": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "knowledge-graph": {
     "repo": "itseasy21/mcp-knowledge-graph",
@@ -605,6 +715,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "memcell": {
+    "repo": "memcell-ai/devkit",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "memeboat-mcp": {
     "repo": "memebo-at/memeboat-mcp",
     "source": "npm",
@@ -645,15 +760,30 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "nauro": {
+    "repo": "nauro-ai/nauro",
+    "source": "pypi",
+    "resolvedAt": "2026-11-15"
+  },
   "noglow-mcp": {
     "repo": "aesopfrom0/noglow-releases",
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "nove-mcp": {
+    "repo": "wevemedeiros/nove-sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-16"
+  },
   "nudg3-mcp": {
     "repo": "NUDG3-AI/nudg3-mcp",
     "source": "pypi",
     "resolvedAt": "2026-11-11"
+  },
+  "oddessentials-agent-guild": {
+    "repo": "oddessentials/agent-guild",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "oddsrail": {
     "repo": "hmesutozsoy/oddsrail",
@@ -674,6 +804,11 @@
     "repo": "Optimal-AI/optibot-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "orangepro-mcp-server": {
+    "repo": "OrangeproAI/orangepro-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "ordercore-mcp": {
     "repo": "RulezZzOr/ordercore-examples",
@@ -705,6 +840,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "pidgeon-ai-mcp": {
+    "repo": "pidgeon-ai/pidgeon-js",
+    "source": "npm",
+    "resolvedAt": "2026-11-14"
+  },
   "plugmcp-mcp": {
     "repo": "plugmcp-ai/plugmcp-mcp",
     "source": "npm",
@@ -714,6 +854,11 @@
     "repo": "popdot-ai/popdot-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "poppy-memory": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-15"
   },
   "postgres-mcp": {
     "repo": null,
@@ -740,6 +885,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "qiksy-mcp": {
+    "repo": "lesnyak-cyber/qiksy-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-17"
+  },
   "quorum-mcp-server": {
     "repo": "piyush-tkd/quorum-mcp",
     "source": "npm",
@@ -764,6 +914,11 @@
     "repo": "rhinocap/raven-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "rechtssysteem-ai-rechtssysteem-mcp": {
+    "repo": "rechtssysteem-ai/rechtssysteem-mcp",
+    "source": "launch",
+    "resolvedAt": "2026-11-16"
   },
   "recordist-gateway": {
     "repo": "recordist-app/gateway",
@@ -795,6 +950,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "satohub-kit": {
+    "repo": "satohubai/sato-hub-integrations",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "satohub-mcp": {
     "repo": "satohubai/mcp",
     "source": "npm",
@@ -819,6 +979,11 @@
     "repo": "scope-bid/scope-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "securenow": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "sequential-thinking": {
     "repo": "modelcontextprotocol/servers",
@@ -849,6 +1014,21 @@
     "repo": "ShiplightAI/shiplight-cli",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "shiwake-ai-mcp": {
+    "repo": "iszgroup/shiwake-ai-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-14"
+  },
+  "simulator-use": {
+    "repo": "NoMac-app/simulator-use",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "skilltotal": {
+    "repo": "pezhik/skilltotal",
+    "source": "pypi",
+    "resolvedAt": "2026-11-15"
   },
   "smartmemory-compose-mcp": {
     "repo": "smartmemory/compose",
@@ -900,15 +1080,30 @@
     "source": "pypi",
     "resolvedAt": "2026-11-11"
   },
+  "srift-transfer": {
+    "repo": "srivardhan113/SRIFT-Open_Source",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "ssid-mcp": {
     "repo": "Drumworks/ssid-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "statuz-cli": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "stickerdaniel-linkedin-mcp-server": {
     "repo": "stickerdaniel/linkedin-mcp-server",
     "source": "launch",
     "resolvedAt": "2026-11-11"
+  },
+  "storkai": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-17"
   },
   "stratta-mcp": {
     "repo": "hugogebel-boop/stratta-v2",
@@ -930,15 +1125,35 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "talix-stubs": {
+    "repo": "dev-talix/stubs",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "tanvo-mcp": {
     "repo": "tanvoai/tanvo-mcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "tares": {
+    "repo": "glassflow/tares",
+    "source": "pypi",
+    "resolvedAt": "2026-11-15"
+  },
   "taylorwilsdon-google-workspace-mcp": {
     "repo": "taylorwilsdon/google_workspace_mcp",
     "source": "launch",
     "resolvedAt": "2026-11-11"
+  },
+  "telbase": {
+    "repo": "Victor-EU/telbase",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "tenjin-cli": {
+    "repo": "BackTrackCo/tenjin-agent",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "tensorfeed-mcp-server": {
     "repo": "RipperMercs/tensorfeed-mcp",
@@ -990,10 +1205,25 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "toolaby": {
+    "repo": "miltostave/Toolaby",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "trustrails-mcp-server": {
     "repo": "james-webdev/trustrails-mcp-server",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "trusty-squire-mcp": {
+    "repo": "Trusty-Squire/trusty-squire",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "uarpie": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   },
   "uplink-code-mcp": {
     "repo": "uplink-code/uplink-ai",
@@ -1045,6 +1275,21 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "wilm-ai-wilma-cli": {
+    "repo": "aikarjal/wilmai",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "workpods-agent-ready": {
+    "repo": "WorkPodsAgents/agent-ready",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
+  "workpods-local-seo": {
+    "repo": "WorkPodsAgents/local-seo",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
+  },
   "wpconvert-mcp": {
     "repo": "FTWAgency/wpconvert-devtools",
     "source": "npm",
@@ -1064,5 +1309,10 @@
     "repo": "zensation-ai/zenbrain",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "zils-cli": {
+    "repo": "ooo-hq/zils-sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-15"
   }
 }

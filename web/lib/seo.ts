@@ -4,10 +4,14 @@ import { SITE } from "./site";
 import { SERVERS_RESULTS, SERVER_COUNT, gradedPacks, worst, redactionsFor, PACK_LABEL, type ServerResult, type Letter } from "./results";
 import { DATA } from "./results";
 import { badgeEligible } from "@/worker/notify-core.mjs";
+import pkg from "../package.json";
+import { allTopicPages } from "./topics-data";
+import { toolDirectoryData } from "./tool-directory-data";
 
 export const ORIGIN = `https://${SITE.host}`;
 export const canonical = (path: string) => `${ORIGIN}${path.endsWith("/") ? path : `${path}/`}`;
-export const CLI_VERSION = "1.0.0";
+// The CLI release the site documents: the version pinned in package.json (release-sync bumps it), never typed here.
+export const CLI_VERSION: string = pkg.devDependencies.sealmark;
 
 export const WHAT_IT_IS =
   "Sealmark is an open-source command-line tool that checks how an MCP server behaves. It starts the server, calls its tools with fixed inputs (no language model in the loop), checks what actually happened, and prints a letter grade per test suite with the evidence behind it.";
@@ -42,15 +46,7 @@ export const serverBadge = (x: ServerResult): { label: string; message: string; 
   return { label: "sealmark", message, letter: (w?.letter ?? "F") as Letter, note: redactionsFor(x).size ? PRIVATE_FINDING : null };
 };
 
-const COLOR: Record<Letter, string> = { A: "#2ea44f", B: "#4c9f38", C: "#c7a400", D: "#d9822b", F: "#d73a49" };
-const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
-export const badgeSvg = (label: string, message: string, letter: Letter, note?: string | null) => {
-  const w = (t: string) => Math.round(t.length * 6.4 + 14);
-  const lw = w(label), mw = w(message), tot = lw + mw;
-  const alt = `${esc(label)}: ${esc(message)}${note ? ` (${esc(note)})` : ""}`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${tot}" height="20" role="img" aria-label="${alt}"><title>${alt}</title><rect width="${lw}" height="20" fill="#555"/><rect x="${lw}" width="${mw}" height="20" fill="${COLOR[letter]}"/><g fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle"><text x="${lw / 2}" y="14">${esc(label)}</text><text x="${lw + mw / 2}" y="14">${esc(message)}</text></g></svg>`;
-};
-
+// The files themselves are drawn by lib/badge.mjs (flat badge, card, shields endpoint), tested in lib/badge.test.mjs.
 export const badgeServers = () => SERVERS_RESULTS.flatMap((x) => { const b = serverBadge(x); return b ? [{ x, b }] : []; });
 
 export const serverDescription = (x: ServerResult) => {
@@ -71,6 +67,9 @@ ${DOCS.map((p) => `- ${canonical(p)}`).join("\n")}
 ## Results
 - [Graded MCP servers (${SERVER_COUNT} so far)](${canonical("/results/")}): one page per server with every check and its evidence. Grades are automated re-tests of one version with the default settings, not endorsements.
 - [Grade history](${canonical("/results/history/")})
+- [Fleet status](${canonical("/status/")}): servers graded, the share tested within 10 days of the latest run, how often the fleet really runs (gaps between scheduled runs), server runs by day and why some servers are not graded yet.
+- [Grade changes feed (Atom)](${canonical("/results/feed.xml")}): the newest moves of a server's overall grade that came with a different server version under the same Sealmark version; servers with a security finding are left out; one feed per server at /results/<id>/feed.xml.
+${allTopicPages().length ? `- [Best graded servers by topic](${canonical("/results/topics/")}): ${allTopicPages().map((t) => t.title).join(", ")}; each server is placed by a stated rule and ranked by grade.\n` : ""}${toolDirectoryData().rows.length ? `- [Tools Sealmark called with valid input](${canonical("/results/tools/")}): the tools of graded servers that a public check called with valid input, by server; servers with a security finding are left out.\n` : ""}- [Results as JSON](${ORIGIN}/data/v1/servers.json): every graded server; one server at ${ORIGIN}/data/v1/servers/<id>.json, grade changes at ${ORIGIN}/data/v1/changes.json, OpenAPI 3.1 at ${ORIGIN}/data/v1/openapi.json. No key. Fields: ${canonical("/docs/guides/results-data")}
 
 ## Guides
 - [What is MCP conformance testing?](${canonical("/mcp-conformance-testing/")})

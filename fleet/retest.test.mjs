@@ -77,6 +77,52 @@ test("no note without a failed attempt, or when the attempt is older than the gr
   assert.equal(retestNote(garbled), null);
 });
 
+test("a typed start failure is stored with the attempt and worded in its own terms", () => {
+  const servers = [graded()];
+  recordFailedAttempt(servers, "postgres-mcp", "2026-11-12", "start-fail", "needs-credentials");
+  assert.deepEqual(servers[0].lastAttempt, { date: "2026-11-12", status: "failed", kind: "start-fail", startKind: "needs-credentials" });
+  assert.equal(retestShort(servers[0]), "re-test 2026-11-12: server did not start (looks like it needs a credential)");
+  assert.equal(retestNote(servers[0]), "The latest re-test, on 2026-11-12, could not start the server (it looks like it needs a credential), so this grade is still the one from 2026-10-15.");
+});
+
+test("each start failure kind has hedged words; unknown, a made-up kind and a non-start failure keep the plain words", () => {
+  const x = (startKind, kind = "start-fail") => ({ ...graded(), lastAttempt: { date: "2026-11-12", status: "failed", kind, ...(startKind ? { startKind } : {}) } });
+  assert.match(retestShort(x("dependency-resolution")), /a dependency could not be installed/);
+  assert.match(retestShort(x("missing-runtime")), /a runtime it needs is missing/);
+  assert.match(retestShort(x("bad-launch")), /the launch command did not work/);
+  assert.match(retestShort(x("initialize-timeout")), /did not answer in time/);
+  for (const k of ["unknown", "toString", "<script>", undefined]) assert.equal(retestShort(x(k)), "re-test 2026-11-12: server did not start", String(k));
+  assert.equal(retestShort(x("needs-credentials", "timeout")), "re-test 2026-11-12: timed out");
+  const servers = [graded()];
+  recordFailedAttempt(servers, "postgres-mcp", "2026-11-12", "start-fail", "toString");
+  assert.equal("startKind" in servers[0].lastAttempt, false);
+  recordFailedAttempt(servers, "postgres-mcp", "2026-11-12", "timeout", "needs-credentials");
+  assert.equal("startKind" in servers[0].lastAttempt, false);
+});
+
+test("merge.mjs: the CLI's typed start failure lands on the entry and in the telemetry, never its advice text", () => {
+  const dir = scratch([graded()]);
+  try {
+    report(dir, "a", { id: "postgres-mcp", version: "0.3.0", ecosystem: "pypi" }, {
+      status: "failed", error: "could not start or talk to the server: MCP error -32000: Connection closed",
+      sealmark: { version: "1.0.1", methodology: "0.3-draft" },
+      startFailure: { kind: "needs-credentials", advice: "give it a key" },
+    });
+    report(dir, "b", { id: "other", version: "1.0.0", ecosystem: "npm" }, {
+      status: "failed", error: "Connection closed", startFailure: { kind: "<made up>", advice: "x" },
+    });
+    merge(dir);
+    const [x] = results(dir);
+    assert.equal(x.lastAttempt.startKind, "needs-credentials");
+    const tel = fs.readFileSync(path.join(dir, "fleet", "telemetry.jsonl"), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    assert.equal(tel.find((t) => t.id === "postgres-mcp").startKind, "needs-credentials");
+    assert.equal(tel.find((t) => t.id === "other").startKind, undefined);
+    assert.ok(!JSON.stringify(tel).includes("give it a key"));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 // End to end: merge.mjs works on paths relative to its working directory, so run it in a scratch folder.
 const MERGE = path.join(path.dirname(fileURLToPath(import.meta.url)), "merge.mjs");
 
@@ -121,6 +167,24 @@ test("merge.mjs: a start failure marks the graded entry, a new server that fails
   }
 });
 
+test("merge.mjs: writes fleet/not-graded.json with new servers that failed, typed, without their error text", () => {
+  const dir = scratch([graded()]);
+  try {
+    report(dir, "a", { id: "postgres-mcp", version: "0.3.0", ecosystem: "pypi" }, { status: "failed", error: "Connection closed" });
+    report(dir, "b", { id: "brand-new", version: "1.0.0", ecosystem: "npm", isNew: true }, {
+      status: "failed", error: "Connection closed (server stderr: secret-text-here)", startFailure: { kind: "needs-credentials", advice: "x" },
+    });
+    const days = merge(dir);
+    const out = JSON.parse(fs.readFileSync(path.join(dir, "fleet", "not-graded.json"), "utf8"));
+    assert.equal(out.count, 1);
+    assert.deepEqual({ ...out.servers[0], lastTried: null }, { id: "brand-new", version: "1.0.0", lastTried: null, attempts: 1, reason: "needs-credentials" });
+    assert.ok(days.includes(out.servers[0].lastTried));
+    assert.ok(!JSON.stringify(out).includes("secret-text-here"));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("merge.mjs: a graded server whose re-test left no report is marked too", () => {
   const dir = scratch([graded()]);
   try {
@@ -150,6 +214,23 @@ test("merge.mjs: a successful re-test replaces the entry and clears the failed a
     assert.equal(x.lastAttempt, undefined);
     assert.equal(x.testedAt, "2026-11-13");
     assert.equal(x.packs[0].letter, "B");
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("merge.mjs: a failed try records the registry arguments it was started with, so the same try is not repeated", () => {
+  const dir = scratch([]);
+  try {
+    const startFail = { status: "failed", error: "Connection closed" };
+    report(dir, "a", { id: "tares", version: "0.4.0", ecosystem: "pypi", isNew: true, launch: "uvx tares==0.4.0 mcp", args: ["mcp"] }, startFail);
+    report(dir, "b", { id: "bare", version: "1.0.0", ecosystem: "npm", isNew: true, launch: "npx -y bare@1.0.0" }, startFail);
+    report(dir, "c", { id: "odd", version: "1.0.0", ecosystem: "npm", isNew: true, args: ["ok", 7] }, startFail);
+    merge(dir);
+    const hist = fs.readFileSync(path.join(dir, "fleet", "history.jsonl"), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    assert.deepEqual(hist.find((h) => h.id === "tares").args, ["mcp"]);
+    assert.equal("args" in hist.find((h) => h.id === "bare"), false);
+    assert.equal("args" in hist.find((h) => h.id === "odd"), false);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

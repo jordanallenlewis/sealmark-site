@@ -9,6 +9,8 @@ import { clsx } from "clsx";
 //   - load state is one value on the root as data-state: idle | loading | ready | error (aria-busy while loading).
 //     An error is not terminal: focusing the bar again or pressing Retry fetches the index again.
 //   - the role=status live region sits outside the hidden results panel, so hit counts and errors are announced
+//   - scope "site" (site#57 slice 2) also loads /results-index.json (app/results-index.json, lib/search-index.mjs): one entry per
+//     graded server, found by name, id or tool name. The docs index is required; if the server index fails, docs results still show.
 import { SkeletonBox } from "skullet/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,6 +26,7 @@ interface Entry {
   headings: string[];
   text: string;
   status?: string;
+  grade?: string;
 }
 interface Prepared extends Entry {
   t: string[];
@@ -106,7 +109,12 @@ function Snippet({ hit }: { hit: Hit }) {
 
 type Load = "idle" | "loading" | "ready" | "error";
 
-export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | "page"; hotkey?: boolean }) {
+const LABEL = { docs: "Search the docs", site: "Search docs, servers and tools" } as const;
+
+const getJson = (url: string, signal: AbortSignal) =>
+  fetch(url, { signal }).then((r) => (r.ok ? (r.json() as Promise<Entry[]>) : Promise.reject(new Error(String(r.status)))));
+
+export function Search({ variant = "bar", hotkey = false, scope = "docs" }: { variant?: "bar" | "page"; hotkey?: boolean; scope?: "docs" | "site" }) {
   const router = useRouter();
   const id = useId();
   const input = useRef<HTMLInputElement>(null);
@@ -138,10 +146,12 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
     setLoad("loading");
     const ctl = new AbortController();
     abort.current = ctl;
-    fetch("/docs-index.json", { signal: ctl.signal })
-      .then((r) => (r.ok ? (r.json() as Promise<Entry[]>) : Promise.reject(new Error(String(r.status)))))
-      .then((d) => {
-        setIndex(prepare(d));
+    const servers = scope === "site" ? getJson("/results-index.json", ctl.signal)
+            .then((x) => (Array.isArray(x) ? x.filter((e) => e && typeof e.url === "string" && typeof e.title === "string" && typeof e.text === "string" && Array.isArray(e.headings)) : []))
+            .catch(() => [] as Entry[]) : Promise.resolve([] as Entry[]);
+    Promise.all([getJson("/docs-index.json", ctl.signal), servers])
+      .then(([d, x]) => {
+        setIndex(prepare([...d, ...x]));
         setLoad("ready");
       })
       .catch(() => {
@@ -195,8 +205,8 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
         autoComplete="off"
         autoCapitalize="off"
         spellCheck={false}
-        placeholder="Search the docs"
-        aria-label="Search the docs"
+        placeholder={LABEL[scope]}
+        aria-label={LABEL[scope]}
         role="combobox"
         aria-expanded={shown && hits.length > 0}
         aria-controls={`${id}-list`}
@@ -225,6 +235,7 @@ export function Search({ variant = "bar", hotkey = false }: { variant?: "bar" | 
                   {h.e.title}
                   {h.e.section ? <span className={s.resSection}> › {h.e.section}</span> : null}
                   {h.e.status && h.e.status !== "shipped" ? <span className={s.resTag}>{h.e.status}</span> : null}
+                  {h.e.grade ? <span className={s.resTag}>{h.e.grade}</span> : null}
                 </span>
                 <span className={s.resGroup}>{h.e.group}</span>
                 <span className={s.resSnip}><Snippet hit={h} /></span>
