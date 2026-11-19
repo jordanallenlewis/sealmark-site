@@ -11,6 +11,8 @@
   // Optional, all unset: NOTIFY_MASS_CHANGE "baseline" or "send" releases a held mass change (worker/index.js) for one
   // deploy; NOTIFY_TURNSTILE "1" requires a Turnstile token on subscribe, with the TURNSTILE_SECRET secret and the
   // public TURNSTILE_SITE_KEY for the form (no widget exists yet, so leave it off).
+  // Private security notices to maintainers (POST /api/owner-mail, worker/owner-mail.mjs): needs the OWNER_MAIL_TOKEN secret and
+  // OWNER_MAIL_LIVE "1" here (off until Jordan approves the first batch; "0" answers {status: "dry"} and sends nothing).
   "name": "sealmark",
   "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
@@ -35,6 +37,6 @@
   ],
   "send_email": [{ "name": "EMAIL" }],
   "triggers": { "crons": ["30 * * * *"] },
-  "vars": { "NOTIFY_LIVE": "1" },
+  "vars": { "NOTIFY_LIVE": "1", "OWNER_MAIL_LIVE": "0" },
   "observability": { "enabled": true }
 }

@@ -59,6 +59,7 @@ import { FILE as FACTS_FILE, collect as collectFacts, githubGetter } from "./ser
 import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
 import { candidates as privateCandidates, privateLimitsFrom, reportFor, sendReports } from "./private-reports.mjs";
 import { PRIVATE_RESULTS } from "./redact-results.mjs";
+import { emailCandidates, emailLimitsFrom, resolveContact, sendNotices, sendReminders } from "./email-notices.mjs";
 import { PUBLIC, isPublicCheck, isSecurityCheck, isWeakSignal, securityFindings } from "./security-checks.mjs";
 
 export const FILES = {
@@ -961,7 +962,11 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
   // in this run has none to send and waits for its next re-test. Dropped before the cut so it cannot crowd out a sendable one.
   const noText = (e) => e.servers.some((x) => x.security.some((c) => !String(c.summary ?? "").trim()));
   for (const e of pc.ready.filter(noText)) pc.skipped.push({ repo: e.repo, why: "the finding text is not kept in the public results file; waits for the next re-test" });
-  for (const e of pc.ready.filter((v) => !noText(v)).slice(0, 6)) {
+  // The gates both private channels share (one network check per candidate): launch line runs as written, repository alive
+  // and active, server facts. A candidate that fails goes to `skippedList` with its reason; the rest become reports.
+  const gateReady = async (list, skippedList) => {
+  const made = [];
+  for (const e of list.slice(0, 6)) {
     // the version tested must still be the latest: one network check per candidate, the same rule the public notices use
     let gate = null;
     for (const x of e.servers.filter((v) => v.security.length)) {
@@ -976,8 +981,11 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
       gate = factsGate(r, f);
       if (gate) break;
     }
-    if (gate) pc.skipped.push({ repo: e.repo, why: gate.reason }); else reports.push(reportFor(e, { fixFor }));
+    if (gate) skippedList.push({ repo: e.repo, why: gate.reason }); else made.push(reportFor(e, { fixFor }));
   }
+  return made;
+  };
+  reports.push(...(await gateReady(pc.ready.filter((v) => !noText(v)), pc.skipped)));
   io.write(FILES.privateReports, `# Private reports the next live run may send\n\nPRIVATE: gitignored, never committed. ${reports.length} ready, ${pc.skipped.length} not sent (${[...new Set(pc.skipped.map((k) => k.why.replace(/\(.*/, "").trim()))].join("; ") || "none"}).\n\n` + reports.map((r) => `---\n\n## ${r.repo}\n\n**Title:** ${r.title}\n\n${r.body}\n`).join("\n"));
   const privGate = live && Boolean(me) && env.OWNER_PRIVATE_LIVE === "1" && Boolean(env.OWNER_PRIVATE_KEY);
   if (live && env.OWNER_PRIVATE_LIVE === "1" && !env.OWNER_PRIVATE_KEY) log("::error::OWNER_PRIVATE_LIVE is 1 but the OWNER_PRIVATE_KEY secret is not set: no private report is sent (the ledger needs a keyed hash)");
@@ -993,6 +1001,42 @@ export async function main({ env = process.env, argv = process.argv, io = realIo
     if (["403", "429"].includes(out.stopped)) { setPause(ledger, { code: `http-${out.stopped}`, reason: `GitHub answered ${out.stopped} to a private report; backing off for 24 hours`, now: nowMs, hours: 24 }); log(`::error::GitHub answered ${out.stopped} to a private report: posting is paused for 24 hours`); }
   }
   log(`private reports: ${privSent} sent, ${reports.length} ready${privGate ? "" : " (not live: OWNER_PRIVATE_LIVE is not 1 or no OWNER_PRIVATE_KEY)"}, ${pc.skipped.length} not sent, ${(ledger.private ?? []).filter((r) => !r.failed).length} sent in all`);
+
+  // private email notices for held repositories that private vulnerability reporting cannot reach (fleet/email-notices.mjs):
+  // the same gates and the same caps as above, a Worker route to send, a keyed-hash ledger (ledger.ownerMail), counts only in the log.
+  // Live only with OWNER_EMAIL_LIVE=1 (Jordan's yes to the first batch) and the OWNER_MAIL_TOKEN secret, never in a dry run.
+  const emLimits = emailLimitsFrom(env);
+  const ec = emailCandidates(entries, { pvr, byId, ledger, optout, history: privHistory, today, self: SELF, limits: emLimits, key: env.OWNER_PRIVATE_KEY ?? "" });
+  const eNoText = (e) => e.servers.some((x) => x.security.some((c) => !String(c.summary ?? "").trim()));
+  for (const e of ec.ready.filter(eNoText)) ec.skipped.push({ repo: e.repo, why: "the finding text is not kept in the public results file; waits for the next re-test" });
+  const emailReady = await gateReady(ec.ready.filter((v) => !eNoText(v)), ec.skipped); // reportFor results carry .repo and .servers only for the hash and ids
+  const emailEntries = ec.ready.filter((v) => emailReady.some((r) => r.repo === v.repo));
+  const getJson = async (url) => {
+    if (url.startsWith("https://api.github.com/")) {
+      const r = await api(url.slice("https://api.github.com".length));
+      return r.missing ? r : r.content ? { text: Buffer.from(r.content, "base64").toString("utf8") } : r;
+    }
+    const res = await fetchFn(url, { headers: { "user-agent": "sealmark-fleet", accept: "application/json" } });
+    return res.ok ? res.json() : { missing: true };
+  };
+  const contactFor = (e) => { const r = byId.get(e.servers[0].id) ?? {}; return resolveContact({ repo: e.repo, ecosystem: r.ecosystem, pkg: ["npm", "pypi"].includes(r.ecosystem) ? r.name : null }, { get: getJson }); };
+  const emailGate = !g.dry && env.OWNER_EMAIL_LIVE === "1" && Boolean(env.OWNER_MAIL_TOKEN) && Boolean(env.OWNER_PRIVATE_KEY);
+  if (!g.dry && env.OWNER_EMAIL_LIVE === "1" && !emailGate) log("::error::OWNER_EMAIL_LIVE is 1 but OWNER_MAIL_TOKEN or OWNER_PRIVATE_KEY is not set: no email notice is sent");
+  const mailPost = async (m) => {
+    const res = await fetchFn("https://sealmark.dev/api/owner-mail", { method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${env.OWNER_MAIL_TOKEN}` }, body: JSON.stringify(m), signal: AbortSignal.timeout(30_000) });
+    if (!res.ok) { const e = new Error(`owner-mail ${res.status}`); e.status = res.status; throw e; }
+    if ((await res.json().catch(() => ({}))).status !== "sent") { const e = new Error("owner-mail not sent"); e.status = 503; throw e; } // the route is dry: nothing went out, take the intent back
+  };
+  const emailCtx = { ledger, now: nowMs, limits: emLimits, key: env.OWNER_PRIVATE_KEY ?? "", contactFor, post: mailPost, save: () => writeJson(FILES.ledger, ledger), persist: () => persistLedger(env, gh), sleep, log };
+  let emailSent = 0, emailRemind = 0, emailNoContact = 0;
+  if (emailGate) {
+    const rem = await sendReminders({ ...emailCtx, entries });
+    emailRemind = rem.sent;
+    const out = emailReady.length ? await sendNotices({ ...emailCtx, ready: emailEntries }) : { sent: 0, noContact: 0, stopped: null };
+    emailSent = out.sent; emailNoContact = out.noContact;
+    if (["429", "503"].includes(out.stopped)) { setPause(ledger, { code: `mail-${out.stopped}`, reason: `the mail route answered ${out.stopped}; backing off for 24 hours`, now: nowMs, hours: 24 }); writeJson(FILES.ledger, ledger); log(`::error::the mail route answered ${out.stopped}: email notices are paused for 24 hours`); }
+  }
+  log(`email notices: ${emailSent} sent, ${emailRemind} reminders, ${emailNoContact} without a contact, ${emailReady.length} ready${emailGate ? "" : " (not live: OWNER_EMAIL_LIVE is not 1, or no OWNER_MAIL_TOKEN or OWNER_PRIVATE_KEY)"}, ${ec.skipped.length} not sent, ${(ledger.ownerMail ?? []).filter((r) => r.channel && !r.intent).length} sent in all, ${(ledger.ownerMail ?? []).filter((r) => r.noContact).length} with no contact found`);
   const counts = skipCounts(skipped).map(([c, n]) => `${c} ${n}`).join(", ");
 
   // every graded server ends up sent, waiting, held or skipped, each with its reason: counted here, written to the log

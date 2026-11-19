@@ -11,7 +11,7 @@ import { cleanPath, cleanTag, refHost } from "./visits.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tmp = mkdtempSync(join(tmpdir(), "sealmark-visits-"));
-for (const f of ["index.js", "notify-core.mjs", "visits.mjs"]) copyFileSync(join(here, f), join(tmp, f));
+for (const f of ["index.js", "notify-core.mjs", "visits.mjs", "owner-mail.mjs"]) copyFileSync(join(here, f), join(tmp, f));
 writeFileSync(join(tmp, "grades.json"), "{}");
 writeFileSync(join(tmp, "package.json"), JSON.stringify({ type: "module" }));
 const { default: worker } = await import(pathToFileURL(join(tmp, "index.js")).href);
