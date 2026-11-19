@@ -273,10 +273,18 @@ test("withdrawnGrade: a grade older than 7 days with a failed re-test since is w
   assert.match(w.text, /current version, 0\.1\.5, has failed to start since 2026-11-10/);
 });
 
-test("withdrawnGrade: boundary, exactly 7 days old stays shown, 8 days is withdrawn", () => {
-  assert.equal(WITHDRAW_AFTER_DAYS, 7);
-  assert.equal(withdrawnGrade(stale(), "2026-11-16", null), null);
-  assert.notEqual(withdrawnGrade(stale(), "2026-11-17", null), null);
+test("withdrawnGrade: boundary, 5 days old stays shown, 6 days is withdrawn (the invariant is under 7)", () => {
+  assert.equal(WITHDRAW_AFTER_DAYS, 6);
+  assert.equal(withdrawnGrade(stale(), "2026-11-14", null), null);
+  assert.notEqual(withdrawnGrade(stale(), "2026-11-15", null), null);
+});
+
+test("firstFailureAfter: the version comes from the newest failed run, not the last line in file order", () => {
+  const h = [
+    { id: "a", version: "2.0", testedAt: "2026-11-19", status: "failed" },
+    { id: "a", version: "1.0", testedAt: "2026-11-10", status: "failed" },
+  ].map((r) => JSON.stringify(r)).join("\n");
+  assert.deepEqual(firstFailureAfter(h, "a", "2026-11-09"), { first: "2026-11-10", version: "2.0" });
 });
 
 test("withdrawnGrade: no failed re-test since the grade, or a failure from before it, keeps the grade", () => {

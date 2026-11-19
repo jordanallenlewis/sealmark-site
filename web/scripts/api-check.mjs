@@ -103,6 +103,18 @@ for (const s of list.servers) {
     if (!doc.noGradeReason || !pageText.includes(doc.noGradeReason.text.trim())) fail(3, `${s.id}: the page does not show the file's reason for the withdrawn grade`);
     if (s.noGradeReason?.text !== doc.noGradeReason?.text) fail(3, `${s.id}: list and file give different reasons for the withdrawn grade`);
   } else if (heading === "No current grade") fail(3, `${s.id}: the page withdraws the grade, the file does not`);
+  // The README badge (build output /badge/<id>.json) must agree with the file's grade: a withdrawn grade is neutral grey
+  // with no letter, never a default F; otherwise the colour is the grade's own.
+  const badgeFile = join(out, "badge", `${s.id}.json`);
+  if (existsSync(badgeFile)) {
+    const bd = read(badgeFile);
+    const COLOR = { A: "brightgreen", B: "green", C: "yellow", D: "orange", F: "red" };
+    if (doc.grade === null) {
+      if (bd.color !== "lightgrey" || !/no current grade/.test(bd.message)) fail(3, `${s.id}: the file has no grade, the badge says "${bd.message}" in ${bd.color}`);
+    } else if (bd.color !== COLOR[doc.grade]) fail(3, `${s.id}: the file grade is ${doc.grade}, the badge is ${bd.color}`);
+    const card = join(out, "badge", `${s.id}-card.svg`);
+    if (doc.grade === null && existsSync(card) && /grade [ABCDF]:/.test(readFileSync(card, "utf8"))) fail(3, `${s.id}: the file has no grade, the badge card shows a letter`);
+  }
   const raw = RAW.get(s.id);
   const red = raw ? redactedChecks(raw, DISCLOSURE, TODAY) : new Map();
   if (red.size > 0) {

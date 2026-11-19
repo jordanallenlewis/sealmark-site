@@ -10,6 +10,8 @@ export const ORIGIN = "https://sealmark.dev";
 const HEX = { A: "#2ea44f", B: "#4c9f38", C: "#c7a400", D: "#d9822b", F: "#d73a49" };
 // The same named colours the CLI's --format shields uses, so a self-reported badge and a sealmark.dev one match.
 const SHIELDS = { A: "brightgreen", B: "green", C: "yellow", D: "orange", F: "red" };
+// No letter (a withdrawn grade): neutral grey, never a failing colour.
+const NEUTRAL = { hex: "#6b7280", shields: "lightgrey" };
 
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const alt = (label, message, note) => `${label}: ${message}${note ? ` (${note})` : ""}`;
@@ -20,7 +22,7 @@ export function badgeSvg(label, message, letter, note) {
   const w = (t) => Math.round(t.length * 6.4 + 14);
   const lw = w(label), mw = w(message), tot = lw + mw;
   const a = esc(alt(label, message, note));
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${tot}" height="20" role="img" aria-label="${a}"><title>${a}</title><rect width="${lw}" height="20" fill="#555"/><rect x="${lw}" width="${mw}" height="20" fill="${HEX[letter]}"/><g fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle"><text x="${lw / 2}" y="14">${esc(label)}</text><text x="${lw + mw / 2}" y="14">${esc(message)}</text></g></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${tot}" height="20" role="img" aria-label="${a}"><title>${a}</title><rect width="${lw}" height="20" fill="#555"/><rect x="${lw}" width="${mw}" height="20" fill="${letter ? HEX[letter] : NEUTRAL.hex}"/><g fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle"><text x="${lw / 2}" y="14">${esc(label)}</text><text x="${lw + mw / 2}" y="14">${esc(message)}</text></g></svg>`;
 }
 
 // card: { name, version, testedAt, message, letter, note }
@@ -29,12 +31,12 @@ export function badgeSvg(label, message, letter, note) {
 // run long, so the text group is clipped 12 px inside the card's right edge.
 export function badgeCardSvg({ name, version, testedAt, message, letter, note }) {
   const W = 420, H = 84;
-  const title = esc(`sealmark: ${name} ${version}, grade ${letter}: ${message}, tested ${testedAt}${note ? ` (${note})` : ""}`);
+  const title = esc(`sealmark: ${name} ${version}, ${letter ? `grade ${letter}: ` : ""}${message}, tested ${testedAt}${note ? ` (${note})` : ""}`);
   const sub = `${clip(String(version), 12)} · tested ${testedAt}`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${title}"><title>${title}</title>`
     + `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="8" fill="#16181d" stroke="#3a3f4b"/>`
-    + `<rect x="12" y="12" width="60" height="60" rx="6" fill="${HEX[letter]}"/>`
-    + `<text x="42" y="56" fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="34" font-weight="700" text-anchor="middle">${letter}</text>`
+    + `<rect x="12" y="12" width="60" height="60" rx="6" fill="${letter ? HEX[letter] : NEUTRAL.hex}"/>`
+    + `<text x="42" y="56" fill="#fff" font-family="Verdana,DejaVu Sans,sans-serif" font-size="${letter ? 34 : 30}" font-weight="700" text-anchor="middle">${letter ?? "–"}</text>`
     + `<clipPath id="t"><rect x="86" y="0" width="${W - 98}" height="${H}"/></clipPath>`
     + `<g clip-path="url(#t)" font-family="Verdana,DejaVu Sans,sans-serif"><text x="86" y="28" fill="#f2f3f5" font-size="14" font-weight="700">${esc(clip(name, 30))}</text>`
     + `<text x="86" y="48" fill="#c9cdd4" font-size="11">${esc(clip(message, 44))}</text>`
@@ -42,7 +44,7 @@ export function badgeCardSvg({ name, version, testedAt, message, letter, note })
 }
 
 export function shieldsDoc(label, message, letter) {
-  return { schemaVersion: 1, label, message, color: SHIELDS[letter] };
+  return { schemaVersion: 1, label, message, color: letter ? SHIELDS[letter] : NEUTRAL.shields };
 }
 
 // Copy-paste snippets for one server. Each links the image to the server's results page.

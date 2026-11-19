@@ -38,18 +38,22 @@ export const jsonLd = (o: object) => JSON.stringify(o).replace(/</g, "\\u003c");
 // The badge names each test area the way the results page does ("protocol A · network D", not the CLI's "core A").
 // A grade that includes a finding under private disclosure still counts; the tooltip says so.
 export const PRIVATE_FINDING = "includes a finding under private disclosure";
-export const serverBadge = (x: ServerResult): { label: string; message: string; letter: Letter; note: string | null } | null => {
+export const serverBadge = (x: ServerResult): { label: string; message: string; letter: Letter | null; note: string | null } | null => {
   if (!badgeEligible(x)) return null;
   const g = gradedPacks(x);
+  // A withdrawn grade (no current grade) gets a neutral badge, never a letter: the file stays so README embeds do not 404.
+  if (x.gradeWithdrawn) return { label: "sealmark", message: "no current grade", letter: null, note: null };
   const w = worst(x);
+  if (!w) return null; // nothing graded: no badge rather than a default letter
   const message = g.map((p) => `${(PACK_LABEL[p.id] ?? p.id).toLowerCase()} ${p.letter}`).join(" · ");
-  return { label: "sealmark", message, letter: (w?.letter ?? "F") as Letter, note: redactionsFor(x).size ? PRIVATE_FINDING : null };
+  return { label: "sealmark", message, letter: w.letter, note: redactionsFor(x).size ? PRIVATE_FINDING : null };
 };
 
 // The files themselves are drawn by lib/badge.mjs (flat badge, card, shields endpoint), tested in lib/badge.test.mjs.
 export const badgeServers = () => SERVERS_RESULTS.flatMap((x) => { const b = serverBadge(x); return b ? [{ x, b }] : []; });
 
 export const serverDescription = (x: ServerResult) => {
+  if (x.gradeWithdrawn) return `Sealmark conformance results for ${x.name}: no current grade, last graded ${x.versionTested} on ${x.testedAt}. Automated re-tests of the current version have failed since ${x.gradeWithdrawn.since}; the earlier checks keep their evidence.`;
   const g = gradedPacks(x).map((p) => `${PACK_LABEL[p.id] ?? p.id} ${p.letter}`).join(", ");
   return `Sealmark conformance results for ${x.name} ${x.versionTested}: ${g || "no suite graded"}. Automated test on ${x.testedAt} with Sealmark ${x.sealmark.version}; every check shows its evidence.`;
 };

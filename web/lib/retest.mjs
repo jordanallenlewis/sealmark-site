@@ -101,8 +101,8 @@ export function unconfirmedWords(server) {
   };
 }
 
-/** A grade older than this, whose re-tests keep failing, is no longer shown (withdrawnGrade). */
-export const WITHDRAW_AFTER_DAYS = 7;
+/** A grade this many days old or older, whose re-tests keep failing, is no longer shown (withdrawnGrade). The health invariant is "oldest grade < 7 days"; builds only run with the fleet deploy (~6 h), so the cut is a day early. */
+export const WITHDRAW_AFTER_DAYS = 6;
 
 const DAY_MS = 86400000;
 const dayNumber = (d) => Date.parse(`${d}T00:00:00Z`) / DAY_MS;
@@ -118,20 +118,21 @@ const dayNumber = (d) => Date.parse(`${d}T00:00:00Z`) / DAY_MS;
 export function firstFailureAfter(historyText, id, testedAt) {
   let first = null;
   let version = "";
+  let newest = null;
   for (const line of historyText.split("\n")) {
     if (!line.includes(`"${id}"`)) continue;
     let r;
     try { r = JSON.parse(line); } catch { continue; }
     if (r.id !== id || r.status !== "failed" || typeof r.testedAt !== "string" || r.testedAt < testedAt) continue;
     if (first === null || r.testedAt < first) first = r.testedAt;
-    version = r.version ?? version;
+    if (newest === null || r.testedAt >= newest) { newest = r.testedAt; version = r.version ?? ""; }
   }
   return first === null ? null : { first, version };
 }
 
 /**
  * The rule that keeps a stale grade off the site: when the latest re-test failed (failedSince) and the grade is more
- * than WITHDRAW_AFTER_DAYS old on `today`, there is no current grade. Returns the reason the pages and the API print
+ * WITHDRAW_AFTER_DAYS or more old on `today`, there is no current grade. Returns the reason the pages and the API print
  * in its place, or null (the grade stays). A later successful run replaces the entry, so it never reaches here.
  * The old grade stays in the history and in `lastGrade`.
  * @param {{ testedAt?: string, versionTested?: string, lastAttempt?: LastAttempt | null }} server
@@ -142,7 +143,7 @@ export function firstFailureAfter(historyText, id, testedAt) {
 export function withdrawnGrade(server, today, failure) {
   const a = failedSince(server);
   if (!a || !server.testedAt) return null;
-  if (dayNumber(today) - dayNumber(server.testedAt) <= WITHDRAW_AFTER_DAYS) return null;
+  if (dayNumber(today) - dayNumber(server.testedAt) < WITHDRAW_AFTER_DAYS) return null;
   const since = failure?.first ?? a.date;
   const current = failure?.version ? `The current version, ${failure.version}, ` : "The current version ";
   const kind = Object.prototype.hasOwnProperty.call(WORDS, a.kind) ? a.kind : "failed";

@@ -44,3 +44,10 @@ test("real data: every link points at a published server and shares an area with
   }
   assert.ok(pages > 0);
 });
+
+test("a server with a withdrawn grade is not listed as related and has no related list", () => {
+  const p = [{ id: "db", status: "graded", letter: "A" }, { id: "core", status: "graded", letter: "A" }];
+  const a = { id: "a", name: "a", packs: p }, b = { id: "b", name: "b", packs: p, gradeWithdrawn: { kind: "failed", since: "2026-11-10" } };
+  assert.deepEqual(relatedServers(a, [a, b]), []);
+  assert.deepEqual(relatedServers(b, [a, b]), []);
+});

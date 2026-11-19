@@ -22,7 +22,7 @@ export type ServerResult = {
   automated?: boolean; round?: string;
   // set by fleet/merge.mjs when the latest re-test failed; the grade above is from the earlier run (web/lib/retest.mjs)
   lastAttempt?: { date: string; status: "failed"; kind: string; startKind?: string } | null;
-  /** Set when the file loads (lib/results.ts, lib/retest.mjs withdrawnGrade): the grade is older than 7 days and the re-tests keep failing, so no overall grade is shown. */
+  /** Set when the file loads (lib/results.ts, lib/retest.mjs withdrawnGrade): the grade is 6 or more days old and the re-tests keep failing, so no overall grade is shown. */
   gradeWithdrawn?: { kind: string; text?: string; since: string } | null;
 };
 

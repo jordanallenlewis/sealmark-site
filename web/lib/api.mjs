@@ -166,7 +166,7 @@ export function openapiDoc(site, cliVersion) {
       toolCount: { type: "integer" }, transport: str,
       lastAttemptFailed: { ...strOrNull, description: "date of a later re-test that failed; the grade is from the earlier run" },
       gradeConfirmed: { type: "boolean", description: "false when a re-test after the grade's run failed: the grade is the earlier run's and is not confirmed for the version tested now" },
-      noGradeReason: { type: ["object", "null"], description: "why there is no overall grade (null when there is one): kind is no-tools, hygiene, low, covered, unknown, or start-fail / timeout / sealmark-crash / failed when a grade older than 7 days was withdrawn because the re-tests keep failing, text is the words the results page shows", properties: { kind: str, text: str } },
+      noGradeReason: { type: ["object", "null"], description: "why there is no overall grade (null when there is one): kind is no-tools, hygiene, low, covered, unknown, or start-fail / timeout / sealmark-crash / failed when a grade 6 or more days old was withdrawn because the re-tests keep failing, text is the words the results page shows", properties: { kind: str, text: str } },
       page: { type: "string", format: "uri" }, json: { type: "string", format: "uri" },
     },
   };
