@@ -8,6 +8,7 @@ export const dynamic = "force-static";
 // The grade exactly as the server's page heads it (scripts/api-check.mjs rule 7 compares them).
 function gradeLabel(x: ServerResult): string {
   if (coverageNote(x, deepPacks(x).length > 0).kind === "no-tools") return "No tools to test";
+  if (x.gradeWithdrawn) return "No current grade";
   const g = worst(x);
   return g ? `Grade ${g.letter}${g.provisional ? " (provisional)" : ""}` : "No grade";
 }

@@ -38,6 +38,7 @@ export function verdictCounts(checks) {
  *   coverage: { kind: string, text: string },                 // coverageNote(x, ...)
  *   checks: { verdict: string }[],
  *   held: boolean,                                           // any finding under private disclosure
+ *   withdrawn?: string | null,                               // the words for a grade withdrawn because re-tests keep failing (lib/retest.mjs withdrawnGrade)
  * }} a
  * @returns {string} plain text, sentences only
  */
@@ -45,7 +46,9 @@ export function answerSummary(a) {
   const who = `${a.name} ${a.version}`;
   const out = [];
   const areas = a.areas.map((p) => `${areaWord(p.label)} ${areaGrade(p)}`);
-  if (a.coverage.kind === "no-tools") {
+  if (a.withdrawn) {
+    out.push(`${who}: ${a.withdrawn}`);
+  } else if (a.coverage.kind === "no-tools") {
     // The page heads "No tools to test" and still shows the areas that were graded (the protocol area, usually).
     out.push(`Sealmark's automated test of ${who} on ${a.testedAt} gave it no overall grade. ${a.coverage.text}`);
     if (areas.length) out.push(`Test-area ${areas.length === 1 ? "grade" : "grades"}: ${list(areas)}.`);

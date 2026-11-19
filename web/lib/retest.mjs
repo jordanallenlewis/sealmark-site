@@ -100,3 +100,56 @@ export function unconfirmedWords(server) {
     text: `The re-test on ${a.date} ${what(a).note}. This grade still shows what the test on ${server.testedAt} found; it is not confirmed for the version the fleet tries now.`,
   };
 }
+
+/** A grade older than this, whose re-tests keep failing, is no longer shown (withdrawnGrade). */
+export const WITHDRAW_AFTER_DAYS = 7;
+
+const DAY_MS = 86400000;
+const dayNumber = (d) => Date.parse(`${d}T00:00:00Z`) / DAY_MS;
+
+/**
+ * The first failed run after the grade, and the version of the newest failed run, from fleet/history.jsonl text.
+ * Only failed lines on or after `testedAt`; a successful line after the grade means the grade would be newer anyway.
+ * @param {string} historyText fleet/history.jsonl
+ * @param {string} id
+ * @param {string} testedAt YYYY-MM-DD of the grade
+ * @returns {{ first: string, version: string } | null}
+ */
+export function firstFailureAfter(historyText, id, testedAt) {
+  let first = null;
+  let version = "";
+  for (const line of historyText.split("\n")) {
+    if (!line.includes(`"${id}"`)) continue;
+    let r;
+    try { r = JSON.parse(line); } catch { continue; }
+    if (r.id !== id || r.status !== "failed" || typeof r.testedAt !== "string" || r.testedAt < testedAt) continue;
+    if (first === null || r.testedAt < first) first = r.testedAt;
+    version = r.version ?? version;
+  }
+  return first === null ? null : { first, version };
+}
+
+/**
+ * The rule that keeps a stale grade off the site: when the latest re-test failed (failedSince) and the grade is more
+ * than WITHDRAW_AFTER_DAYS old on `today`, there is no current grade. Returns the reason the pages and the API print
+ * in its place, or null (the grade stays). A later successful run replaces the entry, so it never reaches here.
+ * The old grade stays in the history and in `lastGrade`.
+ * @param {{ testedAt?: string, versionTested?: string, lastAttempt?: LastAttempt | null }} server
+ * @param {string} today YYYY-MM-DD, the build date
+ * @param {{ first: string, version: string } | null} failure firstFailureAfter(...)
+ * @returns {{ kind: string, text: string, since: string } | null}
+ */
+export function withdrawnGrade(server, today, failure) {
+  const a = failedSince(server);
+  if (!a || !server.testedAt) return null;
+  if (dayNumber(today) - dayNumber(server.testedAt) <= WITHDRAW_AFTER_DAYS) return null;
+  const since = failure?.first ?? a.date;
+  const current = failure?.version ? `The current version, ${failure.version}, ` : "The current version ";
+  const kind = Object.prototype.hasOwnProperty.call(WORDS, a.kind) ? a.kind : "failed";
+  const what_ = a.kind === "start-fail" ? `has failed to start since ${since}` : `has failed every re-test since ${since} (${what(a).note})`;
+  return {
+    kind,
+    since,
+    text: `There is no current grade. The last grade was from version ${server.versionTested}, tested on ${server.testedAt}. ${current}${what_}, so Sealmark cannot grade it now. The earlier grade stays in this server's history.`,
+  };
+}

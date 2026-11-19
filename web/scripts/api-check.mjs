@@ -92,11 +92,17 @@ for (const s of list.servers) {
   const h = html.match(/<h2 id="grade-h">(.*?)<\/h2>/s);
   if (!h) { fail(3, `${s.id}: no grade heading on the page`); continue; }
   const heading = text(h[1]).trim();
-  const none = heading === "No tools to test" || heading === "No grade";
+  const none = heading === "No tools to test" || heading === "No grade" || heading === "No current grade";
   const want = heading.match(/^Grade ([ABCDF])( \(provisional\))?$/);
   if (!none && !want) fail(3, `${s.id}: unknown grade heading "${heading}"; update this check`);
   else if (none ? doc.grade !== null : doc.grade !== want[1] || doc.provisional !== Boolean(want[2])) fail(3, `${s.id}: page "${heading}", file ${doc.grade}${doc.provisional ? " (provisional)" : ""}`);
   const pageText = text(html);
+  // A withdrawn stale grade (lib/retest.mjs withdrawnGrade): list, file and page all say it, in the same words.
+  if (doc.lastGrade) {
+    if (heading !== "No current grade" || doc.grade !== null) fail(3, `${s.id}: the file has a withdrawn grade, the page says "${heading}"`);
+    if (!doc.noGradeReason || !pageText.includes(doc.noGradeReason.text.trim())) fail(3, `${s.id}: the page does not show the file's reason for the withdrawn grade`);
+    if (s.noGradeReason?.text !== doc.noGradeReason?.text) fail(3, `${s.id}: list and file give different reasons for the withdrawn grade`);
+  } else if (heading === "No current grade") fail(3, `${s.id}: the page withdraws the grade, the file does not`);
   const raw = RAW.get(s.id);
   const red = raw ? redactedChecks(raw, DISCLOSURE, TODAY) : new Map();
   if (red.size > 0) {
@@ -198,7 +204,7 @@ for (const sv of list.servers) {
         // Whatever a later edit adds, a held server's entry has exactly these fields and a text with no room for a name.
         const keys = Object.keys(e).sort().join(",");
         if (keys !== "grade,group,headings,section,text,title,url") fail(7, `${sv.id}: unexpected fields in a held server's search entry (${keys})`);
-        if (!/^(Grade [ABCDF]( \(provisional\))?|No grade|No tools to test) · (npm|PyPI|GitHub) · \d+ tools?$/.test(e.text)) fail(7, `${sv.id}: a held server's search text has more than grade, source and tool count`);
+        if (!/^(Grade [ABCDF]( \(provisional\))?|No grade|No current grade|No tools to test) · (npm|PyPI|GitHub) · \d+ tools?$/.test(e.text)) fail(7, `${sv.id}: a held server's search text has more than grade, source and tool count`);
       }
     }
     const idx = body(file);
