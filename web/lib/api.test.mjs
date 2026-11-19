@@ -129,11 +129,11 @@ test("list document counts its servers", () => {
   assert.equal(d.version, "v1");
 });
 
-test("OpenAPI document is 3.1, points at /data/v1 and describes the four files", () => {
+test("OpenAPI document is 3.1, points at /data/v1 and describes the five files", () => {
   const o = openapiDoc(SITE, "1.0.1");
   assert.equal(o.openapi, "3.1.0");
   assert.equal(o.servers[0].url, "https://sealmark.dev/data/v1");
-  assert.deepEqual(Object.keys(o.paths), ["/servers.json", "/servers/{id}.json", "/changes.json", "/openapi.json"]);
+  assert.deepEqual(Object.keys(o.paths), ["/servers.json", "/servers/{id}.json", "/changes.json", "/lookup.json", "/openapi.json"]);
   for (const ref of JSON.stringify(o).match(/#\/components\/schemas\/\w+/g)) assert.ok(o.components.schemas[ref.split("/").pop()], ref);
   assert.equal(serverPath("srv"), "/data/v1/servers/srv.json");
 });

@@ -31,6 +31,10 @@
 //  12  the tool pages (out/results/tools/<id>/<slug>/) are exactly the tools a public check called with a valid call,
 //      recomputed from the raw data with the "By tool" hold rule (lib/tool-pages.mjs), never for a server with a private
 //      finding or any security finding, and no tool page contains withheld text of any server
+//  13  out/data/v1/lookup.json (lib/lookup.mjs lookupProblems): exactly its five fields, its count is the listed servers,
+//      every id it names is listed, every listed server is found by its id and its package (or repository) key, a server
+//      with a private finding (recomputed from the raw data) by nothing else, any other repository key is the one its
+//      page shows in Package facts, and a page that shows one is found by it, and the file contains no withheld text of any server
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -40,6 +44,7 @@ import { toolsPageProblems } from "../lib/tool-directory.mjs";
 import { feedProblems, xmlText } from "../lib/feed.mjs";
 import { answerPageProblems } from "../lib/answer.mjs";
 import { toolPages, toolPagesProblems } from "../lib/tool-pages.mjs";
+import { lookupProblems } from "../lib/lookup.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -257,6 +262,29 @@ for (const sv of list.servers) {
     const files = readdirSync(join(out, "status")).filter((f) => /\.(html|txt)$/.test(f));
     const all = files.map((f) => body(join(out, "status", f))).join("\n");
     for (const id of RAW.keys()) if (id.length > 5 && all.includes(`"${id}"`)) fail(10, `the status page payload names server ${id}`);
+  }
+}
+
+// Rule 13: the grade lookup index.
+{
+  const file = join(api, "lookup.json");
+  if (!existsSync(file)) fail(13, "out/data/v1/lookup.json was not built");
+  else {
+    let ix = null;
+    try { ix = read(file); } catch (e) { fail(13, `lookup.json: ${e.message}`); }
+    if (ix) {
+      const servers = list.servers.map((sv) => {
+        const raw = RAW.get(sv.id);
+        return { id: sv.id, ecosystem: sv.ecosystem, name: sv.name, held: Boolean(raw && redactedChecks(raw, DISCLOSURE, TODAY).size > 0) };
+      });
+      // The repository the page itself shows in its Package facts block (not any GitHub link in the footer or the text).
+      const shown = (id) => body(join(resultsDir, id, "index.html")).match(/<dt>Repository<\/dt><dd><a href="https:\/\/github\.com\/([^"]+)"/)?.[1].toLowerCase() ?? null;
+      for (const p of lookupProblems(ix, servers, shown)) fail(13, p);
+    }
+    const lk = body(file);
+    for (const [, where, t] of secrets) {
+      if (t && lk.includes(JSON.stringify(t).slice(1, -1))) fail(13, `${where}: withheld text appears in lookup.json`);
+    }
   }
 }
 
