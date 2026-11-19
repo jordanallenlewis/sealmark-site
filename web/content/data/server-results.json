@@ -7,16 +7,16 @@
       "name": "@bytebase/dbhub",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.7.1",
+      "versionTested": "2.0.0",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @bytebase/dbhub@1.7.1 --transport stdio --dsn {dsn}",
+      "launch": "npx -y @bytebase/dbhub@2.0.0 --transport stdio --dsn {dsn}",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -12940,7 +12940,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-18",
+        "date": "2026-11-19",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -15390,18 +15390,188 @@
       "name": "@ekwo-ai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.25.2",
+      "versionTested": "0.26.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-14",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @ekwo-ai/mcp@0.25.2",
+      "launch": "npx -y @ekwo-ai/mcp@0.26.0",
       "transport": "stdio",
-      "toolCount": 77,
+      "toolCount": 83,
+      "tools": [
+        "list_companies",
+        "get_company",
+        "list_accounts",
+        "search_contacts",
+        "suggest_duplicate_contacts",
+        "contact_statement",
+        "list_documents",
+        "get_document",
+        "render_invoice_pdf",
+        "get_preferences",
+        "list_api_keys",
+        "list_invitations",
+        "list_shares",
+        "list_bank_transactions",
+        "trial_balance",
+        "general_ledger",
+        "journal_book",
+        "suggest_line_contacts",
+        "suggest_item_combinations",
+        "matching_difference_options",
+        "aged_balance",
+        "subledger",
+        "vat_return",
+        "instalment_plan",
+        "ec_sales_list",
+        "portfolio_upcoming_filings",
+        "portfolio_filings_touched_since",
+        "portfolio_overview",
+        "list_statements",
+        "financial_statement",
+        "financial_analysis",
+        "list_analytic_axes",
+        "analytic_report",
+        "generate_fec",
+        "describe_pack",
+        "status",
+        "read_audit_log",
+        "search_products",
+        "create_product",
+        "update_product",
+        "create_contact",
+        "merge_contacts",
+        "create_document",
+        "update_document_lines",
+        "post_document",
+        "accept_document",
+        "decline_document",
+        "undo_document_answer",
+        "cancel_document",
+        "reverse_entry",
+        "record_payment",
+        "reconcile",
+        "unreconcile",
+        "set_line_contact",
+        "leave_line_unnamed",
+        "undo_leave_line_unnamed",
+        "reconcile_many",
+        "reconcile_with_difference",
+        "settle_from_statement",
+        "create_bank_account",
+        "list_bank_accounts",
+        "update_bank_account",
+        "create_bank_transaction",
+        "import_bank_statement",
+        "create_company",
+        "update_company_profile",
+        "set_number_prefix",
+        "set_preferences",
+        "invite_member",
+        "create_api_key",
+        "revoke_api_key",
+        "revoke_invitation",
+        "remove_member",
+        "set_member_role",
+        "share_document",
+        "revoke_share",
+        "pin_accounts",
+        "lock_period",
+        "import_books",
+        "opening_balance",
+        "close_fiscal_year",
+        "reopen_fiscal_year",
+        "close_fiscal_year_finally"
+      ],
+      "toolSchemas": {
+        "accept_document": "3091b273e773",
+        "aged_balance": "ea85bf8feea9",
+        "analytic_report": "571eb7000036",
+        "cancel_document": "4f97da18635f",
+        "close_fiscal_year": "950bee53a8c7",
+        "close_fiscal_year_finally": "b49dd918f4da",
+        "contact_statement": "46f9e3aa5ab9",
+        "create_api_key": "b19097c372bd",
+        "create_bank_account": "c2fbfed972f9",
+        "create_bank_transaction": "2ae4bc5e6707",
+        "create_company": "3dc009c00d57",
+        "create_contact": "0436a6510130",
+        "create_document": "36425203bb95",
+        "create_product": "cfc34d82c613",
+        "decline_document": "67a1bc998c06",
+        "describe_pack": "a4bf377f073c",
+        "ec_sales_list": "4d9ab43e18a6",
+        "financial_analysis": "c9030c1c5eaa",
+        "financial_statement": "9c958d75b34a",
+        "general_ledger": "fcd00e42c7ea",
+        "generate_fec": "4aa5cec09a1d",
+        "get_company": "7625627bb0a5",
+        "get_document": "ea28bc23321f",
+        "get_preferences": "507639b9dde1",
+        "import_bank_statement": "030019d7d736",
+        "import_books": "21a93cb49a27",
+        "instalment_plan": "c95553a95809",
+        "invite_member": "87bda1ce6861",
+        "journal_book": "6779cf2cc2e2",
+        "leave_line_unnamed": "6e114fe4d871",
+        "list_accounts": "7d08842e9edb",
+        "list_analytic_axes": "7625627bb0a5",
+        "list_api_keys": "ccba96d7bc89",
+        "list_bank_accounts": "c5ea15f0b6ca",
+        "list_bank_transactions": "5203de7e4c8d",
+        "list_companies": "7a014b717a77",
+        "list_documents": "317ba58a3317",
+        "list_invitations": "3227ced490d0",
+        "list_shares": "4ceaaca5d6e1",
+        "list_statements": "7dd930ae46ce",
+        "lock_period": "254bbb9ac0d4",
+        "matching_difference_options": "7625627bb0a5",
+        "merge_contacts": "79dff9c5e2bf",
+        "opening_balance": "698359db9873",
+        "pin_accounts": "ff63d1c23ced",
+        "portfolio_filings_touched_since": "10cba6d7b4e3",
+        "portfolio_overview": "34b9dd000350",
+        "portfolio_upcoming_filings": "87836e87d155",
+        "post_document": "f80adb2e3c59",
+        "read_audit_log": "4acd6b883cb5",
+        "reconcile": "a7c20266309d",
+        "reconcile_many": "379f77ca09ba",
+        "reconcile_with_difference": "41684fcf0ea8",
+        "record_payment": "2ff819fe513e",
+        "remove_member": "e718322ca76c",
+        "render_invoice_pdf": "fe1bca66d4c7",
+        "reopen_fiscal_year": "19d64d88d295",
+        "reverse_entry": "9a06b9ee9d27",
+        "revoke_api_key": "0e6781aa816b",
+        "revoke_invitation": "9981a5a0c23f",
+        "revoke_share": "7e0470d929a6",
+        "search_contacts": "491e6ea3a27c",
+        "search_products": "d136c418a3c0",
+        "set_line_contact": "fe2cb04d1a2c",
+        "set_member_role": "f96776d7772a",
+        "set_number_prefix": "2573290c055b",
+        "set_preferences": "4db220582346",
+        "settle_from_statement": "d9efa88f2ab7",
+        "share_document": "59c7542ace79",
+        "status": "7a014b717a77",
+        "subledger": "ce5c9938a260",
+        "suggest_duplicate_contacts": "5e3bf20f4fb3",
+        "suggest_item_combinations": "5be1b4e388b6",
+        "suggest_line_contacts": "5a785ae85da0",
+        "trial_balance": "4aa5cec09a1d",
+        "undo_document_answer": "7791d0b23733",
+        "undo_leave_line_unnamed": "d1cc1b0ff314",
+        "unreconcile": "e6bee35d9b84",
+        "update_bank_account": "db7c412e7390",
+        "update_company_profile": "0cf5e60708fa",
+        "update_document_lines": "8a85e0480ab4",
+        "update_product": "00ecd4043422",
+        "vat_return": "3780ccd888da"
+      },
       "packs": [
         {
           "id": "core",
@@ -15508,7 +15678,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 77 well-formed tool(s)"
+          "summary": "handshake ok, 83 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -15517,7 +15687,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 77 tool definition(s), the server instructions and serverInfo, 2 prompt(s), including parameter text: nothing suspicious"
+          "summary": "scanned 83 tool definition(s), the server instructions and serverInfo, 2 prompt(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -15526,7 +15696,71 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "119 invalid call(s) rejected cleanly"
+          "summary": "119 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": [
+              "portfolio_upcoming_filings",
+              "portfolio_filings_touched_since",
+              "portfolio_overview",
+              "list_statements",
+              "financial_statement",
+              "financial_analysis",
+              "list_analytic_axes",
+              "analytic_report",
+              "generate_fec",
+              "describe_pack",
+              "status",
+              "read_audit_log",
+              "search_products",
+              "create_product",
+              "update_product",
+              "create_contact",
+              "merge_contacts",
+              "create_document",
+              "update_document_lines",
+              "post_document",
+              "accept_document",
+              "decline_document",
+              "undo_document_answer",
+              "cancel_document",
+              "reverse_entry",
+              "record_payment",
+              "reconcile",
+              "unreconcile",
+              "set_line_contact",
+              "leave_line_unnamed",
+              "undo_leave_line_unnamed",
+              "reconcile_many",
+              "reconcile_with_difference",
+              "settle_from_statement",
+              "create_bank_account",
+              "list_bank_accounts",
+              "update_bank_account",
+              "create_bank_transaction",
+              "import_bank_statement",
+              "create_company",
+              "update_company_profile",
+              "set_number_prefix",
+              "set_preferences",
+              "invite_member",
+              "create_api_key",
+              "revoke_api_key",
+              "revoke_invitation",
+              "remove_member",
+              "set_member_role",
+              "share_document",
+              "revoke_share",
+              "pin_accounts",
+              "lock_period",
+              "import_books",
+              "opening_balance",
+              "close_fiscal_year",
+              "reopen_fiscal_year",
+              "close_fiscal_year_finally",
+              "list_companies"
+            ]
+          }
         },
         {
           "id": "secret-echo",
@@ -15607,7 +15841,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -15622,7 +15860,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 77,
+        "toolsTotal": 83,
         "level": "hygiene-only"
       },
       "badge": {
@@ -15630,7 +15868,7 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 77 tools",
+        "malformed-input probes cover the first 25 of 83 tools",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"list_companies\" is covered by the core checks only: the tool takes no parameters",
         "tool \"get_company\" is covered by the core checks only: free-text parameter \"company_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
@@ -15644,8 +15882,10 @@
         "tool \"get_preferences\" is covered by the core checks only: free-text parameter \"company_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"list_api_keys\" is covered by the core checks only: free-text parameter \"company_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"list_invitations\" is covered by the core checks only: free-text parameter \"company_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "63 more tool(s) are covered by the core checks only (see the classification)",
+        "69 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"portfolio_upcoming_filings\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"portfolio_filings_touched_since\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"portfolio_overview\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_statements\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"financial_statement\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"financial_analysis\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -15663,6 +15903,9 @@
         "tool \"create_document\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"update_document_lines\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"post_document\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"accept_document\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decline_document\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"undo_document_answer\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"cancel_document\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"reverse_entry\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"record_payment\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -15676,6 +15919,7 @@
         "tool \"settle_from_statement\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"create_bank_account\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_bank_accounts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"update_bank_account\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"create_bank_transaction\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"import_bank_statement\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"create_company\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -31595,16 +31839,16 @@
       "name": "apiguru-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.1.65",
+      "versionTested": "1.1.68",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx apiguru-mcp==1.1.65",
+      "launch": "uvx apiguru-mcp==1.1.68",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -31622,27 +31866,27 @@
         "send_feedback"
       ],
       "toolSchemas": {
-        "best_sellers": "e7d387134af2",
+        "best_sellers": "c4c8af552b46",
         "deals": "59202fdab28e",
         "list_capabilities": "ef8aa5984345",
         "offers_stock": "9e5eca233395",
         "product_details": "44c2d527c489",
         "product_details_batch": "c0b4dbd20b77",
         "product_reviews": "46cebfb8066b",
-        "search": "9daac63a60bb",
-        "seller_products": "9ec67bc24950",
-        "seller_profile_batch": "d30f18301958",
-        "seller_reviews": "c0cb2e254bb7",
+        "search": "2c67e9d5629d",
+        "seller_products": "66371b89cdad",
+        "seller_profile_batch": "65eba5936d74",
+        "seller_reviews": "72e067e34d09",
         "send_feedback": "96e861b8d0d4"
       },
       "packs": [
         {
           "id": "core",
           "status": "graded",
-          "letter": "A",
-          "points": 4,
+          "letter": "B",
+          "points": 3.5,
           "scored": 4,
-          "pct": 100,
+          "pct": 87.5,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -31749,8 +31993,8 @@
           "label": "No tool-poisoning indicators in tool metadata",
           "critical": true,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "scanned 12 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "verdict": "part",
+          "summary": "1 weak indicator(s) worth reading, none conclusive"
         },
         {
           "id": "robust-input",
@@ -31783,7 +32027,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "fail",
-          "summary": "the server instructions names 24 tool(s) the server does not offer (brand_name, tech_specs, product_information, product_attributes, variation_summary)"
+          "summary": "the server instructions names 13 tool(s) the server does not offer (http_status, next_step, variation_summary, product_variations, product_title)"
         },
         {
           "id": "net-loopback-ssrf",
@@ -31828,7 +32072,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "best_sellers, list_capabilities declared read-only and changed nothing in the observed directories during a benign call (deals not judged: the control call failed)"
+          "summary": "best_sellers, deals, list_capabilities declared read-only and changed nothing in the observed directories during a benign call"
         },
         {
           "id": "openworld-honesty",
@@ -31895,13 +32139,13 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-17",
         "schemas": {
           "best_sellers": "e7d387134af2",
           "deals": "59202fdab28e",
           "list_capabilities": "ef8aa5984345",
           "offers_stock": "9e5eca233395",
-          "product_details": "3d6be816d942",
+          "product_details": "44c2d527c489",
           "product_details_batch": "c0b4dbd20b77",
           "product_reviews": "46cebfb8066b",
           "search": "9daac63a60bb",
@@ -51489,10 +51733,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.463",
-      "versionTested": "1.108.463",
+      "refTested": "1.108.466",
+      "versionTested": "1.108.466",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-18",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -51734,7 +51978,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-18",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -54423,7 +54667,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-18",
+        "date": "2026-11-19",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -56052,16 +56296,16 @@
       "name": "@celo/buy",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.8.5",
+      "versionTested": "0.8.6",
       "serverInfoName": "buy",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @celo/buy@0.8.5 mcp serve",
+      "launch": "npx -y @celo/buy@0.8.6 mcp serve",
       "transport": "stdio",
       "toolCount": 7,
       "tools": [
@@ -56075,10 +56319,10 @@
       ],
       "toolSchemas": {
         "buy_balance": "c412db956eea",
-        "buy_curl": "3970331ded1d",
+        "buy_curl": "f371715326fd",
         "buy_discover": "e52588dc3501",
-        "buy_fetch": "3970331ded1d",
-        "buy_pay_quote": "e458a34ed4ba",
+        "buy_fetch": "f371715326fd",
+        "buy_pay_quote": "524d17b3e1be",
         "buy_verify_status": "5f5e0369b657",
         "buy_whoami": "64fabfada7a4"
       },
@@ -56302,7 +56546,19 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "buy_balance": "c412db956eea",
+          "buy_curl": "3970331ded1d",
+          "buy_discover": "e52588dc3501",
+          "buy_fetch": "3970331ded1d",
+          "buy_pay_quote": "e458a34ed4ba",
+          "buy_verify_status": "5f5e0369b657",
+          "buy_whoami": "64fabfada7a4"
+        }
+      }
     },
     {
       "id": "contextburn",
@@ -58194,16 +58450,16 @@
       "name": "hypaware",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.53.0",
+      "versionTested": "1.54.0",
       "serverInfoName": "hypaware",
-      "testedAt": "2026-11-17",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y hypaware@1.53.0 mcp serve",
+      "launch": "npx -y hypaware@1.54.0 mcp serve",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -58391,7 +58647,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-17",
         "schemas": {
           "query_sql": "526e4a222f09"
         }
@@ -62550,16 +62806,16 @@
       "name": "simulator-use",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.17.1",
+      "versionTested": "0.18.1",
       "serverInfoName": "simulator-use",
-      "testedAt": "2026-11-18",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y simulator-use@0.17.1 mcp",
+      "launch": "npx -y simulator-use@0.18.1 mcp",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -62580,8 +62836,8 @@
         "app_control": "fb769f187148",
         "app_logs": "9f62fcbce3c6",
         "app_run": "dfbeb2eda67c",
-        "cloud": "16e167fc65cc",
-        "device_use": "887f7b80004a",
+        "cloud": "24a95edd7f62",
+        "device_use": "af6f9e1fc3f4",
         "devices": "99334726611c",
         "job_cancel": "f669a5b6a7e3",
         "job_status": "f669a5b6a7e3",
@@ -62814,7 +63070,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-18",
         "schemas": {
           "app_control": "fb769f187148",
           "app_logs": "9f62fcbce3c6",
@@ -67289,16 +67545,16 @@
       "name": "@zils/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.4.22",
+      "versionTested": "0.4.23",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-15",
+      "testedAt": "2026-11-19",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @zils/cli@0.4.22 mcp",
+      "launch": "npx -y @zils/cli@0.4.23 mcp",
       "transport": "stdio",
       "toolCount": 11,
       "tools": [
@@ -67548,7 +67804,23 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-15",
+        "schemas": {
+          "decide": "869ddb1b3840",
+          "fit_run": "e5e8b8c79d10",
+          "fit_scan": "abeb79d47106",
+          "list_models": "75603dcb3f0d",
+          "train_cancel": "7d099cf5e925",
+          "train_check": "26764ec26f68",
+          "train_guide": "5590458ff36d",
+          "train_list": "593df6260aca",
+          "train_prepare": "badefdd5acb3",
+          "train_status": "750cd0e626e7",
+          "train_submit": "6d93ffdea76b"
+        }
+      }
     },
     {
       "id": "dinglebear-synapse",
@@ -69607,6 +69879,248 @@
           "stork_web_search": "99b6735f4149"
         }
       }
+    },
+    {
+      "id": "fluxygram-mcp",
+      "name": "@fluxygram/mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.3.0",
+      "serverInfoName": "mcp",
+      "testedAt": "2026-11-19",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @fluxygram/mcp@0.3.0",
+      "transport": "stdio",
+      "toolCount": 4,
+      "tools": [
+        "get_guide",
+        "get_example",
+        "validate_diagram",
+        "share_link"
+      ],
+      "toolSchemas": {
+        "get_example": "1e05b6b363dd",
+        "get_guide": "99334726611c",
+        "share_link": "0e0db3ae6b12",
+        "validate_diagram": "7e0c82a47677"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "B",
+          "points": 3.5,
+          "scored": 4,
+          "pct": 87.5,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 4 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 4 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "part",
+          "summary": "0 internals leak(s), 4 invalid call(s) accepted",
+          "tools": {
+            "probed": [
+              "get_guide"
+            ],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 14 captured response(s), 5 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "get_guide declared read-only and changed nothing in the observed directories during a benign call (get_example not judged: the control call failed)"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "2 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 3,
+        "toolsCalledValid": 2,
+        "toolsTotal": 4,
+        "level": "covered"
+      },
+      "badge": {
+        "eligible": true
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"get_guide\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"validate_diagram\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; its required parameter \"diagram\" cannot be filled by the harness; write a probes: entry to call it",
+        "tool \"share_link\" is covered by the core checks only: the tool has no string parameters; its required parameter \"diagram\" cannot be filled by the harness; write a probes: entry to call it",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
     }
   ],
   "verification": {

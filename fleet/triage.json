@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-18T15:26:14.809Z",
+  "generatedAt": "2026-11-19T00:01:50.336Z",
   "window": 600,
-  "graded": 498,
-  "failed": 102,
+  "graded": 492,
+  "failed": 108,
   "clusters": [
     {
       "servers": [

@@ -1390,5 +1390,11 @@
     "name": "storkai",
     "ecosystem": "npm",
     "launch": "npx -y storkai@2.1.2"
+  },
+  {
+    "id": "fluxygram-mcp",
+    "name": "@fluxygram/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @fluxygram/mcp@0.3.0"
   }
 ]
