@@ -76,7 +76,7 @@ test("renderNotice is plain text with the finding, repro, disclosure link, 14 da
   assert.match(text, /disclosure@sealmark\.dev/);
   assert.doesNotMatch(text, /<[a-z]+[ >]/i);
   assert.doesNotMatch(text, /utm_|pixel|track(ing)? link/i);
-  assert.equal(REMIND_DAYS < REPLY_DAYS, true);
+  assert.equal(REMIND_DAYS, REPLY_DAYS, "the published policy: no reply in 14 days, then one reminder");
 });
 
 import { repoHash } from "./private-reports.mjs";
@@ -107,12 +107,13 @@ test("emailCandidates: a repository without private reporting goes; one with it 
   const es = ["a/open", "b/haspvr", "c/optout", "jordanallenlewis/own", "d/done", "e/unknown"].map(held);
   const c = ctx(es, { pvr: { "a/open": false, "b/haspvr": true, "c/optout": false, "jordanallenlewis/own": false, "d/done": false, "e/unknown": null }, optout: { repos: ["c/optout"] }, ledger: { ownerMail: [{ h: repoHash("d/done", KEY), at: "2026-11-18" }] } });
   const out = emailCandidates(es, c);
-  assert.deepEqual(out.ready.map((e) => e.repo).sort(), ["a/open", "e/unknown"]);
+  assert.deepEqual(out.ready.map((e) => e.repo).sort(), ["a/open"]);
   const why = Object.fromEntries(out.skipped.map((k) => [k.repo, k.why]));
   assert.match(why["b/haspvr"], /private vulnerability reporting is on/);
   assert.match(why["c/optout"], /opted out/);
   assert.match(why["jordanallenlewis/own"], /our own/);
   assert.match(why["d/done"], /already reported/);
+  assert.match(why["e/unknown"], /could not be read/);
 });
 
 test("an emailed repository is not mailed again, but a no-contact record is retried after 14 days", () => {
@@ -137,8 +138,8 @@ test("sendNotices: one a run under the default cap; the record holds a keyed has
   assert.equal(posted.length, 1);
   assert.equal(posted[0].to, "m@acme.io");
   assert.match(posted[0].text, /disclosure@sealmark\.dev/);
-  assert.deepEqual(Object.keys(ledger.ownerMail[0]).sort(), ["at", "channel", "h", "postedAt", "remindAfter", "replyBy"]);
-  assert.equal(ledger.ownerMail[0].remindAfter, "2026-11-27");
+  assert.deepEqual(Object.keys(ledger.ownerMail[0]).sort(), ["at", "channel", "h", "o", "postedAt", "ref", "remindAfter", "replyBy", "sv"]);
+  assert.equal(ledger.ownerMail[0].remindAfter, "2026-12-04");
   assert.equal(ledger.ownerMail[0].replyBy, "2026-12-04");
   assert.doesNotMatch(JSON.stringify(ledger), /@|a\/one/);
 });
@@ -175,11 +176,11 @@ test("sendNotices: the daily cap holds across runs, and a pause sends nothing", 
   const stamp = (h) => ({ h, at: "2026-11-20", postedAt: "2026-11-20T08:00:00.000Z", channel: "x" });
   const l = { ownerMail: [stamp("1"), stamp("2")] };
   assert.equal((await run({ ledger: l })).out.sent, 0);
-  const p = { ownerMail: [], pause: { until: new Date(NOW + 3600e3).toISOString(), code: "x", reason: "y" } };
+  const p = { ownerMail: [], ownerMailPause: { until: new Date(NOW + 3600e3).toISOString(), code: "x", reason: "y" } };
   assert.equal((await run({ ledger: p })).out.sent, 0);
 });
 
-test("reminders: one, after day 7, only when no reply is recorded; the address is resolved again and the text is plain", async () => {
+test("reminders: one, after day 14, only when no reply is recorded; the address is resolved again and the text is plain", async () => {
   const sent = (h, extra = {}) => ({ h, at: "2026-11-10", postedAt: "2026-11-10T09:00:00.000Z", channel: "package-maintainer", remindAfter: "2026-11-17", replyBy: "2026-11-24", ...extra });
   const ledger = { ownerMail: [sent(repoHash("a/one", KEY)), sent(repoHash("b/two", KEY), { replied: true }), sent(repoHash("c/three", KEY), { reminded: "2026-11-18" }), sent(repoHash("d/four", KEY), { remindAfter: "2026-12-01" }), sent(repoHash("e/five", KEY), { intent: true })] };
   assert.equal(remindersDue(ledger, "2026-11-20").length, 1);
@@ -205,4 +206,63 @@ test("a reminder is skipped when the repository is no longer held (fixed, opted 
 test("a no-contact record does not use up the send caps or start the gap", async () => {
   const l = { ownerMail: [{ h: "1", at: "2026-11-20", noContact: "none", retryAfter: "2026-12-04T00:00:00.000Z" }, { h: "2", at: "2026-11-20", noContact: "none", retryAfter: "2026-12-04T00:00:00.000Z" }] };
   assert.equal((await run({ ledger: l })).out.sent, 1);
+});
+
+test("SECURITY.md: a thank-you line or a line that says where NOT to report is never the contact (reviewer probes)", () => {
+  assert.equal(parseSecurityMd("Thanks to alice@researcher.io for reporting CVE-2024-1").emails.length, 0);
+  assert.equal(parseSecurityMd("Do not report security issues to support@acme.com; use https://github.com/acme/w/security/advisories/new").emails.length, 0);
+  assert.deepEqual(parseSecurityMd("## Reporting\nSend vulnerability reports to sec@acme.io\n\nThanks to bob@x.io for the report").emails, ["sec@acme.io"]);
+});
+
+test("npm: the author, else the first maintainer; never a contributor, a bot or a no-reply address", () => {
+  assert.equal(emailFromNpm({ contributors: [{ email: "drive@by.io" }] }), null);
+  assert.equal(emailFromNpm({ author: { email: "me@acme.io" }, maintainers: [{ email: "other@acme.io" }] }), "me@acme.io");
+  assert.equal(emailFromNpm({ maintainers: [{ email: "ci@acme.io" }, { email: "real@acme.io" }] }), "real@acme.io");
+});
+
+test("a failed lookup (rate limit, 5xx) is not 'no file': it throws instead of falling through to another address", async () => {
+  const get = async (url) => { if (url.includes("SECURITY.md")) throw new Error("GitHub 503"); return url.includes("registry.npmjs.org") ? { maintainers: [{ email: "m@acme.io" }] } : { missing: true }; };
+  await assert.rejects(() => resolveContact({ repo: "acme/w", ecosystem: "npm", pkg: "w" }, { get }), /503/);
+});
+
+test("sendNotices: a failed lookup records nothing and sends nothing; the next run tries again", async () => {
+  const r = await run({ contactFor: async () => { throw new Error("rate limited"); } });
+  assert.equal(r.out.sent, 0);
+  assert.equal(r.out.lookupFailed, 2);
+  assert.equal(r.ledger.ownerMail.length, 0);
+});
+
+test("one notice per owner per 7 days, and the same server is never mailed again under another repository name", () => {
+  const es = ["acme/one", "acme/two", "other/three"].map(held);
+  let out = emailCandidates(es, ctx(es));
+  assert.deepEqual(out.ready.map((e) => e.repo), ["acme/one", "other/three"], "two repositories of one owner in one run: only the first");
+  const prior = { ownerMail: [{ h: "zz", o: repoHash("other", KEY), at: "2026-11-18", channel: "x", postedAt: "2026-11-18T10:00:00.000Z" }] };
+  out = emailCandidates(es, ctx(es, { ledger: prior }));
+  assert.deepEqual(out.ready.map((e) => e.repo), ["acme/one"]);
+  const renamed = held("acme/renamed");
+  renamed.servers[0].id = "acme/one-s"; // the same server id, a new repository name
+  out = emailCandidates([renamed], ctx([renamed], { ledger: { ownerMail: [{ h: "q", sv: [repoHash("id:acme/one-s", KEY)], at: "2026-11-01", channel: "x" }] } }));
+  assert.match(out.skipped[0].why, /same server/);
+});
+
+test("a repository already given a private report is not also emailed", () => {
+  const es = [held("a/x")];
+  const out = emailCandidates(es, ctx(es, { ledger: { ownerMail: [], private: [{ h: repoHash("a/x", KEY), at: "2026-11-18" }] } }));
+  assert.equal(out.ready.length, 0);
+  assert.match(out.skipped[0].why, /private vulnerability reporting/);
+});
+
+test("the gap between notices cannot be set below 30 minutes", () => {
+  assert.equal(emailLimitsFrom({ OWNER_EMAIL_GAP_MINUTES: "0" }).gapMinutes >= 30, true);
+});
+
+test("reminders skip an opted-out repository and a notice whose maintainer replied", async () => {
+  const sent = (h) => ({ h, at: "2026-11-01", postedAt: "2026-11-01T09:00:00.000Z", channel: "x", remindAfter: "2026-11-15", replyBy: "2026-11-15" });
+  const ledger = { ownerMail: [sent(repoHash("a/one", KEY)), sent(repoHash("b/two", KEY)), sent(repoHash("c/three", KEY))] };
+  const posted = [];
+  const r = await sendReminders({ entries: ["a/one", "b/two", "c/three"].map(held), ledger, now: NOW, limits: emailLimitsFrom({}), key: KEY, contactFor: async () => ({ email: "m@acme.io" }), post: async (m) => posted.push(m), save() {}, sleep: async () => {}, log() {},
+    replied: [repoHash("b/two", KEY)], optout: { repos: ["c/three"] } });
+  assert.equal(r.sent, 1);
+  assert.equal(posted.length, 1);
+  assert.match(posted[0].ref, /^[0-9a-f]{16}$/);
 });

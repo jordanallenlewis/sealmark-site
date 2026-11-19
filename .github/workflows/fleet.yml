@@ -197,6 +197,7 @@ jobs:
           # private email notices (fleet/email-notices.mjs): off until the variable is 1 and the mail token secret exists; the Worker route also needs its own OWNER_MAIL_LIVE
           OWNER_EMAIL_LIVE: ${{ env.DRY_RUN != '1' && vars.OWNER_EMAIL_LIVE == '1' && '1' || '' }}
           OWNER_MAIL_TOKEN: ${{ env.DRY_RUN != '1' && secrets.OWNER_MAIL_TOKEN || '' }}
+          OWNER_EMAIL_REMINDERS: ${{ env.DRY_RUN != '1' && vars.OWNER_EMAIL_REMINDERS == '1' && '1' || '' }}
           OWNER_EMAIL_PER_RUN: ${{ vars.OWNER_EMAIL_PER_RUN }}
           OWNER_EMAIL_PER_DAY: ${{ vars.OWNER_EMAIL_PER_DAY }}
           OWNER_EMAIL_PER_WEEK: ${{ vars.OWNER_EMAIL_PER_WEEK }}

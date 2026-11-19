@@ -38,6 +38,18 @@ test("live: sends from the fixed sender with the fixed reply address, whatever t
   assert.equal(e.sent[0].html, undefined);
 });
 
+test("a ref tags the reply address; a malformed ref is refused", async () => {
+  const e = env();
+  assert.equal((await ownerMail(req({ ...good, ref: "0123456789abcdef" }), e)).status, 200);
+  assert.equal(e.sent[0].replyTo, "disclosure+0123456789abcdef@sealmark.dev");
+  assert.equal((await ownerMail(req({ ...good, ref: "x@evil.io" }), e)).status, 400);
+});
+
+test("the unauthorised answer has the same headers as the Worker's other JSON answers", async () => {
+  const r = await ownerMail(req(good, { token: "nope" }), env());
+  assert.equal(r.headers.get("content-type"), "application/json; charset=utf-8");
+});
+
 test("backstop: no more than HOURLY_MAX in an hour", async () => {
   const e = env();
   for (let i = 0; i < HOURLY_MAX; i++) assert.equal((await ownerMail(req(good), e)).status, 200);
