@@ -63,7 +63,7 @@
 .checks .sum { color: var(--ink-muted); }
 .sumText { max-width: 62ch; }
 .ev { margin-top: 8px; }
-.ev > summary { cursor: pointer; width: fit-content; font: 500 0.78rem var(--font-mono), ui-monospace, monospace; color: var(--ink-muted); padding: 2px 0; }
+.ev > summary { cursor: pointer; width: fit-content; font: 500 0.78rem var(--font-mono), ui-monospace, monospace; color: var(--ink-muted); padding: 5px 0; }
 .ev > summary:hover { color: var(--ink); }
 .ev > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 .evList { margin: 8px 0 0; padding: 0 0 0 1.4em; display: grid; gap: 10px; font-size: 0.9rem; overflow-wrap: anywhere; }
