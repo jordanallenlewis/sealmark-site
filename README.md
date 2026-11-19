@@ -12,6 +12,7 @@ The website at [sealmark.dev](https://sealmark.dev) and the fleet that keeps its
 | `fleet/impact.mjs` | What happened to grades after owners were told, against a never-notified base rate: `fleet/impact-summary.md` (internal, not on the site) |
 | `.github/workflows/fleet.yml` | Re-test every 6 hours (and by hand) on GitHub-hosted machines; commits the new grades and deploys when `CLOUDFLARE_API_TOKEN` is set. A run started by hand is a test run unless `dry_run` is unticked: owner issues are only drafted and nothing is committed, filed or deployed. `force_all` re-tests every tracked server (up to the 256-job matrix) |
 | `.github/workflows/release-sync.yml` | Follows every Sealmark release (release dispatch, a 30-minute poll, or by hand): pins the CLI, regenerates the docs, commits, deploys and checks the live site |
+| `.github/workflows/release-poll.yml` | Keeps release-sync's cadence: GitHub drops scheduled runs (3 to 9 hours apart in practice), so one run polls npm every 5 minutes for about 50 minutes, starts release-sync when npm is ahead of the pin, then starts the next poll run; an hourly schedule only restarts the chain |
 | `.github/workflows/fleet-check.yml` | Checks changes to `fleet/` on pull requests |
 | `.github/workflows/web.yml` | Build, docs checks and lint on every change to `web/` |
 | `site/index.html` | The original single-file mockup |
