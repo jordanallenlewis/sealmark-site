@@ -100,7 +100,7 @@ export function renderNotice({ entry, replyTo, today }) {
     `Hello,`,
     `I run Sealmark (https://sealmark.dev), an open-source test suite that starts an MCP server, calls its tools with fixed inputs and records what it actually did. An automated run of ${names} found behavior in your repository (${entry.repo ?? "package listed above"}) that looks like a security problem. I am writing to you privately first, and I will not post it anywhere public before you have had a chance to respond.`,
     `What the run found:\n\n${blocks}`,
-    `The run is deterministic and uses no AI model, so the command above should show you the same result. It can be wrong; if you think it is, tell me and I will recheck it.`,
+    `The run is deterministic and uses no AI model, so the command above should show you the same result. It can be wrong; if you think it is, tell me and I will recheck it. This is the only automated message Sealmark sends about this repository apart from one reminder; to stop all Sealmark messages to you, reply "opt out".`,
     `Timeline: please reply within ${REPLY_DAYS} days. I will send one reminder after ${REMIND_DAYS} days if I have not heard from you. I publish the details when a fixed version is out or on day ${PUBLISH_DAYS}, whichever comes first. If you need longer, say so and we can talk.`,
     `The policy is at https://sealmark.dev/disclosure/. This message has no tracking in it. Reply to this email (it goes to ${replyTo}) to reach me.`,
     `Jordan Allen Lewis\nSealmark (https://sealmark.dev)`,

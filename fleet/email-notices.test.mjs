@@ -71,6 +71,7 @@ test("renderNotice is plain text with the finding, repro, disclosure link, 14 da
   assert.match(text, /https:\/\/sealmark\.dev\/disclosure\//);
   assert.match(text, new RegExp(`${REPLY_DAYS} days`));
   assert.match(text, /one reminder/);
+  assert.match(text, /reply "opt out"/);
   assert.match(text, new RegExp(`day ${PUBLISH_DAYS}`));
   assert.match(text, /disclosure@sealmark\.dev/);
   assert.doesNotMatch(text, /<[a-z]+[ >]/i);
