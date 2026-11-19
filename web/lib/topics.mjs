@@ -61,6 +61,7 @@ const gradedPacks = (x) => (x.packs ?? []).filter((p) => p.status === "graded" &
 /** The server grade exactly as the rest of the site shows it (lib/results-shared.ts worst): the first of its lowest
  * graded test-area letters, provisional if that pack is; null when nothing was graded. */
 export function grade(x) {
+  if (x.gradeWithdrawn) return null;
   const g = gradedPacks(x);
   if (!g.length) return null;
   const w = g.reduce((a, b) => (RANK[b.letter] < RANK[a.letter] ? b : a));

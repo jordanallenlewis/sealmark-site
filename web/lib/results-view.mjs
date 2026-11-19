@@ -21,6 +21,7 @@ const deep = (x) => graded(x).filter((p) => p.id !== "core");
 
 /** The server grade (its lowest graded test-area letter), or null when nothing was graded. */
 export function worstLetter(x) {
+  if (x.gradeWithdrawn) return null;
   const g = graded(x);
   return g.length ? g.reduce((a, b) => (RANK[b.letter] < RANK[a.letter] ? b : a)).letter : null;
 }

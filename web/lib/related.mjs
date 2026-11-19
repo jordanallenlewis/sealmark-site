@@ -20,9 +20,9 @@ function worst(s) {
  */
 export function relatedServers(x, all) {
   const mine = new Set(areas(x));
-  if (!mine.size) return [];
+  if (!mine.size || x.gradeWithdrawn) return [];
   return all
-    .filter((y) => y.id !== x.id)
+    .filter((y) => y.id !== x.id && !y.gradeWithdrawn) // a withdrawn grade is no current grade: not listed, no letter
     .map((y) => {
       const w = worst(y);
       return { id: y.id, name: y.name, shared: areas(y).filter((a) => mine.has(a)), letter: w?.letter ?? null, provisional: !!w?.provisional };

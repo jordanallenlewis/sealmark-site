@@ -240,7 +240,8 @@ export default async function ServerPage({ params }: P) {
   const w = worst(x);
   const cov = coverageNote(x, deepPacks(x).length > 0);
   const noTools = cov.kind === "no-tools";
-  const unconfirmed = noTools ? null : unconfirmedWords(x);
+  const withdrawn = x.gradeWithdrawn ?? null;
+  const unconfirmed = noTools || withdrawn ? null : unconfirmedWords(x);
   const priv = redactionsFor(x);
   const packIds = [...new Set(x.checks.map((c) => c.pack))];
   const notGraded = x.packs.filter((p) => p.status !== "graded");
@@ -263,8 +264,8 @@ export default async function ServerPage({ params }: P) {
   const evidence = checkEvidenceFor(x, priv.size > 0);
   // Answer-style summary and JSON-LD (site#64): only facts this page shows, the overall grade by the heading's rule.
   const answerGrade = gradeOf(x);
-  const areas = graded.map((p) => ({ label: label(p.id), letter: p.letter as string, provisional: p.provisional }));
-  const summary = answerSummary({ name: x.name, version: x.versionTested, testedAt: x.testedAt, sealmark: x.sealmark.version, standard: x.standard === true, grade: answerGrade, areas, coverage: cov, checks: x.checks, held: priv.size > 0 });
+  const areas = withdrawn ? [] : graded.map((p) => ({ label: label(p.id), letter: p.letter as string, provisional: p.provisional }));
+  const summary = answerSummary({ name: x.name, version: x.versionTested, testedAt: x.testedAt, sealmark: x.sealmark.version, standard: x.standard === true, grade: answerGrade, areas, coverage: cov, checks: x.checks, held: priv.size > 0, withdrawn: withdrawn?.text ?? null });
   const ld = serverJsonLd({ site: ORIGIN, page: canonical(`/results/${x.id}/`), json: `${ORIGIN}${serverPath(x.id)}`, list: canonical("/results/"), name: x.name, version: x.versionTested, testedAt: x.testedAt, grade: answerGrade, areas, checks: x.checks, summary, author: softwareJsonLd.author });
   const relatedHeld = new Set(related.filter((r) => redactionsFor(SERVERS_RESULTS.find((v) => v.id === r.id)!).size > 0).map((r) => r.id));
 
@@ -274,7 +275,7 @@ export default async function ServerPage({ params }: P) {
       <main id="main" className={`gutter ${s.wrap}`}>
         <div className={s.preview}>
           {x.automated ? `Automated re-test on ${x.testedAt}: not checked by hand, and not yet reviewed by the maintainers.` : "Maintainers have not reviewed this result yet."}
-          {retestNote(x) && ` ${retestNote(x)}`}
+          {!withdrawn && retestNote(x) && ` ${retestNote(x)}`}
         </div>
         <p className={s.crumb}><Link href="/results/">Results</Link> / {x.name}</p>
         <h1 className={s.h1} style={{ maxWidth: "28ch" }}>{x.name}</h1>
@@ -296,16 +297,16 @@ export default async function ServerPage({ params }: P) {
         <section className={s.overall} aria-labelledby="grade-h">
           {!noTools && w ? <Seal g={w.letter as Letter} prov={w.provisional} lg /> : <span className={s.noGrade} aria-hidden="true">–</span>}
           <div>
-            <h2 id="grade-h">{noTools ? "No tools to test" : w ? `Grade ${w.letter}${w.provisional ? " (provisional)" : ""}` : "No grade"}</h2>
-            {!noTools && <p>The server&apos;s grade is its lowest test-area grade. <Link href="/docs/methodology/#grading-formula">How grading works</Link></p>}
+            <h2 id="grade-h">{noTools ? "No tools to test" : withdrawn ? "No current grade" : w ? `Grade ${w.letter}${w.provisional ? " (provisional)" : ""}` : "No grade"}</h2>
+            {!noTools && !withdrawn && <p>The server&apos;s grade is its lowest test-area grade. <Link href="/docs/methodology/#grading-formula">How grading works</Link></p>}
             {unconfirmed && <p className={s.flag} data-unconfirmed="">{unconfirmed.heading}. {unconfirmed.text}</p>}
             {priv.size > 0 && <p className={s.flag}>The grade {PRIVATE_FINDING}. It still counts in full.</p>}
-            <p>{cov.text}</p>
+            <p data-grade-withdrawn={withdrawn ? "" : undefined}>{withdrawn ? withdrawn.text : cov.text}</p>
             <p className={s.disputeLink}><a href="#dispute-h">Think this is wrong?</a></p>
           </div>
         </section>
 
-        {graded.length > 0 && <h2 className={s.areasHead}>Grade by test area</h2>}
+        {graded.length > 0 && <h2 className={s.areasHead}>{withdrawn ? `Test areas from the last run, ${x.testedAt} (not current)` : "Grade by test area"}</h2>}
         <div className={clsx(s.gradeRow, s.areas)}>
           {graded.map((p) => (
             <div key={p.id} className={s.gradeBox}>

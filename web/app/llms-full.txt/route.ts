@@ -6,6 +6,7 @@ export const dynamic = "force-static";
 // llms.txt plus one line per graded server, so an assistant can answer "what grade did X get" from one file.
 export function GET() {
   const rows = SERVERS_RESULTS.map((x) => {
+    if (x.gradeWithdrawn) return `- ${x.name} (no current grade, last graded ${x.versionTested} on ${x.testedAt}): ${canonical(`/results/${x.id}/`)}`;
     const g = gradedPacks(x).map((p) => `${PACK_LABEL[p.id] ?? p.id} ${p.letter}`).join(", ") || "not graded";
     return `- ${x.name} ${x.versionTested} (${x.testedAt}, Sealmark ${x.sealmark.version}): ${g}. ${canonical(`/results/${x.id}/`)}`;
   });

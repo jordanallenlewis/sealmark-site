@@ -140,3 +140,9 @@ test("rule 11 fails each way a page can disagree", () => {
   assert.deepEqual(answerPageProblems(escaped, want({ withheld: [secret] })).filter((p) => p.startsWith("withheld")), ["withheld text in the JSON-LD"]);
   assert.deepEqual(answerPageProblems(`<script type="application/ld+json">{nope</script>`, want()), ["a JSON-LD block does not parse", "0 Dataset nodes, want 1"]);
 });
+
+test("a withdrawn grade is said in the page's own words, with no area letters and no 'graded no test area'", () => {
+  const t = answerSummary({ name: "x", version: "0.1.2", testedAt: "2026-11-09", sealmark: "1.0.0", standard: true, grade: null, areas: [], coverage: { kind: "covered", text: "c" }, checks: [], held: false, withdrawn: "There is no current grade. The current version has failed to start since 2026-11-10." });
+  assert.match(t, /^x 0\.1\.2: There is no current grade\./);
+  assert.doesNotMatch(t, /graded no test area/);
+});

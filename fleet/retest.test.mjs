@@ -253,3 +253,58 @@ test("the unconfirmed words say the grade is not confirmed, from when, and do no
   assert.match(unconfirmedWords(x).text, /not confirmed for the version the fleet tries now/);
   assert.equal(unconfirmedWords(graded()), null);
 });
+
+// ---- a stale grade whose re-tests keep failing is not shown (web/lib/retest.mjs withdrawnGrade) ----
+import { firstFailureAfter, withdrawnGrade, WITHDRAW_AFTER_DAYS } from "../web/lib/retest.mjs";
+
+const stale = (o = {}) => ({ testedAt: "2026-11-09", versionTested: "0.1.2", lastAttempt: { date: "2026-11-19", status: "failed", kind: "start-fail" }, ...o });
+const HIST = [
+  { id: "a", version: "0.1.5", testedAt: "2026-11-09", status: "ok", worst: "A", packs: { core: "A" } },
+  { id: "a", version: "0.1.5", testedAt: "2026-11-10", status: "failed", error: "x" },
+  { id: "a", version: "0.1.5", testedAt: "2026-11-19", status: "failed", error: "x" },
+  { id: "b", version: "9", testedAt: "2026-11-11", status: "failed", error: "x" },
+].map((r) => JSON.stringify(r)).join("\n");
+
+test("withdrawnGrade: a grade older than 7 days with a failed re-test since is withdrawn, with the words", () => {
+  const w = withdrawnGrade(stale(), "2026-11-19", firstFailureAfter(HIST, "a", "2026-11-09"));
+  assert.equal(w.kind, "start-fail");
+  assert.equal(w.since, "2026-11-10");
+  assert.match(w.text, /version 0\.1\.2, tested on 2026-11-09/);
+  assert.match(w.text, /current version, 0\.1\.5, has failed to start since 2026-11-10/);
+});
+
+test("withdrawnGrade: boundary, 5 days old stays shown, 6 days is withdrawn (the invariant is under 7)", () => {
+  assert.equal(WITHDRAW_AFTER_DAYS, 6);
+  assert.equal(withdrawnGrade(stale(), "2026-11-14", null), null);
+  assert.notEqual(withdrawnGrade(stale(), "2026-11-15", null), null);
+});
+
+test("firstFailureAfter: the version comes from the newest failed run, not the last line in file order", () => {
+  const h = [
+    { id: "a", version: "2.0", testedAt: "2026-11-19", status: "failed" },
+    { id: "a", version: "1.0", testedAt: "2026-11-10", status: "failed" },
+  ].map((r) => JSON.stringify(r)).join("\n");
+  assert.deepEqual(firstFailureAfter(h, "a", "2026-11-09"), { first: "2026-11-10", version: "2.0" });
+});
+
+test("withdrawnGrade: no failed re-test since the grade, or a failure from before it, keeps the grade", () => {
+  assert.equal(withdrawnGrade(stale({ lastAttempt: null }), "2026-11-30", null), null);
+  assert.equal(withdrawnGrade(stale({ lastAttempt: { date: "2026-11-01", status: "failed", kind: "start-fail" } }), "2026-11-30", null), null);
+});
+
+test("withdrawnGrade: an entry replaced by a later successful run (newer testedAt, no lastAttempt) is not nulled", () => {
+  assert.equal(withdrawnGrade({ testedAt: "2026-11-18", versionTested: "0.1.5", lastAttempt: null }, "2026-11-19", null), null);
+});
+
+test("withdrawnGrade: another failure kind says it failed every re-test, not that it failed to start", () => {
+  const w = withdrawnGrade(stale({ lastAttempt: { date: "2026-11-19", status: "failed", kind: "timeout" } }), "2026-11-19", null);
+  assert.equal(w.kind, "timeout");
+  assert.match(w.text, /failed every re-test since 2026-11-19/);
+  assert.doesNotMatch(w.text, /failed to start/);
+});
+
+test("firstFailureAfter: only failed lines of that server on or after the grade", () => {
+  assert.deepEqual(firstFailureAfter(HIST, "a", "2026-11-09"), { first: "2026-11-10", version: "0.1.5" });
+  assert.equal(firstFailureAfter(HIST, "a", "2026-11-20"), null);
+  assert.equal(firstFailureAfter(HIST, "zzz", "2026-11-01"), null);
+});
