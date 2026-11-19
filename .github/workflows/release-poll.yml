@@ -1,0 +1,53 @@
+name: release-poll
+
+# Why this exists: release-sync.yml declares `11,41 * * * *` (every 30 minutes) but GitHub drops scheduled runs on
+# busy periods; the real gaps on this repo were 3 to 9 hours (checked 2026-11-19: run starts are immediate and the job takes
+# seconds, so the delay is GitHub's schedule, not a slow runner). A scheduled trigger cannot keep a cadence.
+#
+# This workflow keeps the cadence another way, with no new secret: one run polls npm every 5 minutes for about 50 minutes,
+# starts release-sync when npm is ahead of the pin on main, then starts the next poll run itself (workflow_dispatch made with
+# the workflow's own token is allowed to start a run). The hourly schedule only restarts the chain if it was ever broken.
+# It deploys nothing and changes nothing: it only asks release-sync to run.
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: release-poll
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    permissions:
+      actions: write   # only to start release-sync.yml and the next poll run
+      contents: read   # to read web/package.json on main
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: poll npm against the pin on main
+        run: |
+          end=$(( $(date +%s) + 50*60 ))
+          while [ "$(date +%s)" -lt "$end" ]; do
+            LATEST=$(npm view sealmark version 2>/dev/null || true)
+            PINNED=$(gh api "repos/$REPO/contents/web/package.json?ref=main" -H "Accept: application/vnd.github.raw" 2>/dev/null | jq -r '.devDependencies.sealmark' || true)
+            case "$LATEST" in [0-9]*.[0-9]*.[0-9]*) ;; *) LATEST="" ;; esac
+            if [ -n "$LATEST" ] && [ -n "$PINNED" ] && [ "$PINNED" != "null" ] && [ "$LATEST" != "$PINNED" ]; then
+              BUSY=$(gh run list -R "$REPO" -w release-sync.yml --json status -q '[.[] | select(.status=="in_progress" or .status=="queued" or .status=="waiting")] | length' || echo 1)
+              if [ "$BUSY" = "0" ]; then
+                echo "npm has $LATEST, main pins $PINNED: starting release-sync"
+                gh workflow run release-sync.yml -R "$REPO" -f version="$LATEST" || true
+                sleep 600   # give it time before looking again, so a failing run is not restarted every 5 minutes
+              fi
+            fi
+            sleep 300
+          done
+
+      - name: start the next poll run
+        if: always()
+        run: gh workflow run release-poll.yml -R "$REPO"
