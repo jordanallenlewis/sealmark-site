@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --test \"lib/*.test.mjs\"",
+    "cls:check": "node scripts/cls-check.mjs",
     "docs:gen": "node scripts/docs-gen.mjs",
     "docs:index": "node scripts/docs-index.mjs",
     "docs:check": "node scripts/docs-check.mjs",
@@ -38,6 +39,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
+    "playwright-core": "^1.65.1",
     "sealmark": "1.0.1",
     "typescript": "^5"
   }

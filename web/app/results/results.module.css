@@ -16,6 +16,13 @@
 .distItem { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-muted); font-size: 0.9rem; }
 .tw { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-top: 28px; }
 .table { border-collapse: collapse; width: 100%; min-width: 820px; font-size: 0.92rem; }
+.table { table-layout: fixed; } /* column widths never depend on text that changes after load (the reader's-clock age, ?query rows) */
+.table thead th:nth-child(1) { width: 26%; }
+.table thead th:nth-child(2) { width: 15%; }
+.table thead th:nth-child(3) { width: 10%; }
+.table thead th:nth-child(4) { width: 11%; }
+.table thead th:nth-child(5) { width: 25%; }
+.table thead th:nth-child(6) { width: 13%; }
 .table th, .table td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
 .table thead th { font: 500 0.72rem var(--font-mono), ui-monospace, monospace; color: var(--ink-faint); letter-spacing: 0.04em; text-transform: uppercase; }
 .table tbody tr:last-child td { border-bottom: 0; }
@@ -215,6 +222,10 @@
 .selects { margin-left: auto; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
 .selects .sort { margin-left: 0; }
 .when { display: block; font-size: 0.8rem; }
+/* The age words arrive with the reader's clock after hydration; their box is reserved from the first paint (two lines at most in a table cell). */
+.whenAge { min-height: 2.9em; }
+.metaAge { flex: 1 0 100%; min-height: 1.45em; }
+@media (max-width: 760px) { .metaAge { min-height: 2.9em; } }
 @media (max-width: 600px) { .selects { margin-left: 0; width: 100%; } .selects .sort { width: 100%; } .selects .sort select { flex: 1; min-width: 0; } }
 /* Topic pages (site#56) */
 .topicList { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 2px; max-width: 72ch; }

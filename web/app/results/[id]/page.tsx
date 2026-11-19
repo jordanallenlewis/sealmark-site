@@ -281,11 +281,12 @@ export default async function ServerPage({ params }: P) {
         <div className={s.meta}>
           <span>version tested {x.versionTested}</span>
           <span>{ecosystemLabel(x)}</span>
-          <span>tested {x.testedAt}<GradeAge testedAt={x.testedAt} builtOn={new Date().toISOString().slice(0, 10)} /></span>
+          <span>tested {x.testedAt}</span>
           <span>Sealmark {x.sealmark.version}</span>
           <span>methodology {x.sealmark.methodology}</span>
           <span>{x.standard ? "STANDARD run" : "CUSTOM run"}</span>
           <span>{count(x.toolCount, "tool", "tools")}</span>
+          <GradeAge testedAt={x.testedAt} builtOn={new Date().toISOString().slice(0, 10)} />
         </div>
 
         {/* data-third-party: the summary names the server and its version, someone else's text (scripts/home-check.mjs) */}

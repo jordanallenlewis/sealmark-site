@@ -1,5 +1,6 @@
 "use client";
 import { useSyncExternalStore } from "react";
+import s from "@/app/results/results.module.css";
 import { ageNote, isStale, staleSince } from "@/lib/grade-age.mjs";
 
 // How old a grade is, by the reader's clock (site#63). The static page is built only when the fleet deploys, so a
@@ -19,5 +20,6 @@ export function useToday(): string | null {
 export function GradeAge({ testedAt, builtOn }: { testedAt: string | undefined; builtOn: string }) {
   const today = useToday();
   const note = today ? ageNote(testedAt, today) : staleSince(testedAt, builtOn, "page");
-  return note ? <span data-state={isStale(testedAt, today ?? builtOn) ? "stale" : "current"}> ({note})</span> : null;
+  // Always rendered: the line is reserved before the reader's clock arrives, so the words fill a box that already exists (no layout shift).
+  return <span className={s.metaAge} data-state={isStale(testedAt, today ?? builtOn) ? "stale" : "current"}>{note ? `(${note})` : ""}</span>;
 }

@@ -9,9 +9,10 @@ import { AUTHOR, SITE } from "@/lib/site";
 import { METHODOLOGY } from "@/lib/data";
 import { jsonLd, softwareJsonLd } from "@/lib/seo";
 
-const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"] });
-const sans = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-sans" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], variable: "--font-mono", weight: ["400", "500", "600"] });
+// display: "optional": a font that is not ready in the first ~100 ms is not used for this page view, so text never re-flows when a font arrives (zero layout shift after load).
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"], display: "optional" });
+const sans = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "optional" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], variable: "--font-mono", weight: ["400", "500", "600"], display: "optional" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://${SITE.host}`),
