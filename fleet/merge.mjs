@@ -12,6 +12,7 @@ import { checkTools, schemasBefore, serverTools, toolSchemas } from "./check-too
 import { checkEvidence, mergeEvidence } from "./evidence.mjs";
 import { PRIVATE_RESULTS, redactResults } from "./redact-results.mjs";
 import { updateStore } from "./private-store.mjs";
+import { RUNS, appendRun, runRecord } from "./runs.mjs";
 
 /** `{ [key]: value }`, or nothing when the value is undefined (keeps entries without the data unchanged). */
 const withKey = (key, value) => (value === undefined ? {} : { [key]: value });
@@ -234,4 +235,6 @@ else {
 }
 // The "Not graded yet" list on /results/ (fleet/not-graded.mjs), from the history and results just written.
 const notGraded = writeNotGraded();
+// The run log behind the real cadence on /status/ (fleet/runs.mjs); a run that merged no reports adds nothing.
+appendRun(RUNS, runRecord(new Date().toISOString(), { graded: merged, failed, added }, process.env.GITHUB_EVENT_NAME));
 console.log(`merged ${merged} report(s), ${failed} failed, ${added} new, ${notGraded.count} not graded yet`);

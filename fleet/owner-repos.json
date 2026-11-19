@@ -434,6 +434,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "fluxygram-mcp": {
+    "repo": "Fluxygram/fluxygram",
+    "source": "npm",
+    "resolvedAt": "2026-11-19"
+  },
   "flydocs-cli": {
     "repo": null,
     "source": "npm",

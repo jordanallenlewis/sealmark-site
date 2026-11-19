@@ -216,6 +216,9 @@ jobs:
   deploy:
     needs: collect
     runs-on: ubuntu-26.04
+    concurrency:
+      group: sealmark-deploy # one deploy at a time across fleet.yml and release-sync.yml
+      cancel-in-progress: false
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: f37b212eac72fedf8ef688eb7856ea4d
@@ -228,6 +231,7 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+          fetch-depth: 0 # deploy-guard compares this commit with the live one
       # npm cache keyed on the lockfile (npm ci checks every package against its integrity hash)
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         if: env.CLOUDFLARE_API_TOKEN != ''
@@ -240,4 +244,5 @@ jobs:
         run: |
           cd web && npm ci && npm run build
           if [ "$DRY_RUN" = "1" ]; then echo "test run: built, not deployed"; exit 0; fi
-          npx -y wrangler deploy
+          # forward-only: refuses a commit older than the live one, stamps the version with its commit, checks live == shipped
+          ../fleet/guarded-deploy.sh

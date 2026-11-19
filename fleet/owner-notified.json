@@ -151,6 +151,27 @@
       "eligible": 0,
       "sent": 0,
       "explained": false
+    },
+    {
+      "date": "2026-11-18",
+      "live": true,
+      "eligible": 0,
+      "sent": 0,
+      "explained": false
+    },
+    {
+      "date": "2026-11-19",
+      "live": true,
+      "eligible": 0,
+      "sent": 0,
+      "explained": false
+    },
+    {
+      "date": "2026-11-19",
+      "live": true,
+      "eligible": 0,
+      "sent": 0,
+      "explained": false
     }
   ],
   "private": [

@@ -32,10 +32,17 @@ curl -s https://sealmark.dev/data/v1/changes.json | jq '.changes[] | select(.dat
 - `grade` is the server's grade: the lowest grade across the test areas that were graded. It is `null` when nothing was graded or the server declared no tools. `provisional` is `true` when an inconclusive critical check makes that grade provisional ([grades](/docs/concepts/grades)).
 - `packs` in the list maps each graded test area to its letter. In a server's file, `packDetails` lists every test area with its points, whether a critical fail capped it, and why an area that did not run was not graded.
 - `checks[].verdict` is `pass`, `part`, `fail`, `inconclusive` or `na` ([verdicts](/docs/concepts/verdicts)); `checks[].docs` links to what the check tests.
+- `testedAt` is the UTC day of the run that produced the grade. A grade more than 10 days old has missed its re-test: its results page and the results table say so. [Fleet status](/status/) shows how often the fleet really runs.
 - `lastAttemptFailed` is the date of a later re-test that could not finish; the grade shown is from the run before it. `lastAttempt` says why.
 - `history` lists the automated runs of that server, one per day (the last that day), oldest first; a failed run has no grade and says nothing about the server.
 - `changes[]` names the Sealmark version of both runs (`previousSealmark`, `sealmark`): a change across a Sealmark upgrade can come from Sealmark, not the server.
 - `reproduce` is the command that repeats the run with the same Sealmark version and the standard settings.
+
+## On each results page
+
+Each results page opens with a short summary in plain sentences: the overall grade as the page heads it, the grade of each graded test area, how many tools could be called, how many checks passed or failed, the date, the Sealmark version and whether the run used the standard settings. The same facts are in the page as [schema.org](https://schema.org/Dataset) JSON-LD: a `Dataset` about the server (a `SoftwareApplication`), its grades and verdict counts as `variableMeasured`, with that server's JSON file above as its download. Grades stay letters there; nothing turns them into a numeric rating.
+
+Each tool that a public check reached with a valid call has its own page (a name with unusual characters, or one past a check's list limit, is left out) under its server, at `/results/tools/<id>/<tool>/`: the checks that called it with their verdicts, the checks that did not exercise it, and the evidence lines the run recorded against that tool. A check's verdict is for the whole check, so no tool gets a grade of its own. Servers with a security finding have no tool pages, the same rule as the [tools directory](/results/tools/). The sitemap and `llms-full.txt` list every tool page.
 
 ## What the files leave out
 

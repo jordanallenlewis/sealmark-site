@@ -72,7 +72,7 @@ export default function ResultsPage() {
         </div>
 
         <p className={s.muted} style={{ marginTop: 20 }}><Link href="/results/topics/">Best graded servers by topic</Link> · <Link href="/results/tools/">Tools called with valid input</Link> · <Link href="/results/history/">See how each server&rsquo;s grade changed over time</Link> · <Link href="/status/">Fleet status</Link></p>
-        <ResultsTable servers={list.map((x) => listRow(x, runs.get(x.id)))} />
+        <ResultsTable servers={list.map((x) => listRow(x, runs.get(x.id)))} builtOn={new Date().toISOString().slice(0, 10)} />
         <NotGraded />
 
         <section className={s.sec}>

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18",
+  "generatedAt": "2026-11-19",
   "mode": "real",
   "summary": {
     "notified": 6,
@@ -15,9 +15,9 @@
     "topFixedChecks": [],
     "base": {
       "servers": 209,
-      "released": 22,
+      "released": 31,
       "improved": 0,
-      "regressed": 1,
+      "regressed": 2,
       "medianDaysToImprovement": null
     }
   },
@@ -54,7 +54,7 @@
         "commitMentionsSealmark": false,
         "releaseMentionsSealmark": false
       },
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "attribution": {
         "direct": {
           "issueReferenced": false,
@@ -99,7 +99,7 @@
         "commitMentionsSealmark": false,
         "releaseMentionsSealmark": false
       },
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "attribution": {
         "direct": {
           "issueReferenced": false,
@@ -149,7 +149,7 @@
         "commitMentionsSealmark": false,
         "releaseMentionsSealmark": false
       },
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "attribution": {
         "direct": {
           "issueReferenced": false,
@@ -197,7 +197,7 @@
         "commitMentionsSealmark": false,
         "releaseMentionsSealmark": false
       },
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "attribution": {
         "direct": {
           "issueReferenced": false,
@@ -245,7 +245,7 @@
         "commitMentionsSealmark": false,
         "releaseMentionsSealmark": false
       },
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "attribution": {
         "direct": {
           "issueReferenced": false,
@@ -293,7 +293,7 @@
         "commitMentionsSealmark": false,
         "releaseMentionsSealmark": false
       },
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "attribution": {
         "direct": {
           "issueReferenced": false,
