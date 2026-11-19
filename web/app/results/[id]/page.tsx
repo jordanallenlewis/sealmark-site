@@ -343,7 +343,7 @@ export default async function ServerPage({ params }: P) {
             <h2 id="tools-h">By tool</h2>
             <p>Which checks called each tool with a valid call in this run, and which did not exercise it. A check can leave a tool out for several reasons: a limit Sealmark sets, a tool left out by design, input the run could not fill in, or a call that returned an error. The CLI report gives the reason. A verdict belongs to the whole check, not to one tool: a failed check that called three tools does not say which one failed. Security checks are left out of this table.</p>
             {byTool.missing && <p className={s.muted}>Some of this server&apos;s tool names are not shown: the run keeps a limited number, and names with unusual characters are left out.</p>}
-            <div className={clsx(s.tw, s.twChecks)} tabIndex={0} role="region" aria-labelledby="tools-h">
+            <div className={clsx(s.tw, s.twChecks)} tabIndex={0} role="region" aria-label="Table of checks by tool">
               <table className={clsx(s.checks, s.evidence, s.byTool)}>
                 <colgroup><col className={s.colCheck} /><col /><col /></colgroup>
                 <thead><tr><th scope="col">Tool</th><th scope="col">Called by</th><th scope="col">Not exercised by</th></tr></thead>
