@@ -22,11 +22,13 @@ export type ServerResult = {
   automated?: boolean; round?: string;
   // set by fleet/merge.mjs when the latest re-test failed; the grade above is from the earlier run (web/lib/retest.mjs)
   lastAttempt?: { date: string; status: "failed"; kind: string; startKind?: string } | null;
+  /** Set when the file loads (lib/results.ts, lib/retest.mjs withdrawnGrade): the grade is 6 or more days old and the re-tests keep failing, so no overall grade is shown. */
+  gradeWithdrawn?: { kind: string; text?: string; since: string } | null;
 };
 
 type PackLite = Pick<PackResult, "id" | "status" | "letter" | "provisional">;
 /** What the /results/ table receives: the allowlisted fields of lib/results-list.mjs, nothing else. */
-export type ListRow = Pick<ServerResult, "id" | "name" | "ecosystem" | "versionTested" | "toolCount" | "lastAttempt"> & {
+export type ListRow = Pick<ServerResult, "id" | "name" | "ecosystem" | "versionTested" | "toolCount" | "lastAttempt" | "gradeWithdrawn"> & {
   packs: PackLite[];
   coverage?: { level: string; toolsTotal: number } | null;
   /** Day of the run behind the grade (YYYY-MM-DD), and the last day the server grade moved with a new server version (lib/results-view.mjs gradeChange). */
@@ -38,7 +40,8 @@ export const RANK: Record<Letter, number> = { F: 0, D: 1, C: 2, B: 3, A: 4 };
 export const PACK_LABEL: Record<string, string> = { core: "Protocol", db: "Database", sqlite: "SQLite", fs: "Files", git: "Git", net: "Network", http: "HTTP", effects: "Effects", exec: "Commands", custom: "Custom" };
 
 export const gradedPacks = <P extends PackLite>(s: { packs: P[] }) => s.packs.filter((p) => p.status === "graded" && p.letter);
-export const worst = (s: { packs: PackLite[] }): { letter: Letter; provisional: boolean } | null => {
+export const worst = (s: { packs: PackLite[]; gradeWithdrawn?: unknown }): { letter: Letter; provisional: boolean } | null => {
+  if (s.gradeWithdrawn) return null; // a stale grade whose re-tests keep failing is not shown (lib/retest.mjs withdrawnGrade)
   const g = gradedPacks(s);
   if (!g.length) return null;
   const w = g.reduce((a, b) => (RANK[b.letter as Letter] < RANK[a.letter as Letter] ? b : a));

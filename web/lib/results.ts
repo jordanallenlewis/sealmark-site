@@ -2,7 +2,10 @@
 // default-configuration run. Review or gate this file as a unit before deploying (owner rule: real server names are shown).
 import raw from "@/content/data/server-results.json";
 import disclosureFile from "@/content/data/disclosure.json";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { deepPacks, gradedPacks, type ServerResult } from "./results-shared";
+import { firstFailureAfter, withdrawnGrade } from "./retest.mjs";
 import { redactedChecks, type Disclosure, type DisclosureEntry } from "./disclosure.mjs";
 export * from "./results-shared";
 export { isSecurityCheck, isSecurityFinding, isWeakSignal } from "./disclosure.mjs";
@@ -19,11 +22,17 @@ type Round = { name: string; truePass: number; trueFail: number; falsePass: numb
 export const DATA = raw as unknown as { generatedFrom: string; methodology: string; servers: ServerResult[]; verification: { note: string; rounds: Round[] } };
 // Real-server results are published (owner, 2026-10-15). A build with SEALMARK_PUBLISH_RESULTS=0 hides them again.
 export const RESULTS_PUBLIC = process.env.SEALMARK_PUBLISH_RESULTS !== "0";
-export const SERVERS_RESULTS: ServerResult[] = RESULTS_PUBLIC ? DATA.servers : [];
+// A grade 6 or more days old whose re-tests keep failing is not shown (lib/retest.mjs withdrawnGrade); the old grade stays in the history.
+const HISTORY_TEXT = readFileSync(resolve(process.cwd(), "..", "fleet", "history.jsonl"), "utf8");
+const withWithdrawal = (x: ServerResult): ServerResult => {
+  const gradeWithdrawn = withdrawnGrade(x, BUILD_DATE, x.lastAttempt ? firstFailureAfter(HISTORY_TEXT, x.id, x.testedAt) : null);
+  return gradeWithdrawn ? { ...x, gradeWithdrawn } : x;
+};
+export const SERVERS_RESULTS: ServerResult[] = RESULTS_PUBLIC ? DATA.servers.map(withWithdrawal) : [];
 
 // Counts shown on the home and results pages. Computed once here from the data; never hardcode them in a page.
 export const SERVER_COUNT = SERVERS_RESULTS.length;
-export const BELOW_A_COUNT = SERVERS_RESULTS.filter((x) => gradedPacks(x).some((p) => p.letter !== "A")).length;
+export const BELOW_A_COUNT = SERVERS_RESULTS.filter((x) => !x.gradeWithdrawn && gradedPacks(x).some((p) => p.letter !== "A")).length;
 export const CRIT_FAIL_COUNT = SERVERS_RESULTS.filter((x) => deepPacks(x).some((p) => p.criticalFails.length > 0)).length;
 // Every verdict that was compared with an independent check (all rounds, all outcomes).
 export const VERDICTS_CHECKED = DATA.verification.rounds.reduce(

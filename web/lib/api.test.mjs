@@ -147,3 +147,15 @@ test("OpenAPI document is 3.1, points at /data/v1 and describes the five files",
   for (const ref of JSON.stringify(o).match(/#\/components\/schemas\/\w+/g)) assert.ok(o.components.schemas[ref.split("/").pop()], ref);
   assert.equal(serverPath("srv"), "/data/v1/servers/srv.json");
 });
+
+test("a withdrawn stale grade goes out as no grade, with the reason, the area letters off and the old grade kept", () => {
+  const x = server({ testedAt: "2026-11-09", versionTested: "0.1.2", gradeWithdrawn: { kind: "start-fail", since: "2026-11-10", text: "There is no current grade. The last grade was from version 0.1.2." } });
+  const s = serverSummary(x, null, SITE);
+  assert.equal(s.grade, null);
+  assert.deepEqual(s.noGradeReason, { kind: "start-fail", text: "There is no current grade. The last grade was from version 0.1.2." });
+  assert.deepEqual(s.packs, {});
+  const d = serverDoc(x, null, new Map(), [], SITE);
+  assert.equal(d.lastGrade.testedAt, "2026-11-09");
+  assert.equal(d.lastGrade.failingSince, "2026-11-10");
+  assert.equal(serverDoc(server(), { letter: "A", provisional: false }, new Map(), [], SITE).lastGrade, null);
+});

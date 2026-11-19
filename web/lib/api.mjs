@@ -15,6 +15,13 @@ export const API_BASE = `/data/${API_VERSION}`;
 /** Newest grade changes kept in changes.json. */
 export const CHANGES_LIMIT = 500;
 
+/** The lowest graded area letter (the grade the page would show without a withdrawal). */
+const worstOf = (x) => {
+  const order = ["F", "D", "C", "B", "A"];
+  const ls = x.packs.filter((p) => p.status === "graded" && p.letter).map((p) => p.letter);
+  return ls.length ? ls.reduce((a, b) => (order.indexOf(b) < order.indexOf(a) ? b : a)) : null;
+};
+
 /** @param {string} id */
 export const serverPath = (id) => `${API_BASE}/servers/${id}.json`;
 /** @param {string} id */
@@ -35,13 +42,14 @@ export function serverSummary(x, grade, site) {
     testedAt: x.testedAt,
     grade: grade ? grade.letter : null,
     provisional: grade ? grade.provisional : false,
-    packs: Object.fromEntries(x.packs.filter((p) => p.status === "graded" && p.letter).map((p) => [p.id, p.letter])),
+    // A withdrawn grade takes its area letters with it; the earlier grade is in `lastGrade` (full doc) and the history.
+    packs: Object.fromEntries(x.packs.filter((p) => !x.gradeWithdrawn && p.status === "graded" && p.letter).map((p) => [p.id, p.letter])),
     toolCount: x.toolCount,
     transport: x.transport,
     lastAttemptFailed: x.lastAttempt ? x.lastAttempt.date : null,
     gradeConfirmed: !gradeUnconfirmed(x),
     // Why there is no overall grade, in the page's own words (lib/results-copy.mjs); null when there is a grade.
-    noGradeReason: grade ? null : coverageNote(x, (x.packs ?? []).some((p) => p.status === "graded" && p.id !== "core" && p.letter)),
+    noGradeReason: grade ? null : x.gradeWithdrawn ? { kind: x.gradeWithdrawn.kind, text: x.gradeWithdrawn.text } : coverageNote(x, (x.packs ?? []).some((p) => p.status === "graded" && p.id !== "core" && p.letter)),
     page: site + pagePath(x.id),
     json: site + serverPath(x.id),
   };
@@ -64,6 +72,8 @@ export function serverDoc(x, grade, redactions, runs, site) {
     standard: x.standard,
     configHash: held ? null : x.configHash, // hashes the run config, start command included
     automated: x.automated === true,
+    // The grade this server earned before it stopped starting (a rule, lib/retest.mjs withdrawnGrade); null when a grade is shown.
+    lastGrade: x.gradeWithdrawn ? { grade: worstOf(x), testedAt: x.testedAt, version: x.versionTested, failingSince: x.gradeWithdrawn.since } : null,
     coverage: x.coverage ?? null,
     packDetails: x.packs.map((p) => ({
       id: p.id, status: p.status, letter: p.letter, points: p.points, scored: p.scored, pct: p.pct,
@@ -156,7 +166,7 @@ export function openapiDoc(site, cliVersion) {
       toolCount: { type: "integer" }, transport: str,
       lastAttemptFailed: { ...strOrNull, description: "date of a later re-test that failed; the grade is from the earlier run" },
       gradeConfirmed: { type: "boolean", description: "false when a re-test after the grade's run failed: the grade is the earlier run's and is not confirmed for the version tested now" },
-      noGradeReason: { type: ["object", "null"], description: "why there is no overall grade (null when there is one): kind is no-tools, hygiene, low, covered or unknown, text is the words the results page shows", properties: { kind: str, text: str } },
+      noGradeReason: { type: ["object", "null"], description: "why there is no overall grade (null when there is one): kind is no-tools, hygiene, low, covered, unknown, or start-fail / timeout / sealmark-crash / failed when a grade 6 or more days old was withdrawn because the re-tests keep failing, text is the words the results page shows", properties: { kind: str, text: str } },
       page: { type: "string", format: "uri" }, json: { type: "string", format: "uri" },
     },
   };

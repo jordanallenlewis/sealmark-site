@@ -51,3 +51,13 @@ test("badge files: three per server, and a name clash stops the build", () => {
   assert.deepEqual(badgeFiles(["a"]).map((f) => f.file), ["a.svg", "a-card.svg", "a.json"]);
   assert.throws(() => badgeFiles(["x", "x-card"]), /x-card\.svg would serve two servers/);
 });
+
+test("no letter (a withdrawn grade) draws a neutral grey badge, card and shields doc, never a failing colour", () => {
+  assert.deepEqual(shieldsDoc("sealmark", "no current grade", null), { schemaVersion: 1, label: "sealmark", message: "no current grade", color: "lightgrey" });
+  const svg = badgeSvg("sealmark", "no current grade", null, null);
+  assert.match(svg, /#6b7280/);
+  assert.doesNotMatch(svg, /#d73a49/);
+  const card = badgeCardSvg({ name: "x", version: "1.0", testedAt: "2026-11-09", message: "no current grade", letter: null, note: null });
+  assert.doesNotMatch(card, /#d73a49|>F</);
+  assert.doesNotMatch(card, /grade null/);
+});
