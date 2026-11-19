@@ -1,6 +1,6 @@
 # Owner notices: week of 2026-11-16
 
-Written by `fleet/notify-owners.mjs` on 2026-11-18. "Last 7 days" is 2026-11-12 to 2026-11-18.
+Written by `fleet/notify-owners.mjs` on 2026-11-19. "Last 7 days" is 2026-11-13 to 2026-11-19.
 
 | | Last 7 days | All time |
 |---|---|---|
@@ -25,11 +25,11 @@ None.
 
 None.
 
-## Where every graded server stands (2026-11-18)
+## Where every graded server stands (2026-11-19)
 
-262 graded servers: 0 sent or drafted this run, 30 held for private handling, 23 waiting, 209 skipped.
+263 graded servers: 0 sent or drafted this run, 30 held for private handling, 25 waiting, 208 skipped.
 
-Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (2 in the last 24 hours), 30 per week (6 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
+Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (6 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
 Private security reports (GitHub private vulnerability reporting, never public): 1 sent in all; 23 repositories are held for them. Counts only.
 
@@ -37,8 +37,8 @@ Private security reports (GitHub private vulnerability reporting, never public):
 
 | Reason | Servers |
 |---|---|
-| weak signals only | 18 |
-| graded once; waits for a repeat run | 3 |
+| weak signals only | 19 |
+| graded once; waits for a repeat run | 4 |
 | stale grade or failed re-test | 1 |
 | flaky across repeat runs | 1 |
 
@@ -46,7 +46,7 @@ Private security reports (GitHub private vulnerability reporting, never public):
 
 | Reason | Servers |
 |---|---|
-| nothing to fix (an A, or no check to name) | 125 |
+| nothing to fix (an A, or no check to name) | 124 |
 | no GitHub repository | 35 |
 | no tool reached (hygiene-only) | 29 |
 | already got its one issue | 6 |

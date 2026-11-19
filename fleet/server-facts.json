@@ -1,7 +1,7 @@
 {
   "servers": {
     "3dstreet-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-or-later",
       "latest": {
@@ -27,7 +27,7 @@
       }
     },
     "aamio": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -60,16 +60,16 @@
       }
     },
     "achromat-ai-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.1.4",
-        "date": "2026-11-04"
+        "version": "0.1.5",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "achromat-ai/achromat-mcp-server",
-        "pushedAt": "2026-11-04",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -89,7 +89,7 @@
       }
     },
     "addressintel-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -116,7 +116,7 @@
       }
     },
     "adeu-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -144,7 +144,7 @@
       }
     },
     "aetherwealth-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
@@ -170,7 +170,7 @@
       }
     },
     "affiliate-networks-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -185,7 +185,7 @@
       }
     },
     "agent-bev-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -224,7 +224,7 @@
       }
     },
     "agent-infra-fs": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -257,7 +257,7 @@
       }
     },
     "agent-tools-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -266,7 +266,7 @@
       },
       "repo": {
         "name": "AgentTools-Cloud/AgentToolsCollection",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 14
       },
@@ -284,7 +284,7 @@
       }
     },
     "ai-dossier-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-only",
       "latest": {
@@ -323,7 +323,7 @@
       }
     },
     "airbnb": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -340,7 +340,7 @@
       }
     },
     "aminforou-mcp-gsc": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": null,
@@ -361,7 +361,7 @@
       }
     },
     "antvis-mcp-server-chart": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": {
@@ -387,7 +387,7 @@
       }
     },
     "anyforge-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -406,7 +406,7 @@
       }
     },
     "apick-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -445,7 +445,7 @@
       }
     },
     "apick-subagent": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -473,16 +473,16 @@
       }
     },
     "apiguru-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
-        "version": "1.1.65",
-        "date": "2026-11-16"
+        "version": "1.1.68",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "apiguru-app/agent-kit",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -506,7 +506,7 @@
       }
     },
     "apillow-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -525,7 +525,7 @@
       }
     },
     "appscreen-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -555,7 +555,7 @@
       }
     },
     "aquex-reasonbook": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -591,7 +591,7 @@
       }
     },
     "arxiv": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -623,7 +623,7 @@
       }
     },
     "atilaahmettaner-tradingview-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": null,
@@ -653,7 +653,7 @@
       }
     },
     "atlasyield-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -680,7 +680,7 @@
       }
     },
     "atmy-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -703,7 +703,7 @@
       }
     },
     "autenai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -742,7 +742,7 @@
       }
     },
     "autonomad-travel": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -774,7 +774,7 @@
       }
     },
     "autonomad1-computeback-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -803,7 +803,7 @@
       }
     },
     "autonomous-ai-harness-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -814,7 +814,7 @@
         "name": "autonomous-ai/openharness",
         "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 103
+        "openIssues": 97
       },
       "about": {
         "keywords": [
@@ -842,7 +842,7 @@
       }
     },
     "backtest-auditor": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -862,7 +862,7 @@
       }
     },
     "bethington-ghidra-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "Apache-2.0",
       "latest": {
@@ -871,9 +871,9 @@
       },
       "repo": {
         "name": "bethington/ghidra-mcp",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 27
+        "openIssues": 21
       },
       "licenseFrom": "repo",
       "about": {
@@ -893,7 +893,7 @@
       }
     },
     "betterjobs-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -903,7 +903,7 @@
       "repo": null
     },
     "blazickjp-arxiv-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "Apache-2.0",
       "latest": {
@@ -933,7 +933,7 @@
       }
     },
     "bolthub-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -961,16 +961,16 @@
       }
     },
     "brandrail": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.10.5",
-        "date": "2026-11-17"
+        "version": "0.10.6",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "brandrail-app/brandrail",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -1000,7 +1000,7 @@
       }
     },
     "brick-blue-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1028,7 +1028,7 @@
       }
     },
     "call-grokbot": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1051,7 +1051,7 @@
       }
     },
     "callmcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1061,12 +1061,12 @@
       "repo": null
     },
     "celo-buy": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
-        "version": "0.8.5",
-        "date": "2026-10-28"
+        "version": "0.8.6",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "celo-org/buy-skill",
@@ -1092,7 +1092,7 @@
       }
     },
     "certscore-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "proprietary",
       "latest": {
@@ -1101,7 +1101,7 @@
       },
       "repo": {
         "name": "ergoveritas1-alt/certscore.ai",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 2
       },
@@ -1116,7 +1116,7 @@
       }
     },
     "chainhilt": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -1125,7 +1125,7 @@
       },
       "repo": {
         "name": "bancorprotocol/chainhilt-wallet",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 2
       },
@@ -1152,7 +1152,7 @@
       }
     },
     "clarxai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1172,7 +1172,7 @@
       }
     },
     "cleanor-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1211,7 +1211,7 @@
       }
     },
     "clelp-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1250,7 +1250,7 @@
       }
     },
     "context7": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1259,9 +1259,9 @@
       },
       "repo": {
         "name": "upstash/context7",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 49
+        "openIssues": 57
       },
       "about": {
         "keywords": [
@@ -1278,7 +1278,7 @@
       }
     },
     "contextburn": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -1306,7 +1306,7 @@
       }
     },
     "cookwala-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -1338,7 +1338,7 @@
       }
     },
     "crawlio-browser": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -1375,7 +1375,7 @@
       }
     },
     "creatica-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1397,7 +1397,7 @@
       }
     },
     "cyanheads-fs": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -1436,7 +1436,7 @@
       }
     },
     "cyanheads-git": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -1475,7 +1475,7 @@
       }
     },
     "darkknightcave-motion-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1498,7 +1498,7 @@
       }
     },
     "datavidence-financials": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -1532,46 +1532,46 @@
       }
     },
     "dbhub": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "1.7.1",
-        "date": "2026-11-17"
+        "version": "2.0.0",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "bytebase/dbhub",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 1
       },
       "about": {
         "keywords": [
-          "agents",
-          "ai",
-          "anthropic",
-          "claude",
-          "claude-ai",
-          "codex",
-          "cursor",
-          "database",
-          "llm",
-          "mariadb",
           "mcp",
           "mcp-server",
-          "mssql",
-          "mysql",
-          "oracle",
+          "model-context-protocol",
+          "modelcontextprotocol",
+          "database",
+          "sql",
           "postgres",
           "postgresql",
-          "sql",
+          "mysql",
+          "mariadb",
+          "sqlserver",
+          "mssql",
+          "oracle",
+          "clickhouse",
           "sqlite",
-          "sqlserver"
+          "claude",
+          "cursor",
+          "codex",
+          "ai-agent",
+          "agents"
         ]
       }
     },
     "dchub-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1582,7 +1582,7 @@
         "name": "azmartone67/dchub-mcp-server",
         "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 9
+        "openIssues": 10
       },
       "about": {
         "keywords": [
@@ -1605,12 +1605,12 @@
           "data-center-power-index",
           "ai-agents",
           "dchub",
-          "ercot"
+          "capacity"
         ]
       }
     },
     "decimalai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -1640,7 +1640,7 @@
       }
     },
     "deepdna-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -1678,7 +1678,7 @@
       }
     },
     "demomagic-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1699,7 +1699,7 @@
       }
     },
     "devglow-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1732,7 +1732,7 @@
       }
     },
     "dinglebear-labby": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-only",
       "latest": {
@@ -1741,9 +1741,9 @@
       },
       "repo": {
         "name": "dinglebear-ai/labby",
-        "pushedAt": "2026-11-15",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 25
+        "openIssues": 26
       },
       "about": {
         "keywords": [
@@ -1771,7 +1771,7 @@
       }
     },
     "dinglebear-rapprise": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1809,7 +1809,7 @@
       }
     },
     "dinglebear-rytdl": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-only",
       "latest": {
@@ -1847,7 +1847,7 @@
       }
     },
     "dinglebear-synapse": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1884,7 +1884,7 @@
       }
     },
     "dinglebear-yarr": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1923,7 +1923,7 @@
       }
     },
     "doc-cheap-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -1947,7 +1947,7 @@
       }
     },
     "doobidoo-mcp-memory-service": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "Apache-2.0",
       "latest": {
@@ -1956,9 +1956,9 @@
       },
       "repo": {
         "name": "doobidoo/mcp-memory-service",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 42
+        "openIssues": 33
       },
       "licenseFrom": "repo",
       "about": {
@@ -1987,7 +1987,7 @@
       }
     },
     "dsail": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -2021,7 +2021,7 @@
       }
     },
     "duckdb-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": null,
       "latest": {
@@ -2043,7 +2043,7 @@
       }
     },
     "duckduckgo": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT License",
       "latest": {
@@ -2058,7 +2058,7 @@
       }
     },
     "durely-garmin-insights-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -2067,7 +2067,7 @@
       },
       "repo": {
         "name": "durely/garmin-insights-mcp",
-        "pushedAt": "2026-10-29",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -2086,7 +2086,7 @@
       }
     },
     "dwelldelta-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2096,7 +2096,7 @@
       "repo": null
     },
     "dxpert-uns-tools": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2135,18 +2135,18 @@
       }
     },
     "ekwo-ai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-only",
       "latest": {
-        "version": "0.25.2",
-        "date": "2026-11-13"
+        "version": "0.26.0",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "Ekwo-ai/ekwo-os",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 2
+        "openIssues": 3
       },
       "about": {
         "keywords": [
@@ -2169,7 +2169,7 @@
       }
     },
     "elicitly": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -2194,7 +2194,7 @@
       }
     },
     "etincel": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2233,22 +2233,22 @@
       }
     },
     "everything": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
-        "version": "2.3.0",
-        "date": "2026-11-11"
+        "version": "2.3.1",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       }
     },
     "exa-labs-exa-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": null,
@@ -2273,7 +2273,7 @@
       }
     },
     "executeautomation-db": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2296,7 +2296,7 @@
       }
     },
     "extremely-agency-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-only",
       "latest": {
@@ -2335,7 +2335,7 @@
       }
     },
     "feeling-search-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2369,18 +2369,18 @@
       }
     },
     "fetch": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
-        "version": "2026.11.11",
-        "date": "2026-11-11"
+        "version": "2026.11.18",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       },
       "about": {
         "keywords": [
@@ -2392,7 +2392,7 @@
       }
     },
     "fetch-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2402,7 +2402,7 @@
       "repo": null
     },
     "fictura-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2427,22 +2427,22 @@
       }
     },
     "filesystem": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
-        "version": "2.3.0",
-        "date": "2026-11-11"
+        "version": "2.4.0",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       }
     },
     "firecms-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2472,7 +2472,7 @@
       }
     },
     "firecrawl-firecrawl-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": {
@@ -2481,9 +2481,9 @@
       },
       "repo": {
         "name": "firecrawl/firecrawl-mcp-server",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-19",
         "archived": false,
-        "openIssues": 196
+        "openIssues": 200
       },
       "licenseFrom": "repo",
       "about": {
@@ -2507,7 +2507,7 @@
       }
     },
     "fleet-memory-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2545,8 +2545,37 @@
         ]
       }
     },
+    "fluxygram-mcp": {
+      "checkedAt": "2026-11-19",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.3.0",
+        "date": "2026-11-16"
+      },
+      "repo": {
+        "name": "Fluxygram/fluxygram",
+        "pushedAt": "2026-11-18",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai",
+          "agents",
+          "claude",
+          "cursor",
+          "diagram",
+          "animation",
+          "fluxygram"
+        ]
+      }
+    },
     "flydocs-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": null,
       "latest": {
@@ -2556,7 +2585,7 @@
       "repo": null
     },
     "formachines-errata-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2584,7 +2613,7 @@
       }
     },
     "formatika-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2609,7 +2638,7 @@
       }
     },
     "gage-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2638,7 +2667,7 @@
       }
     },
     "galaxymovies-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2665,7 +2694,7 @@
       }
     },
     "gency-ai-gency-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2685,7 +2714,7 @@
       }
     },
     "getvetai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2709,18 +2738,18 @@
       }
     },
     "git": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
-        "version": "2026.11.11",
-        "date": "2026-11-11"
+        "version": "2026.11.18",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       },
       "about": {
         "keywords": [
@@ -2732,7 +2761,7 @@
       }
     },
     "git-mcp-py": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": null,
       "latest": {
@@ -2742,7 +2771,7 @@
       "repo": null
     },
     "haymon-ai-dbmcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2751,7 +2780,7 @@
       },
       "repo": {
         "name": "haymon-ai/dbmcp",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 9
       },
@@ -2771,7 +2800,7 @@
       }
     },
     "henkey-postgres": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0",
       "latest": {
@@ -2800,7 +2829,7 @@
       }
     },
     "hostbeam-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2830,7 +2859,7 @@
       }
     },
     "hovecapital-read-only-mysql-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2857,7 +2886,7 @@
       }
     },
     "hovecapital-read-only-postgres-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2885,7 +2914,7 @@
       }
     },
     "html-cloud-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2916,7 +2945,7 @@
       }
     },
     "huddoai": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2943,18 +2972,18 @@
       }
     },
     "hypaware": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "1.53.0",
-        "date": "2026-11-17"
+        "version": "1.54.0",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "hyparam/hypaware",
         "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 276
+        "openIssues": 277
       },
       "about": {
         "keywords": [
@@ -2970,7 +2999,7 @@
       }
     },
     "inite-club-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -2998,7 +3027,7 @@
       }
     },
     "inite-visibility": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3023,7 +3052,7 @@
       }
     },
     "insightsocial": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3056,7 +3085,7 @@
       }
     },
     "instantreply-co-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3095,7 +3124,7 @@
       }
     },
     "intodns-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3134,7 +3163,7 @@
       }
     },
     "ipforai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3173,11 +3202,11 @@
       }
     },
     "jgravelle-jcodemunch-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": null,
       "latest": {
-        "version": "1.108.460",
+        "version": "1.108.466",
         "date": "2026-11-18"
       },
       "repo": {
@@ -3212,7 +3241,7 @@
       }
     },
     "joooook-12306-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": {
@@ -3236,7 +3265,7 @@
       }
     },
     "justdrop-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3273,7 +3302,7 @@
       }
     },
     "kadal-store": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-or-later",
       "latest": {
@@ -3308,7 +3337,7 @@
       }
     },
     "kadmo-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -3329,7 +3358,7 @@
       }
     },
     "kavel-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3363,7 +3392,7 @@
       }
     },
     "kawacode-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
@@ -3373,7 +3402,7 @@
       "repo": null
     },
     "kazuph-fetch": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3400,7 +3429,7 @@
       }
     },
     "kedimeet-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -3430,7 +3459,7 @@
       }
     },
     "keenable-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3439,9 +3468,9 @@
       },
       "repo": {
         "name": "keenableai/keenable-mcp",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 8
+        "openIssues": 10
       },
       "about": {
         "keywords": [
@@ -3458,7 +3487,7 @@
       }
     },
     "keepstateai-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3478,7 +3507,7 @@
       }
     },
     "kellian-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3506,7 +3535,7 @@
       }
     },
     "kloudy": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -3516,7 +3545,7 @@
       "repo": null
     },
     "knowledge-graph": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3531,7 +3560,7 @@
       }
     },
     "korala-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3550,7 +3579,7 @@
       }
     },
     "lawai-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3577,7 +3606,7 @@
       }
     },
     "leadgreen-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -3616,7 +3645,7 @@
       }
     },
     "leafwright-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3639,7 +3668,7 @@
       }
     },
     "llmaudit-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3668,7 +3697,7 @@
       }
     },
     "llmintel-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3695,7 +3724,7 @@
       }
     },
     "longbook-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "GPL-3.0-only",
       "latest": {
@@ -3719,7 +3748,7 @@
       }
     },
     "lovie": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3738,7 +3767,7 @@
       }
     },
     "mackorn-cone-crusher": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3747,7 +3776,7 @@
       },
       "repo": {
         "name": "LeifDai/MACKORN-hydraulic-cone-crusher",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 1
       },
@@ -3777,7 +3806,7 @@
       }
     },
     "mafdet-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3800,7 +3829,7 @@
       }
     },
     "mainbook-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -3822,7 +3851,7 @@
       }
     },
     "makerportal-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3855,7 +3884,7 @@
       }
     },
     "marketmayhem-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -3887,7 +3916,7 @@
       }
     },
     "markitdown": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -3898,7 +3927,7 @@
         "name": "microsoft/markitdown",
         "pushedAt": "2026-11-07",
         "archived": false,
-        "openIssues": 811
+        "openIssues": 815
       },
       "about": {
         "keywords": [
@@ -3913,7 +3942,7 @@
       }
     },
     "maxwellintl-x402-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
@@ -3939,7 +3968,7 @@
       }
     },
     "mcp-sqlite": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "ISC",
       "latest": {
@@ -3969,7 +3998,7 @@
       }
     },
     "mcpcap": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT License",
       "latest": {
@@ -3995,7 +4024,7 @@
       }
     },
     "meetlark-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": null,
       "latest": {
@@ -4005,7 +4034,7 @@
       "repo": null
     },
     "memcell": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -4043,7 +4072,7 @@
       }
     },
     "memeboat-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4073,7 +4102,7 @@
       }
     },
     "memegician-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4101,22 +4130,22 @@
       }
     },
     "memory": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
-        "version": "2.1.1",
-        "date": "2026-11-11"
+        "version": "2.2.1",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       }
     },
     "mirastack-redfish-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -4149,7 +4178,7 @@
       }
     },
     "model-finder-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -4188,7 +4217,7 @@
       }
     },
     "motherduck": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": null,
       "latest": {
@@ -4198,7 +4227,7 @@
       "repo": null
     },
     "muovi-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4227,7 +4256,7 @@
       }
     },
     "naulon-wayfarer-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4264,7 +4293,7 @@
       }
     },
     "nauro": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -4273,9 +4302,9 @@
       },
       "repo": {
         "name": "Nauro-AI/nauro",
-        "pushedAt": "2026-11-13",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 14
+        "openIssues": 10
       },
       "about": {
         "keywords": [
@@ -4292,7 +4321,7 @@
       }
     },
     "noglow-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4318,7 +4347,7 @@
       }
     },
     "nove-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4346,7 +4375,7 @@
       }
     },
     "nudg3-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -4366,7 +4395,7 @@
       }
     },
     "oddessentials-agent-guild": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "AGPL-3.0-only",
       "latest": {
@@ -4405,7 +4434,7 @@
       }
     },
     "oddsrail": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT License",
       "latest": {
@@ -4432,7 +4461,7 @@
       }
     },
     "openags-paper-search-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": null,
@@ -4453,7 +4482,7 @@
       }
     },
     "operandi-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Proprietary",
       "latest": {
@@ -4474,7 +4503,7 @@
       }
     },
     "optimalai-optibot-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4507,7 +4536,7 @@
       }
     },
     "orangepro-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4546,7 +4575,7 @@
       }
     },
     "ordercore-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4581,7 +4610,7 @@
       }
     },
     "overwing-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4614,7 +4643,7 @@
       }
     },
     "paramability-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4639,7 +4668,7 @@
       }
     },
     "paraplex-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4666,7 +4695,7 @@
       }
     },
     "pascal-app-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4675,9 +4704,9 @@
       },
       "repo": {
         "name": "pascalorg/editor",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 60
+        "openIssues": 62
       },
       "about": {
         "keywords": [
@@ -4705,7 +4734,7 @@
       }
     },
     "percher-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "FSL-1.1-MIT",
       "latest": {
@@ -4724,16 +4753,16 @@
       }
     },
     "pidgeon-ai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
-        "version": "1.8.0",
-        "date": "2026-11-17"
+        "version": "1.9.1",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "pidgeon-ai/pidgeon-js",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -4749,7 +4778,7 @@
       }
     },
     "plugmcp-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4785,7 +4814,7 @@
       }
     },
     "popdot-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4810,7 +4839,7 @@
       }
     },
     "poppy-memory": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
@@ -4820,7 +4849,7 @@
       "repo": null
     },
     "postgres-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -4830,7 +4859,7 @@
       "repo": null
     },
     "pretrip-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "GPL-2.0-or-later",
       "latest": {
@@ -4863,7 +4892,7 @@
       }
     },
     "promptguard-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4884,7 +4913,7 @@
       }
     },
     "provably-fair-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4908,7 +4937,7 @@
       }
     },
     "proxyllm-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4935,7 +4964,7 @@
       }
     },
     "qiksy-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -4973,7 +5002,7 @@
       }
     },
     "quorum-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -5004,7 +5033,7 @@
       }
     },
     "radmail-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5043,7 +5072,7 @@
       }
     },
     "ranchbot-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5071,7 +5100,7 @@
       }
     },
     "rapay-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5093,7 +5122,7 @@
       }
     },
     "raven-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -5132,7 +5161,7 @@
       }
     },
     "rechtssysteem-ai-rechtssysteem-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "Apache-2.0",
       "latest": {
@@ -5157,7 +5186,7 @@
       }
     },
     "recordist-gateway": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5187,13 +5216,13 @@
       }
     },
     "reddit-research-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": null,
       "repo": {
         "name": "jordanallenlewis/reddit-research-mcp",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 3
       },
@@ -5208,7 +5237,7 @@
       }
     },
     "rightcard-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5223,7 +5252,7 @@
       }
     },
     "rillsoft-rillsoft-project-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "CC-BY-4.0",
       "latest": {
@@ -5253,7 +5282,7 @@
       }
     },
     "ripgrep": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5278,7 +5307,7 @@
       }
     },
     "rlabs-cl-arketum": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
@@ -5301,7 +5330,7 @@
       }
     },
     "satohub-kit": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5340,7 +5369,7 @@
       }
     },
     "satohub-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5379,7 +5408,7 @@
       }
     },
     "saymaker-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5414,7 +5443,7 @@
       }
     },
     "scope-bid-scope-aec-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -5450,7 +5479,7 @@
       }
     },
     "scope-bid-scope-claims-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -5487,7 +5516,7 @@
       }
     },
     "scope-bid-scope-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -5521,7 +5550,7 @@
       }
     },
     "securenow": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "ISC",
       "latest": {
@@ -5555,22 +5584,22 @@
       }
     },
     "sequential-thinking": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
-        "version": "2.1.1",
-        "date": "2026-11-04"
+        "version": "2.2.0",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       }
     },
     "servelink-serve": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
@@ -5609,7 +5638,7 @@
       }
     },
     "server-postgres": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5618,13 +5647,13 @@
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       }
     },
     "ship-safe-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
@@ -5647,7 +5676,7 @@
       }
     },
     "shipeasy-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5656,7 +5685,7 @@
       },
       "repo": {
         "name": "shipeasy-ai/shipeasy",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -5686,7 +5715,7 @@
       }
     },
     "shiplightai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5701,16 +5730,16 @@
       }
     },
     "shiwake-ai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "SEE LICENSE IN LICENSE",
       "latest": {
-        "version": "1.1.4",
-        "date": "2026-11-16"
+        "version": "1.1.6",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "iszgroup/shiwake-ai-mcp",
-        "pushedAt": "2026-11-16",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -5736,16 +5765,16 @@
       }
     },
     "simulator-use": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.17.0",
-        "date": "2026-11-17"
+        "version": "0.18.1",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "NoMac-app/simulator-use",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -5769,16 +5798,16 @@
       }
     },
     "skilltotal": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "Apache-2.0",
       "latest": {
-        "version": "1.4.0",
-        "date": "2026-11-17"
+        "version": "1.5.0",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "pezhik/skilltotal",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 1
       },
@@ -5808,7 +5837,7 @@
       }
     },
     "smartmemory-compose-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "BUSL-1.1",
       "latest": {
@@ -5839,7 +5868,7 @@
       }
     },
     "smartmemory-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -5849,7 +5878,7 @@
       "repo": null
     },
     "snowsure-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5875,7 +5904,7 @@
       }
     },
     "spaces-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5901,7 +5930,7 @@
       }
     },
     "spideriq-mcp-gate": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5924,7 +5953,7 @@
       }
     },
     "spideriq-mcp-leads": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5949,7 +5978,7 @@
       }
     },
     "spideriq-mcp-mail": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5972,7 +6001,7 @@
       }
     },
     "spideriq-mcp-media": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -5996,7 +6025,7 @@
       }
     },
     "spideriq-mcp-publish": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6020,7 +6049,7 @@
       }
     },
     "sqlite": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": null,
       "latest": {
@@ -6030,7 +6059,7 @@
       "repo": null
     },
     "srift-transfer": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6069,7 +6098,7 @@
       }
     },
     "ssid-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6108,7 +6137,7 @@
       }
     },
     "statuz-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -6118,7 +6147,7 @@
       "repo": null
     },
     "stickerdaniel-linkedin-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "Apache-2.0",
       "latest": {
@@ -6127,7 +6156,7 @@
       },
       "repo": {
         "name": "stickerdaniel/linkedin-mcp-server",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 185
       },
@@ -6157,12 +6186,12 @@
       }
     },
     "storkai": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "2.2.3",
-        "date": "2026-11-17"
+        "version": "2.3.0",
+        "date": "2026-11-18"
       },
       "repo": null,
       "about": {
@@ -6191,7 +6220,7 @@
       }
     },
     "stratta-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -6213,7 +6242,7 @@
       }
     },
     "swissco-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -6252,7 +6281,7 @@
       }
     },
     "synchronex-mcp-proxy": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -6277,7 +6306,7 @@
       }
     },
     "takehub-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6296,7 +6325,7 @@
       }
     },
     "talix-stubs": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6324,7 +6353,7 @@
       }
     },
     "tanvo-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6361,7 +6390,7 @@
       }
     },
     "tares": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT AND LicenseRef-Tares-EE",
       "latest": {
@@ -6372,7 +6401,7 @@
         "name": "glassflow/tares",
         "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 17
+        "openIssues": 8
       },
       "about": {
         "keywords": [
@@ -6398,7 +6427,7 @@
       }
     },
     "taylorwilsdon-google-workspace-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": {
@@ -6407,9 +6436,9 @@
       },
       "repo": {
         "name": "taylorwilsdon/google_workspace_mcp",
-        "pushedAt": "2026-11-14",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 99
+        "openIssues": 101
       },
       "licenseFrom": "repo",
       "about": {
@@ -6438,7 +6467,7 @@
       }
     },
     "telbase": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6466,7 +6495,7 @@
       }
     },
     "tenjin-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": null,
       "latest": {
@@ -6475,9 +6504,9 @@
       },
       "repo": {
         "name": "BackTrackCo/tenjin-agent",
-        "pushedAt": "2026-11-17",
+        "pushedAt": "2026-11-19",
         "archived": false,
-        "openIssues": 40
+        "openIssues": 41
       },
       "about": {
         "keywords": [
@@ -6500,7 +6529,7 @@
       }
     },
     "tensorfeed-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6531,7 +6560,7 @@
       }
     },
     "tensorfeed-x402-base-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6560,7 +6589,7 @@
       }
     },
     "testivai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6599,7 +6628,7 @@
       }
     },
     "text-editor": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
@@ -6609,7 +6638,7 @@
       "repo": null
     },
     "textile-designer-ai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6633,7 +6662,7 @@
       }
     },
     "thrain-blackout-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -6660,7 +6689,7 @@
       }
     },
     "thrain-spotlight-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6683,18 +6712,18 @@
       }
     },
     "time": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "pypi",
       "license": "MIT",
       "latest": {
-        "version": "2026.11.11",
-        "date": "2026-11-11"
+        "version": "2026.11.18",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "modelcontextprotocol/servers",
-        "pushedAt": "2026-11-12",
+        "pushedAt": "2026-11-18",
         "archived": false,
-        "openIssues": 23
+        "openIssues": 20
       },
       "about": {
         "keywords": [
@@ -6706,7 +6735,7 @@
       }
     },
     "timeprooflabs-truthspine-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -6715,7 +6744,7 @@
       },
       "repo": {
         "name": "TimeProofLabs/truthspine-app",
-        "pushedAt": "2026-11-14",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -6745,7 +6774,7 @@
       }
     },
     "todoglow-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6777,7 +6806,7 @@
       }
     },
     "toolaby": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6795,7 +6824,7 @@
       }
     },
     "trustrails-mcp-server": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6823,7 +6852,7 @@
       }
     },
     "trusty-squire-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6857,7 +6886,7 @@
       }
     },
     "uarpie": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "UNLICENSED",
       "latest": {
@@ -6867,7 +6896,7 @@
       "repo": null
     },
     "uplink-code-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "proprietary",
       "latest": {
@@ -6887,7 +6916,7 @@
       }
     },
     "userintuition-ai-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6921,7 +6950,7 @@
       }
     },
     "vaaya-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -6960,7 +6989,7 @@
       }
     },
     "vantic-sdk": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -6990,7 +7019,7 @@
       }
     },
     "veida-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7022,7 +7051,7 @@
       }
     },
     "vertical-marketplace-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7043,7 +7072,7 @@
       }
     },
     "vibheksoni-stealth-browser-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "github",
       "license": "MIT",
       "latest": {
@@ -7083,7 +7112,7 @@
       }
     },
     "vruum-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7111,7 +7140,7 @@
       }
     },
     "wavespeed-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7136,7 +7165,7 @@
       }
     },
     "wildcard-ai-deepcontext": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -7158,7 +7187,7 @@
       }
     },
     "wilm-ai-wilma-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7190,7 +7219,7 @@
       }
     },
     "workpods-agent-ready": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -7222,7 +7251,7 @@
       }
     },
     "workpods-local-seo": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -7251,7 +7280,7 @@
       }
     },
     "wpconvert-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7290,7 +7319,7 @@
       }
     },
     "yomio-mcp-stdio": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7308,7 +7337,7 @@
       }
     },
     "zendiq-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
@@ -7335,7 +7364,7 @@
       }
     },
     "zensation-mcp": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "Apache-2.0",
       "latest": {
@@ -7374,16 +7403,16 @@
       }
     },
     "zils-cli": {
-      "checkedAt": "2026-11-18",
+      "checkedAt": "2026-11-19",
       "source": "npm",
       "license": "MIT",
       "latest": {
-        "version": "0.4.22",
-        "date": "2026-11-14"
+        "version": "0.4.23",
+        "date": "2026-11-18"
       },
       "repo": {
         "name": "ooo-hq/zils-sdk",
-        "pushedAt": "2026-11-15",
+        "pushedAt": "2026-11-18",
         "archived": false,
         "openIssues": 0
       },
@@ -7403,11 +7432,8 @@
           "model-merging",
           "ai-agents",
           "claude-code",
-          "cursor",
-          "python",
-          "sdk",
-          "small-language-models",
-          "typescript"
+          "decision-model",
+          "jev"
         ]
       }
     }

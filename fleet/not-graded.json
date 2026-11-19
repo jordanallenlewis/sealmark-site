@@ -1,9 +1,9 @@
 {
-  "count": 145,
+  "count": 146,
   "byReason": {
     "missing-runtime": 6,
+    "unknown": 102,
     "initialize-timeout": 10,
-    "unknown": 101,
     "dependency-resolution": 15,
     "bad-launch": 5,
     "needs-credentials": 8
@@ -11,10 +11,38 @@
   "servers": [
     {
       "id": "chrisryugj-kordoc",
-      "version": "4.25.0",
-      "lastTried": "2026-11-18",
-      "attempts": 22,
+      "version": "4.25.1",
+      "lastTried": "2026-11-19",
+      "attempts": 23,
       "reason": "missing-runtime"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "3.13.2",
+      "lastTried": "2026-11-19",
+      "attempts": 19,
+      "reason": "unknown"
+    },
+    {
+      "id": "marker-inc-korea-autorag",
+      "version": "2.13.15",
+      "lastTried": "2026-11-19",
+      "attempts": 6,
+      "reason": "unknown"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.5.1",
+      "lastTried": "2026-11-19",
+      "attempts": 15,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "thenextrace-tnr",
+      "version": "0.27.1",
+      "lastTried": "2026-11-19",
+      "attempts": 1,
+      "reason": "unknown"
     },
     {
       "id": "czlonkowski-n8n-mcp",
@@ -24,31 +52,10 @@
       "reason": "initialize-timeout"
     },
     {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "3.12.1",
-      "lastTried": "2026-11-18",
-      "attempts": 18,
-      "reason": "unknown"
-    },
-    {
-      "id": "marker-inc-korea-autorag",
-      "version": "2.13.14",
-      "lastTried": "2026-11-18",
-      "attempts": 5,
-      "reason": "unknown"
-    },
-    {
       "id": "mobile-next-mobile-mcp",
       "version": "1.0.18",
       "lastTried": "2026-11-18",
       "attempts": 3,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.5.0",
-      "lastTried": "2026-11-18",
-      "attempts": 14,
       "reason": "missing-runtime"
     },
     {
