@@ -64,9 +64,22 @@ test("reasonOf types the error text conservatively; anything it cannot place is 
     // a warning that a token is not set is not why it stopped
     ["Connection closed (server stderr: GITHUB_TOKEN not set, using unauthenticated requests)", "unknown"],
     ["EACCES: permission denied, open '/home/runner/x'", "unknown"],
-    // npm's update notice is not a cause: the real error was cut off, so the reason stays unknown
-    ["Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice)", "unknown"],
-    ["MCP error -32603: fetch failed (server stderr: cannot reach http://localhost:9300)", "unknown"],
+    // npm's update notice is not a cause; a stderr holding only that notice means the server printed no error of its own
+    ["Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.2 | npm notice)", "exited-no-error"],
+    ["could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.3 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3 | npm notice To update run: npm install -g npm@12.2.3 | npm notice).", "exited-no-error"],
+    // any other stderr line, or a different failure, keeps it unknown
+    ["Connection closed (server stderr: npm notice New major version | Error: boom)", "unknown"],
+    ["Connection closed", "unknown"],
+    ["Connection closed (server stderr:    )", "exited-no-error"],
+    ["Connection closed (server stderr: Downloaded numpy | Built x @ git+https://h/x@{sha} | Installed 22 packages in 8ms)", "exited-no-error"],
+    ["Connection closed (server stderr: Installed 22 packages in 8ms | Traceback (most recent call last):)", "unknown"],
+    ["Connection closed (server stderr: Installed 3 packages | hint: Build failures usually indicate)", "unknown"],
+    ["MCP error -32000: Connection closed (server stderr: Installed 1 package in 2ms | lbrain is not on PATH. Install the engine first)", "missing-runtime"],
+    ["The following executables are available: | - nginx-proxy-manager-mcp | Use `uvx --from x <EXECUTABLE-NAME>`", "bad-launch"],
+    ["MCP error -32603: fetch failed (server stderr: cannot reach http://localhost:9300)", "needs-service"],
+    ["MCP error -32000: t3-watch is not reachable on port 8460. Start it with t3-watch start", "needs-service"],
+    ["MCP error -32000: Failed to complete request to IDA Pro. Did you run Edit -> Plugins -> MCP (Ctrl+Alt+M) to start the server?", "needs-service"],
+    ["Connection closed (server stderr:    npm error A complete log of this run can be found in: /home/runner/.npm/_logs/x-debug-0.log)", "dependency-resolution"],
     ["", "unknown"],
   ];
   for (const [text, want] of cases) assert.equal(reasonOf(text), want, text);
