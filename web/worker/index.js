@@ -15,6 +15,7 @@
 // Mass changes: more than MASS_SHARE of graded servers (and at least MASS_MIN) changing in one tick sends nothing and
 // keeps the old baselines. After a review set NOTIFY_MASS_CHANGE to "baseline" (record the new grades, no email) or
 // "send" (email as usual) for one deploy, then remove it.
+import { ownerMail } from "./owner-mail.mjs";
 import GRADES from "./grades.json" with { type: "json" };
 import { FROM, ORIGIN, REPLY_TO, changeEmail, confirmEmail, gradeChange, holdInconclusive } from "./notify-core.mjs";
 import { purgeVisits, recordVisit, visitsReport } from "./visits.mjs";
@@ -354,6 +355,7 @@ const worker = {
     if (p === "/api/notify/confirm" && (m === "GET" || m === "POST")) return confirm(request, url, env);
     if (p === "/api/notify/unsubscribe" && (m === "GET" || m === "POST")) return unsubscribe(request, url, env, false);
     if (p === "/api/notify/unsubscribe-all" && (m === "GET" || m === "POST")) return unsubscribe(request, url, env, true);
+    if (p === "/api/owner-mail") return ownerMail(request, env);
     if (p === "/api/visit" && m === "POST") return recordVisit(request, env);
     if (p === "/api/visits" && m === "GET") return visitsReport(request, url, env);
     if (p.startsWith("/api/")) return json({ ok: false, message: "Not found." }, 404);
