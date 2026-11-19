@@ -9,7 +9,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { recordFailedAttempt, retestNote, retestShort } from "../web/lib/retest.mjs";
+import { recordFailedAttempt, retestNote, retestShort, gradeUnconfirmed, unconfirmedWords } from "../web/lib/retest.mjs";
 
 const graded = () => ({
   id: "postgres-mcp",
@@ -53,15 +53,15 @@ test("an unknown kind is stored as other", () => {
 test("the note says when the re-test failed, why, and how old the grade is", () => {
   const x = { ...graded(), lastAttempt: { date: "2026-11-12", status: "failed", kind: "start-fail" } };
   assert.equal(retestNote(x), "The latest re-test, on 2026-11-12, could not start the server, so this grade is still the one from 2026-10-15.");
-  assert.equal(retestShort(x), "re-test 2026-11-12: server did not start");
+  assert.equal(retestShort(x), "grade not confirmed, re-test 2026-11-12: server did not start");
 });
 
 test("each failure kind has its own words, and any other one reads as failed", () => {
   const x = (kind) => ({ ...graded(), lastAttempt: { date: "2026-11-12", status: "failed", kind } });
-  assert.equal(retestShort(x("timeout")), "re-test 2026-11-12: timed out");
-  assert.equal(retestShort(x("sealmark-crash")), "re-test 2026-11-12: stopped on a Sealmark error");
-  assert.equal(retestShort(x("other")), "re-test 2026-11-12: failed");
-  assert.equal(retestShort(x("toString")), "re-test 2026-11-12: failed");
+  assert.equal(retestShort(x("timeout")), "grade not confirmed, re-test 2026-11-12: timed out");
+  assert.equal(retestShort(x("sealmark-crash")), "grade not confirmed, re-test 2026-11-12: stopped on a Sealmark error");
+  assert.equal(retestShort(x("other")), "grade not confirmed, re-test 2026-11-12: failed");
+  assert.equal(retestShort(x("toString")), "grade not confirmed, re-test 2026-11-12: failed");
   assert.equal(retestNote(x("other")), "The latest re-test, on 2026-11-12, failed, so this grade is still the one from 2026-10-15.");
   assert.equal(retestNote(x("timeout")), "The latest re-test, on 2026-11-12, timed out, so this grade is still the one from 2026-10-15.");
 });
@@ -81,7 +81,7 @@ test("a typed start failure is stored with the attempt and worded in its own ter
   const servers = [graded()];
   recordFailedAttempt(servers, "postgres-mcp", "2026-11-12", "start-fail", "needs-credentials");
   assert.deepEqual(servers[0].lastAttempt, { date: "2026-11-12", status: "failed", kind: "start-fail", startKind: "needs-credentials" });
-  assert.equal(retestShort(servers[0]), "re-test 2026-11-12: server did not start (looks like it needs a credential)");
+  assert.equal(retestShort(servers[0]), "grade not confirmed, re-test 2026-11-12: server did not start (looks like it needs a credential)");
   assert.equal(retestNote(servers[0]), "The latest re-test, on 2026-11-12, could not start the server (it looks like it needs a credential), so this grade is still the one from 2026-10-15.");
 });
 
@@ -91,8 +91,8 @@ test("each start failure kind has hedged words; unknown, a made-up kind and a no
   assert.match(retestShort(x("missing-runtime")), /a runtime it needs is missing/);
   assert.match(retestShort(x("bad-launch")), /the launch command did not work/);
   assert.match(retestShort(x("initialize-timeout")), /did not answer in time/);
-  for (const k of ["unknown", "toString", "<script>", undefined]) assert.equal(retestShort(x(k)), "re-test 2026-11-12: server did not start", String(k));
-  assert.equal(retestShort(x("needs-credentials", "timeout")), "re-test 2026-11-12: timed out");
+  for (const k of ["unknown", "toString", "<script>", undefined]) assert.equal(retestShort(x(k)), "grade not confirmed, re-test 2026-11-12: server did not start", String(k));
+  assert.equal(retestShort(x("needs-credentials", "timeout")), "grade not confirmed, re-test 2026-11-12: timed out");
   const servers = [graded()];
   recordFailedAttempt(servers, "postgres-mcp", "2026-11-12", "start-fail", "toString");
   assert.equal("startKind" in servers[0].lastAttempt, false);
@@ -234,4 +234,22 @@ test("merge.mjs: a failed try records the registry arguments it was started with
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test("a grade is unconfirmed when a later re-test failed, and only then", () => {
+  const x = { ...graded(), lastAttempt: { date: "2026-11-12", status: "failed", kind: "start-fail" } };
+  assert.equal(gradeUnconfirmed(x), true);
+  assert.equal(gradeUnconfirmed({ ...x, lastAttempt: { ...x.lastAttempt, date: "2026-10-15" } }), true, "same day as the grade counts, as failedSince does");
+  assert.equal(gradeUnconfirmed({ ...x, lastAttempt: { ...x.lastAttempt, date: "2026-10-01" } }), false, "an attempt before the grade is history");
+  assert.equal(gradeUnconfirmed(graded()), false);
+  assert.equal(gradeUnconfirmed({ ...x, lastAttempt: { date: "2026-11-12", status: "ok", kind: "start-fail" } }), false);
+  assert.equal(gradeUnconfirmed({ ...x, testedAt: undefined }), false);
+});
+
+test("the unconfirmed words say the grade is not confirmed, from when, and do not say it is wrong", () => {
+  const x = { ...graded(), lastAttempt: { date: "2026-11-12", status: "failed", kind: "timeout" } };
+  assert.equal(unconfirmedWords(x).heading, "Grade not confirmed since the re-test on 2026-11-12");
+  assert.match(unconfirmedWords(x).text, /still shows what the test on 2026-10-15 found/);
+  assert.match(unconfirmedWords(x).text, /not confirmed for the version the fleet tries now/);
+  assert.equal(unconfirmedWords(graded()), null);
 });
