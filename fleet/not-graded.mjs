@@ -74,7 +74,7 @@ export function buildNotGraded({ history = [], telemetry = [], graded = [] }) {
   }
   const kind = new Map();
   for (const t of telemetry) {
-    if (isRecord(t) && t.status === "failed" && CLI_KINDS.has(t.startKind)) kind.set(t.id + "@" + t.testedAt, t.startKind);
+    if (isRecord(t) && t.status === "failed" && CLI_KINDS.has(t.startKind) && t.startKind !== "unknown") kind.set(t.id + "@" + t.testedAt, t.startKind);
   }
   const servers = [];
   for (const [id, r] of last) {
