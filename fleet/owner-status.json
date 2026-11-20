@@ -43,7 +43,7 @@
       "issueUrl": "https://github.com/Paraplex-AI/paraplex-mcp/issues/1",
       "repliedAt": null,
       "closedAt": null,
-      "stillFailing": false,
+      "stillFailing": true,
       "retestedAt": null
     },
     "spaces-mcp-server": {

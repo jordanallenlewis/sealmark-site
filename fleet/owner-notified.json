@@ -103,6 +103,24 @@
       "url": "https://github.com/agent-bev/bev-door/issues/4",
       "badgeAtNotice": false,
       "author": "sealmark-bot"
+    },
+    {
+      "channel": "issue",
+      "id": "satohub-mcp",
+      "repo": "satohubai/mcp",
+      "also": [],
+      "at": "2026-11-20",
+      "postedAt": "2026-11-20T20:06:09.813Z",
+      "version": "1.0.3",
+      "letter": "B",
+      "failing": [],
+      "named": [
+        "robust-input"
+      ],
+      "number": 1,
+      "url": "https://github.com/satohubai/mcp/issues/1",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot"
     }
   ],
   "emails": [],
@@ -207,6 +225,13 @@
       "eligible": 0,
       "sent": 0,
       "explained": false
+    },
+    {
+      "date": "2026-11-20",
+      "live": true,
+      "eligible": 1,
+      "sent": 1,
+      "explained": false
     }
   ],
   "private": [
@@ -218,8 +243,7 @@
     {
       "h": "99f7b1daf462c071",
       "at": "2026-11-20",
-      "postedAt": "2026-11-20T20:05:53.205Z",
-      "intent": true
+      "postedAt": "2026-11-20T20:05:53.205Z"
     }
   ]
 }

@@ -2,9 +2,9 @@
   "generatedAt": "2026-11-20",
   "mode": "real",
   "summary": {
-    "notified": 6,
+    "notified": 7,
     "byChannel": {
-      "issue": 6
+      "issue": 7
     },
     "released": 0,
     "improved": 0,
@@ -14,7 +14,7 @@
     "medianDaysToImprovement": null,
     "topFixedChecks": [],
     "base": {
-      "servers": 209,
+      "servers": 208,
       "released": 37,
       "improved": 0,
       "regressed": 2,
@@ -273,6 +273,54 @@
       ],
       "number": 4,
       "url": "https://github.com/agent-bev/bev-door/issues/4",
+      "badgeAtNotice": false,
+      "author": "sealmark-bot",
+      "after": [],
+      "released": false,
+      "improved": false,
+      "firstImprovement": null,
+      "regressed": false,
+      "latest": null,
+      "fixed": null,
+      "broke": null,
+      "evidence": {
+        "issueState": "open",
+        "closedByMaintainer": false,
+        "maintainerCommented": false,
+        "issueReferenced": false,
+        "closedByCommit": false,
+        "badgeNow": false,
+        "commitMentionsSealmark": false,
+        "releaseMentionsSealmark": false
+      },
+      "checkedAt": "2026-11-20",
+      "attribution": {
+        "direct": {
+          "issueReferenced": false,
+          "fixCommitMentionsSealmark": false,
+          "closedByMaintainerWithFix": false,
+          "badgeAdded": false
+        },
+        "actedOnSealmark": false,
+        "improvedWithDirectSignal": false,
+        "label": "no new version yet"
+      }
+    },
+    {
+      "channel": "issue",
+      "id": "satohub-mcp",
+      "repo": "satohubai/mcp",
+      "also": [],
+      "at": "2026-11-20",
+      "postedAt": "2026-11-20T20:06:09.813Z",
+      "version": "1.0.3",
+      "letter": "B",
+      "failing": [],
+      "named": [
+        "robust-input"
+      ],
+      "number": 1,
+      "url": "https://github.com/satohubai/mcp/issues/1",
       "badgeAtNotice": false,
       "author": "sealmark-bot",
       "after": [],
