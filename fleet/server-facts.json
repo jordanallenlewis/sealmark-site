@@ -1151,6 +1151,34 @@
         ]
       }
     },
+    "chronary-mcp": {
+      "checkedAt": "2026-11-20",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "1.8.0",
+        "date": "2026-11-20"
+      },
+      "repo": {
+        "name": "Chronary/chronary-mcp",
+        "pushedAt": "2026-11-20",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "chronary",
+          "calendar",
+          "ai",
+          "ai-agent",
+          "claude",
+          "cursor",
+          "vscode"
+        ]
+      }
+    },
     "clarxai-mcp": {
       "checkedAt": "2026-11-20",
       "source": "npm",
@@ -2020,6 +2048,33 @@
         ]
       }
     },
+    "dten-speed": {
+      "checkedAt": "2026-11-20",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE.md",
+      "latest": {
+        "version": "1.0.1",
+        "date": "2026-11-20"
+      },
+      "repo": {
+        "name": "Dten-Org/dten-speed",
+        "pushedAt": "2026-11-20",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "speedtest",
+          "speed-test",
+          "internet-speed",
+          "bandwidth",
+          "cli",
+          "mcp",
+          "mcp-server",
+          "dten"
+        ]
+      }
+    },
     "duckdb-mcp": {
       "checkedAt": "2026-11-20",
       "source": "pypi",
@@ -2796,6 +2851,33 @@
           "ai-agents",
           "database",
           "sql"
+        ]
+      }
+    },
+    "hellohop-mcp": {
+      "checkedAt": "2026-11-20",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.4.0",
+        "date": "2026-11-20"
+      },
+      "repo": {
+        "name": "socialgroundco/hellohop-mcp",
+        "pushedAt": "2026-11-20",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "whatsapp",
+          "whatsapp-api",
+          "webhooks",
+          "groups",
+          "api",
+          "mcp-server"
         ]
       }
     },

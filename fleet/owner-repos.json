@@ -204,6 +204,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "chronary-mcp": {
+    "repo": "Chronary/chronary-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-20"
+  },
   "clarxai-mcp": {
     "repo": null,
     "source": "npm",
@@ -333,6 +338,11 @@
     "repo": null,
     "source": "pypi",
     "resolvedAt": "2026-11-15"
+  },
+  "dten-speed": {
+    "repo": "Dten-Org/dten-speed",
+    "source": "npm",
+    "resolvedAt": "2026-11-20"
   },
   "duckdb-mcp": {
     "repo": "ktanaka101/mcp-server-duckdb",
@@ -488,6 +498,11 @@
     "repo": "haymon-ai/dbmcp",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "hellohop-mcp": {
+    "repo": "socialgroundco/hellohop-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-20"
   },
   "henkey-postgres": {
     "repo": "HenkDz/postgresql-mcp-server",

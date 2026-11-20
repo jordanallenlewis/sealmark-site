@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T00:32:37.325Z",
+  "generatedAt": "2026-11-20T15:08:19.959Z",
   "window": 600,
-  "graded": 468,
-  "failed": 132,
+  "graded": 458,
+  "failed": 142,
   "clusters": [
     {
       "servers": [
@@ -13,9 +13,9 @@
       "labels": [
         "performance"
       ],
-      "title": "Slow runs: 4 servers took over 5 min or timed out",
-      "count": 4,
-      "detail": "Longest: 329 s. Find which probe or pack dominates and add a per-probe budget."
+      "title": "Slow runs: 3 servers took over 5 min or timed out",
+      "count": 3,
+      "detail": "Longest: 327 s. Find which probe or pack dominates and add a per-probe budget."
     }
   ],
   "surfaceChanged": []
