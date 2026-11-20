@@ -1,16 +1,37 @@
 {
-  "count": 146,
+  "count": 147,
   "byReason": {
-    "unknown": 24,
     "missing-runtime": 7,
-    "initialize-timeout": 10,
+    "unknown": 25,
+    "initialize-timeout": 12,
     "bad-launch": 6,
-    "dependency-resolution": 27,
+    "dependency-resolution": 26,
     "needs-credentials": 8,
-    "exited-no-error": 62,
+    "exited-no-error": 61,
     "needs-service": 2
   },
   "servers": [
+    {
+      "id": "apify-apify-mcp-server",
+      "version": "0.22.0",
+      "lastTried": "2026-11-20",
+      "attempts": 9,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "evil0ctal-douyin-tiktok-download-api",
+      "version": "5.1.12",
+      "lastTried": "2026-11-20",
+      "attempts": 2,
+      "reason": "unknown"
+    },
+    {
+      "id": "funai-mcp",
+      "version": "1.1.0",
+      "lastTried": "2026-11-20",
+      "attempts": 1,
+      "reason": "initialize-timeout"
+    },
     {
       "id": "google-gemini-gemini-cli",
       "version": "0.70.0",
@@ -19,10 +40,24 @@
       "reason": "unknown"
     },
     {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "3.15.1",
+      "id": "haris-musa-excel-mcp-server",
+      "version": "2.3.3",
       "lastTried": "2026-11-20",
-      "attempts": 22,
+      "attempts": 5,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "4.1.2",
+      "lastTried": "2026-11-20",
+      "attempts": 23,
+      "reason": "unknown"
+    },
+    {
+      "id": "marker-inc-korea-autorag",
+      "version": "2.14.1",
+      "lastTried": "2026-11-20",
+      "attempts": 10,
       "reason": "unknown"
     },
     {
@@ -34,10 +69,24 @@
     },
     {
       "id": "ruvnet-ruflo",
-      "version": "3.79.0",
+      "version": "3.79.1",
       "lastTried": "2026-11-20",
-      "attempts": 9,
+      "attempts": 10,
       "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.4.0",
+      "lastTried": "2026-11-20",
+      "attempts": 16,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "zereight-gitlab-mcp",
+      "version": "2.3.30",
+      "lastTried": "2026-11-20",
+      "attempts": 8,
+      "reason": "bad-launch"
     },
     {
       "id": "54yyyu-zotero-mcp",
@@ -59,13 +108,6 @@
       "lastTried": "2026-11-19",
       "attempts": 4,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "marker-inc-korea-autorag",
-      "version": "2.14.0",
-      "lastTried": "2026-11-19",
-      "attempts": 9,
-      "reason": "unknown"
     },
     {
       "id": "mirobody",
@@ -103,27 +145,6 @@
       "reason": "initialize-timeout"
     },
     {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.3.4",
-      "lastTried": "2026-11-18",
-      "attempts": 15,
-      "reason": "dependency-resolution"
-    },
-    {
-      "id": "zereight-gitlab-mcp",
-      "version": "2.3.29",
-      "lastTried": "2026-11-18",
-      "attempts": 7,
-      "reason": "bad-launch"
-    },
-    {
-      "id": "apify-apify-mcp-server",
-      "version": "0.21.12",
-      "lastTried": "2026-11-17",
-      "attempts": 8,
-      "reason": "missing-runtime"
-    },
-    {
       "id": "chrisryugj-korean-law-mcp",
       "version": "4.15.24",
       "lastTried": "2026-11-17",
@@ -136,13 +157,6 @@
       "lastTried": "2026-11-17",
       "attempts": 2,
       "reason": "unknown"
-    },
-    {
-      "id": "haris-musa-excel-mcp-server",
-      "version": "2.3.2",
-      "lastTried": "2026-11-17",
-      "attempts": 4,
-      "reason": "bad-launch"
     },
     {
       "id": "jordan-gibbs-hyperresearch",
@@ -602,13 +616,6 @@
     {
       "id": "easylabs-mcp-server",
       "version": "0.5.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "evil0ctal-douyin-tiktok-download-api",
-      "version": "5.1.11",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "exited-no-error"

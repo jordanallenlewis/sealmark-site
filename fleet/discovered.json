@@ -1414,5 +1414,23 @@
     "name": "mroffice-mcp",
     "ecosystem": "npm",
     "launch": "npx -y mroffice-mcp@0.1.0"
+  },
+  {
+    "id": "chronary-mcp",
+    "name": "@chronary/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @chronary/mcp@1.8.0"
+  },
+  {
+    "id": "dten-speed",
+    "name": "dten-speed",
+    "ecosystem": "npm",
+    "launch": "npx -y dten-speed@1.0.0 mcp"
+  },
+  {
+    "id": "hellohop-mcp",
+    "name": "hellohop-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y hellohop-mcp@0.4.0"
   }
 ]
