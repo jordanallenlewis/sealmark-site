@@ -7236,6 +7236,44 @@
         ]
       }
     },
+    "veriql-mcp": {
+      "checkedAt": "2026-11-20",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.4.1",
+        "date": "2026-11-20"
+      },
+      "repo": {
+        "name": "josephtossi/veriql-mcp",
+        "pushedAt": "2026-11-20",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "crypto",
+          "solana",
+          "ethereum",
+          "security",
+          "honeypot",
+          "rug-check",
+          "token-safety",
+          "wallet-security",
+          "web3",
+          "claude",
+          "cursor",
+          "x402",
+          "usdc",
+          "pre-payment-check",
+          "sanctions",
+          "ai-agents",
+          "mcp-server"
+        ]
+      }
+    },
     "vertical-marketplace-mcp": {
       "checkedAt": "2026-11-20",
       "source": "npm",

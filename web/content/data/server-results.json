@@ -61548,8 +61548,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.473",
-      "versionTested": "1.108.473",
+      "refTested": "1.108.474",
+      "versionTested": "1.108.474",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-20",
       "sealmark": {
@@ -66117,7 +66117,7 @@
       "name": "@pidgeon-ai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.13.0",
+      "versionTested": "1.14.0",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-20",
       "sealmark": {
@@ -66126,9 +66126,9 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pidgeon-ai/mcp@1.13.0",
+      "launch": "npx -y @pidgeon-ai/mcp@1.14.0",
       "transport": "stdio",
-      "toolCount": 84,
+      "toolCount": 83,
       "packs": [
         {
           "id": "core",
@@ -66237,7 +66237,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 84 well-formed tool(s)"
+          "summary": "handshake ok, 83 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -66318,7 +66318,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "status declared read-only and changed nothing in the observed directories during a benign call (list_inboxes, list_threads, find_contact, list_rules, list_suppressions, get_storage, list_domains, list_pods, list_events, list_api_keys, list_webhooks, list_agents, get_reputation, list_sites, list_mandates, get_site_rules not judged: the control call failed)"
+          "summary": "status declared read-only and changed nothing in the observed directories during a benign call (list_inboxes, list_threads, find_contact, list_rules, list_suppressions, get_storage, list_domains, list_pods, list_events, list_api_keys, list_webhooks, list_agents, get_reputation, list_sites, list_mandates not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -66349,9 +66349,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 18,
-        "toolsCalledValid": 17,
-        "toolsTotal": 84,
+        "validCalls": 17,
+        "toolsCalledValid": 16,
+        "toolsTotal": 83,
         "level": "low"
       },
       "badge": {
@@ -66359,7 +66359,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 84 tools",
+        "malformed-input probes cover the first 25 of 83 tools",
         "tool \"add_webhook\" (url) was not probed by the net pack: the listener saw nothing, but 9 of 9 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"sign_in\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
@@ -66374,7 +66374,7 @@
         "tool \"send_message\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"create_draft\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_draft\" is covered by the core checks only: free-text parameter \"draft_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "71 more tool(s) are covered by the core checks only (see the classification)",
+        "70 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"list_labels\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"create_label\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"update_label\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -66395,6 +66395,9 @@
         "tool \"get_storage\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_domains\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"add_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"verify_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"remove_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"enable_domain_mail\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"check_domain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_agenda\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -66430,10 +66433,6 @@
         "tool \"request_mandate\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_mandates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"revoke_mandate\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"verify_request\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"get_site_rules\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"set_site_rules\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"report_agent\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"sign_out\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
@@ -72913,7 +72912,7 @@
       "name": "@orangepro/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.2.61",
+      "versionTested": "0.2.62",
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-20",
       "sealmark": {
@@ -72922,7 +72921,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @orangepro/mcp-server@0.2.61 mcp",
+      "launch": "npx -y @orangepro/mcp-server@0.2.62 mcp",
       "transport": "stdio",
       "toolCount": 19,
       "tools": [
@@ -76701,7 +76700,7 @@
       "name": "tenjin-cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.0-alpha.34",
+      "versionTested": "0.1.0-alpha.35",
       "serverInfoName": "tenjin-cli",
       "testedAt": "2026-11-20",
       "sealmark": {
@@ -76710,16 +76709,20 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y tenjin-cli@0.1.0-alpha.34 mcp",
+      "launch": "npx -y tenjin-cli@0.1.0-alpha.35 mcp",
       "transport": "stdio",
-      "toolCount": 2,
+      "toolCount": 4,
       "tools": [
+        "subagent_activity",
+        "subagent",
         "request",
         "hook"
       ],
       "toolSchemas": {
-        "hook": "f17e8fec5ef7",
-        "request": "ca35dd5914ad"
+        "hook": "dd59e650ae60",
+        "request": "ca35dd5914ad",
+        "subagent": "8674943b96ea",
+        "subagent_activity": "0e304f5b0517"
       },
       "packs": [
         {
@@ -76816,7 +76819,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "no tool declares readOnlyHint: true"
+          "reason": "no tool declared readOnlyHint: true could be given a harness-owned control argument"
         }
       ],
       "checks": [
@@ -76827,7 +76830,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 2 well-formed tool(s)"
+          "summary": "handshake ok, 4 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -76845,7 +76848,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "9 invalid call(s) rejected cleanly",
+          "summary": "18 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [],
             "notCovered": []
@@ -76858,7 +76861,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 9 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 18 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -76876,7 +76879,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "na",
-          "summary": "no tool declares readOnlyHint: true"
+          "summary": "no tool declared readOnlyHint: true could be given a harness-owned control argument"
         },
         {
           "id": "openworld-honesty",
@@ -76916,7 +76919,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 2,
+        "toolsTotal": 4,
         "level": "hygiene-only"
       },
       "badge": {
@@ -76927,6 +76930,8 @@
         "tool \"request\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"hook\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"subagent_activity\" is covered by the core checks only: free-text parameter \"offer_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"subagent\" is covered by the core checks only: free-text parameter \"offer_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -82733,7 +82738,7 @@
       "name": "dten-speed",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "1.0.1",
       "serverInfoName": "dten-speed",
       "testedAt": "2026-11-20",
       "sealmark": {
@@ -82742,7 +82747,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dten-speed@1.0.0 mcp",
+      "launch": "npx -y dten-speed@1.0.1 mcp",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -83189,6 +83194,275 @@
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "veriql-mcp",
+      "name": "veriql-mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "1.4.1",
+      "serverInfoName": "veriql-mcp",
+      "testedAt": "2026-11-20",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y veriql-mcp@1.4.1",
+      "transport": "stdio",
+      "toolCount": 11,
+      "tools": [
+        "veriql_scan",
+        "veriql_token",
+        "veriql_launch",
+        "veriql_payee",
+        "veriql_send",
+        "veriql_signature",
+        "veriql_preflight",
+        "veriql_batch_screen",
+        "veriql_x402_seller_check",
+        "veriql_deployer",
+        "veriql_freeze"
+      ],
+      "toolSchemas": {
+        "veriql_batch_screen": "1b806f61ea55",
+        "veriql_deployer": "79f037128d81",
+        "veriql_freeze": "b244965ce67a",
+        "veriql_launch": "a8aab455df75",
+        "veriql_payee": "b2c85b805f5e",
+        "veriql_preflight": "1fccc31d0275",
+        "veriql_scan": "e285243ed5dc",
+        "veriql_send": "f69a0a68fc4d",
+        "veriql_signature": "b8aa961ecd10",
+        "veriql_token": "4dda8d20f5e2",
+        "veriql_x402_seller_check": "d26c83d09eea"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 9 of 9 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool declares annotations and none is an unannotated path or repository tool, so there is nothing to compare with what the sandbox observed"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 11 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 11 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "52 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 52 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 9 of 9 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 6 of 6 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 11,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tool \"veriql_x402_seller_check\" (url) was not probed by the net pack: the listener saw nothing, but 9 of 9 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"veriql_scan\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"veriql_token\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"veriql_launch\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"veriql_payee\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"veriql_send\" is covered by the core checks only: free-text parameter \"from\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"veriql_signature\" is covered by the core checks only: free-text parameter \"payload\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"veriql_preflight\" is covered by the core checks only: free-text parameter \"chainId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"veriql_batch_screen\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
+        "tool \"veriql_deployer\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"veriql_freeze\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
       "automated": true

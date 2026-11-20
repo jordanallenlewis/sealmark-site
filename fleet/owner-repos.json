@@ -1280,6 +1280,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "veriql-mcp": {
+    "repo": "josephtossi/veriql-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-20"
+  },
   "vertical-marketplace-mcp": {
     "repo": null,
     "source": "npm",

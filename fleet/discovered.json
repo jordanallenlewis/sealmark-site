@@ -1432,5 +1432,11 @@
     "name": "hellohop-mcp",
     "ecosystem": "npm",
     "launch": "npx -y hellohop-mcp@0.4.0"
+  },
+  {
+    "id": "veriql-mcp",
+    "name": "veriql-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y veriql-mcp@1.4.1"
   }
 ]
