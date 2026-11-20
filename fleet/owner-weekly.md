@@ -4,14 +4,14 @@ Written by `fleet/notify-owners.mjs` on 2026-11-20. "Last 7 days" is 2026-11-14 
 
 | | Last 7 days | All time |
 |---|---|---|
-| Issues opened | 6 | 6 |
+| Issues opened | 7 | 7 |
 | Repositories that replied | 0 | 0 |
 | Replies from people | 0 | 0 |
 | Removal or recheck requests | 0 | 0 |
 | Opted out | 0 | 0 |
 | Grade-change emails (notices) | 0 | 0 |
 
-Notified servers, letter now against the letter in the notice: 0 up, 0 down, 6 same, 0 not graded now. A better letter alone is not proof the notice caused it; fleet/impact-summary.md compares with servers never notified.
+Notified servers, letter now against the letter in the notice: 0 up, 0 down, 7 same, 0 not graded now. A better letter alone is not proof the notice caused it; fleet/impact-summary.md compares with servers never notified.
 
 ## Replies in the last 7 days
 
@@ -27,31 +27,31 @@ None.
 
 ## Where every graded server stands (2026-11-20)
 
-269 graded servers: 0 sent or drafted this run, 30 held for private handling, 25 waiting, 214 skipped.
+269 graded servers: 1 sent or drafted this run, 29 held for private handling, 23 waiting, 216 skipped.
 
 Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (6 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
-Private security reports (GitHub private vulnerability reporting, never public): 1 sent in all; 23 repositories are held for them. Counts only.
+Private security reports (GitHub private vulnerability reporting, never public): 2 sent in all; 22 repositories are held for them. Counts only.
 
 ### Waiting (a later run may send)
 
 | Reason | Servers |
 |---|---|
 | weak signals only | 19 |
-| graded once; waits for a repeat run | 4 |
+| flaky across repeat runs | 2 |
+| graded once; waits for a repeat run | 1 |
 | stale grade or failed re-test | 1 |
-| flaky across repeat runs | 1 |
 
 ### Skipped (until something changes)
 
 | Reason | Servers |
 |---|---|
-| nothing to fix (an A, or no check to name) | 128 |
+| nothing to fix (an A, or no check to name) | 127 |
 | no GitHub repository | 35 |
 | no tool reached (hygiene-only) | 30 |
+| repository not found | 8 |
 | already got its one issue | 6 |
-| repository not found | 6 |
-| package in a subfolder of a larger repository | 3 |
+| package in a subfolder of a larger repository | 4 |
 | launch line not reproducible as written | 2 |
 | archived | 1 |
 | no tools declared | 1 |

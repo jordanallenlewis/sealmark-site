@@ -2,13 +2,13 @@
   "count": 147,
   "byReason": {
     "missing-runtime": 7,
-    "unknown": 25,
+    "exited-no-error": 73,
     "initialize-timeout": 12,
     "bad-launch": 6,
-    "dependency-resolution": 26,
+    "dependency-resolution": 27,
+    "unknown": 11,
     "needs-credentials": 8,
-    "exited-no-error": 61,
-    "needs-service": 2
+    "needs-service": 3
   },
   "servers": [
     {
@@ -23,7 +23,7 @@
       "version": "5.1.12",
       "lastTried": "2026-11-20",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "funai-mcp",
@@ -37,7 +37,7 @@
       "version": "0.70.0",
       "lastTried": "2026-11-20",
       "attempts": 4,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "haris-musa-excel-mcp-server",
@@ -51,14 +51,14 @@
       "version": "4.1.2",
       "lastTried": "2026-11-20",
       "attempts": 23,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "marker-inc-korea-autorag",
       "version": "2.14.1",
       "lastTried": "2026-11-20",
       "attempts": 10,
-      "reason": "unknown"
+      "reason": "dependency-resolution"
     },
     {
       "id": "qybaihe-bla",
@@ -93,7 +93,7 @@
       "version": "0.17.3",
       "lastTried": "2026-11-19",
       "attempts": 6,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "chrisryugj-kordoc",
@@ -121,7 +121,7 @@
       "version": "0.27.1",
       "lastTried": "2026-11-19",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "xbrlkit",
@@ -156,7 +156,7 @@
       "version": "0.10.55",
       "lastTried": "2026-11-17",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "jordan-gibbs-hyperresearch",
@@ -191,7 +191,7 @@
       "version": "0.10.0",
       "lastTried": "2026-11-16",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "vmoranv-jshookmcp",
@@ -226,7 +226,7 @@
       "version": "0.3.1",
       "lastTried": "2026-11-15",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "dinglebear-cortex",
@@ -247,14 +247,14 @@
       "version": "0.2.0",
       "lastTried": "2026-11-15",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "lfg-labs-t3-watch",
       "version": "0.6.0",
       "lastTried": "2026-11-15",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "needs-service"
     },
     {
       "id": "openosint-openosint",
@@ -282,21 +282,21 @@
       "version": "0.17.6",
       "lastTried": "2026-11-15",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "takara-ai-miru-code",
       "version": "1.10.1",
       "lastTried": "2026-11-15",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "veyora",
       "version": "0.2.2",
       "lastTried": "2026-11-15",
       "attempts": 2,
-      "reason": "unknown"
+      "reason": "exited-no-error"
     },
     {
       "id": "yarr-mcp",
