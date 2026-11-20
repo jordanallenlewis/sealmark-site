@@ -46,6 +46,15 @@
       "stillFailing": true,
       "retestedAt": null
     },
+    "satohub-mcp": {
+      "state": "none",
+      "noticedAt": "2026-11-20",
+      "issueUrl": "https://github.com/satohubai/mcp/issues/1",
+      "repliedAt": null,
+      "closedAt": null,
+      "stillFailing": false,
+      "retestedAt": null
+    },
     "spaces-mcp-server": {
       "state": "none",
       "noticedAt": "2026-11-17",
