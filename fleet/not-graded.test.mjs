@@ -105,3 +105,13 @@ test("bad lines and records without an id are skipped", () => {
   const out = buildNotGraded({ history: [null, { status: "failed" }, "nope", fail("a", "2026-11-01", "x")], graded: [] });
   assert.equal(out.count, 1);
 });
+
+test("a CLI start kind of unknown does not hide a reason the error text gives", () => {
+  const err = "could not start or talk to the server: MCP error -32000: x is not reachable on port 8460. Start it with x start.";
+  const out = buildNotGraded({
+    history: [fail("a", "2026-11-14", err)],
+    telemetry: [{ id: "a", testedAt: "2026-11-14", status: "failed", startKind: "unknown" }],
+    graded: [],
+  });
+  assert.equal(out.servers[0].reason, "needs-service");
+});
