@@ -1,6 +1,6 @@
 ## Fleet triage
 
-Window: 600 results (473 graded, 127 failed). 1 issue cluster(s).
+Window: 600 results (468 graded, 132 failed). 1 issue cluster(s).
 
 | kind | cluster | servers |
 |---|---|---|
