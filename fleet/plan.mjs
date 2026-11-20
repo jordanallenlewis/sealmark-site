@@ -5,7 +5,7 @@
 // Run from the repository root: node fleet/plan.mjs
 // Env: GITHUB_TOKEN (optional; github ecosystem), FORCE_ALL (1 = re-test every tracked server: none is dropped to
 //      make room for new tries, which only fill what is left up to MAX_JOBS), MAX_NEW (default 10),
-//      MAX_JOBS (default 200, or 256 with FORCE_ALL; a GitHub matrix holds at most 256), STALE_DAYS (default 7),
+//      MAX_JOBS (default 200, or 256 with FORCE_ALL; a GitHub matrix holds at most 256), STALE_DAYS (default 5),
 //      TARGET_TOTAL (default 360: below this many tracked servers a run grows the set by GROW_NEW, default 60,
 //      instead of MAX_NEW; matrix jobs run max-parallel at a time, each in its own throwaway VM with no secrets).
 // The version checks run LOOKUPS at a time, alongside discovery; the result is the same as checking one by one.
@@ -24,7 +24,7 @@ const MAX_JOBS = Math.min(MATRIX_LIMIT, process.env.MAX_JOBS ? Number(process.en
 const LOOKUPS = 8; // registry version checks in flight at once
 const TARGET_TOTAL = process.env.TARGET_TOTAL ? Number(process.env.TARGET_TOTAL) : 360;
 const GROW_NEW = process.env.GROW_NEW ? Number(process.env.GROW_NEW) : 60;
-const STALE_DAYS = process.env.STALE_DAYS ? Number(process.env.STALE_DAYS) : 7;
+const STALE_DAYS = process.env.STALE_DAYS ? Number(process.env.STALE_DAYS) : 5;
 const EXCLUDE = process.env.FLEET_EXCLUDE ? new RegExp(process.env.FLEET_EXCLUDE, "i") : null;
 
 // JSON file, or fallback when it is missing or unparseable.
