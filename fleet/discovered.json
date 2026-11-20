@@ -1396,5 +1396,23 @@
     "name": "@fluxygram/mcp",
     "ecosystem": "npm",
     "launch": "npx -y @fluxygram/mcp@0.3.0"
+  },
+  {
+    "id": "llmbenchmark-mcp",
+    "name": "llmbenchmark-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx llmbenchmark-mcp==1.0.0"
+  },
+  {
+    "id": "mcp-church",
+    "name": "mcp-church",
+    "ecosystem": "npm",
+    "launch": "npx -y mcp-church@1.0.3"
+  },
+  {
+    "id": "mroffice-mcp",
+    "name": "mroffice-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y mroffice-mcp@0.1.0"
   }
 ]

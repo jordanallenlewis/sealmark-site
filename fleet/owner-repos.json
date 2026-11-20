@@ -650,6 +650,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "llmbenchmark-mcp": {
+    "repo": "Take-Group/llmbenchmark-mcp",
+    "source": "pypi",
+    "resolvedAt": "2026-11-20"
+  },
   "llmintel-mcp": {
     "repo": "hivemindunit/llmintel-mcp",
     "source": "npm",
@@ -700,6 +705,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "mcp-church": {
+    "repo": "a-church-ai/church",
+    "source": "npm",
+    "resolvedAt": "2026-11-20"
+  },
   "mcp-sqlite": {
     "repo": "jparkerweb/mcp-sqlite",
     "source": "npm",
@@ -749,6 +759,11 @@
     "repo": null,
     "source": "pypi",
     "resolvedAt": "2026-11-11"
+  },
+  "mroffice-mcp": {
+    "repo": "XinaTian/MROffice",
+    "source": "npm",
+    "resolvedAt": "2026-11-20"
   },
   "muovi-mcp-server": {
     "repo": "muovi-latam/mcp-server",

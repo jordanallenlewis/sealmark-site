@@ -12,6 +12,34 @@
   },
   "servers": [
     {
+      "id": "google-gemini-gemini-cli",
+      "version": "0.70.0",
+      "lastTried": "2026-11-20",
+      "attempts": 4,
+      "reason": "unknown"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "3.15.1",
+      "lastTried": "2026-11-20",
+      "attempts": 22,
+      "reason": "unknown"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.5.2",
+      "lastTried": "2026-11-20",
+      "attempts": 17,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.79.0",
+      "lastTried": "2026-11-20",
+      "attempts": 9,
+      "reason": "initialize-timeout"
+    },
+    {
       "id": "54yyyu-zotero-mcp",
       "version": "0.17.3",
       "lastTried": "2026-11-19",
@@ -33,20 +61,6 @@
       "reason": "initialize-timeout"
     },
     {
-      "id": "google-gemini-gemini-cli",
-      "version": "0.69.0",
-      "lastTried": "2026-11-19",
-      "attempts": 3,
-      "reason": "unknown"
-    },
-    {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "3.15.0",
-      "lastTried": "2026-11-19",
-      "attempts": 21,
-      "reason": "unknown"
-    },
-    {
       "id": "marker-inc-korea-autorag",
       "version": "2.14.0",
       "lastTried": "2026-11-19",
@@ -59,20 +73,6 @@
       "lastTried": "2026-11-19",
       "attempts": 3,
       "reason": "bad-launch"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.5.1",
-      "lastTried": "2026-11-19",
-      "attempts": 16,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "ruvnet-ruflo",
-      "version": "3.78.0",
-      "lastTried": "2026-11-19",
-      "attempts": 8,
-      "reason": "initialize-timeout"
     },
     {
       "id": "thenextrace-tnr",
