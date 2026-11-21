@@ -5849,18 +5849,24 @@
       "name": "@kazuph/mcp-fetch",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.6.3",
+      "versionTested": "1.6.4",
       "serverInfoName": "mcp-fetch",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @kazuph/mcp-fetch@1.6.3",
+      "launch": "npx -y @kazuph/mcp-fetch@1.6.4",
       "transport": "stdio",
       "toolCount": 1,
+      "tools": [
+        "imageFetch"
+      ],
+      "toolSchemas": {
+        "imageFetch": "f1753a036421"
+      },
       "packs": [
         {
           "id": "core",
@@ -5925,15 +5931,13 @@
         {
           "id": "net",
           "status": "graded",
-          "letter": "D",
-          "points": 3,
-          "scored": 4,
-          "pct": 75,
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
           "provisional": false,
-          "capped": true,
-          "criticalFails": [
-            "net-loopback-ssrf"
-          ],
+          "capped": false,
+          "criticalFails": [],
           "reason": null
         },
         {
@@ -5987,7 +5991,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "5 invalid call(s) rejected cleanly"
+          "summary": "5 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "secret-echo",
@@ -6013,8 +6021,8 @@
           "label": "Refuses loopback targets (SSRF)",
           "critical": true,
           "advisory": false,
-          "verdict": "fail",
-          "summary": null
+          "verdict": "pass",
+          "summary": "all 9 loopback probes were explicitly refused (the response said so) and the listener saw no request or connection, and a hostless URL got a different reply; no fetch of any URL was shown to work (set net.control_url to confirm the tool fetches)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -6023,7 +6031,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": null
+          "summary": "6 scored probes (javascript: is recorded, not scored) with file:, ftp:, gopher:, dict: and data: URLs had no observable effect (6 explicitly refused for the scheme)"
         },
         {
           "id": "net-caps",
@@ -6031,8 +6039,8 @@
           "label": "Response size and time are capped",
           "critical": false,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "size: the reply was 0.00 MiB (limit 16 MiB); time: replied after 12.0 s, inside the 18 s window"
+          "verdict": "na",
+          "summary": "the server refused loopback targets (net-loopback-ssrf passed), so there is no harness-owned URL it will fetch; response size and time caps were not measured"
         },
         {
           "id": "net-redirect",
@@ -6040,8 +6048,8 @@
           "label": "Redirects are re-validated",
           "critical": false,
           "advisory": false,
-          "verdict": "pass",
-          "summary": null
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
         },
         {
           "id": "refusal-quality",
@@ -6050,7 +6058,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "fail",
-          "summary": "1 of 7 refusal(s) say what to do instead or why retrying will not help (14 %)"
+          "summary": "1 of 9 refusal(s) say what to do instead or why retrying will not help (11 %)"
         }
       ],
       "coverage": {
@@ -14336,7 +14344,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -27884,16 +27892,16 @@
       "name": "rightcard-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.24",
+      "versionTested": "0.1.25",
       "serverInfoName": "rightcard-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y rightcard-mcp@0.1.24",
+      "launch": "npx -y rightcard-mcp@0.1.25",
       "transport": "stdio",
       "toolCount": 5,
       "tools": [
@@ -27904,7 +27912,7 @@
         "rotating_calendar"
       ],
       "toolSchemas": {
-        "best_card": "6908dde066bd",
+        "best_card": "cddf59bbc260",
         "card": "c8af00a8c051",
         "lookup_merchant": "288aba60e8de",
         "rotating_calendar": "d81c78d80bd2",
@@ -28093,7 +28101,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "schemas": {
           "best_card": "6908dde066bd",
           "card": "c8af00a8c051",
@@ -35196,16 +35204,16 @@
       "name": "@testivai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.9.4",
+      "versionTested": "0.9.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @testivai/mcp@0.9.4",
+      "launch": "npx -y @testivai/mcp@0.9.5",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -35421,7 +35429,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "approve_all": "7a014b717a77",
+          "approve_snapshot": "31f996f132f1",
+          "explain_snapshot": "c24ee1bfff69",
+          "get_diff": "7581621f56e5",
+          "get_report": "7a014b717a77",
+          "get_snapshot_diff": "7581621f56e5",
+          "get_visual_results": "7a014b717a77",
+          "list_baselines": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "textile-designer-ai-mcp",
@@ -61548,10 +61569,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.474",
-      "versionTested": "1.108.474",
+      "refTested": "1.108.476",
+      "versionTested": "1.108.476",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -61793,7 +61814,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -65584,7 +65605,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -83203,16 +83224,16 @@
       "name": "veriql-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.4.1",
+      "versionTested": "1.4.2",
       "serverInfoName": "veriql-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y veriql-mcp@1.4.1",
+      "launch": "npx -y veriql-mcp@1.4.2",
       "transport": "stdio",
       "toolCount": 11,
       "tools": [
@@ -83465,7 +83486,23 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "veriql_batch_screen": "1b806f61ea55",
+          "veriql_deployer": "79f037128d81",
+          "veriql_freeze": "b244965ce67a",
+          "veriql_launch": "a8aab455df75",
+          "veriql_payee": "b2c85b805f5e",
+          "veriql_preflight": "1fccc31d0275",
+          "veriql_scan": "e285243ed5dc",
+          "veriql_send": "f69a0a68fc4d",
+          "veriql_signature": "b8aa961ecd10",
+          "veriql_token": "4dda8d20f5e2",
+          "veriql_x402_seller_check": "d26c83d09eea"
+        }
+      }
     }
   ],
   "verification": {
