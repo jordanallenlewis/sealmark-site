@@ -224,6 +224,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "constile-mcp": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-21"
+  },
   "context7": {
     "repo": "upstash/context7",
     "source": "npm",

@@ -10,13 +10,13 @@
     "improved": 0,
     "regressed": 0,
     "improvedWithDirectSignal": 0,
-    "actedOnSealmark": 0,
+    "actedOnSealmark": 1,
     "medianDaysToImprovement": null,
     "topFixedChecks": [],
     "base": {
       "servers": 208,
-      "released": 39,
-      "improved": 1,
+      "released": 42,
+      "improved": 2,
       "regressed": 2,
       "medianDaysToImprovement": 7
     }
@@ -239,7 +239,7 @@
         "issueState": "open",
         "closedByMaintainer": false,
         "maintainerCommented": false,
-        "issueReferenced": false,
+        "issueReferenced": true,
         "closedByCommit": false,
         "badgeNow": false,
         "commitMentionsSealmark": false,
@@ -248,14 +248,14 @@
       "checkedAt": "2026-11-21",
       "attribution": {
         "direct": {
-          "issueReferenced": false,
+          "issueReferenced": true,
           "fixCommitMentionsSealmark": false,
           "closedByMaintainerWithFix": false,
           "badgeAdded": false
         },
-        "actedOnSealmark": false,
+        "actedOnSealmark": true,
         "improvedWithDirectSignal": false,
-        "label": "no new version yet"
+        "label": "acted on Sealmark"
       }
     },
     {

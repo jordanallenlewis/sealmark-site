@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-21T06:20:11.918Z",
+  "generatedAt": "2026-11-21T18:59:23.022Z",
   "window": 600,
-  "graded": 453,
-  "failed": 147,
+  "graded": 456,
+  "failed": 144,
   "clusters": [
     {
       "servers": [
@@ -13,8 +13,8 @@
       "labels": [
         "performance"
       ],
-      "title": "Slow runs: 3 servers took over 5 min or timed out",
-      "count": 3,
+      "title": "Slow runs: 4 servers took over 5 min or timed out",
+      "count": 4,
       "detail": "Longest: 327 s. Find which probe or pack dominates and add a per-probe budget."
     }
   ],

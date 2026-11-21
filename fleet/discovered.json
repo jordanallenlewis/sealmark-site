@@ -1438,5 +1438,11 @@
     "name": "veriql-mcp",
     "ecosystem": "npm",
     "launch": "npx -y veriql-mcp@1.4.1"
+  },
+  {
+    "id": "constile-mcp",
+    "name": "constile-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y constile-mcp@0.1.1"
   }
 ]

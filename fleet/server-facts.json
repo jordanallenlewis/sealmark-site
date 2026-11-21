@@ -1288,6 +1288,25 @@
         ]
       }
     },
+    "constile-mcp": {
+      "checkedAt": "2026-11-21",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.1",
+        "date": "2026-11-21"
+      },
+      "repo": null,
+      "about": {
+        "keywords": [
+          "constile",
+          "mcp",
+          "model context protocol",
+          "ai agents",
+          "sponsored access"
+        ]
+      }
+    },
     "context7": {
       "checkedAt": "2026-11-21",
       "source": "npm",
