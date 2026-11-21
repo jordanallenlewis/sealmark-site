@@ -100,6 +100,23 @@ test("each start failure kind has hedged words; unknown, a made-up kind and a no
   assert.equal("startKind" in servers[0].lastAttempt, false);
 });
 
+test("merge.mjs: a failed run's telemetry records the launch line and package name, scrubbed and cut", () => {
+  const dir = scratch([graded()]);
+  try {
+    report(dir, "a", { id: "x-mcp", name: "x-mcp", version: "1.0.0", ecosystem: "github", launch: "npx -y github:acme/x-mcp /home/runner/work/secret ghp_abcdefghijklmnop12" }, {
+      status: "failed", error: "Connection closed",
+    });
+    merge(dir);
+    const tel = fs.readFileSync(path.join(dir, "fleet", "telemetry.jsonl"), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    const t = tel.find((r) => r.id === "x-mcp");
+    assert.equal(t.name, "x-mcp");
+    assert.match(t.launch, /^npx -y github:acme\/x-mcp /);
+    assert.ok(!/ghp_|\/home\/runner/.test(t.launch));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("merge.mjs: the CLI's typed start failure lands on the entry and in the telemetry, never its advice text", () => {
   const dir = scratch([graded()]);
   try {

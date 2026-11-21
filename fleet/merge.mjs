@@ -119,6 +119,8 @@ for (const name of subfolders) {
       id: meta.id, ecosystem: meta.ecosystem, serverVersion: meta.version ?? null, testedAt: today,
       sealmark: report?.sealmark?.version ?? "unknown", status: "failed",
       failClass: kind, errorSig: scrub(errorText ?? "no report"), startKind: startKindOf(report),
+      // The launch line and package name this try used (public registry or repo data), to tell a bare `npx` start from a real one.
+      name: typeof meta.name === "string" ? scrub(meta.name) : undefined, launch: typeof meta.launch === "string" ? scrub(meta.launch) : undefined,
       durationS: run?.durationS ?? null, exitCode: run?.exitCode ?? null,
     });
     failed += 1;
