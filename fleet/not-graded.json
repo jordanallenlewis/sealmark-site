@@ -12,6 +12,41 @@
   },
   "servers": [
     {
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.3",
+      "lastTried": "2026-11-21",
+      "attempts": 26,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "chrisryugj-korean-law-mcp",
+      "version": "4.15.25",
+      "lastTried": "2026-11-21",
+      "attempts": 3,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "4.3.3",
+      "lastTried": "2026-11-21",
+      "attempts": 25,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.5.5",
+      "lastTried": "2026-11-21",
+      "attempts": 19,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.80.0",
+      "lastTried": "2026-11-21",
+      "attempts": 11,
+      "reason": "initialize-timeout"
+    },
+    {
       "id": "apify-apify-mcp-server",
       "version": "0.22.0",
       "lastTried": "2026-11-20",
@@ -47,32 +82,11 @@
       "reason": "bad-launch"
     },
     {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "4.2.2",
-      "lastTried": "2026-11-20",
-      "attempts": 24,
-      "reason": "exited-no-error"
-    },
-    {
       "id": "marker-inc-korea-autorag",
       "version": "2.14.1",
       "lastTried": "2026-11-20",
       "attempts": 10,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.5.4",
-      "lastTried": "2026-11-20",
-      "attempts": 18,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "ruvnet-ruflo",
-      "version": "3.79.1",
-      "lastTried": "2026-11-20",
-      "attempts": 10,
-      "reason": "initialize-timeout"
     },
     {
       "id": "samuelgursky-davinci-resolve-mcp",
@@ -101,13 +115,6 @@
       "lastTried": "2026-11-19",
       "attempts": 6,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "chrisryugj-kordoc",
-      "version": "4.25.2",
-      "lastTried": "2026-11-19",
-      "attempts": 25,
-      "reason": "missing-runtime"
     },
     {
       "id": "czlonkowski-n8n-mcp",
@@ -150,13 +157,6 @@
       "lastTried": "2026-11-18",
       "attempts": 5,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "chrisryugj-korean-law-mcp",
-      "version": "4.15.24",
-      "lastTried": "2026-11-17",
-      "attempts": 2,
-      "reason": "missing-runtime"
     },
     {
       "id": "evalstate-fast-agent",
