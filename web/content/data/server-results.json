@@ -7,16 +7,16 @@
       "name": "@bytebase/dbhub",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.0.1",
+      "versionTested": "2.1.0",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @bytebase/dbhub@2.0.1 --transport stdio --dsn {dsn}",
+      "launch": "npx -y @bytebase/dbhub@2.1.0 --transport stdio --dsn {dsn}",
       "transport": "stdio",
       "toolCount": 2,
       "packs": [
@@ -10518,16 +10518,16 @@
       "name": "@achromat-ai/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.5",
+      "versionTested": "0.1.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @achromat-ai/mcp-server@0.1.5",
+      "launch": "npx -y @achromat-ai/mcp-server@0.1.6",
       "transport": "stdio",
       "toolCount": 2,
       "tools": [
@@ -10535,7 +10535,7 @@
         "achromat_register_identity"
       ],
       "toolSchemas": {
-        "achromat_recall": "a841737ff034",
+        "achromat_recall": "503353dcfab5",
         "achromat_register_identity": "5cf2cef70486"
       },
       "packs": [
@@ -10718,7 +10718,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "achromat_recall": "a841737ff034",
           "achromat_register_identity": "5cf2cef70486"
@@ -24790,18 +24790,18 @@
       "name": "overwing-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.15.0",
+      "versionTested": "0.16.0",
       "serverInfoName": "overwing-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y overwing-mcp@0.15.0",
+      "launch": "npx -y overwing-mcp@0.16.0",
       "transport": "stdio",
-      "toolCount": 41,
+      "toolCount": 45,
       "tools": [
         "evaluate",
         "evaluate_batch",
@@ -24828,6 +24828,10 @@
         "feedback",
         "preflight_payment",
         "beacon_sample",
+        "radar_status",
+        "radar_list_incidents",
+        "radar_get_incident",
+        "radar_mint_decoy",
         "preflight_check",
         "preflight_verdict",
         "preflight_report",
@@ -24874,6 +24878,10 @@
         "preflight_report": "2a19aa08cb5c",
         "preflight_verdict": "a572fd8f9543",
         "prove_domain": "2c7124172a48",
+        "radar_get_incident": "68fd67745627",
+        "radar_list_incidents": "3ff1465ebba3",
+        "radar_mint_decoy": "f4f91250e11c",
+        "radar_status": "7a014b717a77",
         "tower_capabilities": "7a014b717a77",
         "tower_compensate": "998c65e820ae",
         "tower_create_agent": "545a803ef2ad",
@@ -24994,7 +25002,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 41 well-formed tool(s)"
+          "summary": "handshake ok, 45 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -25003,7 +25011,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 41 tool definition(s), the server instructions and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 45 tool definition(s), the server instructions and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -25016,6 +25024,10 @@
           "tools": {
             "probed": [],
             "notCovered": [
+              "radar_status",
+              "radar_list_incidents",
+              "radar_get_incident",
+              "radar_mint_decoy",
               "preflight_check",
               "preflight_verdict",
               "preflight_report",
@@ -25102,7 +25114,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "preflight_record, preflight_overview declared read-only and changed nothing in the observed directories during a benign call"
+          "summary": "preflight_record, preflight_overview declared read-only and changed nothing in the observed directories during a benign call (radar_status, radar_list_incidents not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -25139,9 +25151,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 2,
-        "toolsCalledValid": 2,
-        "toolsTotal": 41,
+        "validCalls": 4,
+        "toolsCalledValid": 4,
+        "toolsTotal": 45,
         "level": "low"
       },
       "badge": {
@@ -25149,7 +25161,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 41 tools",
+        "malformed-input probes cover the first 25 of 45 tools",
         "tool \"beacon_start\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"evaluate\" is covered by the core checks only: argument \"input\" could be a command, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
@@ -25164,7 +25176,11 @@
         "tool \"create_account\" is covered by the core checks only: free-text parameter \"org_name\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"prove_domain\" is covered by the core checks only: free-text parameter \"domain\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"verify_domain\" is covered by the core checks only: the tool takes no parameters",
-        "28 more tool(s) are covered by the core checks only (see the classification)",
+        "32 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"radar_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"radar_list_incidents\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"radar_get_incident\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"radar_mint_decoy\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"preflight_check\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"preflight_verdict\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"preflight_report\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -25195,7 +25211,53 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "atlas_agents": "66cf08555304",
+          "atlas_list_registrations": "7a014b717a77",
+          "atlas_lookup": "c979f3f9741d",
+          "atlas_register_agent": "db2d5ba64b20",
+          "atlas_summary": "7a014b717a77",
+          "atlas_verify_registration": "e0fd2cf53a1f",
+          "atlas_withdraw_registration": "e0fd2cf53a1f",
+          "beacon_report": "6efc80a6dd3c",
+          "beacon_sample": "7a014b717a77",
+          "beacon_start": "803c96c98da2",
+          "create_account": "287a49f67987",
+          "create_rule_set": "42f55d06813e",
+          "evaluate": "1dcf1c646f30",
+          "evaluate_batch": "1513e150c78c",
+          "feedback": "07b1b049f16b",
+          "get_evaluation": "c8af00a8c051",
+          "get_rule_set": "85c1a2a06f36",
+          "get_usage": "d66b1cf4eaca",
+          "list_evaluations": "c8ac2edb6113",
+          "list_plans": "7a014b717a77",
+          "list_rule_sets": "da202096f6c3",
+          "preflight_check": "b23493c13d61",
+          "preflight_overview": "7a014b717a77",
+          "preflight_payment": "9bce244c949f",
+          "preflight_record": "7a014b717a77",
+          "preflight_report": "2a19aa08cb5c",
+          "preflight_verdict": "a572fd8f9543",
+          "prove_domain": "2c7124172a48",
+          "tower_capabilities": "7a014b717a77",
+          "tower_compensate": "998c65e820ae",
+          "tower_create_agent": "545a803ef2ad",
+          "tower_decide": "5946f10f11d3",
+          "tower_get_action": "998c65e820ae",
+          "tower_get_receipt": "c90b176a2927",
+          "tower_list_agents": "7a014b717a77",
+          "tower_load_template": "7a014b717a77",
+          "tower_revoke_agent": "c9a73f1fc656",
+          "tower_submit_action": "0d6489ba2411",
+          "tower_verify_receipts": "28c2ecaf5aa6",
+          "verify_domain": "7a014b717a77",
+          "whoami": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "paraplex-mcp",
@@ -40740,18 +40802,18 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.59",
+      "versionTested": "2.12.60",
       "serverInfoName": "dchub-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.59",
+      "launch": "npx -y dchub-mcp-server@2.12.60",
       "transport": "stdio",
-      "toolCount": 97,
+      "toolCount": 98,
       "tools": [
         "execute_plan",
         "get_api_key",
@@ -40846,20 +40908,22 @@
         "source_capacity",
         "request_capacity_intro",
         "accept_capacity_terms",
+        "accept_capacity_intro",
         "unlock_more_data",
         "read_inbox",
         "report_finding",
         "request_enhancement"
       ],
       "toolSchemas": {
+        "accept_capacity_intro": "7480ef01f65e",
         "accept_capacity_terms": "ea95f28c0fca",
         "ai_capacity_index": "8980beb8ed37",
         "analyze_parcel": "487426f2eb0c",
-        "analyze_site": "0d0cd54360d9",
+        "analyze_site": "43cf244f18d1",
         "bind_email": "acf45c9f36f5",
         "cluster_sites_by_latency": "f8763f006ba6",
         "compare_isos": "bb40fab3450e",
-        "compare_sites": "c3f870801f2b",
+        "compare_sites": "97b4061d9d7c",
         "dchub_services": "08c50499a540",
         "deal_autopsy": "5dd5ee80541b",
         "delete_standing_intent": "32a9bbc61364",
@@ -40868,7 +40932,7 @@
         "export_dataset": "5ccc67cd6ce8",
         "fetch": "f77af9c467b4",
         "find_alternatives": "6d749b3a224c",
-        "find_sites": "e2c0c660e2e8",
+        "find_sites": "9e8964795eb1",
         "generate_site_analysis": "5fddffda6b87",
         "get_agent_registry": "efddc7bd8bbc",
         "get_air_permit_context": "82f5adfb2612",
@@ -40879,27 +40943,27 @@
         "get_composite_site_score": "01b6045463a3",
         "get_dchub_recommendation": "d4aa64286788",
         "get_disaster_risk": "87fa7b407c75",
-        "get_energy_prices": "d5b6947798d0",
+        "get_energy_prices": "e985fced2372",
         "get_facility": "5e02092cf04c",
         "get_facility_risk_delta": "d248ee3475da",
-        "get_fiber_intel": "81522eeb20d7",
+        "get_fiber_intel": "1be8fbeb58b1",
         "get_fiber_readiness": "9d3ceaf99b01",
         "get_gas_economics": "21aa6691eeae",
         "get_gas_index": "b4071309566c",
         "get_gas_intelligence": "a40d73aae5ec",
         "get_global_power": "44521126bb65",
-        "get_grid_data": "322fc74d0677",
-        "get_grid_intelligence": "0759a2f05e98",
+        "get_grid_data": "bd4a62e2a714",
+        "get_grid_intelligence": "d22de7559ea9",
         "get_grid_scoreboard": "efddc7bd8bbc",
         "get_hosting_capacity": "63fb1bff9a82",
         "get_infra_projects": "2fb54fc45a54",
         "get_infrastructure": "9dceaaaa0bce",
         "get_intelligence_index": "efddc7bd8bbc",
-        "get_interconnection_queue": "7bbb38f1d504",
+        "get_interconnection_queue": "60b2f3823406",
         "get_iso_context": "ca186ab719bb",
         "get_market_context": "e282c85e12a5",
         "get_market_dcpi_rank": "290311c34508",
-        "get_market_intel": "d0b4071552fd",
+        "get_market_intel": "cb495c66fe76",
         "get_metro_fiber": "142de5c1b5fa",
         "get_news": "6cfeb50fa6fc",
         "get_peering_intel": "d05f62bd7c87",
@@ -40908,12 +40972,12 @@
         "get_power_availability_timeline": "58627ddf0618",
         "get_power_pipeline": "468abbaccb5a",
         "get_refined_queue": "5b76e0dd02b7",
-        "get_renewable_energy": "873df754d2a1",
+        "get_renewable_energy": "49d3b92679fa",
         "get_retirement_headroom": "95b1a4b96991",
         "get_shortlist": "cc18eb2d7cc7",
         "get_subsea_cables": "e0c881182ac3",
         "get_tax_incentives": "b29a7748668e",
-        "get_water_risk": "21fc64e27c7e",
+        "get_water_risk": "fbbe3685c840",
         "grid_transition_radar": "c68079080155",
         "hyperscaler_deals": "443fd09af829",
         "list_saved_sites": "4a61679ffbb3",
@@ -40922,7 +40986,7 @@
         "plan_fiber_leadin": "1f4d1bcbd681",
         "plan_query": "ee3b15f99dd8",
         "predict_market_trajectory": "58e08b39f540",
-        "rank_markets": "0a7915ccc664",
+        "rank_markets": "28f05ac4634d",
         "rank_sites": "1b336f3aa244",
         "read_inbox": "56973a4b111b",
         "recover_my_key": "0d3330072144",
@@ -40935,14 +40999,14 @@
         "save_to_shortlist": "030314a0fcc3",
         "score_facility": "62eaa470d5af",
         "search": "8740bd9f89a3",
-        "search_facilities": "58ce18ea132e",
+        "search_facilities": "e84603bbbe41",
         "search_intelligence": "2244ecb07a4e",
         "semantic_search": "70b19a45f387",
         "set_market_alert": "3e40dd152b7c",
         "set_shortlist_alert": "eeae945a3d6e",
         "set_site_alert": "8897e4fd5263",
         "simulate_scenario": "dcbef11e483c",
-        "site_selection_canvas": "80e351574bc6",
+        "site_selection_canvas": "a3e191bcc34a",
         "source_capacity": "f926facedc78",
         "subscribe_digest": "8ddb907381b9",
         "suggest_reallocation": "31bc20b630c0",
@@ -41056,7 +41120,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 97 well-formed tool(s)"
+          "summary": "handshake ok, 98 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -41065,7 +41129,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 97 tool definition(s), the server instructions and serverInfo, 15 prompt(s) and 81 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 98 tool definition(s), the server instructions and serverInfo, 15 prompt(s) and 81 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -41149,6 +41213,7 @@
               "source_capacity",
               "request_capacity_intro",
               "accept_capacity_terms",
+              "accept_capacity_intro",
               "unlock_more_data",
               "read_inbox",
               "report_finding",
@@ -41254,7 +41319,7 @@
       "coverage": {
         "validCalls": 65,
         "toolsCalledValid": 64,
-        "toolsTotal": 97,
+        "toolsTotal": 98,
         "level": "covered"
       },
       "badge": {
@@ -41262,7 +41327,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 97 tools",
+        "malformed-input probes cover the first 25 of 98 tools",
         "SQL tool \"discover_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search_facilities\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -41282,7 +41347,7 @@
         "tool \"get_grid_scoreboard\" is covered by the core checks only: the tool takes no parameters",
         "tool \"compare_isos\" is covered by the core checks only: free-text parameter \"isos\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_intelligence_index\" is covered by the core checks only: the tool takes no parameters",
-        "76 more tool(s) are covered by the core checks only (see the classification)",
+        "77 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"get_interconnection_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_refined_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_retirement_headroom\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -41351,6 +41416,7 @@
         "tool \"source_capacity\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"request_capacity_intro\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"accept_capacity_terms\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"accept_capacity_intro\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"unlock_more_data\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"read_inbox\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"report_finding\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -41365,14 +41431,13 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "accept_capacity_terms": "ea95f28c0fca",
           "ai_capacity_index": "8980beb8ed37",
           "analyze_parcel": "487426f2eb0c",
           "analyze_site": "0d0cd54360d9",
           "bind_email": "acf45c9f36f5",
-          "claim_free_key": "d783f17b94e6",
           "cluster_sites_by_latency": "f8763f006ba6",
           "compare_isos": "bb40fab3450e",
           "compare_sites": "c3f870801f2b",
@@ -41380,7 +41445,7 @@
           "deal_autopsy": "5dd5ee80541b",
           "delete_standing_intent": "32a9bbc61364",
           "discover_tools": "3ebce8f963a3",
-          "execute_plan": "ec61f1023e94",
+          "execute_plan": "e7dc72023ec3",
           "export_dataset": "5ccc67cd6ce8",
           "fetch": "f77af9c467b4",
           "find_alternatives": "6d749b3a224c",
@@ -41388,13 +41453,14 @@
           "generate_site_analysis": "5fddffda6b87",
           "get_agent_registry": "efddc7bd8bbc",
           "get_air_permit_context": "82f5adfb2612",
+          "get_api_key": "9e2083048834",
           "get_backup_status": "efddc7bd8bbc",
-          "get_changes": "3d2c548e7489",
+          "get_changes": "9099fcea5110",
           "get_climate_intel": "4715a33c53d3",
           "get_composite_site_score": "01b6045463a3",
           "get_dchub_recommendation": "d4aa64286788",
           "get_disaster_risk": "87fa7b407c75",
-          "get_energy_prices": "b557f45194f1",
+          "get_energy_prices": "d5b6947798d0",
           "get_facility": "5e02092cf04c",
           "get_facility_risk_delta": "d248ee3475da",
           "get_fiber_intel": "81522eeb20d7",
@@ -41410,7 +41476,7 @@
           "get_infra_projects": "2fb54fc45a54",
           "get_infrastructure": "9dceaaaa0bce",
           "get_intelligence_index": "efddc7bd8bbc",
-          "get_interconnection_queue": "abd50514257a",
+          "get_interconnection_queue": "7bbb38f1d504",
           "get_iso_context": "ca186ab719bb",
           "get_market_context": "e282c85e12a5",
           "get_market_dcpi_rank": "290311c34508",
@@ -41418,8 +41484,8 @@
           "get_metro_fiber": "142de5c1b5fa",
           "get_news": "6cfeb50fa6fc",
           "get_peering_intel": "d05f62bd7c87",
-          "get_permitting_intel": "9b3cda1b89b4",
-          "get_pipeline": "1eb13af8d9e6",
+          "get_permitting_intel": "1c340c86fdb8",
+          "get_pipeline": "a0fa56b9bf63",
           "get_power_availability_timeline": "58627ddf0618",
           "get_power_pipeline": "468abbaccb5a",
           "get_refined_queue": "5b76e0dd02b7",
@@ -41441,7 +41507,7 @@
           "rank_sites": "1b336f3aa244",
           "read_inbox": "56973a4b111b",
           "recover_my_key": "0d3330072144",
-          "register_standing_intent": "4fdbf1d14307",
+          "register_standing_intent": "e00826d34234",
           "report_finding": "025fd9ed73d7",
           "request_capacity_intro": "ea24d3505fe2",
           "request_enhancement": "d4dfb4683736",
@@ -41450,7 +41516,7 @@
           "save_to_shortlist": "030314a0fcc3",
           "score_facility": "62eaa470d5af",
           "search": "8740bd9f89a3",
-          "search_facilities": "ac270650fc41",
+          "search_facilities": "58ce18ea132e",
           "search_intelligence": "2244ecb07a4e",
           "semantic_search": "70b19a45f387",
           "set_market_alert": "3e40dd152b7c",
@@ -41462,7 +41528,7 @@
           "subscribe_digest": "8ddb907381b9",
           "suggest_reallocation": "31bc20b630c0",
           "summarize_for_citation": "7c452c64334c",
-          "unlock_more_data": "9b224a58d330",
+          "unlock_more_data": "580b148fd628",
           "why_dchub": "efddc7bd8bbc"
         }
       }
@@ -46040,24 +46106,28 @@
       "name": "ipforai-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.0",
+      "versionTested": "0.2.0",
       "serverInfoName": "ipforai-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y ipforai-mcp@0.1.0",
+      "launch": "npx -y ipforai-mcp@0.2.0",
       "transport": "stdio",
-      "toolCount": 2,
+      "toolCount": 4,
       "tools": [
         "check_my_ip",
-        "lookup_ip"
+        "lookup_ip",
+        "check_ai_weather",
+        "lookup_asn"
       ],
       "toolSchemas": {
+        "check_ai_weather": "7a014b717a77",
         "check_my_ip": "7a014b717a77",
+        "lookup_asn": "22626a2a8bf3",
         "lookup_ip": "407f78cfa87d"
       },
       "packs": [
@@ -46143,7 +46213,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "no tool takes a SQL string"
+          "reason": "no {sqlite_path} placeholder in the server config, so the harness cannot give the server a database to grade (SQLite servers only: if the server runs on SQLite, add {sqlite_path} to its args; a DuckDB server is not graded in this release, see {duckdb_path} under Not covered)"
         },
         {
           "id": "effects",
@@ -46166,7 +46236,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 2 well-formed tool(s)"
+          "summary": "handshake ok, 4 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -46175,7 +46245,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 2 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 4 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -46184,10 +46254,11 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "5 invalid call(s) rejected cleanly",
+          "summary": "10 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [
-              "check_my_ip"
+              "check_my_ip",
+              "check_ai_weather"
             ],
             "notCovered": []
           }
@@ -46199,7 +46270,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 6 captured response(s), 1 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 12 captured response(s), 2 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -46217,7 +46288,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "check_my_ip declared read-only and changed nothing in the observed directories during a benign call"
+          "summary": "check_my_ip, check_ai_weather declared read-only and changed nothing in the observed directories during a benign call"
         },
         {
           "id": "openworld-honesty",
@@ -46252,25 +46323,34 @@
         }
       ],
       "coverage": {
-        "validCalls": 2,
-        "toolsCalledValid": 1,
-        "toolsTotal": 2,
+        "validCalls": 4,
+        "toolsCalledValid": 2,
+        "toolsTotal": 4,
         "level": "covered"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
+        "SQL tool \"lookup_asn\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"check_my_ip\" is covered by the core checks only: the tool takes no parameters",
         "tool \"lookup_ip\" is covered by the core checks only: free-text parameter \"ip\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"check_ai_weather\" is covered by the core checks only: the tool takes no parameters",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_my_ip": "7a014b717a77",
+          "lookup_ip": "407f78cfa87d"
+        }
+      }
     },
     {
       "id": "leafwright-mcp",
@@ -56186,16 +56266,16 @@
       "name": "@vaaya/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.8.1",
+      "versionTested": "0.8.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @vaaya/mcp@0.8.1",
+      "launch": "npx -y @vaaya/mcp@0.8.3",
       "transport": "stdio",
       "toolCount": 16,
       "tools": [
@@ -56496,7 +56576,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "schemas": {
           "buy": "dbfe34bfed9a",
           "close": "b95b5091a65b",
@@ -57682,16 +57762,16 @@
       "name": "@wavespeed/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.3.0",
+      "versionTested": "1.3.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @wavespeed/mcp@1.3.0",
+      "launch": "npx -y @wavespeed/mcp@1.3.1",
       "transport": "stdio",
       "toolCount": 16,
       "tools": [
@@ -57715,10 +57795,10 @@
       "toolSchemas": {
         "delete_predictions": "9f1842831f07",
         "edit_image": "61f6a109692e",
-        "edit_video": "b1151f159fc5",
-        "extend_video": "417da4cfcb87",
+        "edit_video": "8822243b7816",
+        "extend_video": "dbcd779d07a2",
         "generate_image": "e708507626b6",
-        "generate_video": "f59d4a5b9440",
+        "generate_video": "2cfa6a1bf6ed",
         "get_balance": "71fc596a20f2",
         "get_model_schema": "3098fa43211f",
         "get_prediction": "544912023521",
@@ -57957,24 +58037,24 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
-          "delete_predictions": "12af32baaa7d",
-          "edit_image": "a3e414761efe",
-          "edit_video": "809f839c5bd1",
-          "extend_video": "f489a8d2751a",
-          "generate_image": "56d45a9f9aae",
-          "generate_video": "d1bf0ca38011",
-          "get_balance": "7a014b717a77",
-          "get_model_schema": "bd3677606df8",
-          "get_prediction": "83d62acb0484",
-          "get_price": "0423e510757d",
-          "get_usage": "567b2c1224cb",
-          "list_billings": "2b57551d3fd1",
-          "list_models": "784c3849944e",
-          "list_predictions": "7534486b7109",
-          "run_model": "99bead7b70f3",
-          "upload_file": "5349e17e0ea9"
+          "delete_predictions": "9f1842831f07",
+          "edit_image": "61f6a109692e",
+          "edit_video": "b1151f159fc5",
+          "extend_video": "417da4cfcb87",
+          "generate_image": "e708507626b6",
+          "generate_video": "f59d4a5b9440",
+          "get_balance": "71fc596a20f2",
+          "get_model_schema": "3098fa43211f",
+          "get_prediction": "544912023521",
+          "get_price": "587579307ff8",
+          "get_usage": "f73ef4b35c3a",
+          "list_billings": "92836e304bd7",
+          "list_models": "415241cf9422",
+          "list_predictions": "a1e58414c5fc",
+          "run_model": "dd92f5287c70",
+          "upload_file": "7698e3c4f0be"
         }
       }
     },
@@ -58947,18 +59027,32 @@
       "name": "@zensation/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.3.1",
+      "versionTested": "0.3.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @zensation/mcp@0.3.1",
+      "launch": "npx -y @zensation/mcp@0.3.2",
       "transport": "stdio",
       "toolCount": 5,
+      "tools": [
+        "zenbrain_store",
+        "zenbrain_recall",
+        "zenbrain_forget",
+        "zenbrain_consolidate",
+        "zenbrain_health"
+      ],
+      "toolSchemas": {
+        "zenbrain_consolidate": "7a014b717a77",
+        "zenbrain_forget": "5a4cb8eece3a",
+        "zenbrain_health": "7a014b717a77",
+        "zenbrain_recall": "5b29fce82d9b",
+        "zenbrain_store": "c8907b944af8"
+      },
       "packs": [
         {
           "id": "core",
@@ -59047,15 +59141,13 @@
         {
           "id": "effects",
           "status": "graded",
-          "letter": "D",
-          "points": 1,
+          "letter": "A",
+          "points": 2,
           "scored": 2,
-          "pct": 50,
+          "pct": 100,
           "provisional": false,
           "capped": false,
-          "criticalFails": [
-            "annotation-honesty"
-          ],
+          "criticalFails": [],
           "reason": null
         }
       ],
@@ -59085,7 +59177,15 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "15 invalid call(s) rejected cleanly"
+          "summary": "15 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "zenbrain_health"
+            ],
+            "notCovered": [
+              "zenbrain_consolidate"
+            ]
+          }
         },
         {
           "id": "secret-echo",
@@ -59111,8 +59211,8 @@
           "label": "Read-only tools change nothing",
           "critical": true,
           "advisory": false,
-          "verdict": "fail",
-          "summary": null
+          "verdict": "pass",
+          "summary": "zenbrain_health declared read-only and changed nothing in the observed directories during a benign call"
         },
         {
           "id": "openworld-honesty",
@@ -59121,7 +59221,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": null
+          "summary": "2 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -59130,7 +59230,11 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "every tool carries annotations, nothing to check"
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -61569,8 +61673,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.476",
-      "versionTested": "1.108.476",
+      "refTested": "1.108.478",
+      "versionTested": "1.108.478",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-21",
       "sealmark": {
@@ -65866,16 +65970,16 @@
       "name": "shiwake-ai-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.6",
+      "versionTested": "1.1.8",
       "serverInfoName": "shiwake-ai-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y shiwake-ai-mcp@1.1.6",
+      "launch": "npx -y shiwake-ai-mcp@1.1.8",
       "transport": "stdio",
       "toolCount": 9,
       "tools": [
@@ -66119,7 +66223,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "entaizei_keisan": "cd5e31bdaeca",
           "furusato_nozei_jogen": "07e1d083108e",
@@ -66138,18 +66242,18 @@
       "name": "@pidgeon-ai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.14.0",
+      "versionTested": "1.15.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-21",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @pidgeon-ai/mcp@1.14.0",
+      "launch": "npx -y @pidgeon-ai/mcp@1.15.0",
       "transport": "stdio",
-      "toolCount": 83,
+      "toolCount": 84,
       "packs": [
         {
           "id": "core",
@@ -66241,8 +66345,8 @@
           "id": "effects",
           "status": "graded",
           "letter": "A",
-          "points": 1,
-          "scored": 1,
+          "points": 2,
+          "scored": 2,
           "pct": 100,
           "provisional": false,
           "capped": false,
@@ -66258,7 +66362,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 83 well-formed tool(s)"
+          "summary": "handshake ok, 84 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -66347,8 +66451,8 @@
           "label": "Closed-world tools stay on the machine",
           "critical": false,
           "advisory": false,
-          "verdict": "na",
-          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+          "verdict": "pass",
+          "summary": "16 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -66372,7 +66476,7 @@
       "coverage": {
         "validCalls": 17,
         "toolsCalledValid": 16,
-        "toolsTotal": 83,
+        "toolsTotal": 84,
         "level": "low"
       },
       "badge": {
@@ -66380,7 +66484,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 83 tools",
+        "malformed-input probes cover the first 25 of 84 tools",
         "tool \"add_webhook\" (url) was not probed by the net pack: the listener saw nothing, but 9 of 9 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"sign_in\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
@@ -66391,11 +66495,12 @@
         "tool \"get_inbox\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"hold_suspicious_mail\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"set_inbox_signature\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"set_inbox_agent\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"remove_inbox\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"send_message\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"create_draft\" is covered by the core checks only: free-text parameter \"inbox_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"get_draft\" is covered by the core checks only: free-text parameter \"draft_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "70 more tool(s) are covered by the core checks only (see the classification)",
+        "71 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"update_thread\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"list_labels\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"create_label\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"update_label\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -83503,6 +83608,239 @@
           "veriql_x402_seller_check": "d26c83d09eea"
         }
       }
+    },
+    {
+      "id": "constile-mcp",
+      "name": "constile-mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.1.1",
+      "serverInfoName": "constile-mcp",
+      "testedAt": "2026-11-21",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y constile-mcp@0.1.1",
+      "transport": "stdio",
+      "toolCount": 4,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "graded",
+          "letter": "F",
+          "points": 0.5,
+          "scored": 3,
+          "pct": 16.67,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [
+            "net-loopback-ssrf"
+          ],
+          "reason": null
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool declares annotations and none is an unannotated path or repository tool, so there is nothing to compare with what the sandbox observed"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 4 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 4 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "15 invalid call(s) rejected cleanly"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 15 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "fail",
+          "summary": null
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "part",
+          "summary": null
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "fail",
+          "summary": "size: the server read the whole 64 MiB body (the listener sent 64 of 64 MiB) and returned 0.06 MiB: it capped its reply, not what it reads; time: no reply within 18 s (timeout_probe_sec 10 + 8 s; a server whose own fetch timeout is longer fails this half although it caps: set --timeout-probe to its value)"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": null
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 9,
+        "toolsCalledValid": 1,
+        "toolsTotal": 4,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": true
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"report_sponsored_message\" is covered by the core checks only: free-text parameter \"token\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"set_constile_preference\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"get_constile_preference\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get_constile_preference\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
     }
   ],
   "verification": {
