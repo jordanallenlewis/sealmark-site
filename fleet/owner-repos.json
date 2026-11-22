@@ -284,6 +284,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "dealmonitor-mcp": {
+    "repo": "rwkaspar/dealmonitor",
+    "source": "pypi",
+    "resolvedAt": "2026-11-22"
+  },
   "decimalai-mcp": {
     "repo": "decimal-labs/decimalai-mcp",
     "source": "pypi",
