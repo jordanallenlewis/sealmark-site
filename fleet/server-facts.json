@@ -1071,6 +1071,38 @@
       },
       "repo": null
     },
+    "cappz-market": {
+      "checkedAt": "2026-11-22",
+      "source": "npm",
+      "license": "Apache-2.0",
+      "latest": {
+        "version": "16.1.2",
+        "date": "2026-11-22"
+      },
+      "repo": {
+        "name": "CAPPZ-ai/cappz-sdk",
+        "pushedAt": "2026-11-22",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "ai-agents",
+          "agent-marketplace",
+          "agent-payments",
+          "xrpl",
+          "xrp",
+          "rlusd",
+          "escrow",
+          "milestone-payments",
+          "marketplace",
+          "cli"
+        ]
+      }
+    },
     "catalystdesk-mcp-server": {
       "checkedAt": "2026-11-22",
       "source": "npm",

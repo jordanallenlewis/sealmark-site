@@ -1980,3 +1980,18 @@
 {"id":"shiplightai-mcp","version":"0.2.4","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"B","packs":{"core":"B"}}
 {"id":"skilltotal","version":"1.9.0","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"D","packs":{"core":"D","effects":"A"}}
 {"id":"trusty-squire-mcp","version":"1.1.61","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"B","packs":{"core":"B"}}
+{"id":"callmcp-server","version":"0.1.5","testedAt":"2026-11-22","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.3 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3 | npm notice To update run: npm install -g npm@12.2.3 | npm notice)."}
+{"id":"cappz-market","version":"16.1.2","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"F","packs":{"core":"B","net":"F"}}
+{"id":"catalystdesk-mcp-server","version":"1.1.0","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"chronary-mcp","version":"1.8.3","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"dchub-mcp-server","version":"2.12.62","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"galaxymovies-mcp","version":"1.0.2","testedAt":"2026-11-22","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.3 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3 | npm notice To update run: npm install -g npm@12.2.3 | npm notice)."}
+{"id":"jgravelle-jcodemunch-mcp","version":"1.108.485","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"B","packs":{"core":"A","effects":"B"}}
+{"id":"kajisho5-ffmpeg-skill","version":"4.7.0","testedAt":"2026-11-22","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.3 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3 | npm notice To update run: npm install -g npm@12.2.3 | npm notice)."}
+{"id":"keepstateai-cli","version":"0.1.47","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"D","packs":{"core":"D"}}
+{"id":"mobile-next-mobile-mcp","version":"1.0.19","testedAt":"2026-11-22","status":"failed","error":"could not start or talk to the server: MCP error -32000: Connection closed (server stderr: npm notice New major version of npm available! 11.19.1 -> 12.2.3 | npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3 | npm notice To update run: npm install -g npm@12.2.3 | npm notice)."}
+{"id":"mroffice-mcp","version":"0.2.0","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}
+{"id":"percher-mcp","version":"1.5.1","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"D","packs":{"core":"D"}}
+{"id":"securenow","version":"8.29.0","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"D","packs":{"core":"D","effects":"A"}}
+{"id":"simulator-use","version":"0.19.1","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"A","packs":{"core":"A"}}
+{"id":"smartmemory-mcp","version":"2.0.3","sealmark":"1.0.1","testedAt":"2026-11-22","status":"ok","worst":"A","packs":{"core":"A","effects":"A"}}

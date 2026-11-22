@@ -31274,18 +31274,18 @@
       "name": "smartmemory-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2.0.2",
+      "versionTested": "2.0.3",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx smartmemory-mcp==2.0.2",
+      "launch": "uvx smartmemory-mcp==2.0.3",
       "transport": "stdio",
-      "toolCount": 43,
+      "toolCount": 45,
       "tools": [
         "login",
         "whoami",
@@ -31320,6 +31320,8 @@
         "evidence_record",
         "decision_contradict",
         "decision_provenance",
+        "decision_history",
+        "decision_sites",
         "decision_find_conflicts",
         "decision_create_pending",
         "decision_resolve_requirement",
@@ -31338,6 +31340,7 @@
         "decision_create_pending": "8cdbcb1b29b6",
         "decision_find_conflicts": "3ba7b254a10c",
         "decision_get": "a8d0626548ee",
+        "decision_history": "cb78afbbde73",
         "decision_link_evidence": "3c9dd5907315",
         "decision_list": "ef95ea4275b7",
         "decision_provenance": "a8d0626548ee",
@@ -31346,6 +31349,7 @@
         "decision_restore": "32a62fdaf797",
         "decision_retract": "32a62fdaf797",
         "decision_search": "e4392cfc1985",
+        "decision_sites": "796069206e2a",
         "decision_supersede": "0e4b20b22b39",
         "decision_try_activate": "3ba7b254a10c",
         "evidence_record": "531bcb154312",
@@ -31482,7 +31486,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 43 well-formed tool(s)"
+          "summary": "handshake ok, 45 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -31491,7 +31495,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 43 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 45 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -31514,6 +31518,8 @@
               "evidence_record",
               "decision_contradict",
               "decision_provenance",
+              "decision_history",
+              "decision_sites",
               "decision_find_conflicts",
               "decision_create_pending",
               "decision_resolve_requirement",
@@ -31592,14 +31598,14 @@
       "coverage": {
         "validCalls": 8,
         "toolsCalledValid": 7,
-        "toolsTotal": 43,
+        "toolsTotal": 45,
         "level": "low"
       },
       "badge": {
         "eligible": true
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 43 tools",
+        "malformed-input probes cover the first 25 of 45 tools",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"login\" is covered by the core checks only: free-text parameter \"api_key\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"whoami\" is covered by the core checks only: the tool takes no parameters",
@@ -31613,7 +31619,7 @@
         "tool \"read_around\" is covered by the core checks only: free-text parameter \"item_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_get\" is covered by the core checks only: free-text parameter \"item_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"memory_explain\" is covered by the core checks only: free-text parameter \"memory_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "29 more tool(s) are covered by the core checks only (see the classification)",
+        "31 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"decision_supersede\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_retract\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_restore\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -31622,6 +31628,8 @@
         "tool \"evidence_record\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_contradict\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_provenance\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_history\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"decision_sites\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_find_conflicts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_create_pending\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"decision_resolve_requirement\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -31643,7 +31651,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "create_workspace": "881ff64934d5",
           "decision_contradict": "3c9dd5907315",
@@ -40830,7 +40838,7 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.61",
+      "versionTested": "2.12.62",
       "serverInfoName": "dchub-mcp-server",
       "testedAt": "2026-11-22",
       "sealmark": {
@@ -40839,7 +40847,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.61",
+      "launch": "npx -y dchub-mcp-server@2.12.62",
       "transport": "stdio",
       "toolCount": 98,
       "tools": [
@@ -50114,7 +50122,7 @@
       "name": "@percher/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.5.0",
+      "versionTested": "1.5.1",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-22",
       "sealmark": {
@@ -50123,7 +50131,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @percher/mcp@1.5.0",
+      "launch": "npx -y @percher/mcp@1.5.1",
       "transport": "stdio",
       "toolCount": 61,
       "packs": [
@@ -61714,8 +61722,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.483",
-      "versionTested": "1.108.483",
+      "refTested": "1.108.485",
+      "versionTested": "1.108.485",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-22",
       "sealmark": {
@@ -70876,16 +70884,16 @@
       "name": "@keepstateai/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.46",
+      "versionTested": "0.1.47",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @keepstateai/cli@0.1.46 mcp",
+      "launch": "npx -y @keepstateai/cli@0.1.47 mcp",
       "transport": "stdio",
       "toolCount": 37,
       "packs": [
@@ -73931,16 +73939,16 @@
       "name": "securenow",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "8.28.0",
+      "versionTested": "8.29.0",
       "serverInfoName": "securenow",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y securenow@8.28.0 mcp",
+      "launch": "npx -y securenow@8.29.0 mcp",
       "transport": "stdio",
       "toolCount": 125,
       "packs": [
@@ -74275,16 +74283,16 @@
       "name": "simulator-use",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.18.1",
+      "versionTested": "0.19.1",
       "serverInfoName": "simulator-use",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y simulator-use@0.18.1 mcp",
+      "launch": "npx -y simulator-use@0.19.1 mcp",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -74539,7 +74547,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "app_control": "fb769f187148",
           "app_logs": "9f62fcbce3c6",
@@ -82395,16 +82403,16 @@
       "name": "mroffice-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.0",
+      "versionTested": "0.2.0",
       "serverInfoName": "mroffice-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y mroffice-mcp@0.1.0",
+      "launch": "npx -y mroffice-mcp@0.2.0",
       "transport": "stdio",
       "toolCount": 11,
       "tools": [
@@ -82696,14 +82704,30 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "create_document": "4971b3347554",
+          "export_document": "20321ac6e45e",
+          "get_document": "04513f2fd485",
+          "list_documents": "7a014b717a77",
+          "open_document": "76bdbb0da5c0",
+          "render_page": "69341e58bbd9",
+          "sign_in": "7a014b717a77",
+          "sign_out": "7a014b717a77",
+          "update_document": "840bd8f83855",
+          "widget_load": "c8af00a8c051",
+          "widget_save": "8610181b8353"
+        }
+      }
     },
     {
       "id": "chronary-mcp",
       "name": "@chronary/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.8.2",
+      "versionTested": "1.8.3",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-22",
       "sealmark": {
@@ -82712,7 +82736,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @chronary/mcp@1.8.2",
+      "launch": "npx -y @chronary/mcp@1.8.3",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -84153,7 +84177,7 @@
       "name": "@catalystdesk/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.0",
+      "versionTested": "1.1.0",
       "serverInfoName": "mcp-server",
       "testedAt": "2026-11-22",
       "sealmark": {
@@ -84162,7 +84186,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @catalystdesk/mcp-server@1.0.0",
+      "launch": "npx -y @catalystdesk/mcp-server@1.1.0",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -84272,15 +84296,15 @@
         },
         {
           "id": "effects",
-          "status": "na",
-          "letter": null,
-          "points": null,
-          "scored": null,
-          "pct": null,
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+          "reason": null
         }
       ],
       "checks": [
@@ -84311,10 +84335,10 @@
           "verdict": "pass",
           "summary": "39 invalid call(s) rejected cleanly",
           "tools": {
-            "probed": [],
-            "notCovered": [
+            "probed": [
               "list_curated_symbols"
-            ]
+            ],
+            "notCovered": []
           }
         },
         {
@@ -84324,7 +84348,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 39 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 40 captured response(s), 1 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -84334,6 +84358,37 @@
           "advisory": true,
           "verdict": "pass",
           "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "list_curated_symbols declared read-only and changed nothing in the observed directories during a benign call"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "1 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
         },
         {
           "id": "refusal-quality",
@@ -84346,14 +84401,13 @@
         }
       ],
       "coverage": {
-        "validCalls": 0,
-        "toolsCalledValid": 0,
+        "validCalls": 2,
+        "toolsCalledValid": 1,
         "toolsTotal": 8,
-        "level": "hygiene-only"
+        "level": "low"
       },
       "badge": {
-        "eligible": false,
-        "reason": "core-only run: no capability pack was graded"
+        "eligible": true
       },
       "notCovered": [
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
@@ -84365,7 +84419,299 @@
         "tool \"scan_parameter_surface\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"compute_execution_guardrail\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"scan_curated_universe_regimes\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
-        "tool \"list_curated_symbols\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "cappz-market",
+      "name": "@cappz/market",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "16.1.2",
+      "serverInfoName": "market",
+      "testedAt": "2026-11-22",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @cappz/market@16.1.2 mcp",
+      "transport": "stdio",
+      "toolCount": 43,
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "B",
+          "points": 3.5,
+          "scored": 4,
+          "pct": 87.5,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "graded",
+          "letter": "F",
+          "points": 1,
+          "scored": 3,
+          "pct": 33.33,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [
+            "net-loopback-ssrf"
+          ],
+          "reason": null
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool declares readOnlyHint: true"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 43 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 43 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "part",
+          "summary": "0 internals leak(s), 8 invalid call(s) accepted"
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 117 captured response(s), 8 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "fail",
+          "summary": null
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": null
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "fail",
+          "summary": "size: the server read the whole 64 MiB body (the listener sent 64 of 64 MiB) and returned 0.00 MiB: it capped its reply, not what it reads; time: no reply within 18 s (timeout_probe_sec 10 + 8 s; a server whose own fetch timeout is longer fails this half although it caps: set --timeout-probe to its value)"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": null
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "no tool declares readOnlyHint: true"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "market_constraints-draft carry no annotations and changed nothing"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 10,
+        "toolsCalledValid": 2,
+        "toolsTotal": 43,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": true
+      },
+      "notCovered": [
+        "malformed-input probes cover the first 25 of 43 tools",
+        "tool \"market_deliver\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"market_evaluate\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"market_sell\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
+        "tool \"market_update\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
+        "tool \"market_hire\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"market_setup\" is covered by the core checks only: free-text parameter \"as\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_wallet\" is covered by the core checks only: free-text parameter \"as\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_trust\" is covered by the core checks only: free-text parameter \"currency\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_login\" is covered by the core checks only: free-text parameter \"email\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_profile\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"market_cosign\" is covered by the core checks only: free-text parameter \"contract\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_mandate\" is covered by the core checks only: free-text parameter \"agent\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_find\" is covered by the core checks only: free-text parameter \"text\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_show\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_deals\" is covered by the core checks only: free-text parameter \"as\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_listings\" is covered by the core checks only: free-text parameter \"as\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"market_withdraw\" is covered by the core checks only: free-text parameter \"listing\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "25 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"market_close\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_dispute\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_cancel\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_review\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_check\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_payee\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_confirm-payee\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_evaluate\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_draft\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_scout\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_constraints-draft\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_constraints-review\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_constraints-triage\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_hire\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_skills\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_ops\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_call\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"market_demo\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",

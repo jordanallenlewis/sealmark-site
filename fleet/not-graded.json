@@ -3,9 +3,9 @@
   "byReason": {
     "exited-no-error": 73,
     "dependency-resolution": 27,
+    "missing-runtime": 7,
     "needs-credentials": 9,
     "bad-launch": 7,
-    "missing-runtime": 7,
     "initialize-timeout": 12,
     "unknown": 10,
     "needs-service": 3
@@ -27,10 +27,17 @@
     },
     {
       "id": "kajisho5-ffmpeg-skill",
-      "version": "4.6.5",
+      "version": "4.7.0",
       "lastTried": "2026-11-22",
-      "attempts": 28,
+      "attempts": 29,
       "reason": "exited-no-error"
+    },
+    {
+      "id": "mobile-next-mobile-mcp",
+      "version": "1.0.19",
+      "lastTried": "2026-11-22",
+      "attempts": 4,
+      "reason": "missing-runtime"
     },
     {
       "id": "plune-ai-cli",
@@ -192,13 +199,6 @@
       "lastTried": "2026-11-19",
       "attempts": 5,
       "reason": "bad-launch"
-    },
-    {
-      "id": "mobile-next-mobile-mcp",
-      "version": "1.0.18",
-      "lastTried": "2026-11-18",
-      "attempts": 3,
-      "reason": "missing-runtime"
     },
     {
       "id": "jordan-gibbs-hyperresearch",
