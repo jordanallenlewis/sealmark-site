@@ -189,6 +189,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "catalystdesk-mcp-server": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-22"
+  },
   "celo-buy": {
     "repo": "celo-org/buy-skill",
     "source": "npm",

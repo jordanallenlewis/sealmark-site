@@ -30500,16 +30500,16 @@
       "name": "@shiplightai/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.2.3",
+      "versionTested": "0.2.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @shiplightai/mcp@0.2.3",
+      "launch": "npx -y @shiplightai/mcp@0.2.4",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -30801,7 +30801,24 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "act": "3f59ee12a5b6",
+          "attach_to_browser": "9c5b6b8b175d",
+          "close_session": "1535b2e7d9bc",
+          "generate_html_report": "16716ab66d19",
+          "get_browser_console_logs": "c56918479b9f",
+          "get_browser_network_logs": "46a7ace9b9a4",
+          "get_locators": "c22724530d20",
+          "get_page_info": "289b564d4aa7",
+          "inspect_page": "289b564d4aa7",
+          "navigate": "ff72eda793b3",
+          "new_session": "7c512dfd1445",
+          "save_storage_state": "6e065725ef13"
+        }
+      }
     },
     {
       "id": "smartmemory-compose-mcp",
@@ -38296,16 +38313,16 @@
       "name": "@appscreen/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.30.3",
+      "versionTested": "0.30.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @appscreen/mcp@0.30.3",
+      "launch": "npx -y @appscreen/mcp@0.30.5",
       "transport": "stdio",
       "toolCount": 2,
       "tools": [
@@ -38313,8 +38330,8 @@
         "get_render_status"
       ],
       "toolSchemas": {
-        "get_render_status": "cb585ba4e591",
-        "render_screenshots": "240d9f63a45e"
+        "get_render_status": "970aca7e133a",
+        "render_screenshots": "a11471d5cc01"
       },
       "packs": [
         {
@@ -38494,7 +38511,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_render_status": "cb585ba4e591",
+          "render_screenshots": "240d9f63a45e"
+        }
+      }
     },
     {
       "id": "atlasyield-mcp",
@@ -40806,16 +40830,16 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.60",
+      "versionTested": "2.12.61",
       "serverInfoName": "dchub-mcp-server",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.60",
+      "launch": "npx -y dchub-mcp-server@2.12.61",
       "transport": "stdio",
       "toolCount": 98,
       "tools": [
@@ -40948,7 +40972,7 @@
         "get_dchub_recommendation": "d4aa64286788",
         "get_disaster_risk": "87fa7b407c75",
         "get_energy_prices": "e985fced2372",
-        "get_facility": "5e02092cf04c",
+        "get_facility": "9482ae1dbb92",
         "get_facility_risk_delta": "d248ee3475da",
         "get_fiber_intel": "1be8fbeb58b1",
         "get_fiber_readiness": "9d3ceaf99b01",
@@ -40957,7 +40981,7 @@
         "get_gas_intelligence": "a40d73aae5ec",
         "get_global_power": "44521126bb65",
         "get_grid_data": "bd4a62e2a714",
-        "get_grid_intelligence": "d22de7559ea9",
+        "get_grid_intelligence": "79b45c4f08ff",
         "get_grid_scoreboard": "efddc7bd8bbc",
         "get_hosting_capacity": "63fb1bff9a82",
         "get_infra_projects": "2fb54fc45a54",
@@ -41435,16 +41459,17 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
+          "accept_capacity_intro": "7480ef01f65e",
           "accept_capacity_terms": "ea95f28c0fca",
           "ai_capacity_index": "8980beb8ed37",
           "analyze_parcel": "487426f2eb0c",
-          "analyze_site": "0d0cd54360d9",
+          "analyze_site": "43cf244f18d1",
           "bind_email": "acf45c9f36f5",
           "cluster_sites_by_latency": "f8763f006ba6",
           "compare_isos": "bb40fab3450e",
-          "compare_sites": "c3f870801f2b",
+          "compare_sites": "97b4061d9d7c",
           "dchub_services": "08c50499a540",
           "deal_autopsy": "5dd5ee80541b",
           "delete_standing_intent": "32a9bbc61364",
@@ -41453,7 +41478,7 @@
           "export_dataset": "5ccc67cd6ce8",
           "fetch": "f77af9c467b4",
           "find_alternatives": "6d749b3a224c",
-          "find_sites": "e2c0c660e2e8",
+          "find_sites": "9e8964795eb1",
           "generate_site_analysis": "5fddffda6b87",
           "get_agent_registry": "efddc7bd8bbc",
           "get_air_permit_context": "82f5adfb2612",
@@ -41464,27 +41489,27 @@
           "get_composite_site_score": "01b6045463a3",
           "get_dchub_recommendation": "d4aa64286788",
           "get_disaster_risk": "87fa7b407c75",
-          "get_energy_prices": "d5b6947798d0",
+          "get_energy_prices": "e985fced2372",
           "get_facility": "5e02092cf04c",
           "get_facility_risk_delta": "d248ee3475da",
-          "get_fiber_intel": "81522eeb20d7",
+          "get_fiber_intel": "1be8fbeb58b1",
           "get_fiber_readiness": "9d3ceaf99b01",
           "get_gas_economics": "21aa6691eeae",
           "get_gas_index": "b4071309566c",
           "get_gas_intelligence": "a40d73aae5ec",
           "get_global_power": "44521126bb65",
-          "get_grid_data": "322fc74d0677",
-          "get_grid_intelligence": "0759a2f05e98",
+          "get_grid_data": "bd4a62e2a714",
+          "get_grid_intelligence": "d22de7559ea9",
           "get_grid_scoreboard": "efddc7bd8bbc",
           "get_hosting_capacity": "63fb1bff9a82",
           "get_infra_projects": "2fb54fc45a54",
           "get_infrastructure": "9dceaaaa0bce",
           "get_intelligence_index": "efddc7bd8bbc",
-          "get_interconnection_queue": "7bbb38f1d504",
+          "get_interconnection_queue": "60b2f3823406",
           "get_iso_context": "ca186ab719bb",
           "get_market_context": "e282c85e12a5",
           "get_market_dcpi_rank": "290311c34508",
-          "get_market_intel": "d0b4071552fd",
+          "get_market_intel": "cb495c66fe76",
           "get_metro_fiber": "142de5c1b5fa",
           "get_news": "6cfeb50fa6fc",
           "get_peering_intel": "d05f62bd7c87",
@@ -41493,12 +41518,12 @@
           "get_power_availability_timeline": "58627ddf0618",
           "get_power_pipeline": "468abbaccb5a",
           "get_refined_queue": "5b76e0dd02b7",
-          "get_renewable_energy": "873df754d2a1",
+          "get_renewable_energy": "49d3b92679fa",
           "get_retirement_headroom": "95b1a4b96991",
           "get_shortlist": "cc18eb2d7cc7",
           "get_subsea_cables": "e0c881182ac3",
           "get_tax_incentives": "b29a7748668e",
-          "get_water_risk": "21fc64e27c7e",
+          "get_water_risk": "fbbe3685c840",
           "grid_transition_radar": "c68079080155",
           "hyperscaler_deals": "443fd09af829",
           "list_saved_sites": "4a61679ffbb3",
@@ -41507,7 +41532,7 @@
           "plan_fiber_leadin": "1f4d1bcbd681",
           "plan_query": "ee3b15f99dd8",
           "predict_market_trajectory": "58e08b39f540",
-          "rank_markets": "0a7915ccc664",
+          "rank_markets": "28f05ac4634d",
           "rank_sites": "1b336f3aa244",
           "read_inbox": "56973a4b111b",
           "recover_my_key": "0d3330072144",
@@ -41520,14 +41545,14 @@
           "save_to_shortlist": "030314a0fcc3",
           "score_facility": "62eaa470d5af",
           "search": "8740bd9f89a3",
-          "search_facilities": "58ce18ea132e",
+          "search_facilities": "e84603bbbe41",
           "search_intelligence": "2244ecb07a4e",
           "semantic_search": "70b19a45f387",
           "set_market_alert": "3e40dd152b7c",
           "set_shortlist_alert": "eeae945a3d6e",
           "set_site_alert": "8897e4fd5263",
           "simulate_scenario": "dcbef11e483c",
-          "site_selection_canvas": "80e351574bc6",
+          "site_selection_canvas": "a3e191bcc34a",
           "source_capacity": "f926facedc78",
           "subscribe_digest": "8ddb907381b9",
           "suggest_reallocation": "31bc20b630c0",
@@ -61689,8 +61714,8 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.482",
-      "versionTested": "1.108.482",
+      "refTested": "1.108.483",
+      "versionTested": "1.108.483",
       "serverInfoName": "jcodemunch-mcp",
       "testedAt": "2026-11-22",
       "sealmark": {
@@ -66590,16 +66615,16 @@
       "name": "aamio",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.8.0",
+      "versionTested": "0.8.1",
       "serverInfoName": "aamio",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y aamio@0.8.0 serve",
+      "launch": "npx -y aamio@0.8.1 serve",
       "transport": "stdio",
       "toolCount": 24,
       "tools": [
@@ -66650,7 +66675,7 @@
         "aamio_scope_remove": "c70d2daf7166",
         "aamio_scope_share": "e0d4a3735355",
         "aamio_scopes": "99334726611c",
-        "aamio_send": "f01f69cf40ab",
+        "aamio_send": "c8f93f4232d6",
         "aamio_trace": "830654739735",
         "aamio_whoami": "99334726611c"
       },
@@ -66882,7 +66907,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "aamio_board_answer": "fb505a837f9d",
           "aamio_board_find": "1124811d8a09",
@@ -74536,16 +74561,16 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.8.0",
+      "versionTested": "1.9.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.8.0 mcp",
+      "launch": "uvx skilltotal==1.9.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -77494,16 +77519,16 @@
       "name": "@trusty-squire/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.43",
+      "versionTested": "1.1.61",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @trusty-squire/mcp@1.1.43 server",
+      "launch": "npx -y @trusty-squire/mcp@1.1.61 server",
       "transport": "stdio",
       "toolCount": 34,
       "tools": [
@@ -77556,7 +77581,7 @@
         "operate_click": "e75039a3016c",
         "operate_dialog": "95b99a82aa72",
         "operate_download": "7cb6e55f8f84",
-        "operate_drive": "dbacf30e75e1",
+        "operate_drive": "87903194071f",
         "operate_extract": "4666c3bc24c6",
         "operate_finish": "a9df857957a9",
         "operate_login": "202255be7285",
@@ -77875,7 +77900,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "audit_log": "a077713d6e57",
           "delete_credential": "efc7b9a0dcfe",
@@ -82678,16 +82703,16 @@
       "name": "@chronary/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.8.0",
+      "versionTested": "1.8.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @chronary/mcp@1.8.0",
+      "launch": "npx -y @chronary/mcp@1.8.2",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -82873,7 +82898,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "sign_up_anonymous": "aeb2c76c7e44"
+        }
+      }
     },
     {
       "id": "dten-speed",
@@ -84113,6 +84144,232 @@
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "catalystdesk-mcp-server",
+      "name": "@catalystdesk/mcp-server",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "1.0.0",
+      "serverInfoName": "mcp-server",
+      "testedAt": "2026-11-22",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @catalystdesk/mcp-server@1.0.0",
+      "transport": "stdio",
+      "toolCount": 8,
+      "tools": [
+        "list_curated_symbols",
+        "get_delayed_regime_lite",
+        "get_regime_snapshot",
+        "compute_dynamic_regime",
+        "compute_multiframe_resonance",
+        "scan_parameter_surface",
+        "compute_execution_guardrail",
+        "scan_curated_universe_regimes"
+      ],
+      "toolSchemas": {
+        "compute_dynamic_regime": "9efd169fc76e",
+        "compute_execution_guardrail": "459793971c54",
+        "compute_multiframe_resonance": "e8e84f998401",
+        "get_delayed_regime_lite": "2a856e007cfa",
+        "get_regime_snapshot": "c6a4646f1e2d",
+        "list_curated_symbols": "d746974fa9af",
+        "scan_curated_universe_regimes": "d21ac29e9946",
+        "scan_parameter_surface": "7a6d7b3bd770"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a harness-owned target (file path, repository or URL) with medium confidence or higher, and none is a read-only tool with no required parameter"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 8 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 8 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "39 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": [
+              "list_curated_symbols"
+            ]
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 39 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 8,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"list_curated_symbols\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get_delayed_regime_lite\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_regime_snapshot\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"compute_dynamic_regime\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"compute_multiframe_resonance\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"scan_parameter_surface\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"compute_execution_guardrail\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"scan_curated_universe_regimes\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"list_curated_symbols\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
       "automated": true
