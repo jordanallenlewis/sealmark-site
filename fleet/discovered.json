@@ -1444,5 +1444,11 @@
     "name": "constile-mcp",
     "ecosystem": "npm",
     "launch": "npx -y constile-mcp@0.1.1"
+  },
+  {
+    "id": "dealmonitor-mcp",
+    "name": "dealmonitor-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx dealmonitor-mcp==1.0.0"
   }
 ]

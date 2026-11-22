@@ -7853,16 +7853,16 @@
       "name": "@adeu/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.1.0",
+      "versionTested": "4.2.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @adeu/mcp-server@4.1.0",
+      "launch": "npx -y @adeu/mcp-server@4.2.0",
       "transport": "stdio",
       "toolCount": 6,
       "tools": [
@@ -7878,7 +7878,7 @@
         "apply_text_revision": "4a2706129f69",
         "diff_docx_files": "5dc4d6de156e",
         "finalize_document": "6b3652127db0",
-        "process_document_batch": "3310d5583710",
+        "process_document_batch": "f975bff3c26b",
         "read_docx": "d673b3f98a7b"
       },
       "packs": [
@@ -8102,7 +8102,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "schemas": {
           "accept_all_changes": "28ac19bc98f6",
           "apply_text_revision": "4a2706129f69",
@@ -14344,7 +14344,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-21",
+        "date": "2026-11-22",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -24790,16 +24790,16 @@
       "name": "overwing-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.16.0",
+      "versionTested": "0.16.1",
       "serverInfoName": "overwing-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y overwing-mcp@0.16.0",
+      "launch": "npx -y overwing-mcp@0.16.1",
       "transport": "stdio",
       "toolCount": 45,
       "tools": [
@@ -25213,7 +25213,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "atlas_agents": "66cf08555304",
           "atlas_list_registrations": "7a014b717a77",
@@ -25243,6 +25243,10 @@
           "preflight_report": "2a19aa08cb5c",
           "preflight_verdict": "a572fd8f9543",
           "prove_domain": "2c7124172a48",
+          "radar_get_incident": "68fd67745627",
+          "radar_list_incidents": "3ff1465ebba3",
+          "radar_mint_decoy": "f4f91250e11c",
+          "radar_status": "7a014b717a77",
           "tower_capabilities": "7a014b717a77",
           "tower_compensate": "998c65e820ae",
           "tower_create_agent": "545a803ef2ad",
@@ -42360,16 +42364,16 @@
       "name": "dwelldelta-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.17.1",
+      "versionTested": "0.17.2",
       "serverInfoName": "dwelldelta-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dwelldelta-mcp@0.17.1",
+      "launch": "npx -y dwelldelta-mcp@0.17.2",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -42608,7 +42612,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "area_rents": "ccbec2f43cb0",
+          "contribute_rent": "d7cc2fb070a7",
+          "data_sources": "7a014b717a77",
+          "market_indicators": "2530e846073b",
+          "nsw_sale_prices": "043c795face9",
+          "property_rents": "7f2f62401cd0",
+          "rent_check": "ce7b8a039e9e",
+          "vic_rents": "cf274dafb60b"
+        }
+      }
     },
     {
       "id": "feeling-search-mcp",
@@ -50072,16 +50089,16 @@
       "name": "@percher/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.4.0",
+      "versionTested": "1.5.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @percher/mcp@1.4.0",
+      "launch": "npx -y @percher/mcp@1.5.0",
       "transport": "stdio",
       "toolCount": 61,
       "packs": [
@@ -50149,17 +50166,15 @@
         },
         {
           "id": "net",
-          "status": "graded",
-          "letter": "F",
-          "points": 0.5,
-          "scored": 3,
-          "pct": 16.67,
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
           "provisional": false,
           "capped": false,
-          "criticalFails": [
-            "net-loopback-ssrf"
-          ],
-          "reason": null
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "sqlite",
@@ -50212,7 +50227,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "103 invalid call(s) rejected cleanly"
+          "summary": "102 invalid call(s) rejected cleanly"
         },
         {
           "id": "secret-echo",
@@ -50238,8 +50253,8 @@
           "label": "Refuses loopback targets (SSRF)",
           "critical": true,
           "advisory": false,
-          "verdict": "fail",
-          "summary": null
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -50247,8 +50262,8 @@
           "label": "Only http(s) schemes accepted",
           "critical": true,
           "advisory": false,
-          "verdict": "part",
-          "summary": null
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 12 of 12 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-caps",
@@ -50256,8 +50271,8 @@
           "label": "Response size and time are capped",
           "critical": false,
           "advisory": false,
-          "verdict": "fail",
-          "summary": "size: the server read the whole 64 MiB body (the listener sent 64 of 64 MiB) and returned 0.00 MiB: it capped its reply, not what it reads; time: no reply within 18 s (timeout_probe_sec 10 + 8 s; a server whose own fetch timeout is longer fails this half although it caps: set --timeout-probe to its value)"
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
         },
         {
           "id": "net-redirect",
@@ -50265,8 +50280,8 @@
           "label": "Redirects are re-validated",
           "critical": false,
           "advisory": false,
-          "verdict": "inconclusive",
-          "summary": null
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
         },
         {
           "id": "annotation-honesty",
@@ -50306,35 +50321,35 @@
         }
       ],
       "coverage": {
-        "validCalls": 18,
-        "toolsCalledValid": 2,
+        "validCalls": 0,
+        "toolsCalledValid": 0,
         "toolsTotal": 61,
-        "level": "low"
+        "level": "hygiene-only"
       },
       "badge": {
-        "eligible": true
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
         "malformed-input probes cover the first 25 of 61 tools",
         "tool \"percher_restore\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"percher_create_from_template\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"percher_login\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
+        "tool \"percher_webhook\" (url) was not probed by the net pack: the listener saw nothing, but 18 of 18 probes were not explicitly refused (9 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
         "tool \"percher_appstore_kit\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
-        "tool \"percher_webhook\" was not covered by the effects pack: no annotations and not a read-style tool, so it is expected to change state",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"percher_publish_patch\" is covered by the core checks only: would be path (param \"files[].path\", description matches /files/), but required parameter \"files\" cannot be filled by the harness; write a probes: entry to call it",
         "tool \"percher_publish\" is covered by the core checks only: free-text parameter \"message\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_wait_for_deploy\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_redeploy\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_reproduce\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"percher_login\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
         "tool \"percher_wait_for_auth\" is covered by the core checks only: free-text parameter \"deviceCode\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_init\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"percher_logs\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_unsuspend\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_sleep\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"percher_cache_reset\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"percher_env_set\" is covered by the core checks only: free-text parameter \"app\": no path, URL, command, SQL or repository signal; its required parameter \"values\" cannot be filled by the harness; write a probes: entry to call it",
-        "43 more tool(s) are covered by the core checks only (see the classification)",
+        "44 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"percher_inspect_link\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"percher_rollback\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"percher_backups\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -50378,6 +50393,7 @@
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it",
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
@@ -61673,10 +61689,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.478",
-      "versionTested": "1.108.478",
+      "refTested": "1.108.482",
+      "versionTested": "1.108.482",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -61918,7 +61934,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -65709,7 +65725,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-21",
+        "date": "2026-11-22",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -68950,16 +68966,16 @@
       "name": "@flydocs/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.3.47",
+      "versionTested": "1.3.48",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @flydocs/cli@1.3.47 mcp",
+      "launch": "npx -y @flydocs/cli@1.3.48 mcp",
       "transport": "stdio",
       "toolCount": 19,
       "tools": [
@@ -69246,7 +69262,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "change_context": "9bffb567da9e",
           "issue_acceptance_update": "e87ad3b06a84",
@@ -82864,16 +82880,16 @@
       "name": "dten-speed",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.0.1",
+      "versionTested": "1.3.0",
       "serverInfoName": "dten-speed",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dten-speed@1.0.1 mcp",
+      "launch": "npx -y dten-speed@1.3.0 mcp",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -83059,7 +83075,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "measure_connection": "6c1e3e39bf21"
+        }
+      }
     },
     {
       "id": "hellohop-mcp",
@@ -83614,16 +83636,16 @@
       "name": "constile-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.1",
+      "versionTested": "0.1.2",
       "serverInfoName": "constile-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-22",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y constile-mcp@0.1.1",
+      "launch": "npx -y constile-mcp@0.1.2",
       "transport": "stdio",
       "toolCount": 4,
       "packs": [
@@ -83838,6 +83860,259 @@
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "dealmonitor-mcp",
+      "name": "dealmonitor-mcp",
+      "ecosystem": "pypi",
+      "round": "fleet",
+      "versionTested": "1.0.0",
+      "serverInfoName": "uvx",
+      "testedAt": "2026-11-22",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "uvx dealmonitor-mcp==1.0.0",
+      "transport": "stdio",
+      "toolCount": 6,
+      "tools": [
+        "check_price",
+        "watch_price",
+        "list_watches",
+        "price_history",
+        "set_target_price",
+        "stop_watching"
+      ],
+      "toolSchemas": {
+        "check_price": "5f57cbd596a8",
+        "list_watches": "0f4b6525c8d7",
+        "price_history": "378a29f60c88",
+        "set_target_price": "0a2afab6f347",
+        "stop_watching": "64fdec982229",
+        "watch_price": "b064ab6d6c1e"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool declares annotations and none is an unannotated path or repository tool, so there is nothing to compare with what the sandbox observed"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 6 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 6 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "25 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 25 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (0 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach; the tool may be a lookup rather than a fetcher, settle it with tools.overrides)"
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 12 of 12 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 6,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"list_watches\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"price_history\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"set_target_price\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"stop_watching\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
       "automated": true

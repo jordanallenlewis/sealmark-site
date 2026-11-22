@@ -1,16 +1,37 @@
 {
   "count": 147,
   "byReason": {
-    "missing-runtime": 7,
+    "dependency-resolution": 27,
     "exited-no-error": 73,
+    "bad-launch": 7,
+    "missing-runtime": 7,
     "initialize-timeout": 12,
     "unknown": 10,
-    "bad-launch": 7,
-    "dependency-resolution": 27,
     "needs-credentials": 8,
     "needs-service": 3
   },
   "servers": [
+    {
+      "id": "jerbouma-financetoolkit",
+      "version": "2.3.5",
+      "lastTried": "2026-11-22",
+      "attempts": 3,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "4.5.3",
+      "lastTried": "2026-11-22",
+      "attempts": 27,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "zhuyansen-new-term-radar",
+      "version": "0.7.1",
+      "lastTried": "2026-11-22",
+      "attempts": 3,
+      "reason": "bad-launch"
+    },
     {
       "id": "chrisryugj-kordoc",
       "version": "4.25.3",
@@ -24,13 +45,6 @@
       "lastTried": "2026-11-21",
       "attempts": 3,
       "reason": "missing-runtime"
-    },
-    {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "4.5.0",
-      "lastTried": "2026-11-21",
-      "attempts": 26,
-      "reason": "exited-no-error"
     },
     {
       "id": "qybaihe-bla",
@@ -72,13 +86,6 @@
       "version": "2.3.31",
       "lastTried": "2026-11-21",
       "attempts": 9,
-      "reason": "bad-launch"
-    },
-    {
-      "id": "zhuyansen-new-term-radar",
-      "version": "0.7.0",
-      "lastTried": "2026-11-21",
-      "attempts": 2,
       "reason": "bad-launch"
     },
     {
@@ -324,13 +331,6 @@
       "version": "1.1.1",
       "lastTried": "2026-11-15",
       "attempts": 1,
-      "reason": "dependency-resolution"
-    },
-    {
-      "id": "jerbouma-financetoolkit",
-      "version": "2.3.4",
-      "lastTried": "2026-11-14",
-      "attempts": 2,
       "reason": "dependency-resolution"
     },
     {
