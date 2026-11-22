@@ -1,16 +1,23 @@
 {
-  "count": 147,
+  "count": 148,
   "byReason": {
-    "dependency-resolution": 27,
     "exited-no-error": 73,
+    "dependency-resolution": 27,
+    "needs-credentials": 9,
     "bad-launch": 7,
     "missing-runtime": 7,
     "initialize-timeout": 12,
     "unknown": 10,
-    "needs-credentials": 8,
     "needs-service": 3
   },
   "servers": [
+    {
+      "id": "evalstate-fast-agent",
+      "version": "0.10.65",
+      "lastTried": "2026-11-22",
+      "attempts": 3,
+      "reason": "exited-no-error"
+    },
     {
       "id": "jerbouma-financetoolkit",
       "version": "2.3.5",
@@ -20,10 +27,17 @@
     },
     {
       "id": "kajisho5-ffmpeg-skill",
-      "version": "4.5.3",
+      "version": "4.6.5",
       "lastTried": "2026-11-22",
-      "attempts": 27,
+      "attempts": 28,
       "reason": "exited-no-error"
+    },
+    {
+      "id": "plune-ai-cli",
+      "version": "0.39.8",
+      "lastTried": "2026-11-22",
+      "attempts": 1,
+      "reason": "needs-credentials"
     },
     {
       "id": "zhuyansen-new-term-radar",
@@ -185,13 +199,6 @@
       "lastTried": "2026-11-18",
       "attempts": 3,
       "reason": "missing-runtime"
-    },
-    {
-      "id": "evalstate-fast-agent",
-      "version": "0.10.55",
-      "lastTried": "2026-11-17",
-      "attempts": 2,
-      "reason": "exited-no-error"
     },
     {
       "id": "jordan-gibbs-hyperresearch",

@@ -1450,5 +1450,11 @@
     "name": "dealmonitor-mcp",
     "ecosystem": "pypi",
     "launch": "uvx dealmonitor-mcp==1.0.0"
+  },
+  {
+    "id": "catalystdesk-mcp-server",
+    "name": "@catalystdesk/mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y @catalystdesk/mcp-server@1.0.0"
   }
 ]

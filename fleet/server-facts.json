@@ -1071,6 +1071,16 @@
       },
       "repo": null
     },
+    "catalystdesk-mcp-server": {
+      "checkedAt": "2026-11-22",
+      "source": "npm",
+      "license": null,
+      "latest": {
+        "version": "1.0.0",
+        "date": "2026-11-22"
+      },
+      "repo": null
+    },
     "celo-buy": {
       "checkedAt": "2026-11-22",
       "source": "npm",
