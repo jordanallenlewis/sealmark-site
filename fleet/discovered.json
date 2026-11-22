@@ -1456,5 +1456,11 @@
     "name": "@catalystdesk/mcp-server",
     "ecosystem": "npm",
     "launch": "npx -y @catalystdesk/mcp-server@1.0.0"
+  },
+  {
+    "id": "cappz-market",
+    "name": "@cappz/market",
+    "ecosystem": "npm",
+    "launch": "npx -y @cappz/market@16.1.2 mcp"
   }
 ]

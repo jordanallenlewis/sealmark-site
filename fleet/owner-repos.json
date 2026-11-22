@@ -189,6 +189,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "cappz-market": {
+    "repo": "CAPPZ-ai/cappz-sdk",
+    "source": "npm",
+    "resolvedAt": "2026-11-22"
+  },
   "catalystdesk-mcp-server": {
     "repo": null,
     "source": "npm",
