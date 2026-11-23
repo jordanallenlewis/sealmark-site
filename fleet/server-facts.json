@@ -3016,6 +3016,45 @@
         ]
       }
     },
+    "himalayas-mcp": {
+      "checkedAt": "2026-11-23",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-11-23"
+      },
+      "repo": {
+        "name": "Himalayas-App/remote-jobs-api",
+        "pushedAt": "2026-11-23",
+        "archived": false,
+        "openIssues": 0
+      },
+      "about": {
+        "keywords": [
+          "himalayas",
+          "mcp",
+          "mcp server",
+          "model context protocol",
+          "stdio",
+          "remote jobs",
+          "job search",
+          "salaries",
+          "ai agents",
+          "claude",
+          "cursor",
+          "mcp-remote",
+          "api",
+          "hiring",
+          "job-board",
+          "job-search",
+          "jobs",
+          "jobs-api",
+          "jobs-feed",
+          "jobsearch"
+        ]
+      }
+    },
     "hostbeam-mcp": {
       "checkedAt": "2026-11-23",
       "source": "npm",

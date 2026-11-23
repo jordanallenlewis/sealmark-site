@@ -529,6 +529,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "himalayas-mcp": {
+    "repo": "Himalayas-App/remote-jobs-api",
+    "source": "npm",
+    "resolvedAt": "2026-11-23"
+  },
   "hostbeam-mcp": {
     "repo": "PunkAbeat/hostbeam-mcp",
     "source": "npm",
