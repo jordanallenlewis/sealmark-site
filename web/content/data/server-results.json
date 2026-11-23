@@ -14344,7 +14344,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -14354,16 +14354,16 @@
       "name": "@certscore/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.2.35",
+      "versionTested": "0.2.36",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-23",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @certscore/mcp@0.2.35",
+      "launch": "npx -y @certscore/mcp@0.2.36",
       "transport": "stdio",
       "toolCount": 14,
       "tools": [
@@ -14659,7 +14659,26 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "certscore_explain_finding": "044f71dd0466",
+          "certscore_export_findings": "3cb7ee077d7c",
+          "certscore_get_connection_status": "7a014b717a77",
+          "certscore_get_evidence": "3cb7ee077d7c",
+          "certscore_get_latest_domain_pre_consent_cookies_trackers": "9f94a1f91113",
+          "certscore_get_latest_domain_scan": "307484c63d37",
+          "certscore_get_pre_consent_cookies_trackers": "94663e6b3d61",
+          "certscore_get_report": "7feafb15c740",
+          "certscore_get_report_evidence_page": "6513122422d2",
+          "certscore_get_scan": "3cb7ee077d7c",
+          "certscore_get_scan_bundle": "f59b95a5ce7b",
+          "certscore_get_scan_status": "feacaafb9bed",
+          "certscore_list_findings": "72aa6af6185f",
+          "certscore_scan_site": "ed7c442f08b4"
+        }
+      }
     },
     {
       "id": "chainhilt",
@@ -18948,16 +18967,16 @@
       "name": "@haymon-ai/dbmcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.19.0",
+      "versionTested": "0.20.0",
       "serverInfoName": "dbmcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-23",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @haymon-ai/dbmcp@0.19.0",
+      "launch": "npx -y @haymon-ai/dbmcp@0.20.0",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -18971,7 +18990,7 @@
         "readQuery"
       ],
       "toolSchemas": {
-        "explainQuery": "e8f636148974",
+        "explainQuery": "16be788c4fdb",
         "listDatabases": "a3fec90b3248",
         "listFunctions": "144c861afdc2",
         "listProcedures": "492ad570c6fd",
@@ -19166,7 +19185,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "explainQuery": "e8f636148974",
           "listDatabases": "a3fec90b3248",
@@ -31274,16 +31293,16 @@
       "name": "smartmemory-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2.0.3",
+      "versionTested": "2.0.4",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-23",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx smartmemory-mcp==2.0.3",
+      "launch": "uvx smartmemory-mcp==2.0.4",
       "transport": "stdio",
       "toolCount": 45,
       "tools": [
@@ -31651,7 +31670,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "create_workspace": "881ff64934d5",
           "decision_contradict": "3c9dd5907315",
@@ -31659,6 +31678,7 @@
           "decision_create_pending": "8cdbcb1b29b6",
           "decision_find_conflicts": "3ba7b254a10c",
           "decision_get": "a8d0626548ee",
+          "decision_history": "cb78afbbde73",
           "decision_link_evidence": "3c9dd5907315",
           "decision_list": "ef95ea4275b7",
           "decision_provenance": "a8d0626548ee",
@@ -31667,6 +31687,7 @@
           "decision_restore": "32a62fdaf797",
           "decision_retract": "32a62fdaf797",
           "decision_search": "e4392cfc1985",
+          "decision_sites": "796069206e2a",
           "decision_supersede": "0e4b20b22b39",
           "decision_try_activate": "3ba7b254a10c",
           "evidence_record": "531bcb154312",
@@ -65758,7 +65779,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "status": "failed",
         "kind": "start-fail"
       }
