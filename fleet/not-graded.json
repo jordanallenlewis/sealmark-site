@@ -1,16 +1,30 @@
 {
-  "count": 148,
+  "count": 149,
   "byReason": {
     "exited-no-error": 73,
+    "needs-credentials": 10,
     "dependency-resolution": 27,
     "missing-runtime": 7,
-    "needs-credentials": 9,
     "bad-launch": 7,
     "initialize-timeout": 12,
     "unknown": 10,
     "needs-service": 3
   },
   "servers": [
+    {
+      "id": "dosco-deeporg",
+      "version": "3.21.25",
+      "lastTried": "2026-11-23",
+      "attempts": 1,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "tokonomix-council-mcp",
+      "version": "1.14.1",
+      "lastTried": "2026-11-23",
+      "attempts": 2,
+      "reason": "needs-credentials"
+    },
     {
       "id": "evalstate-fast-agent",
       "version": "0.10.65",
@@ -931,13 +945,6 @@
     {
       "id": "timescale-pg-aiguide",
       "version": "0.6.1",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "tokonomix-council-mcp",
-      "version": "1.14.0",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "exited-no-error"
