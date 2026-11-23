@@ -1,28 +1,84 @@
 {
   "count": 149,
   "byReason": {
-    "exited-no-error": 73,
-    "needs-credentials": 10,
+    "exited-no-error": 72,
+    "missing-runtime": 8,
     "dependency-resolution": 27,
-    "missing-runtime": 7,
-    "bad-launch": 7,
     "initialize-timeout": 12,
+    "needs-credentials": 10,
+    "bad-launch": 7,
     "unknown": 10,
     "needs-service": 3
   },
   "servers": [
     {
-      "id": "dosco-deeporg",
-      "version": "3.21.25",
+      "id": "brightdata-brightdata-mcp",
+      "version": "4.9.0",
       "lastTried": "2026-11-23",
-      "attempts": 1,
+      "attempts": 3,
       "reason": "exited-no-error"
     },
     {
-      "id": "tokonomix-council-mcp",
-      "version": "1.14.1",
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.7",
+      "lastTried": "2026-11-23",
+      "attempts": 27,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "dosco-deeporg",
+      "version": "3.21.26",
       "lastTried": "2026-11-23",
       "attempts": 2,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "jnmetacode-agency-orchestrator",
+      "version": "desktop-v0.4.15",
+      "lastTried": "2026-11-23",
+      "attempts": 2,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "4.7.1",
+      "lastTried": "2026-11-23",
+      "attempts": 30,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "knockoutez-wigolo",
+      "version": "0.3.2",
+      "lastTried": "2026-11-23",
+      "attempts": 2,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "marker-inc-korea-autorag",
+      "version": "2.14.2",
+      "lastTried": "2026-11-23",
+      "attempts": 11,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.5.9",
+      "lastTried": "2026-11-23",
+      "attempts": 21,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.80.4",
+      "lastTried": "2026-11-23",
+      "attempts": 12,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "tokonomix-council-mcp",
+      "version": "1.14.2",
+      "lastTried": "2026-11-23",
+      "attempts": 3,
       "reason": "needs-credentials"
     },
     {
@@ -38,13 +94,6 @@
       "lastTried": "2026-11-22",
       "attempts": 3,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "4.7.0",
-      "lastTried": "2026-11-22",
-      "attempts": 29,
-      "reason": "exited-no-error"
     },
     {
       "id": "mobile-next-mobile-mcp",
@@ -68,32 +117,11 @@
       "reason": "bad-launch"
     },
     {
-      "id": "chrisryugj-kordoc",
-      "version": "4.25.3",
-      "lastTried": "2026-11-21",
-      "attempts": 26,
-      "reason": "missing-runtime"
-    },
-    {
       "id": "chrisryugj-korean-law-mcp",
       "version": "4.15.25",
       "lastTried": "2026-11-21",
       "attempts": 3,
       "reason": "missing-runtime"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.5.7",
-      "lastTried": "2026-11-21",
-      "attempts": 20,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "ruvnet-ruflo",
-      "version": "3.80.0",
-      "lastTried": "2026-11-21",
-      "attempts": 11,
-      "reason": "initialize-timeout"
     },
     {
       "id": "samanhappy-mcphub",
@@ -157,13 +185,6 @@
       "lastTried": "2026-11-20",
       "attempts": 5,
       "reason": "bad-launch"
-    },
-    {
-      "id": "marker-inc-korea-autorag",
-      "version": "2.14.1",
-      "lastTried": "2026-11-20",
-      "attempts": 10,
-      "reason": "dependency-resolution"
     },
     {
       "id": "samuelgursky-davinci-resolve-mcp",
@@ -374,13 +395,6 @@
       "lastTried": "2026-11-11",
       "attempts": 2,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "brightdata-brightdata-mcp",
-      "version": "4.8.0",
-      "lastTried": "2026-11-10",
-      "attempts": 2,
-      "reason": "exited-no-error"
     },
     {
       "id": "agentdomain-mcp",
@@ -721,20 +735,6 @@
     {
       "id": "jau123-meigen-ai-design-mcp",
       "version": "3.4.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "jnmetacode-agency-orchestrator",
-      "version": "desktop-v0.4.14",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "knockoutez-wigolo",
-      "version": "0.3.1",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "exited-no-error"

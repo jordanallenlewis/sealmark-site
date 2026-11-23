@@ -1462,5 +1462,11 @@
     "name": "@cappz/market",
     "ecosystem": "npm",
     "launch": "npx -y @cappz/market@16.1.2 mcp"
+  },
+  {
+    "id": "himalayas-mcp",
+    "name": "@himalayas/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @himalayas/mcp@0.1.0"
   }
 ]

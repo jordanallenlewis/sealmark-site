@@ -1,21 +1,22 @@
 {
-  "generatedAt": "2026-11-23T06:39:38.091Z",
+  "generatedAt": "2026-11-23T23:44:10.624Z",
   "window": 600,
-  "graded": 453,
-  "failed": 147,
+  "graded": 449,
+  "failed": 151,
   "clusters": [
     {
       "servers": [
-        "vaaya-mcp"
+        "vaaya-mcp",
+        "himalayas-mcp"
       ],
       "key": "slow:run",
       "kind": "slow-path",
       "labels": [
         "performance"
       ],
-      "title": "Slow runs: 4 servers took over 5 min or timed out",
-      "count": 4,
-      "detail": "Longest: 327 s. Find which probe or pack dominates and add a per-probe budget."
+      "title": "Slow runs: 5 servers took over 5 min or timed out",
+      "count": 5,
+      "detail": "Longest: 420 s. Find which probe or pack dominates and add a per-probe budget."
     }
   ],
   "surfaceChanged": []
