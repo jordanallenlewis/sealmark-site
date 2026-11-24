@@ -11052,18 +11052,18 @@
       "name": "@anyforge/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "3.24.0",
+      "versionTested": "3.25.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @anyforge/mcp-server@3.24.0",
+      "launch": "npx -y @anyforge/mcp-server@3.25.0",
       "transport": "stdio",
-      "toolCount": 273,
+      "toolCount": 285,
       "tools": [
         "anyforge_branch_studio_session",
         "anyforge_rewind_studio_session",
@@ -11156,6 +11156,7 @@
         "anyforge_approve_task_proposal",
         "anyforge_create_initiative",
         "anyforge_dispatch_architect",
+        "anyforge_reject_backlog",
         "anyforge_update_initiative",
         "anyforge_delete_initiative",
         "anyforge_get_initiative_status",
@@ -11234,6 +11235,7 @@
         "anyforge_message_work",
         "anyforge_handback_work",
         "anyforge_halt_crew",
+        "anyforge_dismiss_crew",
         "anyforge_amend_crew",
         "anyforge_fix_crew_ci",
         "anyforge_accept_crew_ci_check",
@@ -11262,9 +11264,7 @@
         "anyforge_list_my_feedback",
         "anyforge_get_feedback",
         "anyforge_investigate_repository",
-        "anyforge_get_repository_investigation",
-        "anyforge_list_workflows",
-        "anyforge_get_workflow"
+        "anyforge_get_repository_investigation"
       ],
       "packs": [
         {
@@ -11372,7 +11372,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 273 well-formed tool(s)"
+          "summary": "handshake ok, 285 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -11460,6 +11460,7 @@
               "anyforge_approve_task_proposal",
               "anyforge_create_initiative",
               "anyforge_dispatch_architect",
+              "anyforge_reject_backlog",
               "anyforge_update_initiative",
               "anyforge_delete_initiative",
               "anyforge_get_initiative_status",
@@ -11538,6 +11539,7 @@
               "anyforge_message_work",
               "anyforge_handback_work",
               "anyforge_halt_crew",
+              "anyforge_dismiss_crew",
               "anyforge_amend_crew",
               "anyforge_fix_crew_ci",
               "anyforge_accept_crew_ci_check",
@@ -11591,11 +11593,9 @@
               "anyforge_update_status_page_publication",
               "anyforge_post_status_page_update",
               "anyforge_withdraw_status_page_publication",
-              "anyforge_list_status_page_maintenance",
-              "anyforge_schedule_status_page_maintenance",
-              "anyforge_update_status_page_maintenance"
+              "anyforge_list_status_page_maintenance"
             ],
-            "cut": 48
+            "cut": 60
           }
         },
         {
@@ -11660,7 +11660,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 273,
+        "toolsTotal": 285,
         "level": "hygiene-only"
       },
       "badge": {
@@ -11668,7 +11668,7 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 273 tools",
+        "malformed-input probes cover the first 25 of 285 tools",
         "SQL tool \"anyforge_update_objective\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"anyforge_list_connected_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"anyforge_list_report_filter_values\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -11696,7 +11696,7 @@
         "tool \"anyforge_preview_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"anyforge_cancel_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"anyforge_retry_studio_crew_batch\" is covered by the core checks only: free-text parameter \"sessionId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "236 more tool(s) are covered by the core checks only (see the classification)",
+        "248 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"anyforge_list_studio_artifacts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_studio_review\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_studio_checkpoint\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -11763,6 +11763,7 @@
         "tool \"anyforge_approve_task_proposal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_initiative\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_dispatch_architect\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_reject_backlog\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_update_initiative\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_delete_initiative\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_initiative_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -11841,6 +11842,7 @@
         "tool \"anyforge_message_work\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_handback_work\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_halt_crew\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_dismiss_crew\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_amend_crew\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_fix_crew_ci\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_accept_crew_ci_check\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -11930,6 +11932,16 @@
         "tool \"anyforge_create_risk\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_risks\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_update_risk\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_list_crm_proposals\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_crm_proposal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_submit_crm_proposal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_decide_crm_proposal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_update_crm_record\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_revert_crm_proposal\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_crm_approval_rates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_register_crm_agent\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_promote_crm_agent\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"anyforge_get_crm_policy\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_list_skills\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_get_skill\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"anyforge_create_skill\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -14344,7 +14356,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-23",
+        "date": "2026-11-24",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -18967,16 +18979,16 @@
       "name": "@haymon-ai/dbmcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.20.0",
+      "versionTested": "0.21.0",
       "serverInfoName": "dbmcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @haymon-ai/dbmcp@0.20.0",
+      "launch": "npx -y @haymon-ai/dbmcp@0.21.0",
       "transport": "stdio",
       "toolCount": 8,
       "tools": [
@@ -19185,9 +19197,9 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
-          "explainQuery": "e8f636148974",
+          "explainQuery": "16be788c4fdb",
           "listDatabases": "a3fec90b3248",
           "listFunctions": "144c861afdc2",
           "listProcedures": "492ad570c6fd",
@@ -36827,16 +36839,16 @@
       "name": "apick-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "5.14.4",
+      "versionTested": "5.14.5",
       "serverInfoName": "apick-mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y apick-mcp@5.14.4",
+      "launch": "npx -y apick-mcp@5.14.5",
       "transport": "stdio",
       "toolCount": 255,
       "tools": [
@@ -70964,16 +70976,16 @@
       "name": "@keepstateai/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.47",
+      "versionTested": "0.1.48",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @keepstateai/cli@0.1.47 mcp",
+      "launch": "npx -y @keepstateai/cli@0.1.48 mcp",
       "transport": "stdio",
       "toolCount": 37,
       "packs": [
@@ -74649,16 +74661,16 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.10.0",
+      "versionTested": "1.11.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.10.0 mcp",
+      "launch": "uvx skilltotal==1.11.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -77607,16 +77619,16 @@
       "name": "@trusty-squire/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.64",
+      "versionTested": "1.1.65",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @trusty-squire/mcp@1.1.64 server",
+      "launch": "npx -y @trusty-squire/mcp@1.1.65 server",
       "transport": "stdio",
       "toolCount": 34,
       "tools": [
@@ -77988,7 +78000,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "schemas": {
           "audit_log": "a077713d6e57",
           "delete_credential": "efc7b9a0dcfe",
@@ -84526,16 +84538,16 @@
       "name": "@cappz/market",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "16.3.0",
+      "versionTested": "16.3.1",
       "serverInfoName": "market",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @cappz/market@16.3.0 mcp",
+      "launch": "npx -y @cappz/market@16.3.1 mcp",
       "transport": "stdio",
       "toolCount": 43,
       "packs": [
@@ -84819,16 +84831,16 @@
       "name": "@himalayas/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.0",
+      "versionTested": "0.1.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @himalayas/mcp@0.1.0",
+      "launch": "npx -y @himalayas/mcp@0.1.2",
       "transport": "stdio",
       "toolCount": 78,
       "tools": [
@@ -85237,7 +85249,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "part",
-          "summary": "declared read-only; only caches changed (sandbox home or temp): get_my_profile, get_saved_jobs, list_documents, list_interviews, get_interview_results, get_interview_practice_link, list_saved_answers, list_notifications, list_coach_chats, list_headshots, get_headshots_link (the run stopped early: the run was interrupted, so the server was not started again)"
+          "summary": "declared read-only; only caches changed (sandbox home or temp): get_my_profile, get_saved_jobs, list_documents, list_interviews, get_interview_results, get_interview_practice_link, list_saved_answers, list_notifications, list_coach_chats, list_headshots (the run stopped early: the run was interrupted, so the server was not started again)"
         },
         {
           "id": "openworld-honesty",
@@ -85246,7 +85258,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "18 closed-world tool(s) called; none reached out beyond what was asked"
+          "summary": "17 closed-world tool(s) called; none reached out beyond what was asked"
         },
         {
           "id": "undeclared-writes",
@@ -85272,8 +85284,8 @@
         }
       ],
       "coverage": {
-        "validCalls": 18,
-        "toolsCalledValid": 18,
+        "validCalls": 17,
+        "toolsCalledValid": 17,
         "toolsTotal": 78,
         "level": "low"
       },
@@ -85361,6 +85373,370 @@
       "warnings": [
         "the run was interrupted; the report may be incomplete"
       ],
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-23",
+        "schemas": {
+          "add_company_perk": "2b9fbe10986f",
+          "add_education": "39eba2fadca0",
+          "add_experience": "3b7abb22e954",
+          "check_job_payment_status": "3f7c52dbb874",
+          "create_company_job": "634539500286",
+          "delete_company_job": "339414c9ed7c",
+          "delete_conversation": "f5d61a332f14",
+          "delete_document": "a71d4dfefb7f",
+          "delete_education": "56e6ae15c067",
+          "delete_experience": "445c2506e200",
+          "delete_saved_answer": "dcf6d85f48ce",
+          "generate_application_documents": "9a0ac9712c12",
+          "get_apply_link": "d1f7632eea8e",
+          "get_billing_portal_link": "93ab7499dc3c",
+          "get_coach_chat": "b62a8202d26a",
+          "get_companies": "b70c5b730698",
+          "get_company_details": "3343e297e51e",
+          "get_company_perks": "93ab7499dc3c",
+          "get_company_profile": "93ab7499dc3c",
+          "get_conversation": "1de2b9d0f9ab",
+          "get_correct_country_name": "0be3a74083a5",
+          "get_document": "a71d4dfefb7f",
+          "get_headshots_link": "93ab7499dc3c",
+          "get_interview_practice_link": "5bfb3e49b772",
+          "get_interview_results": "ce0e16f4cc72",
+          "get_job_details": "8b939cf25575",
+          "get_jobs": "07744a627aa5",
+          "get_my_conversation": "7c4fe6a779d4",
+          "get_my_profile": "93ab7499dc3c",
+          "get_new_matches": "93ab7499dc3c",
+          "get_plus_checkout_link": "b6994df4ca33",
+          "get_related_jobs": "0ebdf205b548",
+          "get_remote_work_statistics": "1dd8d0e619b1",
+          "get_salary_data": "4d9496ddf2e7",
+          "get_saved_jobs": "93ab7499dc3c",
+          "get_talent_profile": "f4abec59f9cb",
+          "get_verification_link": "93ab7499dc3c",
+          "import_profile": "89a38db898ab",
+          "join_radar_waitlist": "93ab7499dc3c",
+          "list_coach_chats": "93ab7499dc3c",
+          "list_company_jobs": "f0970e135450",
+          "list_conversations": "93ab7499dc3c",
+          "list_documents": "2c92f53c649c",
+          "list_headshots": "93ab7499dc3c",
+          "list_interviews": "93ab7499dc3c",
+          "list_my_conversations": "93ab7499dc3c",
+          "list_notifications": "93ab7499dc3c",
+          "list_saved_answers": "93ab7499dc3c",
+          "mark_message_read": "9961598ce3d1",
+          "mark_my_message_read": "c84c5c80c974",
+          "mark_notifications_read": "5cf6c56218e9",
+          "purchase_job_extras": "e004d73428c4",
+          "remove_company_perk": "69fe1db1b6ef",
+          "remove_saved_job": "f63d7501afdd",
+          "reply_to_message": "89f39d626580",
+          "save_job": "260173325d6d",
+          "search_companies": "acd3c0f49a9a",
+          "search_jobs": "ebdd9ca4f397",
+          "search_talent": "e8155ccef6eb",
+          "send_message": "de4096c5e65a",
+          "show_company_job": "276d010cd971",
+          "skip_job": "9ab309f29f61",
+          "start_conversation": "a877394cf2f1",
+          "submit_feedback": "a3082c89073b",
+          "update_account": "8beed6306404",
+          "update_company_job": "7f464dfd81af",
+          "update_company_profile": "6622be16328d",
+          "update_company_tech_stack": "e3a00199a1b7",
+          "update_document": "534c6c3e0ddf",
+          "update_education": "2dc9b16a5dba",
+          "update_email_preferences": "83ee9f589b59",
+          "update_experience": "ce94a6f90946",
+          "update_job_status": "9a5b323bf8db",
+          "update_profile": "8d4e9c42aefa",
+          "update_profile_photo": "1ccd6c80b5ee",
+          "update_saved_answer": "383034fc4c2e",
+          "update_tech_stack": "4c5e6cba39bb",
+          "use_headshot_as_profile_photo": "c12114466d59"
+        }
+      }
+    },
+    {
+      "id": "hypelens-hypelens-agent-rail",
+      "name": "@hypelens/hypelens-agent-rail",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.2.1",
+      "serverInfoName": "hypelens-agent-rail",
+      "testedAt": "2026-11-24",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @hypelens/hypelens-agent-rail@0.2.1",
+      "transport": "stdio",
+      "toolCount": 17,
+      "tools": [
+        "hl_pretrade_check",
+        "hl_walls",
+        "hl_cascade",
+        "hl_whale_book",
+        "hl_market",
+        "hl_open_orders",
+        "hl_positions",
+        "hl_balances",
+        "hl_setup",
+        "hl_quickstart",
+        "hl_exchange_status",
+        "hl_new_agent_wallet",
+        "hl_approve_payloads",
+        "hl_builder_fee_status",
+        "hl_place_order",
+        "hl_cancel_order",
+        "hl_close_position"
+      ],
+      "toolSchemas": {
+        "hl_approve_payloads": "1c3944a17a29",
+        "hl_balances": "fbaf6fb8889c",
+        "hl_builder_fee_status": "fbaf6fb8889c",
+        "hl_cancel_order": "e811edaf04f2",
+        "hl_cascade": "484ed734f195",
+        "hl_close_position": "aeacfa71daf7",
+        "hl_exchange_status": "7a014b717a77",
+        "hl_market": "ab30a76e31e1",
+        "hl_new_agent_wallet": "7a014b717a77",
+        "hl_open_orders": "fbaf6fb8889c",
+        "hl_place_order": "0054127c24de",
+        "hl_positions": "6c53a1d62e83",
+        "hl_pretrade_check": "a55c5d889daa",
+        "hl_quickstart": "2ae03ca200a8",
+        "hl_setup": "4911bb692927",
+        "hl_walls": "af4ceec7e698",
+        "hl_whale_book": "ee94298d9cd4"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "B",
+          "points": 3.5,
+          "scored": 4,
+          "pct": 87.5,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "A",
+          "points": 1,
+          "scored": 1,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "part",
+          "summary": "1 non-JSON-RPC line(s) on stdout"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 17 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "68 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "hl_exchange_status"
+            ],
+            "notCovered": [
+              "hl_new_agent_wallet"
+            ]
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 69 captured response(s), 1 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "hl_market, hl_quickstart, hl_exchange_status declared read-only and changed nothing in the observed directories during a benign call (hl_open_orders, hl_positions, hl_balances, hl_builder_fee_status not judged: the control call failed)"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 8,
+        "toolsCalledValid": 7,
+        "toolsTotal": 17,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": true
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"hl_pretrade_check\" is covered by the core checks only: free-text parameter \"coin\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_walls\" is covered by the core checks only: free-text parameter \"coin\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_cascade\" is covered by the core checks only: free-text parameter \"coin\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_whale_book\" is covered by the core checks only: free-text parameter \"coin\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_market\" is covered by the core checks only: free-text parameter \"coin\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_open_orders\" is covered by the core checks only: free-text parameter \"user\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_positions\" is covered by the core checks only: free-text parameter \"user\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_balances\" is covered by the core checks only: free-text parameter \"user\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_setup\" is covered by the core checks only: free-text parameter \"agentAddress\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_quickstart\" is covered by the core checks only: free-text parameter \"coin\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"hl_exchange_status\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"hl_new_agent_wallet\" is covered by the core checks only: the tool takes no parameters",
+        "5 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"hl_new_agent_wallet\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
       "automated": true
     }
   ],

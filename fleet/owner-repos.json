@@ -565,6 +565,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-15"
   },
+  "hypelens-hypelens-agent-rail": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-24"
+  },
   "inite-club-mcp": {
     "repo": "inite-ai/inite-club-mcp",
     "source": "npm",

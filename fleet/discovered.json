@@ -1468,5 +1468,11 @@
     "name": "@himalayas/mcp",
     "ecosystem": "npm",
     "launch": "npx -y @himalayas/mcp@0.1.0"
+  },
+  {
+    "id": "hypelens-hypelens-agent-rail",
+    "name": "@hypelens/hypelens-agent-rail",
+    "ecosystem": "npm",
+    "launch": "npx -y @hypelens/hypelens-agent-rail@0.2.1"
   }
 ]
