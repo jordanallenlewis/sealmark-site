@@ -3468,16 +3468,16 @@
       "name": "@upstash/context7-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.7.3",
+      "versionTested": "4.8.0",
       "serverInfoName": "context7-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @upstash/context7-mcp@4.7.3",
+      "launch": "npx -y @upstash/context7-mcp@4.8.0",
       "transport": "stdio",
       "toolCount": 2,
       "tools": [
@@ -3485,7 +3485,7 @@
         "query-docs"
       ],
       "toolSchemas": {
-        "query-docs": "6de422617332",
+        "query-docs": "9d668ddc4be1",
         "resolve-library-id": "ff2f303df207"
       },
       "packs": [
@@ -3603,7 +3603,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 2 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 2 tool definition(s), the server instructions and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -3668,7 +3668,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "schemas": {
           "query-docs": "6de422617332",
           "resolve-library-id": "ff2f303df207"
@@ -30856,27 +30856,31 @@
       "name": "@smartmemory/compose-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.7.2",
+      "versionTested": "0.7.3",
       "serverInfoName": "compose-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @smartmemory/compose-mcp@0.7.2",
+      "launch": "npx -y @smartmemory/compose-mcp@0.7.3",
       "transport": "stdio",
-      "toolCount": 51,
+      "toolCount": 40,
       "tools": [
         "get_vision_items",
         "get_item_detail",
         "get_phase_summary",
         "get_blocked_items",
         "get_current_session",
+        "live_state_get",
+        "live_order_add",
+        "live_order_supersede",
+        "live_state_configure",
+        "record_evidence",
         "bind_session",
         "set_workspace",
-        "get_workspace",
         "get_feature_lifecycle",
         "kill_feature",
         "complete_feature",
@@ -30894,8 +30898,6 @@
         "validate_feature",
         "validate_project",
         "roadmap_graph",
-        "roadmap_graph_check",
-        "roadmap_xref_push",
         "propose_followup",
         "link_artifact",
         "link_features",
@@ -30905,32 +30907,17 @@
         "get_changelog_entries",
         "write_journal_entry",
         "get_journal_entries",
-        "backfill_completion",
         "record_completion",
-        "get_completions",
-        "write_checkpoint",
-        "compose_resume",
-        "judgment_position_create",
-        "judgment_position_amend",
-        "judgment_joint_add",
-        "judgment_transition",
-        "judgment_ledger_append",
-        "judgment_person_write",
-        "judgment_situation_write",
-        "judgment_goal_write",
-        "get_judgment_state",
-        "get_judgment_trace"
+        "get_completions"
       ],
       "toolSchemas": {
-        "abort_iteration_loop": "ce2676244bae",
+        "abort_iteration_loop": "fe64764fa4a6",
         "add_changelog_entry": "e1da62fc7f48",
-        "add_roadmap_entry": "fb7e4494a922",
-        "approve_gate": "5920f896c41b",
+        "add_roadmap_entry": "26ea7fb2ed91",
+        "approve_gate": "3abc8e3daaec",
         "assess_feature_artifacts": "1f068e158f3d",
-        "backfill_completion": "3a168aa72ef6",
         "bind_session": "29c4bd9499b4",
-        "complete_feature": "313037dae018",
-        "compose_resume": "bb9e19b0511b",
+        "complete_feature": "612fd2b2cb7a",
         "get_blocked_items": "efddc7bd8bbc",
         "get_changelog_entries": "34370a3804d5",
         "get_completions": "79c63235c2fd",
@@ -30940,38 +30927,29 @@
         "get_feature_links": "25681fcf7b43",
         "get_item_detail": "a808bd1d3a37",
         "get_journal_entries": "d65e5067b98e",
-        "get_judgment_state": "efddc7bd8bbc",
-        "get_judgment_trace": "a2601e1c0170",
-        "get_pending_gates": "223782b167aa",
+        "get_pending_gates": "0687bc70dfe5",
         "get_phase_summary": "7a0ff85bb25b",
         "get_roadmap": "dba43682a8a2",
         "get_vision_items": "2308ed2ec3ca",
-        "get_workspace": "efddc7bd8bbc",
-        "judgment_goal_write": "66f05a33734d",
-        "judgment_joint_add": "6a2a79c7a6f4",
-        "judgment_ledger_append": "ebee96b3eddc",
-        "judgment_person_write": "f3268bd60e4e",
-        "judgment_position_amend": "e2da6d939594",
-        "judgment_position_create": "2d1355c5c1dc",
-        "judgment_situation_write": "23c7090b955c",
-        "judgment_transition": "9a952f13399a",
         "kill_feature": "3027affe310e",
-        "link_artifact": "ba10716271dc",
+        "link_artifact": "b281a2b33025",
         "link_features": "55ba2136c926",
+        "live_order_add": "2d3939bba64c",
+        "live_order_supersede": "fc5e2a9cc10f",
+        "live_state_configure": "e61679e564f1",
+        "live_state_get": "3b7cbf42a151",
         "propose_followup": "c8e1f97e1dee",
-        "record_completion": "03bae872d4d7",
-        "report_iteration_result": "230d5d4b4f2e",
+        "record_completion": "27f32ad9faf4",
+        "record_evidence": "754a84e375dc",
+        "report_iteration_result": "2e8121695544",
         "roadmap_diff": "54cb214b4587",
         "roadmap_graph": "34e37e757ef9",
-        "roadmap_graph_check": "739fb7a3a9a5",
-        "roadmap_xref_push": "3139ab74a99c",
-        "scaffold_feature": "e78d4880a6f0",
-        "set_feature_status": "db3112179268",
+        "scaffold_feature": "0b0778a434cc",
+        "set_feature_status": "4c7699adcd55",
         "set_workspace": "cfacc9571c38",
-        "start_iteration_loop": "2de642a49f2e",
+        "start_iteration_loop": "1041345411b4",
         "validate_feature": "88b695e736c4",
         "validate_project": "c44cb4549dbd",
-        "write_checkpoint": "4bb657636e87",
         "write_journal_entry": "e4fd0c9462b0"
       },
       "packs": [
@@ -31080,7 +31058,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 51 well-formed tool(s)"
+          "summary": "handshake ok, 40 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -31089,7 +31067,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 51 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 40 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -31098,12 +31076,14 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "106 invalid call(s) rejected cleanly",
+          "summary": "113 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [],
             "notCovered": [
-              "roadmap_graph_check",
-              "roadmap_xref_push",
+              "get_roadmap",
+              "validate_feature",
+              "validate_project",
+              "roadmap_graph",
               "propose_followup",
               "link_artifact",
               "link_features",
@@ -31113,23 +31093,9 @@
               "get_changelog_entries",
               "write_journal_entry",
               "get_journal_entries",
-              "backfill_completion",
               "record_completion",
               "get_completions",
-              "write_checkpoint",
-              "compose_resume",
-              "judgment_position_create",
-              "judgment_position_amend",
-              "judgment_joint_add",
-              "judgment_transition",
-              "judgment_ledger_append",
-              "judgment_person_write",
-              "judgment_situation_write",
-              "judgment_goal_write",
-              "get_judgment_state",
-              "get_judgment_trace",
-              "get_blocked_items",
-              "get_workspace"
+              "get_blocked_items"
             ]
           }
         },
@@ -31140,7 +31106,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 106 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 113 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -31216,10 +31182,10 @@
           "tools": {
             "probed": [],
             "notCovered": [
+              "live_order_add",
+              "live_state_configure",
               "link_artifact",
-              "link_features",
-              "judgment_person_write",
-              "judgment_situation_write"
+              "link_features"
             ]
           }
         },
@@ -31236,7 +31202,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 51,
+        "toolsTotal": 40,
         "level": "hygiene-only"
       },
       "badge": {
@@ -31244,11 +31210,11 @@
         "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 51 tools",
+        "malformed-input probes cover the first 25 of 40 tools",
+        "tool \"live_order_add\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"live_state_configure\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"link_artifact\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"link_features\" (git) was not probed by the git pack: the server config has no {sandbox} placeholder, so the repository scope cannot be configured (a server given a real repository would reach every other repository legitimately); pass {sandbox}/repo as its repository argument",
-        "tool \"judgment_person_write\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"judgment_situation_write\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"link_features\" also looks like a url tool (secondary class); it was attempted by the net pack but every call failed",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"get_vision_items\" is covered by the core checks only: free-text parameter \"phase\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
@@ -31256,16 +31222,18 @@
         "tool \"get_phase_summary\" is covered by the core checks only: free-text parameter \"phase\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_blocked_items\" is covered by the core checks only: the tool takes no parameters",
         "tool \"get_current_session\" is covered by the core checks only: free-text parameter \"featureCode\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"live_state_get\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"live_order_supersede\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"record_evidence\" is covered by the core checks only: the tool has no string parameters; its required parameter \"evidence\" cannot be filled by the harness; write a probes: entry to call it",
         "tool \"bind_session\" is covered by the core checks only: free-text parameter \"featureCode\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"set_workspace\" is covered by the core checks only: free-text parameter \"workspaceId\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"get_workspace\" is covered by the core checks only: the tool takes no parameters",
         "tool \"get_feature_lifecycle\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"kill_feature\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"complete_feature\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "tool \"start_iteration_loop\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "35 more tool(s) are covered by the core checks only (see the classification)",
-        "tool \"roadmap_graph_check\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"roadmap_xref_push\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "24 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"get_roadmap\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"validate_feature\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"validate_project\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"roadmap_graph\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"propose_followup\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"link_artifact\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"link_features\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -31275,30 +31243,72 @@
         "tool \"get_changelog_entries\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"write_journal_entry\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_journal_entries\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"backfill_completion\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"record_completion\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_completions\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"write_checkpoint\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"compose_resume\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_position_create\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_position_amend\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_joint_add\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_transition\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_ledger_append\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_person_write\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_situation_write\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"judgment_goal_write\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"get_judgment_state\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"get_judgment_trace\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_blocked_items\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
-        "tool \"get_workspace\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "abort_iteration_loop": "ce2676244bae",
+          "add_changelog_entry": "e1da62fc7f48",
+          "add_roadmap_entry": "fb7e4494a922",
+          "approve_gate": "5920f896c41b",
+          "assess_feature_artifacts": "1f068e158f3d",
+          "backfill_completion": "3a168aa72ef6",
+          "bind_session": "29c4bd9499b4",
+          "complete_feature": "313037dae018",
+          "compose_resume": "bb9e19b0511b",
+          "get_blocked_items": "efddc7bd8bbc",
+          "get_changelog_entries": "34370a3804d5",
+          "get_completions": "79c63235c2fd",
+          "get_current_session": "bdd0ec21a350",
+          "get_feature_artifacts": "61b9858c0f1e",
+          "get_feature_lifecycle": "0f0a2d6bccd2",
+          "get_feature_links": "25681fcf7b43",
+          "get_item_detail": "a808bd1d3a37",
+          "get_journal_entries": "d65e5067b98e",
+          "get_judgment_state": "efddc7bd8bbc",
+          "get_judgment_trace": "a2601e1c0170",
+          "get_pending_gates": "223782b167aa",
+          "get_phase_summary": "7a0ff85bb25b",
+          "get_roadmap": "dba43682a8a2",
+          "get_vision_items": "2308ed2ec3ca",
+          "get_workspace": "efddc7bd8bbc",
+          "judgment_goal_write": "66f05a33734d",
+          "judgment_joint_add": "6a2a79c7a6f4",
+          "judgment_ledger_append": "ebee96b3eddc",
+          "judgment_person_write": "f3268bd60e4e",
+          "judgment_position_amend": "e2da6d939594",
+          "judgment_position_create": "2d1355c5c1dc",
+          "judgment_situation_write": "23c7090b955c",
+          "judgment_transition": "9a952f13399a",
+          "kill_feature": "3027affe310e",
+          "link_artifact": "ba10716271dc",
+          "link_features": "55ba2136c926",
+          "propose_followup": "c8e1f97e1dee",
+          "record_completion": "03bae872d4d7",
+          "report_iteration_result": "230d5d4b4f2e",
+          "roadmap_diff": "54cb214b4587",
+          "roadmap_graph": "34e37e757ef9",
+          "roadmap_graph_check": "739fb7a3a9a5",
+          "roadmap_xref_push": "3139ab74a99c",
+          "scaffold_feature": "e78d4880a6f0",
+          "set_feature_status": "db3112179268",
+          "set_workspace": "cfacc9571c38",
+          "start_iteration_loop": "2de642a49f2e",
+          "validate_feature": "88b695e736c4",
+          "validate_project": "c44cb4549dbd",
+          "write_checkpoint": "4bb657636e87",
+          "write_journal_entry": "e4fd0c9462b0"
+        }
+      }
     },
     {
       "id": "smartmemory-mcp",
@@ -58392,16 +58402,16 @@
       "name": "@wpconvert/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.4.1",
+      "versionTested": "0.4.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @wpconvert/mcp@0.4.1",
+      "launch": "npx -y @wpconvert/mcp@0.4.2",
       "transport": "stdio",
       "toolCount": 10,
       "packs": [
@@ -61766,10 +61776,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.486",
-      "versionTested": "1.108.486",
+      "refTested": "1.108.487",
+      "versionTested": "1.108.487",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -62011,7 +62021,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -63976,10 +63986,10 @@
       "name": "taylorwilsdon/google_workspace_mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "2.6.0",
-      "versionTested": "2.6.0",
+      "refTested": "2.7.0",
+      "versionTested": "2.7.0",
       "serverInfoName": "google_workspace_mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -64112,7 +64122,7 @@
       "toolSchemas": {
         "append_table_rows": "90482c338135",
         "batch_modify_gmail_message_labels": "cd45c0ee14fc",
-        "batch_update_doc": "4a14c5c6c4ed",
+        "batch_update_doc": "47527421f6c6",
         "batch_update_form": "403a2ac0f05f",
         "batch_update_presentation": "4598ebf7d611",
         "check_drive_file_public_access": "e3cbf1066ac0",
@@ -64130,7 +64140,7 @@
         "download_chat_attachment": "8f5203e48e70",
         "draft_gmail_message": "9029b9df15a1",
         "export_doc_to_pdf": "819f7c10edc1",
-        "find_and_replace_doc": "693be214f811",
+        "find_and_replace_doc": "5a6f6ac55f35",
         "format_sheet_range": "31aceb36d64a",
         "generate_trigger_code": "cd4906c5dc7c",
         "get_contact": "0519b3a02157",
@@ -64205,16 +64215,16 @@
         "manage_spreadsheet_comment": "9bec4f0ec9ca",
         "manage_task": "d0608254bcf9",
         "manage_task_list": "1c77e5f2daae",
-        "modify_doc_text": "c63ef42298c8",
+        "modify_doc_text": "b0b2b17765a6",
         "modify_gmail_message_labels": "6037ae2bfc90",
-        "modify_sheet_values": "e6fcad76e920",
+        "modify_sheet_values": "305ea93b8e8c",
         "move_sheet_rows": "6900f8915ce2",
         "query_freebusy": "b6442f3bc976",
         "read_sheet_values": "c40aa0a94add",
         "render_page_to_image": "566f1d5520c3",
         "resize_sheet_dimensions": "6d3ae94e6b9a",
         "run_script_function": "88f232f08c8d",
-        "search_contacts": "921c6466552e",
+        "search_contacts": "476b75870ab8",
         "search_custom": "d977481895b6",
         "search_docs": "612bd064b603",
         "search_drive_files": "084799646b82",
@@ -64529,6 +64539,7 @@
         "tool \"import_to_google_sheets\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"update_drive_file\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"export_doc_to_pdf\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"modify_sheet_values\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"start_google_auth\" is covered by the core checks only: free-text parameter \"service_name\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"search_gmail_messages\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
@@ -64542,7 +64553,7 @@
         "tool \"list_gmail_labels\" is covered by the core checks only: free-text parameter \"user_google_email\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"manage_gmail_label\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"list_gmail_filters\" is covered by the core checks only: free-text parameter \"user_google_email\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "98 more tool(s) are covered by the core checks only (see the classification)",
+        "97 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"check_drive_file_public_access\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"update_drive_file\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_drive_shareable_link\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -64643,7 +64654,130 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "append_table_rows": "90482c338135",
+          "batch_modify_gmail_message_labels": "cd45c0ee14fc",
+          "batch_update_doc": "4a14c5c6c4ed",
+          "batch_update_form": "403a2ac0f05f",
+          "batch_update_presentation": "4598ebf7d611",
+          "check_drive_file_public_access": "e3cbf1066ac0",
+          "copy_drive_file": "f97172768af9",
+          "create_doc": "8586411aee6f",
+          "create_drive_file": "a47209d730cd",
+          "create_drive_folder": "93f28d45249e",
+          "create_form": "166702e7f90c",
+          "create_presentation": "3e1d83b0278d",
+          "create_reaction": "b3b1c6dca514",
+          "create_sheet": "56b5825be941",
+          "create_spreadsheet": "ff0726e68186",
+          "create_table_with_data": "10919dd8fadb",
+          "debug_table_structure": "1c53f967f1d9",
+          "download_chat_attachment": "8f5203e48e70",
+          "draft_gmail_message": "9029b9df15a1",
+          "export_doc_to_pdf": "819f7c10edc1",
+          "find_and_replace_doc": "693be214f811",
+          "format_sheet_range": "31aceb36d64a",
+          "generate_trigger_code": "cd4906c5dc7c",
+          "get_contact": "0519b3a02157",
+          "get_contact_group": "0421a6c6c02e",
+          "get_doc_as_markdown": "42d479d1c3a1",
+          "get_doc_content": "6820e02a5e9e",
+          "get_drive_file_content": "5fa44283e5f2",
+          "get_drive_file_download_url": "c02839739469",
+          "get_drive_file_permissions": "0da6e74f4b34",
+          "get_drive_shareable_link": "762490cab547",
+          "get_events": "a54d52f8185c",
+          "get_form": "0d6b35e489f2",
+          "get_form_response": "0a43227149d5",
+          "get_gmail_attachment_content": "906f90b6ea49",
+          "get_gmail_message_content": "10d0e723491d",
+          "get_gmail_messages_content_batch": "fa22496b1821",
+          "get_gmail_thread_content": "f14ca48aa53b",
+          "get_gmail_threads_content_batch": "86c9b04a739a",
+          "get_messages": "0e336e5d717d",
+          "get_presentation": "75bddd09550b",
+          "get_script_activity": "b2162cff02c8",
+          "get_script_project": "80d4d6477f97",
+          "get_script_version": "2c8de9cf0271",
+          "get_search_engine_info": "796a41472c8e",
+          "get_spreadsheet_info": "8d49c1e86622",
+          "get_task": "dcb6a3bbd6c6",
+          "get_task_list": "19016d5e44be",
+          "import_to_google_doc": "addfc7384912",
+          "import_to_google_sheets": "2768f5516acc",
+          "import_to_google_slides": "ccfe96019858",
+          "insert_doc_elements": "1b5fdb5ba0ba",
+          "insert_doc_image": "55c51f4d70ca",
+          "inspect_doc_structure": "dd0ae0e18549",
+          "list_calendars": "35734e84dd1e",
+          "list_contact_groups": "3858e623cff4",
+          "list_contacts": "e69a9e7d5738",
+          "list_docs_in_folder": "9a3ee97dbcbc",
+          "list_document_comments": "9b42f75939eb",
+          "list_drive_items": "1052b1f537fc",
+          "list_form_responses": "24d7527d7756",
+          "list_gmail_filters": "796a41472c8e",
+          "list_gmail_labels": "98f0faf92338",
+          "list_presentation_comments": "f5fea8b87a95",
+          "list_script_deployments": "bb608c31b7a6",
+          "list_sheet_tables": "a188cad4b13a",
+          "list_spaces": "bd280bad721c",
+          "list_spreadsheet_comments": "71bb3d37a274",
+          "list_spreadsheets": "99def473d307",
+          "list_task_lists": "71b8763caa23",
+          "list_tasks": "113b4326c098",
+          "manage_calendar": "afd5dc5445e6",
+          "manage_conditional_formatting": "22f71897f9a2",
+          "manage_contact": "69ec7f443446",
+          "manage_contact_group": "9d803f9bcf27",
+          "manage_contacts_batch": "c76be1811679",
+          "manage_deployment": "ae7a0a2993c5",
+          "manage_doc_tab": "4940eeb710bf",
+          "manage_document_comment": "1cb41adc1b60",
+          "manage_drive_access": "ebe4d32f00e2",
+          "manage_event": "08c921fe669f",
+          "manage_focus_time": "483e7a3dc4e0",
+          "manage_gmail_filter": "07bb275b2928",
+          "manage_gmail_label": "e3c3537c2a0a",
+          "manage_named_range": "fe7ef08aba3f",
+          "manage_out_of_office": "8cc48b7d1d64",
+          "manage_presentation_comment": "ab2ba9ed0cee",
+          "manage_script_content": "0537cef04662",
+          "manage_script_project": "73212e5b3412",
+          "manage_script_trigger": "7a8295dcf25f",
+          "manage_script_version": "b188985e8604",
+          "manage_sheet_tab": "f70847e571b4",
+          "manage_spreadsheet_comment": "9bec4f0ec9ca",
+          "manage_task": "d0608254bcf9",
+          "manage_task_list": "1c77e5f2daae",
+          "modify_doc_text": "c63ef42298c8",
+          "modify_gmail_message_labels": "6037ae2bfc90",
+          "modify_sheet_values": "e6fcad76e920",
+          "move_sheet_rows": "6900f8915ce2",
+          "query_freebusy": "b6442f3bc976",
+          "read_sheet_values": "c40aa0a94add",
+          "render_page_to_image": "566f1d5520c3",
+          "resize_sheet_dimensions": "6d3ae94e6b9a",
+          "run_script_function": "88f232f08c8d",
+          "search_contacts": "921c6466552e",
+          "search_custom": "d977481895b6",
+          "search_docs": "612bd064b603",
+          "search_drive_files": "084799646b82",
+          "search_gmail_messages": "cb1a4a1e9f2f",
+          "search_messages": "9c2bfd8f1198",
+          "send_gmail_message": "b43beef486cf",
+          "send_message": "df32dd70e59e",
+          "set_drive_file_permissions": "7ceaa87b62f4",
+          "set_publish_settings": "be4ee168d4c1",
+          "start_google_auth": "526cd06f6ae8",
+          "update_doc_headers_footers": "356a26bd8c03",
+          "update_drive_file": "7341323831ce",
+          "update_paragraph_style": "ad2d961076b8"
+        }
+      }
     },
     {
       "id": "vibheksoni-stealth-browser-mcp",
@@ -70976,7 +71110,7 @@
       "name": "@keepstateai/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.48",
+      "versionTested": "0.1.49",
       "serverInfoName": "cli",
       "testedAt": "2026-11-24",
       "sealmark": {
@@ -70985,7 +71119,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @keepstateai/cli@0.1.48 mcp",
+      "launch": "npx -y @keepstateai/cli@0.1.49 mcp",
       "transport": "stdio",
       "toolCount": 37,
       "packs": [
@@ -74031,16 +74165,16 @@
       "name": "securenow",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "8.29.0",
+      "versionTested": "8.29.2",
       "serverInfoName": "securenow",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y securenow@8.29.0 mcp",
+      "launch": "npx -y securenow@8.29.2 mcp",
       "transport": "stdio",
       "toolCount": 125,
       "packs": [
@@ -74661,7 +74795,7 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.11.0",
+      "versionTested": "1.12.0",
       "serverInfoName": "uvx",
       "testedAt": "2026-11-24",
       "sealmark": {
@@ -74670,7 +74804,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.11.0 mcp",
+      "launch": "uvx skilltotal==1.12.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -77619,7 +77753,7 @@
       "name": "@trusty-squire/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.1.65",
+      "versionTested": "1.1.66",
       "serverInfoName": "mcp",
       "testedAt": "2026-11-24",
       "sealmark": {
@@ -77628,7 +77762,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @trusty-squire/mcp@1.1.65 server",
+      "launch": "npx -y @trusty-squire/mcp@1.1.66 server",
       "transport": "stdio",
       "toolCount": 34,
       "tools": [
@@ -80472,28 +80606,30 @@
       "name": "kedimeet-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.0.2",
+      "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx kedimeet-mcp==1.0.2",
+      "launch": "uvx kedimeet-mcp==1.1.0",
       "transport": "stdio",
-      "toolCount": 4,
+      "toolCount": 5,
       "tools": [
         "search",
         "list_meetings",
         "get_meeting",
+        "open_tasks",
         "get_transcript"
       ],
       "toolSchemas": {
         "get_meeting": "0837a4b67c2a",
         "get_transcript": "3946ebc25c8d",
         "list_meetings": "3a8bb0c1da20",
+        "open_tasks": "64ab73e2546c",
         "search": "1ea1a0bb2c9c"
       },
       "packs": [
@@ -80602,7 +80738,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 4 well-formed tool(s)"
+          "summary": "handshake ok, 5 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -80611,7 +80747,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 4 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 5 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -80623,7 +80759,9 @@
           "summary": "18 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [],
-            "notCovered": []
+            "notCovered": [
+              "open_tasks"
+            ]
           }
         },
         {
@@ -80657,7 +80795,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 4,
+        "toolsTotal": 5,
         "level": "hygiene-only"
       },
       "badge": {
@@ -80669,7 +80807,9 @@
         "tool \"search\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
         "tool \"list_meetings\" is covered by the core checks only: free-text parameter \"since\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_meeting\" is covered by the core checks only: free-text parameter \"meeting\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"open_tasks\" is covered by the core checks only: free-text parameter \"since\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_transcript\" is covered by the core checks only: free-text parameter \"meeting\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"open_tasks\" was not covered by the core pack: needs probes: to be called (no argument the harness can safely malform)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
@@ -80678,7 +80818,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
           "get_meeting": "0837a4b67c2a",
           "get_transcript": "3946ebc25c8d",
@@ -82803,16 +82943,16 @@
       "name": "@chronary/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.8.3",
+      "versionTested": "1.8.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @chronary/mcp@1.8.3",
+      "launch": "npx -y @chronary/mcp@1.8.4",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -83000,7 +83140,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "sign_up_anonymous": "aeb2c76c7e44"
         }
@@ -83011,23 +83151,23 @@
       "name": "dten-speed",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.3.0",
+      "versionTested": "1.4.0",
       "serverInfoName": "dten-speed",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dten-speed@1.3.0 mcp",
+      "launch": "npx -y dten-speed@1.4.0 mcp",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
         "measure_connection"
       ],
       "toolSchemas": {
-        "measure_connection": "6c1e3e39bf21"
+        "measure_connection": "700e038b0957"
       },
       "packs": [
         {
@@ -83208,7 +83348,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "measure_connection": "6c1e3e39bf21"
         }
@@ -84267,22 +84407,23 @@
       "name": "@catalystdesk/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.2.0",
+      "versionTested": "1.3.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-24",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @catalystdesk/mcp-server@1.2.0",
+      "launch": "npx -y @catalystdesk/mcp-server@1.3.0",
       "transport": "stdio",
-      "toolCount": 9,
+      "toolCount": 10,
       "tools": [
         "list_curated_symbols",
         "get_delayed_regime_lite",
         "get_session_status",
+        "get_polygon_data_status",
         "get_regime_snapshot",
         "compute_dynamic_regime",
         "compute_multiframe_resonance",
@@ -84295,6 +84436,7 @@
         "compute_execution_guardrail": "459793971c54",
         "compute_multiframe_resonance": "e8e84f998401",
         "get_delayed_regime_lite": "2a856e007cfa",
+        "get_polygon_data_status": "d746974fa9af",
         "get_regime_snapshot": "c6a4646f1e2d",
         "get_session_status": "9e116a305594",
         "list_curated_symbols": "d746974fa9af",
@@ -84407,7 +84549,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 9 well-formed tool(s)"
+          "summary": "handshake ok, 10 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -84416,7 +84558,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 9 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 10 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -84428,7 +84570,8 @@
           "summary": "42 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [
-              "list_curated_symbols"
+              "list_curated_symbols",
+              "get_polygon_data_status"
             ],
             "notCovered": []
           }
@@ -84440,7 +84583,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 43 captured response(s), 1 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 44 captured response(s), 2 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -84458,7 +84601,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "list_curated_symbols declared read-only and changed nothing in the observed directories during a benign call (get_session_status not judged: the control call failed)"
+          "summary": "list_curated_symbols, get_polygon_data_status declared read-only and changed nothing in the observed directories during a benign call (get_session_status not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -84467,7 +84610,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "2 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "3 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -84493,9 +84636,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 3,
-        "toolsCalledValid": 2,
-        "toolsTotal": 9,
+        "validCalls": 5,
+        "toolsCalledValid": 3,
+        "toolsTotal": 10,
         "level": "low"
       },
       "badge": {
@@ -84506,6 +84649,7 @@
         "tool \"list_curated_symbols\" is covered by the core checks only: the tool takes no parameters",
         "tool \"get_delayed_regime_lite\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_session_status\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
+        "tool \"get_polygon_data_status\" is covered by the core checks only: the tool takes no parameters",
         "tool \"get_regime_snapshot\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"compute_dynamic_regime\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"compute_multiframe_resonance\" is covered by the core checks only: free-text parameter \"ticker\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
@@ -84520,13 +84664,14 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "schemas": {
           "compute_dynamic_regime": "9efd169fc76e",
           "compute_execution_guardrail": "459793971c54",
           "compute_multiframe_resonance": "e8e84f998401",
           "get_delayed_regime_lite": "2a856e007cfa",
           "get_regime_snapshot": "c6a4646f1e2d",
+          "get_session_status": "9e116a305594",
           "list_curated_symbols": "d746974fa9af",
           "scan_curated_universe_regimes": "d21ac29e9946",
           "scan_parameter_surface": "7a6d7b3bd770"

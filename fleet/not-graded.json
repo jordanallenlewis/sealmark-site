@@ -1,10 +1,10 @@
 {
   "count": 149,
   "byReason": {
-    "missing-runtime": 8,
     "exited-no-error": 72,
-    "bad-launch": 7,
+    "missing-runtime": 8,
     "initialize-timeout": 12,
+    "bad-launch": 7,
     "dependency-resolution": 27,
     "needs-credentials": 10,
     "unknown": 10,
@@ -12,11 +12,32 @@
   },
   "servers": [
     {
-      "id": "chrisryugj-kordoc",
-      "version": "4.25.9",
+      "id": "54yyyu-zotero-mcp",
+      "version": "0.17.4",
       "lastTried": "2026-11-24",
-      "attempts": 28,
+      "attempts": 7,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "apify-apify-mcp-server",
+      "version": "0.23.0",
+      "lastTried": "2026-11-24",
+      "attempts": 10,
       "reason": "missing-runtime"
+    },
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.12",
+      "lastTried": "2026-11-24",
+      "attempts": 29,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "chromedevtools-chrome-devtools-mcp",
+      "version": "chrome-devtools-mcp-v1.14.0",
+      "lastTried": "2026-11-24",
+      "attempts": 3,
+      "reason": "initialize-timeout"
     },
     {
       "id": "google-gemini-gemini-cli",
@@ -27,16 +48,37 @@
     },
     {
       "id": "haris-musa-excel-mcp-server",
-      "version": "2.3.4",
+      "version": "2.3.5",
       "lastTried": "2026-11-24",
-      "attempts": 6,
+      "attempts": 7,
       "reason": "bad-launch"
     },
     {
-      "id": "ruvnet-ruflo",
-      "version": "3.80.5",
+      "id": "knockoutez-wigolo",
+      "version": "0.3.3",
       "lastTried": "2026-11-24",
-      "attempts": 13,
+      "attempts": 3,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "mobile-next-mobile-mcp",
+      "version": "1.0.20",
+      "lastTried": "2026-11-24",
+      "attempts": 5,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.6.0",
+      "lastTried": "2026-11-24",
+      "attempts": 22,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.80.6",
+      "lastTried": "2026-11-24",
+      "attempts": 14,
       "reason": "initialize-timeout"
     },
     {
@@ -45,6 +87,20 @@
       "lastTried": "2026-11-24",
       "attempts": 17,
       "reason": "initialize-timeout"
+    },
+    {
+      "id": "xbrlkit",
+      "version": "0.24.1",
+      "lastTried": "2026-11-24",
+      "attempts": 6,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "zereight-gitlab-mcp",
+      "version": "3.0.0",
+      "lastTried": "2026-11-24",
+      "attempts": 10,
+      "reason": "bad-launch"
     },
     {
       "id": "brightdata-brightdata-mcp",
@@ -75,25 +131,11 @@
       "reason": "exited-no-error"
     },
     {
-      "id": "knockoutez-wigolo",
-      "version": "0.3.2",
-      "lastTried": "2026-11-23",
-      "attempts": 2,
-      "reason": "exited-no-error"
-    },
-    {
       "id": "marker-inc-korea-autorag",
       "version": "2.14.2",
       "lastTried": "2026-11-23",
       "attempts": 11,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.5.9",
-      "lastTried": "2026-11-23",
-      "attempts": 21,
-      "reason": "missing-runtime"
     },
     {
       "id": "tokonomix-council-mcp",
@@ -115,13 +157,6 @@
       "lastTried": "2026-11-22",
       "attempts": 3,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "mobile-next-mobile-mcp",
-      "version": "1.0.19",
-      "lastTried": "2026-11-22",
-      "attempts": 4,
-      "reason": "missing-runtime"
     },
     {
       "id": "plune-ai-cli",
@@ -166,20 +201,6 @@
       "reason": "unknown"
     },
     {
-      "id": "zereight-gitlab-mcp",
-      "version": "2.3.31",
-      "lastTried": "2026-11-21",
-      "attempts": 9,
-      "reason": "bad-launch"
-    },
-    {
-      "id": "apify-apify-mcp-server",
-      "version": "0.22.0",
-      "lastTried": "2026-11-20",
-      "attempts": 9,
-      "reason": "missing-runtime"
-    },
-    {
       "id": "evil0ctal-douyin-tiktok-download-api",
       "version": "5.1.13",
       "lastTried": "2026-11-20",
@@ -198,13 +219,6 @@
       "version": "1.5.0",
       "lastTried": "2026-11-20",
       "attempts": 2,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "54yyyu-zotero-mcp",
-      "version": "0.17.3",
-      "lastTried": "2026-11-19",
-      "attempts": 6,
       "reason": "exited-no-error"
     },
     {
@@ -227,13 +241,6 @@
       "lastTried": "2026-11-19",
       "attempts": 2,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "xbrlkit",
-      "version": "0.23.1",
-      "lastTried": "2026-11-19",
-      "attempts": 5,
-      "reason": "bad-launch"
     },
     {
       "id": "jordan-gibbs-hyperresearch",
@@ -388,13 +395,6 @@
       "lastTried": "2026-11-12",
       "attempts": 1,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "chromedevtools-chrome-devtools-mcp",
-      "version": "chrome-devtools-mcp-v1.13.0",
-      "lastTried": "2026-11-11",
-      "attempts": 2,
-      "reason": "initialize-timeout"
     },
     {
       "id": "agentdomain-mcp",
