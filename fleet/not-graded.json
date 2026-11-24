@@ -1,29 +1,57 @@
 {
   "count": 149,
   "byReason": {
-    "exited-no-error": 72,
     "missing-runtime": 8,
-    "dependency-resolution": 27,
-    "initialize-timeout": 12,
-    "needs-credentials": 10,
+    "exited-no-error": 72,
     "bad-launch": 7,
+    "initialize-timeout": 12,
+    "dependency-resolution": 27,
+    "needs-credentials": 10,
     "unknown": 10,
     "needs-service": 3
   },
   "servers": [
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.9",
+      "lastTried": "2026-11-24",
+      "attempts": 28,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "google-gemini-gemini-cli",
+      "version": "0.71.1",
+      "lastTried": "2026-11-24",
+      "attempts": 5,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "haris-musa-excel-mcp-server",
+      "version": "2.3.4",
+      "lastTried": "2026-11-24",
+      "attempts": 6,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.80.5",
+      "lastTried": "2026-11-24",
+      "attempts": 13,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.4.3",
+      "lastTried": "2026-11-24",
+      "attempts": 17,
+      "reason": "initialize-timeout"
+    },
     {
       "id": "brightdata-brightdata-mcp",
       "version": "4.9.0",
       "lastTried": "2026-11-23",
       "attempts": 3,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "chrisryugj-kordoc",
-      "version": "4.25.7",
-      "lastTried": "2026-11-23",
-      "attempts": 27,
-      "reason": "missing-runtime"
     },
     {
       "id": "dosco-deeporg",
@@ -66,13 +94,6 @@
       "lastTried": "2026-11-23",
       "attempts": 21,
       "reason": "missing-runtime"
-    },
-    {
-      "id": "ruvnet-ruflo",
-      "version": "3.80.4",
-      "lastTried": "2026-11-23",
-      "attempts": 12,
-      "reason": "initialize-timeout"
     },
     {
       "id": "tokonomix-council-mcp",
@@ -170,27 +191,6 @@
       "version": "1.1.0",
       "lastTried": "2026-11-20",
       "attempts": 1,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "google-gemini-gemini-cli",
-      "version": "0.70.0",
-      "lastTried": "2026-11-20",
-      "attempts": 4,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "haris-musa-excel-mcp-server",
-      "version": "2.3.3",
-      "lastTried": "2026-11-20",
-      "attempts": 5,
-      "reason": "bad-launch"
-    },
-    {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.4.0",
-      "lastTried": "2026-11-20",
-      "attempts": 16,
       "reason": "initialize-timeout"
     },
     {

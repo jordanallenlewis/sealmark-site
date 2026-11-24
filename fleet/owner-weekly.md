@@ -1,10 +1,10 @@
 # Owner notices: week of 2026-11-23
 
-Written by `fleet/notify-owners.mjs` on 2026-11-23. "Last 7 days" is 2026-11-17 to 2026-11-23.
+Written by `fleet/notify-owners.mjs` on 2026-11-24. "Last 7 days" is 2026-11-18 to 2026-11-24.
 
 | | Last 7 days | All time |
 |---|---|---|
-| Issues opened | 5 | 7 |
+| Issues opened | 1 | 7 |
 | Repositories that replied | 0 | 0 |
 | Replies from people | 0 | 0 |
 | Removal or recheck requests | 0 | 0 |
@@ -25,11 +25,11 @@ None.
 
 None.
 
-## Where every graded server stands (2026-11-23)
+## Where every graded server stands (2026-11-24)
 
-275 graded servers: 0 sent or drafted this run, 29 held for private handling, 24 waiting, 222 skipped.
+276 graded servers: 0 sent or drafted this run, 29 held for private handling, 24 waiting, 223 skipped.
 
-Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (5 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
+Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (3 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
 Private security reports (GitHub private vulnerability reporting, never public): 2 sent in all; 22 repositories are held for them. Counts only.
 
@@ -46,7 +46,7 @@ Private security reports (GitHub private vulnerability reporting, never public):
 | Reason | Servers |
 |---|---|
 | nothing to fix (an A, or no check to name) | 131 |
-| no GitHub repository | 36 |
+| no GitHub repository | 37 |
 | no tool reached (hygiene-only) | 30 |
 | repository not found | 8 |
 | already got its one issue | 7 |
