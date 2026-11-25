@@ -87,3 +87,40 @@ test("review fixes: npm's words only for npm, plain ASCII licenses only", () => 
   assert.equal(view(entry({ license: "MIT\u3164" })).license, null);
   assert.equal(view(entry({ license: "MIT, Apache Software License, BSD License" })).license, "MIT, Apache Software License, BSD License");
 });
+
+// ---- the Maintainer block (sealmark-site#69) ----
+import { CLAIM_PATH, maintainerClaim } from "./server-facts.mjs";
+import { CLAIM_PATH as FLEET_CLAIM_PATH } from "../../fleet/claim.mjs";
+
+const claimed = (over = {}) => entry({ claim: { repo: "o/r", repoId: 7, checkedAt: "2026-11-16", issues: "on" }, claimable: true, ...over });
+const mc = (e, o = {}) => maintainerClaim(e, { id: "a-mcp" }, { held: false, today: "2026-11-16", ...o });
+
+test("maintainer: the site and the fleet name the same claim file", () => {
+  assert.equal(CLAIM_PATH, FLEET_CLAIM_PATH);
+});
+
+test("maintainer: a claim that holds", () => {
+  assert.deepEqual(mc(claimed()), { state: "claimed", repo: "o/r", url: "https://github.com/o/r", checked: "16 Nov 2026" });
+});
+
+test("maintainer: a repository that may claim gets the file to commit, with this server's id", () => {
+  const m = mc(entry({ claimable: true }));
+  assert.equal(m.state, "unclaimed");
+  assert.equal(m.repo, "o/r");
+  assert.equal(m.path, ".github/sealmark-claim.json");
+  assert.deepEqual(JSON.parse(m.file), { sealmark: "claim/1", servers: ["a-mcp"] });
+});
+
+test("maintainer: nothing for a held server, a stale entry or claim, an ended claim, or a repository that may not claim", () => {
+  assert.equal(mc(claimed(), { held: true }), null);
+  assert.equal(mc(entry({ claimable: true }), { held: true }), null);
+  assert.equal(mc(claimed(), { today: "2026-12-30" }), null, "the entry is past STALE_DAYS");
+  const oldClaim = claimed({ claim: { repo: "o/r", repoId: 7, checkedAt: "2026-10-01" } });
+  assert.equal(mc(oldClaim).state, "unclaimed", "a claim not re-read for STALE_DAYS is not shown");
+  assert.equal(mc(claimed({ claim: { ended: "repository-changed", repoId: 6, checkedAt: "2026-11-16" }, claimable: false })), null);
+  assert.equal(mc(entry()), null, "claimable unset: the link is a homepage or a fork");
+  assert.equal(mc(entry({ claimable: true, repo: null })), null);
+  assert.equal(mc(claimed({ claim: { repo: "o/r/../x", checkedAt: "2026-11-16" }, claimable: false })), null);
+  assert.equal(maintainerClaim(entry({ claimable: true }), { id: "A Bad id" }, { held: false, today: "2026-11-16" }), null);
+  assert.equal(mc(undefined), null);
+});

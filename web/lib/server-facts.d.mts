@@ -17,3 +17,12 @@ export type ServerFacts = {
   from: string;
 };
 export function serverFacts(e: ServerFactsEntry | undefined, server: { ecosystem: string; versionTested: string }, o: { held: boolean; today: string }): ServerFacts | null;
+export const CLAIM_PATH: string;
+export type MaintainerClaim =
+  | { state: "claimed"; repo: string; url: string; checked: string }
+  | { state: "unclaimed"; repo: string; url: string; path: string; file: string };
+export function maintainerClaim(
+  e: (ServerFactsEntry & { claim?: { repo?: string; checkedAt?: string; ended?: string }; claimable?: boolean }) | undefined,
+  server: { id: string },
+  o: { held: boolean; today: string },
+): MaintainerClaim | null;

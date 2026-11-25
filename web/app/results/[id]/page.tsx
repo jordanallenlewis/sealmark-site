@@ -23,6 +23,7 @@ import { OwnerNotice } from "../OwnerNotice";
 import { NotifyForm } from "../NotifyForm";
 import { feedHeld } from "@/lib/feed-data";
 import { CopyButton } from "@/components/CopyButton";
+import { Maintainer } from "../Maintainer";
 import { unconfirmedWords, retestNote } from "@/lib/retest.mjs";
 import { GradeAge } from "@/components/GradeAge";
 import s from "../results.module.css";
@@ -501,6 +502,7 @@ export default async function ServerPage({ params }: P) {
           Each of {VERDICTS_CHECKED} verdicts was checked independently, and Sealmark was wrong on some: <Link href="/results/#reliability">how reliable Sealmark is</Link>.
         </p>
         <OwnerNotice id={x.id} />
+        <Maintainer id={x.id} held={priv.size > 0} />
         <DisputeNote privateReport={priv.size > 0} />
         <nav className={s.nav2} aria-label="Other servers">
           {prev ? <Link href={`/results/${prev.id}/`}>← {prev.name}</Link> : <span />}

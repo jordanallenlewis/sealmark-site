@@ -35,6 +35,9 @@
 //      every id it names is listed, every listed server is found by its id and its package (or repository) key, a server
 //      with a private finding (recomputed from the raw data) by nothing else, any other repository key is the one its
 //      page shows in Package facts, and a page that shows one is found by it, and the file contains no withheld text of any server
+//  14  the Maintainer block (sealmark-site#69): each listed server's page shows exactly the state lib/server-facts.mjs
+//      maintainerClaim gives for its fleet/server-facts.json entry (claimed, unclaimed or none), with held recomputed from
+//      the raw data, so a server with a private finding never shows one; at most one block per page
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -45,6 +48,7 @@ import { feedProblems, xmlText } from "../lib/feed.mjs";
 import { answerPageProblems } from "../lib/answer.mjs";
 import { toolPages, toolPagesProblems } from "../lib/tool-pages.mjs";
 import { lookupProblems } from "../lib/lookup.mjs";
+import { maintainerClaim } from "../lib/server-facts.mjs";
 
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(web, "out");
@@ -303,6 +307,23 @@ for (const sv of list.servers) {
     for (const [, where, t] of secrets) {
       if (t && lk.includes(JSON.stringify(t).slice(1, -1))) fail(13, `${where}: withheld text appears in lookup.json`);
     }
+  }
+}
+
+{
+  let facts = {};
+  try { facts = read(join(web, "..", "fleet", "server-facts.json")).servers ?? {}; } catch { /* no file: no block on any page */ }
+  for (const sv of list.servers) {
+    const raw = RAW.get(sv.id);
+    const held = Boolean(raw && redactedChecks(raw, DISCLOSURE, TODAY).size > 0);
+    const entry = Object.prototype.hasOwnProperty.call(facts, sv.id) ? facts[sv.id] : undefined;
+    const want = maintainerClaim(entry, { id: sv.id }, { held, today: TODAY })?.state ?? null;
+    const pageFile = join(resultsDir, sv.id, "index.html");
+    if (!existsSync(pageFile)) continue; // rule 1 reports it
+    const got = [...readFileSync(pageFile, "utf8").matchAll(/data-maintainer="([a-z]+)"/g)].map((m) => m[1]);
+    if (got.length > 1) fail(14, `${sv.id}: ${got.length} Maintainer blocks`);
+    if (held && got.length) fail(14, `${sv.id}: a Maintainer block on a page with a private finding`);
+    if ((got[0] ?? null) !== want) fail(14, `${sv.id}: page shows Maintainer ${got[0] ?? "none"}, the data says ${want ?? "none"}`);
   }
 }
 

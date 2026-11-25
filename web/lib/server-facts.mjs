@@ -65,3 +65,34 @@ export function serverFacts(e, server, { held, today }) {
     from: pkg ? (repo ? `${pkg} and GitHub` : pkg) : "GitHub",
   };
 }
+
+export const CLAIM_PATH = ".github/sealmark-claim.json"; // fleet/claim.mjs reads this file
+const ID = /^[a-z0-9][a-z0-9._-]{0,99}$/;
+const fresh = (d, today) => Boolean(dayWords(d)) && (Date.parse(today) - Date.parse(String(d).slice(0, 10))) / 864e5 <= STALE_DAYS;
+
+/**
+ * The "Maintainer" block on a server page (sealmark-site#69), from the same fleet/server-facts.json entry.
+ * claimed: the repository the package names says, in its claim file, that it maintains this server (re-read daily,
+ * hidden after STALE_DAYS without a successful read). unclaimed: the repository may claim it, so the page shows the
+ * file to commit. Null when there is no such repository, when the entry is stale, and always for a held server (its
+ * page shows no repository at all). A claim is never a judgement: it changes no grade, badge or ranking.
+ * @param {{checkedAt?: string, repo?: {name?: string}|null, claim?: {repo?: string, checkedAt?: string, ended?: string}, claimable?: boolean}|undefined} e
+ * @param {{id: string}} server
+ * @param {{held: boolean, today: string}} o
+ */
+export function maintainerClaim(e, server, { held, today }) {
+  if (held || !e || typeof e !== "object" || !fresh(e.checkedAt, today)) return null;
+  const c = e.claim;
+  if (c && typeof c === "object" && !c.ended && REPO.test(String(c.repo ?? "")) && fresh(c.checkedAt, today)) {
+    return { state: "claimed", repo: c.repo, url: `https://github.com/${c.repo}`, checked: dayWords(c.checkedAt) };
+  }
+  const name = String(e.repo?.name ?? "");
+  if (e.claimable !== true || !REPO.test(name) || !ID.test(String(server.id ?? ""))) return null;
+  return {
+    state: "unclaimed",
+    repo: name,
+    url: `https://github.com/${name}`,
+    path: CLAIM_PATH,
+    file: JSON.stringify({ sealmark: "claim/1", servers: [server.id] }, null, 2),
+  };
+}
