@@ -15,7 +15,7 @@
     "topFixedChecks": [],
     "base": {
       "servers": 208,
-      "released": 49,
+      "released": 50,
       "improved": 3,
       "regressed": 2,
       "medianDaysToImprovement": 7

@@ -13,16 +13,16 @@
   "servers": [
     {
       "id": "chrisryugj-kordoc",
-      "version": "4.25.19",
+      "version": "4.25.20",
       "lastTried": "2026-11-25",
-      "attempts": 31,
+      "attempts": 32,
       "reason": "missing-runtime"
     },
     {
       "id": "dosco-deeporg",
-      "version": "3.21.29",
+      "version": "3.21.32",
       "lastTried": "2026-11-25",
-      "attempts": 4,
+      "attempts": 5,
       "reason": "exited-no-error"
     },
     {

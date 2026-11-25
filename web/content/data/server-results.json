@@ -292,7 +292,7 @@
       "round": "fleet",
       "versionTested": "2.3.1",
       "serverInfoName": "server-everything",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -566,7 +566,7 @@
       "round": "fleet",
       "versionTested": "2026.11.18",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -829,7 +829,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "fetch": "16fdd8e4c71d"
         }
@@ -842,7 +842,7 @@
       "round": "fleet",
       "versionTested": "2.4.0",
       "serverInfoName": "server-filesystem",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -1142,7 +1142,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "append_file": "e901fc2eaba1",
           "copy_file": "c6bcce52bd0a",
@@ -1170,7 +1170,7 @@
       "round": "fleet",
       "versionTested": "2026.11.18",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -1448,7 +1448,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "git_add": "fe607783e691",
           "git_branch": "268f353022c7",
@@ -1474,7 +1474,7 @@
       "round": "fleet",
       "versionTested": "2.2.1",
       "serverInfoName": "server-memory",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -1723,7 +1723,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "add_observations": "a4a78b39d69b",
           "create_entities": "c743218afa71",
@@ -1744,7 +1744,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "sh",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -2035,7 +2035,7 @@
       "round": "fleet",
       "versionTested": "2.2.0",
       "serverInfoName": "server-sequential-thinking",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -2230,7 +2230,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "sequentialthinking": "838ba62e6f7c"
         }
@@ -2243,7 +2243,7 @@
       "round": "fleet",
       "versionTested": "2025.4.25",
       "serverInfoName": "mcp-2",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -2504,7 +2504,7 @@
       "round": "fleet",
       "versionTested": "2026.11.18",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -2705,7 +2705,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "convert_time": "4cf2e3da2692",
           "get_current_time": "b3535a1cfca1",
@@ -2720,7 +2720,7 @@
       "round": "fleet",
       "versionTested": "1.2.29",
       "serverInfoName": "mcp-server-filesystem",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -2983,7 +2983,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "mcp-server-airbnb",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -3179,7 +3179,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "airbnb_listing_details": "9ea1b84bb8ae",
+          "airbnb_search": "105592d07166"
+        }
+      }
     },
     {
       "id": "arxiv",
@@ -3188,7 +3195,7 @@
       "round": "fleet",
       "versionTested": "0.8.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -3461,7 +3468,31 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_alerts": "6dd890d1a969",
+          "citation_graph": "8e68286b5afc",
+          "download_paper": "3936dc9e0941",
+          "export_citations": "0881885d6e4a",
+          "get_abstract": "ef2980a2c745",
+          "get_paper_latex": "1d1284a1fc8e",
+          "get_paper_latex_section": "991407e2c821",
+          "get_paper_outline": "e864597fd2de",
+          "list_paper_latex_sections": "e864597fd2de",
+          "list_papers": "f789aa8c0a8c",
+          "list_watches": "99334726611c",
+          "read_paper": "d3df7286d185",
+          "read_paper_section": "c2d9a1324e01",
+          "reindex": "94e4fd0549f8",
+          "search_paper_text": "907f90c2d311",
+          "search_papers": "3d0c4325ea9a",
+          "semantic_search": "19541fb23f5c",
+          "unwatch_topic": "0389febf0679",
+          "watch_topic": "ee8fc1819999"
+        }
+      }
     },
     {
       "id": "context7",
@@ -3682,7 +3713,7 @@
       "round": "fleet",
       "versionTested": "1.0.4",
       "serverInfoName": "sh",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -3945,7 +3976,7 @@
       "round": "fleet",
       "versionTested": "2.15.3",
       "serverInfoName": "git-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -4249,7 +4280,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -4442,7 +4473,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "query": "335b081f8028"
+        }
+      }
     },
     {
       "id": "duckduckgo",
@@ -4451,7 +4488,7 @@
       "round": "fleet",
       "versionTested": "0.7.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -4687,7 +4724,15 @@
       "warnings": [
         "the server announced no version, so the resolved package version (0.7.0) is shown"
       ],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "expand_link": "fbea345a589f",
+          "fetch_content": "9d076b0b120b",
+          "search": "1484bb8d7a94"
+        }
+      }
     },
     {
       "id": "executeautomation-db",
@@ -4696,7 +4741,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "database-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -4962,7 +5007,7 @@
       "round": "fleet",
       "versionTested": "0.0.5",
       "serverInfoName": "fetch-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -5191,7 +5236,7 @@
       "round": "fleet",
       "versionTested": "0.2.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -5518,7 +5563,45 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "close_issue": "3d0cc5093266",
+          "close_merge_request": "d0a96d5baaf2",
+          "close_milestone": "ea9413bcf896",
+          "create_fork": "14f051adae1f",
+          "create_issue": "59351b79f7ba",
+          "create_issue_comment": "8aed91afa4c4",
+          "create_merge_request": "3c87f0869ed9",
+          "create_milestone": "962c494fac9d",
+          "create_project": "99e37468bcb8",
+          "delete_project": "502b5e68d320",
+          "get_current_user_info": "552364a5c395",
+          "get_fork_info": "23c3e207a486",
+          "get_issue_by_url": "1bd9898626d8",
+          "get_issue_details": "6be401b0557b",
+          "get_merge_request_commits": "1b0da94e4f0e",
+          "get_merge_request_details": "bb8944c0d6f8",
+          "get_merge_request_diff": "c3895d55773d",
+          "get_platform_config": "22d9b6f41398",
+          "get_project_details": "aae01a17490f",
+          "list_all_issues": "70816116fcf8",
+          "list_forks": "8e174b53234e",
+          "list_issues": "eeb738020ad8",
+          "list_merge_requests": "5cd2d7745286",
+          "list_milestones": "f637f370d732",
+          "list_my_issues": "b07e90e2a87a",
+          "list_my_merge_requests": "2e1e17fe39d1",
+          "list_platforms": "22a3d204d826",
+          "list_projects": "ae8814d129cc",
+          "refresh_platform_username": "10e29554034c",
+          "test_platform_connection": "369d5885ec4d",
+          "update_issue": "2789e5b084e1",
+          "update_merge_request": "b8b1e86bb1ab",
+          "update_milestone": "4512762d04ed"
+        }
+      }
     },
     {
       "id": "henkey-postgres",
@@ -5527,7 +5610,7 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "postgres-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -6088,7 +6171,7 @@
       "round": "fleet",
       "versionTested": "1.0.7",
       "serverInfoName": "mcp-knowledge-graph",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -6314,7 +6397,23 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "add_observations": "37bfc8389eab",
+          "create_entities": "e9e369d635fd",
+          "create_relations": "8bdba9f2082d",
+          "delete_entities": "3d558255ca63",
+          "delete_observations": "d9280d865066",
+          "delete_relations": "b000d5cf80fb",
+          "open_nodes": "4ad1206c106e",
+          "read_graph": "efddc7bd8bbc",
+          "search_nodes": "d55e4359e657",
+          "update_entities": "2bc6774aab8b",
+          "update_relations": "8bdba9f2082d"
+        }
+      }
     },
     {
       "id": "markitdown",
@@ -6323,7 +6422,7 @@
       "round": "fleet",
       "versionTested": "0.0.1a8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -6555,7 +6654,7 @@
       "round": "fleet",
       "versionTested": "1.0.9",
       "serverInfoName": "mcp-sqlite",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -6822,7 +6921,7 @@
       "round": "fleet",
       "versionTested": "1.1.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -7059,7 +7158,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "execute_query": "841b86a574c8",
+          "list_columns": "4af6d7f465d7",
+          "list_databases": "99334726611c",
+          "list_tables": "7e2b7f53895d"
+        }
+      }
     },
     {
       "id": "ripgrep",
@@ -7068,7 +7176,7 @@
       "round": "fleet",
       "versionTested": "0.4.0",
       "serverInfoName": "mcp-ripgrep",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -7310,7 +7418,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "advanced-search": "c834add91b04",
+          "count-matches": "d02257979f98",
+          "list-file-types": "efddc7bd8bbc",
+          "list-files": "0a9a806a9bac",
+          "search": "045cd874a35d"
+        }
+      }
     },
     {
       "id": "server-postgres",
@@ -7319,7 +7437,7 @@
       "round": "fleet",
       "versionTested": "0.6.2",
       "serverInfoName": "server-postgres",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -7601,7 +7719,7 @@
       "round": "fleet",
       "versionTested": "1.2.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -7846,7 +7964,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "append_text_file_contents": "ddcab200186e",
+          "create_text_file": "ca4503a93192",
+          "delete_text_file_contents": "41e00fcbf762",
+          "get_text_file_contents": "a71626cc483d",
+          "insert_text_file_contents": "f703151fdde6",
+          "patch_text_file_contents": "6175d1b359c7"
+        }
+      }
     },
     {
       "id": "adeu-mcp-server",
@@ -12097,7 +12226,7 @@
       "name": "@aquex/reasonbook",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "4.12.0",
+      "versionTested": "4.13.0",
       "serverInfoName": "reasonbook",
       "testedAt": "2026-11-25",
       "sealmark": {
@@ -12106,7 +12235,7 @@
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @aquex/reasonbook@4.12.0",
+      "launch": "npx -y @aquex/reasonbook@4.13.0",
       "transport": "stdio",
       "toolCount": 15,
       "tools": [
@@ -32612,16 +32741,16 @@
       "name": "smartmemory-mcp",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "2.0.4",
+      "versionTested": "2.0.7",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx smartmemory-mcp==2.0.4",
+      "launch": "uvx smartmemory-mcp==2.0.7",
       "transport": "stdio",
       "toolCount": 45,
       "tools": [
@@ -32678,7 +32807,7 @@
         "decision_create_pending": "8cdbcb1b29b6",
         "decision_find_conflicts": "3ba7b254a10c",
         "decision_get": "a8d0626548ee",
-        "decision_history": "cb78afbbde73",
+        "decision_history": "80e8768ee449",
         "decision_link_evidence": "3c9dd5907315",
         "decision_list": "ef95ea4275b7",
         "decision_provenance": "a8d0626548ee",
@@ -32989,7 +33118,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "schemas": {
           "create_workspace": "881ff64934d5",
           "decision_contradict": "3c9dd5907315",
@@ -65064,10 +65193,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.487",
-      "versionTested": "1.108.487",
+      "refTested": "1.108.490",
+      "versionTested": "1.108.490",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-24",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -65309,7 +65438,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-23",
+        "date": "2026-11-24",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -70776,7 +70905,7 @@
       "round": "fleet",
       "versionTested": "1.0.5",
       "serverInfoName": "apick-subagent",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -70994,7 +71123,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "apick_cancel": "4d4a2ddb4001",
           "apick_collect": "ce0c1948e361",
@@ -71013,7 +71142,7 @@
       "round": "fleet",
       "versionTested": "0.10.6",
       "serverInfoName": "brandrail",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -71254,7 +71383,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "find_component": "a2dd3619d6a9",
           "get_component_docs": "c8a644672365",
@@ -71271,16 +71400,16 @@
       "name": "@celo/buy",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.8.7",
+      "versionTested": "0.8.8",
       "serverInfoName": "buy",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @celo/buy@0.8.7 mcp serve",
+      "launch": "npx -y @celo/buy@0.8.8 mcp serve",
       "transport": "stdio",
       "toolCount": 7,
       "tools": [
@@ -71523,7 +71652,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
           "buy_balance": "c412db956eea",
           "buy_curl": "f371715326fd",
@@ -71542,7 +71671,7 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -71740,7 +71869,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "run_efficiency": "279a6d3e6171",
           "spend_breakdown": "5e2c6d0a22c6"
@@ -71754,7 +71883,7 @@
       "round": "fleet",
       "versionTested": "2.7.0",
       "serverInfoName": "labby",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -71966,7 +72095,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "codemode": "25f8baf5d67d",
           "codemode_read": "25f8baf5d67d",
@@ -71984,7 +72113,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "rapprise",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -72179,7 +72308,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "apprise": "cdf5234f8a57"
         }
@@ -72192,7 +72321,7 @@
       "round": "fleet",
       "versionTested": "1.0.6",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -72485,7 +72614,7 @@
       ],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "dsail_add_unit_converter": "17f22820b081",
           "dsail_check": "85442359da68",
@@ -72517,7 +72646,7 @@
       "round": "fleet",
       "versionTested": "0.10.1",
       "serverInfoName": "etincel",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -72794,7 +72923,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "add_banned_word": "72b95e7b2f9e",
           "add_custom_word": "36ea03ad18b8",
@@ -73151,7 +73280,7 @@
       "round": "fleet",
       "versionTested": "0.10.2",
       "serverInfoName": "huddoai",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -73494,7 +73623,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "huddo_answer": "80fbe6d706df",
           "huddo_app_list": "427c7361a913",
@@ -73542,16 +73671,16 @@
       "name": "hypaware",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.55.0",
+      "versionTested": "1.56.0",
       "serverInfoName": "hypaware",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y hypaware@1.55.0 mcp serve",
+      "launch": "npx -y hypaware@1.56.0 mcp serve",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -73739,7 +73868,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "query_sql": "526e4a222f09"
         }
@@ -73752,7 +73881,7 @@
       "round": "fleet",
       "versionTested": "0.3.9",
       "serverInfoName": "insightsocial",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -73991,7 +74120,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "call_endpoint": "28dcabf0845b",
           "describe_endpoint": "e29a168305d9",
@@ -74008,7 +74137,7 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "store",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -74274,7 +74403,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "create_buy_link": "72b6d978f1f0",
           "download_to_folder": "b20245419c97",
@@ -74709,16 +74838,16 @@
       "name": "@keepstateai/cli",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.49",
+      "versionTested": "0.1.50",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-24",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @keepstateai/cli@0.1.49 mcp",
+      "launch": "npx -y @keepstateai/cli@0.1.50 mcp",
       "transport": "stdio",
       "toolCount": 37,
       "packs": [
@@ -74963,7 +75092,7 @@
       "round": "fleet",
       "versionTested": "1.0.2",
       "serverInfoName": "kellian-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -75491,7 +75620,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "kellian_list_forecasters, kellian_get_moving, kellian_contest, kellian_get_context, kellian_get_server_time, kellian_list_capabilities, kellian_list_chains, kellian_get_token_release, kellian_list_collateral, kellian_get_contracts, kellian_get_fees, kellian_get_rules, kellian_list_leaderboard, kellian_discover_renderers, kellian_list_markets, kellian_discover_resolution_sources, kellian_list_pending_resolution_markets, kellian_discover_market_data, kellian_list_event_types, kellian_discover_events, kellian_list_webhook_event_types, kellian_discover_webhooks declared read-only and changed nothing in the observed directories during a benign call (kellian_list_watches, kellian_get_market_research, kellian_get_market_news, kellian_my_contest, kellian_get_smart_money, kellian_get_me, kellian_get_fill_allowance, kellian_get_agent_identity, kellian_list_pending_link_consents, kellian_get_my_reputation, kellian_get_market, kellian_get_market_chart, kellian_list_reputation_leaderboard, kellian_get_trader_profile, kellian_list_scoring_cohort, kellian_list_my_reputation_events, kellian_get_participation_release, kellian_trading_setup_status, kellian_list_claims, kellian_list_webhooks, kellian_get_open_orders, kellian_list_order_events, kellian_orderbook_heartbeat_status, kellian_get_current_season, kellian_get_season_cohort, kellian_get_launch_counter not judged: the control call failed)"
+          "summary": "kellian_list_forecasters, kellian_get_moving, kellian_contest, kellian_get_context, kellian_get_server_time, kellian_list_capabilities, kellian_list_chains, kellian_get_token_release, kellian_list_event_types, kellian_discover_events, kellian_list_webhook_event_types, kellian_discover_webhooks declared read-only and changed nothing in the observed directories during a benign call (kellian_list_watches, kellian_get_market_research, kellian_get_market_news, kellian_my_contest, kellian_get_smart_money, kellian_get_me, kellian_get_fill_allowance, kellian_get_agent_identity, kellian_list_pending_link_consents, kellian_list_collateral, kellian_get_contracts, kellian_get_fees, kellian_get_rules, kellian_list_leaderboard, kellian_discover_renderers, kellian_get_my_reputation, kellian_list_markets, kellian_get_market, kellian_get_market_chart, kellian_discover_resolution_sources, kellian_list_pending_resolution_markets, kellian_discover_market_data, kellian_list_reputation_leaderboard, kellian_get_trader_profile, kellian_list_scoring_cohort, kellian_list_my_reputation_events, kellian_get_participation_release, kellian_trading_setup_status, kellian_list_claims, kellian_list_webhooks, kellian_get_open_orders, kellian_list_order_events, kellian_orderbook_heartbeat_status, kellian_get_current_season, kellian_get_season_cohort, kellian_get_launch_counter not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -75661,7 +75790,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "kellian_analyze_selected_makers": "6c08f83f587a",
           "kellian_approve_link_consents": "4656154ff6a3",
@@ -75799,7 +75928,7 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "kloudy",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -75934,7 +76063,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "the server could not be called: MCP error 429: Streamable HTTP error: Error POSTing to endpoint: {\"message\":\"Too Many Requests\"} (the run stopped early: MCP error 429: Streamable HTTP error: Error POSTing to endpoint: {\"message\":\"Too Many Requests\"})"
+          "reason": "the server could not be called: MCP error -32000: Connection closed (server stderr: Kloudy could not complete the request. Check your connection or authorized key. No action was retried. Run npx kloudy --help.) (the run stopped early: MCP error -32000: Connection closed (server stderr: Kloudy could not complete the request. Check your connection or auth...)"
         }
       ],
       "checks": [
@@ -75976,7 +76105,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 37 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 47 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -75994,7 +76123,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "the server could not be called: MCP error 429: Streamable HTTP error: Error POSTing to endpoint: {\"message\":\"Too Many Requests\"} (the run stopped early: MCP error 429: Streamable HTTP error: Error POSTing to endpoint: {\"message\":\"Too Many Requests\"})"
+          "summary": "the server could not be called: MCP error -32000: Connection closed (server stderr: Kloudy could not complete the request. Check your connection or authorized key. No action was retried. Run npx kloudy --help.) (the run stopped early: MCP error -32000: Connection closed (server stderr: Kloudy could not complete the request. Check your connection or auth...)"
         },
         {
           "id": "openworld-honesty",
@@ -76003,7 +76132,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "the server could not be called: MCP error 429: Streamable HTTP error: Error POSTing to endpoint: {\"message\":\"Too Many Requests\"}"
+          "summary": "the server could not be called: MCP error -32000: Connection closed (server stderr: Kloudy could not complete the request. Check your connection or authorized key. No action was retried. Run npx kloudy --help.)"
         },
         {
           "id": "undeclared-writes",
@@ -76012,7 +76141,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "inconclusive",
-          "summary": "the server could not be called: MCP error 429: Streamable HTTP error: Error POSTing to endpoint: {\"message\":\"Too Many Requests\"}"
+          "summary": "the server could not be called: MCP error -32000: Connection closed (server stderr: Kloudy could not complete the request. Check your connection or authorized key. No action was retried. Run npx kloudy --help.)"
         },
         {
           "id": "refusal-quality",
@@ -76057,7 +76186,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "find_mcp_tools": "306fbe1d25e8",
           "kloudy_build_answer": "987ec5bc1809",
@@ -76082,7 +76211,7 @@
       "round": "fleet",
       "versionTested": "2.2.1",
       "serverInfoName": "memcell",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -76328,7 +76457,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "feedback": "f848c52ec66b",
           "get_insights": "b9f4627238b7",
@@ -76345,16 +76474,16 @@
       "name": "nauro",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.23.0",
+      "versionTested": "1.23.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx nauro==1.23.0 serve",
+      "launch": "uvx nauro==1.23.1 serve",
       "transport": "stdio",
       "toolCount": 12,
       "tools": [
@@ -76617,7 +76746,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "check_decision": "2c3d07775570",
           "diff_since_last_session": "6f67a17297b2",
@@ -76641,7 +76770,7 @@
       "round": "fleet",
       "versionTested": "1.35.0",
       "serverInfoName": "agent-guild",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -76894,7 +77023,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "fireworks": "99334726611c",
           "guild_status": "99334726611c",
@@ -76914,7 +77043,7 @@
       "round": "fleet",
       "versionTested": "0.2.62",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -77193,7 +77322,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "schemas": {
           "orangepro_ai_flows": "578584eb6c9c",
           "orangepro_ai_links": "6969e37ce4f5",
@@ -77224,7 +77353,7 @@
       "round": "fleet",
       "versionTested": "0.4.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -77440,7 +77569,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "consolidate": "e22262056812",
           "context": "54e558ecf21f",
@@ -77460,7 +77589,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "kit",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -77746,7 +77875,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "actions_describe": "88217d92235c",
           "actions_search": "dec8a7a4b1ac",
@@ -78394,16 +78523,16 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.12.0",
+      "versionTested": "1.13.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-24",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.12.0 mcp",
+      "launch": "uvx skilltotal==1.13.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -78617,7 +78746,7 @@
       "round": "fleet",
       "versionTested": "4.4.0",
       "serverInfoName": "srift-transfer",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -78892,7 +79021,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "srift_accept_transfer": "5d2b3bf71f07",
           "srift_approve_join": "5e70af0d04f4",
@@ -78919,7 +79048,7 @@
       "round": "fleet",
       "versionTested": "2.4.0",
       "serverInfoName": "statuz-cli",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -79285,7 +79414,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "accounts_check": "e3ebc59af4c7",
           "accounts_connect": "02e26a3056bc",
@@ -79331,7 +79460,7 @@
       "round": "fleet",
       "versionTested": "0.6.0",
       "serverInfoName": "stubs",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -79566,7 +79695,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "check_stub": "9921f5e877d5",
           "pull_stub": "b3df1949c256"
@@ -79580,7 +79709,7 @@
       "round": "fleet",
       "versionTested": "1.60.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -80168,7 +80297,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-17",
+        "date": "2026-11-20",
         "schemas": {
           "add_check": "f2f7ebe42665",
           "add_grant": "989f776ee080",
@@ -80192,7 +80321,7 @@
           "discover_source": "c36362ea00cf",
           "finish_project": "7d6deb9bfb54",
           "get_crew_settings": "15561b4c9fa3",
-          "get_doc": "a94bd002d71c",
+          "get_doc": "fb24ced90f12",
           "get_integrations": "95ad09490988",
           "get_skill": "338b25c99d7b",
           "get_station": "bc63d73e6e22",
@@ -80206,19 +80335,19 @@
           "list_assumptions": "c6f185ef6e5b",
           "list_connectors": "5f60a8304513",
           "list_crew": "a2cee0ace51b",
-          "list_decisions": "7e6e86109be6",
-          "list_docs": "563f92d33fb0",
+          "list_decisions": "dd013b5e4315",
+          "list_docs": "ae87ffcaaeb5",
           "list_findings": "2771983b6813",
-          "list_milestones": "57f58fcf39ae",
+          "list_milestones": "54349f6e3640",
           "list_people": "2e0727e22c32",
           "list_projects": "2d7d1c0f8964",
           "list_secrets": "f2a5f65e6ec1",
           "list_skills": "b81f308f2dfb",
           "list_sources": "47c68f9c24e6",
-          "list_tickets": "9ea8dfc7ff5b",
+          "list_tickets": "896c1fbdec46",
           "mark_incident": "d4b2bc8856cc",
           "merge_ready": "9d29253a7efb",
-          "my_work": "c5bb0498936d",
+          "my_work": "ccc1c5e00155",
           "pick_up": "9c4b193530ce",
           "project_timeline": "ef1ab07326a9",
           "read": "b445f3550271",
@@ -80233,8 +80362,8 @@
           "release_ready": "1fbd6115f371",
           "remember": "7e5be0e0df2a",
           "remember_for_project": "6b15b2e5245d",
-          "review_brief": "321d08a73fc5",
-          "review_queue": "406171ecf671",
+          "review_brief": "affa9ba6eb00",
+          "review_queue": "033e669991de",
           "set_crew_settings": "d85e9bf9651e",
           "set_later": "10a58cf06f1d",
           "set_required_checks": "b480646f8080",
@@ -80263,7 +80392,7 @@
       "round": "fleet",
       "versionTested": "1.0.8",
       "serverInfoName": "telbase",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -80645,7 +80774,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "add_custom_domain": "7aa0d5da159d",
           "cancel_deploy": "3d39677641ad",
@@ -80702,7 +80831,7 @@
       "round": "fleet",
       "versionTested": "0.1.0-alpha.35",
       "serverInfoName": "tenjin-cli",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -80940,10 +81069,12 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
-          "hook": "f17e8fec5ef7",
-          "request": "ca35dd5914ad"
+          "hook": "dd59e650ae60",
+          "request": "ca35dd5914ad",
+          "subagent": "8674943b96ea",
+          "subagent_activity": "0e304f5b0517"
         }
       }
     },
@@ -80954,7 +81085,7 @@
       "round": "fleet",
       "versionTested": "1.18.0",
       "serverInfoName": "toolaby",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -81311,7 +81442,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "toolaby_add_plan": "587554f95c2c",
           "toolaby_add_webhook": "b7a92e2f09cb",
@@ -81779,7 +81910,7 @@
       "round": "fleet",
       "versionTested": "0.3.23",
       "serverInfoName": "uarpie",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -82099,7 +82230,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "add_domain": "3f3ef0380cd4",
           "api_keys": "b38486bfc554",
@@ -82142,7 +82273,7 @@
       "round": "fleet",
       "versionTested": "2.5.0",
       "serverInfoName": "wilma-cli",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -82424,7 +82555,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "wilma_account": "7a014b717a77",
           "wilma_contacts": "50244be0c0ed",
@@ -82456,7 +82587,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "agent-ready",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -82716,7 +82847,7 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "local-seo",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -83012,7 +83143,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "audit_profile": "34868c35490c",
           "category_ideas": "64ce7e800555",
@@ -83036,7 +83167,7 @@
       "round": "fleet",
       "versionTested": "0.4.23",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -83295,7 +83426,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "decide": "869ddb1b3840",
           "fit_run": "e5e8b8c79d10",
@@ -83318,7 +83449,7 @@
       "round": "fleet",
       "versionTested": "1.0.0",
       "serverInfoName": "synapse",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -83517,7 +83648,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "flux": "ec7ce2afefef",
           "scout": "9115a7139453"
@@ -83531,7 +83662,7 @@
       "round": "fleet",
       "versionTested": "2.2.2",
       "serverInfoName": "yarr",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -83726,7 +83857,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "yarr": "7022312f9d3f"
         }
@@ -83739,7 +83870,7 @@
       "round": "fleet",
       "versionTested": "1.0.0",
       "serverInfoName": "nove-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -83972,7 +84103,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "calculate_due_date": "2ba932e3d74c",
           "get_pregnancy_week": "dcd7f3e0a65b",
@@ -83988,7 +84119,7 @@
       "refTested": "0.3.2",
       "versionTested": "0.3.2",
       "serverInfoName": "rechtssysteem-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -84192,7 +84323,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "lekkage_check": "7b633d41677e",
           "rechtspraak_cijfers": "99334726611c",
@@ -85102,7 +85233,7 @@
       "round": "fleet",
       "versionTested": "2.3.2",
       "serverInfoName": "storkai",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -85449,7 +85580,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "stork_call": "92bbc048522a",
           "stork_compare": "c896932aece3",
@@ -85491,7 +85622,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -85726,7 +85857,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "get_example": "1e05b6b363dd",
           "get_guide": "99334726611c",
@@ -85742,7 +85873,7 @@
       "round": "fleet",
       "versionTested": "1.0.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -85953,7 +86084,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "compare_models": "0106e2860436",
+          "get_leaderboard": "d4a9778fc8ff",
+          "get_model": "8a6359f7552b",
+          "get_prices": "db0d9d8e0ca8",
+          "list_categories": "6c1e203d1e2b",
+          "recommend_model": "5f40101bbec3"
+        }
+      }
     },
     {
       "id": "mcp-church",
@@ -85962,7 +86104,7 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "mcp-church",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -85986,14 +86128,14 @@
       ],
       "toolSchemas": {
         "ask": "1328496e94f5",
-        "attend": "4b7ff5c30710",
+        "attend": "13607640f4f2",
         "browse": "94891de578e3",
         "contribute": "9e788a818925",
         "observe": "0ca2a71c3194",
         "read_doc": "d36b7b183d3e",
         "read_rhythm": "14baf407a6e7",
         "read_song": "74260526d953",
-        "reflect": "406abdda0f88",
+        "reflect": "d1c5a78d3bb9",
         "search": "7b56fc933b2e"
       },
       "packs": [
@@ -86211,7 +86353,22 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ask": "1328496e94f5",
+          "attend": "4b7ff5c30710",
+          "browse": "94891de578e3",
+          "contribute": "9e788a818925",
+          "observe": "0ca2a71c3194",
+          "read_doc": "d36b7b183d3e",
+          "read_rhythm": "14baf407a6e7",
+          "read_song": "74260526d953",
+          "reflect": "406abdda0f88",
+          "search": "7b56fc933b2e"
+        }
+      }
     },
     {
       "id": "mroffice-mcp",
@@ -86542,16 +86699,16 @@
       "name": "@chronary/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.8.4",
+      "versionTested": "1.8.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-24",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @chronary/mcp@1.8.4",
+      "launch": "npx -y @chronary/mcp@1.8.5",
       "transport": "stdio",
       "toolCount": 1,
       "tools": [
@@ -86739,7 +86896,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-22",
+        "date": "2026-11-24",
         "schemas": {
           "sign_up_anonymous": "aeb2c76c7e44"
         }
@@ -87235,18 +87392,18 @@
       "name": "veriql-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.4.2",
+      "versionTested": "1.5.0",
       "serverInfoName": "veriql-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y veriql-mcp@1.4.2",
+      "launch": "npx -y veriql-mcp@1.5.0",
       "transport": "stdio",
-      "toolCount": 11,
+      "toolCount": 13,
       "tools": [
         "veriql_scan",
         "veriql_token",
@@ -87258,11 +87415,15 @@
         "veriql_batch_screen",
         "veriql_x402_seller_check",
         "veriql_deployer",
-        "veriql_freeze"
+        "veriql_freeze",
+        "veriql_forecast",
+        "veriql_forecast_odds"
       ],
       "toolSchemas": {
         "veriql_batch_screen": "1b806f61ea55",
         "veriql_deployer": "79f037128d81",
+        "veriql_forecast": "99b2b7377c65",
+        "veriql_forecast_odds": "38867057c920",
         "veriql_freeze": "b244965ce67a",
         "veriql_launch": "a8aab455df75",
         "veriql_payee": "b2c85b805f5e",
@@ -87379,7 +87540,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 11 well-formed tool(s)"
+          "summary": "handshake ok, 13 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -87388,7 +87549,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 11 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 13 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -87397,7 +87558,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "52 invalid call(s) rejected cleanly",
+          "summary": "62 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [],
             "notCovered": []
@@ -87410,7 +87571,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 52 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 62 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -87470,7 +87631,7 @@
       "coverage": {
         "validCalls": 0,
         "toolsCalledValid": 0,
-        "toolsTotal": 11,
+        "toolsTotal": 13,
         "level": "hygiene-only"
       },
       "badge": {
@@ -87490,6 +87651,8 @@
         "tool \"veriql_batch_screen\" is covered by the core checks only: string-array parameters only: none names a path, URL, command, SQL or repository; add it under tools: to include it",
         "tool \"veriql_deployer\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
         "tool \"veriql_freeze\" is covered by the core checks only: argument \"address\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"veriql_forecast\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"veriql_forecast_odds\" is covered by the core checks only: free-text parameter \"prices\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
@@ -87499,7 +87662,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "veriql_batch_screen": "1b806f61ea55",
           "veriql_deployer": "79f037128d81",
