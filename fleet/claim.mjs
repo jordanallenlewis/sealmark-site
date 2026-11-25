@@ -6,8 +6,9 @@
 // The claim holds only when the file sits in the repository the package itself names today (npm `repository`; PyPI
 // Source/Repository URLs; the repository a GitHub server starts from), that repository is the one the fleet linked to
 // the server and not a fork, and the file names the server's id. Homepage and bug-tracker links never count. The
-// repository's numeric id is kept: when it changes (the name was deleted and taken by someone else) the claim ends and
-// stays ended. Everything in the file is someone else's text: a strict shape, a size cap, and nothing shown but the
+// repository's numeric id is pinned the first time the link holds (`pin`, kept on every later outcome, error or 404):
+// when the linked name answers with another id (deleted and taken by someone else, or the old name reused after a
+// rename) the server is never claimed again by any file; a maintainer emails to have the pin reset. Everything in the file is someone else's text: a strict shape, a size cap, and nothing shown but the
 // matched id, the enumerated setting and a date parsed here. A claim changes no grade, badge or ranking.
 // Design and threat model: sealmark-site#69. Covered by fleet/claim.test.mjs.
 import { parseRepo, repoFromLaunch } from "./repo-url.mjs";
@@ -73,26 +74,29 @@ export function claimLink(server, meta) {
 const same = (a, b) => typeof a === "string" && typeof b === "string" && a.toLowerCase() === b.toLowerCase();
 
 /**
- * Whether this server is claimed today: {claim, outcome}. claim is the entry stored in server-facts.json, or null.
+ * Whether this server is claimed today: {claim, outcome, pin}. claim is the entry stored in server-facts.json, or null;
+ * pin is the repository id to keep on the entry (null until the link first holds; once set, returned on every path).
  *   stored: the repository the fleet linked to the server (fleet/owner-repos.json); link: claimLink() for today;
- *   repoObj: GET /repos/{stored} (follows renames); prev: the last stored claim.
- * Throws when the file cannot be read (the caller keeps the last state). outcome is a count for the run log:
+ *   repoObj: GET /repos/{stored} (follows renames); pinned: the entry's last pin.
+ * Throws when the file cannot be read (the caller keeps the last state and pin). outcome is a count for the run log:
  *   claimed | none | not-named | invalid | no-link | link-differs | fork | repository-changed
  */
-export async function checkClaim({ server, stored, link, repoObj, api, today, prev = null }) {
-  if (!stored || !link || !repoObj || repoObj.missing || typeof repoObj.full_name !== "string" || !Number.isInteger(repoObj.id)) return { claim: null, outcome: "no-link" };
-  if (!same(link, stored) && !same(link, repoObj.full_name)) return { claim: null, outcome: "link-differs" };
-  if (repoObj.fork === true) return { claim: null, outcome: "fork" };
-  if (Number.isInteger(prev?.repoId) && prev.repoId !== repoObj.id) {
-    return { claim: { ended: "repository-changed", repoId: prev.repoId, checkedAt: today }, outcome: "repository-changed" };
-  }
+export async function checkClaim({ server, stored, link, repoObj, api, today, pinned = null }) {
+  const pin = Number.isInteger(pinned) ? pinned : null;
+  const id = Number.isInteger(repoObj?.id) && !repoObj.missing ? repoObj.id : null;
+  // the pin first: no later outcome may clear it, or a 404 day would let the next owner of the name claim
+  if (pin !== null && id !== null && id !== pin) return { claim: { ended: "repository-changed", repoId: pin, checkedAt: today }, outcome: "repository-changed", pin };
+  if (!stored || !link || id === null || typeof repoObj.full_name !== "string") return { claim: null, outcome: "no-link", pin };
+  if (!same(link, stored) && !same(link, repoObj.full_name)) return { claim: null, outcome: "link-differs", pin };
+  if (repoObj.fork === true) return { claim: null, outcome: "fork", pin };
   const file = await api(`/repos/${repoObj.full_name}/contents/${CLAIM_PATH}`);
-  if (file?.missing) return { claim: null, outcome: "none" };
+  if (file?.missing) return { claim: null, outcome: "none", pin: id };
   const p = parseClaim(file);
-  if (!p.ok) return { claim: null, outcome: "invalid" };
-  if (!p.servers.includes(server.id)) return { claim: null, outcome: "not-named" };
+  if (!p.ok) return { claim: null, outcome: "invalid", pin: id };
+  if (!p.servers.includes(server.id)) return { claim: null, outcome: "not-named", pin: id };
   return {
-    claim: { repo: repoObj.full_name, repoId: repoObj.id, checkedAt: today, issues: p.issues, ...(p.retest ? { retest: p.retest } : {}) },
+    claim: { repo: repoObj.full_name, repoId: id, checkedAt: today, issues: p.issues, ...(p.retest ? { retest: p.retest } : {}) },
     outcome: "claimed",
+    pin: id,
   };
 }

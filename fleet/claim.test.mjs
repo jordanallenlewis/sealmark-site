@@ -18,7 +18,6 @@ test("the claim file: anything but a small plain file is no claim", () => {
   assert.equal(parseClaim({ missing: true }).ok, false);
   assert.equal(parseClaim(null).ok, false);
   assert.equal(parseClaim([file(good)]).why, "not-file", "a directory listing");
-  assert.equal(parseClaim(file(good, { type: "symlink" })).why, "not-file");
   assert.equal(parseClaim(file(good, { type: "submodule" })).why, "not-file");
   assert.equal(parseClaim(file(good, { size: MAX_BYTES + 1 })).why, "too-big");
   assert.equal(parseClaim(file(good, { size: "10" })).why, "too-big");
@@ -97,27 +96,48 @@ test("no claim: no strict link, a link that differs, a fork, a missing repositor
   const base = { server, stored: "org/a-mcp", link: "org/a-mcp", repoObj, today: "2026-11-25" };
   const calls = [];
   const none = async (o) => (await checkClaim({ ...base, api: apiWith(file(good), calls), ...o }));
-  assert.deepEqual(await none({ link: null }), { claim: null, outcome: "no-link" });
-  assert.deepEqual(await none({ stored: null }), { claim: null, outcome: "no-link" });
-  assert.deepEqual(await none({ link: "someone/sdk" }), { claim: null, outcome: "link-differs" });
-  assert.deepEqual(await none({ repoObj: { ...repoObj, fork: true } }), { claim: null, outcome: "fork" });
-  assert.deepEqual(await none({ repoObj: { missing: true } }), { claim: null, outcome: "no-link" });
-  assert.deepEqual(await none({ repoObj: { full_name: "Org/a-mcp" } }), { claim: null, outcome: "no-link" }, "no numeric id");
+  const out = async (o) => { const r = await none(o); return [r.claim, r.outcome]; };
+  assert.deepEqual(await out({ link: null }), [null, "no-link"]);
+  assert.deepEqual(await out({ stored: null }), [null, "no-link"]);
+  assert.deepEqual(await out({ link: "someone/sdk" }), [null, "link-differs"]);
+  assert.deepEqual(await out({ repoObj: { ...repoObj, fork: true } }), [null, "fork"]);
+  assert.deepEqual(await out({ repoObj: { missing: true } }), [null, "no-link"]);
+  assert.deepEqual(await out({ repoObj: { full_name: "Org/a-mcp" } }), [null, "no-link"], "no numeric id");
   assert.equal(calls.length, 0, "the file is never read when the link does not hold");
-  assert.deepEqual(await checkClaim({ ...base, api: apiWith({ missing: true }) }), { claim: null, outcome: "none" });
-  assert.deepEqual(await checkClaim({ ...base, api: apiWith(file({ ...good, servers: ["other"] })) }), { claim: null, outcome: "not-named" });
-  assert.deepEqual(await checkClaim({ ...base, api: apiWith(file("{")) }), { claim: null, outcome: "invalid" });
+  assert.deepEqual(await checkClaim({ ...base, api: apiWith({ missing: true }) }), { claim: null, outcome: "none", pin: 42 });
+  assert.deepEqual(await checkClaim({ ...base, api: apiWith(file({ ...good, servers: ["other"] })) }), { claim: null, outcome: "not-named", pin: 42 });
+  assert.deepEqual(await checkClaim({ ...base, api: apiWith(file("{")) }), { claim: null, outcome: "invalid", pin: 42 });
 });
 
 test("a repository whose id changed ends the claim, and it stays ended", async () => {
-  const prev = { repo: "Org/a-mcp", repoId: 41, checkedAt: "2026-11-20", issues: "on" };
-  const r = await checkClaim({ server, stored: "org/a-mcp", link: "org/a-mcp", repoObj, api: apiWith(file(good)), today: "2026-11-25", prev });
-  assert.deepEqual(r, { claim: { ended: "repository-changed", repoId: 41, checkedAt: "2026-11-25" }, outcome: "repository-changed" });
-  const again = await checkClaim({ server, stored: "org/a-mcp", link: "org/a-mcp", repoObj, api: apiWith(file(good)), today: "2026-11-26", prev: r.claim });
-  assert.equal(again.outcome, "repository-changed");
-  assert.equal(again.claim.repoId, 41);
-  const same = await checkClaim({ server, stored: "org/a-mcp", link: "org/a-mcp", repoObj, api: apiWith(file(good)), today: "2026-11-25", prev: { ...prev, repoId: 42 } });
-  assert.equal(same.outcome, "claimed");
+  const at = (pinned, o = {}) => checkClaim({ server, stored: "org/a-mcp", link: "org/a-mcp", repoObj, api: apiWith(file(good)), today: "2026-11-25", pinned, ...o });
+  const r = await at(41);
+  assert.deepEqual(r, { claim: { ended: "repository-changed", repoId: 41, checkedAt: "2026-11-25" }, outcome: "repository-changed", pin: 41 });
+  assert.equal((await at(r.pin)).outcome, "repository-changed", "the pin stays, so it stays ended");
+  assert.equal((await at(42)).outcome, "claimed");
+  assert.equal((await at(null)).pin, 42, "the first time the link holds, the id is pinned");
+});
+
+test("the pin survives every outcome, so a 404 day or a removed file never lets the next owner of the name claim", async () => {
+  const day = async (pinned, o) => checkClaim({ server, stored: "org/a-mcp", link: "org/a-mcp", repoObj, api: apiWith(file(good)), today: "2026-11-25", pinned, ...o });
+  // claimed, then the repository is gone for a day, then someone else's repository answers with the same name
+  let pin = (await day(null, {})).pin;
+  assert.equal(pin, 42);
+  const gone = await day(pin, { repoObj: { missing: true } });
+  assert.deepEqual([gone.claim, gone.outcome, gone.pin], [null, "no-link", 42]);
+  assert.equal((await day(gone.pin, { repoObj: { ...repoObj, id: 99 } })).outcome, "repository-changed");
+  // claimed, then the file is removed, then the name is taken
+  const removed = await day(42, { api: apiWith({ missing: true }) });
+  assert.deepEqual([removed.outcome, removed.pin], ["none", 42]);
+  assert.equal((await day(removed.pin, { repoObj: { ...repoObj, id: 99 } })).outcome, "repository-changed");
+  // ended, then the link stops holding, then holds again: still ended
+  const differs = await day(42, { link: "someone/sdk", repoObj: { ...repoObj, id: 99 } });
+  assert.equal(differs.pin, 42);
+  assert.equal((await day(differs.pin, { repoObj: { ...repoObj, id: 99 } })).outcome, "repository-changed");
+  for (const o of [{ link: "someone/sdk" }, { repoObj: { ...repoObj, fork: true } }, { link: null }]) assert.equal((await day(42, o)).pin, 42);
+  pin = null;
+  assert.equal((await day(pin, { link: "someone/sdk" })).pin, null, "no pin from a link that does not hold");
+  assert.equal((await day(pin, { repoObj: { ...repoObj, fork: true } })).pin, null);
 });
 
 test("a failed read of the file throws, so the caller keeps the last state", async () => {

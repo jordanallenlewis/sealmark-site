@@ -145,6 +145,7 @@ export async function lookup(server, repo, { fetchFn, api, today, prev = null, c
   let named = false; // the package states a license (even one we cannot show): the repository's is then no stand-in
   let kw = null;
   let linkMeta = null; // the package's current metadata, for the repository a claim may come from
+  let pin = Number.isInteger(prev?.claimPin) ? prev.claimPin : null;
   if (server.ecosystem === "npm") {
     const doc = await getJson(fetchFn, npmDocUrl(server.name));
     const meta = doc?.versions?.[doc?.["dist-tags"]?.latest] ?? doc;
@@ -171,9 +172,10 @@ export async function lookup(server, repo, { fetchFn, api, today, prev = null, c
     if (server.ecosystem === "github" && out.repo) out.latest = githubLatest(await api(`/repos/${repo}/releases/latest`));
     // Its own try: a failed claim read never throws the other facts away; it keeps the last claim, dated as it was.
     try {
-      const c = await checkClaim({ server, stored: repo, link: claimLink(server, linkMeta), repoObj: r, api, today, prev: prev?.claim ?? null });
+      const c = await checkClaim({ server, stored: repo, link: claimLink(server, linkMeta), repoObj: r, api, today, pinned: pin });
       if (c.claim) out.claim = c.claim;
       if (CLAIMABLE.has(c.outcome)) out.claimable = true;
+      pin = c.pin;
       claimLog(c.outcome);
     } catch (e) {
       if (e.status === 403 || e.status === 429) throw e; // a rate limit stops the whole collection, as for the facts
@@ -182,6 +184,7 @@ export async function lookup(server, repo, { fetchFn, api, today, prev = null, c
       claimLog("error");
     }
   }
+  if (pin !== null) out.claimPin = pin; // kept on every path (fleet/claim.mjs): the id the server's repository must keep
   if (!out.license && !named && out.repo?.license) { out.license = out.repo.license; out.licenseFrom = "repo"; }
   if (out.repo) delete out.repo.license;
   const a = about(kw, topics);
@@ -226,6 +229,7 @@ export async function collect({ servers, repos, previous, today, fetchFn, api, m
     await sleep(100);
   }
   log(`facts: ${ok} looked up, ${failed} failed, ${due.length - tried} left for the next run${stop ? ` (stopped: ${stop})` : ""}, ${Object.keys(keep).length} servers`);
-  log(`claims: ${Object.values(keep).filter((e) => e?.claim && !e.claim.ended).length} held in total; this run ${Object.entries(claims).sort().map(([k, n]) => `${k} ${n}`).join(", ") || "none read"}`);
+  // this run's outcomes only: a total would count claims on servers whose page is held (a public log)
+  log(`claims this run: ${Object.entries(claims).sort().map(([k, n]) => `${k} ${n}`).join(", ") || "none read"}`);
   return { servers: Object.fromEntries(Object.entries(keep).sort(([a], [b]) => a.localeCompare(b))) };
 }

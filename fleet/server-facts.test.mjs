@@ -153,6 +153,7 @@ test("lookup: a claim file in the package's own repository is stored with the fa
   const e = await lookup({ id: "a", ecosystem: "npm", name: "a" }, "o/r", { fetchFn: npmDoc({ repository: { url: "git+https://github.com/o/r.git" } }), api: claimApi(claimFile({ sealmark: "claim/1", servers: ["a"] }), seen), today: "2026-11-25" });
   assert.deepEqual(e.claim, { repo: "o/r", repoId: 7, checkedAt: "2026-11-25", issues: "on" });
   assert.equal(e.claimable, true);
+  assert.equal(e.claimPin, 7);
   assert.deepEqual(seen, ["/repos/o/r", "/repos/o/r/contents/.github/sealmark-claim.json"]);
   const none = await lookup({ id: "a", ecosystem: "npm", name: "a" }, "o/r", { fetchFn: npmDoc({ repository: "github:o/r" }), api: claimApi({ missing: true }), today: "2026-11-25" });
   assert.equal(none.claim, undefined);
@@ -178,15 +179,21 @@ test("lookup: a failed claim read keeps the last claim; a rate limit stops the l
   assert.equal(e.claimable, true);
   assert.equal(e.license, "MIT", "the other facts are not thrown away");
   assert.deepEqual(logged, ["error"]);
+  const pinned = await lookup({ id: "a", ecosystem: "npm", name: "a" }, "o/r", { fetchFn: npmDoc({ repository: "github:o/r" }), api: failing(502), today: "2026-11-25", prev: { ...prev, claimPin: 7 } });
+  assert.equal(pinned.claimPin, 7, "an error keeps the pin");
+  const noRepo = await lookup({ id: "a", ecosystem: "npm", name: "a" }, null, { fetchFn: npmDoc({}), api: failing(502), today: "2026-11-25", prev: { claimPin: 7 } });
+  assert.equal(noRepo.claimPin, 7, "no linked repository this run: the pin is kept");
   await assert.rejects(lookup({ id: "a", ecosystem: "npm", name: "a" }, "o/r", { fetchFn: npmDoc({ repository: "github:o/r" }), api: failing(403), today: "2026-11-25", prev }), /403/);
 });
 
 test("collect: passes each server's last entry to the claim check and logs the claim counts", async () => {
   const servers = [{ id: "a", ecosystem: "npm", name: "a" }, { id: "b", ecosystem: "npm", name: "b" }];
-  const previous = { servers: { a: { checkedAt: "2026-11-20", claim: { repo: "o/r", repoId: 6, checkedAt: "2026-11-20", issues: "on" } } } };
+  const previous = { servers: { a: { checkedAt: "2026-11-20", claim: { repo: "o/r", repoId: 6, checkedAt: "2026-11-20", issues: "on" }, claimPin: 6 } } };
   const lines = [];
   const out = await collect({ servers, repos: { a: { repo: "o/r" }, b: { repo: "o/b" } }, previous, today: "2026-11-25", fetchFn: npmDoc({ repository: "github:o/r" }), api: claimApi(claimFile({ sealmark: "claim/1", servers: ["a", "b"] })), log: (l) => lines.push(l) });
   assert.deepEqual(out.servers.a.claim, { ended: "repository-changed", repoId: 6, checkedAt: "2026-11-25" }, "the stored id 6 is not today's 7");
   assert.equal(out.servers.b.claim, undefined, "b's package names o/r, not the linked o/b");
-  assert.match(lines.at(-1), /^claims: 0 held in total; this run link-differs 1, repository-changed 1$/);
+  assert.equal(out.servers.a.claimPin, 6);
+  assert.equal(out.servers.b.claimPin, undefined);
+  assert.equal(lines.at(-1), "claims this run: link-differs 1, repository-changed 1");
 });

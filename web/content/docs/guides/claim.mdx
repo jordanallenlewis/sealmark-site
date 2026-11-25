@@ -20,8 +20,8 @@ Commit this file as `.github/sealmark-claim.json` on the repository's default br
 
 - `sealmark` must be exactly `claim/1`.
 - `servers` lists 1 to 20 ids, so one repository can claim several servers. In a monorepo, list only the servers that live there.
-- Any other key makes the file invalid, apart from two keys kept for settings that are not built yet (planned): `issues` (`"on"` or `"off"`) and `retest` (a date, `YYYY-MM-DD`). They are accepted and have no effect today.
-- The file must be valid JSON of at most 2,048 bytes, with no byte order mark. It must not be a symlink or a submodule.
+- Any other key makes the file invalid, apart from two keys kept for settings that are not built yet (planned): `issues` (`"on"` or `"off"`) and `retest` (a date, `YYYY-MM-DD`). They have no effect today, but a wrong value (such as `"OFF"` or `"tomorrow"`) still makes the whole file invalid.
+- The file must be valid JSON of at most 2,048 bytes, with no byte order mark.
 
 The results page of a server that can be claimed shows this file with its id already filled in, ready to copy.
 
@@ -33,7 +33,9 @@ Only the repository the server's own package names:
 - a PyPI package: a project URL labelled `Source`, `Source Code`, `Repository`, `Code` or `GitHub`;
 - a server started from GitHub: the repository it is started from.
 
-A homepage or bug-tracker link does not count, because a package can point those at a project it does not maintain. Forks cannot claim. The repository must be public. If it is renamed or transferred, the claim follows it. If the repository is deleted and its name is taken by someone else, the claim ends for good. In that case, or if the page links the wrong repository, email [disclosure@sealmark.dev](mailto:disclosure@sealmark.dev).
+A homepage or bug-tracker link does not count, because a package can point those at a project it does not maintain. Forks cannot claim. The repository must be public.
+
+Sealmark remembers the repository's GitHub id the first time it finds the repository linked this way. If the repository is renamed or transferred, its id stays the same and the claim follows it. If the name Sealmark links to later answers with a different repository, the server can no longer be claimed by any file: for example, when the repository was deleted and the name taken by someone else, or the old name was reused for a new repository after a rename. In that case, or if the page links the wrong repository, email [disclosure@sealmark.dev](mailto:disclosure@sealmark.dev).
 
 ## When it shows
 
