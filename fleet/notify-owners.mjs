@@ -56,6 +56,8 @@ import registry from "../web/content/generated/checks.json" with { type: "json" 
 import { failedSince } from "../web/lib/retest.mjs";
 import { ownerStatus, statusFile } from "./owner-status.mjs";
 import { FILE as FACTS_FILE, collect as collectFacts, githubGetter } from "./server-facts.mjs";
+import { parseRepo, repoFromLaunch } from "./repo-url.mjs";
+export { parseRepo, repoFromLaunch }; // moved to repo-url.mjs (the claim check reads them too); kept here for callers
 import { LIMIT_DEFAULTS, account, activity, applyNegative, backoffFor, budget, byPriority, limitsFrom, negativeSignals, ownersBusy, pauseState, priority, recordRun, setPause, stability, stalled } from "./owner-limits.mjs";
 import { candidates as privateCandidates, privateLimitsFrom, reportFor, sendReports } from "./private-reports.mjs";
 import { PRIVATE_RESULTS } from "./redact-results.mjs";
@@ -96,30 +98,10 @@ const lookupBudget = (max) => max * 10 + 10; // repositories checked over the ne
 
 // ---- repository resolution ----
 
-// owner/repo from any GitHub URL or npm-style shorthand; null when it is not GitHub.
-export function parseRepo(text) {
-  if (!text) return null;
-  const s = String(text).trim();
-  const m = s.match(/github\.com[/:]([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+?)(?:\.git)?(?:[/#?].*)?$/i) ?? s.match(/^(?:github:)([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+?)(?:\.git)?(?:#.*)?$/i);
-  if (!m) return null;
-  return `${m[1]}/${m[2]}`;
-}
-
 // The folder of a GitHub URL that points inside a repository (…/tree/main/packages/x), or "".
 export function dirFromUrl(text) {
   const m = String(text ?? "").match(/github\.com[/:][^/]+\/[^/#?]+\/(?:tree|blob)\/[^/]+\/([^#?]+?)\/?(?:[#?].*)?$/i);
   return m ? m[1] : "";
-}
-
-// The repo named in a launch line (github ecosystem): `npx -y github:o/r`, `uvx --from git+https://github.com/o/r x`.
-export function repoFromLaunch(launch) {
-  for (const tok of String(launch ?? "").split(/\s+/)) {
-    if (/^github:|github\.com/i.test(tok)) {
-      const r = parseRepo(tok.replace(/^git\+/, ""));
-      if (r) return r;
-    }
-  }
-  return null;
 }
 
 const npmRepoUrl = (meta) => { const r = meta?.repository; return typeof r === "string" ? r : r?.url; };

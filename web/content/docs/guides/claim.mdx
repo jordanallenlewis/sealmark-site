@@ -1,0 +1,50 @@
+export const meta = {
+  title: "Claim your server",
+  since: "1.0.1",
+  status: "shipped",
+  description: "Maintainers of a graded server can show they maintain it with one small file in its GitHub repository. No account, no login. A claim changes no grade.",
+};
+
+If you maintain an MCP server that has a [results page](/results/), you can say so with one file in its GitHub repository. There is no account and no login: the proof is that you can commit to that repository. The page then names the repository as the maintainer.
+
+## The file
+
+Commit this file as `.github/sealmark-claim.json` on the repository's default branch, with your server's id (the last part of its results page address, `/results/<id>/`):
+
+```json
+{
+  "sealmark": "claim/1",
+  "servers": ["<id>"]
+}
+```
+
+- `sealmark` must be exactly `claim/1`.
+- `servers` lists 1 to 20 ids, so one repository can claim several servers. In a monorepo, list only the servers that live there.
+- Any other key makes the file invalid, apart from two keys kept for settings that are not built yet (planned): `issues` (`"on"` or `"off"`) and `retest` (a date, `YYYY-MM-DD`). They are accepted and have no effect today.
+- The file must be valid JSON of at most 2,048 bytes, with no byte order mark. It must not be a symlink or a submodule.
+
+The results page of a server that can be claimed shows this file with its id already filled in, ready to copy.
+
+## Which repository can claim a server
+
+Only the repository the server's own package names:
+
+- an npm package: the `repository` field of its latest version;
+- a PyPI package: a project URL labelled `Source`, `Source Code`, `Repository`, `Code` or `GitHub`;
+- a server started from GitHub: the repository it is started from.
+
+A homepage or bug-tracker link does not count, because a package can point those at a project it does not maintain. Forks cannot claim. The repository must be public. If it is renamed or transferred, the claim follows it. If the repository is deleted and its name is taken by someone else, the claim ends for good. In that case, or if the page links the wrong repository, email [disclosure@sealmark.dev](mailto:disclosure@sealmark.dev).
+
+## When it shows
+
+Sealmark's re-test runs read the file once a day per server. A new or changed file usually shows within a day or two. Deleting the file, or removing the id from it, ends the claim at the next read. A claim that could not be read for 30 days is no longer shown.
+
+A server whose page has a security finding under private report shows no maintainer block and no repository until the report is published.
+
+## What a claim does not do
+
+- It changes no grade, badge or ranking, and it is not an endorsement by Sealmark. The page says only that the repository says it maintains the server.
+- It sends nothing to anyone, and nothing is posted to your repository.
+- The file holds no names, emails or other personal details, and the page shows nothing from it except the matched id.
+
+To hear when a grade changes, use the email alert form on the server's results page. To dispute a result or ask for a server to be removed, reply on the GitHub issue Sealmark opened (if there is one) or email [disclosure@sealmark.dev](mailto:disclosure@sealmark.dev).

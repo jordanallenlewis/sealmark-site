@@ -2,10 +2,13 @@
 // release and its date, and the repository's last push, open issue count and archived flag. Read from npm, PyPI and the
 // GitHub API; written to fleet/server-facts.json, which the site reads at build time (web/lib/server-facts.mjs).
 //
-// Facts only, never a score: nothing here feeds a grade, a badge or an owner notice. fleet/notify-owners.mjs runs it
+// Facts only, never a score: nothing here feeds a grade, a badge or an owner notice. The same lookup reads a maintainer's
+// claim file (fleet/claim.mjs): `claim` is the claim that holds, `claimable` says the repository may hold one. fleet/notify-owners.mjs runs it
 // after resolving repositories (fleet/owner-repos.json), with the workflow's own read-only token. A failed lookup keeps
 // the server's last entry, dated, so the page says when it was true; the page hides an entry older than STALE_DAYS.
 // Every string is someone else's data: control and format characters are removed and over-long values dropped.
+
+import { checkClaim, claimLink } from "./claim.mjs";
 
 export const FILE = "fleet/server-facts.json";
 export const REFRESH_DAYS = 1; // an entry younger than this is not looked up again
@@ -134,23 +137,28 @@ export function githubGetter(fetchFn, token) {
  * One server's facts. Throws on any failed lookup (the caller keeps the last entry): a half-read entry would say a
  * repository has no license when the lookup only failed.
  *   api(path): GitHub GET, {missing: true} on 404, throws otherwise.
+ *   prev: the server's last entry. A failed read of the claim file keeps its claim; only a rate limit (403, 429) throws.
+ *   claimLog(outcome): one count per server for the run log (fleet/claim.mjs checkClaim outcomes, or "error").
  */
-export async function lookup(server, repo, { fetchFn, api, today }) {
+export async function lookup(server, repo, { fetchFn, api, today, prev = null, claimLog = () => {} }) {
   const out = { checkedAt: today, source: server.ecosystem, license: null, latest: null, repo: null };
   let named = false; // the package states a license (even one we cannot show): the repository's is then no stand-in
   let kw = null;
+  let linkMeta = null; // the package's current metadata, for the repository a claim may come from
   if (server.ecosystem === "npm") {
     const doc = await getJson(fetchFn, npmDocUrl(server.name));
     const meta = doc?.versions?.[doc?.["dist-tags"]?.latest] ?? doc;
     out.latest = npmLatest(doc);
     out.license = npmLicense(meta);
     named = npmNamesLicense(meta);
+    linkMeta = meta;
     kw = meta?.keywords ?? doc?.keywords;
   } else if (server.ecosystem === "pypi") {
     const meta = await getJson(fetchFn, pypiUrl(server.name));
     out.latest = pypiLatest(meta);
     out.license = pypiLicense(meta?.info);
     named = pypiNamesLicense(meta?.info);
+    linkMeta = meta?.info;
     kw = meta?.info?.keywords;
   } else if (server.ecosystem !== "github") {
     throw new Error(`unknown ecosystem ${server.ecosystem}`);
@@ -161,6 +169,18 @@ export async function lookup(server, repo, { fetchFn, api, today }) {
     out.repo = repoFacts(r);
     if (out.repo && Array.isArray(r.topics)) topics = r.topics; // GitHub topics are always a list; anything else is ignored
     if (server.ecosystem === "github" && out.repo) out.latest = githubLatest(await api(`/repos/${repo}/releases/latest`));
+    // Its own try: a failed claim read never throws the other facts away; it keeps the last claim, dated as it was.
+    try {
+      const c = await checkClaim({ server, stored: repo, link: claimLink(server, linkMeta), repoObj: r, api, today, prev: prev?.claim ?? null });
+      if (c.claim) out.claim = c.claim;
+      if (CLAIMABLE.has(c.outcome)) out.claimable = true;
+      claimLog(c.outcome);
+    } catch (e) {
+      if (e.status === 403 || e.status === 429) throw e; // a rate limit stops the whole collection, as for the facts
+      if (prev?.claim) out.claim = prev.claim;
+      if (prev?.claimable === true) out.claimable = true;
+      claimLog("error");
+    }
   }
   if (!out.license && !named && out.repo?.license) { out.license = out.repo.license; out.licenseFrom = "repo"; }
   if (out.repo) delete out.repo.license;
@@ -168,6 +188,9 @@ export async function lookup(server, repo, { fetchFn, api, today }) {
   if (a) out.about = a;
   return out;
 }
+
+// outcomes where the repository passed the link rule, so its maintainers can claim the server with the file
+const CLAIMABLE = new Set(["claimed", "none", "not-named", "invalid"]);
 
 const age = (from, today) => (Date.parse(today) - Date.parse(from)) / 864e5;
 
@@ -189,10 +212,12 @@ export async function collect({ servers, repos, previous, today, fetchFn, api, m
   due.sort((a, b) => String(old[a.id]?.checkedAt ?? "").localeCompare(String(old[b.id]?.checkedAt ?? "")));
   let ok = 0, failed = 0;
   let tried = 0, stop = null;
+  const claims = {};
+  const claimLog = (outcome) => { claims[outcome] = (claims[outcome] ?? 0) + 1; };
   for (const x of due.slice(0, max)) {
     if (clock() - start > budgetMs) { stop = "time budget used"; break; }
     tried += 1;
-    try { keep[x.id] = await lookup(x, repos[x.id]?.repo ?? null, { fetchFn, api, today }); ok += 1; }
+    try { keep[x.id] = await lookup(x, repos[x.id]?.repo ?? null, { fetchFn, api, today, prev: old[x.id] ?? null, claimLog }); ok += 1; }
     catch (e) {
       failed += 1;
       log(`facts lookup failed for ${x.id}: ${String(e.message ?? e).slice(0, 120)}`);
@@ -201,5 +226,6 @@ export async function collect({ servers, repos, previous, today, fetchFn, api, m
     await sleep(100);
   }
   log(`facts: ${ok} looked up, ${failed} failed, ${due.length - tried} left for the next run${stop ? ` (stopped: ${stop})` : ""}, ${Object.keys(keep).length} servers`);
+  log(`claims: ${Object.values(keep).filter((e) => e?.claim && !e.claim.ended).length} held in total; this run ${Object.entries(claims).sort().map(([k, n]) => `${k} ${n}`).join(", ") || "none read"}`);
   return { servers: Object.fromEntries(Object.entries(keep).sort(([a], [b]) => a.localeCompare(b))) };
 }
