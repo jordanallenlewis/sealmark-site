@@ -169,6 +169,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "bootpay-mcp": {
+    "repo": "bootpay/bootpay-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-25"
+  },
   "brandrail": {
     "repo": "brandrail-app/brandrail",
     "source": "npm",
@@ -1074,6 +1079,11 @@
     "repo": "ShiplightAI/shiplight-cli",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "shipready-mcp": {
+    "repo": null,
+    "source": "pypi",
+    "resolvedAt": "2026-11-25"
   },
   "shiwake-ai-mcp": {
     "repo": "iszgroup/shiwake-ai-mcp",

@@ -8120,7 +8120,7 @@
       "round": "fleet",
       "versionTested": "0.2.17",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -8480,7 +8480,61 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "broker_connection_status": "c77b495391e9",
+          "cancel_trade_intent": "8feb2579ea42",
+          "close_position": "2349c03e1fb1",
+          "close_trade": "dd3f997ec2fe",
+          "connect_broker": "005f5185d849",
+          "create_account": "e05b6cfe3d29",
+          "create_indicator_alert": "e68ee3f148a9",
+          "create_price_alert": "16a2e4b2be0c",
+          "create_trade": "379b8569b377",
+          "create_trendline_alert": "dcf12361affc",
+          "delete_alert": "7717dd85c2e5",
+          "delete_indicator_alert": "7717dd85c2e5",
+          "delete_trade": "7717dd85c2e5",
+          "delete_trades": "395480f3c29e",
+          "disconnect_broker": "c77b495391e9",
+          "execute_trade": "33272a713894",
+          "get_broker_account": "c77b495391e9",
+          "get_broker_quote": "ae667df53a78",
+          "get_candles": "cf2a5c228ed2",
+          "get_context": "99334726611c",
+          "get_fx_currency_context": "82c430317799",
+          "get_fx_documents": "e7c6bbf0d9b0",
+          "get_fx_pair_context": "4dec516266ab",
+          "get_fx_predictions": "21087c3ff90b",
+          "get_fx_risk_sentiment": "fa1066671108",
+          "get_fx_sync_state": "99334726611c",
+          "get_indicators": "2143524c47b4",
+          "get_macro_indicator": "606ab67f4c95",
+          "get_macro_series": "a679bd016c49",
+          "get_market_config": "99334726611c",
+          "get_trade": "7717dd85c2e5",
+          "import_trades": "da94ce8c03de",
+          "list_accounts": "99334726611c",
+          "list_alerts": "5bf0b3519216",
+          "list_broker_positions": "c77b495391e9",
+          "list_economic_calendar": "0f9d7010cec1",
+          "list_indicator_alerts": "5bf0b3519216",
+          "list_trades": "8d101f3b78f0",
+          "login": "99334726611c",
+          "logout": "99334726611c",
+          "modify_position": "f3e5755d553a",
+          "propose_trade": "fa1e7fa33c5e",
+          "render_chart": "d15bd88475bf",
+          "set_broker_approval_mode": "182238d07157",
+          "trade_intent_status": "8feb2579ea42",
+          "trade_stats": "bc5629d4a37b",
+          "update_alert": "ca8f107349bc",
+          "update_indicator_alert": "e49ddfacdc60",
+          "update_trade": "67380ccb7f21"
+        }
+      }
     },
     {
       "id": "affiliate-networks-mcp",
@@ -8489,7 +8543,7 @@
       "round": "fleet",
       "versionTested": "0.20.0",
       "serverInfoName": "affiliate-networks-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -9793,7 +9847,7 @@
       "round": "fleet",
       "versionTested": "0.2.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -10042,7 +10096,21 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "accept_offer": "2df8020c47fc",
+          "compare_drinks": "f7507d78f0bf",
+          "create_order_intent": "868c4a6de335",
+          "find_producer": "a82d89d1310e",
+          "get_offers": "c7834910c333",
+          "get_order_route": "bc0fbfb2efa3",
+          "get_record": "bc0fbfb2efa3",
+          "list_nodes": "efddc7bd8bbc",
+          "search_drinks": "d5a90a20c6eb"
+        }
+      }
     },
     {
       "id": "pretrip-mcp",
@@ -10051,7 +10119,7 @@
       "round": "fleet",
       "versionTested": "1.0.1",
       "serverInfoName": "pretrip-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -10250,7 +10318,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_coverage": "7a014b717a77",
+          "scan_content": "0180a41d0753"
+        }
+      }
     },
     {
       "id": "reddit-research-mcp",
@@ -10260,7 +10335,7 @@
       "refTested": "0.2.2",
       "versionTested": "0.2.2",
       "serverInfoName": "reddit-research-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -10288,7 +10363,7 @@
         "find_other_discussions": "17567fde5dc8",
         "get_post": "65139414a2e9",
         "get_posts": "12ff4f58b1c1",
-        "get_subreddit_info": "ee71f240d3b6",
+        "get_subreddit_info": "0f97eb42c38b",
         "get_subreddit_wiki": "d7bc494e3711",
         "get_user_activity": "c7195c10fe53",
         "search_reddit": "fbb6a2f2fef9",
@@ -10511,7 +10586,22 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "browse_subreddit": "ff6d45fbbc5f",
+          "expand_comments": "60dd8a320e15",
+          "find_other_discussions": "17567fde5dc8",
+          "get_post": "65139414a2e9",
+          "get_posts": "12ff4f58b1c1",
+          "get_subreddit_info": "ee71f240d3b6",
+          "get_subreddit_wiki": "d7bc494e3711",
+          "get_user_activity": "c7195c10fe53",
+          "search_reddit": "fbb6a2f2fef9",
+          "search_subreddits": "bbc017b872bc"
+        }
+      }
     },
     {
       "id": "achromat-ai-mcp-server",
@@ -10732,7 +10822,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -11045,7 +11135,43 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "agency_today": "ee7463228d08",
+          "agent_activity": "13567130cfc8",
+          "answer_request": "d374b1a28ef6",
+          "builder_guide": "cfa6109dc9c0",
+          "check_build": "c1013037d696",
+          "create_agent": "c1013037d696",
+          "decide_approval": "988f87dce43e",
+          "delete_agent": "33676ab07256",
+          "discard_integration": "2beb601621db",
+          "give_events": "e51400012d53",
+          "give_task": "284660f4ec6a",
+          "give_tools": "8e716066a9b6",
+          "latest_report": "71dd13e64261",
+          "list_agencies": "efddc7bd8bbc",
+          "list_agents": "cfa6109dc9c0",
+          "list_approvals": "cfa6109dc9c0",
+          "list_integrations": "cfa6109dc9c0",
+          "list_models": "cfa6109dc9c0",
+          "list_requests": "9a5e7e32b627",
+          "publish_integration": "7743aef13cad",
+          "read_agent": "33676ab07256",
+          "read_integration": "3b98890d748e",
+          "reply_to_request": "0869ce24a2c5",
+          "run_agent": "4d5709769ab3",
+          "set_agent": "38a9bd4f3608",
+          "set_agent_models": "b0613162f97f",
+          "test_event": "4ef694647ea1",
+          "test_integration": "4b8a0439b44e",
+          "write_agent_file": "29be47455bcb",
+          "write_integration": "5994eb07f873",
+          "write_plugin": "56305a00a815"
+        }
+      }
     },
     {
       "id": "anyforge-mcp-server",
@@ -11973,7 +12099,7 @@
       "round": "fleet",
       "versionTested": "4.12.0",
       "serverInfoName": "reasonbook",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -12238,7 +12364,27 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "rbook_agent_onboard": "932ebee8d684",
+          "rbook_auth": "335fb8392718",
+          "rbook_context": "71319c8e084c",
+          "rbook_db": "8682667baed4",
+          "rbook_decisions": "1c0d25c5d1d0",
+          "rbook_feedback": "44268426ba2e",
+          "rbook_learnings": "ba5680d6ea9f",
+          "rbook_message": "ee5fbd23d1c8",
+          "rbook_mission": "91a016c9af77",
+          "rbook_mission_transition": "a9d5f9abe68a",
+          "rbook_project": "a0f1d9d46bcf",
+          "rbook_review": "d003102c5cca",
+          "rbook_session": "b0b172b17a94",
+          "rbook_sprint": "aa39bda9a223",
+          "rbook_status": "d003102c5cca"
+        }
+      }
     },
     {
       "id": "atmy-mcp",
@@ -12247,7 +12393,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "atmy-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -12502,7 +12648,24 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "find_sensors": "5701c408c5e1",
+          "get_air_quality": "4d18bd59326f",
+          "get_air_quality_history": "88d72f4c8c0a",
+          "get_air_quality_monthly": "4d18bd59326f",
+          "get_city_forecast": "7671eec61249",
+          "get_country_ranking": "1280ed833222",
+          "get_home_environment": "0a145b06822a",
+          "get_sensor": "0eced5026e0c",
+          "get_sensor_readings": "ac3aca49c529",
+          "get_sensors_average": "2650ff98c073",
+          "list_sensor_networks": "99334726611c",
+          "search_cities": "ab1a4f97069c"
+        }
+      }
     },
     {
       "id": "autenai-mcp",
@@ -12511,7 +12674,7 @@
       "round": "fleet",
       "versionTested": "0.1.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -12707,7 +12870,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "install_auten": "99334726611c"
+        }
+      }
     },
     {
       "id": "autonomad-travel",
@@ -12716,7 +12885,7 @@
       "round": "fleet",
       "versionTested": "1.6.7",
       "serverInfoName": "autonomad-travel",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -12975,7 +13144,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "cancel_booking": "fede488866ff",
           "create_booking_intent": "45b219a80967",
@@ -12999,7 +13168,7 @@
       "round": "fleet",
       "versionTested": "1.1.4",
       "serverInfoName": "computeback-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -13326,7 +13495,44 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "accept_offer": "92998f52285a",
+          "buy_nomd": "7a014b717a77",
+          "check_balance": "3ea495df71c0",
+          "complete_offer": "7eed5471b6ef",
+          "configure_landing_page": "3c537df79a90",
+          "create_order": "750bb864eba1",
+          "decline_offer": "30dd26ae4b07",
+          "dispatch_email_campaign": "a2757e66e2dc",
+          "dispatch_landing_pages": "2cabb7038405",
+          "dispatch_sms_campaign": "2fdaa5a45d69",
+          "dispatch_voice_campaign": "640d039723a7",
+          "edit_agent_profile": "d391a1eacb86",
+          "fetch_url": "7a174014c9f5",
+          "get_agent_profile": "7a014b717a77",
+          "get_audience_data": "e1af307f0729",
+          "get_business_profile": "92a4c7646e7d",
+          "get_categories": "7a014b717a77",
+          "get_orders": "ffc57a016b36",
+          "get_product": "02f2a0674c5d",
+          "get_product_info": "66f12968474a",
+          "get_recommendations": "34861e7c0cf9",
+          "get_settlement_status": "a6194427041a",
+          "list_audiences": "e795df3cee4d",
+          "list_my_inbox": "7a014b717a77",
+          "list_my_settlements": "171868cec24a",
+          "list_workflow_templates": "7a014b717a77",
+          "place_bid": "1a962f83daad",
+          "search_products": "e06840f06bb5",
+          "send_landing_chat": "3f17399461b3",
+          "start_offer": "30dd26ae4b07",
+          "start_workflow": "db80e93fbd80",
+          "withdraw_bid": "30dd26ae4b07"
+        }
+      }
     },
     {
       "id": "autonomous-ai-harness-mcp",
@@ -13335,7 +13541,7 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "harness-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -13560,7 +13766,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "harness_setup": "99334726611c"
+        }
+      }
     },
     {
       "id": "bolthub-mcp",
@@ -13569,7 +13781,7 @@
       "round": "fleet",
       "versionTested": "0.7.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -13861,7 +14073,34 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "analyze_listing": "e8966b5d9ea7",
+          "buy_credit": "56bf21635372",
+          "call_api": "89592cc45ab2",
+          "close_stream": "6e51a74923cf",
+          "connect_account": "6f9e062bc2f3",
+          "connect_status": "efddc7bd8bbc",
+          "connect_wallet": "ac6cd7c8eaec",
+          "create_workspace": "56a28a25efd5",
+          "deploy_node": "9489e39ce85e",
+          "get_api_details": "d6262db58166",
+          "get_earnings": "5a6f5974f780",
+          "get_onboarding_state": "935acdf9edf4",
+          "list_api": "069d0561774b",
+          "mint_scoped_token": "b126e95f8707",
+          "node_status": "af451b5815bc",
+          "open_stream": "f305520c2aae",
+          "preview_cost": "777a94668c30",
+          "publish_listing": "646cc7e5353b",
+          "read_stream": "0065d0fc0031",
+          "revoke_token": "6c0b34248e04",
+          "search_apis": "a4cee8b5c980",
+          "usage_summary": "26aecfaccc7c"
+        }
+      }
     },
     {
       "id": "ai-dossier-mcp-server",
@@ -13870,7 +14109,7 @@
       "round": "fleet",
       "versionTested": "1.6.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -14124,7 +14363,22 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "cancel_journey": "07918c3545aa",
+          "get_journey_status": "23e0b08180cb",
+          "list_dossiers": "c1c5815f3ea2",
+          "read_dossier": "0e5b7876a670",
+          "resolve_graph": "26a332461655",
+          "search_dossiers": "14eb92dc3df9",
+          "start_journey": "440cc0a6812d",
+          "step_complete": "326a6ba92db1",
+          "verify_dossier": "fb447b2696f4",
+          "verify_graph": "446820d7df7a"
+        }
+      }
     },
     {
       "id": "callmcp-server",
@@ -14356,7 +14610,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-24",
+        "date": "2026-11-25",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -14699,7 +14953,7 @@
       "round": "fleet",
       "versionTested": "0.0.4",
       "serverInfoName": "chainhilt",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -14947,7 +15201,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "authorize_request": "3a4aa285270d",
+          "get_chain_info": "58ec46279085",
+          "mcp_status": "93ab7499dc3c",
+          "process_action": "408375a32fd2",
+          "wallet_balance": "b1128b9c2333",
+          "wallet_setup": "fb5f477f05d0"
+        }
+      }
     },
     {
       "id": "clarxai-mcp",
@@ -14956,7 +15221,7 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -15189,7 +15454,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "analyze_clarx_manifest": "0c568d389983",
+          "analyze_manifest": "b26b353d40be",
+          "get_ci_workflow": "d777c32cd47d"
+        }
+      }
     },
     {
       "id": "clelp-mcp-server",
@@ -15198,7 +15471,7 @@
       "round": "fleet",
       "versionTested": "1.1.9",
       "serverInfoName": "clelp-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -15397,7 +15670,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "clelp_get_skill": "6200fde8daba",
+          "clelp_rate": "6cb2987cfe3c",
+          "clelp_search": "2d2ddbcefdc3"
+        }
+      }
     },
     {
       "id": "cookwala-mcp",
@@ -15406,7 +15687,7 @@
       "round": "fleet",
       "versionTested": "0.3.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -15691,7 +15972,36 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "catalog_listing": "12b023f5cad2",
+          "catalog_stats": "fd16cbcb11d7",
+          "catalog_status": "f973399805c1",
+          "check_envelope": "7427b55072d9",
+          "check_mandate": "4cbcb2c71da1",
+          "compare_recipes": "47799ed833ed",
+          "current_certifications": "0a2193908306",
+          "dry_run": "ecf573de2cd6",
+          "explain_step": "793fc5b0feb9",
+          "fifi_search": "2edace32a724",
+          "fifi_source": "ecbc836e6a44",
+          "get_recipe": "87bed80a2c9b",
+          "ingredient_profile": "586b2ba7e27b",
+          "list_collections": "f973399805c1",
+          "list_device_presets": "f973399805c1",
+          "list_operations": "9403c9a185d5",
+          "parse_sms": "af81f8f1df6e",
+          "plan_meals": "7d5dd4a302b2",
+          "query_recipes": "a0856f38f146",
+          "search_recipes": "03a374621a69",
+          "shopping_list": "cdeb115274ab",
+          "similar_recipes": "39f0bcda4380",
+          "verify_certification": "0f64e1ef56f2",
+          "verify_recipe": "b0019579325e"
+        }
+      }
     },
     {
       "id": "datavidence-financials",
@@ -15700,7 +16010,7 @@
       "round": "fleet",
       "versionTested": "0.1.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -15943,7 +16253,18 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_financials": "14482c38cd30",
+          "get_financials_batch": "0ce4a39e5b45",
+          "get_revisions": "2528e6738531",
+          "get_usage": "29798a9777d0",
+          "list_filings": "658371f32c65",
+          "search_companies": "c4356da70bd5"
+        }
+      }
     },
     {
       "id": "decimalai-mcp",
@@ -15952,7 +16273,7 @@
       "round": "fleet",
       "versionTested": "0.1.5",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -16151,7 +16472,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_leaderboard": "b6503e71490b",
+          "get_skill": "daf64ad7ee25",
+          "search_skills": "c09519ea0789"
+        }
+      }
     },
     {
       "id": "deepdna-mcp",
@@ -16160,7 +16489,7 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -16387,7 +16716,14 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "lookup_drug_gene": "eb77aa0f1309",
+          "read_dna_file": "a08f56041f5b"
+        }
+      }
     },
     {
       "id": "demomagic-mcp",
@@ -16396,7 +16732,7 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -16635,7 +16971,30 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "demomagic_agencies": "abb4ecdfd091",
+          "demomagic_course_creators": "abb4ecdfd091",
+          "demomagic_create_demo": "871e1c88554a",
+          "demomagic_create_demo_from_video": "5041d8332bb3",
+          "demomagic_employee_training": "abb4ecdfd091",
+          "demomagic_for_founders": "abb4ecdfd091",
+          "demomagic_how_to_videos": "abb4ecdfd091",
+          "demomagic_interactive_demo_alternative": "abb4ecdfd091",
+          "demomagic_interactive_presentations": "abb4ecdfd091",
+          "demomagic_interactive_video_guide": "abb4ecdfd091",
+          "demomagic_loom_alternative": "abb4ecdfd091",
+          "demomagic_onboarding": "abb4ecdfd091",
+          "demomagic_pitch_deck": "abb4ecdfd091",
+          "demomagic_product_tour": "abb4ecdfd091",
+          "demomagic_record_a_bug": "abb4ecdfd091",
+          "demomagic_sales_demos": "abb4ecdfd091",
+          "demomagic_screen_recorder": "abb4ecdfd091",
+          "demomagic_support_help_center": "abb4ecdfd091"
+        }
+      }
     },
     {
       "id": "dinglebear-rytdl",
@@ -16644,7 +17003,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "rytdl",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -16892,7 +17251,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "youtube_download": "4c47bf068b67",
+          "youtube_identify": "34c1cb71b564",
+          "youtube_plex_playlist": "52d701c57ef0",
+          "youtube_probe": "2b804f898dc5",
+          "youtube_search": "fab90fa82292",
+          "youtube_search_ui": "fab90fa82292",
+          "youtube_stats": "f172692fa17b",
+          "youtube_transfer_queue": "09e31bc3b477"
+        }
+      }
     },
     {
       "id": "dxpert-uns-tools",
@@ -16901,7 +17273,7 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "uns-tools",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -17131,7 +17503,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_uns_namespace": "88f7eed78057",
+          "lint_sparkplug_topic": "406bc5b97708",
+          "run_readiness_diagnostic": "f5f9622921a0"
+        }
+      }
     },
     {
       "id": "ekwo-ai-mcp",
@@ -17140,7 +17520,7 @@
       "round": "fleet",
       "versionTested": "0.27.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -17701,7 +18081,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "accept_document": "3091b273e773",
           "aged_balance": "ea85bf8feea9",
@@ -17796,7 +18176,7 @@
       "round": "fleet",
       "versionTested": "0.8.6",
       "serverInfoName": "elicitly",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -18028,7 +18408,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "elicit_confirm": "a20a3c836938",
+          "elicit_display": "06e24e2c7baa",
+          "elicit_doctor": "54e6b561c7f0",
+          "elicit_form": "ff6667af74cb"
+        }
+      }
     },
     {
       "id": "fleet-memory-mcp",
@@ -18037,7 +18426,7 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "fleet-memory-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -18242,7 +18631,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "memory_bridge": "c2c9a79b2528",
+          "memory_compress": "14390f29d20a",
+          "memory_recall": "d24b5d07b959",
+          "memory_reflect": "667508e206b7",
+          "memory_retain": "49a2a00763f0"
+        }
+      }
     },
     {
       "id": "formachines-errata-mcp",
@@ -18251,7 +18650,7 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "errata-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -18450,7 +18849,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_package": "5e1b721cc8f8",
+          "report": "03a36190f714",
+          "search_error": "4539118fc158"
+        }
+      }
     },
     {
       "id": "gency-ai-gency-mcp",
@@ -18459,7 +18866,7 @@
       "round": "fleet",
       "versionTested": "0.7.1",
       "serverInfoName": "gency-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -18755,7 +19162,33 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "auth_status": "93ab7499dc3c",
+          "create_product": "924df1713906",
+          "create_workspace": "7187c93a4d28",
+          "download_product_image": "f711c6ec2065",
+          "get_credits": "93ab7499dc3c",
+          "get_me": "93ab7499dc3c",
+          "get_product": "86fb01d73034",
+          "get_team": "93ab7499dc3c",
+          "get_upload_url": "327ebed92719",
+          "get_user": "c6303e87a835",
+          "list_products": "ecf40769d74e",
+          "list_templates": "8ca15914cc3d",
+          "list_users": "93ab7499dc3c",
+          "list_workspaces": "93ab7499dc3c",
+          "login": "93314b7d9fb9",
+          "logout": "93ab7499dc3c",
+          "prepare_product_images": "0ef4db3c1d61",
+          "search_docs": "e6b61b74febe",
+          "update_product_status": "d0288e38768b",
+          "update_workspace": "f51e1d0bd31e",
+          "upload_image": "7bd29816b169"
+        }
+      }
     },
     {
       "id": "getvetai-mcp",
@@ -18764,7 +19197,7 @@
       "round": "fleet",
       "versionTested": "0.4.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -18972,7 +19405,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ask_vet": "56d678dc46f9",
+          "discover_tools": "47e6556428bf",
+          "generate_tool": "ecc1e04ea0e1",
+          "get_install_config": "1d16d8f38d14",
+          "get_tool_detail": "1d16d8f38d14",
+          "get_tool_schemas": "eca6839053ff"
+        }
+      }
     },
     {
       "id": "haymon-ai-dbmcp",
@@ -19217,7 +19661,7 @@
       "round": "fleet",
       "versionTested": "1.3.0",
       "serverInfoName": "visibility",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -19338,15 +19782,15 @@
         },
         {
           "id": "effects",
-          "status": "graded",
-          "letter": "A",
-          "points": 2,
-          "scored": 2,
-          "pct": 100,
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": null
+          "reason": "every control call failed, so the read-only annotation could not be checked"
         }
       ],
       "checks": [
@@ -19441,8 +19885,8 @@
           "label": "Read-only tools change nothing",
           "critical": true,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "inite_connect declared read-only and changed nothing in the observed directories during a benign call (check_identity, visibility_fixes, compare_sites, visibility_history not judged: the control call failed)"
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the read-only annotation could not be checked"
         },
         {
           "id": "openworld-honesty",
@@ -19450,8 +19894,8 @@
           "label": "Closed-world tools stay on the machine",
           "critical": false,
           "advisory": false,
-          "verdict": "pass",
-          "summary": "2 closed-world tool(s) called; none reached out beyond what was asked"
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the closed-world annotation could not be checked"
         },
         {
           "id": "undeclared-writes",
@@ -19481,14 +19925,14 @@
         }
       ],
       "coverage": {
-        "validCalls": 5,
-        "toolsCalledValid": 5,
+        "validCalls": 0,
+        "toolsCalledValid": 0,
         "toolsTotal": 10,
-        "level": "covered"
+        "level": "hygiene-only"
       },
       "badge": {
         "eligible": false,
-        "reason": "a pack has an inconclusive critical check"
+        "reason": "core-only run: no capability pack was graded"
       },
       "notCovered": [
         "tool \"check_ai_access\" (url) was not probed by the net pack: the listener saw nothing, but 54 of 54 probes were not explicitly refused (54 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
@@ -19504,10 +19948,26 @@
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",
-        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "analyze_site": "448343c32aaa",
+          "check_ai_access": "f00c428bee8d",
+          "check_identity": "448343c32aaa",
+          "check_identity_files": "f00c428bee8d",
+          "check_page_signals": "f00c428bee8d",
+          "compare_sites": "63826fab7137",
+          "get_analysis": "fc3ec28eb78d",
+          "inite_connect": "e316f35a4cc5",
+          "visibility_fixes": "a32f4836050f",
+          "visibility_history": "448343c32aaa"
+        }
+      }
     },
     {
       "id": "intodns-mcp",
@@ -19516,7 +19976,7 @@
       "round": "fleet",
       "versionTested": "1.11.3",
       "serverInfoName": "intodns-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -19920,7 +20380,57 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "analyze_raw_email": "3c7431466773",
+          "analyze_security_headers": "802e3d0a5ad6",
+          "cancel_deep_scan": "705f3d53e862",
+          "check_bimi": "802e3d0a5ad6",
+          "check_blacklist": "78e59d5ad4a0",
+          "check_dmarc": "802e3d0a5ad6",
+          "check_dns_propagation": "3059aae36c2f",
+          "check_email_security": "802e3d0a5ad6",
+          "check_fcrdns": "802e3d0a5ad6",
+          "check_http3": "802e3d0a5ad6",
+          "check_mta_sts": "802e3d0a5ad6",
+          "check_sender_requirements": "802e3d0a5ad6",
+          "check_smtp_tls": "802e3d0a5ad6",
+          "check_spf": "7a70908a8c8a",
+          "check_tlsa_dane": "2ebcd64bcb76",
+          "create_email_test": "0adff995e5bd",
+          "create_report_snapshot": "87b5139342db",
+          "discover_dkim": "e125ca2bd5bb",
+          "explain_issue": "40820756ec6f",
+          "flatten_spf": "7a70908a8c8a",
+          "generate_dmarc": "b2d0e46153b8",
+          "generate_dns_fix": "40820756ec6f",
+          "generate_security_headers": "31dbf18939dc",
+          "generate_spf": "220792785ef8",
+          "generate_tlsa": "9a4961760671",
+          "get_badge_link": "bfa681b153af",
+          "get_citation_guidance": "7d1555698555",
+          "get_deep_scan_status": "705f3d53e862",
+          "get_email_test": "0b308eefed3e",
+          "get_everything_report": "9703ac219c8a",
+          "get_hall_of_fame": "2ebf13a9e841",
+          "get_health": "7a014b717a77",
+          "get_pdf_report_link": "802e3d0a5ad6",
+          "get_report_snapshot": "deca97f17a57",
+          "get_stats": "7a014b717a77",
+          "lookup_dns": "2c56581c1e65",
+          "nis2_quickscan": "cfda257aab56",
+          "parse_dmarc_report": "a740ec94e642",
+          "poll_email_test": "0b308eefed3e",
+          "read_llm_discovery": "7ca556a2e063",
+          "scan_csp": "57791466d0f6",
+          "scan_domain": "802e3d0a5ad6",
+          "start_deep_scan": "c098c7559184",
+          "validate_dnssec": "802e3d0a5ad6",
+          "whois_lookup": "e3dfc856c05b"
+        }
+      }
     },
     {
       "id": "justdrop-mcp",
@@ -19929,7 +20439,7 @@
       "round": "fleet",
       "versionTested": "0.1.6",
       "serverInfoName": "justdrop-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -20165,7 +20675,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "cancel": "d0a2034761ec",
+          "drop": "0ea22f9934cb",
+          "receive": "27291965bc39",
+          "status": "48c72a239cfd"
+        }
+      }
     },
     {
       "id": "kavel-mcp",
@@ -20174,7 +20693,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "kavel-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -20379,7 +20898,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "build_kavel_prompt": "eacad7f45c6e",
+          "list_kavel_models": "7a014b717a77",
+          "list_kavel_tools": "f7c9a3bf1172",
+          "open_in_kavel": "fd1aa2c6bd4a"
+        }
+      }
     },
     {
       "id": "kawacode-mcp",
@@ -20388,7 +20916,7 @@
       "round": "fleet",
       "versionTested": "10.6.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -20686,7 +21214,32 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "activate_intent": "35bbff4b1dd9",
+          "arbiter_apply": "e29674a383da",
+          "arbiter_resolve": "a937235decd2",
+          "check_active_intent": "4b55b2b8cc6b",
+          "complete_intent": "5bedd23d6f1b",
+          "create_and_activate_intent": "ab8a01500f5e",
+          "detect_intent_conflicts": "ab307abb45f0",
+          "edit_session_decision": "74a040a79f81",
+          "get_decision_detail": "a3b9d6359603",
+          "get_intents_for_file": "470d74abdb64",
+          "get_project_decisions": "eb92cc81ff0b",
+          "get_relevant_context": "56a30c80021a",
+          "get_resolution_context": "ed1bebe43f81",
+          "get_session_decisions": "d36bab0057a3",
+          "infer_history": "4b62c372abb7",
+          "list_team_intents": "488cb731badd",
+          "log_work": "75cff66443f8",
+          "record_decision": "ad4cc0a914a0",
+          "resume_intent": "0b05caf44c95",
+          "update_intent": "0e4c8b68fc2c"
+        }
+      }
     },
     {
       "id": "keenable-mcp",
@@ -20695,7 +21248,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -20704,14 +21257,16 @@
       "configHash": "sha256:d13e7893a0ac",
       "launch": "npx -y @keenable/mcp@0.1.1",
       "transport": "stdio",
-      "toolCount": 2,
+      "toolCount": 3,
       "tools": [
         "search_web_pages",
-        "fetch_page_content"
+        "fetch_page_content",
+        "get_billing"
       ],
       "toolSchemas": {
-        "fetch_page_content": "4d9f00c2bcac",
-        "search_web_pages": "7216e981296f"
+        "fetch_page_content": "d6df771e9ebc",
+        "get_billing": "99334726611c",
+        "search_web_pages": "46e74ab9951a"
       },
       "packs": [
         {
@@ -20802,8 +21357,8 @@
           "id": "effects",
           "status": "graded",
           "letter": "A",
-          "points": 1,
-          "scored": 1,
+          "points": 2,
+          "scored": 2,
           "pct": 100,
           "provisional": false,
           "capped": false,
@@ -20819,7 +21374,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 2 well-formed tool(s)"
+          "summary": "handshake ok, 3 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -20828,7 +21383,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 2 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+          "summary": "scanned 3 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -20850,7 +21405,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 10 captured response(s), 0 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 9 captured response(s), 0 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -20904,7 +21459,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "search_web_pages declared read-only and changed nothing in the observed directories during a benign call (fetch_page_content not judged: the control call failed)"
+          "summary": "search_web_pages, get_billing declared read-only and changed nothing in the observed directories during a benign call (fetch_page_content not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -20912,8 +21467,8 @@
           "label": "Closed-world tools stay on the machine",
           "critical": false,
           "advisory": false,
-          "verdict": "na",
-          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+          "verdict": "pass",
+          "summary": "1 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -20939,9 +21494,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 2,
-        "toolsCalledValid": 2,
-        "toolsTotal": 2,
+        "validCalls": 3,
+        "toolsCalledValid": 3,
+        "toolsTotal": 3,
         "level": "covered"
       },
       "badge": {
@@ -20950,6 +21505,7 @@
       },
       "notCovered": [
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"get_billing\" is covered by the core checks only: the tool takes no parameters",
         "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
@@ -20958,7 +21514,14 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "fetch_page_content": "4d9f00c2bcac",
+          "search_web_pages": "7216e981296f"
+        }
+      }
     },
     {
       "id": "korala-mcp",
@@ -20967,7 +21530,7 @@
       "round": "fleet",
       "versionTested": "0.9.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -21189,7 +21752,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "create_draft_link": "bded68c1875f"
+        }
+      }
     },
     {
       "id": "lawai-mcp-server",
@@ -21198,7 +21767,7 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "lawai-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -21414,7 +21983,19 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "find_lawyer_by_name": "c54cf426ea4d",
+          "get_jurisdictions": "7a014b717a77",
+          "get_lawyer_profile": "39f91d02afe9",
+          "get_legal_cost_estimate": "3a13fc9c00d6",
+          "get_practice_areas": "7a014b717a77",
+          "match_lawyer_to_matter": "260c2066882b",
+          "search_lawyers": "9422ad3e7166"
+        }
+      }
     },
     {
       "id": "leadgreen-mcp",
@@ -21423,7 +22004,7 @@
       "round": "fleet",
       "versionTested": "0.3.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -21644,7 +22225,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "compare_gpus": "780424de7920",
+          "concurrency_curve": "bfea5c1d2865",
+          "energy_per_million_tokens": "51c6d918f875",
+          "estimate": "a2d03ac39bd1",
+          "gpu_hardware": "907b139f0a3b",
+          "grid_intensity": "179cfd84bf9c",
+          "list_models": "77d905ac3fc0",
+          "sources": "f82aec067ac7"
+        }
+      }
     },
     {
       "id": "llmintel-mcp",
@@ -21653,7 +22247,7 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -21888,7 +22482,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_model": "e7d458b916be",
+          "list_retiring_models": "35240ded8de0",
+          "recent_lifecycle_changes": "138e500818cb",
+          "search_models": "4cea3af8dbd1",
+          "suggest_replacement": "7ad3c6bc6416"
+        }
+      }
     },
     {
       "id": "mafdet-mcp",
@@ -21897,7 +22501,7 @@
       "round": "fleet",
       "versionTested": "1.7.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -22107,7 +22711,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_balance": "7a014b717a77",
+          "get_subscription": "7a014b717a77",
+          "get_usage_summary": "d66b1cf4eaca",
+          "list_models": "affbebb708a3",
+          "search_docs": "750e2ba96ae0"
+        }
+      }
     },
     {
       "id": "mainbook-mcp",
@@ -22116,7 +22730,7 @@
       "round": "fleet",
       "versionTested": "0.5.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -22358,7 +22972,17 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "convert_bank_statement": "1789eb29b18e",
+          "get_balance": "717ef9d4a0f8",
+          "get_conversion": "01c3f4bba125",
+          "list_conversions": "920c11cb5837",
+          "output_folder": "075a753d7849"
+        }
+      }
     },
     {
       "id": "makerportal-mcp",
@@ -22367,7 +22991,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -22581,7 +23205,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "biquadDesign": "c6f2e17a20e3",
+          "gaussianBeam": "7ef5569a3fe6",
+          "llmVramFit": "58a79b164b26",
+          "opticsResonator": "b2f61ab88609",
+          "portLength": "5a05c6d61322",
+          "roomModes": "139cc2f22b72",
+          "roomShapeBand": "276d40e40b04",
+          "solenoidField": "eca57476f477"
+        }
+      }
     },
     {
       "id": "maxwellintl-x402-mcp",
@@ -22590,7 +23227,7 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "x402-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -22918,7 +23555,46 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "call_product": "e1f3ae5cd2e2",
+          "company_lookup": "25fc3f9c0e1d",
+          "court_opinions": "e7f60342084b",
+          "domain_registration": "58beb33f755e",
+          "drug_and_food_safety": "9b9e6602fb2d",
+          "food_coverage": "094ec29d007c",
+          "get_price_quote": "54a69d4f1488",
+          "insider_tips": "c02089a5a47c",
+          "legislation_lookup": "82dad808ba4f",
+          "list_products": "cc6a8b5233f3",
+          "llm_models": "efddc7bd8bbc",
+          "macro_series": "307a00338244",
+          "market_quote": "52c847d24a12",
+          "maxwell_chat": "7884a21d466d",
+          "npm_package": "f633bf38fd9c",
+          "open_data_search": "b5755401211f",
+          "patent_lookup": "11b470115524",
+          "restaurant_menu": "b09f784fa885",
+          "sanctions_screen": "a9fdfd825da1",
+          "service_terms": "efddc7bd8bbc",
+          "ski_coverage": "2bc0af8b465d",
+          "ski_inventory": "8d8007d61cda",
+          "ski_operator": "31636bbc8fc5",
+          "ski_prices": "0af7a4399d47",
+          "ski_prices_bulk": "096fa8b26f21",
+          "ski_quote": "7bbc5c9f98ef",
+          "ski_resort": "23369dfc6f6f",
+          "ski_trip_bundle": "9a0d17072b6f",
+          "ski_trip_step": "9b30ed869b06",
+          "token_safety": "252e67d86369",
+          "trip_map": "bfb194ad795f",
+          "us_weather": "3ac3f39095fa",
+          "vulnerability_lookup": "3d5486636efd",
+          "x402_doctor": "f6da61d56e77"
+        }
+      }
     },
     {
       "id": "mcpcap",
@@ -22927,7 +23603,7 @@
       "round": "fleet",
       "versionTested": "0.10.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -23185,7 +23861,21 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "analyze_capinfos": "2eb397647a27",
+          "analyze_dhcp_packets": "ad733c932f43",
+          "analyze_dns_packets": "ad733c932f43",
+          "analyze_icmp_packets": "ad733c932f43",
+          "analyze_sip_packets": "ad733c932f43",
+          "analyze_tcp_anomalies": "02e709580727",
+          "analyze_tcp_connections": "33f79e1710e4",
+          "analyze_tcp_retransmissions": "e2b31c2276ef",
+          "analyze_traffic_flow": "dd162fcb2299"
+        }
+      }
     },
     {
       "id": "meetlark-mcp-server",
@@ -23194,7 +23884,7 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -23402,7 +24092,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "meetlark_close_poll": "2a31c14fd489",
+          "meetlark_create_poll": "a4953a3499ad",
+          "meetlark_get_admin_view": "2a31c14fd489",
+          "meetlark_get_results": "b25ec651bab7",
+          "meetlark_reopen_poll": "2a31c14fd489",
+          "meetlark_vote": "4940cc3b3833"
+        }
+      }
     },
     {
       "id": "memegician-mcp",
@@ -23411,7 +24112,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "memegician-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -23646,7 +24347,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "generate_memes": "b9257f81c5e8",
+          "get_meme_template": "df77da9863e1",
+          "get_trending_meme_templates": "671eff47e408",
+          "render_meme": "a78c046ce612",
+          "search_meme_templates": "3e6533f6039f"
+        }
+      }
     },
     {
       "id": "mirastack-redfish-mcp",
@@ -23655,7 +24366,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -24003,7 +24714,37 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_bios_attributes": "6d3c887687e5",
+          "get_boot_config": "fedf8e35da86",
+          "get_chassis": "b8f03d12783f",
+          "get_component_inventory": "054a8c626754",
+          "get_firmware_inventory": "e46cbc95a8b1",
+          "get_health_summary": "3dac7c223db1",
+          "get_log_entries": "699d1a3d1632",
+          "get_manager": "27f5d4ce5130",
+          "get_power": "ba58e61bfa59",
+          "get_sensors": "37abb0112b0e",
+          "get_system": "11935f34314a",
+          "get_task": "5cb63b88ceb4",
+          "get_thermal": "cd998648947c",
+          "list_accounts": "8730fe5f7a76",
+          "list_chassis": "48c9284cb983",
+          "list_endpoints": "a2bfffcec5c0",
+          "list_managers": "c74a13e97d21",
+          "list_systems": "3572b8d539a9",
+          "list_tasks": "55a0f33cd6f6",
+          "list_virtual_media": "bd34045eceda",
+          "redfish_describe_schema": "19ff11ffb8c7",
+          "redfish_get": "4a60f00dd6db",
+          "redfish_list_available_actions": "9cdb125c7e56",
+          "redfish_walk": "d76ba9014aa6",
+          "service_info": "06e1f534ebc0"
+        }
+      }
     },
     {
       "id": "nudg3-mcp",
@@ -24012,7 +24753,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -24240,7 +24981,23 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "analyze_competitors": "5c357117451d",
+          "analyze_prompts": "66de00f64716",
+          "analyze_responses": "20bdc600d7d6",
+          "analyze_sources": "7f56595fe1f9",
+          "export_data": "06b87cf0c612",
+          "get_actions": "4ce0195b8a3a",
+          "get_insights": "56e58addfce9",
+          "get_metric_catalog": "99334726611c",
+          "get_overview": "e63e7550b0e6",
+          "get_reports": "92e1efaa3807",
+          "list_workspaces": "99334726611c"
+        }
+      }
     },
     {
       "id": "optimalai-optibot-mcp",
@@ -24249,7 +25006,7 @@
       "round": "fleet",
       "versionTested": "1.7.0",
       "serverInfoName": "optibot-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -24561,7 +25318,35 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_auth": "efddc7bd8bbc",
+          "create_api_key": "8d88d246ad6f",
+          "delete_api_key": "6a6c94258da2",
+          "get_current_organization": "efddc7bd8bbc",
+          "get_security_config": "efddc7bd8bbc",
+          "get_security_pricing": "efddc7bd8bbc",
+          "get_security_scan": "ba1c473bae30",
+          "get_security_usage": "efddc7bd8bbc",
+          "get_status": "efddc7bd8bbc",
+          "list_api_keys": "efddc7bd8bbc",
+          "list_organizations": "efddc7bd8bbc",
+          "list_scannable_repos": "efddc7bd8bbc",
+          "list_security_scans": "bab0c68da959",
+          "login": "efddc7bd8bbc",
+          "logout": "efddc7bd8bbc",
+          "review_agent": "55850380a8ee",
+          "review_branch": "60e3f9800734",
+          "review_diff_file": "caf85c71a2ea",
+          "review_local_changes": "efddc7bd8bbc",
+          "setup_ci": "0138cfca2554",
+          "switch_organization": "93cc2624069f",
+          "trigger_security_scan": "8d160a96bbfe",
+          "update_security_config": "2ea73fd269a5"
+        }
+      }
     },
     {
       "id": "ordercore-mcp",
@@ -24570,7 +25355,7 @@
       "round": "fleet",
       "versionTested": "0.2.18",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -24814,7 +25599,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "complete_checkout_session": "890ff5590ea6",
+          "create_checkout_session": "7421add948ab",
+          "get_inventory": "c7108523379f",
+          "get_order_history": "d361eb1f3b27",
+          "get_order_trace": "3d9702003614",
+          "get_prices": "c7108523379f",
+          "get_product": "ae46ce298f1b",
+          "search_products": "231f86f69e5e"
+        }
+      }
     },
     {
       "id": "overwing-mcp",
@@ -25301,7 +26099,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "paraplex-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -25627,7 +26425,42 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "apply_design_system": "3797626bd17e",
+          "apply_template": "3797626bd17e",
+          "connection": "efddc7bd8bbc",
+          "export": "91099c4e182c",
+          "export_png": "efddc7bd8bbc",
+          "export_video": "53582d9d7229",
+          "frame": "b45e225aa09a",
+          "frames": "08fb01d2aa88",
+          "import_file": "d1d2bf18f44c",
+          "import_hyperframes": "5e0ad118500a",
+          "list_design_systems": "efddc7bd8bbc",
+          "list_projects": "efddc7bd8bbc",
+          "list_skills": "efddc7bd8bbc",
+          "list_templates": "efddc7bd8bbc",
+          "list_tools": "efddc7bd8bbc",
+          "load_skill": "098974972159",
+          "new_project": "efddc7bd8bbc",
+          "open_project": "3797626bd17e",
+          "read_skill_file": "795f594e4a34",
+          "redo": "35a4100559bc",
+          "render_variants": "97d688c0f609",
+          "review_artboards": "08fb01d2aa88",
+          "review_sheet": "86a34726638e",
+          "run_tool": "5b5c15e0fe74",
+          "save_project": "098974972159",
+          "scene": "efddc7bd8bbc",
+          "scene_facts": "d62153f3e053",
+          "set_time": "d62153f3e053",
+          "undo": "35a4100559bc",
+          "write_skill": "75093510a748"
+        }
+      }
     },
     {
       "id": "plugmcp-mcp",
@@ -25636,7 +26469,7 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "plugmcp-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -25888,7 +26721,21 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "compare_servers": "707277436f1e",
+          "get_install": "7b9ac54dc86f",
+          "get_server": "44212007f793",
+          "get_skill": "7147aa118ce2",
+          "list_categories": "99334726611c",
+          "recommend_servers": "f7a2431b570e",
+          "search_servers": "7a2f5f9276fe",
+          "search_skills": "079e8a843d11",
+          "whats_new": "a89cc41918b6"
+        }
+      }
     },
     {
       "id": "popdot-mcp",
@@ -25897,7 +26744,7 @@
       "round": "fleet",
       "versionTested": "2.0.0",
       "serverInfoName": "popdot-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -26108,7 +26955,19 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "answer_trial_canary": "dbeeefbced22",
+          "check_availability": "8d1ccc5a9358",
+          "get_price_quote": "dffea7524f80",
+          "rent_domain": "5db04f401423",
+          "search_domains": "e8fbbfd1ca7e",
+          "try_domain": "25631d3acd51",
+          "upgrade_trial": "26bc8dcd26af"
+        }
+      }
     },
     {
       "id": "proxyllm-mcp",
@@ -26117,7 +26976,7 @@
       "round": "fleet",
       "versionTested": "1.0.2",
       "serverInfoName": "proxyllm-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -26367,7 +27226,21 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "proxyllm_account": "9ac1880fd864",
+          "proxyllm_create_routing_key": "157cd4e712ba",
+          "proxyllm_introspect_key": "0fcd580b4e0b",
+          "proxyllm_list_models": "0fcd580b4e0b",
+          "proxyllm_list_routing_keys": "817cf8385837",
+          "proxyllm_savings_calculator": "c9222624568d",
+          "proxyllm_signup": "bf2c0767ee39",
+          "proxyllm_usage": "9ac1880fd864",
+          "proxyllm_verify_signup": "f7042e8a7a23"
+        }
+      }
     },
     {
       "id": "quorum-mcp-server",
@@ -26376,7 +27249,7 @@
       "round": "fleet",
       "versionTested": "4.0.0",
       "serverInfoName": "quorum-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -26651,7 +27524,28 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "quorum_describe_table": "922c84b28683",
+          "quorum_execute_query": "40e233d7c06c",
+          "quorum_explain_query": "c50321504998",
+          "quorum_get_audit_log": "b904a6b73a63",
+          "quorum_get_data_dictionary": "d3b0c542de8c",
+          "quorum_get_proposal": "667af096b7db",
+          "quorum_get_query_history": "b904a6b73a63",
+          "quorum_get_schema": "d3b0c542de8c",
+          "quorum_get_service_health": "45991f6ed62b",
+          "quorum_list_connections": "71fc596a20f2",
+          "quorum_list_proposals": "71fc596a20f2",
+          "quorum_list_saved_queries": "6a93620d81d7",
+          "quorum_propose_write": "bbc2affa7da2",
+          "quorum_run_saved_query": "6b4a188739bf",
+          "quorum_sample_rows": "7b7c31149aa7",
+          "quorum_search_schema": "b415985de4fb"
+        }
+      }
     },
     {
       "id": "radmail-mcp",
@@ -26660,7 +27554,7 @@
       "round": "fleet",
       "versionTested": "0.5.0",
       "serverInfoName": "radmail-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -26889,7 +27783,25 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_send_domain": "6ca63aeb01f1",
+          "draft_reply": "9b8c3cd080df",
+          "list_commitments": "591cb72fd712",
+          "list_right_now": "591cb72fd712",
+          "provision_sandbox": "0fe3df3e6c8d",
+          "radmail_learning_insights": "23f6572f5fd1",
+          "read_email": "5e156ff07314",
+          "report_need": "ef83681f0e43",
+          "request_capability": "7b80ebaeb8aa",
+          "search": "c82c729daa72",
+          "triage": "9b8c3cd080df",
+          "triage_inbox": "c3b0a4749f00",
+          "why_surfaced": "9b8c3cd080df"
+        }
+      }
     },
     {
       "id": "rapay-mcp-server",
@@ -26898,7 +27810,7 @@
       "round": "fleet",
       "versionTested": "1.3.2",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -27152,7 +28064,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ra_add_card": "c8a1ac469a82",
+          "ra_balance": "c8a1ac469a82",
+          "ra_dashboard": "c8a1ac469a82",
+          "ra_dispute": "c8a1ac469a82",
+          "ra_history": "418e9a5b6121",
+          "ra_refund": "c8a1ac469a82",
+          "ra_send": "785e1513deee",
+          "ra_whoami": "c8a1ac469a82"
+        }
+      }
     },
     {
       "id": "raven-mcp",
@@ -27161,7 +28086,7 @@
       "round": "fleet",
       "versionTested": "3.1.0",
       "serverInfoName": "raven-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -27864,7 +28789,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "audit": "a37ef63bb303",
           "audit_api_contract": "73c1331639bb",
@@ -28216,7 +29141,7 @@
       "refTested": "10.0.626",
       "versionTested": "10.0.626",
       "serverInfoName": "rillsoft-project-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -28890,7 +29815,130 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "rillsoft_analysis_option_list": "d3e6e14baeb2",
+          "rillsoft_analysis_report_get": "d746974fa9af",
+          "rillsoft_baseline_create": "96e1f05231e4",
+          "rillsoft_baseline_delete": "4972d9bc9e59",
+          "rillsoft_baseline_list": "d746974fa9af",
+          "rillsoft_baseline_select": "a4781de83c19",
+          "rillsoft_calendar_create": "ce6fd36dcbdd",
+          "rillsoft_calendar_delete": "bd4741c5f30b",
+          "rillsoft_calendar_list": "44059db17a9e",
+          "rillsoft_calendar_source_get": "bd14b2d9fe3c",
+          "rillsoft_calendar_source_import": "a8a6456fa53b",
+          "rillsoft_calendar_update": "0fd8abff3cc2",
+          "rillsoft_document_ris_create": "2cd3762416d5",
+          "rillsoft_document_ris_delete": "bb6b791b267e",
+          "rillsoft_document_ris_get": "03c6b1520ec8",
+          "rillsoft_document_ris_list": "9a5b471b5a3b",
+          "rillsoft_document_ris_update": "b0536ac2176f",
+          "rillsoft_element_delete": "e4eed7e6e657",
+          "rillsoft_element_move": "ef2fb2118ddd",
+          "rillsoft_element_reorder": "9e08ef0b894b",
+          "rillsoft_element_subproject_group": "9f026a4b0a71",
+          "rillsoft_fixed_element_list": "d746974fa9af",
+          "rillsoft_folder_ris_create": "827adaa6d223",
+          "rillsoft_folder_ris_delete": "4f897cfe0c53",
+          "rillsoft_folder_ris_list": "534919bdc04d",
+          "rillsoft_folder_ris_move": "0fe9a164ba43",
+          "rillsoft_folder_ris_update": "a84bc3b3c5ec",
+          "rillsoft_history_redo": "d746974fa9af",
+          "rillsoft_history_undo": "d746974fa9af",
+          "rillsoft_machine_sharing_create": "c0a23de06382",
+          "rillsoft_machine_sharing_release": "f5aea0cd28a8",
+          "rillsoft_outline_apply": "daab33e6db22",
+          "rillsoft_outline_get": "d746974fa9af",
+          "rillsoft_outline_row_apply": "5a189f4454b3",
+          "rillsoft_portfolio_file_open": "bd8134a369ae",
+          "rillsoft_portfolio_project_files_save": "d746974fa9af",
+          "rillsoft_portfolio_ris_create": "b5b10cc59c4d",
+          "rillsoft_portfolio_ris_delete": "39e30710b30e",
+          "rillsoft_portfolio_ris_list": "099eae862f17",
+          "rillsoft_portfolio_ris_open": "1250cb658dbe",
+          "rillsoft_portfolio_ris_save": "b029df210180",
+          "rillsoft_portfolio_ris_update": "84f994ffd25e",
+          "rillsoft_project_conflict_list": "089fc2840271",
+          "rillsoft_project_create": "3cf0786ccf27",
+          "rillsoft_project_file_export_xml": "6aaa8f68e362",
+          "rillsoft_project_file_open": "bc6fb671ed2d",
+          "rillsoft_project_file_save": "d746974fa9af",
+          "rillsoft_project_file_save_as": "aac659b81001",
+          "rillsoft_project_renumber": "d746974fa9af",
+          "rillsoft_project_reschedule": "fe39a6ddd4e4",
+          "rillsoft_project_ris_delete": "5cce50774994",
+          "rillsoft_project_ris_list": "d6b1e4241993",
+          "rillsoft_project_ris_open": "aa3be1e1df57",
+          "rillsoft_project_ris_save": "b222f329db03",
+          "rillsoft_project_ris_save_as": "6c444d1a185f",
+          "rillsoft_project_sort": "478cabc4a894",
+          "rillsoft_project_status_date_reschedule": "d746974fa9af",
+          "rillsoft_project_status_date_set": "2b6db8aaec50",
+          "rillsoft_project_team_preference_remove": "3b5c75300686",
+          "rillsoft_project_team_preference_set": "cf0e87e91c75",
+          "rillsoft_project_tree_get": "fa07eac41320",
+          "rillsoft_project_update": "aac1f8ac55ba",
+          "rillsoft_property_panel_close": "d746974fa9af",
+          "rillsoft_property_panel_get": "d746974fa9af",
+          "rillsoft_property_panel_open": "f75f6eb06fb3",
+          "rillsoft_resource_absence_list": "3e5cf6f0af95",
+          "rillsoft_resource_absence_sync": "cfcbbd92f0da",
+          "rillsoft_resource_pool_catalog_list": "98e5f76def9b",
+          "rillsoft_resource_pool_edit_close": "a2c524f00898",
+          "rillsoft_resource_pool_edit_open": "887649890769",
+          "rillsoft_resource_pool_edit_save": "22ea89ceabbf",
+          "rillsoft_resource_pool_file_select": "b29b4d4f0e4d",
+          "rillsoft_resource_pool_get": "d746974fa9af",
+          "rillsoft_resource_pool_resource_create": "d6368ee67f17",
+          "rillsoft_resource_pool_resource_delete": "d5936bea86e8",
+          "rillsoft_resource_pool_resource_get": "0c5eae732392",
+          "rillsoft_resource_pool_resource_update": "6e3386e70eb9",
+          "rillsoft_resource_pool_ris_list": "d746974fa9af",
+          "rillsoft_resource_pool_ris_select": "360dd834eed8",
+          "rillsoft_resource_usage_list": "9728c5302a4f",
+          "rillsoft_resource_usage_set": "8febfb90313c",
+          "rillsoft_row_selection_apply": "0ee8a27436bb",
+          "rillsoft_row_selection_get": "d746974fa9af",
+          "rillsoft_session_dialogs_set": "a1c2c416ffd1",
+          "rillsoft_subproject_create": "7b3831324358",
+          "rillsoft_subproject_delete": "7b161178ad2c",
+          "rillsoft_subproject_update": "1417063deb75",
+          "rillsoft_task_create": "54694fa4cef4",
+          "rillsoft_task_delete": "a8656efe8c47",
+          "rillsoft_task_dependency_create": "62dfa52d10c7",
+          "rillsoft_task_dependency_delete": "4c97e374ac8c",
+          "rillsoft_task_employee_assignment_set": "ab79948eecbd",
+          "rillsoft_task_machine_assignment_set": "c0fdd44b4219",
+          "rillsoft_task_machine_role_assignment_derive": "b006874ed415",
+          "rillsoft_task_machine_role_assignment_set": "fb0e7ea47a60",
+          "rillsoft_task_material_assignment_set": "c5d56cc409dd",
+          "rillsoft_task_progress_recalculate": "d746974fa9af",
+          "rillsoft_task_progress_set": "2a3d8317be25",
+          "rillsoft_task_resource_assignment_fill": "1c0fd1b2fd60",
+          "rillsoft_task_resource_assignment_remove": "6f574ef3b2aa",
+          "rillsoft_task_resource_candidate_list": "9b4378946ff8",
+          "rillsoft_task_role_assignment_derive": "b006874ed415",
+          "rillsoft_task_role_assignment_set": "7fda5437a434",
+          "rillsoft_task_split": "5096575486c9",
+          "rillsoft_task_split_options_get": "65fd2c020279",
+          "rillsoft_task_update": "ab27f26020ff",
+          "rillsoft_timescale_apply": "6c5523a13f55",
+          "rillsoft_variance_report_get": "d746974fa9af",
+          "rillsoft_view_columns_apply": "c46ea7584a3a",
+          "rillsoft_view_columns_get": "d746974fa9af",
+          "rillsoft_view_favorite_create": "f2b13dee26e7",
+          "rillsoft_view_favorite_delete": "5b950e085ccd",
+          "rillsoft_view_favorite_list": "d746974fa9af",
+          "rillsoft_view_favorite_select": "5b950e085ccd",
+          "rillsoft_view_state_apply": "2f7c439ede3f",
+          "rillsoft_view_state_get": "d746974fa9af",
+          "rillsoft_window_layout_apply": "c47a8e300e98",
+          "rillsoft_window_layout_get": "d746974fa9af"
+        }
+      }
     },
     {
       "id": "satohub-mcp",
@@ -28899,7 +29947,7 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -29322,7 +30370,60 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "fetch": "06e33ab69ac3",
+          "onchain_agent_build_plan": "861290a25b0f",
+          "onchain_agent_check_install": "160ffaa8c6a0",
+          "onchain_agent_compare_listings": "d2de2fbeab96",
+          "onchain_agent_create_agent": "2bc9aee97f56",
+          "onchain_agent_explain_number": "ddd88bb0649d",
+          "onchain_agent_find_x402_service": "336df77643cb",
+          "onchain_agent_get_agent_economy": "f76a98485d34",
+          "onchain_agent_get_agent_passport": "3758dcba5b49",
+          "onchain_agent_get_chain_card": "761456d3eb5a",
+          "onchain_agent_get_changes": "3702d5bde142",
+          "onchain_agent_get_contract_facts": "726cb53c8c8c",
+          "onchain_agent_get_data_freshness": "c27fa9119119",
+          "onchain_agent_get_deploy_spec": "01baa8b492bd",
+          "onchain_agent_get_listing_history": "f5f643ed82d2",
+          "onchain_agent_get_metrics": "d37cdfb807e3",
+          "onchain_agent_get_news": "80659716df4d",
+          "onchain_agent_get_resource": "e2bd9cca5f9c",
+          "onchain_agent_get_score_methodology": "9672f68c59f3",
+          "onchain_agent_get_sdk_lineage": "fc9d16423dd7",
+          "onchain_agent_get_trend": "b86691cd5b8a",
+          "onchain_agent_get_wiki_page": "02defced7e08",
+          "onchain_agent_get_x402_facilitators": "47f04d94126e",
+          "onchain_agent_inspect_listing": "2f293f283ea2",
+          "onchain_agent_join_passport": "3b7594bc2f9d",
+          "onchain_agent_list_categories": "9672f68c59f3",
+          "onchain_agent_list_chains": "9672f68c59f3",
+          "onchain_agent_list_wiki_pages": "9672f68c59f3",
+          "onchain_agent_passport_action": "bff7a91659a5",
+          "onchain_agent_preflight": "7ff5e8c858e2",
+          "onchain_agent_recent_changes": "90bad36c6324",
+          "onchain_agent_recommend_stack": "270059a70d1e",
+          "onchain_agent_register_agent": "4bd8fa7298fe",
+          "onchain_agent_resolve_token": "04c67b704837",
+          "onchain_agent_route_agent": "27e733d3aa46",
+          "onchain_agent_route_launch": "cb1787bf9f11",
+          "onchain_agent_route_lp": "68dd2a3f7f43",
+          "onchain_agent_route_swap": "3037e8d0267e",
+          "onchain_agent_scaffold_plan": "801978c174e9",
+          "onchain_agent_scan_recipient": "a9fa23cbb0bf",
+          "onchain_agent_search_agents": "8115d5c586d2",
+          "onchain_agent_search_listings": "4b633bcb8142",
+          "onchain_agent_search_resources": "ba108c26a5e6",
+          "onchain_agent_search_skills": "c21bedef9586",
+          "onchain_agent_submit_project": "025628f8fcc4",
+          "onchain_agent_swap": "88156390beee",
+          "onchain_agent_watch": "8327c2482cee",
+          "search": "0507521f44e0"
+        }
+      }
     },
     {
       "id": "saymaker-mcp",
@@ -29331,7 +30432,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "saymaker-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -29539,7 +30640,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "edit_image": "6b9b1b38308f",
+          "generate_image": "03640ac5f858",
+          "generate_video": "34f376b94d85",
+          "get_task": "32688d5cfec1",
+          "list_models": "61dd20a862d9",
+          "open_in_saymaker": "2f4a9aa890ac"
+        }
+      }
     },
     {
       "id": "shipeasy-mcp",
@@ -29548,7 +30660,7 @@
       "round": "fleet",
       "versionTested": "2.16.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -30524,7 +31636,192 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "api_keys_create": "6867c87faa22",
+          "auth_check": "efddc7bd8bbc",
+          "auth_login": "efddc7bd8bbc",
+          "auth_logout": "c56c3ac593ae",
+          "docs_get": "84f28c1d5d45",
+          "docs_list": "43b754f18dfe",
+          "docs_skill": "63f087e3c475",
+          "errors_get": "41f883f43c58",
+          "errors_list": "30cd9a14854e",
+          "errors_resolve": "41f883f43c58",
+          "errors_series": "a3665ae28c63",
+          "i18n_drafts_create": "0eb47381fdd5",
+          "i18n_drafts_list": "c8a1ac469a82",
+          "i18n_drafts_update": "bab2612854d5",
+          "i18n_keys_list": "28cdd1e6ebd7",
+          "i18n_keys_push": "ad7f5dfa109d",
+          "i18n_keys_set": "a7254dad4214",
+          "i18n_keys_update": "65b203309750",
+          "i18n_profiles_create": "6e6b166ff60e",
+          "i18n_profiles_list": "c8a1ac469a82",
+          "i18n_profiles_publish": "755c84b46aa5",
+          "metrics_archive": "41f883f43c58",
+          "metrics_create": "9ee4b8e0e298",
+          "metrics_events_approve": "1f7ff8faf9bb",
+          "metrics_events_archive": "41f883f43c58",
+          "metrics_events_create": "44b53aefb98b",
+          "metrics_events_get": "41f883f43c58",
+          "metrics_events_list": "637b8d12930e",
+          "metrics_events_update": "1f7ff8faf9bb",
+          "metrics_experiments": "41f883f43c58",
+          "metrics_grammar": "c8a1ac469a82",
+          "metrics_list": "637b8d12930e",
+          "metrics_series": "a3665ae28c63",
+          "metrics_show": "41f883f43c58",
+          "metrics_unarchive": "41f883f43c58",
+          "metrics_update": "773e7c33e00e",
+          "ops_ack": "76b077c82b6b",
+          "ops_activity_list": "45b582c74229",
+          "ops_agents_list": "c8a1ac469a82",
+          "ops_alerts_archive": "41f883f43c58",
+          "ops_alerts_channels": "c8a1ac469a82",
+          "ops_alerts_create": "9206f6c12da8",
+          "ops_alerts_list": "637b8d12930e",
+          "ops_alerts_update": "23abd4717af3",
+          "ops_attachments_create": "2508c0ea3099",
+          "ops_bug": "1c3ffa93e8ab",
+          "ops_comments_create": "d286af177220",
+          "ops_comments_list": "e5908900450f",
+          "ops_comments_upload_media": "2508c0ea3099",
+          "ops_create": "f63695f1536d",
+          "ops_feature": "fc94d7c11e0c",
+          "ops_fired_alerts_list": "344f42114b79",
+          "ops_fired_alerts_update": "01c840b74e3d",
+          "ops_get": "862245f93a30",
+          "ops_group": "b76c3d0a9a68",
+          "ops_investigations_create": "d6cd46b44a50",
+          "ops_investigations_list": "e5908900450f",
+          "ops_investigations_update": "ce7bfcefee7c",
+          "ops_link_pr": "1c269a913dad",
+          "ops_links": "a8a78bacdd9c",
+          "ops_list": "e8d674bbfab7",
+          "ops_memory_search": "c95399f0784a",
+          "ops_notify": "222df76aad21",
+          "ops_qa_notes_create": "adb3a8800ba9",
+          "ops_qa_notes_list": "66427e7cdf1b",
+          "ops_qa_questions_answer": "5f283ffb7bc7",
+          "ops_qa_questions_ask": "69296626b6a7",
+          "ops_qa_questions_list": "acdda80ea9db",
+          "ops_questions_answer": "5cda0a4acf2c",
+          "ops_questions_ask": "a5f0660582ff",
+          "ops_questions_cancel": "218d07e1ba22",
+          "ops_questions_list": "6e86be651044",
+          "ops_review_agents_archive": "bbc9d87572a6",
+          "ops_review_agents_create": "f32c60a9c98b",
+          "ops_review_agents_list": "c8a1ac469a82",
+          "ops_review_agents_update": "084caa6eacbb",
+          "ops_routing_rules_create": "4aaf505f93e7",
+          "ops_routing_rules_list": "c8a1ac469a82",
+          "ops_trail_gates_get": "c8a1ac469a82",
+          "ops_trail_gates_set": "50b06c478c23",
+          "ops_trigger_create_claude": "ec77d85b8710",
+          "ops_trigger_create_copilot": "f3c7ff149559",
+          "ops_trigger_create_cursor": "e88a4f552d20",
+          "ops_trigger_create_jules": "30d40f9d24f5",
+          "ops_update": "9c9c7e9a826a",
+          "projects_current": "c8a1ac469a82",
+          "projects_update": "77ad665d67da",
+          "projects_upsert": "2dc505fd54a8",
+          "release_configs_archive": "41f883f43c58",
+          "release_configs_create": "27ad4ad2142c",
+          "release_configs_get": "41f883f43c58",
+          "release_configs_list": "7ffda8ef3acd",
+          "release_configs_update": "ed1b1ece37bd",
+          "release_configs_update_schema": "30fb5f5e693f",
+          "release_experiments_archive": "41f883f43c58",
+          "release_experiments_create": "ef052b34c979",
+          "release_experiments_get": "41f883f43c58",
+          "release_experiments_list": "edb1b92a451b",
+          "release_experiments_readout_create": "4f1e3e67dae9",
+          "release_experiments_readout_get": "4424ff0e1804",
+          "release_experiments_reanalyze": "41f883f43c58",
+          "release_experiments_restore": "41f883f43c58",
+          "release_experiments_results": "41f883f43c58",
+          "release_experiments_set_metrics": "2583e3025d17",
+          "release_experiments_start": "41f883f43c58",
+          "release_experiments_stop": "41f883f43c58",
+          "release_experiments_timeseries": "e1969d0c3fc3",
+          "release_experiments_universes_archive": "41f883f43c58",
+          "release_experiments_universes_create": "be8a4d2481ea",
+          "release_experiments_universes_list": "7ffda8ef3acd",
+          "release_experiments_universes_update": "7f3ce02b5f53",
+          "release_experiments_update": "4e75d4981e47",
+          "release_flags_activity": "87473564e2e3",
+          "release_flags_archive": "41f883f43c58",
+          "release_flags_attributes_archive": "41f883f43c58",
+          "release_flags_attributes_create": "908ffde492fb",
+          "release_flags_attributes_get": "41f883f43c58",
+          "release_flags_attributes_list": "637b8d12930e",
+          "release_flags_attributes_update": "62e77842d4d3",
+          "release_flags_create": "9c108e5094fd",
+          "release_flags_disable": "41f883f43c58",
+          "release_flags_enable": "41f883f43c58",
+          "release_flags_get": "41f883f43c58",
+          "release_flags_list": "7ffda8ef3acd",
+          "release_flags_templates_archive": "41f883f43c58",
+          "release_flags_templates_create": "0405dd04e40f",
+          "release_flags_templates_get": "41f883f43c58",
+          "release_flags_templates_list": "24546dd11559",
+          "release_flags_templates_update": "40b390bde628",
+          "release_flags_update": "60fcbf97771f",
+          "release_flags_whitelist": "41f883f43c58",
+          "release_flags_whitelist_add": "456afe709257",
+          "release_flags_whitelist_remove": "8bb885e618f5",
+          "release_flags_whitelist_set": "26b9311b35f4",
+          "release_killswitch_archive": "41f883f43c58",
+          "release_killswitch_create": "56c47ba35328",
+          "release_killswitch_get": "41f883f43c58",
+          "release_killswitch_list": "7ffda8ef3acd",
+          "release_killswitch_set": "eaff26475199",
+          "release_killswitch_set_value": "7b378f751870",
+          "release_killswitch_toggle": "5047a85530db",
+          "release_killswitch_unset": "e07910d5ec5a",
+          "release_killswitch_update": "30b81f360efa",
+          "tags_get": "6aa1f6e2414c",
+          "tags_list": "9eec7f94df98",
+          "tags_set": "310ecd34a1e2",
+          "tags_update": "68616e29e575",
+          "trails_attribute": "5e3d4724d3f6",
+          "trails_close": "f73d69a89470",
+          "trails_confirm_suspect": "bc05f6c00830",
+          "trails_create": "0b52e38dbe09",
+          "trails_get": "a382dc0e2aa3",
+          "trails_items_add": "e500e07a5e12",
+          "trails_items_move": "5c24dd6e3a87",
+          "trails_items_remove": "df5b34667151",
+          "trails_link_pr": "4040b09fa55e",
+          "trails_list": "cec8f64ca288",
+          "trails_milestones_add": "f1bd812e9aef",
+          "trails_milestones_remove": "4446cfd3bf66",
+          "trails_milestones_update": "c1953eb7013c",
+          "trails_pause_autopilot": "1eb2529ab215",
+          "trails_pause_rollout": "6fccd0ddd7e2",
+          "trails_plan_revisions": "c8a92bf2dbe5",
+          "trails_promote_finding": "7a95c3f907b7",
+          "trails_reject_suspect": "bc05f6c00830",
+          "trails_release_facts": "5decc2391ec0",
+          "trails_reopen": "c8a92bf2dbe5",
+          "trails_resources_add": "2fedb03e16f2",
+          "trails_resources_list": "c8a92bf2dbe5",
+          "trails_resources_remove": "f8d1f6c48c11",
+          "trails_review": "ccfdf6e9383e",
+          "trails_start": "bf4bba330cfb",
+          "trails_submit_eval": "d778e5f55ae3",
+          "trails_submit_plan": "01310f3115a4",
+          "trails_timeline": "c26c59a574b4",
+          "trails_unlink_pr": "9b5b55609312",
+          "trails_update": "92e7d8d362de",
+          "trails_update_finding": "0044cd34351d",
+          "trails_update_plan": "47a86ba5bea3",
+          "whoami": "c8a1ac469a82"
+        }
+      }
     },
     {
       "id": "shiplightai-mcp",
@@ -31749,7 +33046,7 @@
       "round": "fleet",
       "versionTested": "3.7.0",
       "serverInfoName": "snowsure-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -32128,7 +33425,60 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ask_snowdata": "b384a17378ba",
+          "book_lodging": "dcce94472cb8",
+          "compare_forecasts": "25a07d19437e",
+          "compare_passes": "5000a3d061a3",
+          "compare_resorts": "f46975d71ec3",
+          "find_best_powder": "a466a66dbcb7",
+          "find_flights_to_powder": "57efbfea9c05",
+          "find_pass_resorts": "2c5034bf7182",
+          "find_powder_trips": "6c6179f2a229",
+          "find_resorts_by_criteria": "e9affa01675d",
+          "get_avalanche": "25a07d19437e",
+          "get_destination": "746a3d7df9ea",
+          "get_elnino_rankings": "811d0528145f",
+          "get_elnino_signal": "25a07d19437e",
+          "get_insights": "f8486ce4dc5b",
+          "get_ml_trends": "92c2b9e54fbe",
+          "get_monthly_snow": "25a07d19437e",
+          "get_my_snow_report": "efddc7bd8bbc",
+          "get_operating_risk": "25a07d19437e",
+          "get_pass": "187ed7eb3055",
+          "get_powder_reels": "377591f5b9c4",
+          "get_regional_summary": "390b80f8b43d",
+          "get_resort": "88bc7e290a9f",
+          "get_resort_info": "25a07d19437e",
+          "get_resort_photos": "25a07d19437e",
+          "get_road_access": "25a07d19437e",
+          "get_road_cameras": "25a07d19437e",
+          "get_road_weather": "25a07d19437e",
+          "get_season_leaderboard": "2fda5b04fa48",
+          "get_season_openings": "2b7f637d76d2",
+          "get_snow_history": "25a07d19437e",
+          "get_snow_quality": "f7c4f44f5bff",
+          "get_snow_report": "f6f302ad073d",
+          "get_southern_hemisphere_report": "aa6c07a274a1",
+          "get_storm_watch": "e39b65d59b3c",
+          "get_trip_window": "ced18b7a743b",
+          "get_weather_forecast": "bd94aef2fd30",
+          "get_webcam_status": "25a07d19437e",
+          "list_alerts": "efddc7bd8bbc",
+          "list_insight_categories": "17537136a910",
+          "list_saved_resorts": "efddc7bd8bbc",
+          "plan_ski_road_trip": "c722718675da",
+          "plan_ski_trip": "a6f516ec6300",
+          "remove_saved_resort": "25a07d19437e",
+          "save_resort": "25a07d19437e",
+          "search_resorts": "34b945da503f",
+          "subscribe_alerts": "d15cfc14469f",
+          "unsubscribe_alerts": "7b4a17a1708c"
+        }
+      }
     },
     {
       "id": "spaces-mcp-server",
@@ -32137,7 +33487,7 @@
       "round": "fleet",
       "versionTested": "1.10.0",
       "serverInfoName": "spaces-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -32485,7 +33835,42 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "browse_marketplace": "7c2499960689",
+          "create_space": "4d5edb456903",
+          "draw": "b41eb25c7446",
+          "emote": "aecc7f39d263",
+          "get_agent_profile": "e02619fc8d6d",
+          "get_game_status": "f87a80d5ca20",
+          "get_space_details": "8b8248d76972",
+          "get_updates": "e6a8c526def0",
+          "invite_agent": "3e239e034047",
+          "join_space": "d7b613d6f3a2",
+          "leave_space": "37e7a0439a2e",
+          "list_kits": "efddc7bd8bbc",
+          "list_spaces": "f57233182ec5",
+          "look_at": "3ce4bb2e846d",
+          "mention_player": "698a43e5853e",
+          "poke": "37e7a0439a2e",
+          "react_to_message": "78e76e4aed37",
+          "ready_up": "10a1dd2a98c8",
+          "recall_memories": "c44969bfda61",
+          "register_agent": "7754ffc79282",
+          "send_ghost_gif": "2d8c1cccbeb9",
+          "send_ghost_message": "eb04b66879fc",
+          "send_gif": "6d328bf2e2f1",
+          "send_message": "0cd4cbe8ed27",
+          "share_content": "c95e939bd3bd",
+          "space_command": "32d0540d65c1",
+          "submit_action": "3bb170cdc5aa",
+          "update_profile": "c790a67bf736",
+          "vote": "2d4eb9648399",
+          "whoami": "efddc7bd8bbc"
+        }
+      }
     },
     {
       "id": "spideriq-mcp-gate",
@@ -32494,7 +33879,7 @@
       "round": "fleet",
       "versionTested": "1.16.0",
       "serverInfoName": "mcp-gate",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -32869,7 +34254,58 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_access_status": "89b23c772fac",
+          "gate_add_key": "5205151269b4",
+          "gate_agents": "ab1e5235a90f",
+          "gate_aliases": "17f511d13ed1",
+          "gate_capacity": "8a97f48fe042",
+          "gate_catalog_get": "6b125d2f3859",
+          "gate_catalog_list": "91267ff77d67",
+          "gate_catalog_model_evals": "3166409bca61",
+          "gate_chat": "e086bbf0c7bb",
+          "gate_client_alias_create": "b60f392423db",
+          "gate_client_alias_delete": "e095883f958d",
+          "gate_client_alias_get": "3d1732218b9c",
+          "gate_client_alias_list": "9df87d9aeb0b",
+          "gate_client_alias_update": "85b261f449da",
+          "gate_flow": "e59eded9672c",
+          "gate_group": "bda0647a6cf3",
+          "gate_health": "17f511d13ed1",
+          "gate_invite_contributor": "4c609df11b24",
+          "gate_leaderboard": "8198201e95d8",
+          "gate_media_generate": "b85163378eb7",
+          "gate_media_models": "9ff44a6e1470",
+          "gate_models": "17f511d13ed1",
+          "gate_onboarding_status": "efddc7bd8bbc",
+          "gate_onboarding_update": "04c24d0087cc",
+          "gate_prompt_create": "09147872c707",
+          "gate_prompt_delete": "4585b1f67592",
+          "gate_prompt_get": "4585b1f67592",
+          "gate_prompt_list": "53a45edaa469",
+          "gate_prompt_search": "d9d640cda48c",
+          "gate_provider_guide": "d03262fdf7a3",
+          "gate_providers": "ab1e5235a90f",
+          "gate_recipes": "efddc7bd8bbc",
+          "gate_stats": "ab1e5235a90f",
+          "gate_subscriptions": "75d85b5c1b9b",
+          "gate_trace_detail": "cb7b5bc779a0",
+          "gate_trace_stats": "ab1e5235a90f",
+          "gate_traces": "ca697b4e6d1a",
+          "gate_usage": "eb357e3d1031",
+          "gate_usage_by_task": "dcfcc80f8b7e",
+          "get_api_info": "ea2671debbf5",
+          "get_auth_status": "e1917f6cffae",
+          "get_queue_stats": "309f7260fd06",
+          "health_check": "cb609c98fc08",
+          "list_workspaces": "efddc7bd8bbc",
+          "logout": "ea2671debbf5",
+          "request_access": "3e5dc56caa57"
+        }
+      }
     },
     {
       "id": "spideriq-mcp-leads",
@@ -32878,7 +34314,7 @@
       "round": "fleet",
       "versionTested": "1.19.1",
       "serverInfoName": "mcp-leads",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -33368,7 +34804,74 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "browse_bulk_corpus_leads": "924a64bba2c6",
+          "cancel_job": "23027883b7dd",
+          "capture_landing_page": "8e08ae92bb8b",
+          "check_access_status": "89b23c772fac",
+          "company_intel_batch": "8b3aab68a777",
+          "company_intel_research": "903460af3606",
+          "continue_campaign": "0e11c01e0c54",
+          "count_bulk_corpus_leads": "96e3d152e0d1",
+          "create_bulk_selection": "c3fce9708a8d",
+          "create_campaign": "78b4de32eebb",
+          "create_video": "a1c5c0598bb2",
+          "delete_campaign": "47b829d659e0",
+          "estimate_bulk_lead_sourcing": "0ff46c4864e5",
+          "get_api_info": "ea2671debbf5",
+          "get_auth_status": "e1917f6cffae",
+          "get_campaign_status": "9a3fba2db257",
+          "get_company_data": "adff1715db47",
+          "get_event_status": "ea2671debbf5",
+          "get_job_results": "edcb960d767e",
+          "get_job_status": "ed158713cd4b",
+          "get_queue_stats": "309f7260fd06",
+          "health_check": "cb609c98fc08",
+          "idap_batch_fetch": "2ad1ebad845e",
+          "idap_delete_business": "378f73f9ddc6",
+          "idap_fetch_resource": "3c834c248bf2",
+          "idap_find_duplicates": "13e22bb6aa88",
+          "idap_list_resources": "799a097f0096",
+          "idap_media": "e6ca0595d4a8",
+          "idap_resolve_resource": "09d85e898a18",
+          "idap_search": "d51f96218ac7",
+          "idap_stats": "77670f3a3f9f",
+          "idap_write_flags": "bf7d9fbd75ad",
+          "lead_search": "b994d1edd80a",
+          "list_bulk_corpus_fields": "ea2671debbf5",
+          "list_bulk_corpus_values": "06f055c2d41e",
+          "list_bulk_past_runs": "fc59de0764fe",
+          "list_bulk_sources": "ea2671debbf5",
+          "list_campaigns": "bb4db146c6c7",
+          "list_countries": "ea2671debbf5",
+          "list_jobs": "0e02ea8e1808",
+          "list_regions": "d669bd6afb32",
+          "list_selectable_units": "0486648d7eb2",
+          "list_workspaces": "efddc7bd8bbc",
+          "logout": "ea2671debbf5",
+          "pr_get_result": "0025c694afcc",
+          "pr_submit": "872db52eee8c",
+          "request_access": "3e5dc56caa57",
+          "research_website": "d02b605e1a04",
+          "retry_campaign_location": "46398dd6cb23",
+          "retry_failed_locations": "aa25b320e10a",
+          "scrape_website": "aa60cec9880f",
+          "search_google_maps": "9f9f9dc1b700",
+          "search_people": "2bf3e0b47347",
+          "stop_campaign": "81d029448095",
+          "submit_bulk_internal_sourcing": "1284c0f20fc7",
+          "submit_bulk_lead_sourcing": "bf049dd1a42c",
+          "submit_job": "a30c90feebce",
+          "submit_social_enrichment": "76cb1aae2847",
+          "submit_vayapin": "ae1bcc1bdc3e",
+          "subscribe_events": "c79d0d45d485",
+          "update_campaign": "122bf50ffc56",
+          "verify_emails": "1c01b6e8b4ad"
+        }
+      }
     },
     {
       "id": "spideriq-mcp-mail",
@@ -33377,7 +34880,7 @@
       "round": "fleet",
       "versionTested": "1.15.1",
       "serverInfoName": "mcp-mail",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -33955,7 +35458,109 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "bulk_update_messages": "c124935ca571",
+          "check_access_status": "89b23c772fac",
+          "compose_assist": "dcd06301949e",
+          "convert_document": "2734bd45b489",
+          "convert_mail_body": "3b7ece4eaa9f",
+          "create_label": "255f7b54552a",
+          "create_mailbox": "e72d45caca94",
+          "create_view": "533f9252ac56",
+          "delete_label": "413cc17bbaf3",
+          "delete_mailbox": "fb8a5f8aa3dd",
+          "delete_outreach_connection": "35d60eb7d351",
+          "delete_view": "c8050ef933ad",
+          "get_api_info": "ea2671debbf5",
+          "get_auth_status": "e1917f6cffae",
+          "get_conversion": "ffc99b097d97",
+          "get_inbox": "b6536f517c76",
+          "get_mailbox_stats": "4bf0cfad443c",
+          "get_message": "b0392ebb52df",
+          "get_outreach_connection": "35d60eb7d351",
+          "get_outreach_health_overview": "09194e151269",
+          "get_outreach_push_status": "35d60eb7d351",
+          "get_queue_stats": "309f7260fd06",
+          "get_sender_health": "429afd781547",
+          "get_session": "51b20288e898",
+          "get_thread": "1171ab407709",
+          "get_view": "b7d1d8f95261",
+          "health_check": "cb609c98fc08",
+          "list_folders": "8095bcd9762f",
+          "list_labels": "4bf0cfad443c",
+          "list_mailboxes": "309f7260fd06",
+          "list_messages": "782186a46639",
+          "list_outreach_campaigns": "35d60eb7d351",
+          "list_outreach_connections": "09194e151269",
+          "list_outreach_senders": "09194e151269",
+          "list_quarantine": "4bf0cfad443c",
+          "list_security_events": "d062e33f7edf",
+          "list_snoozed": "4bf0cfad443c",
+          "list_views": "4bf0cfad443c",
+          "list_workspaces": "efddc7bd8bbc",
+          "logout": "ea2671debbf5",
+          "mail_create_template": "e4df67d5ceb5",
+          "mail_delete_template": "1093c6f576cc",
+          "mail_get_template": "d5f6c9a26f95",
+          "mail_list_templates": "4bf0cfad443c",
+          "mail_preview_template": "528ed005dc5f",
+          "mail_update_template": "d2a7ab0b11fe",
+          "push_outreach_leads": "ec04a9361a5b",
+          "read_message": "1a5f036d4dc3",
+          "release_message": "7caadbc1c4c6",
+          "remove_outreach_leads": "a25086d295d7",
+          "request_access": "3e5dc56caa57",
+          "search_mail": "64666796af51",
+          "send_add_campaign_branch": "45cb1c6ed6bd",
+          "send_add_step": "3155cbfe038e",
+          "send_add_variant": "a97e8450ea37",
+          "send_attach_source": "474064e9f13b",
+          "send_cancel_broadcast": "5f6ca4c0242a",
+          "send_check_domain": "4e0a1b714b66",
+          "send_create_broadcast": "d48e7939973b",
+          "send_create_campaign": "6936ae57ce48",
+          "send_delete_campaign": "44f9ebab964e",
+          "send_delete_campaign_branch": "f6e7772c6bc4",
+          "send_delete_step": "068221cd1c71",
+          "send_delete_variant": "6be7d455782c",
+          "send_detach_source": "a228d603d88d",
+          "send_email": "94b9ee37c0ce",
+          "send_enroll_domain": "a3ef2f803744",
+          "send_get_broadcast": "ff608395ab9c",
+          "send_get_campaign": "3df837fff58c",
+          "send_get_capacity": "471c24b4ceaa",
+          "send_get_deliverability": "a1b9e2bcdba3",
+          "send_get_deliverability_timeseries": "a1b9e2bcdba3",
+          "send_list_broadcasts": "cbdab962ac60",
+          "send_list_campaigns": "ae9930beb507",
+          "send_list_sources": "309f7260fd06",
+          "send_list_undeliverable": "81ec88e469c5",
+          "send_pause_campaign": "9e10378a519e",
+          "send_preview_audience": "4b6ff58d0f6c",
+          "send_preview_broadcast": "85fc0304e065",
+          "send_preview_step": "13149ee0d439",
+          "send_promote_source": "089fc8f672f3",
+          "send_queue_broadcast": "5e849af21d69",
+          "send_stop_campaign": "9e10378a519e",
+          "send_update_broadcast": "ae340a263825",
+          "send_update_campaign": "efb90dfce84b",
+          "send_update_campaign_branch": "bfbf58b8ada9",
+          "send_update_step": "d7a8f512cf11",
+          "send_update_variant": "0a40ca7e4193",
+          "snooze_message": "b7b32e0cfef5",
+          "sync_outreach_connection": "35d60eb7d351",
+          "test_mailbox": "034a68c95171",
+          "unsnooze_message": "18bf86753e85",
+          "update_label": "91e2d11bd97c",
+          "update_mailbox": "11726c7bd993",
+          "update_message": "203e2759875c",
+          "update_outreach_connection": "4841131b151a",
+          "update_view": "3d0d5796d83d"
+        }
+      }
     },
     {
       "id": "ssid-mcp",
@@ -33964,7 +35569,7 @@
       "round": "fleet",
       "versionTested": "0.4.1",
       "serverInfoName": "ssid-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -34203,7 +35808,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_router_compliance": "4320633f0ab9",
+          "get_router_defaults": "6b45ac7bd8fe",
+          "lookup_mac": "052d16c320eb",
+          "submit_correction": "a13eacacc80b"
+        }
+      }
     },
     {
       "id": "synchronex-mcp-proxy",
@@ -34212,7 +35826,7 @@
       "round": "fleet",
       "versionTested": "1.2.1",
       "serverInfoName": "mcp-proxy",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -34426,7 +36040,19 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_kernel": "7a014b717a77",
+          "log_decision": "88c363809d02",
+          "proxy_call": "9f2ebad72ada",
+          "proxy_schema": "9966879a9b2f",
+          "proxy_search": "745a6382b452",
+          "recall": "7b66d0328c29",
+          "remember": "358aa323a512"
+        }
+      }
     },
     {
       "id": "tanvo-mcp",
@@ -34435,7 +36061,7 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "tanvo-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -34687,7 +36313,22 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "account": "7a014b717a77",
+          "find_apps": "43c633531db3",
+          "generate_from_app": "1e9bda4980de",
+          "generate_image": "482e943a56b0",
+          "generate_music": "c5455636a791",
+          "generate_video": "ed961f17c5b8",
+          "get_app": "13c0e9538ffd",
+          "get_generation": "1970a0d3f9bd",
+          "list_models": "43cbe4e2ec7b",
+          "open_in_tanvo": "50c77255f9c5"
+        }
+      }
     },
     {
       "id": "tensorfeed-mcp-server",
@@ -34696,7 +36337,7 @@
       "round": "fleet",
       "versionTested": "2.1.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -34989,7 +36630,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
           "account_status": "7a014b717a77",
           "ask_tensorfeed": "7f7d262851d8",
@@ -35026,7 +36667,7 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "x402-base-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -35331,7 +36972,27 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "afta_federation_members": "7a014b717a77",
+          "balance": "e49052b2f6c6",
+          "block_number": "7a014b717a77",
+          "call": "6421f425a5dd",
+          "decode_x402_payment_payload": "eda7eea6dbad",
+          "get_tx_receipt": "a6875e8f613f",
+          "parse_x402_manifest": "774cf513cfb0",
+          "probe_x402_endpoint": "193ab299736e",
+          "recent_transfers": "7da36ade5748",
+          "tf_payment_lookup": "a6875e8f613f",
+          "usdc_balance": "e49052b2f6c6",
+          "usdc_recent_payments_to": "d2009cdfc745",
+          "verify_afta_federation": "b6fc1b740125",
+          "verify_x402_settlement": "4d9aced8428a",
+          "x402_publisher_health": "774cf513cfb0"
+        }
+      }
     },
     {
       "id": "testivai-mcp",
@@ -35585,7 +37246,7 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -35962,7 +37623,52 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "boost_unlimited": "ce7083a6ea19",
+          "describe_tool": "4802f1d65ed5",
+          "download_result": "e9de6d26c023",
+          "guide": "8d3c58649fbc",
+          "job_status": "77701b41ae88",
+          "list_tools": "7a014b717a77",
+          "login": "68e56350ade2",
+          "logout": "7a014b717a77",
+          "recommend_plan": "04fc25297cfb",
+          "td_3d_effect": "67d77c2b92c8",
+          "td_anti_blur": "82bf04fa9706",
+          "td_background_removal": "91d45e1ebc76",
+          "td_border_outline": "8aa067c753a9",
+          "td_channeling": "9402ac28d53f",
+          "td_color_matching_extract_colors": "8aa067c753a9",
+          "td_color_matching_match_reference": "2376fd220ef6",
+          "td_color_matching_regenerate": "ffa80ac6a271",
+          "td_color_matching_replace": "da8f9daad985",
+          "td_color_matching_suggest": "9ba11b7c829e",
+          "td_color_matching_swatch_grid": "8513f4fa3dca",
+          "td_color_transfer": "405d4c88566c",
+          "td_colour_layering": "efb394bfa08d",
+          "td_colourways": "b9a7739ae5b2",
+          "td_design_creation": "7a0146198617",
+          "td_design_extension": "8708606f37f8",
+          "td_design_generation": "350a0151ac28",
+          "td_dress_to_design": "44d443f32547",
+          "td_embroidery_effect": "4229b40b9de0",
+          "td_fabric_texture_removal": "72fec9bc597e",
+          "td_foil_separation": "aef0f47f374c",
+          "td_object_layering": "8aa067c753a9",
+          "td_ready_to_print": "89b352fb08b8",
+          "td_repeat_set": "f283f8e3cb2e",
+          "td_sketch_to_design": "39859923fb30",
+          "td_spec_board": "96a7c8dcf5b7",
+          "td_style_transfer": "4d08bb0b79be",
+          "td_super_scaler": "df6e83792295",
+          "td_vectorizer": "4104b3a103ab",
+          "td_watermark_removal": "62e1f9af8fb7",
+          "whoami": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "thrain-blackout-mcp",
@@ -35971,7 +37677,7 @@
       "round": "fleet",
       "versionTested": "1.4.0",
       "serverInfoName": "blackout-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -36198,7 +37904,14 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_pdf": "3706092f1eb7",
+          "redact_pdf": "4904295f3efc"
+        }
+      }
     },
     {
       "id": "thrain-spotlight-mcp",
@@ -36207,7 +37920,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "spotlight-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -36432,7 +38145,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_pdf_accessibility": "356790195c65"
+        }
+      }
     },
     {
       "id": "3dstreet-mcp",
@@ -36441,7 +38160,7 @@
       "round": "fleet",
       "versionTested": "0.2.3",
       "serverInfoName": "3dstreet-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -36625,7 +38344,11 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {}
+      }
     },
     {
       "id": "addressintel-mcp",
@@ -36634,7 +38357,7 @@
       "round": "fleet",
       "versionTested": "1.1.2",
       "serverInfoName": "addressintel-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -36842,7 +38565,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_property_intelligence": "00848c78a381",
+          "list_adu_leads": "f254e289722f",
+          "list_market_signals": "15404afd0326",
+          "list_redevelopment_leads": "71818b803869",
+          "list_sb9_inventory": "0ef3473ad14d",
+          "search_permits": "b9cc98fe6df4"
+        }
+      }
     },
     {
       "id": "apick-mcp",
@@ -37776,7 +39510,7 @@
       "round": "fleet",
       "versionTested": "1.1.69",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -38074,7 +39808,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "best_sellers": "c4c8af552b46",
           "deals": "59202fdab28e",
@@ -85876,6 +87610,813 @@
         "tool \"hl_new_agent_wallet\" is covered by the core checks only: the tool takes no parameters",
         "5 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"hl_new_agent_wallet\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "bootpay-mcp",
+      "name": "@bootpay/mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "2.20.0",
+      "serverInfoName": "mcp",
+      "testedAt": "2026-11-25",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @bootpay/mcp@2.20.0",
+      "transport": "stdio",
+      "toolCount": 80,
+      "tools": [
+        "detect_project_stack",
+        "get_sdk_versions",
+        "search_docs",
+        "get_doc",
+        "list_docs",
+        "get_setup_checklist",
+        "get_troubleshooting",
+        "get_csp_allowlist",
+        "get_cs_guide",
+        "list_toolsets",
+        "login",
+        "browser_login",
+        "logout",
+        "list_projects",
+        "switch_project",
+        "browser_select_project",
+        "set_token",
+        "get_auth_status",
+        "create_seller",
+        "search_sellers",
+        "get_seller",
+        "update_seller",
+        "create_project",
+        "list_api_scopes",
+        "list_keychains",
+        "create_keychain",
+        "delete_keychain",
+        "get_payment_settings",
+        "activate_payment_method",
+        "set_sandbox_mode",
+        "update_payment_resource",
+        "set_payment_mode",
+        "list_widgets",
+        "get_widget",
+        "create_widget",
+        "get_widget_default_styles",
+        "configure_widget",
+        "update_widget",
+        "delete_widget",
+        "get_integration_context",
+        "generate_payment_code",
+        "get_commerce_context",
+        "get_commerce_keys",
+        "create_commerce_keys",
+        "alimtalk_status",
+        "alimtalk_find_templates",
+        "alimtalk_list_categories",
+        "alimtalk_request_sender_otp",
+        "alimtalk_register_sender",
+        "alimtalk_list_senders",
+        "alimtalk_get_sender",
+        "alimtalk_release_sender",
+        "alimtalk_update_variable_examples",
+        "alimtalk_search_official_templates",
+        "alimtalk_get_official_template",
+        "alimtalk_list_templates",
+        "alimtalk_get_template",
+        "alimtalk_create_template",
+        "alimtalk_update_template",
+        "alimtalk_delete_template",
+        "alimtalk_register_template",
+        "alimtalk_request_inspection",
+        "alimtalk_upload_template_image",
+        "alimtalk_send",
+        "alimtalk_send_test",
+        "alimtalk_send_bulk",
+        "alimtalk_cancel_reserved",
+        "alimtalk_list_messages",
+        "alimtalk_get_message",
+        "alimtalk_get_stats",
+        "alimtalk_list_optouts",
+        "alimtalk_check_optouts",
+        "alimtalk_add_optout",
+        "alimtalk_remove_optout",
+        "alimtalk_get_webhook",
+        "alimtalk_update_webhook",
+        "alimtalk_test_webhook",
+        "alimtalk_rotate_webhook_secret",
+        "alimtalk_list_webhook_deliveries",
+        "set_commerce_credentials"
+      ],
+      "toolSchemas": {
+        "activate_payment_method": "682cd13b2d52",
+        "alimtalk_add_optout": "ecbb9a3abcc3",
+        "alimtalk_cancel_reserved": "84f96e3faa9e",
+        "alimtalk_check_optouts": "111b32ab8034",
+        "alimtalk_create_template": "fa7fafd08d70",
+        "alimtalk_delete_template": "ee481937fbd6",
+        "alimtalk_find_templates": "0bb2ec5d7e5b",
+        "alimtalk_get_message": "84f96e3faa9e",
+        "alimtalk_get_official_template": "9b143f3f5642",
+        "alimtalk_get_sender": "d5ee8e04f205",
+        "alimtalk_get_stats": "b40c1960130d",
+        "alimtalk_get_template": "d573d2a7c41f",
+        "alimtalk_get_webhook": "7a014b717a77",
+        "alimtalk_list_categories": "7a014b717a77",
+        "alimtalk_list_messages": "e574afb83e76",
+        "alimtalk_list_optouts": "dcf03e469eb1",
+        "alimtalk_list_senders": "7a014b717a77",
+        "alimtalk_list_templates": "7f514919ea52",
+        "alimtalk_list_webhook_deliveries": "71474eee86ab",
+        "alimtalk_register_sender": "8f8b69ecceb8",
+        "alimtalk_register_template": "700eac5d7878",
+        "alimtalk_release_sender": "0ea6b7a2bd27",
+        "alimtalk_remove_optout": "46c258d925a4",
+        "alimtalk_request_inspection": "f36061287a36",
+        "alimtalk_request_sender_otp": "6d7042dc5b6e",
+        "alimtalk_rotate_webhook_secret": "0fd4335eb4bb",
+        "alimtalk_search_official_templates": "625890444f5d",
+        "alimtalk_send": "64a6c4ce0f39",
+        "alimtalk_send_bulk": "a14aa3d9830d",
+        "alimtalk_send_test": "f451c7594135",
+        "alimtalk_status": "7a014b717a77",
+        "alimtalk_test_webhook": "7a014b717a77",
+        "alimtalk_update_template": "76391c7f5714",
+        "alimtalk_update_variable_examples": "3c59d5e2d49e",
+        "alimtalk_update_webhook": "0a8d76022473",
+        "alimtalk_upload_template_image": "911671bf6d39",
+        "browser_login": "66c31df656c0",
+        "browser_select_project": "23835f3bbfcb",
+        "configure_widget": "1ca4ec375f2d",
+        "create_commerce_keys": "701434216e7d",
+        "create_keychain": "72f8a81ffa3d",
+        "create_project": "f04523cae37d",
+        "create_seller": "74c00e07aa0d",
+        "create_widget": "4ebd2d50b655",
+        "delete_keychain": "b35aaff1bc16",
+        "delete_widget": "d1f973468043",
+        "detect_project_stack": "14294bf0e46d",
+        "generate_payment_code": "fee2df4489d2",
+        "get_auth_status": "7a014b717a77",
+        "get_commerce_context": "043eded7073d",
+        "get_commerce_keys": "7a014b717a77",
+        "get_cs_guide": "f3e323a5ffed",
+        "get_csp_allowlist": "c27846855924",
+        "get_doc": "5a63b2e076c1",
+        "get_integration_context": "6dd92c131d64",
+        "get_payment_settings": "7a014b717a77",
+        "get_sdk_versions": "7a014b717a77",
+        "get_seller": "11f46321e94c",
+        "get_setup_checklist": "c4b5dafdb937",
+        "get_troubleshooting": "d2c8f8206a8c",
+        "get_widget": "5c45dc137552",
+        "get_widget_default_styles": "e0a6a4aec05e",
+        "list_api_scopes": "1c5429cdd025",
+        "list_docs": "e726ea501541",
+        "list_keychains": "220bfef8d75f",
+        "list_projects": "7a014b717a77",
+        "list_toolsets": "7a014b717a77",
+        "list_widgets": "7a014b717a77",
+        "login": "c7254701195a",
+        "logout": "7a014b717a77",
+        "search_docs": "cdcbc8878874",
+        "search_sellers": "3a1231ca46c0",
+        "set_commerce_credentials": "f77724dd6aab",
+        "set_payment_mode": "562cb88bac8c",
+        "set_sandbox_mode": "b05da2258a30",
+        "set_token": "edb317007d21",
+        "switch_project": "86ec9331aaed",
+        "update_payment_resource": "26cc37bc606f",
+        "update_seller": "1e10964c42d9",
+        "update_widget": "112e0c58eb02"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "B",
+          "points": 3.5,
+          "scored": 4,
+          "pct": 87.5,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 80 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "part",
+          "summary": "5 weak indicator(s) worth reading, none conclusive"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "90 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "get_sdk_versions",
+              "list_toolsets",
+              "get_auth_status"
+            ],
+            "notCovered": [
+              "create_keychain",
+              "delete_keychain",
+              "get_payment_settings",
+              "activate_payment_method",
+              "set_sandbox_mode",
+              "update_payment_resource",
+              "set_payment_mode",
+              "list_widgets",
+              "get_widget",
+              "create_widget",
+              "get_widget_default_styles",
+              "configure_widget",
+              "update_widget",
+              "delete_widget",
+              "get_integration_context",
+              "generate_payment_code",
+              "get_commerce_context",
+              "get_commerce_keys",
+              "create_commerce_keys",
+              "alimtalk_status",
+              "alimtalk_find_templates",
+              "alimtalk_list_categories",
+              "alimtalk_request_sender_otp",
+              "alimtalk_register_sender",
+              "alimtalk_list_senders",
+              "alimtalk_get_sender",
+              "alimtalk_release_sender",
+              "alimtalk_update_variable_examples",
+              "alimtalk_search_official_templates",
+              "alimtalk_get_official_template",
+              "alimtalk_list_templates",
+              "alimtalk_get_template",
+              "alimtalk_create_template",
+              "alimtalk_update_template",
+              "alimtalk_delete_template",
+              "alimtalk_register_template",
+              "alimtalk_request_inspection",
+              "alimtalk_upload_template_image",
+              "alimtalk_send",
+              "alimtalk_send_test",
+              "alimtalk_send_bulk",
+              "alimtalk_cancel_reserved",
+              "alimtalk_list_messages",
+              "alimtalk_get_message",
+              "alimtalk_get_stats",
+              "alimtalk_list_optouts",
+              "alimtalk_check_optouts",
+              "alimtalk_add_optout",
+              "alimtalk_remove_optout",
+              "alimtalk_get_webhook",
+              "alimtalk_update_webhook",
+              "alimtalk_test_webhook",
+              "alimtalk_rotate_webhook_secret",
+              "alimtalk_list_webhook_deliveries",
+              "set_commerce_credentials",
+              "logout",
+              "list_projects"
+            ]
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 94 captured response(s), 3 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "fail",
+          "summary": "the server instructions names 23 tool(s) the server does not offer (generate_commerce_code, get_mall_setting, update_mall_setting, must_tell_user, setup_required)"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 18 of 18 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "get_sdk_versions, get_doc, list_docs, get_setup_checklist, get_csp_allowlist, get_cs_guide, list_toolsets, get_auth_status, get_widget_default_styles, get_integration_context, get_commerce_context, alimtalk_find_templates declared read-only and changed nothing in the observed directories during a benign call (detect_project_stack, list_projects, list_api_scopes, list_keychains, get_payment_settings, list_widgets, get_commerce_keys not judged: the control call failed)"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "6 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no unannotated read-style tool could be given a harness-owned control argument",
+          "tools": {
+            "probed": [],
+            "notCovered": [
+              "alimtalk_upload_template_image",
+              "alimtalk_update_webhook"
+            ]
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 22,
+        "toolsCalledValid": 19,
+        "toolsTotal": 80,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "a pack has an inconclusive critical check"
+      },
+      "notCovered": [
+        "malformed-input probes cover the first 25 of 80 tools",
+        "tool \"browser_select_project\" (url) was not probed by the net pack: the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tool \"alimtalk_upload_template_image\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"alimtalk_update_webhook\" (url) was not probed by the net pack: the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"get_sdk_versions\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"search_docs\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "tool \"list_docs\" is covered by the core checks only: free-text parameter \"category\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_setup_checklist\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"get_troubleshooting\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"get_csp_allowlist\" is covered by the core checks only: free-text parameter \"pg\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_cs_guide\" is covered by the core checks only: free-text parameter \"section\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_toolsets\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"login\" is covered by the core checks only: free-text parameter \"email\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"logout\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"list_projects\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"switch_project\" is covered by the core checks only: free-text parameter \"app_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "62 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"create_keychain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"delete_keychain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_payment_settings\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"activate_payment_method\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"set_sandbox_mode\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"update_payment_resource\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"set_payment_mode\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"list_widgets\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_widget\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"create_widget\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_widget_default_styles\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"configure_widget\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"update_widget\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"delete_widget\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_integration_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"generate_payment_code\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_commerce_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_commerce_keys\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"create_commerce_keys\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_find_templates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_list_categories\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_request_sender_otp\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_register_sender\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_list_senders\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_get_sender\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_release_sender\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_update_variable_examples\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_search_official_templates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_get_official_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_list_templates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_get_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_create_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_update_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_delete_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_register_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_request_inspection\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_upload_template_image\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_send\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_send_test\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_send_bulk\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_cancel_reserved\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_list_messages\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_get_message\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_get_stats\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_list_optouts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_check_optouts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_add_optout\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_remove_optout\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_get_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_update_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_test_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_rotate_webhook_secret\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"alimtalk_list_webhook_deliveries\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"set_commerce_credentials\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"logout\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "tool \"list_projects\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "shipready-mcp",
+      "name": "shipready-mcp",
+      "ecosystem": "pypi",
+      "round": "fleet",
+      "versionTested": "0.1.0",
+      "serverInfoName": "uvx",
+      "testedAt": "2026-11-25",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "uvx shipready-mcp==0.1.0",
+      "transport": "stdio",
+      "toolCount": 2,
+      "tools": [
+        "shipready_scan_repo",
+        "shipready_list_rules"
+      ],
+      "toolSchemas": {
+        "shipready_list_rules": "efddc7bd8bbc",
+        "shipready_scan_repo": "f179a0fb6776"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool declares readOnlyHint: true"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 2 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 2 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "5 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": [
+              "shipready_list_rules"
+            ]
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 5 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "no tool declares readOnlyHint: true"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "shipready_scan_repo carry no annotations and changed nothing",
+          "tools": {
+            "probed": [
+              "shipready_scan_repo"
+            ],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 1,
+        "toolsCalledValid": 1,
+        "toolsTotal": 2,
+        "level": "covered"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"shipready_list_rules\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"shipready_list_rules\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",

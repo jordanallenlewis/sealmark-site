@@ -1474,5 +1474,17 @@
     "name": "@hypelens/hypelens-agent-rail",
     "ecosystem": "npm",
     "launch": "npx -y @hypelens/hypelens-agent-rail@0.2.1"
+  },
+  {
+    "id": "bootpay-mcp",
+    "name": "@bootpay/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @bootpay/mcp@2.20.0"
+  },
+  {
+    "id": "shipready-mcp",
+    "name": "shipready-mcp",
+    "ecosystem": "pypi",
+    "launch": "uvx shipready-mcp==0.1.0"
   }
 ]

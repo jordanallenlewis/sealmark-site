@@ -1,8 +1,8 @@
 {
   "count": 149,
   "byReason": {
-    "exited-no-error": 72,
     "missing-runtime": 8,
+    "exited-no-error": 72,
     "initialize-timeout": 12,
     "bad-launch": 7,
     "dependency-resolution": 27,
@@ -11,6 +11,62 @@
     "needs-service": 3
   },
   "servers": [
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.16",
+      "lastTried": "2026-11-25",
+      "attempts": 30,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "dosco-deeporg",
+      "version": "3.21.27",
+      "lastTried": "2026-11-25",
+      "attempts": 3,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "knockoutez-wigolo",
+      "version": "0.3.4",
+      "lastTried": "2026-11-25",
+      "attempts": 4,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "open-webui-mcpo",
+      "version": "0.0.21",
+      "lastTried": "2026-11-25",
+      "attempts": 2,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "punitarani-fli",
+      "version": "0.11.0",
+      "lastTried": "2026-11-25",
+      "attempts": 2,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "ruvnet-ruflo",
+      "version": "3.80.7",
+      "lastTried": "2026-11-25",
+      "attempts": 15,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.5.1",
+      "lastTried": "2026-11-25",
+      "attempts": 18,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "xbrlkit",
+      "version": "0.25.3",
+      "lastTried": "2026-11-25",
+      "attempts": 7,
+      "reason": "bad-launch"
+    },
     {
       "id": "54yyyu-zotero-mcp",
       "version": "0.17.4",
@@ -23,13 +79,6 @@
       "version": "0.23.0",
       "lastTried": "2026-11-24",
       "attempts": 10,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "chrisryugj-kordoc",
-      "version": "4.25.12",
-      "lastTried": "2026-11-24",
-      "attempts": 29,
       "reason": "missing-runtime"
     },
     {
@@ -54,13 +103,6 @@
       "reason": "bad-launch"
     },
     {
-      "id": "knockoutez-wigolo",
-      "version": "0.3.3",
-      "lastTried": "2026-11-24",
-      "attempts": 3,
-      "reason": "exited-no-error"
-    },
-    {
       "id": "mobile-next-mobile-mcp",
       "version": "1.0.20",
       "lastTried": "2026-11-24",
@@ -75,27 +117,6 @@
       "reason": "missing-runtime"
     },
     {
-      "id": "ruvnet-ruflo",
-      "version": "3.80.6",
-      "lastTried": "2026-11-24",
-      "attempts": 14,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.4.3",
-      "lastTried": "2026-11-24",
-      "attempts": 17,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "xbrlkit",
-      "version": "0.24.1",
-      "lastTried": "2026-11-24",
-      "attempts": 6,
-      "reason": "bad-launch"
-    },
-    {
       "id": "zereight-gitlab-mcp",
       "version": "3.0.0",
       "lastTried": "2026-11-24",
@@ -107,13 +128,6 @@
       "version": "4.9.0",
       "lastTried": "2026-11-23",
       "attempts": 3,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "dosco-deeporg",
-      "version": "3.21.26",
-      "lastTried": "2026-11-23",
-      "attempts": 2,
       "reason": "exited-no-error"
     },
     {
@@ -852,13 +866,6 @@
       "reason": "exited-no-error"
     },
     {
-      "id": "open-webui-mcpo",
-      "version": "0.0.20",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
       "id": "openwebhook",
       "version": "1.2.1",
       "lastTried": "2026-11-09",
@@ -875,13 +882,6 @@
     {
       "id": "perplexity-ai-mcp-server",
       "version": "1.2.1",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "punitarani-fli",
-      "version": "fli-js-v0.0.4",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "exited-no-error"
