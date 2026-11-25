@@ -5,7 +5,7 @@ Written 2026-11-25 by `fleet/impact.mjs`. Internal: not published on sealmark.de
 | | Notified | Base rate (never notified) |
 |---|---|---|
 | Servers | 7 | 208 |
-| Released a new version since | 0 (0%) | 48 (23%) |
+| Released a new version since | 0 (0%) | 49 (24%) |
 | Improved after notice (better letter on a new version) | 0 (0%; n/a of releasers) | 3 (1%; 6% of releasers) |
 | Regressed (worse letter on a new version) | 0 | 2 |
 | Median days to first improvement | n/a | 7 |

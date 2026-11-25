@@ -1486,5 +1486,17 @@
     "name": "shipready-mcp",
     "ecosystem": "pypi",
     "launch": "uvx shipready-mcp==0.1.0"
+  },
+  {
+    "id": "devicemock",
+    "name": "devicemock",
+    "ecosystem": "npm",
+    "launch": "npx -y devicemock@0.3.1 mcp"
+  },
+  {
+    "id": "zolva-mcp",
+    "name": "@zolva/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @zolva/mcp@1.0.0"
   }
 ]

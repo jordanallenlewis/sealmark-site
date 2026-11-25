@@ -39832,7 +39832,7 @@
       "round": "fleet",
       "versionTested": "0.1.8",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -40092,7 +40092,22 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_addresses": "feac6241b98e",
+          "check_usage": "e54aee0ae70b",
+          "get_properties_by_addresses": "f43ae1aee584",
+          "get_property": "7ba173748509",
+          "get_property_by_address": "d7fdc1487157",
+          "get_property_by_url": "2e3a28b38132",
+          "search_by_zip": "b1a001d9034a",
+          "search_properties": "1b7dd46de037",
+          "signup": "70c2f830ca72",
+          "upgrade_plan": "c0473f534634"
+        }
+      }
     },
     {
       "id": "appscreen-mcp",
@@ -40313,7 +40328,7 @@
       "round": "fleet",
       "versionTested": "0.5.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -40556,7 +40571,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-19",
+        "date": "2026-11-20",
         "schemas": {
           "check_route_survival": "aa2766a9f19c",
           "compare_vaults": "52f0ddeb9ac7",
@@ -40575,7 +40590,7 @@
       "round": "fleet",
       "versionTested": "0.7.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -40814,7 +40829,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "audit_backtest": "dad278f64b21",
+          "audit_returns": "304ea0d40480",
+          "audit_trade_log": "00ca8a3d36ca",
+          "check_code": "7da986d8c68c",
+          "check_path": "e854ea2513db",
+          "explain": "2bac20fbf0af"
+        }
+      }
     },
     {
       "id": "betterjobs-mcp",
@@ -40823,7 +40849,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "betterjobs-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -41025,7 +41051,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "estimate": "cc6576c1dbc1",
+          "explain_run": "adef52da769c",
+          "find_reqs": "98c878e73611",
+          "is_hiring": "421a0d359e13"
+        }
+      }
     },
     {
       "id": "brick-blue-mcp",
@@ -41034,7 +41069,7 @@
       "round": "fleet",
       "versionTested": "0.4.0",
       "serverInfoName": "brick-blue-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -41090,10 +41125,10 @@
         {
           "id": "core",
           "status": "graded",
-          "letter": "B",
-          "points": 3,
+          "letter": "A",
+          "points": 4,
           "scored": 4,
-          "pct": 75,
+          "pct": 100,
           "provisional": false,
           "capped": false,
           "criticalFails": [],
@@ -41209,11 +41244,12 @@
           "label": "Survives malformed tool input",
           "critical": false,
           "advisory": false,
-          "verdict": "fail",
-          "summary": "server hung on malformed input",
+          "verdict": "pass",
+          "summary": "76 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [
               "get_started",
+              "get_hub_stats",
               "get_balance"
             ],
             "notCovered": []
@@ -41226,7 +41262,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 79 captured response(s), 2 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 79 captured response(s), 3 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -41315,7 +41351,7 @@
         }
       ],
       "coverage": {
-        "validCalls": 8,
+        "validCalls": 9,
         "toolsCalledValid": 6,
         "toolsTotal": 19,
         "level": "low"
@@ -41347,7 +41383,31 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "call_agent": "059471dff8dd",
+          "cancel_task": "1a599f1f5c53",
+          "claim_task": "952ff30a373b",
+          "fail_task": "ea9c1a4ed659",
+          "get_agent": "4afa61a94533",
+          "get_agent_liveness": "29b54dbfe50d",
+          "get_balance": "7a014b717a77",
+          "get_hub_stats": "7a014b717a77",
+          "get_started": "7a014b717a77",
+          "get_task": "ba9c1087374f",
+          "introduce_yourself": "143d1a153e97",
+          "list_paid_endpoints": "fe7c63510d6a",
+          "list_tasks": "06d5afd6fea2",
+          "pay_agent": "db24691f785d",
+          "publish_task": "7a7f6296a7e5",
+          "search_agents": "9d443b20dad0",
+          "submit_agent": "f8913d170c86",
+          "submit_result": "3ea0540421e0",
+          "verify_endpoint": "46ea2e204e90"
+        }
+      }
     },
     {
       "id": "call-grokbot",
@@ -41356,7 +41416,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "call-grokbot",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -41593,7 +41653,16 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ask": "77e3333b7aed",
+          "check": "9647fb879be6",
+          "interrupt": "cae7c5a03eac",
+          "list": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "cleanor-mcp",
@@ -41602,7 +41671,7 @@
       "round": "fleet",
       "versionTested": "0.6.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -41871,7 +41940,7 @@
       "round": "fleet",
       "versionTested": "1.11.0",
       "serverInfoName": "crawlio-browser",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -42158,7 +42227,19 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "cancel_job": "3d68ad2106be",
+          "connect_tab": "57a2f46931ac",
+          "execute": "540117cdb131",
+          "get_job_result": "8bb94d487bc4",
+          "list_jobs": "efddc7bd8bbc",
+          "observe": "3ff828a27563",
+          "search": "9e86188a85b3"
+        }
+      }
     },
     {
       "id": "creatica-mcp",
@@ -42167,7 +42248,7 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -42401,7 +42482,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "describe_background": "90ad844691ad",
+          "generate_background": "d1cbb417a954",
+          "list_backgrounds": "f655b07b99c2",
+          "list_palettes": "939cde992b33",
+          "suggest_backgrounds": "dd01621f14f9"
+        }
+      }
     },
     {
       "id": "darkknightcave-motion-mcp",
@@ -42410,7 +42501,7 @@
       "round": "fleet",
       "versionTested": "0.1.3",
       "serverInfoName": "motion-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -42609,7 +42700,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_motion": "d91936b3e375",
+          "prepare_motion": "780cc82d5494",
+          "search_motion": "36692ae7f95e"
+        }
+      }
     },
     {
       "id": "dchub-mcp-server",
@@ -43355,7 +43454,7 @@
       "round": "fleet",
       "versionTested": "1.6.0",
       "serverInfoName": "devglow-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -43634,7 +43733,29 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_port": "b55d6fd1d5dd",
+          "create_project": "fecabbf3d780",
+          "delete_process": "15c5b37751cb",
+          "delete_project": "4a516a7ac6d8",
+          "delete_workspace": "755f82179c5d",
+          "get_logs": "c34d96a2ab45",
+          "get_project": "325d08835235",
+          "get_run_history": "9b0f210d42d5",
+          "get_status": "325d08835235",
+          "list_projects": "7a014b717a77",
+          "list_workspaces": "7a014b717a77",
+          "run_process": "5ccccd95d021",
+          "start_project": "57419465ab99",
+          "stop_process": "c2a16c6ff435",
+          "stop_project": "325d08835235",
+          "update_project": "ae84cd4fbd75",
+          "workspace_run": "d8bba34ff4ff"
+        }
+      }
     },
     {
       "id": "doc-cheap-mcp",
@@ -43643,7 +43764,7 @@
       "round": "fleet",
       "versionTested": "0.3.11",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -43883,7 +44004,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_balance": "7a014b717a77",
+          "delete_scan": "32cc95040a38",
+          "get_scan": "32cc95040a38",
+          "list_scans": "298962188fea",
+          "scan_document": "4487e5644ab4",
+          "search_docs": "d3be4c483645"
+        }
+      }
     },
     {
       "id": "durely-garmin-insights-mcp",
@@ -43892,7 +44024,7 @@
       "round": "fleet",
       "versionTested": "0.5.2",
       "serverInfoName": "garmin-insights-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -44168,7 +44300,33 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "garmin_analyze_activity": "f98d66b54c14",
+          "garmin_compare_activities": "7c7ab0e3d701",
+          "garmin_download_activity_fit": "1a7555a7f317",
+          "garmin_get_activity": "53f14d395ff0",
+          "garmin_get_activity_laps": "e045e3dce4a5",
+          "garmin_get_activity_streams": "84dcb44f860b",
+          "garmin_get_body_composition": "981392cddf6f",
+          "garmin_get_daily_health": "17c71e1e7a85",
+          "garmin_get_hrv": "98e8d229dce4",
+          "garmin_get_intraday": "e5cb7e2506ea",
+          "garmin_get_nutrition": "981392cddf6f",
+          "garmin_get_profile": "baaae69bc999",
+          "garmin_get_sleep": "981392cddf6f",
+          "garmin_get_womens_health": "c4f5ae52db19",
+          "garmin_list_activities": "d61e23064205",
+          "garmin_query": "9dce60f2e7f8",
+          "garmin_recovery_trends": "981392cddf6f",
+          "garmin_status": "baaae69bc999",
+          "garmin_sync": "7fc5ccfdf4d7",
+          "garmin_sync_status": "baaae69bc999",
+          "garmin_training_summary": "41d63068e79a"
+        }
+      }
     },
     {
       "id": "dwelldelta-mcp",
@@ -44445,7 +44603,7 @@
       "round": "fleet",
       "versionTested": "0.2.6",
       "serverInfoName": "feeling-search-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -44653,7 +44811,17 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "style_get": "8b654e0908ce",
+          "word_analyze": "d7d46633e258",
+          "word_list": "6f1d997fa034",
+          "word_lookup": "581d033d296f",
+          "word_status": "99334726611c"
+        }
+      }
     },
     {
       "id": "fictura-mcp",
@@ -44662,7 +44830,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -45250,7 +45418,100 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_entitlement": "8ae34600d0d6",
+          "compare_releases": "036dcb24d4a2",
+          "create_experiment": "5d4d2e57a924",
+          "create_fix_pr": "6ce223daa179",
+          "create_inbound_filter": "0764ff11ffb8",
+          "create_onboarding_draft": "ab59c8710daf",
+          "create_paywall_draft": "90e6c6a67eac",
+          "create_pull_request": "8234953f4367",
+          "create_ticket": "0a0b30fec653",
+          "create_tracking_link": "1d0054c8bb76",
+          "delete_inbound_filter": "fbef9b1a7422",
+          "editor_get_doc": "23205d4289f8",
+          "editor_set_doc": "47a76250978a",
+          "get_acquisition_report": "391d2127223a",
+          "get_ai_usage": "c0f45c2870ed",
+          "get_analytics": "50fd8edbc6bd",
+          "get_app_setup": "93ab7499dc3c",
+          "get_appsflyer_attribution_summary": "ac7fc1933e25",
+          "get_appsflyer_import_status": "93ab7499dc3c",
+          "get_attribution_report": "4ff267408f11",
+          "get_endpoint_summary": "7d4c19d2fc6b",
+          "get_error_event": "49970ca84faa",
+          "get_error_issue": "daeac339f998",
+          "get_error_issue_brief": "e6b82c207572",
+          "get_error_settings": "93ab7499dc3c",
+          "get_event_analytics": "5d424689a81e",
+          "get_experiment": "3f112dda37c6",
+          "get_fix_run": "b3bc29f40208",
+          "get_issue_activity": "cd78f7248f75",
+          "get_issue_tag_values": "d5fb57e90cb9",
+          "get_jobs": "c0f45c2870ed",
+          "get_link_infrastructure": "8d812382adab",
+          "get_mobile_vitals": "e3ca0acbca00",
+          "get_onboarding_doc": "8b4b5edd1556",
+          "get_paywall_doc": "bd7971e5f02c",
+          "get_performance_overview": "c0f45c2870ed",
+          "get_pull_request_status": "f7827b774ace",
+          "get_push_config": "93ab7499dc3c",
+          "get_setup_status": "93ab7499dc3c",
+          "get_setup_step": "b174e1e20464",
+          "get_span": "83cf1d0dc101",
+          "get_store_analytics": "a971e3809c51",
+          "get_surface": "9973ed369d34",
+          "get_trace": "33afbf4cc862",
+          "get_tracing_health": "93ab7499dc3c",
+          "get_tracking_plan": "93ab7499dc3c",
+          "get_uptime_monitor": "93ab7499dc3c",
+          "get_user": "7ca1dc8169f0",
+          "get_web_vitals": "c0f45c2870ed",
+          "link_pull_request": "4dd3236de46c",
+          "list_alert_rules": "cd66f8f68b67",
+          "list_campaigns": "d736d0f62fd9",
+          "list_creators": "93ab7499dc3c",
+          "list_dependencies": "716a13984013",
+          "list_docs": "93ab7499dc3c",
+          "list_error_alerts": "169db2875df1",
+          "list_error_issues": "a372e79d515a",
+          "list_experiments": "93ab7499dc3c",
+          "list_inbound_filters": "cd66f8f68b67",
+          "list_monitors": "93ab7499dc3c",
+          "list_releases": "1cc5445e0d8c",
+          "list_store_products": "b24b0578a90e",
+          "list_surfaces": "93ab7499dc3c",
+          "list_templates": "78e226b1ae85",
+          "list_users": "0a8af60028b4",
+          "pair_editor": "f00fe1fbaa16",
+          "pause_experiment": "3f112dda37c6",
+          "read_doc": "c06b115a6ca3",
+          "resume_experiment": "3f112dda37c6",
+          "save_onboarding_doc": "fe37dc7d9a97",
+          "save_paywall_doc": "14c69d0e564a",
+          "search_docs": "50b09ec4830f",
+          "search_error_events": "d4d4d53a1a7b",
+          "search_error_issues": "552a4c55dac9",
+          "search_logs": "9a1ba0a42813",
+          "search_traces": "cf79fa75040c",
+          "set_uptime_monitor": "9ad01db71c59",
+          "start_appsflyer_import": "b3161d39e429",
+          "start_experiment": "3f112dda37c6",
+          "start_fix_run": "effd8ab27509",
+          "stop_experiment": "3f112dda37c6",
+          "unpair_editor": "23205d4289f8",
+          "update_app_identity": "313c72f06f95",
+          "update_error_issue": "d09a3efdd6cd",
+          "update_error_issues": "04c210d9604e",
+          "update_tracing_settings": "055743aaff7a",
+          "validate_onboarding_doc": "0af2989afa31",
+          "validate_paywall_doc": "6aa57f69c08b"
+        }
+      }
     },
     {
       "id": "firecms-mcp-server",
@@ -45259,7 +45520,7 @@
       "round": "fleet",
       "versionTested": "3.5.3",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -45635,7 +45896,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-15",
+        "date": "2026-11-20",
         "schemas": {
           "add_user": "4fcabce100ff",
           "apply_firestore_security_rules": "87c1fa9cd7c0",
@@ -45692,7 +45953,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -46114,7 +46375,55 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "archive_unzip": "7bdcd88fa0d4",
+          "archive_zip": "d77370f45a90",
+          "audio_convert": "008104de2987",
+          "audio_extract": "22f22d8284e3",
+          "audio_merge": "31b2fe85b345",
+          "audio_normalize": "ea209e087abd",
+          "audio_silence-trim": "6185a0aaf982",
+          "audio_tags": "8a5b5584e17c",
+          "audio_trim": "a1d896b4793a",
+          "data_convert": "dac2236e9843",
+          "document_convert": "0ba1790ed239",
+          "document_for-email": "7bdcd88fa0d4",
+          "image_compress": "20c77456b694",
+          "image_convert": "4b3969564d23",
+          "image_crop": "d3be09195373",
+          "image_for-web": "7bdcd88fa0d4",
+          "image_metadata": "0e600f235275",
+          "image_palette": "7a28ba45257f",
+          "image_resize": "c6c0bbb3c27d",
+          "image_rotate": "ae222ec14cba",
+          "pdf_compress": "4f5546853bcc",
+          "pdf_from-image": "640dd7c80f31",
+          "pdf_merge": "a2b984a3e0ef",
+          "pdf_pages": "d1b2274ae965",
+          "pdf_protect": "2e6f1ce87d9a",
+          "pdf_split": "2c5208ed52fc",
+          "pdf_to-image": "0604b2d384c4",
+          "pdf_to-text": "262d921679fa",
+          "pdf_unlock": "9e760a960b5b",
+          "text_subtitles": "00b8badbc15e",
+          "utility_base64": "48954cd93382",
+          "utility_hash": "53abd815e8d2",
+          "video_compress": "98199a2d8bee",
+          "video_convert": "303509b3e725",
+          "video_crop": "c5bb40d2e6bf",
+          "video_for-messenger": "7bdcd88fa0d4",
+          "video_for-shorts": "7bdcd88fa0d4",
+          "video_mute": "7bdcd88fa0d4",
+          "video_resize": "4d5d8e4c2645",
+          "video_subtitles": "f7bb58999005",
+          "video_thumbnail": "4cf8d4f22e57",
+          "video_to-gif": "b798394a41b7",
+          "video_trim": "44df6f9e0da0"
+        }
+      }
     },
     {
       "id": "gage-mcp",
@@ -46123,7 +46432,7 @@
       "round": "fleet",
       "versionTested": "0.9.0",
       "serverInfoName": "gage-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -46550,7 +46859,71 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "gage_assets": "71fc596a20f2",
+          "gage_borrow_quote": "f1792b266746",
+          "gage_capabilities": "71fc596a20f2",
+          "gage_create_partner_vault": "ce14a87d43eb",
+          "gage_create_pool_vaults": "a05a696053af",
+          "gage_earn_vaults": "71fc596a20f2",
+          "gage_leverage_quote": "574b88f51855",
+          "gage_loan": "ee4cf62cfc7f",
+          "gage_lp_loans": "37542614964e",
+          "gage_lp_positions": "37542614964e",
+          "gage_lp_quote": "063e8fd60cdc",
+          "gage_lp_vaults": "71fc596a20f2",
+          "gage_park_positions": "bd8965dee6c3",
+          "gage_pool_vaults": "8b7e04399296",
+          "gage_portfolio": "37542614964e",
+          "gage_prepare_auto_roll": "7e7486522583",
+          "gage_prepare_borrow": "f3e6a326b289",
+          "gage_prepare_cancel": "b662efa30784",
+          "gage_prepare_cancel_auto_roll": "b662efa30784",
+          "gage_prepare_cash_out": "8d4bcb7db2c5",
+          "gage_prepare_collect": "37542614964e",
+          "gage_prepare_create_vault": "9f2240468af8",
+          "gage_prepare_earn_deposit": "a8931b9cb7f5",
+          "gage_prepare_earn_exit_cancel": "e7122bd4283e",
+          "gage_prepare_earn_exit_collect": "de4ec100eee4",
+          "gage_prepare_earn_exit_list": "e7122bd4283e",
+          "gage_prepare_earn_exit_now": "7b9c4de79c16",
+          "gage_prepare_earn_redeem": "502cd3f4b317",
+          "gage_prepare_feedback": "d88212335eef",
+          "gage_prepare_leverage": "15b994e69bfd",
+          "gage_prepare_lp_borrow": "1b826e553053",
+          "gage_prepare_lp_claim_bonus": "dc2123133f22",
+          "gage_prepare_lp_claim_rewards": "5b02b7b067b4",
+          "gage_prepare_lp_collect": "587d1968da74",
+          "gage_prepare_lp_create_vault": "dabe007fd545",
+          "gage_prepare_lp_deposit": "b41b1889fa9a",
+          "gage_prepare_lp_redeem": "2fa2cb88e132",
+          "gage_prepare_lp_repay": "587d1968da74",
+          "gage_prepare_lp_return_position": "587d1968da74",
+          "gage_prepare_lp_roll": "37302665293a",
+          "gage_prepare_lp_unwrap": "2eef2141e8f0",
+          "gage_prepare_lp_vault_add_pool": "90aa68feed53",
+          "gage_prepare_lp_vault_remove_pool": "90aa68feed53",
+          "gage_prepare_lp_withdraw": "24d30ee90013",
+          "gage_prepare_lp_wrap": "8d154d26f401",
+          "gage_prepare_park": "d189c1d95e62",
+          "gage_prepare_put_auto_roll": "d4e8dc61e830",
+          "gage_prepare_put_cancel_auto_roll": "4cbb27b39706",
+          "gage_prepare_put_close": "e5d4826b658c",
+          "gage_prepare_put_open": "82ceea359536",
+          "gage_prepare_put_roll": "25dbb3803047",
+          "gage_prepare_reclaim": "b662efa30784",
+          "gage_prepare_rehypo_exit_now": "2080f73e767e",
+          "gage_prepare_roll": "ceccc82cb880",
+          "gage_prepare_unpark": "d90a6469fffb",
+          "gage_prepare_vault_manage": "ee95487dbc26",
+          "gage_put_quote": "2ec496fcd5af",
+          "gage_vault_free_cash": "5e58fdd22523",
+          "gage_vault_on_chain": "ae47d17f8e4f"
+        }
+      }
     },
     {
       "id": "hostbeam-mcp",
@@ -46559,7 +46932,7 @@
       "round": "fleet",
       "versionTested": "0.1.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -46789,7 +47162,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "latest_screenshot": "99334726611c",
+          "list_screenshots": "a7227dcc5386",
+          "read_screenshot": "e1764123451a"
+        }
+      }
     },
     {
       "id": "hovecapital-read-only-mysql-mcp-server",
@@ -46798,7 +47179,7 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "read-only-mysql-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -47000,7 +47381,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "connect": "0d01b57e1a76",
+          "disconnect": "c8a1ac469a82",
+          "query": "5b2d841ab720"
+        }
+      }
     },
     {
       "id": "hovecapital-read-only-postgres-mcp-server",
@@ -47009,7 +47398,7 @@
       "round": "fleet",
       "versionTested": "0.5.0",
       "serverInfoName": "read-only-postgres-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -47211,7 +47600,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "connect": "33637871cbd0",
+          "disconnect": "c8a1ac469a82",
+          "query": "78129d516ba5"
+        }
+      }
     },
     {
       "id": "html-cloud-mcp",
@@ -47220,7 +47617,7 @@
       "round": "fleet",
       "versionTested": "0.6.0",
       "serverInfoName": "html-cloud-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -47447,7 +47844,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "share_html": "0b21f81e2621",
+          "update_html": "678c6b055680"
+        }
+      }
     },
     {
       "id": "inite-club-mcp",
@@ -47456,7 +47860,7 @@
       "round": "fleet",
       "versionTested": "1.3.0",
       "serverInfoName": "club-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -47687,7 +48091,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ask_agent": "15c8ee574bfd",
+          "join": "7a014b717a77",
+          "list_experts": "582ee796c8a7"
+        }
+      }
     },
     {
       "id": "instantreply-co-mcp",
@@ -47696,7 +48108,7 @@
       "round": "fleet",
       "versionTested": "0.8.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -47927,7 +48339,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_setup": "c4b4757a441c",
+          "get_connection_guide": "7a014b717a77",
+          "start_setup": "bf6df78f2aaf"
+        }
+      }
     },
     {
       "id": "ipforai-mcp",
@@ -48187,7 +48607,7 @@
       "round": "fleet",
       "versionTested": "0.2.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -48391,7 +48811,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "leafwright_auth_status": "7a014b717a77",
+          "leafwright_login": "48e358c098ac",
+          "leafwright_logout": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "llmaudit-mcp",
@@ -48400,7 +48828,7 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "llmaudit-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -48664,7 +49092,14 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_visibility_check": "6a8b6222cf59",
+          "start_visibility_check": "809651469cc0"
+        }
+      }
     },
     {
       "id": "longbook-mcp",
@@ -48673,7 +49108,7 @@
       "round": "fleet",
       "versionTested": "1.50.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -49009,7 +49444,47 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "accounts": "efddc7bd8bbc",
+          "add_account": "f94727e3e052",
+          "add_charges": "a870e99542c3",
+          "add_commitments": "3e46a1acde80",
+          "add_person": "2c03f87643ee",
+          "cancel_commitment": "47db3a9860ca",
+          "cashflow": "52071db1b357",
+          "charges": "13550bbad888",
+          "commitments": "854a7e20c34c",
+          "create_report": "cf287ad032d8",
+          "delete_commitment": "138758c072d6",
+          "delete_tag": "ae6590598665",
+          "leave_insight": "92fc9e36e5c4",
+          "list_documents": "efddc7bd8bbc",
+          "mark_paid": "c4bce1269e3b",
+          "next_payment": "efddc7bd8bbc",
+          "people": "efddc7bd8bbc",
+          "promote_to_recurring": "b9f2501cc0b1",
+          "read_document": "5713cdd2f256",
+          "read_guide": "8a42d60063ae",
+          "remove_charges": "8f790d457813",
+          "rename_tag": "41de9d3d9cff",
+          "reports": "8c8eb72ea61d",
+          "search": "0aef2c0a9a43",
+          "set_planned_count": "4e127348ead0",
+          "spending_by_account": "015e0c3d4977",
+          "spending_by_category": "015e0c3d4977",
+          "spending_by_person": "015e0c3d4977",
+          "tags": "efddc7bd8bbc",
+          "upcoming": "b6fb6c2139b6",
+          "update_account": "ef205e8ffb45",
+          "update_charge": "50dfe66edcd4",
+          "update_commitment": "b523232ee4ea",
+          "update_person": "07d6003d89af",
+          "whoami": "efddc7bd8bbc"
+        }
+      }
     },
     {
       "id": "lovie",
@@ -49018,7 +49493,7 @@
       "round": "fleet",
       "versionTested": "1.0.10",
       "serverInfoName": "lovie",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -49214,7 +49689,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "lovie_auth_required": "efddc7bd8bbc"
+        }
+      }
     },
     {
       "id": "mackorn-cone-crusher",
@@ -49223,7 +49704,7 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "mackorn-cone-crusher",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -49473,7 +49954,34 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "mackorn_calibrate": "648dc7923b0a",
+          "mackorn_capacity_check": "82b0718a415b",
+          "mackorn_cone_selection": "32faa9a6ac75",
+          "mackorn_contact": "01647c70353c",
+          "mackorn_cost_estimate": "5165543c2f96",
+          "mackorn_crusher_curve": "d3a20049af8b",
+          "mackorn_distributor_eval": "cdcce7decd87",
+          "mackorn_equipment_catalog": "99334726611c",
+          "mackorn_grading_porosity": "bfa7323a5b6b",
+          "mackorn_intel_watch": "14e342fbab56",
+          "mackorn_knowledge": "bbd748d24d3a",
+          "mackorn_knowledge_update": "18cf96059c22",
+          "mackorn_market_intel": "df991d9479c7",
+          "mackorn_market_stats": "24d5661c1441",
+          "mackorn_mcfm_analysis": "3a3dee39a782",
+          "mackorn_pdca_status": "b5ecac9f55ac",
+          "mackorn_plant_design": "5d3fe7579b59",
+          "mackorn_proposal": "1e1d3b89f9cd",
+          "mackorn_requirement_intake": "24382a84d70d",
+          "mackorn_selection_report": "11632b8c23fd",
+          "mackorn_simulate_flowsheet": "75acb450a49c",
+          "mackorn_wear_design": "033ed51dec03"
+        }
+      }
     },
     {
       "id": "memeboat-mcp",
@@ -49482,7 +49990,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "memeboat-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -49681,7 +50189,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "create_meme": "f2b6ce880a52",
+          "get_meme_template": "35e1860389de",
+          "search_meme_templates": "149cf1365534"
+        }
+      }
     },
     {
       "id": "model-finder-mcp",
@@ -49690,7 +50206,7 @@
       "round": "fleet",
       "versionTested": "1.3.7",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -49938,7 +50454,22 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "modelfinder_audit_models": "a04b3963b4c6",
+          "modelfinder_check_output": "70e9eabcef59",
+          "modelfinder_create_eval_config": "dab7dfba8844",
+          "modelfinder_draft_eval_examples": "ab6050218931",
+          "modelfinder_estimate_cost": "10b586c8a7ce",
+          "modelfinder_estimate_memory": "8ed487830053",
+          "modelfinder_generate_routing": "6d8ece7e409a",
+          "modelfinder_rank_eval_results": "ceaaeed995cd",
+          "modelfinder_scan_sensitive_data": "524b074ee46a",
+          "modelfinder_validate_eval_config": "6f6a001ea178"
+        }
+      }
     },
     {
       "id": "muovi-mcp-server",
@@ -49947,7 +50478,7 @@
       "round": "fleet",
       "versionTested": "0.4.2",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -50194,7 +50725,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "muovi_create_task_draft": "770665e7e776",
+          "muovi_create_task_link": "47ed00fcc580",
+          "muovi_get_professional": "5bacf968d03b",
+          "muovi_get_reviews": "16058418b0ec",
+          "muovi_get_service_requirements": "c88645f8f9e9",
+          "muovi_list_cities": "7a014b717a77",
+          "muovi_list_services": "7a014b717a77",
+          "muovi_search_professionals": "ead3db6f72e7"
+        }
+      }
     },
     {
       "id": "noglow-mcp",
@@ -50203,7 +50747,7 @@
       "round": "fleet",
       "versionTested": "0.2.1",
       "serverInfoName": "noglow-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -50396,7 +50940,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "drop": "26690cd2aa47"
+        }
+      }
     },
     {
       "id": "oddsrail",
@@ -50405,7 +50955,7 @@
       "round": "fleet",
       "versionTested": "0.19.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -50762,7 +51312,54 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "attribution_ledger": "82040ef620f0",
+          "builder_stats": "a7cd43243817",
+          "cancel_all_orders": "250749629ce4",
+          "cancel_order": "3d24973973e5",
+          "check_order": "702d48e48210",
+          "closing_soon": "ad27555f732f",
+          "compare_venues": "3763ab3ce44c",
+          "dispute_risk": "7998e2aaf615",
+          "find_markets": "b3eb335667a6",
+          "get_market": "4c8234fc651d",
+          "get_orderbook": "38148c7f1bb5",
+          "get_positions": "dd66ca1cf484",
+          "kalshi_balance": "e480bb3e2aa4",
+          "kalshi_cancel_order": "4a17bd9dce86",
+          "kalshi_get_market": "ce624667f34e",
+          "kalshi_get_orderbook": "d6c82dbfe806",
+          "kalshi_get_trades": "640b2973f6ae",
+          "kalshi_open_orders": "16b2844c2a24",
+          "kalshi_place_order": "6abc2178c056",
+          "kalshi_positions": "662573f9d1a4",
+          "kalshi_search_markets": "1b01a190d281",
+          "merge_positions": "4a277b0d6285",
+          "my_balance": "e166853e87bc",
+          "my_fills": "cb719cf9e514",
+          "my_positions": "e99e898e35f8",
+          "open_orders": "a36d98dcaec2",
+          "order_status": "bead9e05cb9c",
+          "overshoot_signal": "bfd3c7cc9d99",
+          "paper_positions": "95b225732ec1",
+          "paper_reset": "0f5d8c3b227b",
+          "place_order": "95daf3697c35",
+          "position_size": "c01fa3dcf0b5",
+          "price_history": "b6bb62e02217",
+          "quote_cost": "fb735484e2ef",
+          "redeem_positions": "afd7ef61fc88",
+          "redeemable_positions": "3a62c828ec34",
+          "resolution_criteria": "7941fb335fc6",
+          "search_markets": "ddcf5d6bb95a",
+          "server_info": "9df6e5ca65c2",
+          "settlement_audit": "73da6fc85704",
+          "split_position": "aedfb37d6f84",
+          "watch_book": "3504c2aff6e4"
+        }
+      }
     },
     {
       "id": "operandi-mcp",
@@ -50771,7 +51368,7 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -50973,7 +51570,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "find_by_capability": "1db78e4d44d8",
+          "get_operation_package": "470f5e461642",
+          "identify_appliance": "03d7750cdf54",
+          "list_appliances": "362fe0d6a1c7"
+        }
+      }
     },
     {
       "id": "paramability-mcp",
@@ -50982,7 +51588,7 @@
       "round": "fleet",
       "versionTested": "1.0.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -51205,7 +51811,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "paramability_connect": "58b5c3636186"
+        }
+      }
     },
     {
       "id": "pascal-app-mcp",
@@ -51214,7 +51826,7 @@
       "round": "fleet",
       "versionTested": "1.1.6",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -51801,7 +52413,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "schemas": {
           "add_column": "d8a9d3772a52",
           "add_corner_window": "aaa93325ee5a",
@@ -52217,7 +52829,7 @@
       "round": "fleet",
       "versionTested": "1.0.4",
       "serverInfoName": "provably-fair-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -52416,7 +53028,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "create_scheduled_draw": "ab6c7b3ad7e1",
+          "pick_winner_now": "ce97cb18e9cd",
+          "verify_draw": "4303a6d31b18"
+        }
+      }
     },
     {
       "id": "ranchbot-mcp-server",
@@ -52425,7 +53045,7 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -52947,7 +53567,94 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "add_identifier": "ae45b1f26722",
+          "add_premises_identifier": "cb832aa6c00b",
+          "archive_location": "78cf6814d5b6",
+          "commit_workflow": "f0f57595f7ae",
+          "confirm_birth_event": "9fe182509b30",
+          "correct_traceability_event": "53561406ccfb",
+          "create_animal": "0d7e9963f836",
+          "create_chute_session": "4447c6121efd",
+          "create_group": "87bce79a9859",
+          "create_location": "81c543dda5d2",
+          "create_protocol_version": "156eeca9e5c8",
+          "create_ration": "09e76278266e",
+          "create_record": "2eed4265ffd8",
+          "create_traceability_event": "26b10bd814fb",
+          "create_workflow_template": "835113b3fc8c",
+          "delete_animal": "13b2f82dec2a",
+          "delete_group": "18d8e4fc2f37",
+          "delete_premises_identifier": "f921c7b6abe1",
+          "delete_record": "3449c2c8c8b7",
+          "discard_workflow": "1c91588b15c6",
+          "farm_archive": "32ad95a80502",
+          "find_animal_by_identifier": "51ad938ea79c",
+          "find_identifier_history": "0b5be3df4fae",
+          "find_or_create_animal_by_eid": "51ad938ea79c",
+          "get_animal": "73e1099922e1",
+          "get_birth_event": "23ca7e5bce39",
+          "get_birth_history_evidence": "4f2f376c182f",
+          "get_birth_history_settings": "8bb4ca55ef71",
+          "get_birth_source_evidence": "fb8d73f14aba",
+          "get_chute_session": "33426bbab963",
+          "get_current_context": "efddc7bd8bbc",
+          "get_farm": "2a2e25c8e37c",
+          "get_feeding": "225711466804",
+          "get_group": "1f8993638395",
+          "get_import_request": "d848c39775c3",
+          "get_location": "de462374cee6",
+          "get_ration": "075a27e0289c",
+          "get_record": "7fad0b6d301b",
+          "get_traceability_event": "24c20e837623",
+          "get_traceability_event_revisions": "24c20e837623",
+          "get_workflow_preview": "1c91588b15c6",
+          "get_workflow_template": "d16330989474",
+          "list_animals": "a4f622b0535f",
+          "list_birth_events": "62afd52b3f53",
+          "list_chute_sessions": "2c0f2a21f801",
+          "list_farm_tasks": "f32818067333",
+          "list_feedings": "dda6a109ffb8",
+          "list_groups": "d018976752ca",
+          "list_identifiers": "872218548990",
+          "list_locations": "ab90cad65cc5",
+          "list_memories": "d018976752ca",
+          "list_my_farms": "efddc7bd8bbc",
+          "list_pending_imports": "f992c0029143",
+          "list_protocol_versions": "7725cebd21ad",
+          "list_rations": "a05e7857027b",
+          "list_records": "319aca9ab85c",
+          "list_traceability_events": "28e2ad62bf22",
+          "list_workflow_templates": "2a333fc9582f",
+          "lookup_animal_by_eid": "51ad938ea79c",
+          "preview_birth_event": "c76423812edd",
+          "preview_workflow": "516d45ad223f",
+          "publish_workflow_template_version": "afb7c3acffed",
+          "recent_transport_suggestions": "aa93fbd4f854",
+          "remove_identifier": "37b4e6726898",
+          "restore_group": "90513f8b593e",
+          "restore_location": "78cf6814d5b6",
+          "set_birth_history_settings": "eaab88f5bbae",
+          "set_default_farm": "1304253b7064",
+          "set_default_workflow_template": "3f7fc4cb6301",
+          "set_home_location": "e1802ae0db14",
+          "traceability_report": "d49036f19e7c",
+          "update_animal": "cb4fe03c4088",
+          "update_chute_session": "b11d5b3daf2e",
+          "update_farm_task": "14ebf3892277",
+          "update_group": "d7b447d9b343",
+          "update_group_membership": "33630187bee4",
+          "update_import_request_status": "7e692a987ae6",
+          "update_location": "78cab5700ced",
+          "update_premises_identifier": "07fca2330f8e",
+          "update_record": "88812d055d6d",
+          "update_workflow_template_state": "4f7a8ca470de",
+          "void_traceability_event": "a6f60052fbbe"
+        }
+      }
     },
     {
       "id": "recordist-gateway",
@@ -52956,7 +53663,7 @@
       "round": "fleet",
       "versionTested": "0.1.10",
       "serverInfoName": "gateway",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -53182,7 +53889,23 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "action_status": "7663d824b423",
+          "add_marker": "88ebe24eca96",
+          "get_action_items": "bff8bc17c0fc",
+          "get_meeting": "d035c6e4a764",
+          "get_transcript": "897288f18d54",
+          "list_meetings": "3b32a0667da5",
+          "propose_action": "64da522b9955",
+          "regenerate_notes": "f16da8eab916",
+          "search_meetings": "31de6e3a398f",
+          "start_recording": "ee7e88739748",
+          "stop_recording": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "rlabs-cl-arketum",
@@ -53191,7 +53914,7 @@
       "round": "fleet",
       "versionTested": "1.1.0",
       "serverInfoName": "arketum",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -53417,7 +54140,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "build": "42dc72831788"
+        }
+      }
     },
     {
       "id": "scope-bid-scope-aec-mcp",
@@ -53426,7 +54155,7 @@
       "round": "fleet",
       "versionTested": "1.0.11",
       "serverInfoName": "scope-aec-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -53661,7 +54390,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "scope_aec_categories": "99334726611c",
+          "scope_aec_join_waitlist": "c7411b91d6bd",
+          "scope_aec_status": "99334726611c",
+          "scope_reschedule_project": "0ea060d240ad"
+        }
+      }
     },
     {
       "id": "scope-bid-scope-claims-mcp",
@@ -53670,7 +54408,7 @@
       "round": "fleet",
       "versionTested": "1.0.11",
       "serverInfoName": "scope-claims-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -53905,7 +54643,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "scope_claims_categories": "99334726611c",
+          "scope_claims_join_waitlist": "0acfb6523d77",
+          "scope_claims_status": "99334726611c",
+          "scope_reschedule_project": "0ea060d240ad"
+        }
+      }
     },
     {
       "id": "scope-bid-scope-mcp",
@@ -53914,7 +54661,7 @@
       "round": "fleet",
       "versionTested": "1.0.11",
       "serverInfoName": "scope-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -54166,7 +54913,22 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "scope_book_deposition": "def0dfd3a75e",
+          "scope_dispatch_matter": "b2e6c36f2e3f",
+          "scope_get_matter": "11822e90f656",
+          "scope_get_messages": "ad17a2a6c936",
+          "scope_list_categories": "99334726611c",
+          "scope_list_matters": "e4955361baad",
+          "scope_list_vendors": "4d4fb3a99345",
+          "scope_request_records": "df89728522b1",
+          "scope_reschedule_project": "0ea060d240ad",
+          "scope_send_message": "748d60ca5afa"
+        }
+      }
     },
     {
       "id": "servelink-serve",
@@ -54175,7 +54937,7 @@
       "round": "fleet",
       "versionTested": "0.8.8",
       "serverInfoName": "serve",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -54453,7 +55215,29 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "account_status": "c8a1ac469a82",
+          "create_viewer_grant": "ae4e8739e63b",
+          "doctor": "c8a1ac469a82",
+          "links": "c8a1ac469a82",
+          "list_tunnels": "c8a1ac469a82",
+          "protect_link": "ffe02e1397da",
+          "release_link": "feb45e9cd36c",
+          "renew_link": "92976885c82a",
+          "revoke_link": "8392cc265af8",
+          "serve": "681339b233b1",
+          "serve_file": "f8ef1c61fdf4",
+          "stop_all_tunnels": "c8a1ac469a82",
+          "stop_remote": "b75a13ce39ba",
+          "stop_tunnel": "f4c89c9b6eed",
+          "tunnel_status": "f25caf675040",
+          "unprotect_link": "defc6390d9e1",
+          "update_ttl": "acc800f7b79f"
+        }
+      }
     },
     {
       "id": "spideriq-mcp-media",
@@ -54462,7 +55246,7 @@
       "round": "fleet",
       "versionTested": "1.3.1",
       "serverInfoName": "mcp-media",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -54744,7 +55528,31 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "catalog_get_asset": "66657f899526",
+          "catalog_list_assets": "3fa2f27f8601",
+          "catalog_search_assets": "f1234939159d",
+          "check_access_status": "89b23c772fac",
+          "delete_file": "26b03b83c97e",
+          "get_api_info": "ea2671debbf5",
+          "get_auth_status": "e1917f6cffae",
+          "get_media_stats": "be53ebea3d67",
+          "get_queue_stats": "309f7260fd06",
+          "get_video_status": "a1b736d02ecf",
+          "health_check": "cb609c98fc08",
+          "import_from_url": "4f9b108144f8",
+          "list_files": "be1b3d0a9317",
+          "list_videos": "e435eabd2aaf",
+          "list_workspaces": "efddc7bd8bbc",
+          "logout": "ea2671debbf5",
+          "media_derive": "f04962bc8afe",
+          "media_derive_srcset": "bbfc15d72570",
+          "request_access": "3e5dc56caa57"
+        }
+      }
     },
     {
       "id": "spideriq-mcp-publish",
@@ -54753,7 +55561,7 @@
       "round": "fleet",
       "versionTested": "1.43.1",
       "serverInfoName": "mcp-publish",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -55658,7 +56466,176 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "agent_flow": "4be734329b83",
+          "changelog_create": "64f141800ccd",
+          "changelog_delete": "c17889777e74",
+          "changelog_list": "db705b449ba1",
+          "changelog_publish": "95da152d75e4",
+          "changelog_update": "73022502ffb4",
+          "check_access_status": "89b23c772fac",
+          "collection_create": "bfbcbb5e5cdc",
+          "collection_delete": "3ecf20717f56",
+          "collection_get": "ed693879d38c",
+          "collection_list": "144e20fd8db4",
+          "collection_record_bulk": "d9ef6644d40a",
+          "collection_record_create": "66402e414458",
+          "collection_record_delete": "415ed3b66340",
+          "collection_record_get": "dc23c5b66d2f",
+          "collection_record_list": "ecdd218a39e6",
+          "collection_record_update": "2cad31880022",
+          "collection_update": "7c0809470ca9",
+          "component_rollback": "7ca2fa806ee4",
+          "component_update_and_propagate": "c941cf3fa0d3",
+          "content_add_domain": "c6f917b65046",
+          "content_apply_page_template": "f9f4633abdd4",
+          "content_apply_site_template": "2a11a147450e",
+          "content_archive_component": "f8e10e5b24c8",
+          "content_audit_links": "4d6121dfab11",
+          "content_create_agent_component": "843c4ffd9be9",
+          "content_create_author": "2d1e2266b35b",
+          "content_create_category": "515b9565f5e9",
+          "content_create_component": "7f0533412853",
+          "content_create_doc": "3801d0577016",
+          "content_create_page": "31092d7e16b6",
+          "content_create_post": "b6698c921b50",
+          "content_create_site_template": "61a651a12312",
+          "content_create_tag": "17a3a407b464",
+          "content_delete_author": "40621123fe37",
+          "content_delete_category": "0085ffe6fd24",
+          "content_delete_component": "f8e10e5b24c8",
+          "content_delete_doc": "aaf89a9bd423",
+          "content_delete_domain": "b9adc78c1eee",
+          "content_delete_page": "7f9c310d703c",
+          "content_delete_post": "2a4dd6a1eeb7",
+          "content_delete_tag": "7e6b40154440",
+          "content_deploy_readiness": "4d6121dfab11",
+          "content_deploy_site": "1d9c0dc0bd75",
+          "content_deploy_site_preview": "4d6121dfab11",
+          "content_deploy_site_production": "9a193c5be115",
+          "content_deploy_status": "4d6121dfab11",
+          "content_duplicate_block": "6d2da9884c4b",
+          "content_duplicate_doc": "6920aa2789ac",
+          "content_duplicate_page": "933106e3cb25",
+          "content_duplicate_post": "a5b4af0351f5",
+          "content_export_doc": "5d53f2cf750e",
+          "content_export_markdown": "51223a6316bb",
+          "content_export_page": "8d6489b3fde6",
+          "content_featured_posts": "352d318466a7",
+          "content_get_author": "40621123fe37",
+          "content_get_build_status": "0df5b4a63cf1",
+          "content_get_component": "2636579b4d74",
+          "content_get_component_by_slug": "96779ecda06d",
+          "content_get_doc": "3b0dd08e4ec6",
+          "content_get_marketplace_bg_video": "cbafabb70e22",
+          "content_get_navigation": "e37f047c6459",
+          "content_get_page": "b6531d5dc25f",
+          "content_get_page_template": "359a34f12fd2",
+          "content_get_page_version": "41d5b52ad85d",
+          "content_get_playbook": "5add1a09f308",
+          "content_get_post": "277e473510c5",
+          "content_get_settings": "4d6121dfab11",
+          "content_get_site_template": "6079c44d51e7",
+          "content_get_variables": "545a79505456",
+          "content_import_markdown": "5d07821fd4f9",
+          "content_import_openapi": "09b16a43b479",
+          "content_list_authors": "4d6121dfab11",
+          "content_list_categories": "4d6121dfab11",
+          "content_list_components": "05b08829c09e",
+          "content_list_docs": "1275fd7f0950",
+          "content_list_domains": "4d6121dfab11",
+          "content_list_marketplace_bg_videos": "ae31e3ea711c",
+          "content_list_marketplace_components": "709cfb54ec2a",
+          "content_list_page_templates": "3d94cfff3a53",
+          "content_list_pages": "4cc944f255d4",
+          "content_list_posts": "03e723c36ba1",
+          "content_list_site_templates": "26256f4ade5d",
+          "content_list_tags": "4d6121dfab11",
+          "content_preview_post": "decf4a4ce81f",
+          "content_publish_component": "f8e10e5b24c8",
+          "content_publish_doc": "aaf89a9bd423",
+          "content_publish_page": "7f9c310d703c",
+          "content_publish_post": "f62eb84329dd",
+          "content_rebuild_component": "0df5b4a63cf1",
+          "content_search_posts": "296d0556d5e1",
+          "content_set_primary_domain": "48620dad2713",
+          "content_unpublish_doc": "aaf89a9bd423",
+          "content_unpublish_page": "7f9c310d703c",
+          "content_unpublish_post": "277e473510c5",
+          "content_update_author": "eeb13eb1057d",
+          "content_update_category": "d5e8070517ec",
+          "content_update_component": "33c60a7ed51c",
+          "content_update_doc": "6204186640d8",
+          "content_update_navigation": "cb341d94fecf",
+          "content_update_page": "627182c8ede7",
+          "content_update_post": "233e559f57ff",
+          "content_update_post_status": "eeaef1e081d2",
+          "content_update_settings": "88371296dffd",
+          "content_update_site_template": "1be02d65091a",
+          "content_update_tag": "b48f6f7ecb66",
+          "content_upload_bg_video": "b145057dea8c",
+          "content_upload_component_preview": "f037c271d4cf",
+          "content_upload_site_template_preview": "0e896f2d54ee",
+          "content_verify_domain": "38b5b22f84e5",
+          "content_visual_check": "3e0fd6682401",
+          "create_project": "f16caae296f7",
+          "delete_file": "26b03b83c97e",
+          "directory_bulk_upsert_listings": "4257bc19882a",
+          "directory_create_category": "a445f6ee7b9f",
+          "directory_delete_category": "cbafabb70e22",
+          "directory_delete_listing": "cf31647f72e7",
+          "directory_get_category": "cbafabb70e22",
+          "directory_import_from_idap": "3e28d722ceb3",
+          "directory_list_categories": "6eac7aa323bc",
+          "directory_list_listings": "c4b38dd93385",
+          "directory_refresh_stats": "4d6121dfab11",
+          "directory_update_category": "f9dce16676bd",
+          "directory_upsert_listing": "84d14fb346b6",
+          "get_api_info": "ea2671debbf5",
+          "get_auth_status": "e1917f6cffae",
+          "get_media_stats": "be53ebea3d67",
+          "get_queue_stats": "309f7260fd06",
+          "get_recipe": "67f48f78425f",
+          "get_video_status": "a1b736d02ecf",
+          "health_check": "cb609c98fc08",
+          "import_from_url": "4f9b108144f8",
+          "list_data_source_items": "4acc73339a36",
+          "list_data_sources": "16efc31cefa4",
+          "list_files": "be1b3d0a9317",
+          "list_projects": "d65aa4de9636",
+          "list_recipes": "fb9335209239",
+          "list_videos": "e435eabd2aaf",
+          "list_workspaces": "efddc7bd8bbc",
+          "logout": "ea2671debbf5",
+          "marketplace_form_test_submit": "7bebc5d06bd4",
+          "marketplace_search": "a12fd519e02d",
+          "marketplace_suggest_agent_meta": "731575b3fda7",
+          "media_ingest_url": "5e851d88b6f9",
+          "page_insert_section": "f489810d836b",
+          "request_access": "3e5dc56caa57",
+          "set_bg_video_agent_meta": "84bba08e8f02",
+          "set_component_agent_meta": "10c7417da523",
+          "set_component_kind": "bfbb7dc090d9",
+          "set_site_template_agent_meta": "c0f36968729e",
+          "template_apply_theme": "426d1d49bafa",
+          "template_delete": "f3a7be5ea938",
+          "template_get": "985503b67687",
+          "template_get_config": "4d6121dfab11",
+          "template_get_help": "d6da2e2058eb",
+          "template_inspect_block_fields": "5eb7ee1bfa1b",
+          "template_list": "4d6121dfab11",
+          "template_list_themes": "4d6121dfab11",
+          "template_preview": "7ce141cbd528",
+          "template_update_config": "f81aec0ed10e",
+          "template_upsert": "20256e8f9372",
+          "upload_local_directory": "b782a16aabbf",
+          "upload_local_file": "ecaaf29c0719",
+          "video_to_scroll_sequence": "c54e46ec884b"
+        }
+      }
     },
     {
       "id": "stratta-mcp",
@@ -55667,7 +56644,7 @@
       "round": "fleet",
       "versionTested": "1.22.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -56102,7 +57079,72 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "add_attachment": "58a8331f46d0",
+          "add_comment": "b5540a1b54be",
+          "add_option": "fd9eb6db7e1f",
+          "apply_template": "72a6b71eeb32",
+          "attach_entry": "b7e6873ae9f9",
+          "delete_option": "78ad5baac274",
+          "delete_question": "80af01dd87eb",
+          "draft_deliverable": "ce55992a9b8b",
+          "get_boreholes": "3af1bbceef84",
+          "get_cross_refs": "eaacf70cb4a9",
+          "get_dossier_activity": "32fd1579704a",
+          "get_figure": "2299da053967",
+          "get_groundwater_contours": "148fa88aecb9",
+          "get_methodology": "7a014b717a77",
+          "get_question": "aa67a9e36236",
+          "get_section": "486a1b751684",
+          "get_site": "c6499ed0095f",
+          "get_site_context": "352d31b8dead",
+          "get_site_section": "2d26f72de820",
+          "get_skill": "4e819fd838ef",
+          "get_subtree": "a651774bae03",
+          "get_toc": "cb52366720c6",
+          "ingest_attach_cross_ref": "fb1eee3e4ae1",
+          "ingest_attach_formula": "ee332de66de8",
+          "ingest_attach_table": "d734e3a134f4",
+          "ingest_create_document": "1326dd4a9e0f",
+          "ingest_create_sections": "279b55a2b0f5",
+          "ingest_delete": "3f3b74153772",
+          "ingest_normalize_cross_refs": "a74c0b05bde8",
+          "ingest_publish": "52a3bd907f8b",
+          "ingest_status": "1884305a2bf9",
+          "ingest_upload_figure": "cbf7dc664b36",
+          "list_attachments": "2192e40f313d",
+          "list_dossiers": "7a014b717a77",
+          "list_exports": "716ba8f8cf3f",
+          "list_norms": "157da877b7c3",
+          "list_questions": "6ba2d517d394",
+          "list_site_neighbours": "60a0ee2c42ed",
+          "list_site_overlays": "d15ac5c373bc",
+          "list_site_photos": "c6499ed0095f",
+          "list_sites": "f3debea63a4b",
+          "list_skills": "7a014b717a77",
+          "list_templates": "7a014b717a77",
+          "load_dossier": "9a1a40167203",
+          "open_dossier": "f0368e40b99f",
+          "open_question": "58a96635496a",
+          "read_attachment": "68580f97a8b8",
+          "record_decision": "641a68b924d0",
+          "resolve_question": "766257404ce3",
+          "save_finding": "289e2b3756a4",
+          "scan_site": "cb9c39116bd3",
+          "search_corpus": "6095fd97abc6",
+          "search_in_dossier": "261f2d5bd536",
+          "search_in_norm": "3ed31aca8e2f",
+          "update_entry": "d0a46ab7e7b5",
+          "update_option": "c11e97c3e4eb",
+          "update_question": "49012f1be852",
+          "verify_citation": "5d5485132056",
+          "whoami": "7a014b717a77",
+          "write_section": "2eeeaf954494"
+        }
+      }
     },
     {
       "id": "swissco-mcp",
@@ -56111,7 +57153,7 @@
       "round": "fleet",
       "versionTested": "0.1.1",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -56328,7 +57370,21 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "swissco_events": "5f62f1556a5f",
+          "swissco_finma": "afd16e3e500b",
+          "swissco_lei": "df37465ea644",
+          "swissco_lookup": "eaaf5e60ce8a",
+          "swissco_publications": "616a821d0248",
+          "swissco_research": "b185fe60176a",
+          "swissco_search": "48fcde25f3b8",
+          "swissco_tenders": "1a1d8d355f95",
+          "swissco_vendor": "4806f6fb1abb"
+        }
+      }
     },
     {
       "id": "takehub-mcp",
@@ -56337,7 +57393,7 @@
       "round": "fleet",
       "versionTested": "1.1.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -56604,7 +57660,38 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "authenticate": "7a014b717a77",
+          "complete_auth": "7a014b717a77",
+          "create_topic": "cb110ca89fec",
+          "create_topic_and_invite": "884e2137ef53",
+          "delete_topic": "66c7fb2694f4",
+          "export_results": "441ac50000f1",
+          "follow_topic": "66c7fb2694f4",
+          "get_all_topic_votes": "78f14b17761d",
+          "get_current_user": "7a014b717a77",
+          "get_top_videos": "66c7fb2694f4",
+          "get_topic": "66c7fb2694f4",
+          "get_topic_conversations": "66c7fb2694f4",
+          "get_topic_insights": "66c7fb2694f4",
+          "get_voting_results": "66c7fb2694f4",
+          "list_topic_invites": "66c7fb2694f4",
+          "list_topics": "b7b3035cd530",
+          "logout": "7a014b717a77",
+          "regenerate_topic_summary": "66c7fb2694f4",
+          "respond_to_invite": "28bd6931b493",
+          "revoke_invite": "ab6d2c0bc6d2",
+          "send_invite": "f12bc5c095a5",
+          "set_credentials": "75176afbcba1",
+          "summarize_topic": "66c7fb2694f4",
+          "unfollow_topic": "66c7fb2694f4",
+          "update_topic": "cb93de57273c",
+          "update_topic_options": "697329916dfb"
+        }
+      }
     },
     {
       "id": "timeprooflabs-truthspine-mcp",
@@ -56613,7 +57700,7 @@
       "round": "fleet",
       "versionTested": "0.2.2",
       "serverInfoName": "truthspine-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -56814,7 +57901,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "attach": "446208e6d264",
+          "open_download_page": "99334726611c"
+        }
+      }
     },
     {
       "id": "todoglow-mcp",
@@ -56823,7 +57917,7 @@
       "round": "fleet",
       "versionTested": "1.1.2",
       "serverInfoName": "todoglow-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -57075,7 +58169,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "advance_todo": "3e53b898a803",
+          "get_active_todo": "efddc7bd8bbc",
+          "get_threads": "efddc7bd8bbc",
+          "list_receipt_todos": "be74dfc011c2",
+          "list_todos": "c85d6365483b",
+          "set_receipt_titles": "2a2b47d39b81",
+          "set_topic": "a2bdc450d694",
+          "update_thread": "8c12aba6af36"
+        }
+      }
     },
     {
       "id": "trustrails-mcp-server",
@@ -57084,7 +58191,7 @@
       "round": "fleet",
       "versionTested": "1.0.28",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -57280,7 +58387,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get_product": "a916b478626d",
+          "search_products": "e9d1c0ac3d89"
+        }
+      }
     },
     {
       "id": "uplink-code-mcp",
@@ -57289,7 +58403,7 @@
       "round": "fleet",
       "versionTested": "0.1.6",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -57534,7 +58648,27 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "uplink_await_network_request": "f5dbd4ed2580",
+          "uplink_connect": "31f28188eb40",
+          "uplink_evaluate_javascript": "8444e9e20455",
+          "uplink_get_command_result": "42953e905805",
+          "uplink_get_current_url": "7a014b717a77",
+          "uplink_get_dom_snapshot": "7a014b717a77",
+          "uplink_get_network_request": "2d806f7188eb",
+          "uplink_get_qr": "7a014b717a77",
+          "uplink_list_commands": "a7a66d3c2fbb",
+          "uplink_read_logs": "631105c032c5",
+          "uplink_refresh_pairing_code": "7a014b717a77",
+          "uplink_run_script": "3bbf4381ddd6",
+          "uplink_search_network": "03fa902c5bc4",
+          "uplink_session_status": "7a014b717a77",
+          "uplink_wait_for_device": "731addf6409f"
+        }
+      }
     },
     {
       "id": "userintuition-ai-mcp",
@@ -57543,7 +58677,7 @@
       "round": "fleet",
       "versionTested": "1.6.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -58086,7 +59220,91 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "add_all_research_studies": "dc14ef7b2e83",
+          "answer_research": "768775b91539",
+          "approve_panel_launch": "ee9fcee33534",
+          "cancel_feasibility_request": "5185a50881d3",
+          "cancel_research_analysis": "6ae0248cf433",
+          "cancel_research_deliverable": "e066c8ab9957",
+          "chat_research_session": "5eda0416ef25",
+          "clear_research_sources": "dc14ef7b2e83",
+          "configure_external_panel": "77f4a716156d",
+          "create_participants": "6169daf97b72",
+          "create_research_session": "3486b30d86cc",
+          "create_study": "0f99355c32be",
+          "create_webhook": "fc76b81f827c",
+          "customize_study": "39cf465f1e5e",
+          "delete_external_panel": "52da9b51afc8",
+          "delete_interview": "865d152a09d2",
+          "delete_participant": "80bb90f087c1",
+          "delete_research_output": "c5ec69b69ea8",
+          "delete_research_session": "dc14ef7b2e83",
+          "delete_study": "52da9b51afc8",
+          "delete_webhook": "41fc3ca42990",
+          "delete_webhook_by_id": "1112a56f3b89",
+          "download_research_output": "92239f0076e2",
+          "edit_research_output": "129b3d601c69",
+          "estimate_panel": "d2689e9add61",
+          "generate_report": "e596e6a420c8",
+          "generate_research_output": "e417095f5f72",
+          "get_account": "b299aed22b37",
+          "get_customize_study_job": "031a46b762f7",
+          "get_external_panel": "52da9b51afc8",
+          "get_feasibility_request": "5185a50881d3",
+          "get_fielding_progress": "52da9b51afc8",
+          "get_interview": "5db3506331dc",
+          "get_interview_usage_stats": "c1ecbd10e5d4",
+          "get_participant": "7edc10be3d84",
+          "get_participant_job": "e066c8ab9957",
+          "get_report_job": "031a46b762f7",
+          "get_report_slide_job": "031a46b762f7",
+          "get_research_analysis": "17be639a0d71",
+          "get_research_deliverable": "e066c8ab9957",
+          "get_study": "52da9b51afc8",
+          "get_study_report": "a32a554cd4e8",
+          "get_webhook": "1112a56f3b89",
+          "inspect_research_session": "e89b279f2b62",
+          "launch_panel": "381697910562",
+          "list_feasibility_requests": "65e33c7b3b14",
+          "list_interviews": "94eaf469c34e",
+          "list_organizations": "29fb660fce98",
+          "list_participants": "57fc096e043b",
+          "list_studies": "b6853e0e5ef4",
+          "list_targeting_attributes": "6506af264b76",
+          "list_webhook_deliveries": "4cf37cfd3c89",
+          "list_webhooks": "2f5e479038d9",
+          "pause_study": "52da9b51afc8",
+          "queue_customize_study": "bcd075493fb0",
+          "queue_report_slides": "c4dfa5e30763",
+          "queue_research_chat": "6e1fc59d9e7e",
+          "queue_research_deliverable": "e5ee0e705c99",
+          "regenerate_external_panel_token": "e596e6a420c8",
+          "remove_research_source": "41403c6e7bce",
+          "remove_research_study": "09650d5c44b6",
+          "rename_research_output": "beb7b7bf01a8",
+          "rename_research_session": "e672400c5210",
+          "resume_research_analysis": "f2354cd98232",
+          "resume_study": "52da9b51afc8",
+          "review_study": "543635519098",
+          "rotate_webhook_secret": "1112a56f3b89",
+          "search_research": "38a99d171178",
+          "send_participant_reward": "39e8b098d760",
+          "start_research_analysis": "078d1b75986f",
+          "stop_study": "52da9b51afc8",
+          "submit_feasibility_request": "42e56b8bf4ec",
+          "sync_research_study": "09650d5c44b6",
+          "test_webhook": "1112a56f3b89",
+          "update_participant": "9bada3cf83c7",
+          "update_study": "a66fe9c34d2a",
+          "upload_research_source": "191d235d8014",
+          "upload_research_template": "ac0ab20a38fa",
+          "view_research_answer": "e746cd8bb951"
+        }
+      }
     },
     {
       "id": "vaaya-mcp",
@@ -58431,7 +59649,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "sdk",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -58633,7 +59851,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "mandate_authorize": "94d184286cdf",
+          "mandate_resolve_did": "bc3429c3e58a",
+          "mandate_verify_chain": "70e23d48e9ea",
+          "mandate_verify_credential": "5ad887ca4551"
+        }
+      }
     },
     {
       "id": "veida-mcp",
@@ -58642,7 +59869,7 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "veida-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -58849,7 +60076,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "browse_tools": "7a014b717a77",
+          "free_tier_limits": "7a014b717a77",
+          "generate_image": "7d5da8cc6bc8",
+          "list_models": "61da1fb8afbd"
+        }
+      }
     },
     {
       "id": "vertical-marketplace-mcp",
@@ -58858,7 +60094,7 @@
       "round": "fleet",
       "versionTested": "0.1.0",
       "serverInfoName": "vertical-marketplace-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -59237,7 +60473,67 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "about_marketplace": "c8a1ac469a82",
+          "accept_space_charter": "81c063e8a9c0",
+          "agent_inbox": "724a8eafb62f",
+          "agent_lookup": "dad3095878c1",
+          "agent_send_message": "3d67cbe8f1d1",
+          "agent_whoami": "99334726611c",
+          "answer_knock": "7d433a164479",
+          "ask_vermarco": "8de19728ed73",
+          "become_seller": "e542aeec37f1",
+          "browse_marketplace": "a40d46e5a147",
+          "bulk_purchase": "533e2ec1eae8",
+          "buy_data": "55d92544a91c",
+          "claim_workspace": "ef30a731d826",
+          "close_space": "4971b4dc27a6",
+          "configure_auto_recharge": "329521c2f78c",
+          "contact_marketplace": "515b2d68b7ff",
+          "create_space": "2481bb11c897",
+          "deactivate_listing": "7a0a06c610f7",
+          "flag_space_message": "430646df374a",
+          "fund_wallet": "747cb926cfa1",
+          "get_platform_stats": "c8a1ac469a82",
+          "get_purchase": "2d53235f814b",
+          "get_wallet_balance": "f73b9d166d15",
+          "invite_to_space": "72c4ef0360b2",
+          "knock_on_space": "7b7dfc91592d",
+          "list_health_data": "b0d6959e7936",
+          "list_knocks": "2ffd9dcc3102",
+          "list_my_spaces": "99334726611c",
+          "list_public_spaces": "ba92d300d84f",
+          "list_verticals": "c8a1ac469a82",
+          "listing_history": "fcfac4ee8c3b",
+          "marketplace_stats": "c8a1ac469a82",
+          "offboard_agent": "a7bbec72a3b6",
+          "open_private_room": "7e0828674c98",
+          "preview_listing": "fcfac4ee8c3b",
+          "rate_listing": "95fa4d3bdc19",
+          "read_space": "7317dd2146e6",
+          "read_space_charter": "055ad4b7c3d0",
+          "register_agent": "b9048e1cd447",
+          "remove_from_space": "d579f00ed967",
+          "request_seat": "e2982dfa6237",
+          "say_in_space": "80a28b1619da",
+          "search_health_data": "bf1f1769b688",
+          "search_public_spaces": "ba92d300d84f",
+          "sell_data": "e6039c1bdcf2",
+          "seller_dashboard": "f73b9d166d15",
+          "set_delivery_endpoint": "9c62a66317df",
+          "set_space_charter": "8c37599d8474",
+          "set_space_visibility": "616444d3b71c",
+          "setup_payment_method": "f73b9d166d15",
+          "space_events": "c721b10c22e7",
+          "space_members": "4971b4dc27a6",
+          "submit_idea": "07b592aa5525",
+          "update_listing": "ff78bf17a69e",
+          "wallet_transactions": "202111e854f7"
+        }
+      }
     },
     {
       "id": "vruum-mcp",
@@ -59246,7 +60542,7 @@
       "round": "fleet",
       "versionTested": "0.17.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -59582,7 +60878,49 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "fetch": "8f5a4ab5e7df",
+          "find_warm_path": "58c41eaf9676",
+          "get_content_review": "45d51bc8ed19",
+          "get_daily_briefing": "ae0c6aa6c1ac",
+          "get_deal_360": "b22d5279ea79",
+          "get_engagement_review": "9e2185cf95c5",
+          "get_network_identity_review": "16fcdf477fd5",
+          "get_next_actions": "e066974fd9b3",
+          "get_objective_outcomes": "ca3afe5cb272",
+          "get_operator_companies": "ca7aca8022a2",
+          "get_outreach_review": "d239b777610f",
+          "get_performance_metrics": "a87eb63a343b",
+          "get_person_360": "2792220cce6f",
+          "get_revenue": "94b33d16389f",
+          "import_prospects": "010948cd8654",
+          "inspect_assistant": "e3c2c6abe3bf",
+          "inspect_objective": "82209a43858c",
+          "inspect_pipeline": "74320d32d0c6",
+          "manage_account": "e4450d6e394b",
+          "manage_assistant": "ece7ef501705",
+          "manage_content": "1c807fbd65f4",
+          "manage_deal": "35a5b4e1c6bf",
+          "manage_engagements": "6d99f6c37bcb",
+          "manage_history_import": "a67b9aead71b",
+          "manage_kb": "641ce40f7922",
+          "manage_messages": "ad1a6db58053",
+          "manage_network_identity_resolution": "9775a9701469",
+          "manage_outreach": "ae9d844383af",
+          "manage_person": "618d12f1f0ae",
+          "manage_relationship_action": "bb73fcb88439",
+          "manage_revenue": "28ea0b8468ce",
+          "manage_settings": "434facb1c888",
+          "query_crm": "316044eca527",
+          "research": "328c6818d921",
+          "research_lookup": "272a4f46587e",
+          "search": "3305ca8525b5",
+          "skill": "3f22fc633013"
+        }
+      }
     },
     {
       "id": "wavespeed-mcp",
@@ -59892,7 +61230,7 @@
       "round": "fleet",
       "versionTested": "0.1.15",
       "serverInfoName": "deepcontext",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -60129,7 +61467,16 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "clear_index": "2058f76aed04",
+          "get_indexing_status": "2058f76aed04",
+          "index_codebase": "e81c9fffa507",
+          "search_codebase": "5e8264895ebd"
+        }
+      }
     },
     {
       "id": "wpconvert-mcp",
@@ -60369,7 +61716,7 @@
       "round": "fleet",
       "versionTested": "1.0.0",
       "serverInfoName": "yomio-mcp-stdio",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -60639,7 +61986,27 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "compare_periods": "3f9035627b6f",
+          "get_accounts": "7a014b717a77",
+          "get_balance_overview": "e3ea27ff987c",
+          "get_budget_status": "a7d88153960e",
+          "get_categories": "7a014b717a77",
+          "get_expense_detail": "67c817e9f198",
+          "get_expenses": "095248de4a45",
+          "get_income_list": "fbdef3ce6ad0",
+          "get_income_summary": "e3ea27ff987c",
+          "get_recurring_payments": "79423907a497",
+          "get_spending_summary": "1d3b7455ac28",
+          "get_spending_trends": "219a57001674",
+          "get_top_merchants": "644b52916083",
+          "get_top_products": "446fcfa14d96",
+          "search_expenses": "f2e7dd6d91cb"
+        }
+      }
     },
     {
       "id": "zendiq-mcp",
@@ -60648,7 +62015,7 @@
       "round": "fleet",
       "versionTested": "1.0.6",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -60847,7 +62214,15 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "zendiq_optimize_swap": "5654c6f44fd6",
+          "zendiq_screen_token": "dbbf9a272d18",
+          "zendiq_triage_swap": "0c44f0dcf572"
+        }
+      }
     },
     {
       "id": "zensation-mcp",
@@ -61115,7 +62490,7 @@
       "refTested": "0.3.1",
       "versionTested": "0.3.1",
       "serverInfoName": "mcp-gsc",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -61369,7 +62744,33 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "add_site": "8eff24a7de39",
+          "batch_url_inspection": "6ccd33e9497b",
+          "check_indexing_issues": "6711d8130d0b",
+          "compare_search_periods": "bb0b849a131c",
+          "delete_site": "e3a9c24b5956",
+          "delete_sitemap": "5c8ae6bad0ee",
+          "get_advanced_search_analytics": "dd4a370637fa",
+          "get_capabilities": "19ca0658c1c0",
+          "get_creator_info": "93c7ec3f67e8",
+          "get_performance_overview": "2ab571b8c940",
+          "get_search_analytics": "ea1b05e9586a",
+          "get_search_by_page_query": "6fe165854d09",
+          "get_site_details": "73de38e7cc82",
+          "get_sitemap_details": "7e559bf4d4b4",
+          "get_sitemaps": "be9f08c42b8c",
+          "inspect_url_enhanced": "4ea1704979af",
+          "list_properties": "302552e15266",
+          "list_sitemaps_enhanced": "57d53d9db7e8",
+          "manage_sitemaps": "4dfa5ca0b39e",
+          "reauthenticate": "90d42507ad3a",
+          "submit_sitemap": "ebd8df27e200"
+        }
+      }
     },
     {
       "id": "antvis-mcp-server-chart",
@@ -61379,7 +62780,7 @@
       "refTested": "0.9.10",
       "versionTested": "0.9.10",
       "serverInfoName": "mcp-server-chart",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -61673,7 +63074,39 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "generate_area_chart": "eb62d93df039",
+          "generate_bar_chart": "eb4aaba5d068",
+          "generate_boxplot_chart": "f9f2751b440e",
+          "generate_column_chart": "0b1e3539a63f",
+          "generate_district_map": "4181284d1987",
+          "generate_dual_axes_chart": "c69f712aeabb",
+          "generate_fishbone_diagram": "d476b2001c2a",
+          "generate_flow_diagram": "b208c745759f",
+          "generate_funnel_chart": "bea521e06bb0",
+          "generate_histogram_chart": "f66f14d44539",
+          "generate_line_chart": "a602082a3146",
+          "generate_liquid_chart": "0dfdacf1c1ec",
+          "generate_mind_map": "10fe46880d89",
+          "generate_network_graph": "3908fcd9b7f4",
+          "generate_organization_chart": "7810413d9f78",
+          "generate_path_map": "aa814d32f855",
+          "generate_pie_chart": "8cc6f03a9d59",
+          "generate_pin_map": "494cbbe1bc16",
+          "generate_radar_chart": "724d7b1ce59d",
+          "generate_sankey_chart": "7fddee6d01e5",
+          "generate_scatter_chart": "611bacff1a15",
+          "generate_spreadsheet": "8376dced8a49",
+          "generate_treemap_chart": "279159ef9fa3",
+          "generate_venn_chart": "21ee67695838",
+          "generate_violin_chart": "6b318e8c1efd",
+          "generate_waterfall_chart": "832c74230cdd",
+          "generate_word_cloud_chart": "d391b56d280e"
+        }
+      }
     },
     {
       "id": "atilaahmettaner-tradingview-mcp",
@@ -61683,7 +63116,7 @@
       "refTested": "0.8.0",
       "versionTested": "0.8.0",
       "serverInfoName": "tradingview-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -62024,17 +63457,61 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "advanced_candle_pattern": "821e513ca324",
+          "backtest_strategy": "70b7b2bd2b7c",
+          "bitcoin_market_pulse": "964af58d881e",
+          "bollinger_scan": "a2022a972e57",
+          "coin_analysis": "44ca1a125a9d",
+          "combined_analysis": "3f1a233f1315",
+          "compare_strategies": "890478bb6d33",
+          "consecutive_candles_scan": "63e179122f2e",
+          "egx_fibonacci_retracement": "a912d0a6bf6c",
+          "egx_index_analysis": "9ee9aab35936",
+          "egx_market_overview": "1da247b88bdf",
+          "egx_sector_scan": "72b0619bd5cb",
+          "egx_sector_scanner": "258b267b621a",
+          "egx_smart_money_scanner": "62e6f02a39b9",
+          "egx_stock_screener": "80111001b0ec",
+          "egx_trade_plan": "fa57814553b0",
+          "financial_news": "b4efce9ae0dd",
+          "futures_category_snapshot": "9120c7589919",
+          "futures_market_overview": "6b3f5665fe5d",
+          "futures_top_movers": "8a0d35a531ab",
+          "futures_watchlist": "49b590a19dc6",
+          "market_sentiment": "2347d93e60b6",
+          "market_snapshot": "68ce8a365a96",
+          "multi_agent_analysis": "43f083cf6e85",
+          "multi_timeframe_analysis": "57332c60efcd",
+          "rating_filter": "451144b52fc0",
+          "smart_money_analysis": "046e1b5e9493",
+          "smart_volume_scanner": "badba8b8f257",
+          "stock_extended_hours": "7efd37b1ecc5",
+          "stock_options_chain": "2b3a6a18a7e0",
+          "stock_options_unusual_activity": "61651c057e2a",
+          "stock_prices": "8134c0d1f32f",
+          "stock_screener": "8eb76313147e",
+          "top_gainers": "bb8037431cdd",
+          "top_losers": "a188b7256c72",
+          "volume_breakout_scanner": "8ab8b8f2cc4e",
+          "volume_confirmation_analysis": "387a04701699",
+          "walk_forward_backtest_strategy": "e6510a5f0c6c",
+          "yahoo_price": "234db60789da"
+        }
+      }
     },
     {
       "id": "bethington-ghidra-mcp",
       "name": "bethington/ghidra-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "7.0.0",
-      "versionTested": "7.0.0",
+      "refTested": "7.1.0",
+      "versionTested": "7.1.0",
       "serverInfoName": "ghidra-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -62283,7 +63760,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_tools": "c8dc913b40d0",
+          "connect_instance": "0547e1dbde24",
+          "import_file": "6b4ba0469823",
+          "list_instances": "3b128fb958c0",
+          "list_tool_groups": "37bd44cf7b69",
+          "load_tool_group": "44153478e96d",
+          "search_tools": "b254fac51db4",
+          "unload_tool_group": "bea6f9878e71"
+        }
+      }
     },
     {
       "id": "blazickjp-arxiv-mcp-server",
@@ -62293,7 +63783,7 @@
       "refTested": "0.8.2",
       "versionTested": "0.8.2",
       "serverInfoName": "arxiv-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -62566,7 +64056,31 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "check_alerts": "6dd890d1a969",
+          "citation_graph": "8e68286b5afc",
+          "download_paper": "3936dc9e0941",
+          "export_citations": "0881885d6e4a",
+          "get_abstract": "ef2980a2c745",
+          "get_paper_latex": "1d1284a1fc8e",
+          "get_paper_latex_section": "991407e2c821",
+          "get_paper_outline": "e864597fd2de",
+          "list_paper_latex_sections": "e864597fd2de",
+          "list_papers": "f789aa8c0a8c",
+          "list_watches": "99334726611c",
+          "read_paper": "d3df7286d185",
+          "read_paper_section": "c2d9a1324e01",
+          "reindex": "94e4fd0549f8",
+          "search_paper_text": "907f90c2d311",
+          "search_papers": "3d0c4325ea9a",
+          "semantic_search": "19541fb23f5c",
+          "unwatch_topic": "0389febf0679",
+          "watch_topic": "ee8fc1819999"
+        }
+      }
     },
     {
       "id": "doobidoo-mcp-memory-service",
@@ -62576,7 +64090,7 @@
       "refTested": "13.0.0",
       "versionTested": "13.0.0",
       "serverInfoName": "mcp-memory-service",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -62638,7 +64152,7 @@
         "memory_resolve": "807256c62d01",
         "memory_search": "b192a5e14abb",
         "memory_stats": "efddc7bd8bbc",
-        "memory_store": "9a14fd7943e7",
+        "memory_store": "1f9f5a0f91cf",
         "memory_store_session": "fdbc1a8863b8",
         "memory_update": "e15dee65f39b",
         "mistake_note_add": "99343e98e332",
@@ -62885,13 +64399,11 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-16",
+        "date": "2026-11-20",
         "schemas": {
-          "commit_session_legacy": "0697e1ea9340",
-          "get_bootstrap_profile": "c50b4727205e",
-          "get_onboarding_guide": "ec17b647085d",
-          "get_quarantined_memories": "3dfcda76dfb9",
+          "memory_bootstrap_profile": "c50b4727205e",
           "memory_cleanup": "efddc7bd8bbc",
+          "memory_commit_session": "0697e1ea9340",
           "memory_conflicts": "c8a1ac469a82",
           "memory_consolidate": "696c5f5fb624",
           "memory_delete": "a4f1c9dcb677",
@@ -62899,11 +64411,14 @@
           "memory_distill": "5833dd0fd893",
           "memory_explore": "3d47415117f4",
           "memory_graph": "a38e09c51ed1",
-          "memory_harvest": "bf42a6d8a85f",
+          "memory_harvest": "1d77161ee3d0",
           "memory_health": "efddc7bd8bbc",
           "memory_ingest": "e30f3218dc58",
           "memory_list": "8cbe1ac01373",
+          "memory_onboarding_guide": "ec17b647085d",
           "memory_quality": "79a8e564dafe",
+          "memory_quarantine_list": "3dfcda76dfb9",
+          "memory_quarantine_release": "4dd0ef5154f0",
           "memory_resolve": "807256c62d01",
           "memory_search": "b192a5e14abb",
           "memory_stats": "efddc7bd8bbc",
@@ -62913,8 +64428,7 @@
           "mistake_note_add": "99343e98e332",
           "mistake_note_delete": "f2a005a23328",
           "mistake_note_search": "cf5eae1de707",
-          "mistake_note_update": "9135b7e275a6",
-          "unquarantine_memory": "4dd0ef5154f0"
+          "mistake_note_update": "9135b7e275a6"
         }
       }
     },
@@ -62926,7 +64440,7 @@
       "refTested": "3.4.3",
       "versionTested": "3.4.3",
       "serverInfoName": "exa-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -63153,7 +64667,14 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "web_fetch_exa": "d72ee7687517",
+          "web_search_exa": "83626e8602e2"
+        }
+      }
     },
     {
       "id": "firecrawl-firecrawl-mcp-server",
@@ -63163,7 +64684,7 @@
       "refTested": "3.36.1",
       "versionTested": "3.36.1",
       "serverInfoName": "firecrawl-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -63503,7 +65024,40 @@
         "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "alexandria_library_read": "22616bda976a",
+          "alexandria_library_search": "400dad8f6aff",
+          "firecrawl_agent": "af5224e14c94",
+          "firecrawl_agent_status": "69a5fdeb0408",
+          "firecrawl_check_crawl_status": "69a5fdeb0408",
+          "firecrawl_crawl": "fceed42acaa5",
+          "firecrawl_credit_usage": "4eab17263ad4",
+          "firecrawl_developer_search": "62a604e0889b",
+          "firecrawl_gov_search": "dc8b06b5edd1",
+          "firecrawl_interact": "acb8a37a85f5",
+          "firecrawl_interact_stop": "78bd4914685c",
+          "firecrawl_map": "82aaa87261a0",
+          "firecrawl_monitor_check": "1ca031848ed5",
+          "firecrawl_monitor_checks": "4114f98da5cf",
+          "firecrawl_monitor_create": "05d2de87f6e2",
+          "firecrawl_monitor_delete": "69a5fdeb0408",
+          "firecrawl_monitor_get": "69a5fdeb0408",
+          "firecrawl_monitor_list": "d61195a51016",
+          "firecrawl_monitor_run": "69a5fdeb0408",
+          "firecrawl_monitor_update": "07306340a2dd",
+          "firecrawl_parse": "84b4a5d5d978",
+          "firecrawl_research_inspect_paper": "cda683e75fd9",
+          "firecrawl_research_lookup_protein": "fb9144f46f24",
+          "firecrawl_research_read_paper": "baba062e9436",
+          "firecrawl_research_related_papers": "acbc14ac5abc",
+          "firecrawl_research_search_papers": "c62261782eb0",
+          "firecrawl_scrape": "2c97798a8ea2",
+          "firecrawl_search": "b53ebe2e0fb7"
+        }
+      }
     },
     {
       "id": "jgravelle-jcodemunch-mcp",
@@ -63774,7 +65328,7 @@
       "refTested": "0.3.10",
       "versionTested": "0.3.10",
       "serverInfoName": "12306-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -63991,7 +65545,20 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "get-current-date": "7a014b717a77",
+          "get-interline-tickets": "620e90072ef7",
+          "get-station-by-telecode": "2ba79751e054",
+          "get-station-code-by-names": "2f72085a9906",
+          "get-station-code-of-citys": "95f1115b5af6",
+          "get-stations-code-in-city": "5b0d28f35dc8",
+          "get-tickets": "8be27f908630",
+          "get-train-route-stations": "b9649c6976e9"
+        }
+      }
     },
     {
       "id": "marketmayhem-mcp",
@@ -64000,7 +65567,7 @@
       "round": "fleet",
       "versionTested": "0.3.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -64328,7 +65895,34 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "buy": "9a86fc95a3af",
+          "cancel_order": "09c92a72d48c",
+          "cancel_twap": "9d8464c444fe",
+          "claim_cashback": "7a014b717a77",
+          "get_settings": "7a014b717a77",
+          "get_token": "9347520f1ebd",
+          "launch_token": "ffd3aefcdcd5",
+          "list_tokens": "277977100be9",
+          "lock_tokens": "44e05ade1ef2",
+          "locks": "5e800262da74",
+          "my_cashback": "cbc7f7acba85",
+          "my_orders": "7a014b717a77",
+          "my_referral_earnings": "cbc7f7acba85",
+          "new_launches": "9be718d2f53b",
+          "place_order": "c8da2fecf918",
+          "quote": "9c34560943e6",
+          "referral_link": "a383cb9644e2",
+          "sell": "1a91c2fe5b4d",
+          "twap": "f3d637040105",
+          "twap_orders": "a69082510e3c",
+          "tx_status": "ceaac6cd5671",
+          "withdraw_lock": "335764967c8d"
+        }
+      }
     },
     {
       "id": "openags-paper-search-mcp",
@@ -64338,7 +65932,7 @@
       "refTested": "0.1.4",
       "versionTested": "0.1.4",
       "serverInfoName": "paper-search-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -64862,7 +66456,83 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "clear_search_cache": "e1c91e2f01d8",
+          "download_acm": "033d6e432f6d",
+          "download_arxiv": "2c8374dc7916",
+          "download_base": "9b5abaaf2854",
+          "download_biorxiv": "52a396492df1",
+          "download_citeseerx": "a42e20abcfcc",
+          "download_crossref": "ce69a88d2a3e",
+          "download_dblp": "9e8968ff4333",
+          "download_doaj": "2be01a8a9e09",
+          "download_hal": "708f05a1c06c",
+          "download_iacr": "8a54ca0e4770",
+          "download_medrxiv": "338d8b7ae89d",
+          "download_openaire": "802bdc809b2f",
+          "download_openalex": "2b24e5f8e8b8",
+          "download_openreview": "a5c6ae70f8d4",
+          "download_pubmed": "54f3470b94b9",
+          "download_scihub": "9af7e2aa1de3",
+          "download_semantic": "70180a63de59",
+          "download_ssrn": "6a3f4793e403",
+          "download_with_fallback": "82c2dc9d2474",
+          "download_zenodo": "8c08cbae77ef",
+          "extract_sections": "663f23d8a76e",
+          "get_citing_papers": "fa2013ce5038",
+          "get_crossref_paper_by_doi": "46d4a8d03a3d",
+          "get_referenced_papers": "b80eddfd1ada",
+          "get_search_cache_status": "f0d082fc6af6",
+          "read_acm_paper": "a10a813cf7c2",
+          "read_arxiv_paper": "7861173e6dea",
+          "read_base_paper": "7abfe625b122",
+          "read_biorxiv_paper": "eaaf983259bf",
+          "read_citeseerx_paper": "e8cc0fd46f36",
+          "read_crossref_paper": "1ac05dc56a8e",
+          "read_dblp_paper": "62fb6235e3f8",
+          "read_doaj_paper": "83585bfe53ed",
+          "read_hal_paper": "0b745ae792fa",
+          "read_iacr_paper": "e29da04a1c83",
+          "read_medrxiv_paper": "43d89a446bfd",
+          "read_openaire_paper": "a0fde956b3e5",
+          "read_openalex_paper": "34d3de70c4a2",
+          "read_openreview_paper": "aff89193366b",
+          "read_pubmed_paper": "493ccf8b0220",
+          "read_scopus_paper": "44f0e51ecc42",
+          "read_semantic_paper": "f2ee20b21f0f",
+          "read_ssrn_paper": "863146502121",
+          "read_zenodo_paper": "8148d2270977",
+          "search_acm": "79a5bda3c62f",
+          "search_arxiv": "35f91913eed6",
+          "search_base": "545950dba614",
+          "search_biorxiv": "ebf5ac96545c",
+          "search_citeseerx": "9c956dd8f9c7",
+          "search_core": "247b1096b1da",
+          "search_crossref": "946d6aebaff6",
+          "search_dblp": "7b799eb44719",
+          "search_doaj": "2488a1bdc36e",
+          "search_europepmc": "273601593c2e",
+          "search_google_scholar": "2a1f8fdcf79d",
+          "search_hal": "4878dd36a033",
+          "search_iacr": "e448f72d0493",
+          "search_medrxiv": "589369ef490e",
+          "search_openaire": "d823ecf6e672",
+          "search_openalex": "e93dc691ae52",
+          "search_openreview": "37b0b8636e9e",
+          "search_papers": "0a2918feaaf9",
+          "search_pmc": "f8ba2d97c512",
+          "search_pubmed": "b43a7e04d97d",
+          "search_scopus": "864b2fe62e48",
+          "search_semantic": "af027a908ed5",
+          "search_ssrn": "dd045c05a3e3",
+          "search_unpaywall": "dc16b1fce493",
+          "search_wos": "c06a78bd816d",
+          "search_zenodo": "c9b3091596ca"
+        }
+      }
     },
     {
       "id": "promptguard-mcp-server",
@@ -64871,7 +66541,7 @@
       "round": "fleet",
       "versionTested": "1.2.5",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -65114,7 +66784,18 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "promptguard_auth": "99334726611c",
+          "promptguard_logout": "99334726611c",
+          "promptguard_redact": "4874fbdf61d6",
+          "promptguard_scan_project": "8216dd3daade",
+          "promptguard_scan_text": "1faae1e932b2",
+          "promptguard_status": "99334726611c"
+        }
+      }
     },
     {
       "id": "ship-safe-mcp",
@@ -65123,7 +66804,7 @@
       "round": "fleet",
       "versionTested": "0.6.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -65408,7 +67089,21 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "shipsafe_dast": "c1aa65c18f63",
+          "shipsafe_fix_prompt": "b24ef77c7703",
+          "shipsafe_login": "833454b6a65a",
+          "shipsafe_report_false_positive": "adb6b8645a06",
+          "shipsafe_scan": "94c40554e8f4",
+          "shipsafe_scan_api": "3a51e687eb40",
+          "shipsafe_scan_history": "36c20feb7e21",
+          "shipsafe_scan_url": "8a5847feb068",
+          "shipsafe_status": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "stickerdaniel-linkedin-mcp-server",
@@ -65418,7 +67113,7 @@
       "refTested": "4.31.0",
       "versionTested": "4.31.0",
       "serverInfoName": "linkedin-mcp-server",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -65467,7 +67162,7 @@
         "get_company_profile": "d37b07b24a7b",
         "get_conversation": "e2226dfcb8b2",
         "get_easy_apply_form": "92268a70b81d",
-        "get_feed": "22073481a9da",
+        "get_feed": "31161d2aa3c6",
         "get_inbox": "6b4456086154",
         "get_job_apply_url": "92268a70b81d",
         "get_job_details": "92268a70b81d",
@@ -65479,7 +67174,7 @@
         "reply_to_conversation": "673f159bd129",
         "search_companies": "733af7dcf2cd",
         "search_conversations": "268302b1bfaf",
-        "search_jobs": "aa0652484b39",
+        "search_jobs": "0ee118ad8ee0",
         "search_people": "4e0c163cb81e",
         "search_posts": "34432573b999",
         "send_message": "0c611cca1834"
@@ -65713,7 +67408,38 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "archive_conversation": "b24fa444e0b7",
+          "close_session": "99334726611c",
+          "connect_instagram_tiktok_and_more": "d746974fa9af",
+          "connect_with_person": "fc79c33a3648",
+          "dismiss_job": "92268a70b81d",
+          "get_company_employees": "9040df96d865",
+          "get_company_posts": "d17256afea88",
+          "get_company_profile": "d37b07b24a7b",
+          "get_conversation": "e2226dfcb8b2",
+          "get_easy_apply_form": "92268a70b81d",
+          "get_feed": "22073481a9da",
+          "get_inbox": "6b4456086154",
+          "get_job_apply_url": "92268a70b81d",
+          "get_job_details": "92268a70b81d",
+          "get_my_profile": "b4e93e718ae5",
+          "get_person_profile": "6188514f9431",
+          "get_saved_jobs": "dc414b6e9e7c",
+          "get_session_status": "99334726611c",
+          "get_sidebar_profiles": "1c4620897852",
+          "reply_to_conversation": "673f159bd129",
+          "search_companies": "733af7dcf2cd",
+          "search_conversations": "268302b1bfaf",
+          "search_jobs": "aa0652484b39",
+          "search_people": "4e0c163cb81e",
+          "search_posts": "34432573b999",
+          "send_message": "0c611cca1834"
+        }
+      }
     },
     {
       "id": "taylorwilsdon-google-workspace-mcp",
@@ -66521,7 +68247,7 @@
       "refTested": "0.3.4",
       "versionTested": "0.3.4",
       "serverInfoName": "stealth-browser-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -67181,7 +68907,113 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "add_script_to_evaluate_on_new_document": "96e4fd1d2008",
+          "call_javascript_function": "fa1829145f6d",
+          "cleanup_clone_files": "a484a70c2aa4",
+          "clear_all_elements": "efddc7bd8bbc",
+          "clear_cookies": "b3e673b765f7",
+          "clear_debug_view": "efddc7bd8bbc",
+          "clear_stored_element": "5a072e84b28a",
+          "click_element": "73cfc4ca023a",
+          "clone_element_complete": "56dc98c7dbca",
+          "clone_element_progressive": "e3b9dbe24193",
+          "clone_element_to_file": "56dc98c7dbca",
+          "close_instance": "2af5bb7a06e3",
+          "close_tab": "d5b79ed81bd8",
+          "create_dynamic_hook": "030e6ead5dd3",
+          "create_page_binding": "f972941debd9",
+          "create_persistent_function": "78d48945e52d",
+          "create_simple_dynamic_hook": "6d6c1707e8ee",
+          "discover_global_functions": "9b152b1cb12b",
+          "discover_object_methods": "ccebf14f0791",
+          "execute_cdp_command": "8c7bb02fb84b",
+          "execute_function_sequence": "2350a7f73f8b",
+          "execute_python_in_browser": "b6f4d374de82",
+          "execute_script": "2a56e3a2440d",
+          "expand_animations": "5a072e84b28a",
+          "expand_children": "75eaacd77b94",
+          "expand_css_rules": "86164f6e9e9c",
+          "expand_events": "94bd9d368808",
+          "expand_pseudo_elements": "5a072e84b28a",
+          "expand_styles": "ccec79b88033",
+          "export_debug_logs": "9626c7b1d638",
+          "export_network_data": "ccd47bc2a852",
+          "extract_complete_element_cdp": "e3b9dbe24193",
+          "extract_complete_element_to_file": "e3b9dbe24193",
+          "extract_element_animations": "3815acdfd9e3",
+          "extract_element_animations_to_file": "3815acdfd9e3",
+          "extract_element_assets": "d4c2d8b5d48d",
+          "extract_element_assets_to_file": "d4c2d8b5d48d",
+          "extract_element_events": "a0944a4f2d5a",
+          "extract_element_events_to_file": "9f4e249416f6",
+          "extract_element_structure": "feeb4fabe609",
+          "extract_element_structure_to_file": "feeb4fabe609",
+          "extract_element_styles": "6be64ebc5000",
+          "extract_element_styles_cdp": "6be64ebc5000",
+          "extract_element_styles_to_file": "6be64ebc5000",
+          "extract_related_files": "c0b809eec2d9",
+          "file_upload": "7cea7776b7dc",
+          "get_active_tab": "2af5bb7a06e3",
+          "get_cookies": "dad272af616d",
+          "get_debug_lock_status": "efddc7bd8bbc",
+          "get_debug_view": "5809f01f1f57",
+          "get_dynamic_hook_details": "aa11f34f5bc0",
+          "get_element_state": "84d0217979b3",
+          "get_execution_contexts": "2af5bb7a06e3",
+          "get_function_executor_info": "5bc3686a9f3a",
+          "get_hook_common_patterns": "efddc7bd8bbc",
+          "get_hook_documentation": "efddc7bd8bbc",
+          "get_hook_examples": "efddc7bd8bbc",
+          "get_hook_requirements_documentation": "efddc7bd8bbc",
+          "get_instance_state": "2af5bb7a06e3",
+          "get_network_capture_filters": "2af5bb7a06e3",
+          "get_page_binding_calls": "a5c3d661a57f",
+          "get_page_content": "a43433026370",
+          "get_request_details": "9cda1f883404",
+          "get_response_content": "c33bbcde0619",
+          "get_response_details": "9cda1f883404",
+          "go_back": "2af5bb7a06e3",
+          "go_forward": "2af5bb7a06e3",
+          "hot_reload": "efddc7bd8bbc",
+          "import_network_data": "ccd47bc2a852",
+          "inject_and_execute_script": "bc4d7f7d66ef",
+          "inspect_function_signature": "ecd4af971611",
+          "list_cdp_commands": "efddc7bd8bbc",
+          "list_clone_files": "efddc7bd8bbc",
+          "list_dynamic_hooks": "5bc3686a9f3a",
+          "list_instances": "efddc7bd8bbc",
+          "list_network_requests": "f75af40433af",
+          "list_stored_elements": "efddc7bd8bbc",
+          "list_tabs": "2af5bb7a06e3",
+          "modify_headers": "b7f4ad4070b9",
+          "navigate": "f882287b77dd",
+          "new_tab": "8fc6892f7fed",
+          "paste_text": "d0a4f4aa6548",
+          "press_key": "be5489af181e",
+          "query_elements": "8dc3f92a62a1",
+          "reload_page": "3eb3e12c37d0",
+          "reload_status": "efddc7bd8bbc",
+          "remove_dynamic_hook": "aa11f34f5bc0",
+          "remove_page_binding": "706fe840b2f5",
+          "resolve_page_binding_call": "f3804f0d8c06",
+          "scroll_page": "08ba4b0a243a",
+          "search_network_requests": "2364be54d6c1",
+          "select_option": "4326b5d96d2a",
+          "set_cookie": "ca82c4bc60e4",
+          "set_network_capture_filters": "40be99c2263c",
+          "spawn_browser": "b2691df9a447",
+          "switch_tab": "d5b79ed81bd8",
+          "take_screenshot": "0006aa469894",
+          "type_text": "0f011065ff7c",
+          "validate_browser_environment_tool": "efddc7bd8bbc",
+          "validate_hook_function": "378afda04b5d",
+          "wait_for_element": "405888db5428"
+        }
+      }
     },
     {
       "id": "naulon-wayfarer-mcp",
@@ -67190,7 +69022,7 @@
       "round": "fleet",
       "versionTested": "0.8.0",
       "serverInfoName": "wayfarer-mcp",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -67469,7 +69301,19 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "naulon_appraise": "9b9007450913",
+          "naulon_discover": "0b8ea5da1313",
+          "naulon_pay_and_read": "0022166f9f1c",
+          "naulon_quote": "96d80b717d06",
+          "naulon_read_held": "f70060a8efb7",
+          "naulon_research": "a5f29796f663",
+          "naulon_status": "7a014b717a77"
+        }
+      }
     },
     {
       "id": "galaxymovies-mcp",
@@ -67730,7 +69574,7 @@
       "round": "fleet",
       "versionTested": "0.5.2",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-20",
+      "testedAt": "2026-11-25",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -67972,7 +69816,28 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-20",
+        "schemas": {
+          "ask": "da92c7c3f993",
+          "create_api_key": "e7a1de830e75",
+          "directory_stats": "554766dda8c6",
+          "execute_paid_verification": "9d17ce555b68",
+          "get": "c463115b25d9",
+          "get_agent": "ae8062d5dc06",
+          "get_mcp_server": "ecbf07cd3a86",
+          "get_paid_verification": "724e72d43574",
+          "list_categories": "6c1e203d1e2b",
+          "prepare_paid_verification": "d5d4778cc3e8",
+          "recommend": "b20a86658ceb",
+          "search": "3b5a9057b241",
+          "search_agents": "e32af9b8ba18",
+          "search_all": "90423bd28f26",
+          "search_mcp_servers": "601577b30f22",
+          "stats": "1bb9badcb185"
+        }
+      }
     },
     {
       "id": "shiwake-ai-mcp",
@@ -88417,6 +90282,558 @@
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"shipready_list_rules\" is covered by the core checks only: the tool takes no parameters",
         "tool \"shipready_list_rules\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "devicemock",
+      "name": "devicemock",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.3.1",
+      "serverInfoName": "devicemock",
+      "testedAt": "2026-11-25",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y devicemock@0.3.1 mcp",
+      "transport": "stdio",
+      "toolCount": 21,
+      "tools": [
+        "list_devices",
+        "list_presets",
+        "new_mockup",
+        "resize_canvas",
+        "set_background",
+        "add_device",
+        "update_device",
+        "remove_device",
+        "list_fonts",
+        "add_text",
+        "update_text",
+        "remove_layer",
+        "get_mockup",
+        "preview",
+        "export_mockup",
+        "export_store_sizes",
+        "save_mockup",
+        "open_mockup",
+        "list_projects",
+        "open_from_project",
+        "save_to_project"
+      ],
+      "toolSchemas": {
+        "add_device": "66f5547329f1",
+        "add_text": "fd4ec54ba85d",
+        "export_mockup": "3e07de5438e1",
+        "export_store_sizes": "051938f4d91e",
+        "get_mockup": "f973399805c1",
+        "list_devices": "f973399805c1",
+        "list_fonts": "f973399805c1",
+        "list_presets": "f973399805c1",
+        "list_projects": "f973399805c1",
+        "new_mockup": "d4bbedab1c18",
+        "open_from_project": "770588694160",
+        "open_mockup": "be9e0bc52f30",
+        "preview": "f06a6fc359d6",
+        "remove_device": "e266809485c2",
+        "remove_layer": "329dbf7fd6bf",
+        "resize_canvas": "a8917c4282b2",
+        "save_mockup": "031cb5bdd00b",
+        "save_to_project": "6ca12e366a30",
+        "set_background": "614abcf4f8b7",
+        "update_device": "192bfec47ac9",
+        "update_text": "c3fcee42508d"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "D",
+          "points": 0.5,
+          "scored": 1,
+          "pct": 50,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 21 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 21 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "75 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": [
+              "list_devices",
+              "list_presets",
+              "list_fonts",
+              "get_mockup",
+              "list_projects"
+            ]
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 80 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "part",
+          "summary": "declared read-only; only caches changed (sandbox home or temp): list_devices, list_projects (list_presets, list_fonts, get_mockup, preview not judged: the control call failed)"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "no tool declares openWorldHint: false that could be given a harness-owned control argument"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no unannotated read-style tool could be given a harness-owned control argument",
+          "tools": {
+            "probed": [],
+            "notCovered": [
+              "export_mockup",
+              "save_mockup",
+              "save_to_project"
+            ]
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 6,
+        "toolsCalledValid": 6,
+        "toolsTotal": 21,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": true
+      },
+      "notCovered": [
+        "tool \"export_mockup\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"save_mockup\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tool \"save_to_project\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"list_devices\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"list_presets\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"new_mockup\" is covered by the core checks only: free-text parameter \"preset\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"resize_canvas\" is covered by the core checks only: free-text parameter \"preset\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"set_background\" is covered by the core checks only: free-text parameter \"color\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"add_device\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"update_device\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"remove_device\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_fonts\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"add_text\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"update_text\" is covered by the core checks only: argument \"name\" could be a path, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"remove_layer\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "6 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"list_devices\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "tool \"list_presets\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "tool \"list_fonts\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "tool \"get_mockup\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "tool \"list_projects\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "zolva-mcp",
+      "name": "@zolva/mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "1.0.0",
+      "serverInfoName": "mcp",
+      "testedAt": "2026-11-25",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @zolva/mcp@1.0.0",
+      "transport": "stdio",
+      "toolCount": 7,
+      "tools": [
+        "list_agents",
+        "get_agent",
+        "verify_agent",
+        "list_markets",
+        "get_market",
+        "recent_activity",
+        "get_consensus"
+      ],
+      "toolSchemas": {
+        "get_agent": "87fc2dafa495",
+        "get_consensus": "59818ceb47f6",
+        "get_market": "c2de4e57ea8b",
+        "list_agents": "58b2c8450c6c",
+        "list_markets": "be3a583ec2b5",
+        "recent_activity": "131e2efd03c5",
+        "verify_agent": "87fc2dafa495"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a file path with medium confidence or higher"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 7 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 7 tool definition(s), the server instructions and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "31 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 31 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "pass",
+          "summary": "the instructions name no tool the server lacks"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "list_agents, list_markets, recent_activity, get_consensus declared read-only and changed nothing in the observed directories during a benign call"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "4 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 4,
+        "toolsCalledValid": 4,
+        "toolsTotal": 7,
+        "level": "covered"
+      },
+      "badge": {
+        "eligible": true
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"list_agents\" is covered by the core checks only: free-text parameter \"market\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_agent\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"verify_agent\" is covered by the core checks only: free-text parameter \"id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_markets\" is covered by the core checks only: no free-text parameter: every string parameter is an enum; add it under tools: to include it",
+        "tool \"get_market\" is covered by the core checks only: free-text parameter \"symbol\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"recent_activity\" is covered by the core checks only: free-text parameter \"market\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_consensus\" is covered by the core checks only: free-text parameter \"market\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",

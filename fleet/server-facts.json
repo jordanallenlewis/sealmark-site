@@ -1894,6 +1894,26 @@
         ]
       }
     },
+    "devicemock": {
+      "checkedAt": "2026-11-25",
+      "source": "npm",
+      "license": "SEE LICENSE IN LICENSE",
+      "latest": {
+        "version": "0.3.1",
+        "date": "2026-11-25"
+      },
+      "repo": null,
+      "about": {
+        "keywords": [
+          "3d",
+          "device-mockup",
+          "mcp",
+          "mcp-server",
+          "mockup",
+          "screenshot"
+        ]
+      }
+    },
     "dinglebear-labby": {
       "checkedAt": "2026-11-25",
       "source": "npm",
@@ -7889,6 +7909,31 @@
           "claude-code",
           "decision-model",
           "jev"
+        ]
+      }
+    },
+    "zolva-mcp": {
+      "checkedAt": "2026-11-25",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.0.0",
+        "date": "2026-11-25"
+      },
+      "repo": {
+        "name": "zolvaagent/zolva",
+        "pushedAt": "2026-11-25",
+        "archived": false,
+        "openIssues": 2
+      },
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "zolva",
+          "trading-agents",
+          "robinhood-chain",
+          "paper-trading"
         ]
       }
     }
