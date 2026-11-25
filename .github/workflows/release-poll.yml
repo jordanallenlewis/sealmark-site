@@ -50,4 +50,15 @@ jobs:
 
       - name: start the next poll run
         if: always()
-        run: gh workflow run release-poll.yml -R "$REPO"
+        run: |
+          for attempt in 1 2 3 4 5; do
+            if gh workflow run release-poll.yml -R "$REPO"; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 5 ]; then
+              echo "dispatch attempt $attempt failed, retrying in $(( attempt * 20 ))s"
+              sleep $(( attempt * 20 ))
+            fi
+          done
+          echo "dispatch failed after 5 attempts"
+          exit 1
