@@ -9,7 +9,7 @@
       "round": "fleet",
       "versionTested": "2.1.0",
       "serverInfoName": "dbhub",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -5934,7 +5934,7 @@
       "round": "fleet",
       "versionTested": "1.6.4",
       "serverInfoName": "mcp-fetch",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -6162,7 +6162,13 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-21",
+        "schemas": {
+          "imageFetch": "f1753a036421"
+        }
+      }
     },
     {
       "id": "knowledge-graph",
@@ -10739,7 +10745,7 @@
       "round": "fleet",
       "versionTested": "0.1.6",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -10937,9 +10943,9 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
-          "achromat_recall": "a841737ff034",
+          "achromat_recall": "503353dcfab5",
           "achromat_register_identity": "5cf2cef70486"
         }
       }
@@ -14739,7 +14745,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-25",
+        "date": "2026-11-26",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -29045,7 +29051,7 @@
       "round": "fleet",
       "versionTested": "0.1.25",
       "serverInfoName": "rightcard-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -29252,9 +29258,9 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
-          "best_card": "6908dde066bd",
+          "best_card": "cddf59bbc260",
           "card": "c8af00a8c051",
           "lookup_merchant": "288aba60e8de",
           "rotating_calendar": "d81c78d80bd2",
@@ -37130,7 +37136,7 @@
       "round": "fleet",
       "versionTested": "0.9.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -37355,7 +37361,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "approve_all": "7a014b717a77",
           "approve_snapshot": "31f996f132f1",
@@ -48485,7 +48491,7 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "ipforai-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -48722,9 +48728,11 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
+          "check_ai_weather": "7a014b717a77",
           "check_my_ip": "7a014b717a77",
+          "lookup_asn": "22626a2a8bf3",
           "lookup_ip": "407f78cfa87d"
         }
       }
@@ -59442,7 +59450,7 @@
       "round": "fleet",
       "versionTested": "0.8.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -59482,7 +59490,7 @@
         "result": "6fd7ffd8dd47",
         "session": "02c7d7caa441",
         "stocks": "d16f00847511",
-        "use": "61a1a43040b2",
+        "use": "10e5ce0d7366",
         "vaaya_account": "efddc7bd8bbc",
         "vaaya_logout": "efddc7bd8bbc",
         "vaaya_onboard": "efddc7bd8bbc",
@@ -59750,7 +59758,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "buy": "dbfe34bfed9a",
           "close": "b95b5091a65b",
@@ -61058,7 +61066,7 @@
       "round": "fleet",
       "versionTested": "1.3.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -61331,14 +61339,14 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "delete_predictions": "9f1842831f07",
           "edit_image": "61f6a109692e",
-          "edit_video": "b1151f159fc5",
-          "extend_video": "417da4cfcb87",
+          "edit_video": "8822243b7816",
+          "extend_video": "dbcd779d07a2",
           "generate_image": "e708507626b6",
-          "generate_video": "f59d4a5b9440",
+          "generate_video": "2cfa6a1bf6ed",
           "get_balance": "71fc596a20f2",
           "get_model_schema": "3098fa43211f",
           "get_prediction": "544912023521",
@@ -65193,10 +65201,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.490",
-      "versionTested": "1.108.490",
+      "refTested": "1.108.493",
+      "versionTested": "1.108.493",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-25",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -65438,7 +65446,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-24",
+        "date": "2026-11-25",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -69975,7 +69983,7 @@
       "round": "fleet",
       "versionTested": "1.1.8",
       "serverInfoName": "shiwake-ai-mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -70226,7 +70234,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-21",
         "schemas": {
           "entaizei_keisan": "cd5e31bdaeca",
           "furusato_nozei_jogen": "07e1d083108e",
@@ -70247,7 +70255,7 @@
       "round": "fleet",
       "versionTested": "1.15.0",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-21",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -73664,6 +73672,12 @@
           "huddo_whisper": "c91536a6914d",
           "huddo_whoami": "0abbd2cdde3a"
         }
+      },
+      "lastAttempt": {
+        "date": "2026-11-26",
+        "status": "failed",
+        "kind": "start-fail",
+        "startKind": "bad-launch"
       }
     },
     {
@@ -84562,18 +84576,18 @@
       "name": "qiksy-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.88.0",
+      "versionTested": "1.89.2",
       "serverInfoName": "qiksy-mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y qiksy-mcp@1.88.0",
+      "launch": "npx -y qiksy-mcp@1.89.2",
       "transport": "stdio",
-      "toolCount": 84,
+      "toolCount": 87,
       "tools": [
         "qa_collect",
         "qa_steps",
@@ -84626,6 +84640,9 @@
         "qa_report",
         "qa_spotlight",
         "qa_click_point",
+        "qa_real_mouse",
+        "qa_real_keys",
+        "qa_window_shot",
         "qa_drag_point",
         "qa_hover",
         "qa_click",
@@ -84705,6 +84722,8 @@
         "qa_press": "a8b16b28e565",
         "qa_probe": "38dcf0a7c5da",
         "qa_read": "6b91250b69c5",
+        "qa_real_keys": "b7f7c88f13e1",
+        "qa_real_mouse": "e4a099ffe0fc",
         "qa_recipe_apply": "487a6937128a",
         "qa_recipe_list": "ffe1cd26da9e",
         "qa_recipe_save": "08669632c42b",
@@ -84744,6 +84763,7 @@
         "qa_webmcp_call": "c522e3085282",
         "qa_webmcp_list": "2f5c92b32fa6",
         "qa_width_law": "d74c3426f901",
+        "qa_window_shot": "2f5c92b32fa6",
         "qa_wiring": "b906fe00c912"
       },
       "packs": [
@@ -84852,7 +84872,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 84 well-formed tool(s)"
+          "summary": "handshake ok, 87 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -84861,7 +84881,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 84 tool definition(s), the server instructions and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
+          "summary": "scanned 87 tool definition(s), the server instructions and serverInfo, 1 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -84900,6 +84920,9 @@
               "qa_report",
               "qa_spotlight",
               "qa_click_point",
+              "qa_real_mouse",
+              "qa_real_keys",
+              "qa_window_shot",
               "qa_drag_point",
               "qa_hover",
               "qa_click",
@@ -85034,7 +85057,7 @@
       "coverage": {
         "validCalls": 25,
         "toolsCalledValid": 28,
-        "toolsTotal": 84,
+        "toolsTotal": 87,
         "level": "low"
       },
       "badge": {
@@ -85042,7 +85065,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 84 tools",
+        "malformed-input probes cover the first 25 of 87 tools",
         "tool \"qa_focus_proof\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"qa_annotate\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tool \"qa_upload\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
@@ -85069,7 +85092,7 @@
         "tool \"qa_shot_drop\" is covered by the core checks only: free-text parameter \"shot\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"qa_report_build\" is covered by the core checks only: free-text parameter \"out\": no path, URL, command, SQL or repository signal; its required parameter \"blocks\" cannot be filled by the harness; write a probes: entry to call it",
         "tool \"qa_draft\" is covered by the core checks only: the tool has no string parameters; add it under tools: to include it",
-        "55 more tool(s) are covered by the core checks only (see the classification)",
+        "58 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"qa_wiring\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_focus_proof\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_annotate\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -85096,6 +85119,9 @@
         "tool \"qa_report\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_spotlight\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_click_point\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"qa_real_mouse\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"qa_real_keys\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"qa_window_shot\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_drag_point\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_hover\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"qa_click\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -85139,90 +85165,92 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
-          "qa_annotate": "8da67f138c25",
-          "qa_axe": "23fc6154186d",
-          "qa_click": "81e368a543b6",
-          "qa_click_point": "9e3cb955e248",
-          "qa_close_tab": "cbc845cfb50c",
-          "qa_collect": "fc535dd2f51b",
-          "qa_dialogs": "c326b15c8fe3",
-          "qa_diff": "940dbcd10f6f",
-          "qa_done": "f6bd1da62a77",
-          "qa_draft": "709f6de4d762",
-          "qa_draft_add": "fb925b73357e",
-          "qa_draft_build": "484a15d46cbd",
-          "qa_draft_clear": "709f6de4d762",
-          "qa_draft_drop": "e49dbbedd074",
-          "qa_draft_edit": "ab3eb31e6139",
-          "qa_draft_meta": "97eeb7de882a",
-          "qa_draft_move": "b94a24e06f32",
-          "qa_drag_point": "fcacd5a88072",
-          "qa_export": "23fc6154186d",
-          "qa_failure_gallery": "9f47e11519b1",
-          "qa_fill_json": "a79de6ac1dd2",
-          "qa_findings": "c11083f5697f",
-          "qa_focus_proof": "b785f694143c",
-          "qa_focus_tab": "98656b8439b5",
-          "qa_focus_walk": "6d272692d4f6",
-          "qa_follow": "bf513b11316d",
-          "qa_frames": "709f6de4d762",
-          "qa_gap": "739df3f689a3",
-          "qa_help": "b681ab69d739",
-          "qa_hover": "1c510d81a37b",
-          "qa_mock": "7f4584ab8da0",
-          "qa_navigate": "a6c1972e01fa",
-          "qa_odd_one_out": "0778663ff202",
-          "qa_open_isolated": "8e28bd178f67",
-          "qa_open_panel": "9b0905641015",
-          "qa_open_tab": "84637eebeaa6",
-          "qa_pick_date": "90ace5eae47e",
-          "qa_pick_path": "e114c80fca36",
-          "qa_pick_range": "88873f6c3079",
-          "qa_pick_tags": "bc325dc61c68",
-          "qa_pick_time": "2a86f545d33f",
-          "qa_press": "7395618dacbf",
-          "qa_probe": "4bdf52328b25",
-          "qa_read": "a2243c6a31d0",
-          "qa_recipe_apply": "8fc578756374",
-          "qa_recipe_list": "838959691e3b",
-          "qa_recipe_save": "6cd38b38b4ce",
-          "qa_reload": "676cb34acfb5",
-          "qa_report": "37df645babcc",
-          "qa_report_build": "e260d5bf174c",
-          "qa_report_drop": "14afc845b1de",
-          "qa_report_edit": "8860dda33aad",
-          "qa_report_get": "952bdbc40fb9",
-          "qa_reports": "709f6de4d762",
-          "qa_run_audit": "23fc6154186d",
-          "qa_scenario_get": "781fa7677569",
-          "qa_scenario_run": "54ba19269b7d",
-          "qa_scenario_save": "4cf2aa47ff72",
-          "qa_scenarios": "010bca742c0f",
-          "qa_screenshot": "45932066212d",
-          "qa_shot_crop": "357a651df9a5",
-          "qa_shot_drop": "359fb268e645",
-          "qa_shot_list": "709f6de4d762",
-          "qa_shot_mark": "7e890e5b2dfe",
-          "qa_shot_read": "359fb268e645",
-          "qa_snapshot": "21ddf393875b",
-          "qa_spotlight": "34a572dba9dd",
-          "qa_status": "709f6de4d762",
-          "qa_steps": "cd863a1b66e3",
-          "qa_storage": "072dcae99ecc",
-          "qa_styles": "0e187082e7b2",
-          "qa_suite_run": "7e0e7576964d",
-          "qa_tabs": "7a014b717a77",
-          "qa_tour": "709f6de4d762",
-          "qa_type": "ec7ec0896672",
-          "qa_type_many": "66284289141b",
-          "qa_upload": "56cade1fdbc3",
-          "qa_wait_for": "63acff2f610d",
-          "qa_wait_ready": "0ad6672563b7",
-          "qa_watch": "6dca68e1d537",
-          "qa_width_law": "155784890d59",
-          "qa_wiring": "084fd7e2669a"
+          "qa_annotate": "15b6d00cdcb5",
+          "qa_axe": "06ff8c297c46",
+          "qa_click": "e324e96abd32",
+          "qa_click_point": "801b6eb18031",
+          "qa_close_tab": "ddaee0335513",
+          "qa_collect": "6c3084f70e66",
+          "qa_dialogs": "975a320377b3",
+          "qa_diff": "014b026fcbf5",
+          "qa_done": "61a724700f2a",
+          "qa_draft": "2f5c92b32fa6",
+          "qa_draft_add": "6d23c52fee5a",
+          "qa_draft_build": "7add801cfad6",
+          "qa_draft_clear": "2f5c92b32fa6",
+          "qa_draft_drop": "92102bf2bb8c",
+          "qa_draft_edit": "6e7cb126bc2b",
+          "qa_draft_meta": "6ff39da4a766",
+          "qa_draft_move": "80b788b6b139",
+          "qa_drag_point": "c0775a27ce49",
+          "qa_export": "06ff8c297c46",
+          "qa_failure_gallery": "abf593356c82",
+          "qa_fill_json": "71a7c1cd0ff3",
+          "qa_findings": "69e7ce517c09",
+          "qa_focus_proof": "47380f0fe026",
+          "qa_focus_tab": "bc8f98c759d1",
+          "qa_focus_walk": "19e50b0e575a",
+          "qa_follow": "959b4ddd29bd",
+          "qa_frames": "2f5c92b32fa6",
+          "qa_gap": "8f19e1d49bfb",
+          "qa_help": "00134a422aa0",
+          "qa_hover": "1584f5c40fa5",
+          "qa_mock": "b0700e29d78d",
+          "qa_navigate": "44fc2a37873a",
+          "qa_odd_one_out": "7f38f6d6d466",
+          "qa_open_isolated": "8f275b7e0679",
+          "qa_open_panel": "9aa621b61026",
+          "qa_open_tab": "e4224a75cf15",
+          "qa_pick_date": "12884dcb36ec",
+          "qa_pick_path": "5909f1abd693",
+          "qa_pick_range": "9b01d2b850cc",
+          "qa_pick_tags": "24475ddd5c44",
+          "qa_pick_time": "e9de5d025859",
+          "qa_press": "a8b16b28e565",
+          "qa_probe": "38dcf0a7c5da",
+          "qa_read": "6b91250b69c5",
+          "qa_recipe_apply": "487a6937128a",
+          "qa_recipe_list": "ffe1cd26da9e",
+          "qa_recipe_save": "08669632c42b",
+          "qa_reload": "40030cdb5422",
+          "qa_report": "9e1adea4f445",
+          "qa_report_build": "04c5560fb9e4",
+          "qa_report_drop": "f8cc018b397e",
+          "qa_report_edit": "eb172d793263",
+          "qa_report_get": "3512447a8a6f",
+          "qa_reports": "2f5c92b32fa6",
+          "qa_run_audit": "06ff8c297c46",
+          "qa_scenario_get": "f76673773582",
+          "qa_scenario_run": "ef21124be2c5",
+          "qa_scenario_save": "0fcebe6060aa",
+          "qa_scenarios": "2a847ed33429",
+          "qa_screenshot": "7036e3c7d614",
+          "qa_shot_crop": "40b04ad60317",
+          "qa_shot_drop": "c604ffda42ee",
+          "qa_shot_list": "2f5c92b32fa6",
+          "qa_shot_mark": "e324e15119ac",
+          "qa_shot_read": "c604ffda42ee",
+          "qa_snapshot": "48fdc487287c",
+          "qa_spotlight": "409a9ff54808",
+          "qa_status": "2f5c92b32fa6",
+          "qa_steps": "0631f909b3fc",
+          "qa_storage": "2195660cc00a",
+          "qa_styles": "9367f9a5948e",
+          "qa_suite_run": "61ab3f764271",
+          "qa_tabs": "93ab7499dc3c",
+          "qa_tour": "2f5c92b32fa6",
+          "qa_type": "58e2c644a0dd",
+          "qa_type_many": "977eae7fc149",
+          "qa_upload": "d4f16d27f377",
+          "qa_wait_for": "28d437f793f4",
+          "qa_wait_ready": "ed71f7301674",
+          "qa_watch": "1f13a1475d40",
+          "qa_webmcp_call": "c522e3085282",
+          "qa_webmcp_list": "2f5c92b32fa6",
+          "qa_width_law": "d74c3426f901",
+          "qa_wiring": "b906fe00c912"
         }
       }
     },
@@ -88169,16 +88197,16 @@
       "name": "@catalystdesk/mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.3.0",
+      "versionTested": "1.3.1",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-24",
+      "testedAt": "2026-11-26",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @catalystdesk/mcp-server@1.3.0",
+      "launch": "npx -y @catalystdesk/mcp-server@1.3.1",
       "transport": "stdio",
       "toolCount": 10,
       "tools": [
@@ -88353,8 +88381,8 @@
           "label": "Server instructions name only tools that exist",
           "critical": false,
           "advisory": true,
-          "verdict": "pass",
-          "summary": "the instructions name no tool the server lacks"
+          "verdict": "fail",
+          "summary": "the server instructions names 1 tool(s) the server does not offer (polygon_rate_limited)"
         },
         {
           "id": "annotation-honesty",
@@ -88426,12 +88454,13 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-23",
+        "date": "2026-11-24",
         "schemas": {
           "compute_dynamic_regime": "9efd169fc76e",
           "compute_execution_guardrail": "459793971c54",
           "compute_multiframe_resonance": "e8e84f998401",
           "get_delayed_regime_lite": "2a856e007cfa",
+          "get_polygon_data_status": "d746974fa9af",
           "get_regime_snapshot": "c6a4646f1e2d",
           "get_session_status": "9e116a305594",
           "list_curated_symbols": "d746974fa9af",
@@ -90997,6 +91026,342 @@
         "tool \"get_market\" is covered by the core checks only: free-text parameter \"symbol\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"recent_activity\" is covered by the core checks only: free-text parameter \"market\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_consensus\" is covered by the core checks only: free-text parameter \"market\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
+      ],
+      "warnings": [],
+      "automated": true
+    },
+    {
+      "id": "casama-mcp",
+      "name": "@casama/mcp",
+      "ecosystem": "npm",
+      "round": "fleet",
+      "versionTested": "0.2.3",
+      "serverInfoName": "mcp",
+      "testedAt": "2026-11-26",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "npx -y @casama/mcp@0.2.3",
+      "transport": "stdio",
+      "toolCount": 25,
+      "tools": [
+        "search_docs",
+        "read_doc",
+        "list_doc_pages",
+        "get_api_operation",
+        "check_plugin",
+        "gallery_search",
+        "list_workspaces",
+        "list_bots",
+        "ask_bot",
+        "react_to_message",
+        "get_run",
+        "list_approvals",
+        "decide_approval",
+        "what_needs_me",
+        "list_routines",
+        "run_routine",
+        "list_sites",
+        "list_domains",
+        "get_domain",
+        "check_domain",
+        "connect_domain",
+        "search_domains",
+        "list_packs",
+        "preview_pack",
+        "install_pack"
+      ],
+      "toolSchemas": {
+        "ask_bot": "7e619413d2e2",
+        "check_domain": "cdaa759e800e",
+        "check_plugin": "9d8b93084647",
+        "connect_domain": "324143c67d5a",
+        "decide_approval": "2716d3f570ca",
+        "gallery_search": "a8f9c35f79a8",
+        "get_api_operation": "89c931df28d9",
+        "get_domain": "9152b7fa3fee",
+        "get_run": "55843b8922f6",
+        "install_pack": "81420fa23794",
+        "list_approvals": "8b480435564f",
+        "list_bots": "cbbd93c16640",
+        "list_doc_pages": "efddc7bd8bbc",
+        "list_domains": "8b480435564f",
+        "list_packs": "8b480435564f",
+        "list_routines": "376ef1dda897",
+        "list_sites": "8b480435564f",
+        "list_workspaces": "efddc7bd8bbc",
+        "preview_pack": "664c5cbdf977",
+        "react_to_message": "81c6478846e8",
+        "read_doc": "3a3b6a89c71c",
+        "run_routine": "9e00d05ccaf3",
+        "search_docs": "aeb2604163fe",
+        "search_domains": "bf1f72425f58",
+        "what_needs_me": "8b480435564f"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (18 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "graded",
+          "letter": "A",
+          "points": 2,
+          "scored": 2,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 25 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 25 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "106 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [
+              "list_doc_pages"
+            ],
+            "notCovered": [
+              "list_workspaces"
+            ]
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 108 captured response(s), 1 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "net-loopback-ssrf",
+          "pack": "net",
+          "label": "Refuses loopback targets (SSRF)",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (18 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-scheme-allowlist",
+          "pack": "net",
+          "label": "Only http(s) schemes accepted",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "no scheme had an observable effect, but 12 of 12 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+        },
+        {
+          "id": "net-caps",
+          "pack": "net",
+          "label": "Response size and time are capped",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "net-loopback-ssrf was inconclusive: the server never reached the loopback listener, so no loopback URL is known to be fetchable; response size and time caps were not measured"
+        },
+        {
+          "id": "net-redirect",
+          "pack": "net",
+          "label": "Redirects are re-validated",
+          "critical": false,
+          "advisory": false,
+          "verdict": "na",
+          "summary": "the server refused or never reached the loopback listener, so redirect handling could not be observed (a server that blocks loopback cannot be sent a redirect it would follow)"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "list_doc_pages declared read-only and changed nothing in the observed directories during a benign call (check_plugin, list_workspaces, list_bots, list_approvals, what_needs_me, list_routines, list_sites, list_domains, list_packs, preview_pack not judged: the control call failed)"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "10 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 12,
+        "toolsCalledValid": 11,
+        "toolsTotal": 25,
+        "level": "low"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "a pack has an inconclusive critical check"
+      },
+      "notCovered": [
+        "tool \"install_pack\" (url) was not probed by the net pack: the listener saw nothing, but 18 of 18 probes were not explicitly refused (18 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"search_docs\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "tool \"read_doc\" is covered by the core checks only: argument \"page\" could be a URL, but nothing in the tool name, its title or the parameter's own description says so; add it under tools: to include it",
+        "tool \"list_doc_pages\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"get_api_operation\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "tool \"gallery_search\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "tool \"list_workspaces\" is covered by the core checks only: the tool takes no parameters",
+        "tool \"list_bots\" is covered by the core checks only: free-text parameter \"workspace\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"ask_bot\" is covered by the core checks only: free-text parameter \"bot\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"react_to_message\" is covered by the core checks only: free-text parameter \"bot\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"get_run\" is covered by the core checks only: free-text parameter \"run_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"list_approvals\" is covered by the core checks only: free-text parameter \"workspace\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"decide_approval\" is covered by the core checks only: free-text parameter \"approval_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "10 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"list_workspaces\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
+        "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
         "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
         "prompt injection carried in tool output (only tool metadata is scanned)",
         "authentication and transport security",

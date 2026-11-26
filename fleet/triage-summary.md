@@ -1,7 +1,7 @@
 ## Fleet triage
 
-Window: 600 results (508 graded, 92 failed). 1 issue cluster(s).
+Window: 600 results (500 graded, 100 failed). 1 issue cluster(s).
 
 | kind | cluster | servers |
 |---|---|---|
-| slow-path | Slow runs: 4 servers took over 5 min or timed out | 4 |
+| slow-path | Slow runs: 5 servers took over 5 min or timed out | 5 |

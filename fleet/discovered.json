@@ -1498,5 +1498,11 @@
     "name": "@zolva/mcp",
     "ecosystem": "npm",
     "launch": "npx -y @zolva/mcp@1.0.0"
+  },
+  {
+    "id": "casama-mcp",
+    "name": "@casama/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @casama/mcp@0.2.3"
   }
 ]

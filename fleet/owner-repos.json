@@ -199,6 +199,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-22"
   },
+  "casama-mcp": {
+    "repo": "casama-ai/casama",
+    "source": "npm",
+    "resolvedAt": "2026-11-26"
+  },
   "catalystdesk-mcp-server": {
     "repo": null,
     "source": "npm",

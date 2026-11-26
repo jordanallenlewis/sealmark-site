@@ -2,28 +2,63 @@
   "count": 149,
   "byReason": {
     "missing-runtime": 8,
-    "exited-no-error": 71,
+    "initialize-timeout": 13,
     "bad-launch": 7,
+    "exited-no-error": 70,
     "unknown": 10,
     "dependency-resolution": 27,
     "needs-credentials": 11,
-    "initialize-timeout": 12,
     "needs-service": 3
   },
   "servers": [
     {
       "id": "chrisryugj-kordoc",
-      "version": "4.25.20",
-      "lastTried": "2026-11-25",
-      "attempts": 32,
+      "version": "4.25.22",
+      "lastTried": "2026-11-26",
+      "attempts": 33,
       "reason": "missing-runtime"
     },
     {
-      "id": "dosco-deeporg",
-      "version": "3.21.32",
-      "lastTried": "2026-11-25",
+      "id": "czlonkowski-n8n-mcp",
+      "version": "2.104.0",
+      "lastTried": "2026-11-26",
       "attempts": 5,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "dosco-deeporg",
+      "version": "3.22.0",
+      "lastTried": "2026-11-26",
+      "attempts": 6,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "mirobody",
+      "version": "1.6.3",
+      "lastTried": "2026-11-26",
+      "attempts": 4,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "punitarani-fli",
+      "version": "0.11.1",
+      "lastTried": "2026-11-26",
+      "attempts": 3,
       "reason": "exited-no-error"
+    },
+    {
+      "id": "qybaihe-bla",
+      "version": "bla-agents-3.6.1",
+      "lastTried": "2026-11-26",
+      "attempts": 23,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "xbrlkit",
+      "version": "0.25.5",
+      "lastTried": "2026-11-26",
+      "attempts": 8,
+      "reason": "bad-launch"
     },
     {
       "id": "haris-musa-excel-mcp-server",
@@ -75,13 +110,6 @@
       "reason": "needs-credentials"
     },
     {
-      "id": "punitarani-fli",
-      "version": "0.11.0",
-      "lastTried": "2026-11-25",
-      "attempts": 2,
-      "reason": "exited-no-error"
-    },
-    {
       "id": "ruvnet-ruflo",
       "version": "3.80.8",
       "lastTried": "2026-11-25",
@@ -101,13 +129,6 @@
       "lastTried": "2026-11-25",
       "attempts": 18,
       "reason": "initialize-timeout"
-    },
-    {
-      "id": "xbrlkit",
-      "version": "0.25.3",
-      "lastTried": "2026-11-25",
-      "attempts": 7,
-      "reason": "bad-launch"
     },
     {
       "id": "54yyyu-zotero-mcp",
@@ -142,13 +163,6 @@
       "version": "1.0.20",
       "lastTried": "2026-11-24",
       "attempts": 5,
-      "reason": "missing-runtime"
-    },
-    {
-      "id": "qybaihe-bla",
-      "version": "bla-agents-3.6.0",
-      "lastTried": "2026-11-24",
-      "attempts": 22,
       "reason": "missing-runtime"
     },
     {
@@ -255,20 +269,6 @@
       "lastTried": "2026-11-20",
       "attempts": 2,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "czlonkowski-n8n-mcp",
-      "version": "2.103.2",
-      "lastTried": "2026-11-19",
-      "attempts": 4,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "mirobody",
-      "version": "1.6.2",
-      "lastTried": "2026-11-19",
-      "attempts": 3,
-      "reason": "bad-launch"
     },
     {
       "id": "thenextrace-tnr",

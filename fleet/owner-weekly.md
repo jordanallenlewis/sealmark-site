@@ -1,6 +1,6 @@
 # Owner notices: week of 2026-11-23
 
-Written by `fleet/notify-owners.mjs` on 2026-11-25. "Last 7 days" is 2026-11-19 to 2026-11-25.
+Written by `fleet/notify-owners.mjs` on 2026-11-26. "Last 7 days" is 2026-11-20 to 2026-11-26.
 
 | | Last 7 days | All time |
 |---|---|---|
@@ -25,9 +25,9 @@ None.
 
 None.
 
-## Where every graded server stands (2026-11-25)
+## Where every graded server stands (2026-11-26)
 
-280 graded servers: 0 sent or drafted this run, 29 held for private handling, 23 waiting, 228 skipped.
+281 graded servers: 0 sent or drafted this run, 29 held for private handling, 24 waiting, 228 skipped.
 
 Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (1 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
@@ -38,6 +38,7 @@ Private security reports (GitHub private vulnerability reporting, never public):
 | Reason | Servers |
 |---|---|
 | weak signals only | 22 |
+| stale grade or failed re-test | 1 |
 | flaky across repeat runs | 1 |
 
 ### Skipped (until something changes)
