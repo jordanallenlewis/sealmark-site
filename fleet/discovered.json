@@ -1504,5 +1504,29 @@
     "name": "@casama/mcp",
     "ecosystem": "npm",
     "launch": "npx -y @casama/mcp@0.2.3"
+  },
+  {
+    "id": "foreverlearning-conversations-mcp",
+    "name": "@foreverlearning/conversations-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @foreverlearning/conversations-mcp@0.1.0"
+  },
+  {
+    "id": "foreverlearning-learn-mcp",
+    "name": "@foreverlearning/learn-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @foreverlearning/learn-mcp@0.1.0"
+  },
+  {
+    "id": "kane-beam",
+    "name": "kane-beam",
+    "ecosystem": "npm",
+    "launch": "npx -y kane-beam@0.1.2 mcp"
+  },
+  {
+    "id": "smartclip-mcp",
+    "name": "smartclip-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y smartclip-mcp@1.7.0"
   }
 ]

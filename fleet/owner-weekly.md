@@ -27,7 +27,7 @@ None.
 
 ## Where every graded server stands (2026-11-26)
 
-281 graded servers: 0 sent or drafted this run, 29 held for private handling, 24 waiting, 228 skipped.
+285 graded servers: 0 sent or drafted this run, 29 held for private handling, 24 waiting, 232 skipped.
 
 Sending: open: up to 2 this run. Caps: 2 per run, 6 per day (0 in the last 24 hours), 30 per week (1 in the last 7 days), at least 30 minutes between notices, one notice per owner per 7 days, one issue per repository ever.
 
@@ -45,9 +45,9 @@ Private security reports (GitHub private vulnerability reporting, never public):
 
 | Reason | Servers |
 |---|---|
-| nothing to fix (an A, or no check to name) | 133 |
+| nothing to fix (an A, or no check to name) | 135 |
 | no GitHub repository | 39 |
-| no tool reached (hygiene-only) | 30 |
+| no tool reached (hygiene-only) | 32 |
 | repository not found | 8 |
 | already got its one issue | 7 |
 | package in a subfolder of a larger repository | 5 |

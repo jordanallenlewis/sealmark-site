@@ -2969,6 +2969,64 @@
       },
       "repo": null
     },
+    "foreverlearning-conversations-mcp": {
+      "checkedAt": "2026-11-26",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-11-26"
+      },
+      "repo": {
+        "name": "foreverlearning-engineering/learn-mcp",
+        "pushedAt": "2026-11-26",
+        "archived": false,
+        "openIssues": 0
+      },
+      "claimable": true,
+      "claimPin": 1472307911,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "conversations-api",
+          "roleplay",
+          "conversation-practice",
+          "soft-skills",
+          "sales-training",
+          "interview-practice",
+          "language-practice"
+        ]
+      }
+    },
+    "foreverlearning-learn-mcp": {
+      "checkedAt": "2026-11-26",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.0",
+        "date": "2026-11-26"
+      },
+      "repo": {
+        "name": "foreverlearning-engineering/learn-mcp",
+        "pushedAt": "2026-11-26",
+        "archived": false,
+        "openIssues": 0
+      },
+      "claimable": true,
+      "claimPin": 1472307911,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "learn-api",
+          "tutor",
+          "tutoring",
+          "education",
+          "learning"
+        ]
+      }
+    },
     "formachines-errata-mcp": {
       "checkedAt": "2026-11-26",
       "source": "npm",
@@ -3887,6 +3945,35 @@
           "ai-agents",
           "browser-automation",
           "claude-code"
+        ]
+      }
+    },
+    "kane-beam": {
+      "checkedAt": "2026-11-26",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-11-26"
+      },
+      "repo": {
+        "name": "CryptoZephyr/beam",
+        "pushedAt": "2026-11-26",
+        "archived": false,
+        "openIssues": 0
+      },
+      "claimable": true,
+      "claimPin": 1471820367,
+      "about": {
+        "keywords": [
+          "kane-cli",
+          "testing",
+          "ai-agents",
+          "claude-code",
+          "e2e",
+          "mcp",
+          "mcp-server",
+          "model-context-protocol"
         ]
       }
     },
@@ -6610,6 +6697,47 @@
           "malware-detection",
           "sarif",
           "vscode-extension"
+        ]
+      }
+    },
+    "smartclip-mcp": {
+      "checkedAt": "2026-11-26",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.7.0",
+        "date": "2026-11-26"
+      },
+      "repo": {
+        "name": "ismaike/smartclip-agent",
+        "pushedAt": "2026-11-26",
+        "archived": false,
+        "openIssues": 0
+      },
+      "claimable": true,
+      "claimPin": 1473213503,
+      "about": {
+        "keywords": [
+          "mcp",
+          "mcp-server",
+          "model-context-protocol",
+          "claude-code",
+          "cursor",
+          "windsurf",
+          "gemini-cli",
+          "opencode",
+          "ai-agent",
+          "chrome-extension",
+          "web-clipper",
+          "html-to-markdown",
+          "read-logged-in-pages",
+          "browser-bridge",
+          "smartclip",
+          "obsidian",
+          "notion",
+          "flomo",
+          "siyuan",
+          "logseq"
         ]
       }
     },

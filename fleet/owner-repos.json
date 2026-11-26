@@ -489,6 +489,16 @@
     "source": "npm",
     "resolvedAt": "2026-11-15"
   },
+  "foreverlearning-conversations-mcp": {
+    "repo": "foreverlearning-engineering/learn-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-26"
+  },
+  "foreverlearning-learn-mcp": {
+    "repo": "foreverlearning-engineering/learn-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-26"
+  },
   "formachines-errata-mcp": {
     "repo": "formachines-ai/errata-mcp",
     "source": "npm",
@@ -639,6 +649,11 @@
     "repo": null,
     "source": "npm",
     "resolvedAt": "2026-11-15"
+  },
+  "kane-beam": {
+    "repo": "CryptoZephyr/beam",
+    "source": "npm",
+    "resolvedAt": "2026-11-26"
   },
   "kavel-mcp": {
     "repo": "hanshs474/kavel-mcp",
@@ -1109,6 +1124,11 @@
     "repo": "pezhik/skilltotal",
     "source": "pypi",
     "resolvedAt": "2026-11-15"
+  },
+  "smartclip-mcp": {
+    "repo": "ismaike/smartclip-agent",
+    "source": "npm",
+    "resolvedAt": "2026-11-26"
   },
   "smartmemory-compose-mcp": {
     "repo": "smartmemory/compose",
