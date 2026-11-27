@@ -1,16 +1,65 @@
 {
   "count": 151,
   "byReason": {
-    "exited-no-error": 71,
     "missing-runtime": 8,
-    "initialize-timeout": 12,
+    "initialize-timeout": 13,
+    "exited-no-error": 71,
+    "dependency-resolution": 27,
     "bad-launch": 8,
     "unknown": 10,
-    "dependency-resolution": 28,
     "needs-credentials": 11,
     "needs-service": 3
   },
   "servers": [
+    {
+      "id": "chrisryugj-kordoc",
+      "version": "4.25.24",
+      "lastTried": "2026-11-27",
+      "attempts": 35,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "dosco-deeporg",
+      "version": "3.25.0",
+      "lastTried": "2026-11-27",
+      "attempts": 8,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "geekjourneyx-md2wechat-skill",
+      "version": "3.9.0",
+      "lastTried": "2026-11-27",
+      "attempts": 2,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "jerbouma-financetoolkit",
+      "version": "2.4.0",
+      "lastTried": "2026-11-27",
+      "attempts": 4,
+      "reason": "dependency-resolution"
+    },
+    {
+      "id": "kajisho5-ffmpeg-skill",
+      "version": "4.18.0",
+      "lastTried": "2026-11-27",
+      "attempts": 32,
+      "reason": "exited-no-error"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.6.0",
+      "lastTried": "2026-11-27",
+      "attempts": 20,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "zhouxiaoka-autoclip",
+      "version": "1.6.2",
+      "lastTried": "2026-11-27",
+      "attempts": 2,
+      "reason": "bad-launch"
+    },
     {
       "id": "arxhr007-aliens-eye",
       "version": "2.12.0",
@@ -26,24 +75,10 @@
       "reason": "exited-no-error"
     },
     {
-      "id": "chrisryugj-kordoc",
-      "version": "4.25.23",
-      "lastTried": "2026-11-26",
-      "attempts": 34,
-      "reason": "missing-runtime"
-    },
-    {
       "id": "czlonkowski-n8n-mcp",
       "version": "2.104.0",
       "lastTried": "2026-11-26",
       "attempts": 5,
-      "reason": "initialize-timeout"
-    },
-    {
-      "id": "dosco-deeporg",
-      "version": "3.23.1",
-      "lastTried": "2026-11-26",
-      "attempts": 7,
       "reason": "initialize-timeout"
     },
     {
@@ -59,13 +94,6 @@
       "lastTried": "2026-11-26",
       "attempts": 3,
       "reason": "unknown"
-    },
-    {
-      "id": "kajisho5-ffmpeg-skill",
-      "version": "4.13.0",
-      "lastTried": "2026-11-26",
-      "attempts": 31,
-      "reason": "exited-no-error"
     },
     {
       "id": "marker-inc-korea-autorag",
@@ -103,13 +131,6 @@
       "reason": "initialize-timeout"
     },
     {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.5.3",
-      "lastTried": "2026-11-26",
-      "attempts": 19,
-      "reason": "dependency-resolution"
-    },
-    {
       "id": "tabrunner-mcp",
       "version": "0.18.1",
       "lastTried": "2026-11-26",
@@ -128,13 +149,6 @@
       "version": "0.25.5",
       "lastTried": "2026-11-26",
       "attempts": 8,
-      "reason": "bad-launch"
-    },
-    {
-      "id": "zhouxiaoka-autoclip",
-      "version": "1.6.1",
-      "lastTried": "2026-11-26",
-      "attempts": 1,
       "reason": "bad-launch"
     },
     {
@@ -241,13 +255,6 @@
       "lastTried": "2026-11-22",
       "attempts": 3,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "jerbouma-financetoolkit",
-      "version": "2.3.5",
-      "lastTried": "2026-11-22",
-      "attempts": 3,
-      "reason": "dependency-resolution"
     },
     {
       "id": "plune-ai-cli",
@@ -728,13 +735,6 @@
     {
       "id": "forloopcodes-contextplus",
       "version": null,
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
-    },
-    {
-      "id": "geekjourneyx-md2wechat-skill",
-      "version": "3.8.0",
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "exited-no-error"

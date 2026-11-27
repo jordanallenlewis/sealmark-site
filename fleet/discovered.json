@@ -1528,5 +1528,11 @@
     "name": "smartclip-mcp",
     "ecosystem": "npm",
     "launch": "npx -y smartclip-mcp@1.7.0"
+  },
+  {
+    "id": "withparallel-google-ads-audit",
+    "name": "withparallel-google-ads-audit",
+    "ecosystem": "pypi",
+    "launch": "uvx withparallel-google-ads-audit==0.1.0"
   }
 ]

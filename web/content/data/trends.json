@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-26",
+  "generatedAt": "2026-11-27",
   "total": {
-    "trackedWithGrade": 285,
+    "trackedWithGrade": 286,
     "everFailedOnly": 151
   },
   "byVersion": [
@@ -9,7 +9,7 @@
       "version": "pre-1.0 (unrecorded)",
       "servers": 228,
       "graded": 214,
-      "failed": 629,
+      "failed": 638,
       "letters": {
         "B": 33,
         "A": 106,
@@ -17,7 +17,7 @@
         "D": 26
       },
       "firstSeen": "2026-10-15",
-      "lastSeen": "2026-11-26"
+      "lastSeen": "2026-11-27"
     },
     {
       "version": "0.3.0",
@@ -48,18 +48,18 @@
     },
     {
       "version": "1.0.1",
-      "servers": 284,
-      "graded": 1224,
+      "servers": 285,
+      "graded": 1242,
       "failed": 0,
       "letters": {
-        "B": 343,
-        "A": 715,
+        "B": 345,
+        "A": 728,
         "C": 14,
-        "D": 100,
-        "F": 52
+        "D": 102,
+        "F": 53
       },
       "firstSeen": "2026-11-14",
-      "lastSeen": "2026-11-26"
+      "lastSeen": "2026-11-27"
     }
   ],
   "moves": [

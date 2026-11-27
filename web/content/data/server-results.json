@@ -7990,7 +7990,7 @@
       "round": "fleet",
       "versionTested": "4.2.0",
       "serverInfoName": "mcp-server",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -8237,13 +8237,13 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "accept_all_changes": "28ac19bc98f6",
           "apply_text_revision": "4a2706129f69",
           "diff_docx_files": "5dc4d6de156e",
           "finalize_document": "6b3652127db0",
-          "process_document_batch": "3310d5583710",
+          "process_document_batch": "f975bff3c26b",
           "read_docx": "d673b3f98a7b"
         }
       }
@@ -14749,7 +14749,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-26",
+        "date": "2026-11-27",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -25760,7 +25760,7 @@
       "round": "fleet",
       "versionTested": "0.16.1",
       "serverInfoName": "overwing-mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -26181,7 +26181,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-21",
+        "date": "2026-11-22",
         "schemas": {
           "atlas_agents": "66cf08555304",
           "atlas_list_registrations": "7a014b717a77",
@@ -29053,16 +29053,16 @@
       "name": "rightcard-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.1.25",
+      "versionTested": "0.1.26",
       "serverInfoName": "rightcard-mcp",
-      "testedAt": "2026-11-26",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y rightcard-mcp@0.1.25",
+      "launch": "npx -y rightcard-mcp@0.1.26",
       "transport": "stdio",
       "toolCount": 5,
       "tools": [
@@ -29262,7 +29262,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-21",
+        "date": "2026-11-26",
         "schemas": {
           "best_card": "cddf59bbc260",
           "card": "c8af00a8c051",
@@ -31969,7 +31969,7 @@
       "round": "fleet",
       "versionTested": "0.2.4",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -32270,7 +32270,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "act": "3f59ee12a5b6",
           "attach_to_browser": "9c5b6b8b175d",
@@ -40255,7 +40255,7 @@
       "round": "fleet",
       "versionTested": "0.30.5",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -40453,10 +40453,10 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
-          "get_render_status": "cb585ba4e591",
-          "render_screenshots": "240d9f63a45e"
+          "get_render_status": "970aca7e133a",
+          "render_screenshots": "a11471d5cc01"
         }
       }
     },
@@ -42854,18 +42854,18 @@
       "name": "dchub-mcp-server",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.12.63",
+      "versionTested": "2.12.65",
       "serverInfoName": "dchub-mcp-server",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y dchub-mcp-server@2.12.63",
+      "launch": "npx -y dchub-mcp-server@2.12.65",
       "transport": "stdio",
-      "toolCount": 98,
+      "toolCount": 99,
       "tools": [
         "execute_plan",
         "get_api_key",
@@ -42915,6 +42915,7 @@
         "export_dataset",
         "find_sites",
         "analyze_site",
+        "get_site_context",
         "get_composite_site_score",
         "get_disaster_risk",
         "get_climate_intel",
@@ -42985,7 +42986,7 @@
         "fetch": "f77af9c467b4",
         "find_alternatives": "6d749b3a224c",
         "find_sites": "8bd4e6e4ba02",
-        "generate_site_analysis": "5fddffda6b87",
+        "generate_site_analysis": "a9247d4f41c3",
         "get_agent_registry": "efddc7bd8bbc",
         "get_air_permit_context": "82f5adfb2612",
         "get_api_key": "9e2083048834",
@@ -43008,8 +43009,8 @@
         "get_grid_intelligence": "79b45c4f08ff",
         "get_grid_scoreboard": "efddc7bd8bbc",
         "get_hosting_capacity": "63fb1bff9a82",
-        "get_infra_projects": "2fb54fc45a54",
-        "get_infrastructure": "9dceaaaa0bce",
+        "get_infra_projects": "4a9f4fa37c6e",
+        "get_infrastructure": "6054bb9518d1",
         "get_intelligence_index": "efddc7bd8bbc",
         "get_interconnection_queue": "60b2f3823406",
         "get_iso_context": "ca186ab719bb",
@@ -43027,6 +43028,7 @@
         "get_renewable_energy": "49d3b92679fa",
         "get_retirement_headroom": "95b1a4b96991",
         "get_shortlist": "cc18eb2d7cc7",
+        "get_site_context": "383f5ecf248a",
         "get_subsea_cables": "e0c881182ac3",
         "get_tax_incentives": "b29a7748668e",
         "get_water_risk": "fbbe3685c840",
@@ -43063,7 +43065,7 @@
         "subscribe_digest": "8ddb907381b9",
         "suggest_reallocation": "31bc20b630c0",
         "summarize_for_citation": "7c452c64334c",
-        "unlock_more_data": "580b148fd628",
+        "unlock_more_data": "1d520e9b3724",
         "why_dchub": "efddc7bd8bbc"
       },
       "packs": [
@@ -43137,7 +43139,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (4 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "reason": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (5 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "sqlite",
@@ -43172,7 +43174,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 98 well-formed tool(s)"
+          "summary": "handshake ok, 99 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -43181,7 +43183,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "scanned 98 tool definition(s), the server instructions and serverInfo, 15 prompt(s), including parameter text: nothing suspicious (1 listing(s) failed and were not scanned)"
+          "summary": "scanned 99 tool definition(s), the server instructions and serverInfo, 16 prompt(s) and 81 resource(s), including parameter text: nothing suspicious"
         },
         {
           "id": "robust-input",
@@ -43220,6 +43222,7 @@
               "export_dataset",
               "find_sites",
               "analyze_site",
+              "get_site_context",
               "get_composite_site_score",
               "get_disaster_risk",
               "get_climate_intel",
@@ -43289,7 +43292,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "fail",
-          "summary": "the server instructions names 6 tool(s) the server does not offer (cite_as, next_ask, last_session, human_url, human_message)"
+          "summary": "the server instructions names 5 tool(s) the server does not offer (cite_as, next_ask, last_session, human_message, for_your_human)"
         },
         {
           "id": "net-loopback-ssrf",
@@ -43298,7 +43301,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (4 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "summary": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (5 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -43334,7 +43337,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, dchub_services, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, simulate_scenario, cluster_sites_by_latency, source_capacity declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_air_permit_context, list_standing_intents, read_inbox not judged: the control call failed)"
+          "summary": "search_facilities, get_market_intel, get_gas_index, get_grid_scoreboard, get_intelligence_index, list_transactions, get_news, semantic_search, search_intelligence, get_pipeline, get_power_pipeline, get_infra_projects, get_global_power, get_interconnection_queue, get_refined_queue, get_hosting_capacity, discover_tools, get_grid_data, get_changes, compare_sites, get_fiber_intel, get_subsea_cables, get_peering_intel, get_metro_fiber, get_energy_prices, get_renewable_energy, get_tax_incentives, get_grid_intelligence, get_gas_intelligence declared read-only and changed nothing in the observed directories during a benign call (get_facility, analyze_parcel, rank_sites, get_facility_risk_delta, list_saved_sites, export_dataset, find_sites, analyze_site, get_site_context, get_composite_site_score, get_disaster_risk, get_climate_intel, generate_site_analysis, get_infrastructure, get_fiber_readiness, get_water_risk, get_agent_registry, get_backup_status, summarize_for_citation, why_dchub, dchub_services, get_dchub_recommendation, rank_markets, ai_capacity_index, hyperscaler_deals, site_selection_canvas, grid_transition_radar, deal_autopsy, get_permitting_intel, get_air_permit_context, simulate_scenario, list_standing_intents, cluster_sites_by_latency, source_capacity, read_inbox not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -43343,7 +43346,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "52 closed-world tool(s) called; none reached out beyond what was asked"
+          "summary": "53 closed-world tool(s) called; none reached out beyond what was asked"
         },
         {
           "id": "undeclared-writes",
@@ -43369,9 +43372,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 65,
-        "toolsCalledValid": 64,
-        "toolsTotal": 98,
+        "validCalls": 66,
+        "toolsCalledValid": 65,
+        "toolsTotal": 99,
         "level": "covered"
       },
       "badge": {
@@ -43379,7 +43382,7 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 98 tools",
+        "malformed-input probes cover the first 25 of 99 tools",
         "SQL tool \"discover_tools\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
         "SQL tool \"search_facilities\" detected; no engine pack ran (no {dsn} or {sqlite_path} placeholder). SQL engines such as DuckDB can read and write arbitrary files; no pack tests this",
@@ -43399,7 +43402,7 @@
         "tool \"get_grid_scoreboard\" is covered by the core checks only: the tool takes no parameters",
         "tool \"compare_isos\" is covered by the core checks only: free-text parameter \"isos\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
         "tool \"get_intelligence_index\" is covered by the core checks only: the tool takes no parameters",
-        "77 more tool(s) are covered by the core checks only (see the classification)",
+        "78 more tool(s) are covered by the core checks only (see the classification)",
         "tool \"get_interconnection_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_refined_queue\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_retirement_headroom\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -43423,6 +43426,7 @@
         "tool \"export_dataset\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"find_sites\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"analyze_site\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
+        "tool \"get_site_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_composite_site_score\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_disaster_risk\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_climate_intel\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -43483,7 +43487,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-22",
+        "date": "2026-11-23",
         "schemas": {
           "accept_capacity_intro": "7480ef01f65e",
           "accept_capacity_terms": "ea95f28c0fca",
@@ -43502,7 +43506,7 @@
           "export_dataset": "5ccc67cd6ce8",
           "fetch": "f77af9c467b4",
           "find_alternatives": "6d749b3a224c",
-          "find_sites": "9e8964795eb1",
+          "find_sites": "8bd4e6e4ba02",
           "generate_site_analysis": "5fddffda6b87",
           "get_agent_registry": "efddc7bd8bbc",
           "get_air_permit_context": "82f5adfb2612",
@@ -44474,7 +44478,7 @@
       "round": "fleet",
       "versionTested": "0.17.2",
       "serverInfoName": "dwelldelta-mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -44722,7 +44726,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "area_rents": "ccbec2f43cb0",
           "contribute_rent": "d7cc2fb070a7",
@@ -50129,16 +50133,16 @@
       "name": "memeboat-mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "0.3.0",
+      "versionTested": "0.4.0",
       "serverInfoName": "memeboat-mcp",
-      "testedAt": "2026-11-25",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y memeboat-mcp@0.3.0",
+      "launch": "npx -y memeboat-mcp@0.4.0",
       "transport": "stdio",
       "toolCount": 3,
       "tools": [
@@ -50332,7 +50336,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-25",
         "schemas": {
           "create_meme": "f2b6ce880a52",
           "get_meme_template": "35e1860389de",
@@ -52655,7 +52659,7 @@
       "round": "fleet",
       "versionTested": "1.5.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -61068,16 +61072,16 @@
       "name": "@wavespeed/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "1.3.1",
+      "versionTested": "1.3.2",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-26",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @wavespeed/mcp@1.3.1",
+      "launch": "npx -y @wavespeed/mcp@1.3.2",
       "transport": "stdio",
       "toolCount": 16,
       "tools": [
@@ -61100,10 +61104,10 @@
       ],
       "toolSchemas": {
         "delete_predictions": "9f1842831f07",
-        "edit_image": "61f6a109692e",
+        "edit_image": "a0f9a11f2848",
         "edit_video": "8822243b7816",
         "extend_video": "dbcd779d07a2",
-        "generate_image": "e708507626b6",
+        "generate_image": "0940a9ae3b58",
         "generate_video": "2cfa6a1bf6ed",
         "get_balance": "71fc596a20f2",
         "get_model_schema": "3098fa43211f",
@@ -61343,7 +61347,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-21",
+        "date": "2026-11-26",
         "schemas": {
           "delete_predictions": "9f1842831f07",
           "edit_image": "61f6a109692e",
@@ -70591,7 +70595,7 @@
       "round": "fleet",
       "versionTested": "0.8.1",
       "serverInfoName": "aamio",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -70881,7 +70885,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "aamio_board_answer": "fb505a837f9d",
           "aamio_board_find": "1124811d8a09",
@@ -70904,7 +70908,7 @@
           "aamio_scope_remove": "c70d2daf7166",
           "aamio_scope_share": "e0d4a3735355",
           "aamio_scopes": "99334726611c",
-          "aamio_send": "f01f69cf40ab",
+          "aamio_send": "c8f93f4232d6",
           "aamio_trace": "830654739735",
           "aamio_whoami": "99334726611c"
         }
@@ -72967,7 +72971,7 @@
       "round": "fleet",
       "versionTested": "1.3.48",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -73261,7 +73265,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "change_context": "9bffb567da9e",
           "issue_acceptance_update": "e87ad3b06a84",
@@ -73678,7 +73682,7 @@
         }
       },
       "lastAttempt": {
-        "date": "2026-11-26",
+        "date": "2026-11-27",
         "status": "failed",
         "kind": "start-fail",
         "startKind": "bad-launch"
@@ -78541,16 +78545,16 @@
       "name": "skilltotal",
       "ecosystem": "pypi",
       "round": "fleet",
-      "versionTested": "1.14.0",
+      "versionTested": "1.15.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-26",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "uvx skilltotal==1.14.0 mcp",
+      "launch": "uvx skilltotal==1.15.0 mcp",
       "transport": "stdio",
       "toolCount": 3,
       "packs": [
@@ -86409,7 +86413,7 @@
       "round": "fleet",
       "versionTested": "0.2.0",
       "serverInfoName": "mroffice-mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -86710,7 +86714,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-22",
         "schemas": {
           "create_document": "4971b3347554",
           "export_document": "20321ac6e45e",
@@ -87717,7 +87721,7 @@
       "round": "fleet",
       "versionTested": "0.1.2",
       "serverInfoName": "constile-mcp",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -87950,7 +87954,7 @@
       "round": "fleet",
       "versionTested": "1.0.0",
       "serverInfoName": "uvx",
-      "testedAt": "2026-11-22",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -88194,7 +88198,18 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-22",
+        "schemas": {
+          "check_price": "5f57cbd596a8",
+          "list_watches": "0f4b6525c8d7",
+          "price_history": "378a29f60c88",
+          "set_target_price": "0a2afab6f347",
+          "stop_watching": "64fdec982229",
+          "watch_price": "b064ab6d6c1e"
+        }
+      }
     },
     {
       "id": "catalystdesk-mcp-server",
@@ -89684,18 +89699,18 @@
       "name": "@bootpay/mcp",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "2.20.0",
+      "versionTested": "2.21.1",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-25",
+      "testedAt": "2026-11-27",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @bootpay/mcp@2.20.0",
+      "launch": "npx -y @bootpay/mcp@2.21.1",
       "transport": "stdio",
-      "toolCount": 80,
+      "toolCount": 42,
       "tools": [
         "detect_project_stack",
         "get_sdk_versions",
@@ -89716,6 +89731,7 @@
         "set_token",
         "get_auth_status",
         "create_seller",
+        "read_business_certificate",
         "search_sellers",
         "get_seller",
         "update_seller",
@@ -89737,99 +89753,22 @@
         "update_widget",
         "delete_widget",
         "get_integration_context",
-        "generate_payment_code",
-        "get_commerce_context",
-        "get_commerce_keys",
-        "create_commerce_keys",
-        "alimtalk_status",
-        "alimtalk_find_templates",
-        "alimtalk_list_categories",
-        "alimtalk_request_sender_otp",
-        "alimtalk_register_sender",
-        "alimtalk_list_senders",
-        "alimtalk_get_sender",
-        "alimtalk_release_sender",
-        "alimtalk_update_variable_examples",
-        "alimtalk_search_official_templates",
-        "alimtalk_get_official_template",
-        "alimtalk_list_templates",
-        "alimtalk_get_template",
-        "alimtalk_create_template",
-        "alimtalk_update_template",
-        "alimtalk_delete_template",
-        "alimtalk_register_template",
-        "alimtalk_request_inspection",
-        "alimtalk_upload_template_image",
-        "alimtalk_send",
-        "alimtalk_send_test",
-        "alimtalk_send_bulk",
-        "alimtalk_cancel_reserved",
-        "alimtalk_list_messages",
-        "alimtalk_get_message",
-        "alimtalk_get_stats",
-        "alimtalk_list_optouts",
-        "alimtalk_check_optouts",
-        "alimtalk_add_optout",
-        "alimtalk_remove_optout",
-        "alimtalk_get_webhook",
-        "alimtalk_update_webhook",
-        "alimtalk_test_webhook",
-        "alimtalk_rotate_webhook_secret",
-        "alimtalk_list_webhook_deliveries",
-        "set_commerce_credentials"
+        "generate_payment_code"
       ],
       "toolSchemas": {
         "activate_payment_method": "682cd13b2d52",
-        "alimtalk_add_optout": "ecbb9a3abcc3",
-        "alimtalk_cancel_reserved": "84f96e3faa9e",
-        "alimtalk_check_optouts": "111b32ab8034",
-        "alimtalk_create_template": "fa7fafd08d70",
-        "alimtalk_delete_template": "ee481937fbd6",
-        "alimtalk_find_templates": "0bb2ec5d7e5b",
-        "alimtalk_get_message": "84f96e3faa9e",
-        "alimtalk_get_official_template": "9b143f3f5642",
-        "alimtalk_get_sender": "d5ee8e04f205",
-        "alimtalk_get_stats": "b40c1960130d",
-        "alimtalk_get_template": "d573d2a7c41f",
-        "alimtalk_get_webhook": "7a014b717a77",
-        "alimtalk_list_categories": "7a014b717a77",
-        "alimtalk_list_messages": "e574afb83e76",
-        "alimtalk_list_optouts": "dcf03e469eb1",
-        "alimtalk_list_senders": "7a014b717a77",
-        "alimtalk_list_templates": "7f514919ea52",
-        "alimtalk_list_webhook_deliveries": "71474eee86ab",
-        "alimtalk_register_sender": "8f8b69ecceb8",
-        "alimtalk_register_template": "700eac5d7878",
-        "alimtalk_release_sender": "0ea6b7a2bd27",
-        "alimtalk_remove_optout": "46c258d925a4",
-        "alimtalk_request_inspection": "f36061287a36",
-        "alimtalk_request_sender_otp": "6d7042dc5b6e",
-        "alimtalk_rotate_webhook_secret": "0fd4335eb4bb",
-        "alimtalk_search_official_templates": "625890444f5d",
-        "alimtalk_send": "64a6c4ce0f39",
-        "alimtalk_send_bulk": "a14aa3d9830d",
-        "alimtalk_send_test": "f451c7594135",
-        "alimtalk_status": "7a014b717a77",
-        "alimtalk_test_webhook": "7a014b717a77",
-        "alimtalk_update_template": "76391c7f5714",
-        "alimtalk_update_variable_examples": "3c59d5e2d49e",
-        "alimtalk_update_webhook": "0a8d76022473",
-        "alimtalk_upload_template_image": "911671bf6d39",
         "browser_login": "66c31df656c0",
         "browser_select_project": "23835f3bbfcb",
         "configure_widget": "1ca4ec375f2d",
-        "create_commerce_keys": "701434216e7d",
         "create_keychain": "72f8a81ffa3d",
         "create_project": "f04523cae37d",
-        "create_seller": "74c00e07aa0d",
+        "create_seller": "be4d77f0db50",
         "create_widget": "4ebd2d50b655",
         "delete_keychain": "b35aaff1bc16",
         "delete_widget": "d1f973468043",
         "detect_project_stack": "14294bf0e46d",
         "generate_payment_code": "fee2df4489d2",
         "get_auth_status": "7a014b717a77",
-        "get_commerce_context": "043eded7073d",
-        "get_commerce_keys": "7a014b717a77",
         "get_cs_guide": "f3e323a5ffed",
         "get_csp_allowlist": "c27846855924",
         "get_doc": "5a63b2e076c1",
@@ -89838,7 +89777,7 @@
         "get_sdk_versions": "7a014b717a77",
         "get_seller": "11f46321e94c",
         "get_setup_checklist": "c4b5dafdb937",
-        "get_troubleshooting": "d2c8f8206a8c",
+        "get_troubleshooting": "4f309b55dffe",
         "get_widget": "5c45dc137552",
         "get_widget_default_styles": "e0a6a4aec05e",
         "list_api_scopes": "1c5429cdd025",
@@ -89849,9 +89788,9 @@
         "list_widgets": "7a014b717a77",
         "login": "c7254701195a",
         "logout": "7a014b717a77",
+        "read_business_certificate": "0e00b5731e7b",
         "search_docs": "cdcbc8878874",
         "search_sellers": "3a1231ca46c0",
-        "set_commerce_credentials": "f77724dd6aab",
         "set_payment_mode": "562cb88bac8c",
         "set_sandbox_mode": "b05da2258a30",
         "set_token": "edb317007d21",
@@ -89931,7 +89870,7 @@
           "provisional": false,
           "capped": false,
           "criticalFails": [],
-          "reason": "the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "reason": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (18 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "sqlite",
@@ -89966,7 +89905,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "handshake ok, 80 well-formed tool(s)"
+          "summary": "handshake ok, 42 well-formed tool(s)"
         },
         {
           "id": "tool-poisoning",
@@ -89984,7 +89923,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "90 invalid call(s) rejected cleanly",
+          "summary": "91 invalid call(s) rejected cleanly",
           "tools": {
             "probed": [
               "get_sdk_versions",
@@ -89992,6 +89931,7 @@
               "get_auth_status"
             ],
             "notCovered": [
+              "list_keychains",
               "create_keychain",
               "delete_keychain",
               "get_payment_settings",
@@ -90008,45 +89948,6 @@
               "delete_widget",
               "get_integration_context",
               "generate_payment_code",
-              "get_commerce_context",
-              "get_commerce_keys",
-              "create_commerce_keys",
-              "alimtalk_status",
-              "alimtalk_find_templates",
-              "alimtalk_list_categories",
-              "alimtalk_request_sender_otp",
-              "alimtalk_register_sender",
-              "alimtalk_list_senders",
-              "alimtalk_get_sender",
-              "alimtalk_release_sender",
-              "alimtalk_update_variable_examples",
-              "alimtalk_search_official_templates",
-              "alimtalk_get_official_template",
-              "alimtalk_list_templates",
-              "alimtalk_get_template",
-              "alimtalk_create_template",
-              "alimtalk_update_template",
-              "alimtalk_delete_template",
-              "alimtalk_register_template",
-              "alimtalk_request_inspection",
-              "alimtalk_upload_template_image",
-              "alimtalk_send",
-              "alimtalk_send_test",
-              "alimtalk_send_bulk",
-              "alimtalk_cancel_reserved",
-              "alimtalk_list_messages",
-              "alimtalk_get_message",
-              "alimtalk_get_stats",
-              "alimtalk_list_optouts",
-              "alimtalk_check_optouts",
-              "alimtalk_add_optout",
-              "alimtalk_remove_optout",
-              "alimtalk_get_webhook",
-              "alimtalk_update_webhook",
-              "alimtalk_test_webhook",
-              "alimtalk_rotate_webhook_secret",
-              "alimtalk_list_webhook_deliveries",
-              "set_commerce_credentials",
               "logout",
               "list_projects"
             ]
@@ -90059,7 +89960,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "canary secrets absent from tools/list and 94 captured response(s), 3 of them successful result(s)"
+          "summary": "canary secrets absent from tools/list and 95 captured response(s), 3 of them successful result(s)"
         },
         {
           "id": "instructions-hygiene",
@@ -90068,7 +89969,7 @@
           "critical": false,
           "advisory": true,
           "verdict": "fail",
-          "summary": "the server instructions names 23 tool(s) the server does not offer (generate_commerce_code, get_mall_setting, update_mall_setting, must_tell_user, setup_required)"
+          "summary": "the server instructions names 25 tool(s) the server does not offer (generate_commerce_code, get_mall_setting, update_mall_setting, must_tell_user, setup_required)"
         },
         {
           "id": "net-loopback-ssrf",
@@ -90077,7 +89978,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "summary": "the listener saw nothing, but 18 of 18 probes were not explicitly refused (18 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-scheme-allowlist",
@@ -90086,7 +89987,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "inconclusive",
-          "summary": "no scheme had an observable effect, but 18 of 18 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
+          "summary": "no scheme had an observable effect, but 12 of 12 scored probes were not explicitly refused, so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)"
         },
         {
           "id": "net-caps",
@@ -90113,7 +90014,7 @@
           "critical": true,
           "advisory": false,
           "verdict": "pass",
-          "summary": "get_sdk_versions, get_doc, list_docs, get_setup_checklist, get_csp_allowlist, get_cs_guide, list_toolsets, get_auth_status, get_widget_default_styles, get_integration_context, get_commerce_context, alimtalk_find_templates declared read-only and changed nothing in the observed directories during a benign call (detect_project_stack, list_projects, list_api_scopes, list_keychains, get_payment_settings, list_widgets, get_commerce_keys not judged: the control call failed)"
+          "summary": "get_sdk_versions, get_doc, list_docs, get_setup_checklist, get_csp_allowlist, get_cs_guide, list_toolsets, get_auth_status, get_widget_default_styles, get_integration_context declared read-only and changed nothing in the observed directories during a benign call (detect_project_stack, list_projects, list_api_scopes, list_keychains, get_payment_settings, list_widgets not judged: the control call failed)"
         },
         {
           "id": "openworld-honesty",
@@ -90122,7 +90023,7 @@
           "critical": false,
           "advisory": false,
           "verdict": "pass",
-          "summary": "6 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
+          "summary": "5 closed-world tool(s) called; nothing connected to the loopback listener (path and git tools cannot be pointed at it, so this confirms only that nothing connected out during the call)"
         },
         {
           "id": "undeclared-writes",
@@ -90131,13 +90032,10 @@
           "critical": false,
           "advisory": true,
           "verdict": "na",
-          "summary": "no unannotated read-style tool could be given a harness-owned control argument",
+          "summary": "every tool carries annotations, nothing to check",
           "tools": {
             "probed": [],
-            "notCovered": [
-              "alimtalk_upload_template_image",
-              "alimtalk_update_webhook"
-            ]
+            "notCovered": []
           }
         },
         {
@@ -90151,9 +90049,9 @@
         }
       ],
       "coverage": {
-        "validCalls": 22,
-        "toolsCalledValid": 19,
-        "toolsTotal": 80,
+        "validCalls": 19,
+        "toolsCalledValid": 16,
+        "toolsTotal": 42,
         "level": "low"
       },
       "badge": {
@@ -90161,10 +90059,9 @@
         "reason": "a pack has an inconclusive critical check"
       },
       "notCovered": [
-        "malformed-input probes cover the first 25 of 80 tools",
-        "tool \"browser_select_project\" (url) was not probed by the net pack: the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
-        "tool \"alimtalk_upload_template_image\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
-        "tool \"alimtalk_update_webhook\" (url) was not probed by the net pack: the listener saw nothing, but 27 of 27 probes were not explicitly refused (27 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "malformed-input probes cover the first 25 of 42 tools",
+        "tool \"browser_select_project\" (url) was not probed by the net pack: the listener saw nothing, but 18 of 18 probes were not explicitly refused (18 failed without saying the target was refused), so a refusal cannot be told from a tool that cannot fetch at all (a reply that only reports a failed fetch (proxy, socket, DNS) is not read as a refusal; set net.control_url to a URL the tool can reach)",
+        "tool \"read_business_certificate\" (path) was not probed by the fs pack: the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true",
         "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
         "tool \"get_sdk_versions\" is covered by the core checks only: the tool takes no parameters",
         "tool \"search_docs\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
@@ -90178,7 +90075,8 @@
         "tool \"logout\" is covered by the core checks only: the tool takes no parameters",
         "tool \"list_projects\" is covered by the core checks only: the tool takes no parameters",
         "tool \"switch_project\" is covered by the core checks only: free-text parameter \"app_id\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
-        "62 more tool(s) are covered by the core checks only (see the classification)",
+        "25 more tool(s) are covered by the core checks only (see the classification)",
+        "tool \"list_keychains\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"create_keychain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"delete_keychain\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_payment_settings\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
@@ -90195,45 +90093,6 @@
         "tool \"delete_widget\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"get_integration_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"generate_payment_code\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"get_commerce_context\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"get_commerce_keys\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"create_commerce_keys\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_status\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_find_templates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_list_categories\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_request_sender_otp\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_register_sender\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_list_senders\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_get_sender\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_release_sender\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_update_variable_examples\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_search_official_templates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_get_official_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_list_templates\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_get_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_create_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_update_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_delete_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_register_template\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_request_inspection\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_upload_template_image\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_send\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_send_test\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_send_bulk\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_cancel_reserved\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_list_messages\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_get_message\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_get_stats\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_list_optouts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_check_optouts\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_add_optout\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_remove_optout\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_get_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_update_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_test_webhook\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_rotate_webhook_secret\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"alimtalk_list_webhook_deliveries\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
-        "tool \"set_commerce_credentials\" was not covered by the core pack: beyond the first 25 tools, which are the only ones robust-input probes",
         "tool \"logout\" was not covered by the core pack: needs probes: to be called (no arguments, and not declared read-only)",
         "tool \"list_projects\" was not covered by the core pack: its no-argument call returned an error, so no tool behaviour was exercised",
         "SSRF: link-local and private-range addresses are never contacted; redirects from a public host to loopback and DNS rebinding are not tested (the harness contacts only its own loopback listener)",
@@ -90244,7 +90103,92 @@
         "the net pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-25",
+        "schemas": {
+          "activate_payment_method": "682cd13b2d52",
+          "alimtalk_add_optout": "ecbb9a3abcc3",
+          "alimtalk_cancel_reserved": "84f96e3faa9e",
+          "alimtalk_check_optouts": "111b32ab8034",
+          "alimtalk_create_template": "fa7fafd08d70",
+          "alimtalk_delete_template": "ee481937fbd6",
+          "alimtalk_find_templates": "0bb2ec5d7e5b",
+          "alimtalk_get_message": "84f96e3faa9e",
+          "alimtalk_get_official_template": "9b143f3f5642",
+          "alimtalk_get_sender": "d5ee8e04f205",
+          "alimtalk_get_stats": "b40c1960130d",
+          "alimtalk_get_template": "d573d2a7c41f",
+          "alimtalk_get_webhook": "7a014b717a77",
+          "alimtalk_list_categories": "7a014b717a77",
+          "alimtalk_list_messages": "e574afb83e76",
+          "alimtalk_list_optouts": "dcf03e469eb1",
+          "alimtalk_list_senders": "7a014b717a77",
+          "alimtalk_list_templates": "7f514919ea52",
+          "alimtalk_list_webhook_deliveries": "71474eee86ab",
+          "alimtalk_register_sender": "8f8b69ecceb8",
+          "alimtalk_register_template": "700eac5d7878",
+          "alimtalk_release_sender": "0ea6b7a2bd27",
+          "alimtalk_remove_optout": "46c258d925a4",
+          "alimtalk_request_inspection": "f36061287a36",
+          "alimtalk_request_sender_otp": "6d7042dc5b6e",
+          "alimtalk_rotate_webhook_secret": "0fd4335eb4bb",
+          "alimtalk_search_official_templates": "625890444f5d",
+          "alimtalk_send": "64a6c4ce0f39",
+          "alimtalk_send_bulk": "a14aa3d9830d",
+          "alimtalk_send_test": "f451c7594135",
+          "alimtalk_status": "7a014b717a77",
+          "alimtalk_test_webhook": "7a014b717a77",
+          "alimtalk_update_template": "76391c7f5714",
+          "alimtalk_update_variable_examples": "3c59d5e2d49e",
+          "alimtalk_update_webhook": "0a8d76022473",
+          "alimtalk_upload_template_image": "911671bf6d39",
+          "browser_login": "66c31df656c0",
+          "browser_select_project": "23835f3bbfcb",
+          "configure_widget": "1ca4ec375f2d",
+          "create_commerce_keys": "701434216e7d",
+          "create_keychain": "72f8a81ffa3d",
+          "create_project": "f04523cae37d",
+          "create_seller": "74c00e07aa0d",
+          "create_widget": "4ebd2d50b655",
+          "delete_keychain": "b35aaff1bc16",
+          "delete_widget": "d1f973468043",
+          "detect_project_stack": "14294bf0e46d",
+          "generate_payment_code": "fee2df4489d2",
+          "get_auth_status": "7a014b717a77",
+          "get_commerce_context": "043eded7073d",
+          "get_commerce_keys": "7a014b717a77",
+          "get_cs_guide": "f3e323a5ffed",
+          "get_csp_allowlist": "c27846855924",
+          "get_doc": "5a63b2e076c1",
+          "get_integration_context": "6dd92c131d64",
+          "get_payment_settings": "7a014b717a77",
+          "get_sdk_versions": "7a014b717a77",
+          "get_seller": "11f46321e94c",
+          "get_setup_checklist": "c4b5dafdb937",
+          "get_troubleshooting": "d2c8f8206a8c",
+          "get_widget": "5c45dc137552",
+          "get_widget_default_styles": "e0a6a4aec05e",
+          "list_api_scopes": "1c5429cdd025",
+          "list_docs": "e726ea501541",
+          "list_keychains": "220bfef8d75f",
+          "list_projects": "7a014b717a77",
+          "list_toolsets": "7a014b717a77",
+          "list_widgets": "7a014b717a77",
+          "login": "c7254701195a",
+          "logout": "7a014b717a77",
+          "search_docs": "cdcbc8878874",
+          "search_sellers": "3a1231ca46c0",
+          "set_commerce_credentials": "f77724dd6aab",
+          "set_payment_mode": "562cb88bac8c",
+          "set_sandbox_mode": "b05da2258a30",
+          "set_token": "edb317007d21",
+          "switch_project": "86ec9331aaed",
+          "update_payment_resource": "26cc37bc606f",
+          "update_seller": "1e10964c42d9",
+          "update_widget": "112e0c58eb02"
+        }
+      }
     },
     {
       "id": "shipready-mcp",
@@ -92353,6 +92297,245 @@
       "warnings": [
         "the run was interrupted; the report may be incomplete"
       ],
+      "automated": true
+    },
+    {
+      "id": "withparallel-google-ads-audit",
+      "name": "withparallel-google-ads-audit",
+      "ecosystem": "pypi",
+      "round": "fleet",
+      "versionTested": "0.1.0",
+      "serverInfoName": "uvx",
+      "testedAt": "2026-11-27",
+      "sealmark": {
+        "version": "1.0.1",
+        "methodology": "0.3-draft"
+      },
+      "standard": true,
+      "configHash": "sha256:d13e7893a0ac",
+      "launch": "uvx withparallel-google-ads-audit==0.1.0",
+      "transport": "stdio",
+      "toolCount": 3,
+      "tools": [
+        "clean_google_ads_csv",
+        "calculate_budget_pacing",
+        "check_negative_keyword_collision"
+      ],
+      "toolSchemas": {
+        "calculate_budget_pacing": "0d55c3135a74",
+        "check_negative_keyword_collision": "5409c035df3c",
+        "clean_google_ads_csv": "32d40554bae9"
+      },
+      "packs": [
+        {
+          "id": "core",
+          "status": "graded",
+          "letter": "A",
+          "points": 4,
+          "scored": 4,
+          "pct": 100,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": null
+        },
+        {
+          "id": "db",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "server config has no {dsn}/{host}/... placeholder, so the harness cannot start the server once per role"
+        },
+        {
+          "id": "http",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server is started over stdio; the http pack needs server.url"
+        },
+        {
+          "id": "fs",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "the server config has no {sandbox} placeholder, so the harness cannot tell which directory the server is allowed to use (a server with a wider root would read the canary legitimately); pass {sandbox} as its directory argument, or, if the server has no root argument and works in its working directory, set server.rootless: true"
+        },
+        {
+          "id": "git",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a git repository path with medium confidence or higher"
+        },
+        {
+          "id": "net",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool is classified as taking a URL with medium confidence or higher"
+        },
+        {
+          "id": "sqlite",
+          "status": "na",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "no tool takes a SQL string"
+        },
+        {
+          "id": "effects",
+          "status": "inconclusive",
+          "letter": null,
+          "points": null,
+          "scored": null,
+          "pct": null,
+          "provisional": false,
+          "capped": false,
+          "criticalFails": [],
+          "reason": "every control call failed, so the read-only annotation could not be checked"
+        }
+      ],
+      "checks": [
+        {
+          "id": "protocol",
+          "pack": "core",
+          "label": "Valid MCP handshake and tool schemas",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "handshake ok, 3 well-formed tool(s)"
+        },
+        {
+          "id": "tool-poisoning",
+          "pack": "core",
+          "label": "No tool-poisoning indicators in tool metadata",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "scanned 3 tool definition(s) and serverInfo, including parameter text: nothing suspicious"
+        },
+        {
+          "id": "robust-input",
+          "pack": "core",
+          "label": "Survives malformed tool input",
+          "critical": false,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "14 invalid call(s) rejected cleanly",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "secret-echo",
+          "pack": "core",
+          "label": "No environment secret echoed in responses",
+          "critical": true,
+          "advisory": false,
+          "verdict": "pass",
+          "summary": "canary secrets absent from tools/list and 14 captured response(s), 0 of them successful result(s)"
+        },
+        {
+          "id": "instructions-hygiene",
+          "pack": "core",
+          "label": "Server instructions name only tools that exist",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "the server sent no instructions"
+        },
+        {
+          "id": "annotation-honesty",
+          "pack": "effects",
+          "label": "Read-only tools change nothing",
+          "critical": true,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the read-only annotation could not be checked"
+        },
+        {
+          "id": "openworld-honesty",
+          "pack": "effects",
+          "label": "Closed-world tools stay on the machine",
+          "critical": false,
+          "advisory": false,
+          "verdict": "inconclusive",
+          "summary": "every control call failed, so the closed-world annotation could not be checked"
+        },
+        {
+          "id": "undeclared-writes",
+          "pack": "effects",
+          "label": "Unannotated tools leave the sandbox unchanged",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "every tool carries annotations, nothing to check",
+          "tools": {
+            "probed": [],
+            "notCovered": []
+          }
+        },
+        {
+          "id": "refusal-quality",
+          "pack": "core",
+          "label": "Refusals say what to do next",
+          "critical": false,
+          "advisory": true,
+          "verdict": "na",
+          "summary": "no refusal was recorded in this run, so there is nothing to judge"
+        }
+      ],
+      "coverage": {
+        "validCalls": 0,
+        "toolsCalledValid": 0,
+        "toolsTotal": 3,
+        "level": "hygiene-only"
+      },
+      "badge": {
+        "eligible": false,
+        "reason": "core-only run: no capability pack was graded"
+      },
+      "notCovered": [
+        "tools that a server lists only for clients that declare roots, sampling or elicitation capabilities are not seen: the harness declares none",
+        "tool \"calculate_budget_pacing\" is covered by the core checks only: free-text parameter \"daily_budget_usd\": no path, URL, command, SQL or repository signal; add it under tools: to include it",
+        "tool \"check_negative_keyword_collision\" is covered by the core checks only: argument \"query\" is not clearly SQL (nothing in the tool name, its description or the argument's description mentions sql, a database or a table); add it under tools: to include it",
+        "The sandbox is a convention the harness follows, not a security boundary. A malicious server runs with your user's privileges, sees the real file system and network, and can ignore cwd, HOME and PATH. Run untrusted servers in a throwaway VM or container.",
+        "prompt injection carried in tool output (only tool metadata is scanned)",
+        "authentication and transport security",
+        "audit logging (not measured by these packs; only the db pack has an advisory audit check)",
+        "the effects pack's calls do not count toward coverage: every check of the pack was inconclusive or n/a, or the server rejected every call before running it"
+      ],
+      "warnings": [],
       "automated": true
     }
   ],
