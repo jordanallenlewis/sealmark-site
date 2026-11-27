@@ -1534,5 +1534,23 @@
     "name": "withparallel-google-ads-audit",
     "ecosystem": "pypi",
     "launch": "uvx withparallel-google-ads-audit==0.1.0"
+  },
+  {
+    "id": "cresva-mcp-server",
+    "name": "cresva-mcp-server",
+    "ecosystem": "npm",
+    "launch": "npx -y cresva-mcp-server@2.5.1"
+  },
+  {
+    "id": "flinger-mcp",
+    "name": "flinger-mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y flinger-mcp@0.1.2"
+  },
+  {
+    "id": "usestring-mcp",
+    "name": "@usestring/mcp",
+    "ecosystem": "npm",
+    "launch": "npx -y @usestring/mcp@1.6.0"
   }
 ]

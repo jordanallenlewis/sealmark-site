@@ -274,6 +274,11 @@
     "source": "npm",
     "resolvedAt": "2026-11-11"
   },
+  "cresva-mcp-server": {
+    "repo": null,
+    "source": "npm",
+    "resolvedAt": "2026-11-27"
+  },
   "cyanheads-fs": {
     "repo": "cyanheads/filesystem-mcp-server",
     "source": "npm",
@@ -478,6 +483,11 @@
     "repo": "Holetron-lab/fleet-memory",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "flinger-mcp": {
+    "repo": "flingerapps/mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-27"
   },
   "fluxygram-mcp": {
     "repo": "Fluxygram/fluxygram",
@@ -1334,6 +1344,11 @@
     "repo": "Pen-and-Paper-AI/userintuition-mcpserver-ts",
     "source": "npm",
     "resolvedAt": "2026-11-11"
+  },
+  "usestring-mcp": {
+    "repo": "usestring/string-ai-mcp",
+    "source": "npm",
+    "resolvedAt": "2026-11-27"
   },
   "vaaya-mcp": {
     "repo": "vaaya-ai/vaaya-mcp",

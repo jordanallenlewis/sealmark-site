@@ -13,16 +13,30 @@
   "servers": [
     {
       "id": "chrisryugj-kordoc",
-      "version": "4.25.24",
+      "version": "4.25.25",
       "lastTried": "2026-11-27",
-      "attempts": 35,
+      "attempts": 36,
       "reason": "missing-runtime"
     },
     {
-      "id": "dosco-deeporg",
-      "version": "3.25.0",
+      "id": "chrisryugj-korean-law-mcp",
+      "version": "4.15.26",
       "lastTried": "2026-11-27",
-      "attempts": 8,
+      "attempts": 4,
+      "reason": "missing-runtime"
+    },
+    {
+      "id": "czlonkowski-n8n-mcp",
+      "version": "2.104.2",
+      "lastTried": "2026-11-27",
+      "attempts": 6,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "dosco-deeporg",
+      "version": "3.27.0",
+      "lastTried": "2026-11-27",
+      "attempts": 9,
       "reason": "initialize-timeout"
     },
     {
@@ -41,17 +55,45 @@
     },
     {
       "id": "kajisho5-ffmpeg-skill",
-      "version": "4.18.0",
+      "version": "4.21.0",
       "lastTried": "2026-11-27",
-      "attempts": 32,
+      "attempts": 33,
       "reason": "exited-no-error"
     },
     {
-      "id": "samuelgursky-davinci-resolve-mcp",
-      "version": "5.6.0",
+      "id": "ruvnet-ruflo",
+      "version": "3.80.11",
       "lastTried": "2026-11-27",
-      "attempts": 20,
+      "attempts": 18,
       "reason": "initialize-timeout"
+    },
+    {
+      "id": "samanhappy-mcphub",
+      "version": "1.3.2",
+      "lastTried": "2026-11-27",
+      "attempts": 8,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "samuelgursky-davinci-resolve-mcp",
+      "version": "5.7.0",
+      "lastTried": "2026-11-27",
+      "attempts": 21,
+      "reason": "initialize-timeout"
+    },
+    {
+      "id": "xbrlkit",
+      "version": "0.26.0",
+      "lastTried": "2026-11-27",
+      "attempts": 9,
+      "reason": "bad-launch"
+    },
+    {
+      "id": "yusufkaraaslan-skill-seekers",
+      "version": "3.11.0",
+      "lastTried": "2026-11-27",
+      "attempts": 2,
+      "reason": "exited-no-error"
     },
     {
       "id": "zhouxiaoka-autoclip",
@@ -73,13 +115,6 @@
       "lastTried": "2026-11-26",
       "attempts": 4,
       "reason": "exited-no-error"
-    },
-    {
-      "id": "czlonkowski-n8n-mcp",
-      "version": "2.104.0",
-      "lastTried": "2026-11-26",
-      "attempts": 5,
-      "reason": "initialize-timeout"
     },
     {
       "id": "haris-musa-excel-mcp-server",
@@ -124,13 +159,6 @@
       "reason": "missing-runtime"
     },
     {
-      "id": "ruvnet-ruflo",
-      "version": "3.80.9",
-      "lastTried": "2026-11-26",
-      "attempts": 17,
-      "reason": "initialize-timeout"
-    },
-    {
       "id": "tabrunner-mcp",
       "version": "0.18.1",
       "lastTried": "2026-11-26",
@@ -143,13 +171,6 @@
       "lastTried": "2026-11-26",
       "attempts": 5,
       "reason": "unknown"
-    },
-    {
-      "id": "xbrlkit",
-      "version": "0.25.5",
-      "lastTried": "2026-11-26",
-      "attempts": 8,
-      "reason": "bad-launch"
     },
     {
       "id": "zhuyansen-new-term-radar",
@@ -185,13 +206,6 @@
       "lastTried": "2026-11-25",
       "attempts": 2,
       "reason": "needs-credentials"
-    },
-    {
-      "id": "samanhappy-mcphub",
-      "version": "1.3.1",
-      "lastTried": "2026-11-25",
-      "attempts": 7,
-      "reason": "initialize-timeout"
     },
     {
       "id": "54yyyu-zotero-mcp",
@@ -262,13 +276,6 @@
       "lastTried": "2026-11-22",
       "attempts": 1,
       "reason": "needs-credentials"
-    },
-    {
-      "id": "chrisryugj-korean-law-mcp",
-      "version": "4.15.25",
-      "lastTried": "2026-11-21",
-      "attempts": 3,
-      "reason": "missing-runtime"
     },
     {
       "id": "sansan0-trendradar",
@@ -1053,13 +1060,6 @@
       "lastTried": "2026-11-09",
       "attempts": 1,
       "reason": "dependency-resolution"
-    },
-    {
-      "id": "yusufkaraaslan-skill-seekers",
-      "version": "3.10.0",
-      "lastTried": "2026-11-09",
-      "attempts": 1,
-      "reason": "exited-no-error"
     },
     {
       "id": "zhizhuodemao-js-reverse-mcp",

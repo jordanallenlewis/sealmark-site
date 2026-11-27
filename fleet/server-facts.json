@@ -1648,6 +1648,33 @@
         ]
       }
     },
+    "cresva-mcp-server": {
+      "checkedAt": "2026-11-27",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "2.5.1",
+        "date": "2026-11-27"
+      },
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "cresva",
+          "marketing",
+          "advertising",
+          "ecommerce",
+          "roas",
+          "storefront",
+          "agent-commerce-protocol",
+          "acp",
+          "claude",
+          "cursor",
+          "ai-agents"
+        ]
+      }
+    },
     "cyanheads-fs": {
       "checkedAt": "2026-11-27",
       "source": "npm",
@@ -2925,6 +2952,27 @@
           "cross-agent-memory",
           "llm",
           "local-first"
+        ]
+      }
+    },
+    "flinger-mcp": {
+      "checkedAt": "2026-11-27",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "0.1.2",
+        "date": "2026-11-27"
+      },
+      "repo": null,
+      "about": {
+        "keywords": [
+          "mcp",
+          "model-context-protocol",
+          "flinger",
+          "deploy",
+          "hosting",
+          "publish",
+          "website"
         ]
       }
     },
@@ -7892,6 +7940,44 @@
           "ai-moderated-interviews",
           "ai-agents",
           "chatgpt"
+        ]
+      }
+    },
+    "usestring-mcp": {
+      "checkedAt": "2026-11-27",
+      "source": "npm",
+      "license": "MIT",
+      "latest": {
+        "version": "1.6.0",
+        "date": "2026-11-27"
+      },
+      "repo": {
+        "name": "usestring/string-ai-mcp",
+        "pushedAt": "2026-11-27",
+        "archived": false,
+        "openIssues": 1
+      },
+      "claimable": true,
+      "claimPin": 1302222742,
+      "about": {
+        "keywords": [
+          "mcp",
+          "string-ai",
+          "web-scraping",
+          "web-access",
+          "model-context-protocol",
+          "mcp-server",
+          "web-search",
+          "markdown",
+          "crawler",
+          "data-extraction",
+          "llm",
+          "ai-agents",
+          "claude",
+          "cursor",
+          "scraping",
+          "scraping-tool",
+          "webdata"
         ]
       }
     },
