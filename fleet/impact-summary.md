@@ -1,6 +1,6 @@
 # Owner-notice impact
 
-Written 2026-11-27 by `fleet/impact.mjs`. Internal: not published on sealmark.dev. Base-rate window: from the first notice (2026-11-14) to 2026-11-27.
+Written 2026-11-28 by `fleet/impact.mjs`. Internal: not published on sealmark.dev. Base-rate window: from the first notice (2026-11-14) to 2026-11-28.
 
 | | Notified | Base rate (never notified) |
 |---|---|---|

@@ -1,6 +1,6 @@
 # Owner notices: week of 2026-11-23
 
-Written by `fleet/notify-owners.mjs` on 2026-11-27. "Last 7 days" is 2026-11-21 to 2026-11-27.
+Written by `fleet/notify-owners.mjs` on 2026-11-28. "Last 7 days" is 2026-11-22 to 2026-11-28.
 
 | | Last 7 days | All time |
 |---|---|---|
@@ -25,7 +25,7 @@ None.
 
 None.
 
-## Where every graded server stands (2026-11-27)
+## Where every graded server stands (2026-11-28)
 
 289 graded servers: 0 sent or drafted this run, 29 held for private handling, 24 waiting, 236 skipped.
 

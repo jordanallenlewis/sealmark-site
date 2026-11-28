@@ -14927,7 +14927,7 @@
       "warnings": [],
       "automated": true,
       "lastAttempt": {
-        "date": "2026-11-27",
+        "date": "2026-11-28",
         "status": "failed",
         "kind": "start-fail"
       }
@@ -14939,7 +14939,7 @@
       "round": "fleet",
       "versionTested": "0.2.36",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -15244,7 +15244,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
           "certscore_explain_finding": "044f71dd0466",
           "certscore_export_findings": "3cb7ee077d7c",
@@ -62554,7 +62554,7 @@
       "round": "fleet",
       "versionTested": "0.3.3",
       "serverInfoName": "mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -62795,7 +62795,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-21",
+        "date": "2026-11-23",
         "schemas": {
           "zenbrain_consolidate": "7a014b717a77",
           "zenbrain_forget": "5a4cb8eece3a",
@@ -65387,10 +65387,10 @@
       "name": "jgravelle/jcodemunch-mcp",
       "ecosystem": "github",
       "round": "fleet",
-      "refTested": "1.108.496",
-      "versionTested": "1.108.496",
+      "refTested": "1.108.499",
+      "versionTested": "1.108.499",
       "serverInfoName": "jcodemunch-mcp",
-      "testedAt": "2026-11-27",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -65632,7 +65632,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-26",
+        "date": "2026-11-27",
         "schemas": {
           "announce_model": "df1e1614ccd3",
           "jcodemunch_guide": "efddc7bd8bbc",
@@ -69645,7 +69645,7 @@
       "round": "fleet",
       "versionTested": "1.0.3",
       "serverInfoName": "galaxymovies-mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -69888,7 +69888,19 @@
         "audit logging (not measured by these packs; only the db pack has an advisory audit check)"
       ],
       "warnings": [],
-      "automated": true
+      "automated": true,
+      "toolSchemasBefore": {
+        "date": "2026-11-23",
+        "schemas": {
+          "calendar_feed_url": "dd0cffc8f828",
+          "get_arrivals": "775a6a82b872",
+          "get_departures": "775a6a82b872",
+          "get_streaming_changes": "cadb0dd43899",
+          "list_providers": "7a014b717a77",
+          "rss_feed_url": "dd0cffc8f828",
+          "where_to_watch": "949358eee923"
+        }
+      }
     },
     {
       "id": "agent-tools-mcp",
@@ -73878,7 +73890,7 @@
         }
       },
       "lastAttempt": {
-        "date": "2026-11-27",
+        "date": "2026-11-28",
         "status": "failed",
         "kind": "start-fail",
         "startKind": "bad-launch"
@@ -74645,7 +74657,7 @@
       "round": "fleet",
       "versionTested": "0.6.0",
       "serverInfoName": "cli",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -75012,7 +75024,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
           "browser_batch": "85d68844871e",
           "capture_page": "29703612e8bf",
@@ -75037,7 +75049,7 @@
           "new_tab": "8d819a2ee048",
           "press_key": "f6d517dab55e",
           "publish_artifact": "60c611a2b820",
-          "publish_report": "a8085bfc79f5",
+          "publish_report": "69af031326c4",
           "run_workflow": "5db351febd24",
           "screenshot": "86b3331f92ed",
           "scroll": "86e697581fe6",
@@ -87353,7 +87365,7 @@
       "round": "fleet",
       "versionTested": "0.4.1",
       "serverInfoName": "hellohop-mcp",
-      "testedAt": "2026-11-23",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
@@ -87609,7 +87621,7 @@
       "warnings": [],
       "automated": true,
       "toolSchemasBefore": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "schemas": {
           "channel_status": "987b112ce3ac",
           "check_numbers": "36f3003d262d",
@@ -88708,16 +88720,16 @@
       "name": "@cappz/market",
       "ecosystem": "npm",
       "round": "fleet",
-      "versionTested": "16.3.2",
+      "versionTested": "16.5.4",
       "serverInfoName": "market",
-      "testedAt": "2026-11-27",
+      "testedAt": "2026-11-28",
       "sealmark": {
         "version": "1.0.1",
         "methodology": "0.3-draft"
       },
       "standard": true,
       "configHash": "sha256:d13e7893a0ac",
-      "launch": "npx -y @cappz/market@16.3.2 mcp",
+      "launch": "npx -y @cappz/market@16.5.4 mcp",
       "transport": "stdio",
       "toolCount": 43,
       "packs": [
